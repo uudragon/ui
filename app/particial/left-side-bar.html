@@ -1,0 +1,7 @@
+<!-- left side bar begin-->
+<div class="col-xs-2 sidebar" ng-controller="SidebarCtrl">
+	<ul class="nav nav-sidebar text-center">
+		<li ng-repeat="item in sideBarItems" ng-class="item.active ? 'active' : ''"><a href="#/{{item.url}}">{{item.name}}</a></li>
+	</ul>
+</div>
+<!-- left side bar end-->

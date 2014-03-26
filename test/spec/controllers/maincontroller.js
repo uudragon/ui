@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: MaincontrollerCtrl', function () {
 
   // load the controller's module
   beforeEach(module('mainApp'));
 
-  var MainCtrl,
+  var MaincontrollerCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    MaincontrollerCtrl = $controller('MaincontrollerCtrl', {
       $scope: scope
     });
   }));

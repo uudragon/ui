@@ -1,0 +1,64 @@
+/**
+ * Top Side bar
+ * ----------------------------------------------------------------------------
+ */
+/*body {background: url('../img/body-bg.png');}*/
+.container {width: 1170px; font: 1em/normal '微软雅黑', '宋体', Arial, Helvetica, sans-serif; }
+.nav-sidebar {border: 1px solid aliceblue; border-bottom: none;}
+.nav-sidebar > li > a {color: #333; }
+.nav-sidebar > .active > a, .nav-sidebar > li > a:hover {background-color: #A52A2A; color: #fff; }
+
+/**
+ * Jumbotron
+ * ----------------------------------------------------------------------------
+ */
+
+.container .jumbotron {padding: 14px 0; background: url('../img/body-bg.png'); margin-top: 10px; color: black;}
+.container .jumbotron {padding: 14px 0; background-color: transparent; margin-top: 10px; color: black;}
+.jumbotron p.des {font-size: 14px; text-align: center; padding-top: 6px; margin: 0 0 0 10px; }
+.brand {margin: 6px auto; display: block; }
+.logo {padding: 3px; display: block; float: left;}
+
+
+.info {position: relative; top: 16px; }
+.status-bar {float: left;margin: 9px 0;}
+.status-bar > ul { float: left; margin-left: 50px;}
+.status-bar > ul > li {padding-right: 30px; }
+
+.info > ul {clear: left; margin: 20px 0 ;float: left;}
+.info > ul > li {float: left; }
+.info > ul > li > a {color: #A52A2A; font-size: 1.2em; padding: 15px;}
+.info > ul > li > a:hover {background-color: transparent; color: #800000;  }
+
+.main {border-left: solid 1px #ccc; }
+
+/**
+ * Form
+ * ----------------------------------------------------------------------------
+ */
+
+.form {overflow: hidden; }
+.form-small .form-group {margin: 0 -25px 9px -15px; }
+.action-group {margin: 20px 0;}
+.action-item {padding: 0 6px; color: #A52A2A; font-size: 1.2em;}
+.action-item:hover {text-decoration: none; color: #800000;}
+.input-small {height: 30px; }
+.form-small label {font-weight: normal;}
+.form-small .control-label {padding-top: 6px; }
+.action-group {margin: 10px 0; }
+.addon-tweak {padding-left: 26px; font-size: 0.9em;line-height: 1em;}
+.non-right {border-right: none;}
+.non-left {border-left: none;}
+.suffix {font-size: 0.1em; float: right; padding-top: 3px; }
+.submit-btns {margin-top: 25px;}
+.submit-btns > .btn {margin: 0 5px;}
+
+/**
+ * Panel
+ * ----------------------------------------------------------------------------
+ */
+.panel {margin-top: 30px;}
+.panel-heading {background: url('../img/bg.png'); padding: 5px 10px; position: relative; }
+.side-info {position: absolute; right: 20px; top: 4px; }
+.side-info > li {padding: 0 35px;}
+.panel-body {overflow-y: scroll; height: 130px}
