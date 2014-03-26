@@ -16,6 +16,7 @@ angular.module('mainApp')
 .controller('InfoCtrl', function ($scope, sideBarService) {
 	$scope.sideBarItems = sideBarService.highlight(0);
 	$scope.date = new Date()
+	$scope.exNumber = '0012';
 })
 .controller('CustomerCtrl', function ($scope, sideBarService) {
 	$scope.sideBarItems = sideBarService.highlight(1);

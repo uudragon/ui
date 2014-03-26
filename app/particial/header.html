@@ -5,21 +5,25 @@
 			<img src="img/brand.png" class="brand" alt="brand" width="120" height="120">
 			<p class="des">幼小衔接家庭课程专家</p>
 		</div>
-		<div class="col-xs-9 info">
-			<a class="logo" href="#"><img src="img/logo.png" alt="logo" width="125" height="60"></a>
-			<div class="status-bar">
-				<ul class="list-inline">
-					<li>当前日期: <span class="i-val">{{date | date : "yyyy-MM-dd" }}</span></li>
-					<li>分机: </li>
-					<li>坐席: </li>
-					<li>状态: </li>
-					<li>计时: </li>
-				</ul>
-				<ul class="list-inline">
-					<li>工号: </li>
-					<li>姓名: </li>
-					<li>所在组: </li>
-				</ul>
+		<div class="col-xs-10 info">
+			<div class="row">
+				<div class="col-xs-2">
+					<a class="logo" href="#"><img src="img/logo.png" alt="logo" width="125" height="60"></a>
+				</div>
+				<div class="status-bar col-xs-10">
+					<ul class="list-inline">
+						<li>当前日期: <span class="i-val">{{date | date : "yyyy-MM-dd" }}</span></li>
+						<li>分机: <span class="i-val">{{exNumber}}</span></li>
+						<li>坐席: <span class="i-val">{{exNumber}}</span></li>
+						<li>状态: <span class="i-val">{{exNumber}}</span></li>
+						<li>计时: <span class="i-val">{{exNumber}}</span></li>
+					</ul>
+					<ul class="list-inline">
+						<li>工号: <span class="i-val">{{exNumber}}</span></li>
+						<li>姓名: <span class="i-val">{{exNumber}}</span></li>
+						<li>所在组: <span class="i-val">{{exNumber}}</span></li>
+					</ul>
+				</div>
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="#" class="link-normal">登出系统</a></li>
