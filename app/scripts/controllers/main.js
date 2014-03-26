@@ -13,10 +13,32 @@ angular.module('mainApp')
 		{name: '条法管理', url: 'management_of_law'},
 	];
 })
-.controller('MainCtrl', function ($rootScope) {
-	// $rootScope.sidebarHighLight(0);
+.controller('InfoCtrl', function ($scope, sideBarService) {
+	$scope.sideBarItems = sideBarService.highlight(0);
+	$scope.date = new Date()
 })
-.controller('CustomerManagerCtrl', function ($scope) {
-	// $scope.sidebarHighLight(1);
+.controller('CustomerCtrl', function ($scope, sideBarService) {
+	$scope.sideBarItems = sideBarService.highlight(1);
+	$scope.date = new Date()
+})
+.controller('FinancialCtrl', function ($scope, sideBarService) {
+	$scope.sideBarItems = sideBarService.highlight(2);
+	$scope.date = new Date()
+})
+.controller('AgentsCtrl', function ($scope, sideBarService) {
+	$scope.sideBarItems = sideBarService.highlight(3);
+	$scope.date = new Date()
+})
+.controller('ShipCtrl', function ($scope, sideBarService) {
+	$scope.sideBarItems = sideBarService.highlight(4);
+	$scope.date = new Date()
+})
+.controller('ProductionCtrl', function ($scope, sideBarService) {
+	$scope.sideBarItems = sideBarService.highlight(5);
+	$scope.date = new Date()
+})
+.controller('LawCtrl', function ($scope, sideBarService) {
+	$scope.sideBarItems = sideBarService.highlight(6);
+	$scope.date = new Date()
 })
 

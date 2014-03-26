@@ -7,7 +7,7 @@
 .nav-sidebar {border: 1px solid aliceblue; border-bottom: none;}
 .nav-sidebar > li > a {color: #333; }
 .nav-sidebar > .active > a, .nav-sidebar > li > a:hover {background-color: #A52A2A; color: #fff; }
-
+.i-val {padding-left: 10px}
 /**
  * Jumbotron
  * ----------------------------------------------------------------------------
@@ -22,8 +22,8 @@
 
 .info {position: relative; top: 16px; }
 .status-bar {float: left;margin: 9px 0;}
-.status-bar > ul { float: left; margin-left: 50px;}
-.status-bar > ul > li {padding-right: 30px; }
+.status-bar > ul { float: left; margin-left: 25px;}
+.status-bar > ul > li {padding-right: 10px; }
 
 .info > ul {clear: left; margin: 20px 0 ;float: left;}
 .info > ul > li {float: left; }

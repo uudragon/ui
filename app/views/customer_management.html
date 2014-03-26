@@ -1,267 +1,275 @@
 <!-- form begin -->
-<ul class="nav nav-tabs">
-	<li class="active"><a href="#" class="title">客户信息</a></li>
-</ul>
-<div class="action-group">
-	<a href="#" class="action-item">新建客户</a>
-	<a href="#" class="action-item">成交客户</a>
-</div>
-<form class="form form-horizontal form-small" role="form" method="get">
-	<div class="col-xs-6">
-		<fieldset>
-			<legend></legend>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-number">编号: </label>
-				<div class="col-xs-6">
-					<input type="text" name="number" class="form-control input-small" id="c-number">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-type">类型: </label>
-				<div class="col-xs-4">
-					<input type="text" name="type" class="form-control input-small" id="c-type">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-sex">性别: </label>
-				<div class="col-xs-4">
-					<input type="text" name="sex" class="form-control input-small" id="c-sex">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-birthday">出生年月: </label>
-				<div class="col-xs-5 ">
-					<input type="text" name="birthday" class="form-control input-small date" id="c-birthday">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="cp-name">家长姓名:</label>
-				<div class="col-xs-5">
-					<input type="text" name="p-name" class="form-control input-small" id="cp-name">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="cp-sex">家长性别: </label>
-				<div class="col-xs-4">
-					<input type="text" name="sex" class="form-control input-small" id="cp-sex">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-emal">E-mail: </label>
-				<div class="col-xs-6">
-					<input type="text" name="email" class="form-control input-small" id="c-emal">
-				</div>
-			</div>
-		</fieldset>
-		<fieldset>
-			<legend></legend>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">省/市/区: </label>
-				<div class="col-xs-9">
-					<div class="input-group">
-						<input type="text" name="provice" class="form-control input-small non-right">
-						<span class="input-group-addon">省</span>
-						<input type="text" name="city" class="form-control input-small non-right non-left">
-						<span class="input-group-addon">市</span>
-						<input type="text" name="area" class="form-control input-small non-left">
-						<span class="input-group-addon">区</span>
-					</div>
-				</div>
+<div ng-include src="'particial/header.html'"></div>
 
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="cp-street">街道: </label>
-				<div class="col-xs-6">
-					<input type="text" name="street" class="form-control input-small" id="cp-street">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-addr">地址: </label>
-				<div class="col-xs-6">
-					<input type="text" name="address" class="form-control input-small" id="c-addr">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-post-code">邮编: </label>
-				<div class="col-xs-5">
-					<input type="text" name="postcode" class="form-control input-small" id="c-post-code">
-				</div>
-			</div>
-		</fieldset>
-	</div>
-	<div class="col-xs-6">
-		<fieldset id="phone-box">
-			<legend></legend>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="phone-home">家庭电话: </label>
-
-				<div class="col-xs-9">
-					<div class="input-group">
-						<input type="text" name="phone-home" class="form-control input-small" id="phone-home">
-						<span class="input-group-addon radio addon-tweak">
-							<label><input type="radio" name="main-phone" value="home">主要电话</label>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="phone-company">公司电话: </label>
-				<div class="col-xs-9">
-					<div class="input-group">
-						<input type="text" name="phone-company" class="form-control input-small" id="phone-company">
-						<span class="input-group-addon radio addon-tweak">
-							<label><input type="radio" name="main-phone" value="company">主要电话</label>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="phone-mobile">手机电话: </label>
-				<div class="col-xs-9">
-					<div class="input-group">
-						<input type="text" name="phone-mobile" class="form-control input-small" id="phone-mobile">
-						<span class="input-group-addon radio addon-tweak">
-							<label><input type="radio" name="main-phone" value="personal">主要电话</label>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-tax">传真: </label>
-				<div class="col-xs-6">
-					<input type="text" class="form-control input-small" id="c-tax">
-				</div>
-			</div>
-		</fieldset>
-		<fieldset>
-			<legend></legend>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">订购产品:</label>
-				<div class="col-xs-9">
-					<div class="radio-inline">
-						<label><input type="radio" name="product-order" value="quarter">季度</label>
-					</div>
-					<div class="radio-inline">
-						<label><input type="radio" name="product-order" value="half-year">半年</label>
-					</div>
-					<div class="radio-inline">
-						<label><input type="radio" name="product-order" value="one-year">一年</label>
-					</div>
-					<div class="radio-inline">
-						<label><input type="radio" name="product-order" value="others">周边产品<span class="suffix">(一次性定单)</span></label>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label">付款方式:</label>
-				<div class="col-xs-9">
-					<div class="radio-inline">
-						<label><input type="radio" name="pay-way" value="on-line">在线支付</label>
-					</div>
-					<div class="radio-inline">
-						<label><input type="radio" name="pay-way" value="on-delivery">货到付款</label>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-invoice">发票内容:</label>
-				<div class="col-xs-6">
-					<input type="text" name="invoice" class="form-control input-small" id="c-invoice">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-comment">备注:</label>
-				<div class="col-xs-9">
-					<textarea name="comment" id="c-comment" rows="3" class="form-control"></textarea>
-				</div>
-			</div>
-			<div class="from-group">
-				<div class="col-xs-10 submit-btns col-xs-offset-3">
-					<input type="submit" class="btn btn-default btn-sm" value="处理完成">
-					<input type="button" class="btn btn-default btn-sm" value="未完成，提交上级">
-					<a href="#" class="btn btn-default btn-sm">我的订单记录</a>
-				</div>
-			</div>
-		</fieldset>
-	</div>
-</form>
-
-<!-- product panel -->
-<div class="panel panel-default col-xs-offset-1">
-	<div class="panel-heading">
-		<span class="">已发产品</span>
-		<ul class="side-info list-inline">
-			<li>已发货次数：</li>
-			<li>剩余发货次数：</li>
+<div class="row">
+	<!-- left side bar -->
+	<div ng-include src="'particial/left-side-bar.html'"></div>
+	<!-- main content  -->
+	<div class="col-xs-10 main">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#" class="title">客户信息</a></li>
 		</ul>
-	</div>
+		<div class="action-group">
+			<a href="#" class="action-item">新建客户</a>
+			<a href="#" class="action-item">成交客户</a>
+		</div>
+		<form class="form form-horizontal form-small" role="form" method="get">
+			<div class="col-xs-6">
+				<fieldset>
+					<legend></legend>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-number">编号: </label>
+						<div class="col-xs-6">
+							<input type="text" name="number" class="form-control input-small" id="c-number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-type">类型: </label>
+						<div class="col-xs-4">
+							<input type="text" name="type" class="form-control input-small" id="c-type">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-sex">性别: </label>
+						<div class="col-xs-4">
+							<input type="text" name="sex" class="form-control input-small" id="c-sex">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-birthday">出生年月: </label>
+						<div class="col-xs-5 ">
+							<input type="text" name="birthday" class="form-control input-small date" id="c-birthday">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="cp-name">家长姓名:</label>
+						<div class="col-xs-5">
+							<input type="text" name="p-name" class="form-control input-small" id="cp-name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="cp-sex">家长性别: </label>
+						<div class="col-xs-4">
+							<input type="text" name="sex" class="form-control input-small" id="cp-sex">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-emal">E-mail: </label>
+						<div class="col-xs-6">
+							<input type="text" name="email" class="form-control input-small" id="c-emal">
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend></legend>
+					<div class="form-group">
+						<label class="col-xs-3 control-label">省/市/区: </label>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="text" name="provice" class="form-control input-small non-right">
+								<span class="input-group-addon">省</span>
+								<input type="text" name="city" class="form-control input-small non-right non-left">
+								<span class="input-group-addon">市</span>
+								<input type="text" name="area" class="form-control input-small non-left">
+								<span class="input-group-addon">区</span>
+							</div>
+						</div>
 
-	<div class="panel-body">
-		<ul class="list-group">
-			<li class="list-group-item">1月号</li>
-			<li class="list-group-item">2月号</li>
-		</ul>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="cp-street">街道: </label>
+						<div class="col-xs-6">
+							<input type="text" name="street" class="form-control input-small" id="cp-street">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-addr">地址: </label>
+						<div class="col-xs-6">
+							<input type="text" name="address" class="form-control input-small" id="c-addr">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-post-code">邮编: </label>
+						<div class="col-xs-5">
+							<input type="text" name="postcode" class="form-control input-small" id="c-post-code">
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="col-xs-6">
+				<fieldset id="phone-box">
+					<legend></legend>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="phone-home">家庭电话: </label>
+
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="text" name="phone-home" class="form-control input-small" id="phone-home">
+								<span class="input-group-addon radio addon-tweak">
+									<label><input type="radio" name="main-phone" value="home">主要电话</label>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="phone-company">公司电话: </label>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="text" name="phone-company" class="form-control input-small" id="phone-company">
+								<span class="input-group-addon radio addon-tweak">
+									<label><input type="radio" name="main-phone" value="company">主要电话</label>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="phone-mobile">手机电话: </label>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="text" name="phone-mobile" class="form-control input-small" id="phone-mobile">
+								<span class="input-group-addon radio addon-tweak">
+									<label><input type="radio" name="main-phone" value="personal">主要电话</label>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-tax">传真: </label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control input-small" id="c-tax">
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend></legend>
+					<div class="form-group">
+						<label class="col-xs-3 control-label">订购产品:</label>
+						<div class="col-xs-9">
+							<div class="radio-inline">
+								<label><input type="radio" name="product-order" value="quarter">季度</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="product-order" value="half-year">半年</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="product-order" value="one-year">一年</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="product-order" value="others">周边产品<span class="suffix">(一次性定单)</span></label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label">付款方式:</label>
+						<div class="col-xs-9">
+							<div class="radio-inline">
+								<label><input type="radio" name="pay-way" value="on-line">在线支付</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="pay-way" value="on-delivery">货到付款</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-invoice">发票内容:</label>
+						<div class="col-xs-6">
+							<input type="text" name="invoice" class="form-control input-small" id="c-invoice">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for="c-comment">备注:</label>
+						<div class="col-xs-9">
+							<textarea name="comment" id="c-comment" rows="3" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="from-group">
+						<div class="col-xs-10 submit-btns col-xs-offset-3">
+							<input type="submit" class="btn btn-default btn-sm" value="处理完成">
+							<input type="button" class="btn btn-default btn-sm" value="未完成，提交上级">
+							<a href="#" class="btn btn-default btn-sm">我的订单记录</a>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</form>
+
+		<!-- product panel -->
+		<div class="panel panel-default col-xs-offset-1">
+			<div class="panel-heading">
+				<span class="">已发产品</span>
+				<ul class="side-info list-inline">
+					<li>已发货次数：</li>
+					<li>剩余发货次数：</li>
+				</ul>
+			</div>
+
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item">1月号</li>
+					<li class="list-group-item">2月号</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- comminite panel -->
+		<div class="panel panel-default col-xs-offset-1">
+			<!-- Default panel contents -->
+			<div class="panel-heading">沟通记录</div>
+
+			<!-- Table -->
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>开始时间</th>
+							<th>结束时间</th>
+							<th>沟通内容</th>
+							<th>描述</th>
+							<th>客服编号</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td>
+								<select class="form-control" name="subject" id="">
+									<option value="">option 1</option>
+									<option value="">option 2</option>
+									<option value="">option 3</option>
+								</select>
+							</td>
+							<td></td>
+							<td>001</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td>
+								<select class="form-control" name="subject" id="">
+									<option value="">option 1</option>
+									<option value="">option 2</option>
+									<option value="">option 3</option>
+								</select>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- js for date picker -->
+		<script src="scripts/bootstrap-datepicker.js"></script>
+		<script>
+			$('.date').datepicker({
+				"format": 'yyyy-mm-dd'
+			}).
+			on('changeDate', function() {
+				$('.date').datepicker('hide');
+			})
+		</script>
+		<!-- form end -->
 	</div>
 </div>
-
-<!-- comminite panel -->
-<div class="panel panel-default col-xs-offset-1">
-	<!-- Default panel contents -->
-	<div class="panel-heading">沟通记录</div>
-
-	<!-- Table -->
-	<div class="panel-body">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>开始时间</th>
-					<th>结束时间</th>
-					<th>沟通内容</th>
-					<th>描述</th>
-					<th>客服编号</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td></td>
-					<td></td>
-					<td>
-						<select class="form-control" name="subject" id="">
-							<option value="">option 1</option>
-							<option value="">option 2</option>
-							<option value="">option 3</option>
-						</select>
-					</td>
-					<td></td>
-					<td>001</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td>
-						<select class="form-control" name="subject" id="">
-							<option value="">option 1</option>
-							<option value="">option 2</option>
-							<option value="">option 3</option>
-						</select>
-					</td>
-					<td></td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
-<!-- js for date picker -->
-<script src="scripts/bootstrap-datepicker.js"></script>
-<script>
-	$('.date').datepicker({
-		"format": 'yyyy-mm-dd'
-	}).
-	on('changeDate', function() {
-		$('.date').datepicker('hide');
-	})
-</script>
-
-<!-- form end -->

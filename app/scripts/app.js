@@ -10,47 +10,33 @@ angular.module('mainApp', [
 	$routeProvider
 	.when('/', {
 		templateUrl: 'views/customer_infomation.html',
-		controller: 'MainCtrl'
+		controller: 'InfoCtrl'
 	})
 	.when('/customer_management', {
 		templateUrl: 'views/customer_management.html',
-		controller: 'CustomerManagerCtrl'
+		controller: 'CustomerCtrl'
 	})
 	.when('/financial_management', {
 		templateUrl: 'views/financial_management.html',
-		controller: 'MainCtrl'
+		controller: 'FinancialCtrl'
 	})
 	.when('/agents_management', {
 		templateUrl: 'views/agents_management.html',
-		controller: 'MainCtrl'
+		controller: 'AgentsCtrl'
 	})
 	.when('/ship_management', {
 		templateUrl: 'views/ship_management.html',
-		controller: 'MainCtrl'
+		controller: 'ShipCtrl'
 	})
 	.when('/production_management', {
 		templateUrl: 'views/production_management.html',
-		controller: 'MainCtrl'
+		controller: 'ProductionCtrl'
 	})
 	.when('/management_of_law', {
 		templateUrl: 'views/management_of_law.html',
-		controller: 'MainCtrl'
+		controller: 'LawCtrl'
 	})
 	.otherwise({
 		redirectTo: '/'
 	});
-}).
-run(function($rootScope) { // highlight for left side bar
-	$rootScope.$on('$routeChangeSuccess', function(ev,data) {
-		var active = false;
-		for (var i in $rootScope.sideBarItems) {
-			if (data.originalPath === '/' + $rootScope.sideBarItems[i].url) {
-				$rootScope.sideBarItems[i].active = true;
-				active = true;
-			} else {
-				$rootScope.sideBarItems[i].active = false;
-			}
-		}
-		if (!active) $rootScope.sideBarItems[0].active = true
-	})
 });
