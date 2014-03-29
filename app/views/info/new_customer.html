@@ -18,6 +18,7 @@
  	<li><a href="#" class="link-normal">保存</a></li>
  </ul>
  <form class="form form-horizontal form-small" name="infoForm" role="form" ng-submit="summit()">
+ 	<input type="hidden" name="operator">
  	<div class="col-xs-6">
  		<fieldset>
  			<legend></legend>
@@ -175,7 +176,11 @@
  						<label><input type="radio" name="product-order" ng-model="model.order" value="one-year">一年</label>
  					</div>
  					<div class="radio-inline">
- 						<label><input type="radio" name="product-order" ng-model="model.order" value="others">周边产品<span class="suffix">(一次性定单)</span></label>
+ 						<label><input type="radio" name="product-order" ng-model="model.order" value="others">一次性周边</label>
+ 					</div>
+ 					<div class="radio-inline">
+ 						<label><input type="radio" name="product-order" ng-model="model.other" value="others">其它</label>
+ 						<input type="text" >
  					</div>
  				</div>
  			</div>

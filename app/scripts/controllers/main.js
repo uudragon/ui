@@ -8,10 +8,11 @@ angular.module('mainApp')
 	$scope.exNumber = '0012';
 
 	console.log($routeParams);
-	$scope.subview = "views/info/new_customer.html";
+	// $scope.subview = "views/info/new_customer.html";
+
 	$scope.summit = function() {
 		console.log($scope.model);
-		$http.post('http://www.baidu.com/#', $scope.model)
+		$http.post('http://services.bam.uudragon.com', $scope.model)
 		.success(function(data, status) {
 			console.log(data);
 		})

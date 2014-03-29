@@ -7,7 +7,7 @@ angular.module('mainApp')
 				title: "客户信息",
 				main: [
 					{title: '新建客户', url: "info/new", subview: 'info/new_customer.html'},
-					{title: '成交客户', url: "info/summary", subview: 'info/new_customer.html'}
+					{title: '客户查询', url: "info/query", subview: 'info/query.html'}
 				]
 			},
 			customer: {
