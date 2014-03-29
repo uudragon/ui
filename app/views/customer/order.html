@@ -1,0 +1,224 @@
+<ul class="list-inline text-right">
+	<li><a href="#" class="link-normal">复制新建</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">预览名单</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">检索名单</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">预约列表</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">订购</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">处理记录</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">通讯录</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">修改</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">保存</a></li>
+</ul>
+<form class="form form-horizontal form-small" role="form" method="get" ng-submit="summitForm()">
+	<div class="col-xs-6">
+		<fieldset>
+			<legend></legend>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-number">编号: </label>
+				<div class="col-xs-6">
+					<input type="text" name="number" class="form-control input-small" id="c-number">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-type">类型: </label>
+				<div class="col-xs-4">
+					<input type="text" name="type" class="form-control input-small" id="c-type">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-name">姓名: </label>
+				<div class="col-xs-4">
+					<input type="text" name="name" class="form-control input-small" id="c-name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-sex">性别: </label>
+				<div class="col-xs-4">
+					<select name="c-sex" id="" class="form-control">
+						<option value=""></option>
+						<option value="male">男</option>
+						<option value="female">女</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-birthday">出生年月: </label>
+				<div class="col-xs-5 ">
+					<input type="text" name="birthday" class="form-control input-small date" id="c-birthday">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="cp-name">家长姓名:</label>
+				<div class="col-xs-5">
+					<input type="text" name="p-name" class="form-control input-small" id="cp-name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="cp-sex">家长性别: </label>
+				<div class="col-xs-4">
+					<select name="cp-sex" id="cp-sex" class="form-control">
+						<option value=""></option>
+						<option value="male">男</option>
+						<option value="female">女</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-emal">E-mail: </label>
+				<div class="col-xs-6">
+					<input type="text" name="email" class="form-control input-small" id="c-emal">
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend></legend>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">省/市/区: </label>
+				<div class="col-xs-9">
+					<div class="input-group">
+						<input type="text" name="provice" class="form-control input-small non-right">
+						<span class="input-group-addon">省</span>
+						<input type="text" name="city" class="form-control input-small non-right non-left">
+						<span class="input-group-addon">市</span>
+						<input type="text" name="area" class="form-control input-small non-left">
+						<span class="input-group-addon">区</span>
+					</div>
+				</div>
+
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="cp-street">街道: </label>
+				<div class="col-xs-6">
+					<input type="text" name="street" class="form-control input-small" id="cp-street">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-addr">地址: </label>
+				<div class="col-xs-6">
+					<input type="text" name="address" class="form-control input-small" id="c-addr">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-post-code">邮编: </label>
+				<div class="col-xs-5">
+					<input type="text" name="postcode" class="form-control input-small" id="c-post-code">
+				</div>
+			</div>
+		</fieldset>
+	</div>
+	<div class="col-xs-6">
+		<fieldset id="phone-box">
+			<legend></legend>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="phone-home">家庭电话: </label>
+
+				<div class="col-xs-9">
+					<div class="input-group">
+						<input type="text" name="phone-home" class="form-control input-small" id="phone-home">
+						<span class="input-group-addon radio addon-tweak">
+							<label><input type="radio" name="main-phone" value="home">主要电话</label>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="phone-company">公司电话: </label>
+				<div class="col-xs-9">
+					<div class="input-group">
+						<input type="text" name="phone-company" class="form-control input-small" id="phone-company">
+						<span class="input-group-addon radio addon-tweak">
+							<label><input type="radio" name="main-phone" value="company">主要电话</label>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="phone-mobile">手机电话: </label>
+				<div class="col-xs-9">
+					<div class="input-group">
+						<input type="text" name="phone-mobile" class="form-control input-small" id="phone-mobile">
+						<span class="input-group-addon radio addon-tweak">
+							<label><input type="radio" name="main-phone" value="personal">主要电话</label>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-tax">传真: </label>
+				<div class="col-xs-6">
+					<input type="text" class="form-control input-small" id="c-tax">
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend></legend>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">订购产品:</label>
+				<div class="col-xs-9">
+					<div class="radio-inline">
+						<label><input type="radio" name="product-order" value="quarter">季度</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="product-order" value="half-year">半年</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="product-order" value="one-year">一年</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="product-order" value="others">周边产品<span class="suffix">(一次性定单)</span></label>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+	<div class="row clearfix">
+		<fieldset>
+			<legend class="dot-split-line"></legend>
+			<div class="col-xs-12 order-info">
+				<ul class="list-inline">
+					<li>工单受理时间: 2014-1-15</li>
+					<li>期待解决时间: 2014-1-15</li>
+					<li>实际解决时间: 2014-1-15</li>
+				</ul>
+			</div>
+			<div class="col-xs-10 pull-left">
+				<div class="form-group">
+					<label class="col-xs-2 control-label">工单类型:</label>
+					<div class="col-xs-4">
+						<select name="" class="form-control">
+							<option value="">类型1</option>
+							<option value="">类型2</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label" for="c-invoice">发票内容:</label>
+					<div class="col-xs-9">
+						<textarea name="comment" id="c-comment" rows="3" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label" for="c-comment">备注:</label>
+					<div class="col-xs-9">
+						<textarea name="comment" id="c-comment" rows="3" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="from-group">
+					<div class="col-xs-10 submit-btns col-xs-offset-2">
+						<input type="submit" class="btn btn-default btn-sm" value="处理完成">
+						<input type="button" class="btn btn-default btn-sm" value="未完成，提交上级">
+						<a href="#" class="btn btn-default btn-sm">我的订单记录</a>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+</form>

@@ -1,14 +1,11 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('InfoCtrl', function ($scope, sideBarService, actionService, $http, $routeParams) {
+.controller('InfoCtrl', function ($scope, sideBarService, actionService, $http) {
 	$scope.sideBarItems = sideBarService.highlight(0);
 	$scope.actions = actionService.actions('info');
 	$scope.date = new Date()
 	$scope.exNumber = '0012';
-
-	console.log($routeParams);
-	// $scope.subview = "views/info/new_customer.html";
 
 	$scope.summit = function() {
 		console.log($scope.model);
@@ -21,12 +18,10 @@ angular.module('mainApp')
 		})
 	}
 })
-.controller('CustomerCtrl', function ($scope, sideBarService, actionService, $routeParams) {
+.controller('CustomerCtrl', function ($scope, sideBarService, actionService) {
 	$scope.sideBarItems = sideBarService.highlight(1);
 	$scope.actions = actionService.actions('customer');
 	$scope.date = new Date()
-
-	console.log($routeParams);
 })
 .controller('FinancialCtrl', function ($scope, sideBarService) {
 	$scope.sideBarItems = sideBarService.highlight(2);
