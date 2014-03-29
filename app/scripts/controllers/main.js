@@ -3,10 +3,10 @@
 angular.module('mainApp')
 .controller('InfoCtrl', function ($scope, sideBarService, actionService, $http) {
 	$scope.sideBarItems = sideBarService.highlight(0);
-	$scope.actions = actionService.mainActions('info');
-	$scope.subActions = actionService.subActions('info');
+	$scope.actions = actionService.actions('info');
 	$scope.date = new Date()
 	$scope.exNumber = '0012';
+
 	$scope.summit = function() {
 		console.log($scope.model);
 		$http.post('http://www.baidu.com', $scope.model)
@@ -20,8 +20,7 @@ angular.module('mainApp')
 })
 .controller('CustomerCtrl', function ($scope, sideBarService, actionService) {
 	$scope.sideBarItems = sideBarService.highlight(1);
-	$scope.actions = actionService.mainActions('customer');
-	$scope.subActions = actionService.subActions('customer');
+	$scope.actions = actionService.actions('customer');
 	$scope.date = new Date()
 })
 .controller('FinancialCtrl', function ($scope, sideBarService) {

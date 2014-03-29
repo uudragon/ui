@@ -40,7 +40,7 @@ a {color: #333; }
  */
 
  .action-group {margin: 20px 0;}
- .action-item {padding: 0 6px; color: #A52A2A; font-size: 1.2em;}
+ .action-item {padding: 0 6px; color: #A52A2A; font-size: 1.2em; cursor: pointer;}
  .action-item:hover {text-decoration: none; color: #800000;}
  .action-item.active {background: #ccc}
 
@@ -54,8 +54,9 @@ a {color: #333; }
 .input-small {height: 30px; }
 .form-small label {font-weight: normal;}
 .form-small .control-label {padding-top: 6px; }
-.action-group {margin: 4px 0 0 0; background-color: antiquewhite;padding: 10px 4px;}
-.sub-action-group {margin: 3px 0 9px 0; background-color: aliceblue;padding: 10px 4px;}
+.action-group {margin: 4px 0; background-color: antiquewhite;padding: 10px 4px;}
+.sub-action-group {margin: 3px 0 9px 0;}
+.sub-action-group > a {padding: 10px 0 10px 11px; display: inline-block; }
 .addon-tweak {padding-left: 26px; font-size: 0.9em;line-height: 1em;}
 .non-right {border-right: none;}
 .non-left {border-left: none;}

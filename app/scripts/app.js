@@ -12,11 +12,11 @@ angular.module('mainApp', [
 		templateUrl: 'views/info/index.html',
 		controller: 'InfoCtrl'
 	})
-	.when('/info', {
+	.when('/info/:sub?', {
 		templateUrl: 'views/info/index.html',
 		controller: 'InfoCtrl'
 	})
-	.when('/customer/:sub?/:sub2?', {
+	.when('/customer/:sub?', {
 		templateUrl: 'views/customer/index.html',
 		controller: 'CustomerCtrl'
 	})
