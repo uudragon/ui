@@ -1,25 +1,27 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('SidebarCtrl', function ($rootScope, $route) {
-
-	$rootScope.sideBarItems = [
-		{name: '客户信息', url: 'customer_infomation'},
-		{name: '客户管理', url: 'customer_management'},
-		{name: '财务管理', url: 'financial_management'},
-		{name: '代理商管理', url: 'agents_management'},
-		{name: '发货管理', url: 'ship_management'},
-		{name: '生产管理', url: 'production_management'},
-		{name: '条法管理', url: 'management_of_law'},
-	];
-})
-.controller('InfoCtrl', function ($scope, sideBarService) {
+.controller('InfoCtrl', function ($scope, sideBarService, actionService, $http) {
 	$scope.sideBarItems = sideBarService.highlight(0);
+	$scope.actions = actionService.mainActions('info');
+	$scope.subActions = actionService.subActions('info');
 	$scope.date = new Date()
 	$scope.exNumber = '0012';
+	$scope.summit = function() {
+		console.log($scope.model);
+		$http.post('http://www.baidu.com', $scope.model)
+		.success(function(data, status) {
+			console.log(data);
+		})
+		.error(function(data, status) {
+			console.log('error status:' + status);
+		})
+	}
 })
-.controller('CustomerCtrl', function ($scope, sideBarService) {
+.controller('CustomerCtrl', function ($scope, sideBarService, actionService) {
 	$scope.sideBarItems = sideBarService.highlight(1);
+	$scope.actions = actionService.mainActions('customer');
+	$scope.subActions = actionService.subActions('customer');
 	$scope.date = new Date()
 })
 .controller('FinancialCtrl', function ($scope, sideBarService) {

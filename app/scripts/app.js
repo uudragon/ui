@@ -9,31 +9,35 @@ angular.module('mainApp', [
 .config(function ($routeProvider) {
 	$routeProvider
 	.when('/', {
-		templateUrl: 'views/customer_infomation.html',
+		templateUrl: 'views/info/index.html',
 		controller: 'InfoCtrl'
 	})
-	.when('/customer_management', {
-		templateUrl: 'views/customer_management.html',
+	.when('/info', {
+		templateUrl: 'views/info/index.html',
+		controller: 'InfoCtrl'
+	})
+	.when('/customer/:sub?/:sub2?', {
+		templateUrl: 'views/customer/index.html',
 		controller: 'CustomerCtrl'
 	})
-	.when('/financial_management', {
-		templateUrl: 'views/financial_management.html',
+	.when('/financial', {
+		templateUrl: 'views/financial/index.html',
 		controller: 'FinancialCtrl'
 	})
-	.when('/agents_management', {
-		templateUrl: 'views/agents_management.html',
+	.when('/agents/:sub?', {
+		templateUrl: 'views/agents/index.html',
 		controller: 'AgentsCtrl'
 	})
-	.when('/ship_management', {
-		templateUrl: 'views/ship_management.html',
+	.when('/ship', {
+		templateUrl: 'views/ship/index.html',
 		controller: 'ShipCtrl'
 	})
-	.when('/production_management', {
-		templateUrl: 'views/production_management.html',
+	.when('/prod', {
+		templateUrl: 'views/prod/index.html',
 		controller: 'ProductionCtrl'
 	})
-	.when('/management_of_law', {
-		templateUrl: 'views/management_of_law.html',
+	.when('/law', {
+		templateUrl: 'views/law/index.html',
 		controller: 'LawCtrl'
 	})
 	.otherwise({
