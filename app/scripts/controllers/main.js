@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('InfoCtrl', function ($scope, sideBarService, actionService, $http) {
+.controller('InfoCtrl', function ($scope, sideBarService, actionService, $http, $routeParams) {
 	$scope.sideBarItems = sideBarService.highlight(0);
 	$scope.actions = actionService.actions('info');
 	$scope.date = new Date()
 	$scope.exNumber = '0012';
 
+	console.log($routeParams);
+	$scope.subview = "views/info/new_customer.html";
 	$scope.summit = function() {
 		console.log($scope.model);
-		$http.post('http://www.baidu.com', $scope.model)
+		$http.post('http://www.baidu.com/#', $scope.model)
 		.success(function(data, status) {
 			console.log(data);
 		})
@@ -18,10 +20,12 @@ angular.module('mainApp')
 		})
 	}
 })
-.controller('CustomerCtrl', function ($scope, sideBarService, actionService) {
+.controller('CustomerCtrl', function ($scope, sideBarService, actionService, $routeParams) {
 	$scope.sideBarItems = sideBarService.highlight(1);
 	$scope.actions = actionService.actions('customer');
 	$scope.date = new Date()
+
+	console.log($routeParams);
 })
 .controller('FinancialCtrl', function ($scope, sideBarService) {
 	$scope.sideBarItems = sideBarService.highlight(2);

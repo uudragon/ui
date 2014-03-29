@@ -20,6 +20,10 @@ angular.module('mainApp', [
 		templateUrl: 'views/customer/index.html',
 		controller: 'CustomerCtrl'
 	})
+	.when('/customer/:sub/:sub2', {
+		templateUrl: 'views/customer/index.html',
+		controller: 'CustomerCtrl'
+	})
 	.when('/financial', {
 		templateUrl: 'views/financial/index.html',
 		controller: 'FinancialCtrl'
@@ -43,4 +47,4 @@ angular.module('mainApp', [
 	.otherwise({
 		redirectTo: '/'
 	});
-});
+})

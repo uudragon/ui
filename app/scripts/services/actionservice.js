@@ -6,14 +6,8 @@ angular.module('mainApp')
 			info: {
 				title: "客户信息",
 				main: [
-					{
-						title: '新建客户',
-						url: "info/new"
-					},
-					{
-						title: '成交客户',
-						url: "info/summary"
-					}
+					{title: '新建客户', url: "info/new", subview: 'info/new_customer.html'},
+					{title: '成交客户', url: "info/summary", subview: 'info/new_customer.html'}
 				]
 			},
 			customer: {
@@ -23,26 +17,14 @@ angular.module('mainApp')
 						title: '工单管理',
 						url: "customer/order",
 						submenu: [
-							{title: '新建工单', url: "new"},
-							{title: '工单管理', url: "manager"}
+							{title: '新建工单', url: "new", subview: 'info/new_customer.html'},
+							{title: '工单管理', url: "manager", subview: 'info/new_customer.html'}
 						]
 					},
-					{
-						title: '员工管理',
-						url: "customer/employee"
-					},
-					{
-						title: '在线情况',
-						url: "customer/online"
-					},
-					{
-						title: '电话报表',
-						url: "customer/phone"
-					},
-					{
-						title: '数据管理',
-						url: "customer/data"
-					}
+					{title: '员工管理', url: "customer/employee", subview: 'info/new_customer.html'},
+					{title: '在线情况', url: "customer/online", subview: 'info/new_customer.html'},
+					{title: '电话报表', url: "customer/phone", subview: 'info/new_customer.html'},
+					{title: '数据管理', url: "customer/data", subview: 'info/new_customer.html'}
 				]
 			},
 			agent: {
