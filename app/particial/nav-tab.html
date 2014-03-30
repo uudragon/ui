@@ -1,8 +1,8 @@
 <!-- nav tab begin-->
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" ng-controller="MainCtrl">
 	<li class="active"><a href="#" class="title">{{actions.title}}</a></li>
 </ul>
-<ul class="action-group list-inline">
+<ul class="action-group list-inline" ng-controller="MainCtrl">
 	<li ng-repeat="item in actions.main" ng-class="item.submenu ? 'dropdown' : ''">
 		<a ng-if="!item.submenu" href="#/{{item.url}}" class="action-item">{{item.title}}</a>
 		<a ng-if="item.submenu"  class="dropdown-toggle action-item" data-toggle="dropdown">{{item.title}}<b class="caret"></b></a>

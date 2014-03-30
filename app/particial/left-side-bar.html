@@ -1,7 +1,27 @@
 <!-- left side bar begin-->
-<div class="col-xs-2 sidebar">
+<div class="col-xs-2 sidebar ng-scope" ng-controller="MainCtrl">
 	<ul class="nav nav-sidebar text-center">
-		<li ng-repeat="item in sideBarItems" ng-class="item.active ? 'active' : ''"><a href="#/{{item.url}}">{{item.name}}</a></li>
+		<li ng-class="{active: $routeSegment.startsWith('info')}">
+			<a href="#/info" class="ng-binding">客户信息</a>
+		</li>
+		<li ng-class="{active: $routeSegment.startsWith('customer')}">
+			<a href="#/customer" class="ng-binding">客服管理</a>
+		</li>
+		<li ng-class="{active: $routeSegment.startsWith('financial')}">
+			<a href="#/financial" class="ng-binding">财务管理</a>
+		</li>
+		<li ng-class="{active: $routeSegment.startsWith('agents')}">
+			<a href="#/agents" class="ng-binding">代理商管理</a>
+		</li>
+		<li ng-class="{active: $routeSegment.startsWith('ship')}">
+			<a href="#/ship" class="ng-binding">发货管理</a>
+		</li>
+		<li ng-class="{active: $routeSegment.startsWith('prod')}">
+			<a href="#/prod" class="ng-binding">生产管理</a>
+		</li>
+		<li ng-class="{active: $routeSegment.startsWith('law')}">
+			<a href="#/law" class="ng-binding">条法管理</a>
+		</li>
 	</ul>
 </div>
 <!-- left side bar end-->

@@ -96,7 +96,7 @@ angular.module('mainApp', [
 		.when('/law/home', 'law.home')
 
 		.segment('info', {
-			templateUrl: 'views/template.html',
+			templateUrl: 'views/info/new.html',
 			controller: 'InfoCtrl'})
 
 		.within()
@@ -109,7 +109,7 @@ angular.module('mainApp', [
 		.up()
 
 		.segment('customer', {
-			templateUrl: 'views/template.html',
+			templateUrl: 'views/customer/order.html',
 			controller: 'CustomerCtrl'})
 
 		.within()
