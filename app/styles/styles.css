@@ -64,6 +64,8 @@ a {color: #333; }
 .submit-btns {margin-top: 25px;}
 .submit-btns > .btn {margin: 0 5px;}
 
+.radio-inline.nl {padding-left: 10px;}
+
 .order-info {margin: -2px 0 11px 40px; color: #A52A2A}
 .order-info > ul > li {padding: 0 40px; }
 .dot-split-line {border-bottom-color: #A52A2A; border-bottom-style: dashed; }

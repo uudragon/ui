@@ -8,49 +8,6 @@ angular.module('mainApp', [
 	'route-segment',
 	'view-segment'
 	])
-
-// .config(function ($routeProvider) {
-// 	$routeProvider
-// 	.when('/', {
-// 		templateUrl: 'views/info/index.html',
-// 		controller: 'InfoCtrl'
-// 	})
-// 	.when('/info/:sub?', {
-// 		templateUrl: 'views/info/index.html',
-// 		controller: 'InfoCtrl'
-// 	})
-// 	.when('/customer/:sub?', {
-// 		templateUrl: 'views/customer/index.html',
-// 		controller: 'CustomerCtrl'
-// 	})
-// 	.when('/customer/:sub/:sub2', {
-// 		templateUrl: 'views/customer/index.html',
-// 		controller: 'CustomerCtrl'
-// 	})
-// 	.when('/financial', {
-// 		templateUrl: 'views/financial/index.html',
-// 		controller: 'FinancialCtrl'
-// 	})
-// 	.when('/agents/:sub?', {
-// 		templateUrl: 'views/agents/index.html',
-// 		controller: 'AgentsCtrl'
-// 	})
-// 	.when('/ship', {
-// 		templateUrl: 'views/ship/index.html',
-// 		controller: 'ShipCtrl'
-// 	})
-// 	.when('/prod', {
-// 		templateUrl: 'views/prod/index.html',
-// 		controller: 'ProductionCtrl'
-// 	})
-// 	.when('/law', {
-// 		templateUrl: 'views/law/index.html',
-// 		controller: 'LawCtrl'
-// 	})
-// 	.otherwise({
-// 		redirectTo: '/'
-// 	});
-// })
 .config(function($routeSegmentProvider, $routeProvider) {
 
 	// Configuring provider options
@@ -69,28 +26,28 @@ angular.module('mainApp', [
 		.when('/info/query', 'info.query')
 
 		// customer manager
-		.when('/customer', 'customer.home')
-		.when('/customer/order-new', 'customer.ordernew')
-		.when('/customer/order-manager', 'customer.ordermanager')
+		.when('/customer', 'customer.ordernew')
+		.when('/customer/ordernew', 'customer.ordernew')
+		.when('/customer/ordermanager', 'customer.ordermanager')
 		.when('/customer/employee', 'customer.employee')
 		.when('/customer/online', 'customer.online')
 		.when('/customer/phone', 'customer.phone')
 		.when('/customer/data', 'customer.data')
 
 		// financial manager
-		.when('/financial', 'financial.home')
+		.when('/financial', 'financial')
 		.when('/financial/home', 'financial.home')
 		// agents manager
-		.when('/agents', 'agents.home')
+		.when('/agents', 'agents')
 		.when('/agents/home', 'agents.home')
 		// ship manager
-		.when('/ship', 'ship.home')
+		.when('/ship', 'ship')
 		.when('/ship/home', 'ship.home')
 		// prod manager
-		.when('/prod', 'prod.home')
+		.when('/prod', 'prod')
 		.when('/prod/home', 'prod.home')
 		// law manager
-		.when('/law', 'law.home')
+		.when('/law', 'law')
 		.when('/law/home', 'law.home')
 
 		.segment('info', {
@@ -98,8 +55,6 @@ angular.module('mainApp', [
 			controller: 'InfoCtrl'})
 
 		.within()
-			.segment('home', {
-				templateUrl: 'views/info/new.html'})
 			.segment('new', {
 				templateUrl: 'views/info/new.html'})
 			.segment('query', {
@@ -107,14 +62,14 @@ angular.module('mainApp', [
 		.up()
 
 		.segment('customer', {
-			templateUrl: 'views/customer/order.html',
+			templateUrl: 'views/customer/index.html',
 			controller: 'CustomerCtrl'})
 
 		.within()
 			.segment('home', {
 				templateUrl: 'views/customer/order.html'})
 			.segment('ordernew', {
-				templateUrl: 'views/customer/ordernew.html'})
+				templateUrl: 'views/customer/order.html'})
 			.segment('ordermanager', {
 				templateUrl: 'views/customer/ordermanager.html'})
 			.segment('employee', {
@@ -128,39 +83,39 @@ angular.module('mainApp', [
 		.up()
 
 		.segment('financial', {
-			templateUrl: 'views/template.html',
+			templateUrl: 'views/financial/index.html',
 			controller: 'FinancialCtrl'})
 			.within()
 				.segment('home', {
-					templateUrl: 'views/financial/index.html'})
+					templateUrl: 'views/financial/xxx.html'})
 			.up()
 		.segment('agents', {
-			templateUrl: 'views/template.html',
+			templateUrl: 'views/agents/index.html',
 			controller: 'AgentsCtrl'})
 			.within()
 				.segment('home', {
-					templateUrl: 'views/agents/index.html'})
+					templateUrl: 'views/agents/xxx.html'})
 			.up()
 		.segment('ship', {
-			templateUrl: 'views/template.html',
+			templateUrl: 'views/ship/index.html',
 			controller: 'ShipCtrl'})
 			.within()
 				.segment('home', {
-					templateUrl: 'views/ship/index.html'})
+					templateUrl: 'views/ship/xxx.html'})
 			.up()
 		.segment('prod', {
-			templateUrl: 'views/template.html',
+			templateUrl: 'views/prod/index.html',
 			controller: 'ProductionCtrl'})
 			.within()
 				.segment('home', {
-					templateUrl: 'views/production/index.html'})
+					templateUrl: 'views/prod/xxx.html'})
 			.up()
 		.segment('law', {
-			templateUrl: 'views/template.html',
+			templateUrl: 'views/law/index.html',
 			controller: 'LawCtrl'})
 			.within()
 				.segment('home', {
-					templateUrl: 'views/law/index.html'})
+					templateUrl: 'views/law/xxx.html'})
 			.up()
 
 

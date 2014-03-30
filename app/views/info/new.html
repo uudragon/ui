@@ -178,9 +178,9 @@
  					<div class="radio-inline">
  						<label><input type="radio" name="product-order" ng-model="model.order" value="others">一次性周边</label>
  					</div>
- 					<div class="radio-inline">
+ 					<div class="radio-inline nl">
  						<label><input type="radio" name="product-order" ng-model="model.other" value="others">其它</label>
- 						<input type="text" >
+ 						<input ng-if="model.other" type="text" class="disabled" disabled>
  					</div>
  				</div>
  			</div>

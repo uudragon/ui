@@ -1,14 +1,12 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('InfoCtrl', function ($scope, actionService, $http, $routeSegment, loader) {
-	$scope.actions = actionService.actions('info');
+.controller('InfoCtrl', function ($scope, $http, $routeSegment, loader) {
 	$scope.date = new Date()
 	$scope.exNumber = '0012';
 
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
-	console.log($routeSegment);
 
 	$scope.$on('routeSegmentChange', function() {
 	    loader.show = false;
@@ -24,13 +22,10 @@ angular.module('mainApp')
 		})
 	}
 })
-.controller('CustomerCtrl', function ($scope, actionService, $routeSegment, loader) {
-	$scope.actions = actionService.actions('customer');
+.controller('CustomerCtrl', function ($scope, $routeSegment, loader) {
 	$scope.date = new Date()
-
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
-	console.log($routeSegment);
 
 	$scope.$on('routeSegmentChange', function() {
 	    loader.show = true;
