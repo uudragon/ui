@@ -176,11 +176,11 @@
  						<label><input type="radio" name="product-order" ng-model="model.order" value="one-year">一年</label>
  					</div>
  					<div class="radio-inline">
- 						<label><input type="radio" name="product-order" ng-model="model.order" value="others">一次性周边</label>
+ 						<label><input type="radio" name="product-order" ng-model="model.order" value="onetime">一次性周边</label>
  					</div>
  					<div class="radio-inline nl">
- 						<label><input type="radio" name="product-order" ng-model="model.other" value="others">其它</label>
- 						<input ng-if="model.other" type="text" class="disabled" disabled>
+ 						<label><input type="radio" name="product-order" ng-model="model.order" value="others">其它</label>
+ 						<input ng-show="model.order=='others'" ng-model="model.others" type="text">
  					</div>
  				</div>
  			</div>
@@ -198,7 +198,24 @@
  			<div class="form-group">
  				<label class="col-xs-3 control-label" for="c-invoice">发票内容:</label>
  				<div class="col-xs-6">
- 					<input type="text" name="invoice" ng-model="model.invoice" class="form-control input-small" id="c-invoice">
+	 				<div class="radio-inline">
+	 					<label><input type="radio" ng-model="model.invoice.type" value="personal">个人</label>
+	 				</div>
+	 				<div class="radio-inline">
+	 					<label><input type="radio" ng-model="model.invoice.type" value="company">公司</label>
+	 				</div>
+ 					<input type="text" ng-show="model.invoice.type=='company'" name="invoice" ng-model="model.invoice.content" class="form-control input-small" id="c-invoice">
+
+	 				<!-- <div class="checkbox-inline">
+	 					<input type="checkbox" ng-model="model.invoice.checked" value="company">
+	 					<input type="text" ng-show="model.invoice.checked" name="invoice" ng-model="model.invoice.content" class="form-control input-small" id="c-invoice">
+	 				</div> -->
+ 				</div>
+ 			</div>
+ 			<div class="form-group">
+ 				<label class="col-xs-3 control-label" for="effectiveDate">生效日期: </label>
+ 				<div class="col-xs-5 ">
+ 					<input type="text" name="effectiveDate" ng-model="model.effectiveDate" class="form-control input-small date" id="effectiveDate">
  				</div>
  			</div>
  			<div class="form-group">

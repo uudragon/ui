@@ -20,7 +20,7 @@ angular.module('mainApp', [
 	$routeSegmentProvider
 
 		// customer info
-		.when('/', 'info.home')
+		.when('/', 'info.new')
 		.when('/info', 'info.new')
 		.when('/info/new', 'info.new')
 		.when('/info/query', 'info.query')
@@ -56,9 +56,11 @@ angular.module('mainApp', [
 
 		.within()
 			.segment('new', {
-				templateUrl: 'views/info/new.html'})
+				templateUrl: 'views/info/new.html',
+				controller: 'InfoCtrl'})
 			.segment('query', {
-				templateUrl: 'views/info/query.html'})
+				templateUrl: 'views/info/query.html',
+				controller: 'InfoCtrl'})
 		.up()
 
 		.segment('customer', {
