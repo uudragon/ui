@@ -21,11 +21,11 @@ angular.module('mainApp', [
 
 		// customer info
 		.when('/', 'info.new')
-		.when('/info', 'info.new')
+		.when('/info', 'info.traded')
 		.when('/info/new', 'info.new')
 		.when('/info/customer-manager', 'info.customermanager')
 		.when('/info/contacts', 'info.contacts')
-		.when('/info/dealed', 'info.dealed')
+		.when('/info/traded', 'info.traded')
 		// .when('/info/query', 'info.query')
 
 		// customer manager
@@ -67,8 +67,8 @@ angular.module('mainApp', [
 			.segment('contacts', {
 				templateUrl: 'views/info/contacts.html',
 				controller: 'InfoCtrl'})
-			.segment('dealed', {
-				templateUrl: 'views/info/dealed.html',
+			.segment('traded', {
+				templateUrl: 'views/info/traded.html',
 				controller: 'InfoCtrl'})
 		.up()
 
@@ -140,7 +140,7 @@ angular.module('mainApp', [
 		.when('/slow-data-loading', 's1.slowDataLoading')
 		.when('/inline-view', 's1.inlineParent.inlineChildren')
 		.when('/info/customer-manager',    'info.customermanager')
-		.when('/info/dealed',    'info.dealed')
+		.when('/info/traded',    'info.traded')
 
 		.within('info')
 			.segment('invalidTemplate', {
