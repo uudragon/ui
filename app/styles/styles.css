@@ -40,9 +40,9 @@ a {color: #333; }
  */
 
  .action-group {margin: 20px 0;}
- .action-item {padding: 0 6px; color: #A52A2A; font-size: 1.2em; cursor: pointer;}
+ .action-item {padding: 0 6px;  font-size: 1.2em; cursor: pointer;}
  .action-item:hover {text-decoration: none; color: #800000;}
- .action-item.active {background: #ccc}
+ .action-item.active {color: #A52A2A;}
 
 /**
  * Form

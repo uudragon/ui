@@ -64,14 +64,12 @@ angular.module('mainApp', [
 
 		// customer info
 		.when('/', 'info.home')
-		.when('/info', 'info.home')
-		.when('/info/home', 'info.home')
+		.when('/info', 'info.new')
 		.when('/info/new', 'info.new')
 		.when('/info/query', 'info.query')
 
 		// customer manager
 		.when('/customer', 'customer.home')
-		.when('/customer/home', 'customer.home')
 		.when('/customer/order-new', 'customer.ordernew')
 		.when('/customer/order-manager', 'customer.ordermanager')
 		.when('/customer/employee', 'customer.employee')
@@ -96,7 +94,7 @@ angular.module('mainApp', [
 		.when('/law/home', 'law.home')
 
 		.segment('info', {
-			templateUrl: 'views/info/new.html',
+			templateUrl: 'views/info/index.html',
 			controller: 'InfoCtrl'})
 
 		.within()
