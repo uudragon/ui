@@ -67,6 +67,10 @@ a {color: #333; }
 .order-info {margin: -2px 0 11px 40px; color: #A52A2A}
 .order-info > ul > li {padding: 0 40px; }
 .dot-split-line {border-bottom-color: #A52A2A; border-bottom-style: dashed; }
+
+.info-panel {border-top: solid 1px #E5E5E5; padding-top: 10px;}
+#search-box {display: block; width: 100%;}
+.pagination {margin: 20px auto; display: table;}
 /**
  * Panel
  * ----------------------------------------------------------------------------

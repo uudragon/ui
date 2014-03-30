@@ -23,7 +23,10 @@ angular.module('mainApp', [
 		.when('/', 'info.new')
 		.when('/info', 'info.new')
 		.when('/info/new', 'info.new')
+		.when('/info/customer-manager', 'info.customermanager')
 		.when('/info/contacts', 'info.contacts')
+		.when('/info/dealed', 'info.dealed')
+		// .when('/info/query', 'info.query')
 
 		// customer manager
 		.when('/customer', 'customer.ordernew')
@@ -58,8 +61,14 @@ angular.module('mainApp', [
 			.segment('new', {
 				templateUrl: 'views/info/new.html',
 				controller: 'InfoCtrl'})
+			.segment('customermanager', {
+				templateUrl: 'views/info/customer-manager.html',
+				controller: 'InfoCtrl'})
 			.segment('contacts', {
 				templateUrl: 'views/info/contacts.html',
+				controller: 'InfoCtrl'})
+			.segment('dealed', {
+				templateUrl: 'views/info/dealed.html',
 				controller: 'InfoCtrl'})
 		.up()
 
@@ -121,7 +130,6 @@ angular.module('mainApp', [
 			.up()
 
 
-
 	// This is some usage of `resolve`, `untilResolved` and `resolveFailed` features
 
 	$routeSegmentProvider
@@ -131,9 +139,10 @@ angular.module('mainApp', [
 		.when('/slow-data', 's1.slowDataSimple')
 		.when('/slow-data-loading', 's1.slowDataLoading')
 		.when('/inline-view', 's1.inlineParent.inlineChildren')
-		.when('/info/:id/slow',    's1.itemInfo.tabSlow')
+		.when('/info/customer-manager',    'info.customermanager')
+		.when('/info/dealed',    'info.dealed')
 
-		.within('s1')
+		.within('info')
 			.segment('invalidTemplate', {
 				templateUrl: 'this-does-not-exist.html',    // 404
 				resolveFailed: {
@@ -163,25 +172,15 @@ angular.module('mainApp', [
 					}
 				}
 			})
-			.segment('slowDataLoading', {
-				templateUrl: 'templates/section1/slow-data.html',
-				controller: 'SlowDataCtrl',
-				resolve: {
-					data: function($timeout) {
-						return $timeout(function() { return 'SLOW DATA CONTENT'; }, 2000);
-					}
-				},
-				untilResolved: {
-					templateUrl: 'templates/loading.html'
-				}
-			})
-			.segment('inlineParent', {
-				templateUrl: 'templates/section1/inline-view.html'
+			.segment('customermanager', {
+				templateUrl: 'views/info/customer-manager.html',
+				controller: 'customerManger',
+				resolve: {}
 			})
 			.within()
 				.segment('inlineChildren', {
 					// no template here
-					controller: 'SlowDataCtrl',
+					controller: 'InfoCtrl',
 					resolve: {
 						data: function($timeout) {
 							return $timeout(function() { return 'SLOW DATA CONTENT'; }, 2000);

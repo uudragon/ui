@@ -1,23 +1,4 @@
-<ul class="list-inline text-right">
- 	<li><a href="#" class="link-normal">复制新建</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#" class="link-normal">预览名单</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#" class="link-normal">检索名单</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#" class="link-normal">预约列表</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#" class="link-normal">订购</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#" class="link-normal">处理记录</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#/info/contacts" class="link-normal">通讯录</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#" class="link-normal">修改</a></li>
- 	<li class="split-pipe">|</li>
- 	<li><a href="#" class="link-normal">保存</a></li>
- </ul>
- <form class="form form-horizontal form-small" name="infoForm" role="form" ng-submit="summit()">
+ <form class="form form-horizontal form-small" name="infoForm" role="form">
  	<input type="hidden" name="operator" ng-model="model.operator" ng-init="model.operator='testOperator'">
  	<div class="col-xs-6">
  		<fieldset>
@@ -232,9 +213,9 @@
  			</div>
  			<div class="from-group">
  				<div class="col-xs-10 submit-btns col-xs-offset-3">
- 					<input type="submit" class="btn btn-primary btn-sm" value="处理完成">
- 					<input type="button" class="btn btn-default btn-sm" value="未完成，提交上级">
- 					<a href="#" class="btn btn-default btn-sm">我的订单记录</a>
+ 					<input type="submit" class="btn btn-primary btn-sm" ng-click="model.btn='saved'; summit()" value="处理完成">
+ 					<input type="button" class="btn btn-default btn-sm" ng-click="model.btn='insert'; summit()"  value="未完成，提交上级">
+ 					<a href="" class="btn btn-default btn-sm" ng-click="model.btn='query'; summit()">我的订单记录</a>
  				</div>
  			</div>
  		</fieldset>

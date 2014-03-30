@@ -5,13 +5,17 @@
 </ul>
 <ul class="action-group list-inline ng-scope">
 	<!-- ngRepeat: item in actions.main -->
-	<li ng-class="item.submenu ? 'dropdown' : ''" class="ng-scope">
+	<li>
 		<a href="#/info/new" ng-class="{active: $routeSegment.startsWith('info.new')}" class="action-item">新建客户</a>
 	</li>
-	<li ng-class="item.submenu ? 'dropdown' : ''" class="ng-scope">
-		<a href="#/info/query" ng-class="{active: $routeSegment.startsWith('info.query')}" class="action-item">成交客户</a>
+	<li>
+		<a href="#/info/customer-manager" ng-click="getStatistics()" ng-class="{active: $routeSegment.startsWith('info.customermanager')}" class="action-item">客户管理</a>
+	</li>
+	<li>
+		<a href="#/info/dealed" ng-class="{active: $routeSegment.startsWith('info.dealed')}" class="action-item">成交客户</a>
 	</li>
 	<!-- end ngRepeat: item in actions.main -->
 </ul>
 
+<div ng-include src="'particial/link-group.html'"></div>
 <div class="anim" app-view-segment="1"></div>
