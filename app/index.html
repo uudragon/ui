@@ -26,8 +26,6 @@
 	<![endif]-->
 
 	<div class="container">
-	<!-- 	<div class="row anim" app-view-segment="0"></div>
-		<div id=loading class=alert ng-show="loader.show">Loading...</div> -->
 
 		<!-- form begin -->
 		<div ng-include src="'particial/header.html'"></div>
@@ -38,6 +36,7 @@
 			<!-- main content  -->
 			<div class="col-xs-10 main">
 				<!-- sub view -->
+				<div id=loading class=alert ng-show="loader.show">Loading...</div>
 				<div app-view-segment="0"></div>
 			</div>
 		</div>

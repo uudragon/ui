@@ -54,7 +54,7 @@ a {color: #333; }
 .input-small {height: 30px; }
 .form-small label {font-weight: normal;}
 .form-small .control-label {padding-top: 6px; }
-.action-group {margin: 4px 0; background-color: antiquewhite;padding: 10px 4px;}
+.action-group { border: 1px dashed #ccc; border-top: none; padding: 10px 4px; margin: 0 0 8px 0;}
 .sub-action-group {margin: 3px 0 9px 0;}
 .sub-action-group > a {padding: 10px 0 10px 11px; display: inline-block; }
 .addon-tweak {padding-left: 26px; font-size: 0.9em;line-height: 1em;}
@@ -63,8 +63,6 @@ a {color: #333; }
 .suffix {font-size: 0.8em; float: right; padding-top: 3px; }
 .submit-btns {margin-top: 25px;}
 .submit-btns > .btn {margin: 0 5px;}
-
-.radio-inline.nl {padding-left: 10px;}
 
 .order-info {margin: -2px 0 11px 40px; color: #A52A2A}
 .order-info > ul > li {padding: 0 40px; }

@@ -18,7 +18,7 @@
  	<li><a href="#" class="link-normal">保存</a></li>
  </ul>
  <form class="form form-horizontal form-small" name="infoForm" role="form" ng-submit="summit()">
- 	<input type="hidden" name="operator">
+ 	<input type="hidden" name="operator" ng-model="model.operator" ng-init="model.operator='testOperator'">
  	<div class="col-xs-6">
  		<fieldset>
  			<legend></legend>
@@ -177,8 +177,8 @@
  					</div>
  					<div class="radio-inline">
  						<label><input type="radio" name="product-order" ng-model="model.order" value="onetime">一次性周边</label>
- 					</div>
- 					<div class="radio-inline nl">
+ 					</div><br/>
+ 					<div class="radio-inline">
  						<label><input type="radio" name="product-order" ng-model="model.order" value="others">其它</label>
  						<input ng-show="model.order=='others'" ng-model="model.others" type="text">
  					</div>
@@ -196,7 +196,7 @@
  				</div>
  			</div>
  			<div class="form-group">
- 				<label class="col-xs-3 control-label" for="c-invoice">发票内容:</label>
+ 				<label class="col-xs-3 control-label">发票类型:</label>
  				<div class="col-xs-6">
 	 				<div class="radio-inline">
 	 					<label><input type="radio" ng-model="model.invoice.type" value="personal">个人</label>
@@ -204,12 +204,18 @@
 	 				<div class="radio-inline">
 	 					<label><input type="radio" ng-model="model.invoice.type" value="company">公司</label>
 	 				</div>
- 					<input type="text" ng-show="model.invoice.type=='company'" name="invoice" ng-model="model.invoice.content" class="form-control input-small" id="c-invoice">
-
-	 				<!-- <div class="checkbox-inline">
-	 					<input type="checkbox" ng-model="model.invoice.checked" value="company">
-	 					<input type="text" ng-show="model.invoice.checked" name="invoice" ng-model="model.invoice.content" class="form-control input-small" id="c-invoice">
-	 				</div> -->
+ 				</div>
+ 			</div>
+ 			<div class="form-group" ng-show="model.invoice.type=='company'" >
+ 				<label class="col-xs-3 control-label" for="c-taitou">发票抬头:</label>
+ 				<div class="col-xs-5">
+ 					<input type="text" name="invoice" ng-model="model.invoice.taitou" class="form-control input-small" id="c-taitou">
+ 				</div>
+ 			</div>
+ 			<div class="form-group" ng-show="model.invoice.type" for="c-invoice">
+ 				<label class="col-xs-3 control-label" for="c-invoice">发票内容:</label>
+ 				<div class="col-xs-6">
+ 					<input type="text" name="invoice" ng-model="model.invoice.content" class="form-control input-small" id="c-invoice">
  				</div>
  			</div>
  			<div class="form-group">
