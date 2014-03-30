@@ -23,7 +23,7 @@ angular.module('mainApp', [
 		.when('/', 'info.new')
 		.when('/info', 'info.new')
 		.when('/info/new', 'info.new')
-		.when('/info/query', 'info.query')
+		.when('/info/contacts', 'info.contacts')
 
 		// customer manager
 		.when('/customer', 'customer.ordernew')
@@ -58,8 +58,8 @@ angular.module('mainApp', [
 			.segment('new', {
 				templateUrl: 'views/info/new.html',
 				controller: 'InfoCtrl'})
-			.segment('query', {
-				templateUrl: 'views/info/query.html',
+			.segment('contacts', {
+				templateUrl: 'views/info/contacts.html',
 				controller: 'InfoCtrl'})
 		.up()
 
