@@ -54,7 +54,7 @@ angular.module('mainApp', [
 		.when('/law/home', 'law.home')
 
 		.segment('info', {
-			templateUrl: 'views/info/index.html',
+			templateUrl: 'views/template.html',
 			controller: 'InfoCtrl'})
 
 		.within()
@@ -73,7 +73,7 @@ angular.module('mainApp', [
 		.up()
 
 		.segment('customer', {
-			templateUrl: 'views/customer/index.html',
+			templateUrl: 'views/template.html',
 			controller: 'CustomerCtrl'})
 
 		.within()
@@ -94,35 +94,35 @@ angular.module('mainApp', [
 		.up()
 
 		.segment('financial', {
-			templateUrl: 'views/financial/index.html',
+			templateUrl: 'views/template.html',
 			controller: 'FinancialCtrl'})
 			.within()
 				.segment('home', {
 					templateUrl: 'views/financial/xxx.html'})
 			.up()
 		.segment('agents', {
-			templateUrl: 'views/agents/index.html',
+			templateUrl: 'views/template.html',
 			controller: 'AgentsCtrl'})
 			.within()
 				.segment('home', {
 					templateUrl: 'views/agents/xxx.html'})
 			.up()
 		.segment('ship', {
-			templateUrl: 'views/ship/index.html',
+			templateUrl: 'views/template.html',
 			controller: 'ShipCtrl'})
 			.within()
 				.segment('home', {
 					templateUrl: 'views/ship/xxx.html'})
 			.up()
 		.segment('prod', {
-			templateUrl: 'views/prod/index.html',
+			templateUrl: 'views/template.html',
 			controller: 'ProductionCtrl'})
 			.within()
 				.segment('home', {
 					templateUrl: 'views/prod/xxx.html'})
 			.up()
 		.segment('law', {
-			templateUrl: 'views/law/index.html',
+			templateUrl: 'views/template.html',
 			controller: 'LawCtrl'})
 			.within()
 				.segment('home', {

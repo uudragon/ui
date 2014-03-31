@@ -27,19 +27,7 @@
 
 	<div class="container">
 
-		<!-- form begin -->
-		<div ng-include src="'particial/header.html'"></div>
-
-		<div class="row">
-			<!-- left side bar -->
-			<div ng-include src="'particial/left-side-bar.html'"></div>
-			<!-- main content  -->
-			<div class="col-xs-10 main">
-				<!-- sub view -->
-				<div id=loading class=alert ng-show="loader.show">Loading...</div>
-				<div app-view-segment="0"></div>
-			</div>
-		</div>
+		<div app-view-segment="0"></div>
 
 	</div>
 
@@ -65,7 +53,6 @@
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
 	<script src="scripts/controllers/main.js"></script>
-	<script src="scripts/services/actionservice.js"></script>
 	<!-- endbuild -->
 </body>
 </html>
