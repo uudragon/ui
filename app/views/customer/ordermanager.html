@@ -1,2 +1,57 @@
-<div ng-include src="'views/particial/customer/customer-tab.html'"></div>order manager
+<div ng-include src="'views/particial/customer/customer-tab.html'"></div>
+<div class="info-panel">
+	<ul class="list-inline">
+		<li><span class="key">当前工单总量: </span><span class="val">{{orderCount}}</span></li>
+		<li><span class="key">今日已处理工单: </span><span class="val">{{orderCount}}</span></li>
+		<li><span class="key">今日截止工单: </span><span class="val">{{orderCount}}</span></li>
+		<li><span class="key">未处理工单: </span><span class="val">{{orderCount}}</span></li>
+		<li><span class="key">历史工单总量: </span><span class="val">{{orderCount}}</span></li>
+	</ul>
+</div>
+<form action="" class="search-form">
+	<div class="col-xs-6 col-xs-offset-2">
+		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control" id="search-box">
+	</div>
+	<div class="col-xs-2">
+		<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	</div>
+	<ul class="list-inline">
+		<li><a href="">修改</a></li>
+		<li class="split-pipe">|</li>
+		<li><a href="">导出</a></li>
+	</ul>
+</form>
+
+<div class="result">
+	<table class="table table-hover table-condensed ">
+		<thead>
+			<tr>
+				<th>工单编号</th>
+				<th>工单类型</th>
+				<th>工单状态</th>
+				<th>处理结果</th>
+				<th>受理渠道</th>
+				<th>受理时间</th>
+				<th>处理时间</th>
+				<th>是否转交上级</th>
+				<th>最终处理人</th>
+				<th>客户信息</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in result">
+				<td>{{item.code}}</td>
+				<td>{{item.type}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.gender}}</td>
+				<td>{{item.email}}</td>
+				<td>{{item.email}}</td>
+				<td>{{item.email}}</td>
+				<td>{{item.email}}</td>
+				<td>{{item.email}}</td>
+				<td>{{item.email}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 

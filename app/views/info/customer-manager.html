@@ -2,21 +2,17 @@
 <div ng-include src="'views/particial/link-group.html'"></div>
 
 <div class="info-panel">
-<!-- 	<div class="btn-group pull-right" ng-init="search.unfiy=1">
-		<button class="btn btn-default" ng-click="search.unfiy=1"><span class="glyphicon glyphicon-minus"></span></button>
-		<button class="btn btn-default" ng-click="search.unfiy=0"><span class="glyphicon glyphicon-plus"></span></button>
-	</div> -->
-	<div class="statistics">
-		<span>预约总数：{{statistics.preorder}}</span>
-		<span>成交客户：{{statistics.dealed}}</span>
-	</div>
+	<ul class="list-inline">
+		<li><span class="key">预约总数: </span><span class="val">{{statistics.preorder}}</span></li>
+		<li><span class="key">成交客户: </span><span class="val">{{statistics.dealed}}</span></li>
+	</ul>
 	<div class="checkbox-inline pull-right">
 		<label><input type="checkbox" ng-click="result=[]" ng-model="search.advance" value="male">高级搜索</label>
 	</div>
 </div>
 
 
-<form class="form form-horizontal form-small" role="form" ng-submit="search()" id="search-form">
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
 	<div class="col-xs-12">
 		<fieldset>
 			<!-- <legend></legend> -->

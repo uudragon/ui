@@ -10,18 +10,18 @@
 				<div class="col-xs-2">
 					<a class="logo" href="#"><img src="img/logo.png" alt="logo" width="125" height="60"></a>
 				</div>
-				<div class="status-bar col-xs-10">
+				<div class="status-bar col-xs-10 info-panel">
 					<ul class="list-inline">
-						<li>当前日期: <span class="i-val">{{date | date : "yyyy-MM-dd" }}</span></li>
-						<li>分机: <span class="i-val">{{exNumber}}</span></li>
-						<li>坐席: <span class="i-val">{{exNumber}}</span></li>
-						<li>状态: <span class="i-val">{{exNumber}}</span></li>
-						<li>计时: <span class="i-val">{{exNumber}}</span></li>
+						<li><span class="key">当前日期:</span> <span class="val">{{date | date : "yyyy-MM-dd" }}</span></li>
+						<li><span class="key">分机:</span> <span class="val">{{exNumber}}</span></li>
+						<li><span class="key">坐席:</span> <span class="val">{{exNumber}}</span></li>
+						<li><span class="key">状态:</span> <span class="val">{{exNumber}}</span></li>
+						<li><span class="key">计时:</span> <span class="val">{{exNumber}}</span></li>
 					</ul>
 					<ul class="list-inline">
-						<li>工号: <span class="i-val">{{exNumber}}</span></li>
-						<li>姓名: <span class="i-val">{{exNumber}}</span></li>
-						<li>所在组: <span class="i-val">{{exNumber}}</span></li>
+						<li><span class="key">工号:</span> <span class="val">{{exNumber}}</span></li>
+						<li><span class="key">姓名:</span> <span class="val">{{exNumber}}</span></li>
+						<li><span class="key">所在组:</span> <span class="val">{{exNumber}}</span></li>
 					</ul>
 				</div>
 			</div>
