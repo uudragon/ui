@@ -16,7 +16,7 @@
 </div>
 
 
-<form class="form form-horizontal form-small" role="form" ng-submit="search()" id="search-box">
+<form class="form form-horizontal form-small" role="form" ng-submit="search()" id="search-form">
 	<div class="col-xs-12">
 		<fieldset>
 			<!-- <legend></legend> -->
@@ -24,7 +24,7 @@
 			<div class="unify" ng-show="!search.advance">
 				<div class="form-group">
 					<div class="col-xs-6 col-xs-offset-2">
-						<input type="text" name="number" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control" id="c-number">
+						<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control" id="search-box">
 					</div>
 					<div class="col-xs-2">
 						<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>

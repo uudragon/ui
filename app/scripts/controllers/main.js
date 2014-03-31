@@ -80,7 +80,7 @@ angular.module('mainApp')
 	}
 
 })
-.controller('CustomerCtrl', function ($scope, $routeSegment, loader) {
+.controller('CustomerCtrl', function ($scope, $routeSegment, loader, $http) {
 	$scope.date = new Date()
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
@@ -88,6 +88,36 @@ angular.module('mainApp')
 	$scope.$on('routeSegmentChange', function() {
 	    loader.show = true;
 	})
+
+	$scope.summit = function() {
+
+		var url = '';
+		console.log($scope.model);
+		switch ($scope.model.btn) {
+			case 'saved':
+				url = 'http://services.bam.uudragon.com/bam/consumer_saved';
+				break;
+
+			case 'insert':
+				url = 'http://services.bam.uudragon.com/bam/orders_insert';
+				break;
+
+			case 'query':
+				url = 'http://services.bam.uudragon.com/bam/bamstomer_query';
+				break;
+
+			default: break;
+
+		}
+
+		$http.post(url, $scope.model)
+		.success(function(data, status) {
+			console.log(data);
+		})
+		.error(function(data, status) {
+			console.log('error status:' + status);
+		})
+	}
 })
 .controller('FinancialCtrl', function ($scope, $routeSegment) {
 	$scope.$routeSegment = $routeSegment;

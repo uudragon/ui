@@ -78,9 +78,11 @@ angular.module('mainApp', [
 
 		.within()
 			.segment('home', {
-				templateUrl: 'views/customer/order.html'})
+				templateUrl: 'views/customer/order.html',
+				controller: 'CustomerCtrl'})
 			.segment('ordernew', {
-				templateUrl: 'views/customer/order.html'})
+				templateUrl: 'views/customer/order.html',
+				controller: 'CustomerCtrl'})
 			.segment('ordermanager', {
 				templateUrl: 'views/customer/ordermanager.html'})
 			.segment('employee', {

@@ -69,8 +69,10 @@ a {color: #333; }
 .dot-split-line {border-bottom-color: #A52A2A; border-bottom-style: dashed; }
 
 .info-panel {border-top: solid 1px #E5E5E5; padding-top: 10px;}
-#search-box {display: block; width: 100%;}
+#search-form{display: block; width: 100%;}
 .pagination {margin: 20px auto; display: table;}
+
+.order-indicator {width: 17px; height: 17px; background-color: #ED143D; display: inline-block; position: relative; top: 3px; left: 2px;}
 /**
  * Panel
  * ----------------------------------------------------------------------------
