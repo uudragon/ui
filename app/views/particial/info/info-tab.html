@@ -1,0 +1,18 @@
+<ul class="nav nav-tabs ng-scope">
+	<li class="active">
+		<a href="#" class="title ng-binding">客户信息</a>
+	</li>
+</ul>
+<ul class="action-group list-inline ng-scope">
+	<!-- ngRepeat: item in actions.main -->
+	<li>
+		<a href="#/info/traded" ng-class="{active: $routeSegment.startsWith('info.traded')}" class="action-item">成交客户</a>
+	</li>
+	<li>
+		<a href="#/info/new" ng-class="{active: $routeSegment.startsWith('info.new')}" class="action-item">新建客户</a>
+	</li>
+	<li>
+		<a href="#/info/customer-manager" ng-click="getStatistics()" ng-class="{active: $routeSegment.startsWith('info.customermanager')}" class="action-item">客户管理</a>
+	</li>
+	<!-- end ngRepeat: item in actions.main -->
+</ul>
