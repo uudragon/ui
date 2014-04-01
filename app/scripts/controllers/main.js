@@ -29,7 +29,7 @@ angular.module('mainApp')
 		.controller('customerManger', function ($scope, UUDBasicService) {
 
 			// 获取预订总数和成交客户
-			UUDBasicService.queryCustomerInfo($scope);
+			UUDBasicService.queryContactInfo($scope);
 
 			// 搜索
 			$scope.search = function () {
@@ -44,6 +44,16 @@ angular.module('mainApp')
 			// 搜索
 			$scope.search = function () {
 				UUDBasicService.searchOrder($scope)
+			};
+		})
+		.controller('employeeManger', function ($scope, UUDBasicService) {
+
+			// 获取工单相关信息
+			UUDBasicService.queryEmployeeInfo($scope);
+
+			// 搜索
+			$scope.search = function () {
+				UUDBasicService.searchEmployee($scope)
 			};
 		})
 	.controller('FinancialCtrl', function ($scope) {

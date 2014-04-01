@@ -1,2 +1,80 @@
 <div ng-include src="'views/partial/customer/customer-tab.html'"></div>
-employee
+<div class="info-panel">
+	<ul class="list-inline">
+		<li>第<span class="val-m">{{date | week }}</span>周</li>
+	</ul>
+</div>
+<form action="" class="search-form" ng-submit="search()">
+	<div class="col-xs-7">
+		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control search-box">
+		<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	</div>
+	<div class="col-xs-2 pull-right">
+		<ul class="list-inline batch-btn-group ">
+			<li><a href="">修改</a></li>
+			<li class="split-pipe">|</li>
+			<li><a href="">导出</a></li>
+		</ul>
+	</div>
+</form>
+
+<div class="result" ng-show="result.length">
+	<table class="table table-hover table-condensed ">
+		<thead>
+			<tr>
+				<th>时间</th>
+				<th>出勤人数</th>
+				<th>工号</th>
+				<th>姓名</th>
+				<th>上周累计在岗时间</th>
+				<th>上周接待量</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in result">
+				<td rowspan="2">{{item.order_no}}</td>
+				<td>{{item.type}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.result}}</td>
+				<td>{{item.channel}}</td>
+				<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
+				<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
+				<td>{{item.refer}}</td>
+				<td>{{item.creater}}</td>
+				<td>
+					<table>
+						<tr>
+							<th>客户编号:</th>
+							<td>{{item.customer.code}}</td>
+						</tr>
+						<tr>
+							<th>宝宝姓名:</th>
+							<td>{{item.customer.name}}</td>
+							<th>性别:</th>
+							<td>{{item.customer.gender}}</td>
+						</tr>
+						<tr>
+							<th>家长姓名:</th>
+							<td>{{item.customer.c_name}}</td>
+							<th>性别:</th>
+							<td>{{item.customer.c_gender}}</td>
+						</tr>
+						<tr>
+							<th>订单摘要:</th>
+							<td>{{item.customer.order_type}}</td>
+						</tr>
+						<tr>
+							<th>联系电话:</th>
+							<td>{{item.customer.phone}}</td>
+						</tr>
+						<tr>
+							<th>地址:</th>
+							<td>{{item.customer.addr}}</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

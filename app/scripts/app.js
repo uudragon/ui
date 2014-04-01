@@ -115,7 +115,8 @@ angular.module('mainApp', [
 					templateUrl: 'views/customer/ordermanager.html',
 					controller: 'orderManger'})
 				.segment('employee', {
-					templateUrl: 'views/customer/employee.html'})
+					templateUrl: 'views/customer/employee.html',
+					controller: 'employeeManger'})
 				.segment('online', {
 					templateUrl: 'views/customer/online.html'})
 				.segment('phone', {
