@@ -60,9 +60,8 @@ angular.module('mainApp')
 
 	// 搜索
 	$scope.search = function() {
-		$http.post('http://services.bam.uudragon.com/search', $scope.model)
+		$http.post('http://services.bam.uudragon.com/bam/search_contact.php', $scope.model)
 		.success(function(data, status) {
-
 			$scope.result = data;
 		})
 		.error(function(data, status) {
