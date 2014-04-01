@@ -76,7 +76,7 @@ angular.module('mainApp', [
 			// 	}
 			// },
 			resolveFailed: {
-				templateUrl: 'templates/error.html',
+				templateUrl: 'views/partial/error.html',
 				controller: 'ErrorCtrl'
 			},
 			untilResolved: {
@@ -112,7 +112,8 @@ angular.module('mainApp', [
 					templateUrl: 'views/customer/order.html',
 					controller: 'CustomerCtrl'})
 				.segment('ordermanager', {
-					templateUrl: 'views/customer/ordermanager.html'})
+					templateUrl: 'views/customer/ordermanager.html',
+					controller: 'orderManger'})
 				.segment('employee', {
 					templateUrl: 'views/customer/employee.html'})
 				.segment('online', {
@@ -131,35 +132,39 @@ angular.module('mainApp', [
 					templateUrl: 'views/financial/index.html',
 					controller: 'FinancialCtrl'})
 			.up()
+
 			.segment('agents', {
 				templateUrl: 'views/template.html',
 				controller: 'AgentsCtrl'})
-				.within()
-					.segment('home', {
-						templateUrl: 'views/agents/index.html'})
-				.up()
+			.within()
+				.segment('home', {
+					templateUrl: 'views/agents/index.html'})
+			.up()
+
 			.segment('ship', {
 				templateUrl: 'views/template.html',
 				controller: 'ShipCtrl'})
-				.within()
-					.segment('home', {
-						templateUrl: 'views/ship/index.html'})
-				.up()
+			.within()
+				.segment('home', {
+					templateUrl: 'views/ship/index.html'})
+			.up()
+
 			.segment('prod', {
 				templateUrl: 'views/template.html',
 				controller: 'ProductionCtrl'})
-				.within()
-					.segment('home', {
-						templateUrl: 'views/prod/index.html'})
-				.up()
+			.within()
+				.segment('home', {
+					templateUrl: 'views/prod/index.html'})
+			.up()
+
 			.segment('law', {
 				templateUrl: 'views/template.html',
 				controller: 'LawCtrl'})
-				.within()
-					.segment('home', {
-						templateUrl: 'views/law/index.html'})
-				.up()
+			.within()
+				.segment('home', {
+					templateUrl: 'views/law/index.html'})
 			.up()
+		.up()
 
 	$routeProvider.otherwise({redirectTo: '/'});
 })

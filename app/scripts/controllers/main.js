@@ -35,7 +35,16 @@ angular.module('mainApp')
 			$scope.search = function () {
 				UUDBasicService.searchContact($scope)
 			};
+		})
+		.controller('orderManger', function ($scope, UUDBasicService) {
 
+			// 获取工单相关信息
+			UUDBasicService.queryOrderInfo($scope);
+
+			// 搜索
+			$scope.search = function () {
+				UUDBasicService.searchOrder($scope)
+			};
 		})
 	.controller('FinancialCtrl', function ($scope) {
 

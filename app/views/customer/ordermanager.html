@@ -1,14 +1,14 @@
 <div ng-include src="'views/partial/customer/customer-tab.html'"></div>
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">当前工单总量: </span><span class="val">{{orderCount}}</span></li>
-		<li><span class="key">今日已处理工单: </span><span class="val">{{orderCount}}</span></li>
-		<li><span class="key">今日截止工单: </span><span class="val">{{orderCount}}</span></li>
-		<li><span class="key">未处理工单: </span><span class="val">{{orderCount}}</span></li>
-		<li><span class="key">历史工单总量: </span><span class="val">{{orderCount}}</span></li>
+		<li><span class="key">当前工单总量: </span><span class="val">{{order.sum}}</span></li>
+		<li><span class="key">今日已处理工单: </span><span class="val">{{order.count_finished}}</span></li>
+		<li><span class="key">今日截止工单: </span><span class="val">{{order.count_end_today}}</span></li>
+		<li><span class="key">未处理工单: </span><span class="val">{{order.count_unfinished}}</span></li>
+		<li><span class="key">历史工单总量: </span><span class="val">{{order.sum_history}}</span></li>
 	</ul>
 </div>
-<form action="" class="search-form">
+<form action="" class="search-form" ng-submit="search()">
 	<div class="col-xs-7">
 		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control search-box">
 		<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
@@ -40,16 +40,47 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in result">
-				<td>{{item.code}}</td>
+				<td>{{item.order_no}}</td>
 				<td>{{item.type}}</td>
-				<td>{{item.name}}</td>
-				<td>{{item.gender}}</td>
-				<td>{{item.email}}</td>
-				<td>{{item.email}}</td>
-				<td>{{item.email}}</td>
-				<td>{{item.email}}</td>
-				<td>{{item.email}}</td>
-				<td>{{item.email}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.result}}</td>
+				<td>{{item.channel}}</td>
+				<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
+				<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
+				<td>{{item.refer}}</td>
+				<td>{{item.creater}}</td>
+				<td>
+					<table>
+						<tr>
+							<th>客户编号:</th>
+							<td>{{item.customer.code}}</td>
+						</tr>
+						<tr>
+							<th>宝宝姓名:</th>
+							<td>{{item.customer.name}}</td>
+							<th>性别:</th>
+							<td>{{item.customer.gender}}</td>
+						</tr>
+						<tr>
+							<th>家长姓名:</th>
+							<td>{{item.customer.c_name}}</td>
+							<th>性别:</th>
+							<td>{{item.customer.c_gender}}</td>
+						</tr>
+						<tr>
+							<th>订单摘要:</th>
+							<td>{{item.customer.order_type}}</td>
+						</tr>
+						<tr>
+							<th>联系电话:</th>
+							<td>{{item.customer.phone}}</td>
+						</tr>
+						<tr>
+							<th>地址:</th>
+							<td>{{item.customer.addr}}</td>
+						</tr>
+					</table>
+				</td>
 			</tr>
 		</tbody>
 	</table>

@@ -36,7 +36,7 @@ angular.module('mainApp')
 	 * @return none
 	 */
 	this.queryCustomerInfo = function($scope) {
-		$http.post(baseurl + 'query')
+		$http.post(baseurl + 'customer_info')
 		.success(function(data, status) {
 			$scope.statistics = data;
 		})
@@ -46,6 +46,30 @@ angular.module('mainApp')
 			$scope.statistics = {
 				'preorder': 100,
 				'dealed': 5000
+			};
+		})
+	}
+
+	/**
+	 * 获取工单相关信息
+	 *
+	 * @param  object $scope
+	 * @return none
+	 */
+	this.queryOrderInfo = function($scope) {
+		$http.post(baseurl + 'order_info')
+		.success(function(data, status) {
+			$scope.order = data;
+		})
+		.error(function(data, status) {
+			console.log('query order error status: ' + status + ' use dummy data');
+
+			$scope.order = {
+				'sum': 100321,
+				'count_finished': 200,
+				'count_end_today': 120,
+				'count_unfinished': 5000,
+				'sum_history': 23245000
 			};
 		})
 	}
@@ -70,6 +94,48 @@ angular.module('mainApp')
 				{code: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com'},
 				{code: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com'},
 				{code: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com'},
+			]
+			$scope.pages = 10;
+		})
+	}
+
+	/**
+	 * 工单查询
+	 *
+	 * @param  object $scope
+	 * @return none
+	 */
+	this.searchOrder = function($scope) {
+		$http.post(baseurl + 'bam/search_order.php', $scope.model)
+		.success(function(data, status) {
+			$scope.result = data;
+		})
+		.error(function(data, status) {
+			console.log('search contact error status: ' + status + ' use dummy data');
+
+			// dummy data
+			$scope.result = [
+				{
+					order_no: '00123',
+					type: '投诉快递',
+					status: '已处理',
+					result: '更换快递',
+					channel: '电话客服',
+					update_time: new Date(),
+					create_time: new Date(),
+					refer: '否',
+					creater: '电话客服1',
+					customer: {
+						code: '312303',
+						name: '虚竹',
+						gender: '男',
+						c_name: '玄慈',
+						c_gender: '男',
+						order_type: '一年',
+						phone: '123123497',
+						addr: '少林寺'
+					}
+				}
 			]
 			$scope.pages = 10;
 		})
