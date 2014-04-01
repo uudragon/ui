@@ -1,5 +1,7 @@
 'use strict';
 
+var BASEURL = 'http://services.bam.uudragon.com/';
+
 angular.module('mainApp', [
 	'ngCookies',
 	'ngResource',

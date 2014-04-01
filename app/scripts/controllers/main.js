@@ -1,9 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('InfoCtrl', function ($scope, $http, $routeSegment, loader) {
-	$scope.date = new Date()
-	$scope.exNumber = '0012';
+.controller('InfoCtrl', function ($scope, $http, $routeSegment, loader, UUDBasicService) {
 
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
@@ -12,6 +10,7 @@ angular.module('mainApp')
 	    loader.show = false;
 	})
 
+	UUDBasicService.updateBasicInfo($scope);
 
 	$scope.summit = function() {
 
@@ -80,8 +79,10 @@ angular.module('mainApp')
 	}
 
 })
-.controller('CustomerCtrl', function ($scope, $routeSegment, loader, $http) {
-	$scope.date = new Date()
+.controller('CustomerCtrl', function ($scope, $routeSegment, loader, $http, UUDBasicService) {
+
+	UUDBasicService.updateBasicInfo($scope);
+
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
 
