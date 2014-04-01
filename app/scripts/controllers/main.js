@@ -15,7 +15,6 @@ angular.module('mainApp')
 	.controller('InfoCtrl', function ($scope, UUDBasicService) {
 
 		$scope.summit = function() {
-			console.log($scope);
 			UUDBasicService.newCustomer($scope);
 		}
 	})

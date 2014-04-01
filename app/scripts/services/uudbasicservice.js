@@ -32,8 +32,8 @@ angular.module('mainApp')
 	/**
 	 * 获取预订总数和成交客户
 	 *
-	 * @param  {[type]} $scope [description]
-	 * @return {[type]}        [description]
+	 * @param  object $scope
+	 * @return none
 	 */
 	this.queryCustomerInfo = function($scope) {
 		$http.post(baseurl + 'query')
@@ -53,8 +53,8 @@ angular.module('mainApp')
 	/**
 	 * 客户查询
 	 *
-	 * @param  {[type]} $scope [description]
-	 * @return {[type]}        [description]
+	 * @param  object $scope
+	 * @return none
 	 */
 	this.searchContact = function($scope) {
 		$http.post(baseurl + 'bam/search_contact.php', $scope.model)
@@ -78,8 +78,8 @@ angular.module('mainApp')
 	/**
 	 * New Customer
 	 *
-	 * @param  {[type]} $scope [description]
-	 * @return {[type]}        [description]
+	 * @param  object $scope
+	 * @return bool
 	 */
 	this.newCustomer = function($scope) {
 		var suffix = '';
@@ -103,18 +103,19 @@ angular.module('mainApp')
 
 		$http.post(baseurl + suffix, $scope.model)
 		.success(function(data, status) {
-			console.log(data);
+			return true;
 		})
 		.error(function(data, status) {
 			console.log('new customer error status:' + status);
+			return false;
 		})
 	}
 
 	/**
 	 * New Order
 	 *
-	 * @param  {[type]} $scope [description]
-	 * @return {[type]}        [description]
+	 * @param  object $scope
+	 * @return bool
 	 */
 	this.newOrder = function($scope) {
 		var suffix = '';
@@ -138,10 +139,11 @@ angular.module('mainApp')
 
 		$http.post(baseurl + suffix, $scope.model)
 		.success(function(data, status) {
-			console.log(data);
+			return true;
 		})
 		.error(function(data, status) {
 			console.log('new order error status: ' + status);
+			return false;
 		})
 	}
 
