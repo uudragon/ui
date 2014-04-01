@@ -3,7 +3,7 @@
 angular.module('mainApp')
 .service('UUDBasicService', function UUDBasicService($http) {
 
-	var baseurl = 'http://services.bam.uudragon.com/';
+	var baseurl = 'http://services.bam.uudragon.net/';
 
 	// Load Top Header Info
 	this.loadBasicInfo = function($scope) {

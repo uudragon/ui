@@ -8,7 +8,6 @@ angular.module('mainApp')
 	$scope.loader = loader;
 
 	$scope.$on('routeSegmentChange', function() {
-		console.log('SegmentChange');
 		loader.show = true;
 	})
 })
