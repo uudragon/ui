@@ -1,150 +1,55 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('InfoCtrl', function ($scope, $http, $routeSegment, loader, UUDBasicService) {
 
+.controller('MainCtrl', function ($scope, $routeSegment, loader, UUDBasicService) {
+	UUDBasicService.loadBasicInfo($scope);
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
 
 	$scope.$on('routeSegmentChange', function() {
-	    loader.show = false;
+		console.log('SegmentChange');
+		loader.show = true;
+	})
+})
+	.controller('InfoCtrl', function ($scope, UUDBasicService) {
+
+		$scope.summit = function() {
+			console.log($scope);
+			UUDBasicService.newCustomer($scope);
+		}
 	})
 
-	UUDBasicService.updateBasicInfo($scope);
+	.controller('CustomerCtrl', function ($scope, UUDBasicService) {
 
-	$scope.summit = function() {
-
-		var url = '';
-
-		switch ($scope.model.btn) {
-			case 'saved':
-				url = 'http://services.bam.uudragon.com/bam/consumer_saved';
-				break;
-
-			case 'insert':
-				url = 'http://services.bam.uudragon.com/bam/orders_insert';
-				break;
-
-			case 'query':
-				url = 'http://services.bam.uudragon.com/bam/bamstomer_query';
-				break;
-
-			default: break;
-
+		$scope.summit = function() {
+			UUDBasicService.newOrder($scope);
 		}
 
-		$http.post(url, $scope.model)
-		.success(function(data, status) {
-			console.log(data);
-		})
-		.error(function(data, status) {
-			console.log('error status:' + status);
-		})
-	}
-
-
-})
-.controller('customerManger', function ($scope, $http) {
-
-	// 获取预订总数和成交客户
-	$http.post('http://services.bam.uudragon.com/bam/query')
-	.success(function(data, status) {
-		 $scope.statistics = data;
 	})
-	.error(function(data, status) {
-		 $scope.statistics = {
-			'preorder': 100,
-			'dealed': 5000
-		};
+		.controller('customerManger', function ($scope, UUDBasicService) {
+
+			// 获取预订总数和成交客户
+			UUDBasicService.queryCustomerInfo($scope);
+
+			// 搜索
+			$scope.search = function () {
+				UUDBasicService.searchCustomer($scope)
+			};
+
+		})
+	.controller('FinancialCtrl', function ($scope) {
+
 	})
+	.controller('AgentsCtrl', function ($scope) {
 
-	// 搜索
-	$scope.search = function() {
-		$http.post('http://services.bam.uudragon.com/search', $scope.model)
-		.success(function(data, status) {
-
-			$scope.result = data;
-		})
-		.error(function(data, status) {
-			console.log('error status:' + status);
-
-			$scope.result = [
-				{code: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com'},
-				{code: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com'},
-				{code: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com'},
-				{code: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com'},
-			]
-			$scope.pages = 10;
-		})
-	}
-
-})
-.controller('CustomerCtrl', function ($scope, $routeSegment, loader, $http, UUDBasicService) {
-
-	UUDBasicService.updateBasicInfo($scope);
-
-	$scope.$routeSegment = $routeSegment;
-	$scope.loader = loader;
-
-	$scope.$on('routeSegmentChange', function() {
-	    loader.show = true;
 	})
+	.controller('ShipCtrl', function ($scope) {
 
-	$scope.summit = function() {
-
-		var url = '';
-		console.log($scope.model);
-		switch ($scope.model.btn) {
-			case 'saved':
-				url = 'http://services.bam.uudragon.com/bam/consumer_saved';
-				break;
-
-			case 'insert':
-				url = 'http://services.bam.uudragon.com/bam/orders_insert';
-				break;
-
-			case 'query':
-				url = 'http://services.bam.uudragon.com/bam/bamstomer_query';
-				break;
-
-			default: break;
-
-		}
-
-		$http.post(url, $scope.model)
-		.success(function(data, status) {
-			console.log(data);
-		})
-		.error(function(data, status) {
-			console.log('error status:' + status);
-		})
-	}
-})
-.controller('FinancialCtrl', function ($scope, $routeSegment) {
-	$scope.$routeSegment = $routeSegment;
-	$scope.date = new Date()
-})
-.controller('AgentsCtrl', function ($scope, $routeSegment) {
-	$scope.$routeSegment = $routeSegment;
-	$scope.date = new Date()
-})
-.controller('ShipCtrl', function ($scope, $routeSegment) {
-	$scope.$routeSegment = $routeSegment;
-	$scope.date = new Date()
-})
-.controller('ProductionCtrl', function ($scope, $routeSegment) {
-	$scope.$routeSegment = $routeSegment;
-	$scope.date = new Date()
-})
-.controller('LawCtrl', function ($scope, $routeSegment) {
-	$scope.$routeSegment = $routeSegment;
-	$scope.date = new Date()
-})
-.controller('MainCtrl', function ($scope, $routeSegment, loader) {
-	$scope.$routeSegment = $routeSegment;
-	$scope.loader = loader;
-
-	$scope.$on('routeSegmentChange', function() {
-	    loader.show = false;
 	})
-})
+	.controller('ProductionCtrl', function ($scope) {
+
+	})
+	.controller('LawCtrl', function ($scope) {
+
+	})

@@ -1,25 +1,25 @@
 <!-- left side bar begin-->
-<div class="col-xs-2 sidebar ng-scope" ng-controller="MainCtrl">
+<div class="col-xs-2 sidebar ng-scope">
 	<ul class="nav nav-sidebar text-center">
-		<li ng-class="{active: $routeSegment.startsWith('info')}">
+		<li ng-class="{active: $routeSegment.startsWith('root.info')}">
 			<a href="#/info" class="ng-binding">客户信息</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('customer')}">
+		<li ng-class="{active: $routeSegment.startsWith('root.customer')}">
 			<a href="#/customer" class="ng-binding">客服管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('financial')}">
+		<li ng-class="{active: $routeSegment.startsWith('root.financial')}">
 			<a href="#/financial" class="ng-binding">财务管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('agents')}">
+		<li ng-class="{active: $routeSegment.startsWith('root.agents')}">
 			<a href="#/agents" class="ng-binding">代理商管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('ship')}">
+		<li ng-class="{active: $routeSegment.startsWith('root.ship')}">
 			<a href="#/ship" class="ng-binding">发货管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('prod')}">
+		<li ng-class="{active: $routeSegment.startsWith('root.prod')}">
 			<a href="#/prod" class="ng-binding">生产管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('law')}">
+		<li ng-class="{active: $routeSegment.startsWith('root.law')}">
 			<a href="#/law" class="ng-binding">条法管理</a>
 		</li>
 	</ul>
