@@ -34,7 +34,7 @@ angular.module('mainApp')
 
 			// 搜索
 			$scope.search = function () {
-				UUDBasicService.searchCustomer($scope)
+				UUDBasicService.searchContact($scope)
 			};
 
 		})

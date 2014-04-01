@@ -56,13 +56,13 @@ angular.module('mainApp')
 	 * @param  {[type]} $scope [description]
 	 * @return {[type]}        [description]
 	 */
-	this.searchCustomer = function($scope) {
-		$http.post(baseurl + 'search', $scope.model)
+	this.searchContact = function($scope) {
+		$http.post(baseurl + 'bam/search_contact.php', $scope.model)
 		.success(function(data, status) {
 			$scope.result = data;
 		})
 		.error(function(data, status) {
-			console.log('search customer error status: ' + status + ' use dummy data');
+			console.log('search contact error status: ' + status + ' use dummy data');
 
 			// dummy data
 			$scope.result = [
