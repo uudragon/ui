@@ -51,8 +51,11 @@ angular.module('mainApp', [
 		.when('/financial/display', 'root.financial.display')
 
 		// agents manager
-		.when('/agents', 'root.agents.home')
-		.when('/agents/home', 'root.agents.home')
+		.when('/agents', 'root.agents.list')
+		.when('/agents/list', 'root.agents.list')
+		.when('/agents/rank', 'root.agents.rank')
+		.when('/agents/promo-code-record', 'root.agents.promocode')
+		.when('/agents/sales-records', 'root.agents.sales')
 
 		// ship manager
 		.when('/ship', 'root.ship.home')
@@ -138,8 +141,14 @@ angular.module('mainApp', [
 				templateUrl: 'views/template.html',
 				controller: 'AgentsCtrl'})
 			.within()
-				.segment('home', {
-					templateUrl: 'views/agents/index.html'})
+				.segment('list', {
+					templateUrl: 'views/agents/list.html'})
+				.segment('rank', {
+					templateUrl: 'views/agents/rank.html'})
+				.segment('promocode', {
+					templateUrl: 'views/agents/promocode.html'})
+				.segment('sales', {
+					templateUrl: 'views/agents/sales.html'})
 			.up()
 
 			.segment('ship', {

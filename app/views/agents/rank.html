@@ -1,0 +1,58 @@
+<div ng-include src="'views/partial/agents/agent-tab.html'"></div>
+<div class="info-panel">
+	<ul class="list-inline">
+		<li><span class="key">目前排名: </span><span class="val">{{order.sum}}</span></li>
+		<li><span class="key">历史排名: </span><span class="val">{{order.count_finished}}</span></li>
+		<li><span class="key">时间: </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span></li>
+	</ul>
+</div>
+<form action="" class="search-form" ng-submit="search()">
+	<div class="col-xs-5">
+		<select name="filter" ng-model="model.filter" class="form-control">
+			<option value="val1">条件一</option>
+			<option value="val2">条件二</option>
+			<option value="val3">条件三</option>
+		</select>
+	</div>
+	<div class="col-xs-2 pull-right">
+		<ul class="list-inline batch-btn-group ">
+			<li><a href="">修改</a></li>
+			<li class="split-pipe">|</li>
+			<li><a href="">导出</a></li>
+		</ul>
+	</div>
+</form>
+
+<div class="result">
+	<table class="table table-hover table-condensed ">
+		<thead>
+			<tr>
+				<th>排名</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>保证金</th>
+				<th>代理级别</th>
+				<th>代理期限</th>
+				<th>开始时间</th>
+				<th>到期时间</th>
+				<th>联系电话</th>
+				<th>地址</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in result">
+				<td>{{item.order_no}}</td>
+				<td>{{item.type}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.result}}</td>
+				<td>{{item.channel}}</td>
+				<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
+				<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
+				<td>{{item.refer}}</td>
+				<td>{{item.creater}}</td>
+				<td>{{item.creater}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
