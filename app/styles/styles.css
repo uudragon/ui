@@ -29,10 +29,11 @@ a {color: #333; }
 
 .info > ul {clear: left; float: left;margin-top: 10px;font-size: 0.9em;}
 .info > ul > li {float: left; }
-.info > ul > li > a {color: #A52A2A; font-size: 1em; padding: 15px;}
+.info > ul > li > a { font-size: 0.9em; padding: 15px;text-align: right;}
 .info > ul > li > a:hover {background-color: transparent; color: #800000;  }
-
 .main {border-left: solid 1px #ccc; }
+
+.bs-tabs > ul > li > a:hover {color: #800000; background-color: #fff; }
 
 /**
  * Sub Manu
