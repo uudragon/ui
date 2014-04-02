@@ -58,8 +58,8 @@ angular.module('mainApp', [
 		.when('/agents/sales-records', 'root.agents.sales')
 
 		// ship manager
-		.when('/ship', 'root.ship.home')
-		.when('/ship/home', 'root.ship.home')
+		.when('/ship', 'root.ship.summary')
+		.when('/ship/summary', 'root.ship.summary')
 
 		// prod manager
 		.when('/prod', 'root.prod.home')
@@ -155,8 +155,8 @@ angular.module('mainApp', [
 				templateUrl: 'views/template.html',
 				controller: 'ShipCtrl'})
 			.within()
-				.segment('home', {
-					templateUrl: 'views/ship/index.html'})
+				.segment('summary', {
+					templateUrl: 'views/ship/summary.html'})
 			.up()
 
 			.segment('prod', {
