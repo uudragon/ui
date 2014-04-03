@@ -54,6 +54,7 @@ a {color: #333; }
  */
 
 .form {overflow: hidden; }
+.form-static {border-radius: 5px; border: 1px solid #EFEFEF; background: url('../img/body-bg.png'); padding: 20px 0; }
 .form-small .form-group {margin: 0 -25px 9px -15px; }
 .input-small {height: 30px; }
 .form-small label {font-weight: normal;}
@@ -70,6 +71,7 @@ a {color: #333; }
 .order-info > ul > li {padding: 0 40px; }
 .dot-split-line {border-bottom-color: #A52A2A; border-bottom-style: dashed; margin: 0;}
 .main-phone {padding-left: 10px;}
+.form-control-static {color: #696969 }
 
 /**
  * Search
