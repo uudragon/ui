@@ -103,7 +103,7 @@ var uud = angular.module('mainApp', [
 					controller: 'InfoCtrl'})
 				.segment('traded', {
 					templateUrl: 'views/info/traded.html',
-					controller: 'InfoCtrl'})
+					controller: 'TradedCtrl'})
 			.up()
 
 			.segment('customer', {

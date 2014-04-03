@@ -1,6 +1,6 @@
 <div class="form-group">
-	<label class="col-xs-3 control-label" for="{{uuPrefix}}-{{uuName}}">{{uuLabel}}:</label>
-	<div class="col-xs-6">
-		<input type="text" name="{{uuName}}" ng-model="model[{{uuName}}]" class="form-control" ng-class="uuSize == 'small'?'input-small' : ''" id="{{uuPrefix}}-{{uuName}}">
+	<label class="control-label" ng-class="'col-xs-' + lCol" for="{{name}}">{{label}}:</label>
+	<div ng-class="'col-xs-' + rCol">
+		<input type="text" class="input-sm form-control" ng-model="model" name="{{name}}" id="{{name}}">
 	</div>
 </div>

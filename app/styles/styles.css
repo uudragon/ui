@@ -69,6 +69,7 @@ a {color: #333; }
 .order-info {padding-left: 24px; }
 .order-info > ul > li {padding: 0 40px; }
 .dot-split-line {border-bottom-color: #A52A2A; border-bottom-style: dashed; margin: 0;}
+.main-phone {padding-left: 10px;}
 
 /**
  * Search

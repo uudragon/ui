@@ -27,81 +27,70 @@
 		</ul>
 	</div>
 </form>
-<div class="bs-tabs">
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="" data-toggle="tab" ng-click="tab='headquarters'" ng-init="tab='headquarters'">总部记录</a></li>
-		<li class=""><a href="" data-toggle="tab" ng-click="tab='agents'">代理商记录</a></li>
-	</ul>
-	<div class="tab-content">
-		<div class="tab-pane" ng-class="tab=='headquarters' ? 'active' : ''">
-			<table class="table table-hover table-condensed ">
-				<thead>
-					<tr>
-						<th>时间</th>
-						<th>今日申请</th>
-						<th>今日配额</th>
-						<th>累计优惠码总量</th>
-						<th>今日发放</th>
-						<th>今日实际订单数</th>
-						<th>累计订单数</th>
-						<th>使用率</th>
-						<th>备注</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in result">
-						<td>{{item.order_no}}</td>
-						<td>{{item.type}}</td>
-						<td>{{item.status}}</td>
-						<td>{{item.result}}</td>
-						<td>{{item.channel}}</td>
-						<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
-						<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
-						<td>{{item.refer}}</td>
-						<td>{{item.creater}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="tab-pane" ng-class="tab=='agents' ? 'active' : ''">
-			<table class="table table-hover table-condensed ">
-				<thead>
-					<tr>
-						<th>时间</th>
-						<th>区域</th>
-						<th>姓名</th>
-						<th>代理级别</th>
-						<th>今日申请</th>
-						<th>今日配额</th>
-						<th>累计优惠码总量</th>
-						<th>今日发放</th>
-						<th>今日实际订单数</th>
-						<th>累计订单数</th>
-						<th>使用率</th>
-						<th>备注</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in result">
-						<td>{{item.order_no}}</td>
-						<td>{{item.type}}</td>
-						<td>{{item.status}}</td>
-						<td>{{item.result}}</td>
-						<td>{{item.channel}}</td>
-						<td>{{item.channel}}</td>
-						<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
-						<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
-						<td>{{item.refer}}</td>
-						<td>{{item.refer}}</td>
-						<td>{{item.creater}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+<div uutab>
+	<div uupane title="总部记录">
+		<table class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>时间</th>
+					<th>今日申请</th>
+					<th>今日配额</th>
+					<th>累计优惠码总量</th>
+					<th>今日发放</th>
+					<th>今日实际订单数</th>
+					<th>累计订单数</th>
+					<th>使用率</th>
+					<th>备注</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in result">
+					<td>{{item.order_no}}</td>
+					<td>{{item.type}}</td>
+					<td>{{item.status}}</td>
+					<td>{{item.result}}</td>
+					<td>{{item.channel}}</td>
+					<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
+					<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
+					<td>{{item.refer}}</td>
+					<td>{{item.creater}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div uupane title="代理商记录">
+		<table class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>时间</th>
+					<th>区域</th>
+					<th>姓名</th>
+					<th>代理级别</th>
+					<th>今日申请</th>
+					<th>今日配额</th>
+					<th>累计优惠码总量</th>
+					<th>今日发放</th>
+					<th>今日实际订单数</th>
+					<th>累计订单数</th>
+					<th>使用率</th>
+					<th>备注</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in result">
+					<td>{{item.order_no}}</td>
+					<td>{{item.type}}</td>
+					<td>{{item.status}}</td>
+					<td>{{item.result}}</td>
+					<td>{{item.channel}}</td>
+					<td>{{item.channel}}</td>
+					<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
+					<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
+					<td>{{item.refer}}</td>
+					<td>{{item.refer}}</td>
+					<td>{{item.creater}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
-
-<div class="result">
-
-</div>
-

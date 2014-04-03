@@ -8,7 +8,7 @@ angular.module('mainApp')
 	// Load Top Header Info
 	this.loadBasicInfo = function($scope) {
 
-		$http.post(baseurl + 'bam/customer_info.php', $scope.model)
+		$http.post(baseurl + 'bam/basic_info.php', $scope.model)
 		.success(function(data, status) {
 			$scope.date = new Date();
 			$.extend($scope, data);
@@ -29,6 +29,28 @@ angular.module('mainApp')
 		})
 	}
 
+
+	/**
+	 * Load Customer
+	 *
+	 * @param  object $scope
+	 * @return bool
+	 */
+	this.loadCustomer = function($scope) {
+		var suffix = 'bam/customer_load.php';
+
+		$http.post(baseurl + suffix, $scope.model)
+			.success(function(data, status) {
+				$.extend($scope.model, data);
+			})
+			.error(function(data, status) {
+				console.log('load customer error status:' + status);
+				$scope.model = {
+					number: 13123,
+					type: '已付款'
+				}
+			})
+	}
 
 	/**
 	 * New Customer
@@ -56,14 +78,17 @@ angular.module('mainApp')
 
 		}
 
+		console.log($scope.model);
+		console.log($scope);
+
 		$http.post(baseurl + suffix, $scope.model)
-		.success(function(data, status) {
-			return true;
-		})
-		.error(function(data, status) {
-			console.log('new customer error status:' + status);
-			return false;
-		})
+			.success(function(data, status) {
+				return true;
+			})
+			.error(function(data, status) {
+				console.log('new customer error status:' + status);
+				return false;
+			})
 	}
 
 	/**
@@ -109,7 +134,7 @@ angular.module('mainApp')
 	 * @return none
 	 */
 	this.queryContactInfo = function($scope) {
-		$http.post(baseurl + 'customer_info')
+		$http.post(baseurl + 'bam/customer_info.php')
 		.success(function(data, status) {
 			$scope.statistics = data;
 		})

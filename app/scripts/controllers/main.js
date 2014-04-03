@@ -10,13 +10,16 @@ angular.module('mainApp')
 	$scope.$on('routeSegmentChange', function() {
 		loader.show = true;
 	})
+
 })
 	.controller('InfoCtrl', function ($scope, UUDBasicService) {
-
 		$scope.summit = function() {
 			UUDBasicService.newCustomer($scope);
 		}
 	})
+		.controller('TradedCtrl', function ($scope, UUDBasicService) {
+			UUDBasicService.loadCustomer($scope);
+		})
 
 	.controller('CustomerCtrl', function ($scope, UUDBasicService) {
 
