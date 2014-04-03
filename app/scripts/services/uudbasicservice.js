@@ -8,9 +8,9 @@ angular.module('mainApp')
 	// Load Top Header Info
 	this.loadBasicInfo = function($scope) {
 
-		$http.post(baseurl + 'bam/bamstomer_info', $scope.model)
+		$http.post(baseurl + 'bam/customer_info.php', $scope.model)
 		.success(function(data, status) {
-			$scope.loaded = true;
+			$scope.date = new Date();
 			$.extend($scope, data);
 		})
 		.error(function(data, status) {
