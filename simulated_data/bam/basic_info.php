@@ -8,7 +8,7 @@ $json = <<<JSON
     "timing": 1220,
     "jobNumber": 12304,
     "name": "乔锋",
-    "group": "管理员"
+    "group": "admin"
 }
 JSON;
 

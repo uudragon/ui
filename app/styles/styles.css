@@ -72,6 +72,7 @@ a {color: #333; }
 .dot-split-line {border-bottom-color: #A52A2A; border-bottom-style: dashed; margin: 0;}
 .main-phone {padding-left: 10px;}
 .form-control-static {color: #696969 }
+.empty-legend {border: none;}
 
 /**
  * Search

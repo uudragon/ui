@@ -56,6 +56,13 @@ var uud = angular.module('mainApp', [
 		.when('/agents/rank', 'root.agents.rank')
 		.when('/agents/promo-code-record', 'root.agents.promocode')
 		.when('/agents/sales-records', 'root.agents.sales')
+		.when('/agents/entry-exit', 'root.agents.entryexit')
+		.when('/agents/ordermanager', 'root.agents.ordermanager')
+		.when('/agents/contractmanager', 'root.agents.contractmanager')
+		.when('/agents/financemanager', 'root.agents.financemanager')
+		.when('/agents/location-promo', 'root.agents.locationpromo')
+		.when('/agents/selling', 'root.agents.selling')
+		.when('/agents/assessment', 'root.agents.assessment')
 
 		// ship manager
 		.when('/ship', 'root.ship.summary')
@@ -149,6 +156,20 @@ var uud = angular.module('mainApp', [
 					templateUrl: 'views/agents/promocode.html'})
 				.segment('sales', {
 					templateUrl: 'views/agents/sales.html'})
+				.segment('entryexit', {
+					templateUrl: 'views/agents/entryexit.html'})
+				.segment('ordermanager', {
+					templateUrl: 'views/agents/ordermanager.html'})
+				.segment('contractmanager', {
+					templateUrl: 'views/agents/contractmanager.html'})
+				.segment('financemanager', {
+					templateUrl: 'views/agents/financemanager.html'})
+				.segment('locationpromo', {
+					templateUrl: 'views/agents/locationpromo.html'})
+				.segment('selling', {
+					templateUrl: 'views/agents/selling.html'})
+				.segment('assessment', {
+					templateUrl: 'views/agents/assessment.html'})
 			.up()
 
 			.segment('ship', {

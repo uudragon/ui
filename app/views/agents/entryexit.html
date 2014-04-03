@@ -1,0 +1,125 @@
+<div ng-include src="'views/partial/agents/agent-tab.html'"></div>
+<div uutab>
+	<div uupane title="准入">
+		<form class="form form-horizontal form-small" role="form">
+			<div class="col-xs-8">
+				<fieldset>
+					<legend class="empty-legend"></legend>
+					<div uuinput l-col="4" r-col="4" label="姓名" name="name" model="model.name"></div>
+					<div uuinput l-col="4" r-col="6" label="身份证号" name="number" model="model.number"></div>
+					<div uuinput l-col="4" r-col="7" label="执照" name="license" model="model.license"></div>
+
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="qualified">是否合格:</label>
+						<div class="col-xs-4">
+							<div class="radio-inline">
+								<label><input type="radio" name="qualified" ng-model="model.qualified" value="true">是</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="qualified" ng-model="model.qualified" value="false">否</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-4 control-label">审核级别:</label>
+						<div class="col-xs-8">
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="auditlevel" ng-model="model.rm" value="rm">区域经理</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="auditlevel" ng-model="model.dos" value="dos">销售总监</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="auditlevel" ng-model="model.cfo" value="cfo">财务总监</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="auditlevel" ng-model="model.gm" value="gm">总经理</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-4 control-label">缴纳状态:</label>
+						<div class="col-xs-8">
+							<div class="radio-inline">
+								<label><input type="radio" name="paystatus" ng-model="model.paystatus" value="all">全部到位</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="paystatus" ng-model="model.paystatus" value="batches">分批次缴纳</label>
+							</div><br ng-if="model.paystatus=='others'"/>
+							<div class="radio-inline">
+								<label><input type="radio" name="paystatus" ng-model="model.paystatus" value="others">其它</label>
+								<input ng-show="model.paystatus=='others'" ng-model="model.others" type="text"></div>
+						</div>
+					</div>
+
+					<div uustatic l-col="4" r-col="5" label="合同签署" text="model.contractdate"></div>
+
+					<div class="from-group">
+						<div class="col-xs-8 submit-btns col-xs-offset-4">
+							<input type="submit" class="btn btn-primary btn-sm" ng-click="model.btn='saved'; summit()" value="处理完成">
+							<input type="button" class="btn btn-default btn-sm" ng-click="model.btn='insert'; summit()"  value="未完成，提交上级">
+							<a href="" class="btn btn-default btn-sm" ng-click="model.btn='query'; summit()">我的订单记录</a>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</form>
+	</div>
+	<div uupane title="退出">
+	<form class="form form-horizontal form-small" role="form">
+		<div class="col-xs-8">
+			<fieldset>
+				<legend class="empty-legend"></legend>
+				<div uuinput l-col="4" r-col="4" label="姓名" name="name" model="model.name"></div>
+				<div uuinput l-col="4" r-col="6" label="身份证号" name="number" model="model.number"></div>
+				<div uuinput l-col="4" r-col="7" label="执照" name="license" model="model.license"></div>
+
+				<div class="form-group">
+					<label class="col-xs-4 control-label">退出原因:</label>
+					<div class="col-xs-8">
+						<div class="checkbox-inline">
+							<label><input type="checkbox" name="auditlevel" ng-model="model.itend" value="itend">主动</label>
+						</div>
+						<div class="checkbox-inline">
+							<label><input type="checkbox" name="auditlevel" ng-model="model.violation" value="violation">违规</label>
+						</div>
+						<div class="checkbox-inline">
+							<label><input type="checkbox" name="auditlevel" ng-model="model.expire" value="expire">到期</label>
+						</div>
+						<div class="checkbox-inline">
+							<label><input type="checkbox" name="auditlevel" ng-model="model.expire" value="expire">说明</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-4 control-label">缴纳状态:</label>
+					<div class="col-xs-8">
+						<div class="radio-inline">
+							<label><input type="radio" name="paystatus" ng-model="model.paystatus" value="all">全部到位</label>
+						</div>
+						<div class="radio-inline">
+							<label><input type="radio" name="paystatus" ng-model="model.paystatus" value="batches">分批次缴纳</label>
+						</div><br ng-if="model.paystatus=='others'"/>
+						<div class="radio-inline">
+							<label><input type="radio" name="paystatus" ng-model="model.paystatus" value="others">其它</label>
+							<input ng-show="model.paystatus=='others'" ng-model="model.others" type="text"></div>
+					</div>
+				</div>
+
+				<div uustatic l-col="4" r-col="5" label="合同签署" text="model.contractdate"></div>
+
+				<div class="from-group">
+					<div class="col-xs-8 submit-btns col-xs-offset-4">
+						<input type="submit" class="btn btn-primary btn-sm" ng-click="model.btn='saved'; summit()" value="处理完成">
+						<input type="button" class="btn btn-default btn-sm" ng-click="model.btn='insert'; summit()"  value="未完成，提交上级">
+						<a href="" class="btn btn-default btn-sm" ng-click="model.btn='query'; summit()">我的订单记录</a>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</form>
+	</div>
+</div>

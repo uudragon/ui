@@ -5,8 +5,20 @@
 	</li>
 </ul>
 <ul class="action-group list-inline ng-scope">
-	<li>
-		<a href="#/agents/list" ng-class="{active: $routeSegment.startsWith('root.agents.list')}" class="action-item">代理商名单</a>
+	<li class="ng-scope dropdown">
+		<a href="" ng-class="{active: $routeSegment.startsWith('root.agents.list')}" class="action-item" ng-if="group!='admin'">代理商名单</a>
+		<a ng-if="group=='admin'" class="dropdown-toggle action-item" ng-class="{active: $routeSegment.contains('entryexit') || $routeSegment.contains('ordermanager') || $routeSegment.contains('contractmanager') || $routeSegment.contains('financemanager') || $routeSegment.contains('locationpromo') || $routeSegment.contains('selling') || $routeSegment.contains('assessment') || $routeSegment.startsWith('root.agents.list') }" data-toggle="dropdown">
+			代理商名单 <b class="caret"></b>
+		</a>
+		<ul ng-if="group=='admin'" class="dropdown-menu ng-scope">
+			<li><a href="#/agents/entry-exit" class="ng-binding">准入与退出</a></li>
+			<li><a href="#/agents/ordermanager" class="ng-binding">合同管理</a></li>
+			<li><a href="#/agents/contractmanager" class="ng-binding">财务管理</a></li>
+			<li><a href="#/agents/financemanager" class="ng-binding">佣金结算</a></li>
+			<li><a href="#/agents/location-promo" class="ng-binding">地域及优惠码</a></li>
+			<li><a href="#/agents/selling" class="ng-binding">销售活动</a></li>
+			<li><a href="#/agents/assessment" class="ng-binding">评估管理</a></li>
+		</ul>
 	</li>
 	<li>
 		<a href="#/agents/rank" ng-class="{active: $routeSegment.startsWith('root.agents.rank')}" class="action-item">代理商排名</a>
