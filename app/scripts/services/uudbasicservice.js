@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mainApp')
+angular.module('authApp')
 .service('UUDBasicService', function UUDBasicService($http) {
 
 	var baseurl = 'http://services.bam.uudragon.com/';

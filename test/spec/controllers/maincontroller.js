@@ -3,7 +3,7 @@
 describe('Controller: MaincontrollerCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('mainApp'));
+  beforeEach(module('authApp'));
 
   var MaincontrollerCtrl,
     scope;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mainApp')
+angular.module('authApp')
 
 .controller('MainCtrl', function ($scope, $routeSegment, loader, UUDBasicService) {
 	UUDBasicService.loadBasicInfo($scope);

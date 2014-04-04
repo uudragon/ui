@@ -6,7 +6,7 @@
  * ----------------------------------------------------------------------------
  */
 
-a {color: $primary-color;}
+a {color: $primary-color; background: transparent;}
 .clearfix {clear: both;}
 .i-val {padding-left: 10px}
 .non-right {border-right: none;}
@@ -17,44 +17,42 @@ a {color: $primary-color;}
  * ----------------------------------------------------------------------------
  */
 
-.container {
+.wrapper {
 	width: $container-width;
 	font: $primary-font;
 }
 
+.container {
+	width: $container-width;
+}
 
-.main {border-left: solid 1px #ccc; }
+.main {margin-top: 80px;}
 
 /**
- * Left Nav bar
+ * Top Nav
  * ----------------------------------------------------------------------------
  */
 
-.nav-sidebar {
-	border: 1px solid $side-border-color;
-	border-bottom: none;
-	> .active > a, > li > a:hover {
-		color: $side-active-color;
-		background-color: $side-active-bg;
+.navbar-default .navbar-nav {
+	> li {
+		a, a:hover {
+			background-color: transparent;
+		}
+		a:hover {
+			color: $link-actived;
+		}
+	}
+	> li.active {
+		a, a:hover{
+			color: $link-actived;
+			background-color: transparent;
+		}
 	}
 }
 
-
-/**
- * Jumbotron
- * ----------------------------------------------------------------------------
- */
-
-.jumbotron {
-	@extend .light-grain;
-	padding: 14px 0;
-	margin-top: 10px;
-	.des {
-		font-size: 14px;
-		text-align: center;
-		padding-top: 6px;
-		margin: 0 0 0 10px;
-	}
+.topnav {
+	overflow: hidden;
+	padding-top: 10px;
 }
 
 .brand {

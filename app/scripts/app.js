@@ -1,6 +1,6 @@
 'use strict';
 
-var uud = angular.module('mainApp', [
+var uud = angular.module('authApp', [
 	'ngCookies',
 	'ngResource',
 	'ngSanitize',
@@ -30,47 +30,16 @@ var uud = angular.module('mainApp', [
 		 */
 
 		// customer info
-		.when('/', 'root.info.traded')
-		.when('/info', 'root.info.traded')
-		.when('/info/new', 'root.info.new')
-		.when('/info/customer-manager', 'root.info.customermanager')
-		.when('/info/contacts', 'root.info.contacts')
-		.when('/info/traded', 'root.info.traded')
-
-		// customer manager
-		.when('/customer', 'root.customer.ordernew')
-		.when('/customer/ordernew', 'root.customer.ordernew')
-		.when('/customer/ordermanager', 'root.customer.ordermanager')
-		.when('/customer/employee', 'root.customer.employee')
-		.when('/customer/online', 'root.customer.online')
-		.when('/customer/phone', 'root.customer.phone')
-		.when('/customer/data', 'root.customer.data')
-
-		// financial manager
-		.when('/financial', 'root.financial.display')
-		.when('/financial/display', 'root.financial.display')
-
-		// agents manager
-		.when('/agents', 'root.agents.list')
-		.when('/agents/list', 'root.agents.list')
-		.when('/agents/rank', 'root.agents.rank')
-		.when('/agents/promo-code-record', 'root.agents.promocode')
-		.when('/agents/sales-records', 'root.agents.sales')
-
-		// ship manager
-		.when('/ship', 'root.ship.summary')
-		.when('/ship/summary', 'root.ship.summary')
-
-		// prod manager
-		.when('/prod', 'root.prod.home')
-		.when('/prod/home', 'root.prod.home')
-
-		// law manager
-		.when('/law', 'root.law.home')
-		.when('/law/home', 'root.law.home')
+		.when('/', 'root.home')
+		.when('/login', 'root.login')
+		.when('/user', 'root.user')
+		.when('/user-group', 'root.usergroup')
+		.when('/role', 'root.role')
+		.when('/role-group', 'root.rolegroup')
+		.when('/privilege', 'root.privilege')
 
 		.segment('root', {
-			templateUrl: 'views/root.html',
+			templateUrl: 'views/template.html',
 			controller: 'MainCtrl',
 			// resolve: {
 			// 	data: function($timeout, loader) {
@@ -87,93 +56,33 @@ var uud = angular.module('mainApp', [
 			}
 		})
 		.within()
-			.segment('info', {
-				templateUrl: 'views/template.html',
+			.segment('home', {
+				templateUrl: 'views/home.html',
 				controller: 'InfoCtrl'})
 
-			.within()
-				.segment('new', {
-					templateUrl: 'views/info/new.html',
-					controller: 'InfoCtrl'})
-				.segment('customermanager', {
-					templateUrl: 'views/info/customer-manager.html',
-					controller: 'customerManger'})
-				.segment('contacts', {
-					templateUrl: 'views/info/contacts.html',
-					controller: 'InfoCtrl'})
-				.segment('traded', {
-					templateUrl: 'views/info/traded.html',
-					controller: 'TradedCtrl'})
-			.up()
+			.segment('login', {
+				templateUrl: 'views/home.html',
+				controller: 'InfoCtrl'})
 
-			.segment('customer', {
-				templateUrl: 'views/template.html',
+			.segment('user', {
+				templateUrl: 'views/home.html',
 				controller: 'CustomerCtrl'})
 
-			.within()
-				.segment('ordernew', {
-					templateUrl: 'views/customer/order.html',
-					controller: 'CustomerCtrl'})
-				.segment('ordermanager', {
-					templateUrl: 'views/customer/ordermanager.html',
-					controller: 'orderManger'})
-				.segment('employee', {
-					templateUrl: 'views/customer/employee.html',
-					controller: 'employeeManger'})
-				.segment('online', {
-					templateUrl: 'views/customer/online.html'})
-				.segment('phone', {
-					templateUrl: 'views/customer/phone.html'})
-				.segment('data', {
-					templateUrl: 'views/customer/data.html'})
-			.up()
-
-			.segment('financial', {
-				templateUrl: 'views/template.html',
+			.segment('usergroup', {
+				templateUrl: 'views/home.html',
 				controller: 'FinancialCtrl'})
-			.within()
-				.segment('display', {
-					templateUrl: 'views/financial/index.html',
-					controller: 'FinancialCtrl'})
-			.up()
 
-			.segment('agents', {
-				templateUrl: 'views/template.html',
+			.segment('role', {
+				templateUrl: 'views/home.html',
 				controller: 'AgentsCtrl'})
-			.within()
-				.segment('list', {
-					templateUrl: 'views/agents/list.html'})
-				.segment('rank', {
-					templateUrl: 'views/agents/rank.html'})
-				.segment('promocode', {
-					templateUrl: 'views/agents/promocode.html'})
-				.segment('sales', {
-					templateUrl: 'views/agents/sales.html'})
-			.up()
 
-			.segment('ship', {
-				templateUrl: 'views/template.html',
+			.segment('rolegroup', {
+				templateUrl: 'views/home.html',
 				controller: 'ShipCtrl'})
-			.within()
-				.segment('summary', {
-					templateUrl: 'views/ship/summary.html'})
-			.up()
 
-			.segment('prod', {
-				templateUrl: 'views/template.html',
+			.segment('privilege', {
+				templateUrl: 'views/home.html',
 				controller: 'ProductionCtrl'})
-			.within()
-				.segment('home', {
-					templateUrl: 'views/prod/index.html'})
-			.up()
-
-			.segment('law', {
-				templateUrl: 'views/template.html',
-				controller: 'LawCtrl'})
-			.within()
-				.segment('home', {
-					templateUrl: 'views/law/index.html'})
-			.up()
 		.up()
 
 	$routeProvider.otherwise({redirectTo: '/'});
