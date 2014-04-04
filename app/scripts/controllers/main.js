@@ -20,17 +20,44 @@ angular.module('authApp')
 
 	.controller('UserCtrl', function ($scope, UUDBasicService) {
 
-		UUDBasicService.loadUsers($scope);
-
-		$scope.modify = function(index) {
-			console.log(index);
+		$scope.search = function() {
+			UUDBasicService.searchUsers($scope);
 		}
 
-		$scope.delete = function(index) {
-			console.log(index);
-			// UUDBasicService.delete(index);
+		$scope.new = function() {
+			$scope.modalTitle = "添加用户";
+			$scope.modalType = "add";
+			$scope.model = {};
+		}
+
+		$scope.add = function(user) {
+			UUDBasicService.addUser(user)
+			$scope.users.push(user)
+			$('#uumodal').modal('hide')
+		}
+
+		$scope.delete = function(user, index) {
+			UUDBasicService.deleteUser(user.id);
 			$scope.users.splice(index, 1);
 		}
+
+		$scope.modify = function(user) {
+			$scope.modalTitle = "编辑用户";
+			$scope.modalType = "edit";
+			$scope.model = angular.copy(user);
+		}
+
+		$scope.save = function(iuser) {
+
+			UUDBasicService.updateUser(iuser)
+			$scope.users.map(function(user, index) {
+				if (user.id == iuser.id) {
+					$scope.users[index] = iuser;
+				}
+			})
+			$('#uumodal').modal('hide')
+		}
+
 	})
 
 	.controller('UgroupCtrl', function ($scope) {
