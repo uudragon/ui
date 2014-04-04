@@ -11,10 +11,19 @@
   color: #333333;
   text-decoration: none; }
   .header-link.ative, .header-link:hover {
-    color: maroon; }
+    color: teal; }
 
-.border {
+.border, .indicator, .order-indicator {
   border: 1px solid #cccccc; }
+
+.indicator, .order-indicator {
+  width: 17px;
+  height: 17px;
+  background-color: #c90d30;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  left: 2px; }
 
 /**
  * Background
@@ -23,7 +32,7 @@
 .drak-grain, .panel-heading {
   background: transparent url("../img/dark.png"); }
 
-.light-grain, .jumbotron, .form-static {
+.light-grain, .form-static {
   background: transparent url("../img/light.png"); }
 
 /**
@@ -35,7 +44,8 @@
  * ----------------------------------------------------------------------------
  */
 a {
-  color: #333333; }
+  color: #333333;
+  background: transparent; }
 
 .clearfix {
   clear: both; }
@@ -43,40 +53,37 @@ a {
 .i-val {
   padding-left: 10px; }
 
+.non-right {
+  border-right: none; }
+
+.non-left {
+  border-left: none; }
+
 /**
  * Frame
  * ----------------------------------------------------------------------------
  */
-.container {
-  width: 1170px;
+.wrapper {
   font: 1em/normal "微软雅黑", "宋体", Arial, Helvetica, sans-serif; }
 
 .main {
-  border-left: solid 1px #ccc; }
+  margin: 80px auto; }
 
 /**
- * Left Nav bar
+ * Top Nav
  * ----------------------------------------------------------------------------
  */
-.nav-sidebar {
-  border: 1px solid aliceblue;
-  border-bottom: none; }
-  .nav-sidebar > .active > a, .nav-sidebar > li > a:hover {
-    color: white;
-    background-color: brown; }
+.navbar-default .navbar-nav > li a, .navbar-default .navbar-nav > li a:hover {
+  background-color: transparent; }
+.navbar-default .navbar-nav > li a:hover {
+  color: teal; }
+.navbar-default .navbar-nav > li.active a, .navbar-default .navbar-nav > li.active a:hover {
+  color: teal;
+  background-color: transparent; }
 
-/**
- * Jumbotron
- * ----------------------------------------------------------------------------
- */
-.jumbotron {
-  padding: 14px 0;
-  margin-top: 10px; }
-  .jumbotron .des {
-    font-size: 14px;
-    text-align: center;
-    padding-top: 6px;
-    margin: 0 0 0 10px; }
+.topnav {
+  overflow: hidden;
+  padding-top: 10px; }
 
 .brand {
   margin: 6px auto;
@@ -134,7 +141,7 @@ a {
   font-size: 1.2em;
   cursor: pointer; }
   .action-item.active, .action-item:hover {
-    color: maroon;
+    color: teal;
     text-decoration: none; }
 
 .batch-btn-group {
@@ -155,9 +162,6 @@ a {
   border: 1px solid #EFEFEF;
   padding: 20px 0; }
 
-.form-small .form-group {
-  margin: 0 -25px 9px -15px; }
-
 .form-small label {
   font-weight: normal; }
 
@@ -168,12 +172,6 @@ a {
   padding-left: 26px;
   font-size: 0.9em;
   line-height: 1em; }
-
-.non-right {
-  border-right: none; }
-
-.non-left {
-  border-left: none; }
 
 .suffix {
   font-size: 0.8em;
@@ -231,19 +229,9 @@ a {
   .info-panel .val, .info-panel .val-m {
     width: 80px;
     display: inline-block;
-    padding-left: 3px;
-    color: #000; }
+    padding-left: 3px; }
   .info-panel .val-m {
     width: 23px; }
-
-.order-indicator {
-  width: 17px;
-  height: 17px;
-  background-color: #ED143D;
-  display: inline-block;
-  position: relative;
-  top: 3px;
-  left: 2px; }
 
 /**
  * Panel
