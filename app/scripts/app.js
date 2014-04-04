@@ -38,7 +38,7 @@ var uud = angular.module('mainApp', [
 		.when('/info/traded', 'root.info.traded')
 
 		// customer manager
-		.when('/customer', 'root.customer.ordernew')
+		.when('/customer', 'root.customer.ordermanager')
 		.when('/customer/ordernew', 'root.customer.ordernew')
 		.when('/customer/ordermanager', 'root.customer.ordermanager')
 		.when('/customer/employee', 'root.customer.employee')
