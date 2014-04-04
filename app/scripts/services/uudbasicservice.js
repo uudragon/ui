@@ -31,63 +31,15 @@ angular.module('authApp')
 
 
 	/**
-	 * Load Customer
+	 * 添加用户
 	 *
 	 * @param  object $scope
 	 * @return bool
 	 */
-	this.loadUsers = function($scope) {
-		var suffix = 'bam/user_load';
-
-		$http.post(baseurl + suffix, $scope.model)
-			.success(function(data, status) {
-				$scope.users = data;
-			})
-			.error(function(data, status) {
-				console.log('load user error status:' + status);
-				$scope.users = [
-				{
-					"id": 8,
-					"name": "test8",
-					"type": 8,
-					"gender": "male",
-					"email": "8alyceowen@zoinage.com"
-				},
-				{
-					"id": 9,
-					"name": "test9",
-					"type": 9,
-					"gender": "male",
-					"email": "9alyceowen@zoinage.com"
-				},
-				{
-					"id": 10,
-					"name": "test10",
-					"type": 10,
-					"gender": "male",
-					"email": "10alyceowen@zoinage.com"
-				},
-				{
-					"id": 11,
-					"name": "test11",
-					"type": 11,
-					"gender": "male",
-					"email": "11alyceowen@zoinage.com"
-				}
-				]
-			})
-	}
-
-	/**
-	 * Add User
-	 *
-	 * @param  object $scope
-	 * @return bool
-	 */
-	this.addUser = function(user) {
+	this.addUser = function($scope) {
 		var suffix = 'bam/add_user';
 
-		$http.post(baseurl + suffix, user)
+		$http.post(baseurl + suffix, $scope.model)
 			.success(function(data, status) {
 				return true;
 			})
@@ -99,9 +51,9 @@ angular.module('authApp')
 
 
 	/**
-	 * Delete User
+	 * 删除用户
 	 *
-	 * @param  object $scope
+	 * @param  string id
 	 * @return bool
 	 */
 	this.deleteUser = function(id) {
@@ -119,15 +71,15 @@ angular.module('authApp')
 
 
 	/**
-	 * Delete User
+	 * 更新用户
 	 *
-	 * @param  object $scope
+	 * @param  object user
 	 * @return bool
 	 */
-	this.updateUser = function(id) {
+	this.updateUser = function(user) {
 		var suffix = 'bam/update_user';
 
-		$http.post(baseurl + suffix, id)
+		$http.post(baseurl + suffix, user)
 			.success(function(data, status) {
 				return true;
 			})
@@ -139,28 +91,7 @@ angular.module('authApp')
 
 
 	/**
-	 * Add User
-	 *
-	 * @param  object $scope
-	 * @return bool
-	 */
-	this.createUser = function(id) {
-		var suffix = 'bam/add_user';
-
-		$http.post(baseurl + suffix, id)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('add user error status:' + status);
-				return false;
-			})
-	}
-
-
-
-	/**
-	 * search user
+	 * 用户查询
 	 *
 	 * @param  object $scope
 	 * @return none
