@@ -1,91 +1,188 @@
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+@charset "UTF-8";
+@import 'vars_maxins';
 
-@import 'sass-bootstrap/lib/bootstrap';
+/**
+ * Common
+ * ----------------------------------------------------------------------------
+ */
 
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+a {color: $primary-color;}
+.clearfix {clear: both;}
+.i-val {padding-left: 10px}
+.non-right {border-right: none;}
+.non-left {border-left: none;}
+
+/**
+ * Frame
+ * ----------------------------------------------------------------------------
+ */
+
+.container {
+	width: $container-width;
+	font: $primary-font;
 }
 
-/* Space out content a bit */
-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+
+.main {border-left: solid 1px #ccc; }
+
+/**
+ * Left Nav bar
+ * ----------------------------------------------------------------------------
+ */
+
+.nav-sidebar {
+	border: 1px solid $side-border-color;
+	border-bottom: none;
+	> .active > a, > li > a:hover {
+		color: $side-active-color;
+		background-color: $side-active-bg;
+	}
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-    padding-left: 15px;
-    padding-right: 15px;
-}
 
-/* Custom page header */
-.header {
-    border-bottom: 1px solid #e5e5e5;
-}
+/**
+ * Jumbotron
+ * ----------------------------------------------------------------------------
+ */
 
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-}
-
-/* Custom page footer */
-.footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-    margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
 .jumbotron {
-    text-align: center;
-    border-bottom: 1px solid #e5e5e5;
+	@extend .light-grain;
+	padding: 14px 0;
+	margin-top: 10px;
+	.des {
+		font-size: 14px;
+		text-align: center;
+		padding-top: 6px;
+		margin: 0 0 0 10px;
+	}
 }
 
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
+.brand {
+	margin: 6px auto;
+	display: block;
 }
 
-/* Supporting marketing content */
-.marketing {
-    margin: 40px 0;
+.logo {
+	padding: 3px;
+	display: block;
+	float: left;
 }
 
-.marketing p + h4 {
-    margin-top: 28px;
+.status-bar {
+	float: left;
+	margin: 9px 0;
+	font-size: 0.6em;
+	ul {
+		float: left;
+		margin-left: 25px;
+		font-size: 1em;
+		> li {
+			padding-right: 10px;
+		}
+	}
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
-
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
-        border-bottom: 0;
-    }
+.info > ul {
+	clear: left;
+	float: left;
+	margin-top: 10px;
+	font-size: 0.9em;
+	position: relative;
+	top: 16px;
+	> li {
+		float: left;
+		> a {
+			font-size: 0.9em; padding: 15px;text-align: right;
+			&:hover{
+				background-color: transparent; color: #800000;
+			}
+		}
+	}
 }
+
+.bs-tabs > ul > li > a:hover {color: #800000; background-color: #fff; }
+
+/**
+ * Sub Manu
+ * ----------------------------------------------------------------------------
+ */
+
+.action-group {border: 1px dashed #ccc; border-top: none; padding: 10px 4px; margin: 0 0 8px 0;}
+
+.action-item {
+	padding: 0 6px;
+	font-size: 1.2em;
+	cursor: pointer;
+	&.active, &:hover {
+		color: $link-actived;
+		text-decoration: none;
+	}
+}
+
+.batch-btn-group {line-height: 32px}
+.batch-btn-group > li {font-size: initial;}
+
+/**
+ * Form
+ * ----------------------------------------------------------------------------
+ */
+
+.form {overflow: hidden; }
+.form-static {
+	@extend .light-grain;
+	border-radius: 5px;
+	border: 1px solid #EFEFEF;
+	padding: 20px 0;
+}
+
+.form-small label {font-weight: normal;}
+.form-small .control-label {padding-top: 6px; }
+
+.addon-tweak {padding-left: 26px; font-size: 0.9em;line-height: 1em;}
+
+.suffix {font-size: 0.8em; float: right; padding-top: 3px; }
+.submit-btns {margin-top: 25px;}
+.submit-btns > .btn {margin: 0 5px;}
+
+.order-info {padding-left: 24px; }
+.order-info > ul > li {padding: 0 40px; }
+.dot-split-line {border-bottom-color: #A52A2A; border-bottom-style: dashed; margin: 0;}
+.main-phone {padding-left: 10px;}
+.form-control-static {color: #696969 }
+
+/**
+ * Search
+ * ----------------------------------------------------------------------------
+ */
+.search-form {display: block; width: 100%;overflow: hidden;margin: 35px 0 16px -17px;}
+.search-box {width: 80%; margin-right: 10px; float: left; }
+.pagination {margin: 20px auto; display: table;}
+
+/**
+ * Info Panel
+ * ----------------------------------------------------------------------------
+ */
+
+.info-panel {
+	margin: 18px 0;
+	.val {width: 80px; display: inline-block; padding-left: 3px; }
+	.val-m {width: 23px; @extend .val; }
+}
+
+.order-indicator {
+	@extend .indicator;
+}
+
+/**
+ * Panel
+ * ----------------------------------------------------------------------------
+ */
+.panel {margin-top: 30px;}
+.panel-heading {
+	@extend .drak-grain;
+	padding: 5px 10px;
+	position: relative;
+}
+.side-info {position: absolute; right: 20px; top: 4px; }
+.side-info > li {padding: 0 35px;}
+.panel-body {overflow-y: scroll; height: 130px}

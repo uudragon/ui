@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+/**
+ * Variables
+ * ----------------------------------------------------------------------------
+ */
+
+$primary-font: 1em/normal '微软雅黑', '宋体', Arial, Helvetica, sans-serif;
+$container-width: 1170px;
+
+
+// Colors
+$primary-color: #333;
+$link-actived: #800000;
+$side-active-color: #fff;
+$side-active-bg: #a52a2a;
+$side-border-color: #f0f8ff;
+$border-color: #ccc;
+$indicator-color: #c90d30;
+
+
+/**
+ * Components
+ * ----------------------------------------------------------------------------
+ */
+
+.header-link {
+	color: $primary-color;
+	text-decoration: none;
+	&.ative, &:hover {
+		color: $link-actived
+	}
+}
+
+.border {
+	border: 1px solid $border-color;
+}
+
+.indicator {
+	@extend .border;
+	width: 17px; height: 17px; background-color: $indicator-color; display: inline-block; position: relative; top: 3px; left: 2px;
+}
+
+/**
+ * Background
+ * ----------------------------------------------------------------------------
+ */
+
+.drak-grain {
+	background: transparent url('../img/dark.png');
+}
+
+.light-grain {
+	background: transparent url('../img/light.png');
+}
+
+/**
+ * Mixins
+ * ----------------------------------------------------------------------------
+ */
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
