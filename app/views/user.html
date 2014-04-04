@@ -1,5 +1,4 @@
 
-<button class="btn btn-primary" ng-click="new()" data-toggle="modal" data-target="#uumodal">添加用户</button>
 
 <form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
 	<div class="unify" ng-show="!search.advance">
@@ -13,29 +12,34 @@
 		</div>
 	</div>
 </form>
-<table class="table">
-	<tr>
-		<th>操作</th>
-		<th>ID</th>
-		<th>姓名</th>
-		<th>类型</th>
-		<th>性别</th>
-		<th>Email</th>
-	</tr>
-	<tr ng-repeat="user in users">
-		<td>
-			<ul class="list-inline">
-				<li><a href="" ng-click="modify(user)" data-toggle="modal" data-target="#uumodal">修改</a></li>
-				<li><a href="" ng-click="delete(user, $index)">删除</a></li>
-			</ul>
-		</td>
-		<td>{{user.code}}</td>
-		<td>{{user.name}}</td>
-		<td>{{user.type}}</td>
-		<td>{{user.gender}}</td>
-		<td>{{user.email}}</td>
-	</tr>
-</table>
+
+<div class="row">
+	<a href="" class="btn btn-primary btn-sm" ng-click="new()" data-toggle="modal" data-target="#uumodal">添加用户</a>
+	<!-- <button class="btn btn-primary btn-sm" ng-click="new()" data-toggle="modal" data-target="#uumodal">添加用户</button> -->
+	<table class="table" ng-show="users.length">
+		<tr>
+			<th>姓名</th>
+			<th>类型</th>
+			<th>性别</th>
+			<th>用户组</th>
+			<th>Email</th>
+			<th>操作</th>
+		</tr>
+		<tr ng-repeat="user in users">
+			<td>{{user.name}}</td>
+			<td>{{user.type}}</td>
+			<td>{{user.gender}}</td>
+			<td>{{user.group}}</td>
+			<td>{{user.email}}</td>
+			<td>
+				<ul class="list-inline">
+					<li><a href="" ng-click="modify(user)" data-toggle="modal" data-target="#uumodal">修改</a></li>
+					<li><a href="" ng-click="delete(user, $index)">删除</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>
 
 
 <div class="modal fade" id="uumodal">
@@ -48,9 +52,38 @@
 			<div class="modal-body">
 				<form action="" class="form form-horizontal form-small">
 					<fieldset>
-						<div uuinput label="name" l-col="3" r-col="5" name="name" model="model.name"></div>
-						<div uuinput label="gender" l-col="3" r-col="4" name="gender" model="model.gender"></div>
-						<div uuinput label="email" l-col="3" r-col="5" name="email" model="model.email"></div>
+						<div uuinput label="姓名" l-col="3" r-col="5" name="name" model="model.name"></div>
+						<div class="form-group">
+							<label class="col-xs-3 control-label" for="c-gender">性别: </label>
+							<div class="col-xs-4">
+								<div class="radio-inline">
+									<label><input type="radio" ng-model="model.gender" value="male">男</label>
+								</div>
+								<div class="radio-inline">
+									<label><input type="radio" ng-model="model.gender" value="female">女</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 control-label" for="type">类型: </label>
+							<div class="col-xs-4">
+								<select ng-model="model.type" class="form-control">
+									<option value="类型一">类型一</option>
+									<option value="类型二">类型二</option>
+									<option value="类型三">类型三</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 control-label" for="c-gender">用户组: </label>
+							<div class="col-xs-4">
+								<select ng-model="model.group" class="form-control">
+									<option value="admin">admin</option>
+									<option value="customer">customer</option>
+								</select>
+							</div>
+						</div>
+						<div uuinput label="Email" l-col="3" r-col="5" name="email" model="model.email"></div>
 					</fieldset>
 				</form>
 			</div>

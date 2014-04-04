@@ -31,9 +31,11 @@ angular.module('authApp')
 		}
 
 		$scope.add = function(user) {
-			UUDBasicService.addUser(user)
-			$scope.users.push(user)
-			$('#uumodal').modal('hide')
+			UUDBasicService.addUser(user);
+
+			$scope.users = $scope.users || [];
+			$scope.users.push(user);
+			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(user, index) {

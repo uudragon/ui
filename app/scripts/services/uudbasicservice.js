@@ -176,10 +176,10 @@ angular.module('authApp')
 
 			// dummy data
 			$scope.users = [
-				{id: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com'},
-				{id: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com'},
-				{id: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com'},
-				{id: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com'},
+				{id: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com', group: 'admin'},
+				{id: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com', group: 'admin'},
+				{id: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com', group: 'registerUser'},
+				{id: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com', group: 'admin'},
 			]
 			$scope.pages = 10;
 		})
