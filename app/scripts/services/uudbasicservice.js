@@ -98,19 +98,21 @@ angular.module('authApp')
 	 */
 
 	this.searchUsers = function($scope) {
-		$http.post(baseurl + 'bam/search_user', $scope.keyword)
-		.success(function(data, status) {
-			$scope.users = data;
-		})
+
+		console.log($scope.searchModel);
+		$http.post(baseurl + 'bam/search_user', $scope.search)
+			.success(function(data, status) {
+				$scope.users = data;
+			})
 		.error(function(data, status) {
 			console.log('search user error status: ' + status + ' use dummy data');
 
 			// dummy data
 			$scope.users = [
-				{id: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com', group: 'admin'},
-				{id: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com', group: 'admin'},
-				{id: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com', group: 'registerUser'},
-				{id: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com', group: 'admin'},
+				{id: 1, name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
+				{id: 4, name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
+				{id: 14, name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'registerUser'},
+				{id: 43, name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
 			]
 			$scope.pages = 10;
 		})

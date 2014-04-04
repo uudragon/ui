@@ -2,13 +2,16 @@
 
 angular.module('authApp')
 
-.controller('MainCtrl', function ($scope, $routeSegment, loader, UUDBasicService) {
+.controller('MainCtrl', function ($scope, $route, $location, $routeSegment, loader, UUDBasicService) {
 	// UUDBasicService.loadBasicInfo($scope);
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
 
 	$scope.$on('routeSegmentChange', function() {
 		loader.show = true;
+		console.log($location);
+		$location.$$url = "#/user";
+		// $scope.$apply(function() { $location.path("#/user"); });
 	})
 
 })

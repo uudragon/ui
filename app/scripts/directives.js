@@ -130,6 +130,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			name: '@',
 			lCol: '@',
 			rCol: '@',
+			type: '@',
 			model: '='
 		},
 		templateUrl: 'views/partial/directives/uuinput.html'

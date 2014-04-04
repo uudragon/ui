@@ -1,13 +1,24 @@
 
 
 <form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
-	<div class="unify" ng-show="!search.advance">
+	<div>
 		<div class="form-group">
-			<div class="col-xs-6 col-xs-offset-2">
-				<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="keyword" class="form-control" id="search-box">
+			<div uuinput label="姓名" l-col="3" r-col="3" name="name" model="searchModel.name"></div>
+			<div uuinput label="帐号" l-col="3" r-col="3" name="account" model="searchModel.account"></div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="type">用户组: </label>
+				<div class="col-xs-3">
+					<select ng-model="searchModel.group" class="form-control">
+						<option value="group1">组一</option>
+						<option value="group3">组二</option>
+						<option value="group2">组三</option>
+					</select>
+				</div>
 			</div>
-			<div class="col-xs-2">
-				<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+			<div class="form-group">
+				<div class="col-xs-3 col-xs-offset-3">
+					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -23,18 +34,20 @@
 	<table class="table table-bordered table-striped" ng-show="users.length">
 		<tr>
 			<th>姓名</th>
-			<th>类型</th>
+			<th>帐号</th>
 			<th>性别</th>
-			<th>用户组</th>
+			<th>岗位</th>
 			<th>Email</th>
+			<th>是否有效</th>
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="user in users">
 			<td>{{user.name}}</td>
-			<td>{{user.type}}</td>
+			<td>{{user.account}}</td>
 			<td>{{user.gender}}</td>
-			<td>{{user.group}}</td>
+			<td>{{user.positions}}</td>
 			<td>{{user.email}}</td>
+			<td>{{user.isValid}}</td>
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(user)" data-toggle="modal" data-target="#uumodal">修改</a></li>
@@ -57,8 +70,11 @@
 				<form action="" class="form form-horizontal form-small">
 					<fieldset>
 						<div uuinput label="姓名" l-col="3" r-col="5" name="name" model="model.name"></div>
+						<div uuinput label="帐号" l-col="3" r-col="5" name="account" model="model.account"></div>
+						<div uuinput label="密码" l-col="3" r-col="5" name="password" type="password" model="model.password"></div>
+						<div uuinput label="确认密码" l-col="3" r-col="5" name="passConfirm" type="passConfirm" model="model.passConfirm"></div>
 						<div class="form-group">
-							<label class="col-xs-3 control-label" for="c-gender">性别: </label>
+							<label class="col-xs-3 control-label">性别: </label>
 							<div class="col-xs-4">
 								<div class="radio-inline">
 									<label><input type="radio" ng-model="model.gender" value="male">男</label>
@@ -69,21 +85,23 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-xs-3 control-label" for="type">类型: </label>
+							<label class="col-xs-3 control-label" for="c-gender">是否有效: </label>
 							<div class="col-xs-4">
-								<select ng-model="model.type" class="form-control">
-									<option value="类型一">类型一</option>
-									<option value="类型二">类型二</option>
-									<option value="类型三">类型三</option>
-								</select>
+								<div class="radio-inline">
+									<label><input type="radio" ng-model="model.isValid" value="1">是</label>
+								</div>
+								<div class="radio-inline">
+									<label><input type="radio" ng-model="model.isValid" value="0">否</label>
+								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-xs-3 control-label" for="c-gender">用户组: </label>
+							<label class="col-xs-3 control-label" for="type">岗位: </label>
 							<div class="col-xs-4">
-								<select ng-model="model.group" class="form-control">
-									<option value="admin">admin</option>
-									<option value="customer">customer</option>
+								<select ng-model="model.positions" class="form-control">
+									<option value="岗位一">岗位一</option>
+									<option value="岗位二">岗位二</option>
+									<option value="岗位三">岗位三</option>
 								</select>
 							</div>
 						</div>
