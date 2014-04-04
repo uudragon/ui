@@ -33,9 +33,9 @@ var uud = angular.module('authApp', [
 		.when('/', 'root.home')
 		.when('/login', 'root.login')
 		.when('/user', 'root.user')
-		.when('/user-group', 'root.usergroup')
+		.when('/user-group', 'root.ugroup')
 		.when('/role', 'root.role')
-		.when('/role-group', 'root.rolegroup')
+		.when('/role-group', 'root.rgroup')
 		.when('/privilege', 'root.privilege')
 
 		.segment('root', {
@@ -57,32 +57,31 @@ var uud = angular.module('authApp', [
 		})
 		.within()
 			.segment('home', {
-				templateUrl: 'views/home.html',
-				controller: 'InfoCtrl'})
+				templateUrl: 'views/home.html'})
 
 			.segment('login', {
 				templateUrl: 'views/home.html',
-				controller: 'InfoCtrl'})
+				controller: 'LoginCtrl'})
 
 			.segment('user', {
-				templateUrl: 'views/home.html',
-				controller: 'CustomerCtrl'})
+				templateUrl: 'views/user.html',
+				controller: 'UserCtrl'})
 
-			.segment('usergroup', {
-				templateUrl: 'views/home.html',
-				controller: 'FinancialCtrl'})
+			.segment('ugroup', {
+				templateUrl: 'views/ugroup.html',
+				controller: 'UgroupCtrl'})
 
 			.segment('role', {
-				templateUrl: 'views/home.html',
-				controller: 'AgentsCtrl'})
+				templateUrl: 'views/role.html',
+				controller: 'RoleCtrl'})
 
-			.segment('rolegroup', {
-				templateUrl: 'views/home.html',
-				controller: 'ShipCtrl'})
+			.segment('rgroup', {
+				templateUrl: 'views/rgroup.html',
+				controller: 'RgroupCtrl'})
 
 			.segment('privilege', {
-				templateUrl: 'views/home.html',
-				controller: 'ProductionCtrl'})
+				templateUrl: 'views/privilege.html',
+				controller: 'PrivilegeCtrl'})
 		.up()
 
 	$routeProvider.otherwise({redirectTo: '/'});

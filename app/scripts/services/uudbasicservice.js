@@ -36,19 +36,45 @@ angular.module('authApp')
 	 * @param  object $scope
 	 * @return bool
 	 */
-	this.loadCustomer = function($scope) {
-		var suffix = 'bam/customer_load.php';
+	this.loadUsers = function($scope) {
+		var suffix = 'bam/user_load';
 
 		$http.post(baseurl + suffix, $scope.model)
 			.success(function(data, status) {
-				$.extend($scope.model, data);
+				$scope.users = data;
 			})
 			.error(function(data, status) {
-				console.log('load customer error status:' + status);
-				$scope.model = {
-					number: 13123,
-					type: '已付款'
+				console.log('load user error status:' + status);
+				$scope.users = [
+				{
+					"code": 8,
+					"name": "test8",
+					"type": 8,
+					"gender": "male",
+					"email": "8alyceowen@zoinage.com"
+				},
+				{
+					"code": 9,
+					"name": "test9",
+					"type": 9,
+					"gender": "male",
+					"email": "9alyceowen@zoinage.com"
+				},
+				{
+					"code": 10,
+					"name": "test10",
+					"type": 10,
+					"gender": "male",
+					"email": "10alyceowen@zoinage.com"
+				},
+				{
+					"code": 11,
+					"name": "test11",
+					"type": 11,
+					"gender": "male",
+					"email": "11alyceowen@zoinage.com"
 				}
+				]
 			})
 	}
 

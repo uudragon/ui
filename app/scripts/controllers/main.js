@@ -3,7 +3,7 @@
 angular.module('authApp')
 
 .controller('MainCtrl', function ($scope, $routeSegment, loader, UUDBasicService) {
-	UUDBasicService.loadBasicInfo($scope);
+	// UUDBasicService.loadBasicInfo($scope);
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
 
@@ -12,64 +12,36 @@ angular.module('authApp')
 	})
 
 })
-	.controller('InfoCtrl', function ($scope, UUDBasicService) {
+	.controller('LoginCtrl', function ($scope, UUDBasicService) {
 		$scope.summit = function() {
 			UUDBasicService.newCustomer($scope);
 		}
 	})
-		.controller('TradedCtrl', function ($scope, UUDBasicService) {
-			UUDBasicService.loadCustomer($scope);
-		})
 
-	.controller('CustomerCtrl', function ($scope, UUDBasicService) {
+	.controller('UserCtrl', function ($scope, UUDBasicService) {
 
-		$scope.summit = function() {
-			UUDBasicService.newOrder($scope);
+		UUDBasicService.loadUsers($scope);
+
+		$scope.modify = function(index) {
+			console.log(index);
 		}
 
+		$scope.delete = function(index) {
+			console.log(index);
+			// UUDBasicService.delete(index);
+			$scope.users.splice(index, 1);
+		}
 	})
-		.controller('customerManger', function ($scope, UUDBasicService) {
 
-			// 获取预订总数和成交客户
-			UUDBasicService.queryContactInfo($scope);
-
-			// 搜索
-			$scope.search = function () {
-				UUDBasicService.searchContact($scope)
-			};
-		})
-		.controller('orderManger', function ($scope, UUDBasicService) {
-
-			// 获取工单相关信息
-			UUDBasicService.queryOrderInfo($scope);
-
-			// 搜索
-			$scope.search = function () {
-				UUDBasicService.searchOrder($scope)
-			};
-		})
-		.controller('employeeManger', function ($scope, UUDBasicService) {
-
-			// 获取工单相关信息
-			UUDBasicService.queryEmployeeInfo($scope);
-
-			// 搜索
-			$scope.search = function () {
-				UUDBasicService.searchEmployee($scope)
-			};
-		})
-	.controller('FinancialCtrl', function ($scope) {
+	.controller('UgroupCtrl', function ($scope) {
 
 	})
-	.controller('AgentsCtrl', function ($scope) {
+	.controller('RoleCtrl', function ($scope) {
 
 	})
-	.controller('ShipCtrl', function ($scope) {
+	.controller('RgroupCtrl', function ($scope) {
 
 	})
-	.controller('ProductionCtrl', function ($scope) {
-
-	})
-	.controller('LawCtrl', function ($scope) {
+	.controller('PrivilegeCtrl', function ($scope) {
 
 	})

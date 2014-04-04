@@ -1,0 +1,41 @@
+<button class="btn btn-primary">添加用户</button>
+<table class="table">
+	<tr>
+		<th>操作</th>
+		<th>ID</th>
+		<th>姓名</th>
+		<th>类型</th>
+		<th>性别</th>
+		<th>Email</th>
+	</tr>
+	<tr ng-repeat="user in users">
+		<td>
+			<ul class="list-inline">
+				<li><a href="" ng-click="modify($index)">修改</a></li>
+				<li><a href="" ng-click="delete($index)">删除</a></li>
+			</ul>
+		</td>
+		<td>{{user.code}}</td>
+		<td>{{user.name}}</td>
+		<td>{{user.type}}</td>
+		<td>{{user.gender}}</td>
+		<td>{{user.email}}</td>
+	</tr>
+</table>
+
+<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form action="" class="form form-horizontal form-small">
+				<fieldset>
+					<legend></legend>
+					<div uuinput label="name" l-col="3" r-col="4" name="name" model="model.name" ng-init="user={}"></div>
+					<div uuinput label="gender" l-col="3" r-col="4" name="gender" model="model.gender" ng-init="user={}"></div>
+					<div uuinput label="email" l-col="3" r-col="4" name="email" model="model.email" ng-init="user={}"></div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>

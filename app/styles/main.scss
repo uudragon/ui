@@ -18,15 +18,10 @@ a {color: $primary-color; background: transparent;}
  */
 
 .wrapper {
-	width: $container-width;
 	font: $primary-font;
 }
 
-.container {
-	width: $container-width;
-}
-
-.main {margin-top: 80px;}
+.main {margin: 80px auto;}
 
 /**
  * Top Nav
