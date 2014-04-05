@@ -33,7 +33,8 @@ var uud = angular.module('authApp', [
 		.when('/', 'root.home')
 		.when('/login', 'root.login')
 		.when('/user', 'root.user')
-		.when('/user-group', 'root.ugroup')
+		.when('/user-group', 'root.ugroup.list')
+		.when('/user-group/:id', 'root.ugroup.show')
 		.when('/role', 'root.role')
 		.when('/role-group', 'root.rgroup')
 		.when('/privilege', 'root.privilege')
@@ -69,7 +70,16 @@ var uud = angular.module('authApp', [
 
 			.segment('ugroup', {
 				templateUrl: 'views/ugroup.html',
-				controller: 'UgroupCtrl'})
+				controller: 'UgroupCtrl',
+				dependencies: ['id']})
+				.within()
+					.segment('list', {
+						templateUrl: 'views/ugroup/list.html',
+						controller: 'UgroupCtrl'})
+					.segment('show', {
+						templateUrl: 'views/ugroup/show.html',
+						controller: 'ShowGroupCtrl'})
+				.up()
 
 			.segment('role', {
 				templateUrl: 'views/role.html',

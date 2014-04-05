@@ -13,10 +13,10 @@
   .header-link.ative, .header-link:hover {
     color: teal; }
 
-.border, .indicator, .order-indicator {
+.border, .indicator {
   border: 1px solid #cccccc; }
 
-.indicator, .order-indicator {
+.indicator {
   width: 17px;
   height: 17px;
   background-color: #c90d30;
@@ -29,10 +29,10 @@
  * Background
  * ----------------------------------------------------------------------------
  */
-.drak-grain, .panel-heading {
+.drak-grain {
   background: transparent url("../img/dark.png"); }
 
-.light-grain, .form-static {
+.light-grain {
   background: transparent url("../img/light.png"); }
 
 /**
@@ -58,6 +58,20 @@ a {
 
 .non-left {
   border-left: none; }
+
+.underline {
+  text-decoration: underline !important; }
+
+.action-item {
+  font-size: 1.2em;
+  cursor: pointer; }
+  .action-item.active, .action-item:hover {
+    color: teal;
+    text-decoration: none; }
+  .action-item.btn {
+    font-size: 1.1em;
+    padding: 5px 11px;
+    border: 1px dashed #ccc; }
 
 /**
  * Frame
@@ -85,172 +99,19 @@ a {
   overflow: hidden;
   padding-top: 10px; }
 
-.brand {
-  margin: 6px auto;
-  display: block; }
-
-.logo {
-  padding: 3px;
-  display: block;
-  float: left; }
-
-.status-bar {
-  float: left;
-  margin: 9px 0;
-  font-size: 0.6em; }
-  .status-bar ul {
-    float: left;
-    margin-left: 25px;
-    font-size: 1em; }
-    .status-bar ul > li {
-      padding-right: 10px; }
-
-.info > ul {
-  clear: left;
-  float: left;
-  margin-top: 10px;
-  font-size: 0.9em;
-  position: relative;
-  top: 16px; }
-  .info > ul > li {
-    float: left; }
-    .info > ul > li > a {
-      font-size: 0.9em;
-      padding: 15px;
-      text-align: right; }
-      .info > ul > li > a:hover {
-        background-color: transparent;
-        color: #800000; }
-
-.bs-tabs > ul > li > a:hover {
-  color: #800000;
-  background-color: #fff; }
-
 /**
- * Sub Manu
+ * Breadcrumb
  * ----------------------------------------------------------------------------
  */
-.action-group {
-  margin: 0 0 20px 0; }
-
-.action-item {
-  font-size: 1.2em;
-  cursor: pointer; }
-  .action-item.active, .action-item:hover {
-    color: teal;
-    text-decoration: none; }
-  .action-item.btn {
-    padding: 8px 12px;
-    border: 1px dashed #ccc; }
-
-.batch-btn-group {
-  line-height: 32px; }
-
-.batch-btn-group > li {
-  font-size: initial; }
+.breadcrumb > li > a {
+  text-decoration: none;
+  font: 1em/normal "微软雅黑", "宋体", Arial, Helvetica, sans-serif; }
+.breadcrumb > li > .active {
+  color: #bbb; }
 
 /**
  * Form
  * ----------------------------------------------------------------------------
  */
-.form {
-  overflow: hidden; }
-
-.form-static {
-  border-radius: 5px;
-  border: 1px solid #EFEFEF;
-  padding: 20px 0; }
-
 .form-small label {
   font-weight: normal; }
-
-.form-small .control-label {
-  padding-top: 6px; }
-
-.addon-tweak {
-  padding-left: 26px;
-  font-size: 0.9em;
-  line-height: 1em; }
-
-.suffix {
-  font-size: 0.8em;
-  float: right;
-  padding-top: 3px; }
-
-.submit-btns {
-  margin-top: 25px; }
-
-.submit-btns > .btn {
-  margin: 0 5px; }
-
-.order-info {
-  padding-left: 24px; }
-
-.order-info > ul > li {
-  padding: 0 40px; }
-
-.dot-split-line {
-  border-bottom-color: #A52A2A;
-  border-bottom-style: dashed;
-  margin: 0; }
-
-.main-phone {
-  padding-left: 10px; }
-
-.form-control-static {
-  color: dimgray; }
-
-/**
- * Search
- * ----------------------------------------------------------------------------
- */
-.search-form {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  margin: 35px 0 16px -17px; }
-
-.search-box {
-  width: 80%;
-  margin-right: 10px;
-  float: left; }
-
-.pagination {
-  margin: 20px auto;
-  display: table; }
-
-/**
- * Info Panel
- * ----------------------------------------------------------------------------
- */
-.info-panel {
-  margin: 18px 0; }
-  .info-panel .val, .info-panel .val-m {
-    width: 80px;
-    display: inline-block;
-    padding-left: 3px; }
-  .info-panel .val-m {
-    width: 23px; }
-
-/**
- * Panel
- * ----------------------------------------------------------------------------
- */
-.panel {
-  margin-top: 30px; }
-
-.panel-heading {
-  padding: 5px 10px;
-  position: relative; }
-
-.side-info {
-  position: absolute;
-  right: 20px;
-  top: 4px; }
-
-.side-info > li {
-  padding: 0 35px; }
-
-.panel-body {
-  overflow-y: scroll;
-  height: 130px; }

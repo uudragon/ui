@@ -1,1 +1,70 @@
-role
+<ul class="action-group list-inline ng-scope">
+	<li>
+		<a href="" ng-click="new()" data-toggle="modal" data-target="#uumodal" class="action-item btn">添加角色</a>
+	</li>
+</ul>
+
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
+	<div class="form-group">
+		<div class="col-xs-6 col-xs-offset-2">
+			<input type="text" name="search-box" placeholder="请输入角色名" ng-model="model.keyword" class="form-control" id="search-box">
+		</div>
+		<div class="col-xs-2">
+			<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+		</div>
+	</div>
+</form>
+
+<div class="row container">
+	<table class="table table-bordered table-striped" ng-show="roles.length">
+		<tr>
+			<th>角色名</th>
+			<th>是否有效</th>
+			<th>操作</th>
+		</tr>
+		<tr ng-repeat="role in roles">
+			<td>{{role.name}}</td>
+			<td>{{role.isValid}}</td>
+			<td>
+				<ul class="list-inline">
+					<li><a href="" ng-click="modify(role)" data-toggle="modal" data-target="#uumodal">修改</a></li>
+					<li><a href="" ng-click="delete(role, $index)">删除</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<div class="modal fade" id="uumodal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{modalTitle}}</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" class="form form-horizontal form-small">
+					<fieldset>
+						<div uuinput label="角色名" l-col="3" r-col="5" name="name" model="model.name"></div>
+						<div class="form-group">
+							<label class="col-xs-3 control-label" for="c-gender">是否有效: </label>
+							<div class="col-xs-4">
+								<div class="radio-inline">
+									<label><input type="radio" ng-model="model.isValid" value="1">是</label>
+								</div>
+								<div class="radio-inline">
+									<label><input type="radio" ng-model="model.isValid" value="0">否</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" ng-if="modalType=='add'" ng-click="add(model)" class="btn btn-primary">添加</button>
+				<button type="button" ng-if="modalType=='edit'" ng-click="save(model)" class="btn btn-primary">保存</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

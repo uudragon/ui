@@ -3,8 +3,11 @@
 
 <div class="main container">
 	<!-- main content  -->
-	<div class="col-xs-12">
-		<!-- sub view -->
-		<div app-view-segment="1"></div>
-	</div>
+	<ol class="breadcrumb">
+		<li ng-repeat="item in breadcrumb">
+			<a href="#/{{item.href}}" ng-if="!$last">{{item.label}}</a>
+			<a class="active" ng-if="$last">{{item.label}}</a>
+		</li>
+	</ol>
+	<div app-view-segment="1"></div>
 </div>
