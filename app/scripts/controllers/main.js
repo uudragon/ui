@@ -33,7 +33,7 @@ angular.module('authApp')
 	.controller('UserCtrl', function ($scope, UUDBasicService) {
 
 		$scope.search = function() {
-			UUDBasicService.searchUsers($scope);
+			UUDBasicService.search($scope, 'user')
 		}
 
 		$scope.new = function() {
@@ -43,7 +43,7 @@ angular.module('authApp')
 		}
 
 		$scope.add = function(user) {
-			UUDBasicService.addUser(user);
+			UUDBasicService.add(user, 'user');
 
 			$scope.users = $scope.users || [];
 			$scope.users.push(user);
@@ -51,7 +51,7 @@ angular.module('authApp')
 		}
 
 		$scope.delete = function(user, index) {
-			UUDBasicService.deleteUser(user.id);
+			UUDBasicService.delete(user.id, 'user');
 			$scope.users.splice(index, 1);
 		}
 
@@ -63,7 +63,7 @@ angular.module('authApp')
 
 		$scope.save = function(iuser) {
 
-			UUDBasicService.updateUser(iuser)
+			UUDBasicService.update(iuser, 'user')
 			$scope.users.map(function(user, index) {
 				if (user.id == iuser.id) {
 					$scope.users[index] = iuser;

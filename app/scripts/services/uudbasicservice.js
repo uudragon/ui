@@ -22,289 +22,253 @@ angular.module('authApp')
 
 	}
 
-
-	// Load Top Header Info
-	this.loadBasicInfo = function($scope) {
-
-		$http.post(baseurl + 'bam/basic_info.php', $scope.model)
-		.success(function(data, status) {
-			$scope.date = new Date();
-			$.extend($scope, data);
-		})
-		.error(function(data, status) {
-			// use dummy data for dev
-			var dummydata = {
-				date: new Date(),
-				extension: 568459226,
-				status: '已订购',
-				seat: '001',
-				timing: 1220,
-				jobNumber: 12304,
-				name: "肖锋",
-				group: "管理员"
-			}
-			$.extend($scope, dummydata);
-		})
-	}
-
-
 	/**
-	 * 添加用户
-	 *
-	 * @param  object $scope
-	 * @return bool
-	 */
-	this.addUser = function($scope) {
-		var suffix = 'bam/add_user';
-
-		$http.post(baseurl + suffix, $scope.model)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('add user error status:' + status);
-				return false;
-			})
-	}
-
-
-	/**
-	 * 删除用户
+	 * 载入对象
 	 *
 	 * @param  string id
-	 * @return bool
+	 * @return object
 	 */
-	this.deleteUser = function(id) {
-		var suffix = 'bam/delete_user';
+	this.loadById = function($scope, $id, type) {
+
+		var suffix;
+
+		switch (type) {
+			case 'user':
+				suffix = 'bam/load_user';
+				break;
+			case 'userGroup':
+				suffix = 'bam/load_user_group';
+				break;
+
+			case 'role':
+				suffix = 'bam/load_role';
+				break;
+
+			case 'userRole':
+				suffix = 'bam/load_user_role';
+				break;
+
+			case 'roleGroup':
+				suffix = 'bam/load_role_group';
+				break;
+
+			default:
+				break;
+
+		}
 
 		$http.post(baseurl + suffix, id)
 			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('delete user error status:' + status);
-				return false;
-			})
-	}
-
-
-	/**
-	 * 更新用户
-	 *
-	 * @param  object user
-	 * @return bool
-	 */
-	this.updateUser = function(user) {
-		var suffix = 'bam/update_user';
-
-		$http.post(baseurl + suffix, user)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('update user error status:' + status);
-				return false;
-			})
-	}
-
-
-	/**
-	 * 用户查询
-	 *
-	 * @param  object $scope
-	 * @return none
-	 */
-
-	this.searchUsers = function($scope) {
-
-		console.log($scope.searchModel);
-		$http.post(baseurl + 'bam/search_user', $scope.search)
-			.success(function(data, status) {
-				$scope.users = data;
-			})
-		.error(function(data, status) {
-			console.log('search user error status: ' + status + ' use dummy data');
-
-			// dummy data
-			$scope.users = [
-				{id: 1, name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
-				{id: 4, name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
-				{id: 14, name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'registerUser'},
-				{id: 43, name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-			]
-			$scope.pages = 10;
-		})
-	}
-
-	/**
-	 * 添加用户组
-	 *
-	 * @param  object $scope
-	 * @return bool
-	 */
-	this.addGroup = function($scope) {
-		var suffix = 'bam/add_group';
-
-		$http.post(baseurl + suffix, $scope.model)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('add group error status:' + status);
-				return false;
-			})
-	}
-
-
-	/**
-	 * 删除用户组
-	 *
-	 * @param  string id
-	 * @return bool
-	 */
-	this.deleteGroup = function(id) {
-		var suffix = 'bam/delete_group';
-
-		$http.post(baseurl + suffix, id)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('delete group error status:' + status);
-				return false;
-			})
-	}
-
-
-	/**
-	 * 更新用户组
-	 *
-	 * @param  object Group
-	 * @return bool
-	 */
-	this.updateGroup = function(Group) {
-		var suffix = 'bam/update_group';
-
-		$http.post(baseurl + suffix, group)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('update group error status:' + status);
-				return false;
-			})
-	}
-
-
-	/**
-	 * 用户组查询
-	 *
-	 * @param  object $scope
-	 * @return none
-	 */
-
-	this.searchGroups = function($scope) {
-
-		console.log($scope.searchmodel);
-		$http.post(baseurl + 'bam/search_group', $scope.keyword)
-			.success(function(data, status) {
-				$scope.groups = data;
-			})
-		.error(function(data, status) {
-			console.log('search group error status: ' + status + ' use dummy data');
-
-			// dummy data
-			$scope.groups = [
-				{id: 1, name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
-				{id: 4, name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
-				{id: 14, name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'registerGroup'},
-				{id: 43, name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-			]
-			$scope.pages = 10;
-		})
-	}
-
-
-	// Load Top Header Info
-	this.getGroupById = function($scope, id) {
-
-		$http.post(baseurl + 'bam/get_group_by_id', id)
-			.success(function(data, status) {
-				$scope.group = data;
+				$scope.model = data;
 			})
 			.error(function(data, status) {
 				// use dummy group for dev
-				var group = {
+				console.log('load ' + type + ' error status:' + status);
+				$scope.model = {
 					name: '用户组*',
 					type: '568459226',
 					status: '已订购',
 					isValid: '1',
 					users: ['用户1', '用户3', '用户4', '用户5', '用户6'],
 				}
-				$scope.group = group;
 			})
 	}
 
-
 	/**
-	 * 添加角色
+	 * 添加对象
 	 *
-	 * @param  object $scope
+	 * @param  object model
+	 * @param  string type
 	 * @return bool
 	 */
-	this.addRole = function($scope) {
-		var suffix = 'bam/add_role';
+	this.add = function(model, type) {
 
-		$http.post(baseurl + suffix, $scope.model)
+		var suffix;
+
+		switch (type) {
+			case 'user':
+				suffix = 'bam/add_user';
+				break;
+			case 'userGroup':
+				suffix = 'bam/add_user_group';
+				break;
+
+			case 'role':
+				suffix = 'bam/add_role';
+				break;
+
+			case 'userRole':
+				suffix = 'bam/add_user_role';
+				break;
+
+			case 'roleGroup':
+				suffix = 'bam/add_role_group';
+				break;
+
+			default:
+				break;
+
+		}
+
+		$http.post(baseurl + suffix, model)
 			.success(function(data, status) {
 				return true;
 			})
 			.error(function(data, status) {
-				console.log('add role error status:' + status);
+				console.log('add ' + type + ' error status:' + status);
 				return false;
 			})
 	}
 
 
 	/**
-	 * 删除角色
+	 * 删除对象
 	 *
 	 * @param  string id
+	 * @param  string type
 	 * @return bool
 	 */
-	this.deleteRole = function(id) {
-		var suffix = 'bam/delete_role';
+	this.delete = function(id, type) {
+
+		var suffix;
+
+		switch (type) {
+			case 'user':
+				suffix = 'bam/delete_user';
+				break;
+			case 'userGroup':
+				suffix = 'bam/delete_user_group';
+				break;
+
+			case 'role':
+				suffix = 'bam/delete_role';
+				break;
+
+			case 'userRole':
+				suffix = 'bam/delete_user_role';
+				break;
+
+			case 'roleGroup':
+				suffix = 'bam/delete_role_group';
+				break;
+
+			default:
+				break;
+
+		}
 
 		$http.post(baseurl + suffix, id)
 			.success(function(data, status) {
 				return true;
 			})
 			.error(function(data, status) {
-				console.log('delete role error status:' + status);
+				console.log('delete ' + type + ' error status:' + status);
 				return false;
 			})
 	}
 
 
 	/**
-	 * 更新角色
+	 * 更新对象
 	 *
-	 * @param  object role
+	 * @param  object model
+	 * @param  string type
 	 * @return bool
 	 */
-	this.updateRole = function(role) {
-		var suffix = 'bam/update_role';
+	this.update = function(model, type) {
 
-		$http.post(baseurl + suffix, role)
+		var suffix;
+
+		switch (type) {
+			case 'user':
+				suffix = 'bam/update_user';
+				break;
+			case 'userGroup':
+				suffix = 'bam/update_user_group';
+				break;
+
+			case 'role':
+				suffix = 'bam/update_role';
+				break;
+
+			case 'userRole':
+				suffix = 'bam/update_user_role';
+				break;
+
+			case 'roleGroup':
+				suffix = 'bam/update_role_group';
+				break;
+
+			default:
+				break;
+
+		}
+
+		$http.post(baseurl + suffix, model.model)
 			.success(function(data, status) {
 				return true;
 			})
 			.error(function(data, status) {
-				console.log('update role error status:' + status);
+				console.log('update ' + type + ' error status:' + status);
 				return false;
 			})
 	}
 
+
+	/**
+	 * 对象查询
+	 *
+	 * @param  object search
+	 * @param  string type
+	 * @return none
+	 */
+
+	this.search = function($scope, type) {
+
+		var suffix;
+
+		switch (type) {
+			case 'user':
+				suffix = 'bam/search_user';
+				break;
+			case 'userGroup':
+				suffix = 'bam/search_user_group';
+				break;
+
+			case 'role':
+				suffix = 'bam/search_role';
+				break;
+
+			case 'userRole':
+				suffix = 'bam/search_user_role';
+				break;
+
+			case 'roleGroup':
+				suffix = 'bam/search_role_group';
+				break;
+
+			default:
+				break;
+
+		}
+		console.log($scope.searchModel);
+
+		return $http.post(baseurl + suffix, $scope.searchModel)
+			.success(function(data, status) {
+				$scope.result = data;
+			})
+			.error(function(data, status) {
+				console.log('search ' + type + ' error status: ' + status + ' use dummy data');
+
+				// dummy data
+				$scope.result = [
+					{id: 1, name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
+					{id: 4, name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
+					{id: 14, name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'register'},
+					{id: 43, name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
+				]
+			})
+	}
 
 	/**
 	 * 角色查询

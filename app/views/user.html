@@ -29,7 +29,7 @@
 </form>
 
 <div class="row container">
-	<table class="table table-bordered table-striped" ng-show="users.length">
+	<table class="table table-bordered table-striped" ng-show="result.length">
 		<tr>
 			<th>姓名</th>
 			<th>帐号</th>
@@ -39,7 +39,7 @@
 			<th>是否有效</th>
 			<th>操作</th>
 		</tr>
-		<tr ng-repeat="user in users">
+		<tr ng-repeat="user in result">
 			<td>{{user.name}}</td>
 			<td>{{user.account}}</td>
 			<td>{{user.gender}}</td>
