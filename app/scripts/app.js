@@ -47,8 +47,10 @@ var uud = angular.module('mainApp', [
 		.when('/customer/data', 'root.customer.data')
 
 		// financial manager
-		.when('/financial', 'root.financial.display')
-		.when('/financial/display', 'root.financial.display')
+		.when('/financial', 'root.financial.deposit')
+		.when('/financial/deposit', 'root.financial.deposit')
+		.when('/financial/rebate', 'root.financial.rebate')
+		.when('/financial/recorded', 'root.financial.recorded')
 
 		// agents manager
 		.when('/agents', 'root.agents.list')
@@ -132,9 +134,12 @@ var uud = angular.module('mainApp', [
 				templateUrl: 'views/template.html',
 				controller: 'FinancialCtrl'})
 			.within()
-				.segment('display', {
-					templateUrl: 'views/financial/index.html',
-					controller: 'FinancialCtrl'})
+				.segment('deposit', {
+					templateUrl: 'views/financial/deposit.html'})
+				.segment('rebate', {
+					templateUrl: 'views/financial/rebate.html'})
+				.segment('recorded', {
+					templateUrl: 'views/financial/recorded.html'})
 			.up()
 
 			.segment('agents', {

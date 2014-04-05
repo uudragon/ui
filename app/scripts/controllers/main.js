@@ -58,7 +58,9 @@ angular.module('mainApp')
 				UUDBasicService.searchEmployee($scope)
 			};
 		})
-	.controller('FinancialCtrl', function ($scope) {
+	.controller('FinancialCtrl', function ($scope, UUDBasicService) {
+		// 获取保证金相关信息
+		UUDBasicService.queryDepositInfo($scope);
 
 	})
 	.controller('AgentsCtrl', function ($scope) {

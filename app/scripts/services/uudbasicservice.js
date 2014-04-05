@@ -311,4 +311,30 @@ angular.module('mainApp')
 	}
 
 
+	/**
+	 * 保证金信息查询
+	 *
+	 * @param  object $scope
+	 * @return none
+	 */
+	this.queryDepositInfo = function($scope) {
+		$http.post(baseurl + 'bam/search_sales.php', $scope.model)
+		.success(function(data, status) {
+			$scope.sales = data;
+		})
+		.error(function(data, status) {
+			console.log('search deposit error status: ' + status + ' use dummy data');
+
+			// dummy data
+			$scope.sales = {
+				'sales_today': 100321,
+				'sales_history': 200,
+				'sales_added': 120,
+				'sales_should': 5000,
+				'sales_balance': 23245000
+			};
+		})
+	}
+
+
 });
