@@ -1,0 +1,7 @@
+
+组名：{{group.name}}　<br/>
+组内用户：
+<ul class="list">
+	<li ng-repeat="user in group.users track by $index">{{user}} <a href="" ng-click="delete($index)">X</a></li>
+	<li><input type="text" ng-model="model" required><button ng-click="addToGroup()">添加</button></li>
+</ul>
