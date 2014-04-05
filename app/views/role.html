@@ -1,8 +1,4 @@
-<ul class="action-group list-inline ng-scope">
-	<li>
-		<a href="" ng-click="new()" data-toggle="modal" data-target="#uumodal" class="action-item btn">添加角色</a>
-	</li>
-</ul>
+<div uu-action-item label="添加角色" target="#uumodal" ng-click="new()"></div>
 
 <form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
 	<div class="form-group">
@@ -16,14 +12,14 @@
 </form>
 
 <div class="row container">
-	<table class="table table-bordered table-striped" ng-show="roles.length">
+	<table class="table table-bordered table-striped" ng-show="result.length">
 		<tr>
 			<th>角色名</th>
 			<th>是否有效</th>
 			<th>操作</th>
 		</tr>
-		<tr ng-repeat="role in roles">
-			<td>{{role.name}}</td>
+		<tr ng-repeat="role in result">
+			<td>{{role.rolename}}</td>
 			<td>{{role.isValid}}</td>
 			<td>
 				<ul class="list-inline">
@@ -46,7 +42,7 @@
 			<div class="modal-body">
 				<form action="" class="form form-horizontal form-small">
 					<fieldset>
-						<div uuinput label="角色名" l-col="3" r-col="5" name="name" model="model.name"></div>
+						<div uuinput label="角色名" l-col="3" r-col="5" name="name" model="model.rolename"></div>
 						<div class="form-group">
 							<label class="col-xs-3 control-label" for="c-gender">是否有效: </label>
 							<div class="col-xs-4">

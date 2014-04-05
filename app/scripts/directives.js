@@ -136,6 +136,17 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		templateUrl: 'views/partial/directives/uuinput.html'
 	}
 })
+// uuinput directive
+.directive('uuActionItem', function() {
+	return {
+		scope: {
+			label: '@',
+			ngClick: '&',
+			target: '@'
+		},
+		templateUrl: 'views/partial/directives/uuactionitem.html'
+	}
+})
 
 // uuinput static
 .directive('uustatic', function() {

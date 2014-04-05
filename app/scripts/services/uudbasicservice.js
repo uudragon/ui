@@ -28,7 +28,7 @@ angular.module('authApp')
 	 * @param  string id
 	 * @return object
 	 */
-	this.loadById = function($scope, $id, type) {
+	this.loadById = function($scope, id, type) {
 
 		var suffix;
 
@@ -262,10 +262,12 @@ angular.module('authApp')
 
 				// dummy data
 				$scope.result = [
-					{id: 1, name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
-					{id: 4, name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
-					{id: 14, name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'register'},
-					{id: 43, name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
+					{id: 1, type: 1, rolename: '财务', name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
+					{id: 2, type: 2, rolename: '管理人员', name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
+					{id: 3, type: 2, rolename: '渠道经理', name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'register'},
+					{id: 4, type: 1, rolename: '客服', name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
+					{id: 5, type: 1, rolename: '客服主管', name: 'test45', account: "account4", isValid: 1, gender: 'male', email: 'testd4@email.com', positions: 'admin'},
+					{id: 6, type: 1, rolename: '发货员', name: '21312', account: "account2", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
 				]
 			})
 	}
@@ -289,12 +291,12 @@ angular.module('authApp')
 
 			// dummy data
 			$scope.roles = [
-				{id: 1, name: '财务', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
-				{id: 2, name: '管理人员', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
-				{id: 3, name: '渠道经理', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'registerrole'},
-				{id: 4, name: '客服', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-				{id: 5, name: '客服主管', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-				{id: 6, name: '发货员', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
+				{id: 1, type: 1, name: '财务', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
+				{id: 2, type: 2, name: '管理人员', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
+				{id: 3, type: 3, name: '渠道经理', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'registerrole'},
+				{id: 4, type: 4, name: '客服', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
+				{id: 5, type: 5, name: '客服主管', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
+				{id: 6, type: 6, name: '发货员', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
 			]
 			$scope.pages = 10;
 		})

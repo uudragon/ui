@@ -62,6 +62,9 @@ a {
 .underline {
   text-decoration: underline !important; }
 
+.uu-close {
+  float: none; }
+
 .action-item {
   font-size: 1.2em;
   cursor: pointer; }
@@ -104,8 +107,7 @@ a {
  * ----------------------------------------------------------------------------
  */
 .breadcrumb > li > a {
-  text-decoration: none;
-  font: 1em/normal "微软雅黑", "宋体", Arial, Helvetica, sans-serif; }
+  text-decoration: none; }
 .breadcrumb > li > .active {
   color: #bbb; }
 

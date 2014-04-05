@@ -45,14 +45,14 @@ angular.module('authApp')
 		$scope.add = function(user) {
 			UUDBasicService.add(user, 'user');
 
-			$scope.users = $scope.users || [];
-			$scope.users.push(user);
+			$scope.result = $scope.result || [];
+			$scope.result.push(user);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(user, index) {
 			UUDBasicService.delete(user.id, 'user');
-			$scope.users.splice(index, 1);
+			$scope.result.splice(index, 1);
 		}
 
 		$scope.modify = function(user) {
@@ -64,9 +64,9 @@ angular.module('authApp')
 		$scope.save = function(iuser) {
 
 			UUDBasicService.update(iuser, 'user')
-			$scope.users.map(function(user, index) {
+			$scope.result.map(function(user, index) {
 				if (user.id == iuser.id) {
-					$scope.users[index] = iuser;
+					$scope.result[index] = iuser;
 				}
 			})
 			$('#uumodal').modal('hide')
@@ -77,7 +77,7 @@ angular.module('authApp')
 	.controller('UgroupCtrl', function ($scope, UUDBasicService) {
 
 		$scope.search = function() {
-			UUDBasicService.searchGroups($scope);
+			UUDBasicService.search($scope, 'group')
 		}
 
 		$scope.new = function() {
@@ -87,16 +87,16 @@ angular.module('authApp')
 		}
 
 		$scope.add = function(group) {
-			UUDBasicService.addGroup(group);
+			UUDBasicService.add(group, 'group');
 
-			$scope.groups = $scope.groups || [];
-			$scope.groups.push(group);
+			$scope.result = $scope.result || [];
+			$scope.result.push(group);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(group, index) {
-			UUDBasicService.deleteGroup(group.id);
-			$scope.groups.splice(index, 1);
+			UUDBasicService.delete(group.id, 'group');
+			$scope.result.splice(index, 1);
 		}
 
 		$scope.modify = function(group) {
@@ -107,35 +107,31 @@ angular.module('authApp')
 
 		$scope.save = function(igroup) {
 
-			UUDBasicService.updateGroup(igroup)
-			$scope.groups.map(function(group, index) {
+			UUDBasicService.update(igroup, 'group')
+			$scope.result.map(function(group, index) {
 				if (group.id == igroup.id) {
-					$scope.users[index] = iuser;
+					$scope.result[index] = igroup;
 				}
 			})
 			$('#uumodal').modal('hide')
 		}
-
-		$scope.view = function(id) {
-			console.log(id);
-		}
 	})
 		.controller('ShowGroupCtrl', function($scope, $routeParams, UUDBasicService){
-			UUDBasicService.getGroupById($scope, $routeParams.id)
+			UUDBasicService.loadById($scope, $routeParams.id, 'group')
 
 			$scope.delete = function($index) {
-				$scope.group.users.splice($index, 1);
+				$scope.model.users.splice($index, 1);
 			}
 			$scope.addToGroup = function() {
-				$scope.group.users = $scope.group.users || [];
-				$scope.group.users.push($scope.model);
-				$scope.model = "";
+				$scope.model.users = $scope.model.users || [];
+				$scope.model.users.push($scope.model.user);
+				$scope.model.user = "";
 			}
 		})
 
 	.controller('RoleCtrl', function ($scope, UUDBasicService) {
 		$scope.search = function() {
-			UUDBasicService.searchRoles($scope);
+			UUDBasicService.search($scope, 'roles');
 		}
 
 		$scope.new = function() {
@@ -145,16 +141,16 @@ angular.module('authApp')
 		}
 
 		$scope.add = function(role) {
-			UUDBasicService.addRole(role);
+			UUDBasicService.add(role, 'role');
 
-			$scope.roles = $scope.roles || [];
-			$scope.roles.push(role);
+			$scope.result = $scope.result || [];
+			$scope.result.push(role);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(role, index) {
-			UUDBasicService.deleteRole(role.id);
-			$scope.roles.splice(index, 1);
+			UUDBasicService.delete(role.id, 'role');
+			$scope.result.splice(index, 1);
 		}
 
 		$scope.modify = function(role) {
@@ -165,10 +161,10 @@ angular.module('authApp')
 
 		$scope.save = function(irole) {
 
-			UUDBasicService.updateRole(irole)
-			$scope.roles.map(function(role, index) {
+			UUDBasicService.update(irole, 'role')
+			$scope.result.map(function(role, index) {
 				if (role.id == irole.id) {
-					$scope.roles[index] = irole;
+					$scope.result[index] = irole;
 				}
 			})
 			$('#uumodal').modal('hide')
