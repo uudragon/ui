@@ -77,7 +77,7 @@ angular.module('authApp')
 	.controller('UgroupCtrl', function ($scope, UUDBasicService) {
 
 		$scope.search = function() {
-			UUDBasicService.search($scope, 'group')
+			UUDBasicService.search($scope, 'userGroup')
 		}
 
 		$scope.new = function() {
@@ -87,7 +87,7 @@ angular.module('authApp')
 		}
 
 		$scope.add = function(group) {
-			UUDBasicService.add(group, 'group');
+			UUDBasicService.add(group, 'userGroup');
 
 			$scope.result = $scope.result || [];
 			$scope.result.push(group);
@@ -95,7 +95,7 @@ angular.module('authApp')
 		}
 
 		$scope.delete = function(group, index) {
-			UUDBasicService.delete(group.id, 'group');
+			UUDBasicService.delete(group.id, 'userGroup');
 			$scope.result.splice(index, 1);
 		}
 
@@ -107,7 +107,7 @@ angular.module('authApp')
 
 		$scope.save = function(igroup) {
 
-			UUDBasicService.update(igroup, 'group')
+			UUDBasicService.update(igroup, 'userGroup')
 			$scope.result.map(function(group, index) {
 				if (group.id == igroup.id) {
 					$scope.result[index] = igroup;
@@ -117,7 +117,7 @@ angular.module('authApp')
 		}
 	})
 		.controller('ShowGroupCtrl', function($scope, $routeParams, UUDBasicService){
-			UUDBasicService.loadById($scope, $routeParams.id, 'group')
+			UUDBasicService.loadById($scope, $routeParams.id, 'userGroup')
 
 			$scope.delete = function($index) {
 				$scope.model.users.splice($index, 1);
@@ -170,9 +170,59 @@ angular.module('authApp')
 			$('#uumodal').modal('hide')
 		}
 	})
-	.controller('RgroupCtrl', function ($scope) {
+	.controller('RgroupCtrl', function ($scope, UUDBasicService) {
+		$scope.search = function() {
+			UUDBasicService.search($scope, 'roleGroup')
+		}
 
+		$scope.new = function() {
+			$scope.modalTitle = "添加组";
+			$scope.modalType = "add";
+			$scope.model = {};
+		}
+
+		$scope.add = function(group) {
+			UUDBasicService.add(group, 'roleGroup');
+
+			$scope.result = $scope.result || [];
+			$scope.result.push(group);
+			$('#uumodal').modal('hide');
+		}
+
+		$scope.delete = function(group, index) {
+			UUDBasicService.delete(group.id, 'roleGroup');
+			$scope.result.splice(index, 1);
+		}
+
+		$scope.modify = function(group) {
+			$scope.modalTitle = "编辑组";
+			$scope.modalType = "edit";
+			$scope.model = angular.copy(group);
+		}
+
+		$scope.save = function(igroup) {
+
+			UUDBasicService.update(igroup, 'roleGroup')
+			$scope.result.map(function(group, index) {
+				if (group.id == igroup.id) {
+					$scope.result[index] = igroup;
+				}
+			})
+			$('#uumodal').modal('hide')
+		}
 	})
+		.controller('ShowRoleCtrl', function($scope, $routeParams, UUDBasicService){
+			UUDBasicService.loadById($scope, $routeParams.id, 'roleGroup')
+
+			$scope.delete = function($index) {
+				$scope.model.users.splice($index, 1);
+			}
+			$scope.addToGroup = function() {
+				$scope.model.users = $scope.model.users || [];
+				$scope.model.users.push($scope.model.user);
+				$scope.model.user = "";
+			}
+		})
 	.controller('PrivilegeCtrl', function ($scope) {
 
 	})

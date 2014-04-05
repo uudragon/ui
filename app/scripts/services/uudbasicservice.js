@@ -15,6 +15,7 @@ angular.module('authApp')
 			'root.ugroup.show' : {href: '', label: '用户组查看'},
 			'root.role' : {href: 'role', label: '角色管理'},
 			'root.rgroup' : {href: 'role-group', label: '角色组管理'},
+			'root.rgroup.show' : {href: '', label: '角色查看'},
 			'root.privilege' : {href: 'privilege', label: '权限管理'}
 		}
 
@@ -270,36 +271,6 @@ angular.module('authApp')
 					{id: 6, type: 1, rolename: '发货员', name: '21312', account: "account2", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
 				]
 			})
-	}
-
-	/**
-	 * 角色查询
-	 *
-	 * @param  object $scope
-	 * @return none
-	 */
-
-	this.searchRoles = function($scope) {
-
-		console.log($scope.searchModel);
-		$http.post(baseurl + 'bam/search_role', $scope.search)
-			.success(function(data, status) {
-				$scope.roles = data;
-			})
-		.error(function(data, status) {
-			console.log('search role error status: ' + status + ' use dummy data');
-
-			// dummy data
-			$scope.roles = [
-				{id: 1, type: 1, name: '财务', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
-				{id: 2, type: 2, name: '管理人员', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
-				{id: 3, type: 3, name: '渠道经理', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'registerrole'},
-				{id: 4, type: 4, name: '客服', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-				{id: 5, type: 5, name: '客服主管', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-				{id: 6, type: 6, name: '发货员', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-			]
-			$scope.pages = 10;
-		})
 	}
 
 });

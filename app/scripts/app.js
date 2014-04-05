@@ -36,7 +36,8 @@ var uud = angular.module('authApp', [
 		.when('/user-group', 'root.ugroup.list')
 		.when('/user-group/:id', 'root.ugroup.show')
 		.when('/role', 'root.role')
-		.when('/role-group', 'root.rgroup')
+		.when('/role-group', 'root.rgroup.list')
+		.when('/role-group/:id', 'root.rgroup.show')
 		.when('/privilege', 'root.privilege')
 
 		.segment('root', {
@@ -61,15 +62,15 @@ var uud = angular.module('authApp', [
 				templateUrl: 'views/home.html'})
 
 			.segment('login', {
-				templateUrl: 'views/home.html',
+				templateUrl: 'views/login/index.html',
 				controller: 'LoginCtrl'})
 
 			.segment('user', {
-				templateUrl: 'views/user.html',
+				templateUrl: 'views/user/index.html',
 				controller: 'UserCtrl'})
 
 			.segment('ugroup', {
-				templateUrl: 'views/ugroup.html',
+				templateUrl: 'views/ugroup/index.html',
 				controller: 'UgroupCtrl',
 				dependencies: ['id']})
 				.within()
@@ -82,15 +83,24 @@ var uud = angular.module('authApp', [
 				.up()
 
 			.segment('role', {
-				templateUrl: 'views/role.html',
+				templateUrl: 'views/role/index.html',
 				controller: 'RoleCtrl'})
 
 			.segment('rgroup', {
-				templateUrl: 'views/rgroup.html',
-				controller: 'RgroupCtrl'})
+				templateUrl: 'views/rgroup/index.html',
+				controller: 'RgroupCtrl',
+				dependencies: ['id']})
+				.within()
+					.segment('list', {
+						templateUrl: 'views/rgroup/list.html',
+						controller: 'RgroupCtrl'})
+					.segment('show', {
+						templateUrl: 'views/rgroup/show.html',
+						controller: 'ShowRoleCtrl'})
+				.up()
 
 			.segment('privilege', {
-				templateUrl: 'views/privilege.html',
+				templateUrl: 'views/privilege/index.html',
 				controller: 'PrivilegeCtrl'})
 		.up()
 
