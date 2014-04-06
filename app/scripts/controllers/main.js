@@ -130,8 +130,9 @@ angular.module('authApp')
 		})
 
 	.controller('RoleCtrl', function ($scope, UUDBasicService) {
-		$scope.search = function() {
-			UUDBasicService.search($scope, 'roles');
+		$scope.search = function(param) {
+			console.log(param);
+			UUDBasicService.search($scope, 'role');
 		}
 
 		$scope.new = function() {

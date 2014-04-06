@@ -191,3 +191,88 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		templateUrl: 'views/partial/directives/uusimplesearch.html'
 	}
 })
+
+// generate simple search field
+.directive('uuPagination', function() {
+	return {
+		scope: {
+			records: '=',
+			perPage: '=',
+			maxPages: '=',
+			action: '&',
+			model: '='
+		},
+		controller: function($scope) {
+
+			var totalPages = Math.floor($scope.records / $scope.perPage);
+			var pages = betwwen(totalPages , 0, $scope.maxPages);
+			var start = 1;
+			var length = pages;
+			$scope.current = 1;
+
+			updatePagination();
+
+			function updatePagination() {
+				$scope.pages = [];
+
+				for (var i = start; i < start + length; i++) {
+					$scope.pages.push(i)
+				}
+				return pages;
+			}
+
+			$scope.prev = function() {
+				$scope.current--;
+				if ($scope.current < 1) {
+					$scope.current =1;
+				}
+				perform();
+			}
+
+			$scope.to = function(page) {
+				$scope.current = page;
+				perform();
+			}
+
+			$scope.next = function() {
+				$scope.current++;
+				if ($scope.current > totalPages) {
+					$scope.current = totalPages;
+				}
+				perform();
+			}
+
+			function perform() {
+				var middlePage = start + Math.floor(length / 2);
+				var offset = 0;
+
+				if ($scope.current > middlePage) {
+					offset = $scope.current - middlePage;
+					start += offset;
+				}
+
+				if ($scope.current < middlePage) {
+					offset = middlePage - $scope.current;
+					start -= offset;
+				}
+
+				start = betwwen(start, 1, totalPages - length + 1)
+
+				updatePagination();
+
+				$scope.model = $scope.current;
+				$scope.action({
+					toPage: $scope.current
+				});
+			}
+
+			function betwwen(val, min, max) {
+				console.log(val, min, max);
+				if (val < min) return min;
+				if (val > max) return max;
+				return val;
+			}
+		},
+		templateUrl: 'views/partial/directives/pagination.html'
+	}
+})

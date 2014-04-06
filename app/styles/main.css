@@ -65,6 +65,9 @@ a {
 .uu-close {
   float: none; }
 
+.pagination-wraper {
+  text-align: center; }
+
 .action-item {
   font-size: 1.2em;
   cursor: pointer; }

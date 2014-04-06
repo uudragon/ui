@@ -2,8 +2,8 @@
 
 <div uu-simple-search placeholder="请输入角色名" ng-submit="search()" model="searchModel.roleName"></div>
 
-<div class="row container">
-	<table class="table table-bordered table-striped" ng-show="result.length">
+<div class="row container" ng-if="result.length">
+	<table class="table table-bordered table-striped">
 		<tr>
 			<th>角色名</th>
 			<th>是否有效</th>
@@ -20,6 +20,8 @@
 			</td>
 		</tr>
 	</table>
+
+	<div uu-pagination records="1000" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
 </div>
 
 
