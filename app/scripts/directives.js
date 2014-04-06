@@ -192,6 +192,21 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
+// generate search field
+.directive('uuSearch', function() {
+	return {
+		scope: {
+			placeholder: '@',
+			ngSubmit: '&',
+			lCol: '@',
+			rCol: '@',
+			offset: '@',
+			model: '='
+		},
+		templateUrl: 'views/partial/directives/uusearch.html'
+	}
+})
+
 /**
  * generate pagination
  *
@@ -273,7 +288,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				start = betwwen(start, 1, totalPages - length + 1)
 
 				// update the model passed in
-				$scope.model = $scope.current;
+				$scope.model = {
+					'toPage': $scope.current,
+					'perPage': perPage
+				}
 				updatePagination();
 
 			}
