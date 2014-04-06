@@ -81,8 +81,14 @@ angular.module('mainApp')
 		UUDBasicService.searchRecorded($scope);
 
 	})
+	//代理商管理
 	.controller('AgentsCtrl', function ($scope) {
 
+	})
+	.controller('agentManage', function ($scope, UUDBasicService){
+		UUDBasicService.searchOverallAgent($scope);
+
+		UUDBasicService.searchAgent($scope);
 	})
 	.controller('ShipCtrl', function ($scope) {
 
