@@ -17,7 +17,7 @@
 	</div>
 	<div class="col-xs-5">
 		<!-- <span class="key">检索: </span> -->
-		<select name="filter" ng-model="model.filter" class="form-control">
+		<select name="filter" ng-model="model.filterDateperiod" class="form-control">
 			<option value="val1">条件一</option>
 			<option value="val2">条件二</option>
 			<option value="val3">条件三</option>
@@ -32,13 +32,13 @@
 	</div>
 </form>
 <br/><br/>
-<form action="" class="search-form-dateperiod" ng-submit="search()">
+<form action="" class="search-form-quidco" ng-submit="search()">
 	<div class="col-xs-4">
 		<span class="key">本月返利总额: </span><span class="val">{{accu_quidco_amount}}</span>
 	</div>
 	<div class="col-xs-5">
 		<!-- <span class="key">检索: </span> -->
-		<select name="filter" ng-model="model.filter" class="form-control">
+		<select name="filter" ng-model="model.filterQuidco" class="form-control">
 			<option value="val1">条件一</option>
 			<option value="val2">条件二</option>
 			<option value="val3">条件三</option>

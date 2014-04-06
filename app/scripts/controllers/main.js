@@ -74,7 +74,10 @@ angular.module('mainApp')
 
 	})
 	.controller('recordedManage', function ($scope, UUDBasicService) {
-		// 查询保证金具体信息
+		//查询入账总体信息
+		UUDBasicService.searchOverallRecorded($scope);
+
+		// 查询入账具体信息
 		UUDBasicService.searchRecorded($scope);
 
 	})
@@ -82,11 +85,5 @@ angular.module('mainApp')
 
 	})
 	.controller('ShipCtrl', function ($scope) {
-
-	})
-	.controller('ProductionCtrl', function ($scope) {
-
-	})
-	.controller('LawCtrl', function ($scope) {
 
 	})

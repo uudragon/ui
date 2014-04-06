@@ -389,6 +389,20 @@ angular.module('mainApp')
 	 * @param  object $scope
 	 * @return none
 	 */
+	 this.searchOverallRecorded = function ($scope) {
+	 	$http.post(baseurl + 'bam/search_overall_recorded.php', $scope.model)
+		.success(function(data, status) {
+			$scope.recordedNum = data;
+		})
+		.error(function(data, status) {
+
+			console.log('search recorded error status: ' + status + ' use dummy data');
+
+			// dummy data
+			$scope.recordedNum = {recorded_today: 20000, recorded_total: 51870120};
+		})
+	 }
+
 	this.searchRecorded = function($scope) {
 		$http.post(baseurl + 'bam/search_recorded.php', $scope.model)
 		.success(function(data, status) {
@@ -396,14 +410,11 @@ angular.module('mainApp')
 		})
 		.error(function(data, status) {
 
-			console.log('search deposit error status: ' + status + ' use dummy data');
+			console.log('search recorded error status: ' + status + ' use dummy data');
 
 			// dummy data
 			$scope.result = [
-				{add_amount: 2000, area: '华东', agent_name: '迅捷有限公司', creater: '晓峰', total_amount: 1100, actual_amount: 100, balance: 1000},
-				{add_amount: 2000, area: '华西', agent_name: '天意有限公司', creater: '虚竹', total_amount: 1100, actual_amount: 100, balance: 1000},
-				{add_amount: 2000, area: '华南', agent_name: '国脉有限公司', creater: '段玉', total_amount: 1100, actual_amount: 100, balance: 1000},
-				{add_amount: 2000, area: '华北', agent_name: '海华有限公司', creater: '朱朱', total_amount: 1100, actual_amount: 100, balance: 1000}
+				{enter_amount: 20000, bank_code: '中国银行', account_name: '虚竹', account_no: 51870120, remark: '银行付款1'}
 			]
 		})
 	}

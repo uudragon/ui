@@ -101,3 +101,11 @@ a {color: #333; }
 .side-info {position: absolute; right: 20px; top: 4px; }
 .side-info > li {padding: 0 35px;}
 .panel-body {overflow-y: scroll; height: 130px}
+
+
+/**
+ * Finacial
+ * ----------------------------------------------------------------------------
+ */
+ #recorded-panel {margin: 0px 50px 50px 50px; }
+ #recorded-details {border: 1px solid #DDDDDD; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding: 10px 20px 10px 20px; }

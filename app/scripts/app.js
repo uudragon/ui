@@ -166,22 +166,6 @@ var uud = angular.module('mainApp', [
 				.segment('summary', {
 					templateUrl: 'views/ship/summary.html'})
 			.up()
-
-			.segment('prod', {
-				templateUrl: 'views/template.html',
-				controller: 'ProductionCtrl'})
-			.within()
-				.segment('home', {
-					templateUrl: 'views/prod/index.html'})
-			.up()
-
-			.segment('law', {
-				templateUrl: 'views/template.html',
-				controller: 'LawCtrl'})
-			.within()
-				.segment('home', {
-					templateUrl: 'views/law/index.html'})
-			.up()
 		.up()
 
 	$routeProvider.otherwise({redirectTo: '/'});

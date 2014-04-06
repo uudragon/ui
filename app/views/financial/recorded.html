@@ -1,1 +1,85 @@
 <div ng-include src="'views/partial/financial/financial-tab.html'"></div>
+
+<div class="info-panel">
+	<ul class="list-inline">
+		<li><span class="key">今日销售额: </span><span class="val">{{sales.sales_today}}</span></li>
+		<li><span class="key">历史销售总额: </span><span class="val">{{sales.sales_history}}</span></li>
+		<li><span class="key">今日入账: </span><span class="val">{{recordedNum.recorded_today}}</span></li>
+		<li><span class="key">累计入账: </span><span class="val">{{recordedNum.recorded_total}}</span></li>
+	</ul>
+</div>
+
+
+<form action="" class="search-form-dateperiod" ng-submit="search()">
+	<div class="col-xs-4">
+		<span class="key">时间: </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>&nbsp;<span class="key">至 </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>
+	</div>
+	<div class="col-xs-5">
+		<!-- <span class="key">检索: </span> -->
+		<select name="filter-dataperiod" ng-model="model.filterDataperiod" class="form-control">
+			<option value="val1">条件一</option>
+			<option value="val2">条件二</option>
+			<option value="val3">条件三</option>
+		</select>
+	</div>
+	<div class="col-xs-2 pull-right">
+		<ul class="list-inline batch-btn-group ">
+			<li><a href="">修改</a></li>
+			<li class="split-pipe">|</li>
+			<li><a href="">导出</a></li>
+		</ul>
+	</div>
+</form>
+<br /><br />
+
+<div id="recorded-panel">
+	<ul class="nav nav-tabs">
+	  <li class="active"><a href="#">银行入账</a></li>
+	  <li><a href="#">支付宝入账</a></li>
+	  <li><a href="#">货到付款入账</a></li>
+	</ul>
+
+	<div id="recorded-details">
+	<form action="" class="search-form-recorded" ng-submit="search()">
+		<div class="col-xs-4">
+			<span class="key">今日入账: </span><span class="val">50</span>
+		</div>
+		<div class="col-xs-5">
+			<!-- <span class="key">检索: </span> -->
+			<select name="filter-recorded" ng-model="model.filterRecorded" class="form-control">
+				<option value="val1">条件一</option>
+				<option value="val2">条件二</option>
+				<option value="val3">条件三</option>
+			</select>
+		</div>
+		<div class="col-xs-2 pull-right">
+			<ul class="list-inline batch-btn-group ">
+				<li><a href="">修改</a></li>
+				<li class="split-pipe">|</li>
+				<li><a href="">导出</a></li>
+			</ul>
+		</div>
+	</form>
+
+	<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>入账金额</th>
+				<th>入账信息</th>
+				<th>款项说明</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in result">
+				<td>{{item.enter_amount}}</td>
+				<td>
+					银行：{{item.bank_code}}<br/>
+					账户名：{{item.account_name}}<br/> 
+					账号： {{item.account_no}}
+				</td>
+				<td>{{item.remark}}</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
