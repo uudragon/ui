@@ -186,7 +186,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			lCol: '@',
 			rCol: '@',
 			offset: '@',
-			model: '='
+			model: '@'
 		},
 		templateUrl: 'views/partial/directives/uusimplesearch.html'
 	}
@@ -202,7 +202,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			action: '&',
 			model: '='
 		},
-		controller: function($scope) {
+		link: function($scope, element, attrs, model) {
 
 			var totalPages = Math.floor($scope.records / $scope.perPage);
 			var pages = betwwen(totalPages , 0, $scope.maxPages);
@@ -258,16 +258,20 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				start = betwwen(start, 1, totalPages - length + 1)
 
+				// update the model passed in
+				$scope.model = $scope.current;
 				updatePagination();
 
-				$scope.model = $scope.current;
-				$scope.action({
-					toPage: $scope.current
-				});
 			}
 
+			// when current page changed, call function
+			$scope.$watch('current', function(current, prev, scope) {
+				if(angular.isDefined(current) && current !== null) {
+					scope.action()
+				}
+			})
+
 			function betwwen(val, min, max) {
-				console.log(val, min, max);
 				if (val < min) return min;
 				if (val > max) return max;
 				return val;

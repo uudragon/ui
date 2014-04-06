@@ -1,6 +1,6 @@
 <div uu-action-item label="添加用户" ng-click="new()"></div>
 
-<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
+<form class="form form-horizontal form-small search-form" role="form" >
 	<div>
 		<div class="form-group">
 			<div uuinput label="姓名" l-col="3" r-col="3" name="name" model="searchModel.name"></div>
@@ -17,7 +17,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-xs-3 col-xs-offset-3">
-					<button class="btn btn-primary" type="submit">查找</button>
+					<button class="btn btn-primary" type="submit" ng-click="search()">查找</button>
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,6 @@
 		</tr>
 	</table>
 	<div uu-pagination records="1000" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
-
 </div>
 
 

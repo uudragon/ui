@@ -32,7 +32,8 @@ angular.module('authApp')
 
 	.controller('UserCtrl', function ($scope, UUDBasicService) {
 
-		$scope.search = function() {
+		$scope.search = function(param) {
+			$scope.searchModel = $scope.searchModel || {};
 			UUDBasicService.search($scope, 'user')
 		}
 
