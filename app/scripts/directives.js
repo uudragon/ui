@@ -81,7 +81,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
-// uutab directive
+// generate clickable tab
 .directive('uutab', function() {
 	return {
 		transclude: true,
@@ -107,7 +107,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
-// uupane directive, base on uutab
+// content inner clickable tab
 .directive('uupane', function() {
 	return {
 		require: '^uutab',
@@ -122,7 +122,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
-// uuinput directive
+// generate input field in form
 .directive('uuinput', function() {
 	return {
 		scope: {
@@ -136,7 +136,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		templateUrl: 'views/partial/directives/uuinput.html'
 	}
 })
-// uuinput directive
+
+// action buttion in page
 .directive('uuActionItem', function() {
 	return {
 		scope: {
@@ -148,7 +149,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
-// uuinput static
+// generate static field in form
 .directive('uustatic', function() {
 	return {
 		scope: {
@@ -161,7 +162,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
-// uuinput static
+// generate static field for phone in form
 .directive('uuStaticPhone', function() {
 	return {
 		scope: {
@@ -173,5 +174,20 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			main: '=',
 		},
 		templateUrl: 'views/partial/directives/uustaticphone.html'
+	}
+})
+
+// generate simple search field
+.directive('uuSimpleSearch', function() {
+	return {
+		scope: {
+			placeholder: '@',
+			ngSubmit: '&',
+			lCol: '@',
+			rCol: '@',
+			offset: '@',
+			model: '='
+		},
+		templateUrl: 'views/partial/directives/uusimplesearch.html'
 	}
 })

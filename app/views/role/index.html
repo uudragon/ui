@@ -1,15 +1,6 @@
 <div uu-action-item label="添加角色" target="#uumodal" ng-click="new()"></div>
 
-<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
-	<div class="form-group">
-		<div class="col-xs-6 col-xs-offset-2">
-			<input type="text" name="search-box" placeholder="请输入角色名" ng-model="model.keyword" class="form-control" id="search-box">
-		</div>
-		<div class="col-xs-2">
-			<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-		</div>
-	</div>
-</form>
+<div uu-simple-search placeholder="请输入角色名" ng-submit="search()" model="searchModel.roleName"></div>
 
 <div class="row container">
 	<table class="table table-bordered table-striped" ng-show="result.length">
