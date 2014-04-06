@@ -135,11 +135,14 @@ var uud = angular.module('mainApp', [
 				controller: 'FinancialCtrl'})
 			.within()
 				.segment('deposit', {
-					templateUrl: 'views/financial/deposit.html'})
+					templateUrl: 'views/financial/deposit.html',
+					controller: 'depositManage'})
 				.segment('rebate', {
-					templateUrl: 'views/financial/rebate.html'})
+					templateUrl: 'views/financial/rebate.html',
+					controller: 'rebateManage'})
 				.segment('recorded', {
-					templateUrl: 'views/financial/recorded.html'})
+					templateUrl: 'views/financial/recorded.html',
+					controller: 'recordedManage'})
 			.up()
 
 			.segment('agents', {

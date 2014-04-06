@@ -60,7 +60,22 @@ angular.module('mainApp')
 		})
 	.controller('FinancialCtrl', function ($scope, UUDBasicService) {
 		// 获取保证金相关信息
-		UUDBasicService.queryDepositInfo($scope);
+		UUDBasicService.querySalesInfo($scope);
+
+	})
+	.controller('depositManage', function ($scope, UUDBasicService) {
+		// 查询保证金具体信息
+		UUDBasicService.searchDeposit($scope);
+
+	})
+	.controller('rebateManage', function ($scope, UUDBasicService) {
+		// 查询保证金具体信息
+		UUDBasicService.searchRebate($scope);
+
+	})
+	.controller('recordedManage', function ($scope, UUDBasicService) {
+		// 查询保证金具体信息
+		UUDBasicService.searchRecorded($scope);
 
 	})
 	.controller('AgentsCtrl', function ($scope) {
