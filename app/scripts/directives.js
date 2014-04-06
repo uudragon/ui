@@ -137,18 +137,39 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
-// generate input field in form
-.directive('uuRadio', function() {
+// generate raido field in form
+.directive('uuTimeInicator', function() {
 	return {
 		scope: {
 			label: '@',
-			name: '@',
-			lCol: '@',
-			rCol: '@',
-			list: '=',
-			model: '='
+			datetime: '@'
 		},
-		templateUrl: 'views/partial/directives/uuradio.html'
+		templateUrl: 'views/partial/directives/uutimeinicator.html'
+	}
+})
+// generate raido field in form
+.directive('uuInfoItem', function() {
+	return {
+		scope: {
+			label: '@',
+			value: '@',
+			indicator: '@',
+			unit: '@'
+		},
+		templateUrl: 'views/partial/directives/uuinfoitem.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuFieldWrap', function() {
+	return {
+		transclude: true,
+		scope: {
+			label: '@',
+			lCol: '@',
+			rCol: '@'
+		},
+		templateUrl: 'views/partial/directives/uufieldwrap.html'
 	}
 })
 

@@ -59,7 +59,7 @@ var uud = angular.module('mainApp', [
 		.when('/agents/promo-code-record', 'root.agents.promocode')
 		.when('/agents/sales-records', 'root.agents.sales')
 		.when('/agents/entry-exit', 'root.agents.entryexit')
-		.when('/agents/ordermanager', 'root.agents.ordermanager')
+		.when('/agents/commissionmanager', 'root.agents.commissionmanager')
 		.when('/agents/contractmanager', 'root.agents.contractmanager')
 		.when('/agents/financemanager', 'root.agents.financemanager')
 		.when('/agents/location-promo', 'root.agents.locationpromo')
@@ -165,9 +165,10 @@ var uud = angular.module('mainApp', [
 				.segment('sales', {
 					templateUrl: 'views/agents/sales.html'})
 				.segment('entryexit', {
-					templateUrl: 'views/agents/entryexit.html'})
-				.segment('ordermanager', {
-					templateUrl: 'views/agents/ordermanager.html'})
+					templateUrl: 'views/agents/entryexit.html',
+					controller: 'AgentsCtrl'})
+				.segment('commissionmanager', {
+					templateUrl: 'views/agents/commissionmanager.html'})
 				.segment('contractmanager', {
 					templateUrl: 'views/agents/contractmanager.html'})
 				.segment('financemanager', {

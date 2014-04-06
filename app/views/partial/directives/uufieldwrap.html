@@ -1,8 +1,6 @@
 <div class="form-group">
 	<label class="control-label {{ 'col-xs-' + (lCol || '4')}} {{ 'col-xs-offset-' + (offset || '0') }}">{{label}}: </label>
 	<div class="{{ 'col-xs-' + (rCol || '4')}}">
-		<div class="radio-inline" ng-repeat="item in list">
-			<label><input type="radio" ng-model="model" name="{{name}}" value="{{item.value}}">{{item.label}}</label>
-		</div>
+		<div ng-transclude></div>
 	</div>
 </div>

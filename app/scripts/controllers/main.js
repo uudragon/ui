@@ -84,7 +84,10 @@ angular.module('mainApp')
 
 	})
 	.controller('AgentsCtrl', function ($scope) {
+		$scope.submit = function () {
 
+			console.log($scope.model);
+		}
 	})
 	.controller('ShipCtrl', function ($scope) {
 

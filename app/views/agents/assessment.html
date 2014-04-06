@@ -1,2 +1,61 @@
 <div ng-include src="'views/partial/agents/agent-tab.html'"></div>
-assessment
+
+<div class="info-panel">
+	<ul class="list-inline">
+		<li uu-info-item label="目前签约代理数" value="12312312"></li>
+		<li uu-info-item label="今日新增代理数" value="12312312"></li>
+		<li uu-info-item label="今日销售总额" value="12312312"></li>
+		<li uu-info-item label="今日新增客户人数" value="12312312"></li>
+	</ul>
+	<ul class="list-inline">
+		<li uu-info-item label="历史销售总额" value="12312312"></li>
+		<li uu-info-item label="历史新增客户人数" value="12312312"></li>
+	</ul>
+</div>
+
+<form action="" class="search-form" ng-submit="search()">
+	<div class="form-group">
+		<div class="col-xs-3">
+			<select name="filter" ng-model="model.filter" class="form-control">
+				<option value="val1">全国</option>
+				<option value="val2">区域</option>
+				<option value="val3">代理商</option>
+			</select>
+		</div>
+	</div>
+	<div uu-input label="其它检索" name="others" l-col="2" r-col="3"></div>
+</form>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th colspan="2">全国活动数量</th>
+			<th rowspan="2">活动间隔最长时间</th>
+			<th>优惠码使用比率</th>
+			<th colspan="3">全国区域沟通</th>
+			<th rowspan="2">投诉总量</th>
+			<th rowspan="2">销量比值</th>
+			<th rowspan="2">全国销售总量</th>
+			<th rowspan="2">全国销售总额</th>
+			<th rowspan="2">评估结果</th>
+		</tr>
+		<tr>
+			<th>销售活动</th>
+			<th>培训活动</th>
+			<th>沟通次数</th>
+			<th>有效沟通次数</th>
+			<th>实施情况</th>
+		</tr>
+	</thead>
+</table>
+<div uu-tab>
+	<div uu-pane title="季度">
+
+	</div>
+	<div uu-pane title="半年">
+
+	</div>
+	<div uu-pane title="年度">
+
+	</div>
+</div>
