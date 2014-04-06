@@ -8,81 +8,81 @@
 	</ul>
 </div>
 
-<div uu-simple-search model="searchModel.keyword" ng-submit="search()"></div>
-
 <form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
-<fieldset>
-	<div class="pull-right">
-		<label><input type="checkbox" ng-click="result=[]; searchModel={}; search.advance = !search.advance; searchModel.advance=search.advance" value="male">高级搜索</label>
-	</div>
-	<div class="form-group" ng-show="!search.advance">
-		<div class="col-xs-6 col-xs-offset-2">
-			<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="searchModel.keyword" class="form-control" id="search-box">
+	<fieldset>
+		<div class="pull-right">
+			<label><input type="checkbox" ng-click="result=[]; searchModel={}; search.advance = !search.advance; searchModel.advance=search.advance" value="male">高级搜索</label>
 		</div>
-		<div class="col-xs-2">
-			<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-		</div>
-	</div>
-	<div class="col-xs-10 advance" ng-show="search.advance">
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="c-type">类型: </label>
-			<div class="col-xs-4">
-				<input type="text" name="type" ng-model="searchModel.tyle" class="form-control input-small" id="c-type">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="c-name">姓名: </label>
-			<div class="col-xs-4">
-				<input type="text" name="name" ng-model="searchModel.name" class="form-control input-small" id="c-name">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="c-gender">性别: </label>
-			<div class="col-xs-4">
-				<div class="radio-inline">
-					<label><input type="radio" ng-model="searchModel.gender" value="male">男</label>
+		<div class="unify" ng-show="!search.advance">
+			<div class="form-group" ng-show="!search.advance">
+				<div class="col-xs-6 col-xs-offset-2">
+					<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="searchModel.keyword" class="form-control" id="search-box">
 				</div>
-				<div class="radio-inline">
-					<label><input type="radio" ng-model="searchModel.gender" value="female">女</label>
+				<div class="col-xs-2">
+					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="c-birthday">出生年月: </label>
-			<div class="col-xs-5 ">
-				<input type="text" name="birthday" ng-model="searchModel.birthday" class="form-control input-small date" id="c-birthday">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="cp-name">家长姓名:</label>
-			<div class="col-xs-5">
-				<input type="text" name="p-name" ng-model="searchModel.parent.name" class="form-control input-small" id="cp-name">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="cp-gender">家长性别: </label>
-			<div class="col-xs-4">
-				<div class="radio-inline">
-					<label><input type="radio" name="cp-name" ng-model="searchModel.parent.gender" value="male">男</label>
-				</div>
-				<div class="radio-inline">
-					<label><input type="radio" name="cp-name" ng-model="searchModel.parent.gender" value="female">女</label>
+		<div class="col-xs-10 advance" ng-show="search.advance">
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="c-type">类型: </label>
+				<div class="col-xs-4">
+					<input type="text" name="type" ng-model="searchModel.tyle" class="form-control input-small" id="c-type">
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="c-emal">E-mail: </label>
-			<div class="col-xs-6">
-				<input type="text" name="email" ng-model="model.email" class="form-control input-small" id="c-emal">
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="c-name">姓名: </label>
+				<div class="col-xs-4">
+					<input type="text" name="name" ng-model="searchModel.name" class="form-control input-small" id="c-name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="c-gender">性别: </label>
+				<div class="col-xs-4">
+					<div class="radio-inline">
+						<label><input type="radio" ng-model="searchModel.gender" value="male">男</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" ng-model="searchModel.gender" value="female">女</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="c-birthday">出生年月: </label>
+				<div class="col-xs-5 ">
+					<input type="text" name="birthday" ng-model="searchModel.birthday" class="form-control input-small date" id="c-birthday">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="cp-name">家长姓名:</label>
+				<div class="col-xs-5">
+					<input type="text" name="p-name" ng-model="searchModel.parent.name" class="form-control input-small" id="cp-name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="cp-gender">家长性别: </label>
+				<div class="col-xs-4">
+					<div class="radio-inline">
+						<label><input type="radio" name="cp-name" ng-model="searchModel.parent.gender" value="male">男</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="cp-name" ng-model="searchModel.parent.gender" value="female">女</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="c-emal">E-mail: </label>
+				<div class="col-xs-6">
+					<input type="text" name="email" ng-model="model.email" class="form-control input-small" id="c-emal">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-4 col-xs-offset-4">
+					<input type="submit" value="搜索" class="btn btn-default">
+				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<div class="col-xs-4 col-xs-offset-4">
-				<input type="submit" value="搜索" class="btn btn-default">
-			</div>
-		</div>
-	</div>
-</fieldset>
+	</fieldset>
 </form>
 
 <div ng-if="result.length" class="result">

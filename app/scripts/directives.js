@@ -82,7 +82,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // generate clickable tab
-.directive('uutab', function() {
+.directive('uuTab', function() {
 	return {
 		transclude: true,
 		scope: {},
@@ -108,9 +108,9 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // content inner clickable tab
-.directive('uupane', function() {
+.directive('uuPane', function() {
 	return {
-		require: '^uutab',
+		require: '^uuTab',
 		transclude: true,
 		scope: {
 			title: '@'
@@ -123,7 +123,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // generate input field in form
-.directive('uuinput', function() {
+.directive('uuInput', function() {
 	return {
 		scope: {
 			label: '@',
@@ -134,6 +134,21 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			model: '='
 		},
 		templateUrl: 'views/partial/directives/uuinput.html'
+	}
+})
+
+// generate input field in form
+.directive('uuRadio', function() {
+	return {
+		scope: {
+			label: '@',
+			name: '@',
+			lCol: '@',
+			rCol: '@',
+			list: '=',
+			model: '='
+		},
+		templateUrl: 'views/partial/directives/uuradio.html'
 	}
 })
 
@@ -150,7 +165,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // generate static field in form
-.directive('uustatic', function() {
+.directive('uuStatic', function() {
 	return {
 		scope: {
 			label: '@',
@@ -195,6 +210,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 // generate search field
 .directive('uuSearch', function() {
 	return {
+		transclude: true,
 		scope: {
 			placeholder: '@',
 			ngSubmit: '&',
@@ -299,7 +315,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			// when current page changed, call function
 			$scope.$watch('current', function(current, prev, scope) {
 				if(angular.isDefined(current) && current !== null) {
-					scope.action()
+					scope.action();
 				}
 			})
 

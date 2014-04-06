@@ -1,13 +1,13 @@
 <div ng-include src="'views/partial/agents/agent-tab.html'"></div>
-<div uutab>
-	<div uupane title="准入">
+<div uu-tab>
+	<div uu-pane title="准入">
 		<form class="form form-horizontal form-small" role="form">
 			<div class="col-xs-8">
 				<fieldset>
 					<legend class="empty-legend"></legend>
-					<div uuinput l-col="4" r-col="4" label="姓名" name="name" model="model.name"></div>
-					<div uuinput l-col="4" r-col="6" label="身份证号" name="number" model="model.number"></div>
-					<div uuinput l-col="4" r-col="7" label="执照" name="license" model="model.license"></div>
+					<div uu-input l-col="4" r-col="4" label="姓名" name="name" model="model.name"></div>
+					<div uu-input l-col="4" r-col="6" label="身份证号" name="number" model="model.number"></div>
+					<div uu-input l-col="4" r-col="7" label="执照" name="license" model="model.license"></div>
 
 					<div class="form-group">
 						<label class="col-xs-4 control-label" for="qualified">是否合格:</label>
@@ -54,7 +54,7 @@
 						</div>
 					</div>
 
-					<div uustatic l-col="4" r-col="5" label="合同签署" text="model.contractdate"></div>
+					<div uu-static l-col="4" r-col="5" label="合同签署" text="model.contractdate"></div>
 
 					<div class="from-group">
 						<div class="col-xs-8 submit-btns col-xs-offset-4">
@@ -67,14 +67,14 @@
 			</div>
 		</form>
 	</div>
-	<div uupane title="退出">
+	<div uu-pane title="退出">
 	<form class="form form-horizontal form-small" role="form">
 		<div class="col-xs-8">
 			<fieldset>
 				<legend class="empty-legend"></legend>
-				<div uuinput l-col="4" r-col="4" label="姓名" name="name" model="model.name"></div>
-				<div uuinput l-col="4" r-col="6" label="身份证号" name="number" model="model.number"></div>
-				<div uuinput l-col="4" r-col="7" label="执照" name="license" model="model.license"></div>
+				<div uu-input l-col="4" r-col="4" label="姓名" name="name" model="model.name"></div>
+				<div uu-input l-col="4" r-col="6" label="身份证号" name="number" model="model.number"></div>
+				<div uu-input l-col="4" r-col="7" label="执照" name="license" model="model.license"></div>
 
 				<div class="form-group">
 					<label class="col-xs-4 control-label">退出原因:</label>
@@ -109,7 +109,7 @@
 					</div>
 				</div>
 
-				<div uustatic l-col="4" r-col="5" label="合同签署" text="model.contractdate"></div>
+				<div uu-static l-col="4" r-col="5" label="合同签署" text="model.contractdate"></div>
 
 				<div class="from-group">
 					<div class="col-xs-8 submit-btns col-xs-offset-4">

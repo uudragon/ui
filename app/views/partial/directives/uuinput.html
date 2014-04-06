@@ -1,6 +1,6 @@
 <div class="form-group">
-	<label class="control-label" ng-class="'col-xs-' + lCol" for="{{name}}">{{label}}:</label>
-	<div ng-class="'col-xs-' + rCol">
+	<label class="control-label {{ 'col-xs-' + (lCol || '4')}} {{ 'col-xs-offset-' + (offset || '0') }}" for="{{name}}">{{label}}:</label>
+	<div class="{{ 'col-xs-' + (rCol || '4')}}">
 		<input type="{{type || 'text'}}" class="input-sm form-control" ng-model="model" name="{{name}}" id="{{name}}">
 	</div>
 </div>
