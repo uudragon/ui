@@ -2,8 +2,8 @@
 
 <div uu-simple-search placeholder="请输入组名" ng-submit="search()" model="searchModel.groupName"></div>
 
-<div class="row container">
-	<table class="table table-bordered table-striped" ng-show="result.length">
+<div class="row container" ng-if="result.length">
+	<table class="table table-bordered table-striped" >
 		<tr>
 			<th>组名</th>
 			<th>类别</th>
@@ -22,6 +22,7 @@
 			</td>
 		</tr>
 	</table>
+	<div uu-pagination records="result.length" per-page="2" action="search()" model="searchModel.toPage"></div>
 </div>
 
 

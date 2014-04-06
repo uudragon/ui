@@ -186,13 +186,25 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			lCol: '@',
 			rCol: '@',
 			offset: '@',
-			model: '@'
+			model: '='
 		},
 		templateUrl: 'views/partial/directives/uusimplesearch.html'
 	}
 })
 
-// generate simple search field
+/**
+ * generate pagination
+ *
+ * @param int records 总记录数
+ * @param int per-page 每页显示的记录数 default: 10
+ * @param int max-pages 最多显示多少页 default: 10
+ * @param function action 点击页码后调用的方法
+ * @param object model 需要更新的model (最好在controller中初始化: $scope.searchModel = {})
+ *
+ * example:
+ * <div uu-pagination records="1000" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
+ */
+
 .directive('uuPagination', function() {
 	return {
 		scope: {
@@ -204,7 +216,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function($scope, element, attrs, model) {
 
-			var totalPages = Math.floor($scope.records / $scope.perPage);
+			$scope.maxPages = $scope.maxPages || 10;
+			$scope.perPage = $scope.perPage || 20;
+
+			var totalPages = Math.ceil($scope.records / $scope.perPage);
 			var pages = betwwen(totalPages , 0, $scope.maxPages);
 			var start = 1;
 			var length = pages;
