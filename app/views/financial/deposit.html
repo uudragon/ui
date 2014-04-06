@@ -1,0 +1,60 @@
+<div ng-include src="'views/partial/financial/financial-tab.html'"></div>
+
+<div class="info-panel">
+	<ul class="list-inline">
+		<li><span class="key">今日销售额: </span><span class="val">{{sales.sales_today}}</span></li>
+		<li><span class="key">历史销售总额: </span><span class="val">{{sales.sales_history}}</span></li>
+		<li><span class="key">今日新增保证金总额: </span><span class="val">{{sales.sales_added}}</span></li>
+		<li><span class="key">应缴保证金总额: </span><span class="val">{{sales.sales_should}}</span></li>
+		<li><span class="key">保证金差额: </span><span class="val">{{sales.sales_balance}}</span></li>
+	</ul>
+</div>
+
+
+<form action="" class="search-form" ng-submit="search()">
+	<div class="col-xs-2">
+		<span class="key">时间: </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>
+	</div>
+	<div class="col-xs-5">
+		<select name="filter" ng-model="model.filter" class="form-control">
+			<option value="val1">条件一</option>
+			<option value="val2">条件二</option>
+			<option value="val3">条件三</option>
+		</select>
+	</div>
+	<div class="col-xs-2 pull-right">
+		<ul class="list-inline batch-btn-group ">
+			<li><a href="">修改</a></li>
+			<li class="split-pipe">|</li>
+			<li><a href="">导出</a></li>
+		</ul>
+	</div>
+</form>
+
+
+<div class="result">
+	<table class="table table-hover table-condensed ">
+		<thead>
+			<tr>
+				<th>今日新增保证金</th>
+				<th>代理区域</th>
+				<th>代理商</th>
+				<th>隶属销售</th>
+				<th>应缴纳保证金</th>
+				<th>实际缴纳</th>
+				<th>差额计划</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in result">
+				<td>{{item.add_amount}}</td>
+				<td>{{item.area}}</td>
+				<td>{{item.agent_name}}</td>
+				<td>{{item.creater}}</td>
+				<td>{{item.total_amount}}</td>
+				<td>{{item.actual_amount}}</td>
+				<td>{{item.balance}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

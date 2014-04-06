@@ -58,18 +58,32 @@ angular.module('mainApp')
 				UUDBasicService.searchEmployee($scope)
 			};
 		})
-	.controller('FinancialCtrl', function ($scope) {
+	.controller('FinancialCtrl', function ($scope, UUDBasicService) {
+		// 获取保证金相关信息
+		UUDBasicService.querySalesInfo($scope);
+
+	})
+	.controller('depositManage', function ($scope, UUDBasicService) {
+		// 查询保证金具体信息
+		UUDBasicService.searchDeposit($scope);
+
+	})
+	.controller('rebateManage', function ($scope, UUDBasicService) {
+		// 查询保证金具体信息
+		UUDBasicService.searchRebate($scope);
+
+	})
+	.controller('recordedManage', function ($scope, UUDBasicService) {
+		//查询入账总体信息
+		UUDBasicService.searchOverallRecorded($scope);
+
+		// 查询入账具体信息
+		UUDBasicService.searchRecorded($scope);
 
 	})
 	.controller('AgentsCtrl', function ($scope) {
 
 	})
 	.controller('ShipCtrl', function ($scope) {
-
-	})
-	.controller('ProductionCtrl', function ($scope) {
-
-	})
-	.controller('LawCtrl', function ($scope) {
 
 	})
