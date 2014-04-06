@@ -216,11 +216,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function($scope, element, attrs, model) {
 
-			$scope.maxPages = $scope.maxPages || 10;
-			$scope.perPage = $scope.perPage || 20;
-
-			var totalPages = Math.ceil($scope.records / $scope.perPage);
-			var pages = betwwen(totalPages , 0, $scope.maxPages);
+			var maxPages = $scope.maxPages || 10;
+			var perPage = $scope.perPage || 20;
+			var totalPages = Math.ceil($scope.records / perPage);
+			var pages = betwwen(totalPages , 0, maxPages);
 			var start = 1;
 			var length = pages;
 			$scope.current = 1;
