@@ -1,10 +1,11 @@
-'use strict';
+ 'use strict';
 
 angular.module('authApp')
 .service('UUDBasicService', function UUDBasicService($http) {
 
 	var baseurl = 'http://services.bam.uudragon.com/';
 	var self = this;
+	var PER_PAGE = 20;
 
 	this.getBreadcrumb = function(route) {
 
@@ -257,7 +258,7 @@ angular.module('authApp')
 
 		switch (type) {
 			case 'user':
-				suffix = 'bam/search_user';
+				suffix = 'bam/search_user.php';
 				break;
 			case 'userGroup':
 				suffix = 'bam/search_user_group';
@@ -279,6 +280,9 @@ angular.module('authApp')
 				break;
 
 		}
+
+		$scope.searchModel.pagination = $scope.searchModel.pagination || {toPage: 1, perPage: PER_PAGE}
+
 		console.log($scope.searchModel);
 
 		self.post(baseurl + suffix, $scope.searchModel)

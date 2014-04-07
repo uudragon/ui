@@ -2,14 +2,14 @@
 
 <div uu-simple-search placeholder="请输入角色名" ng-submit="search()" model="searchModel.roleName"></div>
 
-<div class="row container" ng-if="result.length">
+<div class="row container" ng-if="result.recordsCount">
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>角色名</th>
 			<th>是否有效</th>
 			<th>操作</th>
 		</tr>
-		<tr ng-repeat="role in result">
+		<tr ng-repeat="role in result.records">
 			<td>{{role.rolename}}</td>
 			<td>{{role.isValid}}</td>
 			<td>
@@ -20,8 +20,7 @@
 			</td>
 		</tr>
 	</table>
-
-	<div uu-pagination records="1000" per-page="20" max-pages="10" action="search(param)" model="searchModel.toPage"></div>
+	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" action="search()" model="searchModel.pagination"></div>
 </div>
 
 
