@@ -46,14 +46,15 @@ angular.module('authApp')
 		$scope.add = function(user) {
 			UUDBasicService.add(user, 'user');
 
-			$scope.result = $scope.result || [];
+			$scope.result = $scope.result || {};
+			$scope.result.records = $scope.result.records || {};
 			// $scope.result.push(user);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(user, index) {
 			UUDBasicService.delete(user.id, 'user');
-			$scope.result.splice(index, 1);
+			$scope.result.records.splice(index, 1);
 		}
 
 		$scope.modify = function(user) {
@@ -65,9 +66,9 @@ angular.module('authApp')
 		$scope.save = function(iuser) {
 
 			UUDBasicService.update(iuser, 'user')
-			$scope.result.map(function(user, index) {
+			$scope.result.records.map(function(user, index) {
 				if (user.id == iuser.id) {
-					$scope.result[index] = iuser;
+					$scope.result.records[index] = iuser;
 				}
 			})
 			$('#uumodal').modal('hide')
