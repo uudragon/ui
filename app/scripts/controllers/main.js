@@ -80,6 +80,7 @@ angular.module('authApp')
 	.controller('UgroupCtrl', function ($scope, UUDBasicService) {
 
 		$scope.search = function() {
+			$scope.searchModel = $scope.searchModel || {};
 			UUDBasicService.search($scope, 'userGroup')
 		}
 
@@ -92,14 +93,14 @@ angular.module('authApp')
 		$scope.add = function(group) {
 			UUDBasicService.add(group, 'userGroup');
 
-			$scope.result = $scope.result || [];
-			$scope.result.push(group);
+			$scope.result.records = $scope.result || [];
+			// $scope.result.records.push(group);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(group, index) {
 			UUDBasicService.delete(group.id, 'userGroup');
-			$scope.result.splice(index, 1);
+			$scope.result.records.splice(index, 1);
 		}
 
 		$scope.modify = function(group) {
@@ -111,9 +112,9 @@ angular.module('authApp')
 		$scope.save = function(igroup) {
 
 			UUDBasicService.update(igroup, 'userGroup')
-			$scope.result.map(function(group, index) {
+			$scope.result.records.map(function(group, index) {
 				if (group.id == igroup.id) {
-					$scope.result[index] = igroup;
+					$scope.result.records[index] = igroup;
 				}
 			})
 			$('#uumodal').modal('hide')
@@ -134,7 +135,7 @@ angular.module('authApp')
 
 	.controller('RoleCtrl', function ($scope, UUDBasicService) {
 		$scope.search = function(param) {
-			console.log(param);
+
 			UUDBasicService.search($scope, 'role');
 		}
 
@@ -147,14 +148,14 @@ angular.module('authApp')
 		$scope.add = function(role) {
 			UUDBasicService.add(role, 'role');
 
-			$scope.result = $scope.result || [];
-			$scope.result.push(role);
+			$scope.result.records = $scope.result || [];
+			// $scope.result.records.push(role);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(role, index) {
 			UUDBasicService.delete(role.id, 'role');
-			$scope.result.splice(index, 1);
+			$scope.result.records.splice(index, 1);
 		}
 
 		$scope.modify = function(role) {
@@ -166,9 +167,9 @@ angular.module('authApp')
 		$scope.save = function(irole) {
 
 			UUDBasicService.update(irole, 'role')
-			$scope.result.map(function(role, index) {
+			$scope.result.records.map(function(role, index) {
 				if (role.id == irole.id) {
-					$scope.result[index] = irole;
+					$scope.result.records[index] = irole;
 				}
 			})
 			$('#uumodal').modal('hide')
@@ -188,14 +189,14 @@ angular.module('authApp')
 		$scope.add = function(group) {
 			UUDBasicService.add(group, 'roleGroup');
 
-			$scope.result = $scope.result || [];
-			$scope.result.push(group);
+			$scope.result.records = $scope.result || [];
+			// $scope.result.records.push(group);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.delete = function(group, index) {
 			UUDBasicService.delete(group.id, 'roleGroup');
-			$scope.result.splice(index, 1);
+			$scope.result.records.splice(index, 1);
 		}
 
 		$scope.modify = function(group) {
@@ -207,9 +208,9 @@ angular.module('authApp')
 		$scope.save = function(igroup) {
 
 			UUDBasicService.update(igroup, 'roleGroup')
-			$scope.result.map(function(group, index) {
+			$scope.result.records.map(function(group, index) {
 				if (group.id == igroup.id) {
-					$scope.result[index] = igroup;
+					$scope.result.records[index] = igroup;
 				}
 			})
 			$('#uumodal').modal('hide')
