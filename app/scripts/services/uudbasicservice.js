@@ -111,6 +111,7 @@ angular.module('authApp')
 
 		}
 
+		console.log('add', model);
 		$http.post(baseurl + suffix, model)
 			.success(function(data, status) {
 				return true;
@@ -205,7 +206,7 @@ angular.module('authApp')
 
 		}
 
-		$http.post(baseurl + suffix, model.model)
+		$http.post(baseurl + suffix, model)
 			.success(function(data, status) {
 				return true;
 			})
