@@ -4,6 +4,7 @@ angular.module('authApp')
 .service('UUDBasicService', function UUDBasicService($http) {
 
 	var baseurl = 'http://services.bam.uudragon.com/';
+	var self = this;
 
 	this.getBreadcrumb = function(route) {
 
@@ -22,6 +23,30 @@ angular.module('authApp')
 		return breadcrumb[route];
 
 	}
+
+
+
+	this.post = function(url, data) {
+
+		var serialize = function(obj, prefix) {
+			var str = [];
+			for(var p in obj) {
+				var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+				str.push(typeof v == "object" ?
+					serialize(v, k) :
+					encodeURIComponent(k) + "=" + encodeURIComponent(v));
+			}
+			return str.join("&");
+		}
+
+		return $http({
+			url: url,
+			method: 'POST',
+			data: serialize(data),
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		})
+	}
+
 
 	/**
 	 * 载入对象
@@ -58,12 +83,12 @@ angular.module('authApp')
 
 		}
 
-		$http.post(baseurl + suffix, id)
+
+		self.post(baseurl + suffix, {id: id})
 			.success(function(data, status) {
-				$scope.model = data;
+
 			})
 			.error(function(data, status) {
-				// use dummy group for dev
 				console.log('load ' + type + ' error status:' + status);
 				$scope.model = {
 					name: '用户组*',
@@ -73,6 +98,7 @@ angular.module('authApp')
 					users: ['用户1', '用户3', '用户4', '用户5', '用户6'],
 				}
 			})
+
 	}
 
 	/**
@@ -111,15 +137,15 @@ angular.module('authApp')
 
 		}
 
-		console.log('add', model);
-		$http.post(baseurl + suffix, model)
+		self.post(baseurl + suffix, model)
 			.success(function(data, status) {
-				return true;
+
 			})
 			.error(function(data, status) {
-				console.log('add ' + type + ' error status:' + status);
-				return false;
+				console.log('error');
+				console.log(status);
 			})
+
 	}
 
 
@@ -159,7 +185,7 @@ angular.module('authApp')
 
 		}
 
-		$http.post(baseurl + suffix, id)
+		self.post(baseurl + suffix, {id: id})
 			.success(function(data, status) {
 				return true;
 			})
@@ -206,7 +232,7 @@ angular.module('authApp')
 
 		}
 
-		$http.post(baseurl + suffix, model)
+		self.post(baseurl + suffix, model)
 			.success(function(data, status) {
 				return true;
 			})
@@ -255,7 +281,7 @@ angular.module('authApp')
 		}
 		console.log($scope.searchModel);
 
-		return $http.post(baseurl + suffix, $scope.searchModel)
+		self.post(baseurl + suffix, $scope.searchModel)
 			.success(function(data, status) {
 				$scope.result = data;
 			})
