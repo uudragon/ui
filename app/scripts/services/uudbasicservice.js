@@ -5,6 +5,7 @@ angular.module('authApp')
 
 	var baseurl = 'http://services.bam.uudragon.com/';
 	var self = this;
+	var PER_PAGE = 20;
 
 	this.getBreadcrumb = function(route) {
 
@@ -279,6 +280,10 @@ angular.module('authApp')
 				break;
 
 		}
+
+
+		$scope.searchModel.pagination = $scope.searchModel.pagination || {toPage: 1, perPage: PER_PAGE}
+
 		console.log($scope.searchModel);
 
 		self.post(baseurl + suffix, $scope.searchModel)
