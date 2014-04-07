@@ -30,7 +30,8 @@ var uud = angular.module('mainApp', [
 		 */
 
 		// customer info
-		.when('/', 'root.info.traded')
+		.when('/', 'root.login')
+		.when('/login', 'root.login')
 		.when('/info', 'root.info.traded')
 		.when('/info/new', 'root.info.new')
 		.when('/info/customer-manager', 'root.info.customermanager')
@@ -70,14 +71,6 @@ var uud = angular.module('mainApp', [
 		.when('/ship', 'root.ship.summary')
 		.when('/ship/summary', 'root.ship.summary')
 
-		// prod manager
-		.when('/prod', 'root.prod.home')
-		.when('/prod/home', 'root.prod.home')
-
-		// law manager
-		.when('/law', 'root.law.home')
-		.when('/law/home', 'root.law.home')
-
 		.segment('root', {
 			templateUrl: 'views/root.html',
 			controller: 'MainCtrl',
@@ -96,9 +89,12 @@ var uud = angular.module('mainApp', [
 			}
 		})
 		.within()
-			.segment('info', {
-				templateUrl: 'views/template.html',
+			.segment('login', {
+				templateUrl: 'views/login.html',
 				controller: 'InfoCtrl'})
+			.segment('info', {
+					templateUrl: 'views/template.html',
+					controller: 'InfoCtrl'})
 
 			.within()
 				.segment('new', {

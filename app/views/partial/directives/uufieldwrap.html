@@ -1,6 +1,5 @@
 <div class="form-group">
-	<label class="control-label {{ 'col-xs-' + (lCol || '4')}} {{ 'col-xs-offset-' + (offset || '0') }}">{{label}}: </label>
-	<div class="{{ 'col-xs-' + (rCol || '4')}}">
-		<div ng-transclude></div>
+	<label ng-if="label" class="control-label {{ 'col-xs-' + (lCol || '4')}} {{ 'col-xs-offset-' + (lOffset || '0') }}">{{label}}: </label>
+	<div class="{{ 'col-xs-' + (rCol || '4')}} {{ 'col-xs-offset-' + (rOffset || '0') }}" ng-transclude>
 	</div>
 </div>

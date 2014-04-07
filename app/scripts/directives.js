@@ -130,6 +130,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			name: '@',
 			lCol: '@',
 			rCol: '@',
+			lOffset: '@',
+			rOffset: '@',
 			type: '@',
 			model: '='
 		},
@@ -199,6 +201,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		scope: {
 			label: '@',
 			lCol: '@',
+			lOffset: '@',
+			rOffset: '@',
 			rCol: '@'
 		},
 		templateUrl: 'views/partial/directives/uufieldwrap.html'
