@@ -82,7 +82,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // generate clickable tab
-.directive('uutab', function() {
+.directive('uuTab', function() {
 	return {
 		transclude: true,
 		scope: {},
@@ -108,9 +108,9 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // content inner clickable tab
-.directive('uupane', function() {
+.directive('uuPane', function() {
 	return {
-		require: '^uutab',
+		require: '^uuTab',
 		transclude: true,
 		scope: {
 			title: '@'
@@ -123,17 +123,89 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // generate input field in form
-.directive('uuinput', function() {
+.directive('uuInput', function() {
 	return {
 		scope: {
 			label: '@',
 			name: '@',
 			lCol: '@',
 			rCol: '@',
+			lOffset: '@',
+			rOffset: '@',
 			type: '@',
 			model: '='
 		},
 		templateUrl: 'views/partial/directives/uuinput.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuTimeInicator', function() {
+	return {
+		scope: {
+			label: '@',
+			datetime: '@'
+		},
+		templateUrl: 'views/partial/directives/uutimeinicator.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuInfoPanel', function() {
+	return {
+		transclude: true,
+		templateUrl: 'views/partial/directives/uuinfopanel.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuInfoTab', function() {
+	return {
+		transclude: true,
+		scope: {
+			title: '@'
+		},
+		templateUrl: 'views/partial/directives/uuinfotab.html'
+	}
+})
+// generate raido field in form
+.directive('uuInfoItem', function() {
+	return {
+		scope: {
+			label: '@',
+			value: '@',
+			indicator: '@',
+			unit: '@'
+		},
+		templateUrl: 'views/partial/directives/uuinfoitem.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuSwitcher', function() {
+	return {
+		scope: {
+			label: '@',
+			ngChange: '&',
+			model: '=',
+			options: '='
+		},
+		templateUrl: 'views/partial/directives/uuswitcher.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuFieldWrap', function() {
+	return {
+		transclude: true,
+		scope: {
+			label: '@',
+			lCol: '@',
+			lOffset: '@',
+			rOffset: '@',
+			rCol: '@'
+		},
+		templateUrl: 'views/partial/directives/uufieldwrap.html'
 	}
 })
 
@@ -150,7 +222,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // generate static field in form
-.directive('uustatic', function() {
+.directive('uuStatic', function() {
 	return {
 		scope: {
 			label: '@',
@@ -192,6 +264,22 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
+// generate search field
+.directive('uuSearch', function() {
+	return {
+		transclude: true,
+		scope: {
+			placeholder: '@',
+			ngSubmit: '&',
+			lCol: '@',
+			rCol: '@',
+			offset: '@',
+			model: '='
+		},
+		templateUrl: 'views/partial/directives/uusearch.html'
+	}
+})
+
 /**
  * generate pagination
  *
@@ -218,11 +306,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			var maxPages = $scope.maxPages || 10;
 			var perPage = $scope.perPage || 20;
-			var totalPages = Math.ceil($scope.records / $scope.perPage);
-			var pages = betwwen(totalPages , 0, $scope.maxPages);
+			var totalPages = Math.ceil($scope.records / perPage);
+			var pages = betwwen(totalPages , 0, maxPages);
 			var start = 1;
 			var length = pages;
-
 			$scope.current = 1;
 
 			updatePagination();
@@ -274,7 +361,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				start = betwwen(start, 1, totalPages - length + 1)
 
 				// update the model passed in
-				$scope.model = $scope.current;
+				$scope.model = {
+					'toPage': $scope.current,
+					'perPage': perPage
+				}
 				updatePagination();
 
 			}
@@ -282,7 +372,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			// when current page changed, call function
 			$scope.$watch('current', function(current, prev, scope) {
 				if(angular.isDefined(current) && current !== null) {
-					scope.action()
+					scope.action();
 				}
 			})
 

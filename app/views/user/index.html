@@ -3,8 +3,8 @@
 <form class="form form-horizontal form-small search-form" role="form" >
 	<div>
 		<div class="form-group">
-			<div uuinput label="姓名" l-col="3" r-col="3" name="name" model="searchModel.name"></div>
-			<div uuinput label="帐号" l-col="3" r-col="3" name="account" model="searchModel.account"></div>
+			<div uu-input label="姓名" l-col="3" r-col="3" name="name" model="searchModel.name"></div>
+			<div uu-input label="帐号" l-col="3" r-col="3" name="account" model="searchModel.account"></div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label" for="type">用户组: </label>
 				<div class="col-xs-3">
@@ -50,7 +50,7 @@
 			</td>
 		</tr>
 	</table>
-	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
+	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" action="search()" model="searchModel.pagination"></div>
 </div>
 
 
@@ -64,10 +64,10 @@
 			<div class="modal-body">
 				<form action="" class="form form-horizontal form-small">
 					<fieldset>
-						<div uuinput label="姓名" l-col="3" r-col="5" name="name" model="model.name"></div>
-						<div uuinput label="帐号" l-col="3" r-col="5" name="account" model="model.account"></div>
-						<div uuinput label="密码" l-col="3" r-col="5" name="password" type="password" model="model.password"></div>
-						<div uuinput label="确认密码" l-col="3" r-col="5" name="passConfirm" type="passConfirm" model="model.passConfirm"></div>
+						<div uu-input label="姓名" l-col="3" r-col="5" name="name" model="model.name"></div>
+						<div uu-input label="帐号" l-col="3" r-col="5" name="account" model="model.account"></div>
+						<div uu-input label="密码" l-col="3" r-col="5" name="password" type="password" model="model.password"></div>
+						<div uu-input label="确认密码" l-col="3" r-col="5" name="passConfirm" type="passConfirm" model="model.passConfirm"></div>
 						<div class="form-group">
 							<label class="col-xs-3 control-label">性别: </label>
 							<div class="col-xs-4">
@@ -100,7 +100,7 @@
 								</select>
 							</div>
 						</div>
-						<div uuinput label="Email" l-col="3" r-col="5" name="email" model="model.email"></div>
+						<div uu-input label="Email" l-col="3" r-col="5" name="email" model="model.email"></div>
 					</fieldset>
 				</form>
 			</div>

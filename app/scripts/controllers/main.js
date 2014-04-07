@@ -34,6 +34,13 @@ angular.module('authApp')
 
 		$scope.search = function() {
 			$scope.searchModel = $scope.searchModel || {};
+
+			if (!$scope.searchModel.pagination) {
+				$scope.searchModel.pagination = {
+					toPage: 1,
+					perPage: 20
+				}
+			}
 			UUDBasicService.search($scope, 'user')
 		}
 
