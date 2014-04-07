@@ -24,7 +24,7 @@
 	</div>
 </form>
 
-<div class="row container" ng-if="result.length">
+<div class="row container" ng-if="result.recordsCount">
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>姓名</th>
@@ -35,7 +35,7 @@
 			<th>是否有效</th>
 			<th>操作</th>
 		</tr>
-		<tr ng-repeat="user in result">
+		<tr ng-repeat="user in result.records">
 			<td>{{user.name}}</td>
 			<td>{{user.account}}</td>
 			<td>{{user.gender}}</td>
@@ -50,7 +50,7 @@
 			</td>
 		</tr>
 	</table>
-	<div uu-pagination records="result.length" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
+	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
 </div>
 
 

@@ -289,14 +289,17 @@ angular.module('authApp')
 				console.log('search ' + type + ' error status: ' + status + ' use dummy data');
 
 				// dummy data
-				$scope.result = [
-					{id: 1, type: 1, rolename: '财务', name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
-					{id: 2, type: 2, rolename: '管理人员', name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
-					{id: 3, type: 2, rolename: '渠道经理', name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'register'},
-					{id: 4, type: 1, rolename: '客服', name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-					{id: 5, type: 1, rolename: '客服主管', name: 'test45', account: "account4", isValid: 1, gender: 'male', email: 'testd4@email.com', positions: 'admin'},
-					{id: 6, type: 1, rolename: '发货员', name: '21312', account: "account2", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-				]
+				$scope.result = {
+					recordsCount: 100,
+					records: [
+						{id: 1, type: 1, rolename: '财务', name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
+						{id: 2, type: 2, rolename: '管理人员', name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
+						{id: 3, type: 2, rolename: '渠道经理', name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'register'},
+						{id: 4, type: 1, rolename: '客服', name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
+						{id: 5, type: 1, rolename: '客服主管', name: 'test45', account: "account4", isValid: 1, gender: 'male', email: 'testd4@email.com', positions: 'admin'},
+						{id: 6, type: 1, rolename: '发货员', name: '21312', account: "account2", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'}
+					]
+				}
 			})
 	}
 
