@@ -1,16 +1,12 @@
 <div ng-include src="'views/partial/agents/agent-tab.html'"></div>
+
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">今日总部发放: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">今日代理商发放: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">今日使用: </span><span class="val">{{order.count_finished}}</span></li>
-		<li><span class="key">剩余: </span><span class="val">{{order.count_finished}}</span></li>
-	</ul>
-	<ul class="list-inline">
-		<li><span class="key">总部累计发放: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">代理商累计发放: </span><span class="val">{{order.sum}}</span></li>
+		<li uu-info-item label="今日销售活动" value="12" unit="场"></li>
+		<li uu-info-item label="累计销售活动" value="12" unit="场"></li>
 	</ul>
 </div>
+
 <form action="" class="search-form" ng-submit="search()">
 	<div class="col-xs-5">
 		<select name="filter" ng-model="model.filter" class="form-control">
@@ -27,20 +23,26 @@
 		</ul>
 	</div>
 </form>
+
 <div uu-tab>
-	<div uu-pane title="总部记录">
+	<div uu-pane title="销售活动记录：月度/季度/年度">
+		<div uu-field-wrap label="活动记录" l-col="2" r-col="9">
+			<input type="text">至
+			<input type="text">
+		</div>
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr>
-					<th>时间</th>
-					<th>今日申请</th>
-					<th>今日配额</th>
-					<th>累计优惠码总量</th>
-					<th>今日发放</th>
-					<th>今日实际订单数</th>
-					<th>累计订单数</th>
-					<th>使用率</th>
-					<th>备注</th>
+					<th>代理商编号</th>
+					<th>姓名</th>
+					<th>地域</th>
+					<th>预计活动场次</th>
+					<th>购买资料</th>
+					<th>优惠码</th>
+					<th>实际活动场次</th>
+					<th>资料消耗</th>
+					<th>优惠码</th>
+					<th>活动记录</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,22 +60,21 @@
 			</tbody>
 		</table>
 	</div>
-	<div uu-pane title="代理商记录">
+	<div uu-pane title="培训活动记录：月度/季度/年度">
+		<div uu-field-wrap label="查询" l-col="2" r-col="9">
+			<input type="text">至
+			<input type="text">
+		</div>
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr>
-					<th>时间</th>
-					<th>区域</th>
+					<th>代理商编号</th>
 					<th>姓名</th>
-					<th>代理级别</th>
-					<th>今日申请</th>
-					<th>今日配额</th>
-					<th>累计优惠码总量</th>
-					<th>今日发放</th>
-					<th>今日实际订单数</th>
-					<th>累计订单数</th>
-					<th>使用率</th>
-					<th>备注</th>
+					<th>地域</th>
+					<th>申请培训次数</th>
+					<th>讲师</th>
+					<th>购买资料</th>
+					<th>活动记录</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -85,10 +86,6 @@
 					<td>{{item.channel}}</td>
 					<td>{{item.channel}}</td>
 					<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
-					<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
-					<td>{{item.refer}}</td>
-					<td>{{item.refer}}</td>
-					<td>{{item.creater}}</td>
 				</tr>
 			</tbody>
 		</table>

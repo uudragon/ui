@@ -5,7 +5,7 @@
 	</li>
 </ul>
 <ul class="action-group list-inline ng-scope">
-	<li ng-class="item.submenu ? 'dropdown' : ''" class="ng-scope dropdown">
+	<li class="ng-scope dropdown">
 		<a class="dropdown-toggle action-item" ng-class="{active: $routeSegment.startsWith('root.customer.ordernew') || $routeSegment.startsWith('root.customer.ordermanager')}" data-toggle="dropdown">
 			工单管理 <b class="caret"></b>
 		</a>
@@ -22,7 +22,7 @@
 		<a href="#/customer/employee" ng-class="{active: $routeSegment.startsWith('root.customer.employee')}" class="action-item">员工管理</a>
 	</li>
 	<li>
-		<a href="#/customer/online" ng-class="{active: $routeSegment.startsWith('root.customer.oneline')}" class="action-item">在线情况</a>
+		<a href="#/customer/online" ng-class="{active: $routeSegment.startsWith('root.customer.ol')}" class="action-item">在线情况</a>
 	</li>
 	<li>
 		<a href="#/customer/phone" ng-class="{active: $routeSegment.startsWith('root.customer.phone')}" class="action-item">电话报表</a>

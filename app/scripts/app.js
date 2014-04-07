@@ -30,7 +30,8 @@ var uud = angular.module('mainApp', [
 		 */
 
 		// customer info
-		.when('/', 'root.info.traded')
+		.when('/', 'root.login')
+		.when('/login', 'root.login')
 		.when('/info', 'root.info.traded')
 		.when('/info/new', 'root.info.new')
 		.when('/info/customer-manager', 'root.info.customermanager')
@@ -42,7 +43,7 @@ var uud = angular.module('mainApp', [
 		.when('/customer/ordernew', 'root.customer.ordernew')
 		.when('/customer/ordermanager', 'root.customer.ordermanager')
 		.when('/customer/employee', 'root.customer.employee')
-		.when('/customer/online', 'root.customer.online')
+		.when('/customer/online', 'root.customer.ol')
 		.when('/customer/phone', 'root.customer.phone')
 		.when('/customer/data', 'root.customer.data')
 
@@ -58,18 +59,17 @@ var uud = angular.module('mainApp', [
 		.when('/agents/rank', 'root.agents.rank')
 		.when('/agents/promo-code-record', 'root.agents.promocode')
 		.when('/agents/sales-records', 'root.agents.sales')
+		.when('/agents/entry-exit', 'root.agents.entryexit')
+		.when('/agents/commissionmanager', 'root.agents.commissionmanager')
+		.when('/agents/contractmanager', 'root.agents.contractmanager')
+		.when('/agents/financemanager', 'root.agents.financemanager')
+		.when('/agents/location-promo', 'root.agents.locationpromo')
+		.when('/agents/selling', 'root.agents.selling')
+		.when('/agents/assessment', 'root.agents.assessment')
 
 		// ship manager
 		.when('/ship', 'root.ship.summary')
 		.when('/ship/summary', 'root.ship.summary')
-
-		// prod manager
-		.when('/prod', 'root.prod.home')
-		.when('/prod/home', 'root.prod.home')
-
-		// law manager
-		.when('/law', 'root.law.home')
-		.when('/law/home', 'root.law.home')
 
 		.segment('root', {
 			templateUrl: 'views/root.html',
@@ -89,9 +89,12 @@ var uud = angular.module('mainApp', [
 			}
 		})
 		.within()
-			.segment('info', {
-				templateUrl: 'views/template.html',
+			.segment('login', {
+				templateUrl: 'views/login.html',
 				controller: 'InfoCtrl'})
+			.segment('info', {
+					templateUrl: 'views/template.html',
+					controller: 'InfoCtrl'})
 
 			.within()
 				.segment('new', {
@@ -122,8 +125,9 @@ var uud = angular.module('mainApp', [
 				.segment('employee', {
 					templateUrl: 'views/customer/employee.html',
 					controller: 'employeeManger'})
-				.segment('online', {
-					templateUrl: 'views/customer/online.html'})
+				.segment('ol', {
+					templateUrl: 'views/customer/online.html',
+					controller: 'employeeManger'})
 				.segment('phone', {
 					templateUrl: 'views/customer/phone.html'})
 				.segment('data', {
@@ -158,6 +162,21 @@ var uud = angular.module('mainApp', [
 					templateUrl: 'views/agents/promocode.html'})
 				.segment('sales', {
 					templateUrl: 'views/agents/sales.html'})
+				.segment('entryexit', {
+					templateUrl: 'views/agents/entryexit.html',
+					controller: 'AgentsCtrl'})
+				.segment('commissionmanager', {
+					templateUrl: 'views/agents/commissionmanager.html'})
+				.segment('contractmanager', {
+					templateUrl: 'views/agents/contractmanager.html'})
+				.segment('financemanager', {
+					templateUrl: 'views/agents/financemanager.html'})
+				.segment('locationpromo', {
+					templateUrl: 'views/agents/locationpromo.html'})
+				.segment('selling', {
+					templateUrl: 'views/agents/selling.html'})
+				.segment('assessment', {
+					templateUrl: 'views/agents/assessment.html'})
 			.up()
 
 			.segment('ship', {

@@ -156,7 +156,8 @@ angular.module('mainApp')
 	 * @return none
 	 */
 	this.searchContact = function($scope) {
-		$http.post(baseurl + 'bam/search_contact.php', $scope.model)
+		console.log($scope.searchModel);
+		$http.post(baseurl + 'bam/search_contact.php', $scope.searchModel)
 		.success(function(data, status) {
 			$scope.result = data;
 		})

@@ -33,8 +33,10 @@ angular.module('mainApp')
 			// 获取预订总数和成交客户
 			UUDBasicService.queryContactInfo($scope);
 
+			$scope.gender = [{label:'男', value: 'male'}, {label: '女', value: 'female'}];
 			// 搜索
 			$scope.search = function () {
+				$scope.searchModel = $scope.searchModel || {};
 				UUDBasicService.searchContact($scope)
 			};
 		})
@@ -83,7 +85,10 @@ angular.module('mainApp')
 	})
 	//代理商管理
 	.controller('AgentsCtrl', function ($scope) {
+		$scope.submit = function () {
 
+			console.log($scope.model);
+		}
 	})
 	.controller('agentManage', function ($scope, UUDBasicService){
 		UUDBasicService.searchOverallAgent($scope);

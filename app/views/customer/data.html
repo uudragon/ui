@@ -1,2 +1,62 @@
 <div ng-include src="'views/partial/customer/customer-tab.html'"></div>
-data
+<div uu-info-panel>
+	<div uu-info-tab>
+		<li uu-info-item label="今日网络沟通总量"></li>
+		<li uu-info-item label="今日电话接听总量"></li>
+		<li uu-info-item label="今日电话外呼总量"></li>
+	</div>
+	<div uu-info-tab="">
+		<li uu-info-item label="历史网络沟通总量"></li>
+		<li uu-info-item label="历史电话接听总量"></li>
+		<li uu-info-item label="历史电话外呼总量"></li>
+	</div>
+</div>
+
+<div uu-switcher model="model.filter" action="onchange()"></div>
+
+<div uu-info-panel>
+	<div uu-info-tab title="自动统计">
+		<li uu-info-item label="沟通总量"></li>
+		<li uu-info-item label="接听量"></li>
+		<li uu-info-item label="外呼量"></li>
+		<li uu-info-item label="接起率"></li>
+		<li uu-info-item label="沟通时长"></li>
+	</div>
+	<div class="pull-right">
+		<ul class="list-inline batch-btn-group ">
+			<li><a href="">查看峰值</a></li>
+			<li class="split-pipe">|</li>
+			<li><a href="">选中外拨</a></li>
+		</ul>
+	</div>
+</div>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>时间</th>
+			<th>电话号码</th>
+			<th>状态</th>
+			<th>通话时长</th>
+			<th>通话客服</th>
+			<th>客户信息</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td rowspan="6">周一</td>
+			<td>接听，并完整沟通</td>
+			<td>10</td>
+			<td>1:00:00</td>
+			<td>张三</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>接听，但忙碌</td>
+			<td>10</td>
+			<td>1:00:00</td>
+			<td>张三</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
