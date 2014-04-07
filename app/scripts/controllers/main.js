@@ -47,7 +47,7 @@ angular.module('authApp')
 			UUDBasicService.add(user, 'user');
 
 			$scope.result = $scope.result || [];
-			$scope.result.push(user);
+			// $scope.result.push(user);
 			$('#uumodal').modal('hide');
 		}
 
