@@ -421,4 +421,25 @@ angular.module('mainApp')
 	}
 
 
+	/**
+	 * New Ship
+	 *
+	 * @param  object $scope
+	 * @return bool
+	 */
+	this.newShip = function($scope) {
+		var suffix = 'bam/ship_new';
+
+		console.log($scope.model);
+		$http.post(baseurl + suffix, $scope.model)
+		.success(function(data, status) {
+			return true;
+		})
+		.error(function(data, status) {
+			console.log('new ship error status: ' + status);
+			return false;
+		})
+	}
+
+
 });

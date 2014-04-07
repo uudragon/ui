@@ -89,6 +89,18 @@ angular.module('mainApp')
 			console.log($scope.model);
 		}
 	})
-	.controller('ShipCtrl', function ($scope) {
+	.controller('ShipCtrl', function ($scope, UUDBasicService) {
+		$scope.newShip = function() {
 
+			var fakeData = {
+				'ORDERS_NO': 'OD_1001',
+				'SHIPMENT_NO': 'FH1001',
+				'EXPRESS_CODE': 'aaaa',
+				'EXPRESS_ORDERS_NO': 'bbbbbb',
+				'CREATER': 'jack'
+			}
+
+			$.extend($scope.model, fakeData);
+			UUDBasicService.newShip($scope);
+		}
 	})

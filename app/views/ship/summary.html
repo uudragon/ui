@@ -9,13 +9,16 @@
 	</ul>
 </div>
 
-<form action="" class="search-form" ng-submit="search()">
-	<div class="col-xs-5">
+<form action="" class="search-form" ng-submit="newShip()">
+	<div class="col-xs-4">
 		<select name="filter" ng-model="model.filter" class="form-control">
 			<option value="val1">条件一</option>
 			<option value="val2">条件二</option>
 			<option value="val3">条件三</option>
 		</select>
+	</div>
+	<div class="col-xs-2">
+		<input type="submit" class="btn btn-primary" value="查询">
 	</div>
 	<div class="col-xs-2 pull-right">
 		<ul class="list-inline batch-btn-group ">
