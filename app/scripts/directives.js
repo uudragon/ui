@@ -147,6 +147,25 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		templateUrl: 'views/partial/directives/uutimeinicator.html'
 	}
 })
+
+// generate raido field in form
+.directive('uuInfoPanel', function() {
+	return {
+		transclude: true,
+		templateUrl: 'views/partial/directives/uuinfopanel.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuInfoTab', function() {
+	return {
+		transclude: true,
+		scope: {
+			title: '@'
+		},
+		templateUrl: 'views/partial/directives/uuinfotab.html'
+	}
+})
 // generate raido field in form
 .directive('uuInfoItem', function() {
 	return {
@@ -157,6 +176,19 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			unit: '@'
 		},
 		templateUrl: 'views/partial/directives/uuinfoitem.html'
+	}
+})
+
+// generate raido field in form
+.directive('uuSwitcher', function() {
+	return {
+		scope: {
+			label: '@',
+			ngChange: '&',
+			model: '=',
+			options: '='
+		},
+		templateUrl: 'views/partial/directives/uuswitcher.html'
 	}
 })
 

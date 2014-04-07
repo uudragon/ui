@@ -42,7 +42,7 @@ var uud = angular.module('mainApp', [
 		.when('/customer/ordernew', 'root.customer.ordernew')
 		.when('/customer/ordermanager', 'root.customer.ordermanager')
 		.when('/customer/employee', 'root.customer.employee')
-		.when('/customer/online', 'root.customer.online')
+		.when('/customer/online', 'root.customer.ol')
 		.when('/customer/phone', 'root.customer.phone')
 		.when('/customer/data', 'root.customer.data')
 
@@ -129,8 +129,9 @@ var uud = angular.module('mainApp', [
 				.segment('employee', {
 					templateUrl: 'views/customer/employee.html',
 					controller: 'employeeManger'})
-				.segment('online', {
-					templateUrl: 'views/customer/online.html'})
+				.segment('ol', {
+					templateUrl: 'views/customer/online.html',
+					controller: 'employeeManger'})
 				.segment('phone', {
 					templateUrl: 'views/customer/phone.html'})
 				.segment('data', {
