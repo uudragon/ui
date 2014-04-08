@@ -41,16 +41,16 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in result">
-				<td>{{item.order_no}}</td>
-				<td>{{item.type}}</td>
-				<td>{{item.status}}</td>
-				<td>{{item.result}}</td>
-				<td>{{item.channel}}</td>
-				<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
-				<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
-				<td>{{item.refer}}</td>
-				<td>{{item.creater}}</td>
-				<td>{{item.creater}}</td>
+				<td>{{item.agent_rank}}</td>
+				<td>{{item.agent_name}}</td>
+				<td>{{item.agent_gender}}</td>
+				<td>{{item.cash_deposit}}</td>
+				<td>{{item.grade}}</td>
+				<td>{{item.agent_duration}}</td>
+				<td>{{item.begin_time}}</td>
+				<td>{{item.end_time}}</td>
+				<td>{{item.contact}}</td>
+				<td>{{item.address}}</td>
 			</tr>
 		</tbody>
 	</table>

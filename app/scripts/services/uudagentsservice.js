@@ -69,21 +69,16 @@ angular.module('mainApp')
 
 			// dummy data
 			$scope.result = [
-				{agent_code: 12, 
+				{agent_rank: '一级代理', 
 					agent_name: '代理商名称', 
-					contract_code: 2500, 
-					area: '北京', 
-					leal_person: '法人代表', 
-					company_type: 2, 
-					company_size: '20-100', 
-					registered_capital: 30000, 
-					agent_permission: '代理权限', 
+					agent_gender: '男', 
+					cash_deposit: 20000.00, 
+					grade: '代理商级别', 
+					agent_duration: 365, 
 					begin_time: '2014-03-02 11:00:00', 
 					end_time: '2015-03-02 11:00:00', 
-					cash_deposit: 20000, 
 					contact: '联系方式', 
-					address: '地址', 
-					remark: '备注'}
+					address: '地址'}
 			];
 		})
 	 }
