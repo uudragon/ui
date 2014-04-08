@@ -33,6 +33,7 @@
 			<th>岗位</th>
 			<th>Email</th>
 			<th>是否有效</th>
+			<th>用户组</th>
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="user in result.records">
@@ -42,6 +43,7 @@
 			<td>{{user.positions}}</td>
 			<td>{{user.email}}</td>
 			<td>{{user.isValid}}</td>
+			<td>{{user.group}}</td>
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(user)" data-toggle="modal" data-target="#uumodal">修改</a></li>
@@ -97,6 +99,16 @@
 									<option value="岗位一">岗位一</option>
 									<option value="岗位二">岗位二</option>
 									<option value="岗位三">岗位三</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-3 control-label" for="type">用户组: </label>
+							<div class="col-xs-4">
+								<select ng-model="model.group" class="form-control">
+									<option value="组一">组一</option>
+									<option value="组二">组二</option>
+									<option value="组三">组三</option>
 								</select>
 							</div>
 						</div>
