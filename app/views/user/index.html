@@ -17,7 +17,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-xs-3 col-xs-offset-3">
-					<button class="btn btn-primary" type="submit" ng-click="search()">查找</button>
+					<button class="btn btn-primary" type="submit" ng-click="result.recordsCount=[];page=1;search()">查找</button>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,8 @@
 			</td>
 		</tr>
 	</table>
-	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" action="search()" model="searchModel.pagination"></div>
+
+	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
 
 

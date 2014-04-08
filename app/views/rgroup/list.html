@@ -1,6 +1,6 @@
 <div uu-action-item label="添加组" target="#uumodal" ng-click="new()"></div>
 
-<div uu-simple-search placeholder="请输入组名" ng-submit="search()" model="searchModel.groupName"></div>
+<div uu-simple-search placeholder="请输入组名" ng-submit="result.recordsCount=[];page=1;search()" model="searchModel.groupName"></div>
 
 <div class="row container" ng-if="result.recordsCount">
 	<table class="table table-bordered table-striped">
@@ -22,7 +22,7 @@
 			</td>
 		</tr>
 	</table>
-	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" action="search()" model="searchModel.pagination"></div>
+	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
 
 

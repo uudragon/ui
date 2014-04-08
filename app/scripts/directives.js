@@ -300,52 +300,24 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			perPage: '=',
 			maxPages: '=',
 			action: '&',
+			current: '=page',
 			model: '='
 		},
 		link: function($scope, element, attrs, model) {
 
 			var maxPages = $scope.maxPages || 10;
 			var perPage = $scope.perPage || 20;
-			var totalPages = Math.ceil($scope.records / perPage);
-			var pages = betwwen(totalPages , 0, maxPages);
+
 			var start = 1;
-			var length = pages;
-			$scope.current = 1;
 
 			updatePagination();
 
+			$scope.current = $scope.current || 1;
+
 			function updatePagination() {
-				$scope.pages = [];
-
-				for (var i = start; i < start + length; i++) {
-					$scope.pages.push(i)
-				}
-				return pages;
-			}
-
-			$scope.prev = function() {
-				$scope.current--;
-				if ($scope.current < 1) {
-					$scope.current =1;
-				}
-				perform();
-			}
-
-			$scope.to = function(page) {
-				$scope.current = page;
-				perform();
-			}
-
-			$scope.next = function() {
-				$scope.current++;
-				if ($scope.current > totalPages) {
-					$scope.current = totalPages;
-				}
-				perform();
-			}
-
-			function perform() {
-				var middlePage = start + Math.floor(length / 2);
+				var totalPages = Math.ceil($scope.records / perPage);
+				var pages = betwwen(totalPages , 0, maxPages);
+				var middlePage = start + Math.floor(pages / 2);
 				var offset = 0;
 
 				if ($scope.current > middlePage) {
@@ -358,20 +330,48 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					start -= offset;
 				}
 
-				start = betwwen(start, 1, totalPages - length + 1)
+
+				start = betwwen(start, 1, totalPages - pages + 1)
 
 				// update the model passed in
 				$scope.model = {
 					'toPage': $scope.current,
 					'perPage': perPage
 				}
-				updatePagination();
 
+				$scope.pages = [];
+
+				for (var i = start; i < start + pages; i++) {
+					$scope.pages.push(i)
+				}
+				return pages;
+			}
+
+			$scope.prev = function() {
+				$scope.current--;
+				if ($scope.current < 1) {
+					$scope.current =1;
+				}
+				updatePagination();
+			}
+
+			$scope.to = function(page) {
+				$scope.current = page;
+				updatePagination();
+			}
+
+			$scope.next = function() {
+				var totalPages = Math.ceil($scope.records / perPage);
+				$scope.current++;
+				if ($scope.current > totalPages) {
+					$scope.current = totalPages;
+				}
+				updatePagination();
 			}
 
 			// when current page changed, call function
 			$scope.$watch('current', function(current, prev, scope) {
-				if(angular.isDefined(current) && current !== null) {
+				if(current && current !== prev) {
 					scope.action();
 				}
 			})

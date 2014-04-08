@@ -258,7 +258,7 @@ angular.module('authApp')
 
 		switch (type) {
 			case 'user':
-				suffix = 'bam/search_user';
+				suffix = 'bam/search_user.php';
 				break;
 			case 'userGroup':
 				suffix = 'bam/search_user_group';
@@ -280,7 +280,6 @@ angular.module('authApp')
 				break;
 
 		}
-
 
 		$scope.searchModel.pagination = $scope.searchModel.pagination || {toPage: 1, perPage: PER_PAGE}
 
