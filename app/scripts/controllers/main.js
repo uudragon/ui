@@ -12,75 +12,75 @@ angular.module('mainApp')
 	})
 
 })
-	.controller('InfoCtrl', function ($scope, UUDBasicService) {
+	.controller('InfoCtrl', function ($scope, UUDInfoService) {
 		$scope.summit = function() {
-			UUDBasicService.newCustomer($scope);
+			UUDInfoService.newCustomer($scope);
 		}
 	})
-		.controller('TradedCtrl', function ($scope, UUDBasicService) {
-			UUDBasicService.loadCustomer($scope);
+		.controller('TradedCtrl', function ($scope, UUDInfoService) {
+			UUDInfoService.loadCustomer($scope);
 		})
 
-	.controller('CustomerCtrl', function ($scope, UUDBasicService) {
+	.controller('CustomerCtrl', function ($scope, UUDCustomerService) {
 
 		$scope.summit = function() {
-			UUDBasicService.newOrder($scope);
+			UUDCustomerService.newOrder($scope);
 		}
 
 	})
-		.controller('customerManger', function ($scope, UUDBasicService) {
+		.controller('customerManger', function ($scope, UUDCustomerService) {
 
 			// 获取预订总数和成交客户
-			UUDBasicService.queryContactInfo($scope);
+			UUDCustomerService.queryContactInfo($scope);
 
 			$scope.gender = [{label:'男', value: 'male'}, {label: '女', value: 'female'}];
 			// 搜索
 			$scope.search = function () {
 				$scope.searchModel = $scope.searchModel || {};
-				UUDBasicService.searchContact($scope)
+				UUDCustomerService.searchContact($scope)
 			};
 		})
-		.controller('orderManger', function ($scope, UUDBasicService) {
+		.controller('orderManger', function ($scope, UUDCustomerService) {
 
 			// 获取工单相关信息
-			UUDBasicService.queryOrderInfo($scope);
+			UUDCustomerService.queryOrderInfo($scope);
 
 			// 搜索
 			$scope.search = function () {
-				UUDBasicService.searchOrder($scope)
+				UUDCustomerService.searchOrder($scope)
 			};
 		})
-		.controller('employeeManger', function ($scope, UUDBasicService) {
+		.controller('employeeManger', function ($scope, UUDCustomerService) {
 
 			// 获取工单相关信息
-			UUDBasicService.queryEmployeeInfo($scope);
+			UUDCustomerService.queryEmployeeInfo($scope);
 
 			// 搜索
 			$scope.search = function () {
-				UUDBasicService.searchEmployee($scope)
+				UUDCustomerService.searchEmployee($scope)
 			};
 		})
-	.controller('FinancialCtrl', function ($scope, UUDBasicService) {
+	.controller('FinancialCtrl', function ($scope, UUDFinancialService) {
 		// 获取保证金相关信息
-		UUDBasicService.querySalesInfo($scope);
+		UUDFinancialService.querySalesInfo($scope);
 
 	})
-	.controller('depositManage', function ($scope, UUDBasicService) {
+	.controller('depositManage', function ($scope, UUDFinancialService) {
 		// 查询保证金具体信息
-		UUDBasicService.searchDeposit($scope);
+		UUDFinancialService.searchDeposit($scope);
 
 	})
-	.controller('rebateManage', function ($scope, UUDBasicService) {
+	.controller('rebateManage', function ($scope, UUDFinancialService) {
 		// 查询保证金具体信息
-		UUDBasicService.searchRebate($scope);
+		UUDFinancialService.searchRebate($scope);
 
 	})
-	.controller('recordedManage', function ($scope, UUDBasicService) {
+	.controller('recordedManage', function ($scope, UUDFinancialService) {
 		//查询入账总体信息
-		UUDBasicService.searchOverallRecorded($scope);
+		UUDFinancialService.searchOverallRecorded($scope);
 
 		// 查询入账具体信息
-		UUDBasicService.searchRecorded($scope);
+		UUDFinancialService.searchRecorded($scope);
 
 	})
 	//代理商管理
@@ -90,12 +90,16 @@ angular.module('mainApp')
 			console.log($scope.model);
 		}
 	})
-	.controller('agentManage', function ($scope, UUDBasicService){
-		UUDBasicService.searchOverallAgent($scope);
+	.controller('agentManage', function ($scope, UUDAgentsService){
+		UUDAgentsService.searchOverallAgent($scope);
 
-		UUDBasicService.searchAgent($scope);
+		UUDAgentsService.searchAgent($scope);
 	})
-	.controller('ShipCtrl', function ($scope, UUDBasicService) {
+	.controller('agentRankManage', function ($scope, UUDAgentsService){
+
+		UUDAgentsService.searchAgentRank($scope);
+	})
+	.controller('ShipCtrl', function ($scope, UUDShipService) {
 
 			var fakeData = {
 				'ORDERS_NO': 'OD_1001',
@@ -109,7 +113,7 @@ angular.module('mainApp')
 
 		$scope.newShip = function() {
 			$.extend($scope.model, fakeData);
-			UUDBasicService.newShip($scope);
+			UUDShipService.newShip($scope);
 		}
 	})
 
