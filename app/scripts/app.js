@@ -154,7 +154,8 @@ var uud = angular.module('mainApp', [
 				controller: 'AgentsCtrl'})
 			.within()
 				.segment('list', {
-					templateUrl: 'views/agents/list.html'})
+					templateUrl: 'views/agents/list.html',
+						controller: 'agentManage'})
 				.segment('rank', {
 					templateUrl: 'views/agents/rank.html'})
 				.segment('promocode', {

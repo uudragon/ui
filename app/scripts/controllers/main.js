@@ -83,14 +83,19 @@ angular.module('mainApp')
 		UUDBasicService.searchRecorded($scope);
 
 	})
+	//代理商管理
 	.controller('AgentsCtrl', function ($scope) {
 		$scope.submit = function () {
 
 			console.log($scope.model);
 		}
 	})
+	.controller('agentManage', function ($scope, UUDBasicService){
+		UUDBasicService.searchOverallAgent($scope);
+
+		UUDBasicService.searchAgent($scope);
+	})
 	.controller('ShipCtrl', function ($scope, UUDBasicService) {
-		$scope.newShip = function() {
 
 			var fakeData = {
 				'ORDERS_NO': 'OD_1001',
@@ -100,7 +105,11 @@ angular.module('mainApp')
 				'CREATER': 'jack'
 			}
 
+		console.log($scope.model);
+
+		$scope.newShip = function() {
 			$.extend($scope.model, fakeData);
 			UUDBasicService.newShip($scope);
 		}
 	})
+

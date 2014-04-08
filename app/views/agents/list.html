@@ -1,14 +1,14 @@
 <div ng-include src="'views/partial/agents/agent-tab.html'"></div>
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">目前签约代理数: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">今日代理排名: </span><span class="val">{{order.count_finished}}</span></li>
-		<li><span class="key">今日销售总额: </span><span class="val">{{order.count_end_today}}</span></li>
-		<li><span class="key">历史销售总额: </span><span class="val">{{order.count_unfinished}}</span></li>
+		<li><span class="key">目前签约代理数: </span><span class="val">{{agentInfo.sum_agents}}</span></li>
+		<li><span class="key">今日代理排名: </span><span class="val">{{agentInfo.rank_agent_today}}</span></li>
+		<li><span class="key">今日销售总额: </span><span class="val">{{agentInfo.sum_sales_today}}</span></li>
+		<li><span class="key">历史销售总额: </span><span class="val">{{agentInfo.sum_sales_history}}</span></li>
 	</ul>
 	<ul class="list-inline">
-		<li><span class="key">今日新增客户人数: </span><span class="val">{{order.sum_history}}</span></li>
-		<li><span class="key">历史销售人数: </span><span class="val">{{order.sum_history}}</span></li>
+		<li><span class="key">今日新增客户人数: </span><span class="val">{{agentInfo.new_customer_today}}</span></li>
+		<li><span class="key">历史销售人数: </span><span class="val">{{agentInfo.sum_customer_history}}</span></li>
 	</ul>
 </div>
 <form action="" class="search-form" ng-submit="search()">
@@ -51,21 +51,21 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in result">
-				<td>{{item.order_no}}</td>
-				<td>{{item.type}}</td>
-				<td>{{item.status}}</td>
-				<td>{{item.result}}</td>
-				<td>{{item.channel}}</td>
-				<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
-				<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
-				<td>{{item.refer}}</td>
-				<td>{{item.creater}}</td>
-				<td>{{item.creater}}</td>
-				<td>{{item.creater}}</td>
-				<td>{{item.creater}}</td>
-				<td>{{item.creater}}</td>
-				<td>{{item.creater}}</td>
-				<td>{{item.creater}}</td>
+				<td>{{item.agent_code}}</td>
+				<td>{{item.agent_name}}</td>
+				<td>{{item.contract_code}}</td>
+				<td>{{item.area}}</td>
+				<td>{{item.leal_person}}</td>
+				<td>{{item.company_type}}</td>
+				<td>{{item.company_size}}</td>
+				<td>{{item.registered_capital}}</td>
+				<td>{{item.agent_permission}}</td>
+				<td>{{item.begin_time}}</td>
+				<td>{{item.end_time}}</td>
+				<td>{{item.cash_deposit}}</td>
+				<td>{{item.contact}}</td>
+				<td>{{item.address}}</td>
+				<td>{{item.remark}}</td>
 			</tr>
 		</tbody>
 	</table>
