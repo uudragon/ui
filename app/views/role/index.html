@@ -6,11 +6,13 @@
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>角色名</th>
+			<th>角色组</th>
 			<th>是否有效</th>
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="role in result.records">
 			<td>{{role.rolename}}</td>
+			<td>{{role.group}}</td>
 			<td>{{role.isValid}}</td>
 			<td>
 				<ul class="list-inline">
@@ -35,6 +37,16 @@
 				<form action="" class="form form-horizontal form-small">
 					<fieldset>
 						<div uu-input label="角色名" l-col="3" r-col="5" name="name" model="model.rolename"></div>
+						<div class="form-group">
+							<label class="col-xs-3 control-label" for="type">角色组: </label>
+							<div class="col-xs-4">
+								<select ng-model="model.group" class="form-control">
+									<option value="组一">组一</option>
+									<option value="组二">组二</option>
+									<option value="组三">组三</option>
+								</select>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-xs-3 control-label" for="c-gender">是否有效: </label>
 							<div class="col-xs-4">
