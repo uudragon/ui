@@ -47,8 +47,8 @@ angular.module('authApp')
 		$scope.add = function(user) {
 			UUDBasicService.add(user, 'user');
 
-			$scope.result = $scope.result || {};
-			$scope.result.records = $scope.result.records || {};
+			// $scope.result = $scope.result || {};
+			// $scope.result.records = $scope.result.records || {};
 			// $scope.result.push(user);
 			$('#uumodal').modal('hide');
 		}
@@ -93,7 +93,7 @@ angular.module('authApp')
 		$scope.add = function(group) {
 			UUDBasicService.add(group, 'userGroup');
 
-			$scope.result.records = $scope.result || [];
+			// $scope.result.records = $scope.result || [];
 			// $scope.result.records.push(group);
 			$('#uumodal').modal('hide');
 		}
@@ -148,7 +148,7 @@ angular.module('authApp')
 		$scope.add = function(role) {
 			UUDBasicService.add(role, 'role');
 
-			$scope.result.records = $scope.result || [];
+			// $scope.result.records = $scope.result || [];
 			// $scope.result.records.push(role);
 			$('#uumodal').modal('hide');
 		}
@@ -189,7 +189,7 @@ angular.module('authApp')
 		$scope.add = function(group) {
 			UUDBasicService.add(group, 'roleGroup');
 
-			$scope.result.records = $scope.result || [];
+			// $scope.result.records = $scope.result || [];
 			// $scope.result.records.push(group);
 			$('#uumodal').modal('hide');
 		}
