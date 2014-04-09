@@ -307,4 +307,30 @@ angular.module('authApp')
 			})
 	}
 
+	this.getPrevilegeJSON = function(editor) {
+
+		var suffix = 'getPrevilegeJSON';
+
+		self.post(baseurl + suffix)
+			.success(function(data, status) {
+				editor.set(data);
+			})
+			.error(function(data, status) {
+				console.log('getPrevilegeJSON error status: ' + status + ' use dummy data');
+				// dummy data
+				//
+
+				var result = {
+					'页面一': {
+						'用户一': 'Test1',
+						'用户二': 'Test2',
+					}
+				}
+
+				editor.set(result);
+				editor.expandAll();
+			})
+
+	}
+
 });

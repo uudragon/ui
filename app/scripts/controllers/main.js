@@ -228,6 +228,13 @@ angular.module('authApp')
 				$scope.model.user = "";
 			}
 		})
-	.controller('PrivilegeCtrl', function ($scope) {
+	.controller('PrivilegeCtrl', function ($scope, UUDBasicService) {
 
+		var editor = new jsoneditor.JSONEditor($("#jsonEditor").get(0), {mode: 'tree'});
+
+		UUDBasicService.getPrevilegeJSON(editor);
+
+		$scope.submit = function() {
+			console.log(editor.get());
+		}
 	})
