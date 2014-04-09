@@ -235,6 +235,6 @@ angular.module('authApp')
 		UUDBasicService.getPrevilegeJSON(editor);
 
 		$scope.submit = function() {
-			console.log(editor.get());
+			UUDBasicService.sendPrevilegeJSON(editor.get());
 		}
 	})

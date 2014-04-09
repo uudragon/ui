@@ -333,4 +333,18 @@ angular.module('authApp')
 
 	}
 
+	this.sendPrevilegeJSON = function(json) {
+
+		var suffix = 'sendPrevilegeJSON';
+
+		self.post(baseurl + suffix, json)
+			.success(function(data, status) {
+				console.log(data);
+			})
+			.error(function(data, status) {
+				console.log('sendPrevilegeJSON error: ' + json);
+			})
+
+	}
+
 });
