@@ -87,7 +87,8 @@ a {
   font: 1em/normal "微软雅黑", "宋体", Arial, Helvetica, sans-serif; }
 
 .main {
-  margin: 80px auto; }
+  margin: 80px auto;
+  position: relative; }
 
 /**
  * Top Nav

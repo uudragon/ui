@@ -263,6 +263,19 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		templateUrl: 'views/partial/directives/uusimplesearch.html'
 	}
 })
+// generate simple search field
+.directive('uuSimpleFilter', function() {
+	return {
+		scope: {
+			placeholder: '@',
+			lCol: '@',
+			rCol: '@',
+			offset: '@',
+			model: '='
+		},
+		templateUrl: 'views/partial/directives/uusimplefilter.html'
+	}
+})
 
 // generate search field
 .directive('uuSearch', function() {

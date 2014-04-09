@@ -1,28 +1,33 @@
 <div uu-action-item label="添加组" target="#uumodal" ng-click="new()"></div>
 
-<div uu-simple-search placeholder="请输入组名" ng-submit="result.recordsCount=[];page=1;search()" model="searchModel.groupName"></div>
+<div uu-simple-filter placeholder="请输入组名" model="filter"></div>
 
-<div class="row container" ng-if="result.recordsCount">
+<div class="row container" ng-if="result.records">
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>组名</th>
-<!-- 			<th>类别</th>
-			<th>是否有效</th> -->
 			<th>操作</th>
 		</tr>
-		<tr ng-repeat="group in result.records">
-			<td><a href="">{{group.name}}</a></td>
-			<!-- <td>{{group.type}}</td> -->
-			<!-- <td>{{group.isValid}}</td> -->
+		<tr ng-repeat="group in result.records | filter: filter">
+			<td ng-hide="editModel"><a href="">{{group.name}}</a></td>
+			<td ng-show="editModel">
+				<form class="form-inline form-sm">
+					<div class="form-group">
+						<input type="text" class="form-control input-sm" required ng-model="group.name" placeholder="请输入组名">
+					</div>
+					<div class="form-group">
+						<input type="submit" ng-click="save(group);editModel=0" value="提交" class="btn btn-primary btn-sm">
+					</div>
+				</form>
+			</td>
 			<td>
 				<ul class="list-inline">
-					<li><a href="" ng-click="modify(group)" data-toggle="modal" data-target="#uumodal">修改</a></li>
-					<li><a href="" ng-click="delete(group, $index)">删除</a></li>
+					<li><a href="" ng-click="editModel = 1" data-toggle="modal" >修改</a></li>
+					<li><a href="" ng-click="delete(group)">删除</a></li>
 				</ul>
 			</td>
 		</tr>
 	</table>
-	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
 
 

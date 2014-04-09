@@ -172,13 +172,11 @@ angular.module('authApp')
 					$scope.result.records[index] = irole;
 				}
 			})
-			$('#uumodal').modal('hide')
+			$('#uumodal').modal('hide');
 		}
 	})
 	.controller('RgroupCtrl', function ($scope, UUDBasicService) {
-		$scope.search = function() {
-			UUDBasicService.search($scope, 'roleGroup')
-		}
+		UUDBasicService.load($scope, 'roleGroup')
 
 		$scope.new = function() {
 			$scope.modalTitle = "添加组";
@@ -189,14 +187,23 @@ angular.module('authApp')
 		$scope.add = function(group) {
 			UUDBasicService.add(group, 'roleGroup');
 
-			// $scope.result.records = $scope.result || [];
-			// $scope.result.records.push(group);
+			$scope.result = $scope.result || {};
+			$scope.result.records = $scope.result.records || [];
+			$scope.result.records.push(group);
 			$('#uumodal').modal('hide');
 		}
 
-		$scope.delete = function(group, index) {
-			UUDBasicService.delete(group.id, 'roleGroup');
-			$scope.result.records.splice(index, 1);
+		$scope.delete = function(igroup, index) {
+			UUDBasicService.delete(igroup.id, 'roleGroup');
+			var position = -1;
+			$scope.result.records.map(function(group, index) {
+				if (group.id == igroup.id) {
+					position = index;
+				}
+			})
+			if (position !== -1) {
+				$scope.result.records.splice(position, 1);
+			}
 		}
 
 		$scope.modify = function(group) {

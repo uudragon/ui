@@ -233,6 +233,7 @@ angular.module('authApp')
 
 		}
 
+		console.log(model);
 		self.post(baseurl + suffix, model)
 			.success(function(data, status) {
 				return true;
@@ -302,6 +303,57 @@ angular.module('authApp')
 						{id: 4, type: 1, rolename: '客服', name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
 						{id: 5, type: 1, rolename: '客服主管', name: 'test45', account: "account4", isValid: 1, gender: 'male', email: 'testd4@email.com', positions: 'admin'},
 						{id: 6, type: 1, rolename: '发货员', name: '21312', account: "account2", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'}
+					]
+				}
+			})
+	}
+
+	this.load = function($scope, type) {
+
+		var suffix;
+
+		switch (type) {
+			case 'user':
+				suffix = 'bam/search_user.php';
+				break;
+			case 'userGroup':
+				suffix = 'bam/search_user_group';
+				break;
+
+			case 'role':
+				suffix = 'bam/search_role';
+				break;
+
+			case 'userRole':
+				suffix = 'bam/search_user_role';
+				break;
+
+			case 'roleGroup':
+				suffix = 'bam/search_role_group';
+				break;
+
+			default:
+				break;
+
+		}
+
+		self.post(baseurl + suffix)
+			.success(function(data, status) {
+				$scope.result = data;
+			})
+			.error(function(data, status) {
+				console.log('load ' + type + ' error status: ' + status + ' use dummy data');
+
+				// dummy data
+				$scope.result = {
+					recordsCount: 100,
+					records: [
+						{id: 1, type: 1, name: 'testasdf1'},
+						{id: 2, type: 2, name: 'test2'},
+						{id: 3, type: 2, name: 'test3'},
+						{id: 4, type: 1, name: 'test4'},
+						{id: 5, type: 1, name: 'test45'},
+						{id: 6, type: 1, name: '21312'}
 					]
 				}
 			})
