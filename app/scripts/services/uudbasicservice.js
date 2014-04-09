@@ -342,7 +342,8 @@ angular.module('authApp')
 				console.log(data);
 			})
 			.error(function(data, status) {
-				console.log('sendPrevilegeJSON error: ' + json);
+				console.log('sendPrevilegeJSON error: ');
+				console.log(json);
 			})
 
 	}
