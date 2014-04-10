@@ -298,12 +298,12 @@ angular.module('authApp')
 				$scope.result = {
 					recordsCount: 100,
 					records: [
-						{id: 1, type: 1, rolename: '财务', groupName: "", name: 'test1', account: "account2", isValid: 1, gender: 1, email: 'testemail@email.com', positions: 'admin'},
-						{id: 2, type: 2, rolename: '管理人员', groupName: "", name: 'test2', account: "account6", isValid: 0, gender: 0, email: 'testemdail@email.com', positions: 'admin'},
-						{id: 3, type: 2, rolename: '渠道经理', groupName: "", name: 'test3', account: "account34", isValid: 1, gender: 1, email: 'test3@email.com', positions: 'register'},
-						{id: 4, type: 1, rolename: '客服', groupName: "", name: 'test4', account: "account6", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'},
-						{id: 5, type: 1, rolename: '客服主管', groupName: "", name: 'test45', account: "account4", isValid: 0, gender: 1, email: 'testd4@email.com', positions: 'admin'},
-						{id: 6, type: 1, rolename: '发货员', groupName: "", name: '21312', account: "account2", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'}
+						{id: 1, type: 1, rolename: '财务', groupId: "", name: 'test1', account: "account2", isValid: 1, gender: 1, email: 'testemail@email.com', positions: 'admin'},
+						{id: 2, type: 2, rolename: '管理人员', groupId: "", name: 'test2', account: "account6", isValid: 0, gender: 0, email: 'testemdail@email.com', positions: 'admin'},
+						{id: 3, type: 2, rolename: '渠道经理', groupId: "", name: 'test3', account: "account34", isValid: 1, gender: 1, email: 'test3@email.com', positions: 'register'},
+						{id: 4, type: 1, rolename: '客服', groupId: "", name: 'test4', account: "account6", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'},
+						{id: 5, type: 1, rolename: '客服主管', groupId: "", name: 'test45', account: "account4", isValid: 0, gender: 1, email: 'testd4@email.com', positions: 'admin'},
+						{id: 6, type: 1, rolename: '发货员', groupId: "", name: '21312', account: "account2", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'}
 					]
 				}
 			})
@@ -335,12 +335,12 @@ angular.module('authApp')
 				console.log('getGroups ' + type + ' error status: ' + status + ' use dummy data');
 
 				$scope.groups = [
-					'财务',
-					'管理人员',
-					'渠道经理',
-					'客服',
-					'客服主管',
-					'发货员'
+					{id: 1, name: '财务'},
+					{id: 2, name: '管理人员'},
+					{id: 3, name: '渠道经理'},
+					{id: 4, name: '客服'},
+					{id: 5, name: '客服主管'},
+					{id: 6, name: '发货员'}
 				]
 
 			})

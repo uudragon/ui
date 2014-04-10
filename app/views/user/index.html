@@ -84,10 +84,9 @@
 						</div>
 						<div uu-input label="岗位" l-col="3" r-col="5" name="positions" model="model.positions"></div>
 						<div class="form-group">
-							<label class="col-xs-3 control-label" for="type">用户组: </label>
+							<label class="col-xs-3 control-label" for="type">用户组:</label>
 							<div class="col-xs-4">
-								<select ng-model="model.groupName" class="form-control" ng-options="group for group in groups">
-								</select>
+								<select ng-model="model.groupId" class="form-control" ng-options="group.id as group.name for group in groups"></select>
 							</div>
 						</div>
 						<div uu-input label="Email" l-col="3" r-col="5" name="email" model="model.email"></div>

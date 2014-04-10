@@ -6,12 +6,12 @@
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>角色名</th>
-			<th>角色组</th>
+			<!-- <th>角色组</th> -->
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="role in result.records">
 			<td>{{role.roleName}}</td>
-			<td>{{role.group}}</td>
+			<!-- <td>{{role.groupId}}</td> -->
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(role)" data-toggle="modal" data-target="#uumodal">修改</a></li>
@@ -37,8 +37,7 @@
 						<div class="form-group">
 							<label class="col-xs-3 control-label" for="type">角色组: </label>
 							<div class="col-xs-4">
-								<select ng-model="model.group" class="form-control" ng-options="group for group in groups">
-								</select>
+								<select ng-model="model.groupId" class="form-control" ng-options="group.id as group.name for group in groups"></select>
 							</div>
 						</div>
 					</fieldset>
