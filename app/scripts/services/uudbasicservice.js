@@ -3,7 +3,7 @@
 angular.module('authApp')
 .service('UUDBasicService', function UUDBasicService($http) {
 
-	var baseurl = 'http://services.bam.uudragon.com/';
+	var baseurl = 'http://127.0.0.1:8086/';
 	var self = this;
 	var PER_PAGE = 20;
 
@@ -61,10 +61,10 @@ angular.module('authApp')
 
 		switch (type) {
 			case 'user':
-				suffix = 'bam/load_user';
+				suffix = 'at/operate.op?className=userAction&methodName=findById';
 				break;
 			case 'userGroup':
-				suffix = 'bam/load_user_group';
+				suffix = 'at/operate.op?className=userGroupAction&methodName=findById';
 				break;
 
 			case 'role':
@@ -115,22 +115,22 @@ angular.module('authApp')
 
 		switch (type) {
 			case 'user':
-				suffix = 'bam/add_user';
+				suffix = 'at/operate.op?className=userAction&methodName=saveUser';
 				break;
 			case 'userGroup':
-				suffix = 'bam/add_user_group';
+				suffix = 'at/operate.op?className=userGroupAction&methodName=save';
 				break;
 
 			case 'role':
-				suffix = 'bam/add_role';
+				suffix = 'at/operate.op?className=roleAction&methodName=save';
 				break;
 
 			case 'userRole':
-				suffix = 'bam/add_user_role';
+				suffix = '';
 				break;
 
 			case 'roleGroup':
-				suffix = 'bam/add_role_group';
+				suffix = 'at/operate.op?className=roleGroupAction&methodName=save';
 				break;
 
 			default:
@@ -163,14 +163,14 @@ angular.module('authApp')
 
 		switch (type) {
 			case 'user':
-				suffix = 'bam/delete_user';
+				suffix = 'at/operate.op?className=userAction&methodName=delete';
 				break;
 			case 'userGroup':
-				suffix = 'bam/delete_user_group';
+				suffix = 'at/operate.op?className=userGroupAction&methodName=delete';
 				break;
 
 			case 'role':
-				suffix = 'bam/delete_role';
+				suffix = 'at/operate.op?className=roleAction&methodName=delete';
 				break;
 
 			case 'userRole':
@@ -178,7 +178,7 @@ angular.module('authApp')
 				break;
 
 			case 'roleGroup':
-				suffix = 'bam/delete_role_group';
+				suffix = 'at/operate.op?className=roleGroupAction&methodName=delete';
 				break;
 
 			default:
@@ -210,14 +210,14 @@ angular.module('authApp')
 
 		switch (type) {
 			case 'user':
-				suffix = 'bam/update_user';
+				suffix = 'at/operate.op?className=userAction&methodName=update';
 				break;
 			case 'userGroup':
-				suffix = 'bam/update_user_group';
+				suffix = 'at/operate.op?className=userGroupAction&methodName=update';
 				break;
 
 			case 'role':
-				suffix = 'bam/update_role';
+				suffix = 'at/operate.op?className=roleAction&methodName=update';
 				break;
 
 			case 'userRole':
@@ -225,13 +225,15 @@ angular.module('authApp')
 				break;
 
 			case 'roleGroup':
-				suffix = 'bam/update_role_group';
+				suffix = 'at/operate.op?className=roleGroupAction&methodName=update';
 				break;
 
 			default:
 				break;
 
 		}
+
+		console.log(model);
 
 		self.post(baseurl + suffix, model)
 			.success(function(data, status) {
@@ -258,14 +260,14 @@ angular.module('authApp')
 
 		switch (type) {
 			case 'user':
-				suffix = 'bam/search_user.php';
+				suffix = 'at/operate.op?className=userAction&methodName=searchUser';
 				break;
 			case 'userGroup':
-				suffix = 'bam/search_user_group';
+				suffix = 'at/operate.op?className=userGroupAction&methodName=search';
 				break;
 
 			case 'role':
-				suffix = 'bam/search_role';
+				suffix = 'at/operate.op?className=roleAction&methodName=search';
 				break;
 
 			case 'userRole':
@@ -273,7 +275,7 @@ angular.module('authApp')
 				break;
 
 			case 'roleGroup':
-				suffix = 'bam/search_role_group';
+				suffix = 'at/operate.op?className=roleGroupAction&methodName=search';
 				break;
 
 			default:
@@ -296,18 +298,56 @@ angular.module('authApp')
 				$scope.result = {
 					recordsCount: 100,
 					records: [
-						{id: 1, type: 1, rolename: '财务', name: 'test1', account: "account2", isValid: 1, gender: 'male', email: 'testemail@email.com', positions: 'admin'},
-						{id: 2, type: 2, rolename: '管理人员', name: 'test2', account: "account6", isValid: 1, gender: 'female', email: 'testemdail@email.com', positions: 'admin'},
-						{id: 3, type: 2, rolename: '渠道经理', name: 'test3', account: "account34", isValid: 1, gender: 'male', email: 'test3@email.com', positions: 'register'},
-						{id: 4, type: 1, rolename: '客服', name: 'test4', account: "account6", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'},
-						{id: 5, type: 1, rolename: '客服主管', name: 'test45', account: "account4", isValid: 1, gender: 'male', email: 'testd4@email.com', positions: 'admin'},
-						{id: 6, type: 1, rolename: '发货员', name: '21312', account: "account2", isValid: 1, gender: 'female', email: 'test4@email.com', positions: 'admin'}
+						{id: 1, type: 1, rolename: '财务', groupName: "", name: 'test1', account: "account2", isValid: 1, gender: 1, email: 'testemail@email.com', positions: 'admin'},
+						{id: 2, type: 2, rolename: '管理人员', groupName: "", name: 'test2', account: "account6", isValid: 0, gender: 0, email: 'testemdail@email.com', positions: 'admin'},
+						{id: 3, type: 2, rolename: '渠道经理', groupName: "", name: 'test3', account: "account34", isValid: 1, gender: 1, email: 'test3@email.com', positions: 'register'},
+						{id: 4, type: 1, rolename: '客服', groupName: "", name: 'test4', account: "account6", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'},
+						{id: 5, type: 1, rolename: '客服主管', groupName: "", name: 'test45', account: "account4", isValid: 0, gender: 1, email: 'testd4@email.com', positions: 'admin'},
+						{id: 6, type: 1, rolename: '发货员', groupName: "", name: '21312', account: "account2", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'}
 					]
 				}
 			})
 	}
 
-	this.getPrevilegeJSON = function(editor) {
+	this.getGroups = function($scope, type) {
+
+		var suffix;
+
+		switch (type) {
+			case 'user':
+				suffix = 'at/operate.op?className=userGroupAction&methodName=getGroups';
+				break;
+
+			case 'role':
+				suffix = 'at/operate.op?className=roleGroupAction&methodName=getGroups';
+				break;
+
+			default:
+				break;
+
+		}
+
+		self.post(baseurl + suffix)
+			.success(function(data, status) {
+				$scope.groups = data;
+			})
+			.error(function(data, status) {
+				console.log('getGroups ' + type + ' error status: ' + status + ' use dummy data');
+
+				$scope.groups = [
+					'财务',
+					'管理人员',
+					'渠道经理',
+					'客服',
+					'客服主管',
+					'发货员'
+				]
+
+			})
+
+	}
+
+		this.getPrevilegeJSON = function(editor) {
 
 		var suffix = 'getPrevilegeJSON';
 

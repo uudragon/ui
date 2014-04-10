@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import 'vars_maxins';
+@import 'animate';
 
 /**
  * Common
@@ -37,7 +38,7 @@ a {color: $primary-color; background: transparent;}
 	font: $primary-font;
 }
 
-.main {margin: 80px auto; position: relative;}
+.main {margin: 100px auto; position: relative;}
 
 /**
  * Top Nav

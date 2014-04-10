@@ -1,19 +1,17 @@
 <div uu-action-item label="添加角色" target="#uumodal" ng-click="new()"></div>
 
-<div uu-simple-search placeholder="请输入角色名" ng-submit="result.recordsCount=[];page=1;search()" model="searchModel.roleName"></div>
+<div uu-simple-search placeholder="请输入角色名" ng-submit="reloadSearch()" model="searchModel.roleName"></div>
 
 <div class="row container" ng-if="result.recordsCount">
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>角色名</th>
 			<th>角色组</th>
-			<th>是否有效</th>
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="role in result.records">
-			<td>{{role.rolename}}</td>
+			<td>{{role.roleName}}</td>
 			<td>{{role.group}}</td>
-			<td>{{role.isValid}}</td>
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(role)" data-toggle="modal" data-target="#uumodal">修改</a></li>
@@ -25,7 +23,6 @@
 	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
 
-
 <div class="modal fade" id="uumodal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -36,26 +33,12 @@
 			<div class="modal-body">
 				<form action="" class="form form-horizontal form-small">
 					<fieldset>
-						<div uu-input label="角色名" l-col="3" r-col="5" name="name" model="model.rolename"></div>
+						<div uu-input label="角色名" l-col="3" r-col="5" name="name" model="model.roleName"></div>
 						<div class="form-group">
 							<label class="col-xs-3 control-label" for="type">角色组: </label>
 							<div class="col-xs-4">
-								<select ng-model="model.group" class="form-control">
-									<option value="组一">组一</option>
-									<option value="组二">组二</option>
-									<option value="组三">组三</option>
+								<select ng-model="model.group" class="form-control" ng-options="group for group in groups">
 								</select>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-xs-3 control-label" for="c-gender">是否有效: </label>
-							<div class="col-xs-4">
-								<div class="radio-inline">
-									<label><input type="radio" ng-model="model.isValid" value="1">是</label>
-								</div>
-								<div class="radio-inline">
-									<label><input type="radio" ng-model="model.isValid" value="0">否</label>
-								</div>
 							</div>
 						</div>
 					</fieldset>

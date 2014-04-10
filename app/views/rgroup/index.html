@@ -1,2 +1,45 @@
-<div app-view-segment="2">
+<div uu-action-item label="添加组" target="#uumodal" ng-click="new()"></div>
+
+<div uu-simple-search placeholder="请输入组名" ng-submit="reloadSearch()" model="searchModel.groupName"></div>
+
+<div class="row container" ng-if="result.recordsCount">
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th>组名</th>
+			<th>操作</th>
+		</tr>
+		<tr ng-repeat="group in result.records">
+			<td><a href="">{{group.name}}</a></td>
+			<td>
+				<ul class="list-inline">
+					<li><a href="" ng-click="modify(group)" data-toggle="modal" data-target="#uumodal">修改</a></li>
+					<li><a href="" ng-click="delete(group, $index)">删除</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
+
+
+<div class="modal fade" id="uumodal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{modalTitle}}</h4>
+			</div>
+			<div class="modal-body">
+				<form action="" class="form form-horizontal form-small">
+					<fieldset>
+						<div uu-input label="组名" l-col="3" r-col="5" name="name" model="model.name"></div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" ng-if="modalType=='add'" ng-click="add(model)" class="btn btn-primary">添加</button>
+				<button type="button" ng-if="modalType=='edit'" ng-click="save(model)" class="btn btn-primary">保存</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

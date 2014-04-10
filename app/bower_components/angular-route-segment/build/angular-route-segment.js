@@ -1,5 +1,5 @@
 /**
- * angular-route-segment v1.2.0
+ * angular-route-segment 1.2.3
  * https://angular-route-segment.com
  * @author Artem Chivchalov
  * @license MIT License http://opensource.org/licenses/MIT
@@ -20,7 +20,7 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
          * contents into `template`.
          * @type {boolean}
          */
-        autoLoadTemplates: false,
+        autoLoadTemplates: true,
         
         /**
          * When true, all attempts to call `within` method on non-existing segments will throw an error (you would
@@ -205,10 +205,10 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
                     
                     var newSegment = getSegmentInChain( i, segmentNameChain );
 
-                    if(resolvingSemaphoreChain[i] != newSegment.name || isDependenciesChanged(newSegment)) {
+                    if(resolvingSemaphoreChain[i] != newSegment.name || updates.length > 0 || isDependenciesChanged(newSegment)) {
 
                         if($routeSegment.chain[i] && $routeSegment.chain[i].name == newSegment.name &&
-                            !isDependenciesChanged(newSegment))
+                            updates.length == 0 && !isDependenciesChanged(newSegment))
                             // if we went back to the same state as we were before resolving new segment
                             resolvingSemaphoreChain[i] = newSegment.name;
                         else
@@ -219,6 +219,7 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
                 var curSegmentPromise = $q.when();
 
                 if(updates.length > 0) {
+
                     for(var i=0; i<updates.length; i++) {
                         (function(i) {
                             curSegmentPromise = curSegmentPromise.then(function() {
@@ -228,12 +229,26 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
                             }).then(function(result) {
 
                                 if(result.success != undefined) {
+
                                     broadcast(result.success);
+
+                                    for(var j = updates[i].index + 1; j < $routeSegment.chain.length; j++) {
+
+                                        if($routeSegment.chain[j]) {
+                                            $routeSegment.chain[j] = null;
+                                            updateSegment(j, null);
+                                        }
+                                    }
+
+
                                 }
                             })
                         })(i);
                     }
+
                 }
+
+
 
                 curSegmentPromise.then(function() {
 
@@ -262,7 +277,7 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
                 });
             return result;
         }
-        
+
         function updateSegment(index, segment) {
 
             if($routeSegment.chain[index] && $routeSegment.chain[index].clearWatcher) {
@@ -306,7 +321,7 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
                         .then(function(response) {                            
                             return response.data;
                         });
-                                     
+
             return $q.all(locals).then(
                     
                     function(resolvedLocals) {
@@ -371,7 +386,8 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
 
             $routeSegment.name = '';
             for(var i=0; i<$routeSegment.chain.length; i++)
-                $routeSegment.name += $routeSegment.chain[i].name+".";
+                if($routeSegment.chain[i])
+                    $routeSegment.name += $routeSegment.chain[i].name+".";
             $routeSegment.name = $routeSegment.name.substr(0, $routeSegment.name.length-1);
 
             $rootScope.$broadcast( 'routeSegmentChange', {
@@ -421,8 +437,8 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
 (function(angular) {
 
     angular.module( 'view-segment', [ 'route-segment' ] ).directive( 'appViewSegment',
-    ['$route', '$compile', '$controller', '$routeParams', '$routeSegment', '$q', '$injector',
-        function($route, $compile, $controller, $routeParams, $routeSegment, $q, $injector) {
+    ['$route', '$compile', '$controller', '$routeParams', '$routeSegment', '$q', '$injector', '$timeout',
+        function($route, $compile, $controller, $routeParams, $routeSegment, $q, $injector, $timeout) {
 
             return {
                 restrict : 'ECA',
@@ -437,7 +453,7 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
                     return function($scope) {
 
                         var currentScope, currentElement, currentSegment, onloadExp = tAttrs.onload || '', animate,
-                        viewSegmentIndex = parseInt(tAttrs.appViewSegment);
+                        viewSegmentIndex = parseInt(tAttrs.appViewSegment), updatePromise;
 
                         try {
                             // angular 1.1.x
@@ -452,10 +468,16 @@ angular.module( 'route-segment', [] ).provider( '$routeSegment',
                         catch(e) {}
 
                         if($routeSegment.chain[viewSegmentIndex])
-                            update($routeSegment.chain[viewSegmentIndex]);
+                            updatePromise = $timeout(function() {
+                                update($routeSegment.chain[viewSegmentIndex]);
+                            }, 0);
 
                         // Watching for the specified route segment and updating contents
                         $scope.$on('routeSegmentChange', function(event, args) {
+
+                            if(updatePromise)
+                                $timeout.cancel(updatePromise);
+
                             if(args.index == viewSegmentIndex && currentSegment != args.segment)
                                 update(args.segment);
                         });

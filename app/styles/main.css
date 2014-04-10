@@ -39,6 +39,21 @@
  * Mixins
  * ----------------------------------------------------------------------------
  */
+.ng-hide-add, .ng-hide-remove {
+  -webkit-transition: all linear 0.5s;
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  display: block !important; }
+
+.ng-hide-add.ng-hide-add-active,
+.ng-hide-remove {
+  opacity: 0; }
+
+.ng-hide-add,
+.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1; }
+
 /**
  * Common
  * ----------------------------------------------------------------------------
@@ -87,7 +102,8 @@ a {
   font: 1em/normal "微软雅黑", "宋体", Arial, Helvetica, sans-serif; }
 
 .main {
-  margin: 80px auto; }
+  margin: 100px auto;
+  position: relative; }
 
 /**
  * Top Nav

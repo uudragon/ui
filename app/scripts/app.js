@@ -1,9 +1,7 @@
 'use strict';
 
 var uud = angular.module('authApp', [
-	'ngCookies',
-	'ngResource',
-	'ngSanitize',
+	'ngAnimate',
 	'ngRoute',
 	'route-segment',
 	'view-segment'
@@ -33,11 +31,9 @@ var uud = angular.module('authApp', [
 		.when('/', 'root.home')
 		.when('/login', 'root.login')
 		.when('/user', 'root.user')
-		.when('/user-group', 'root.ugroup.list')
-		.when('/user-group/:id', 'root.ugroup.show')
+		.when('/user-group', 'root.ugroup')
 		.when('/role', 'root.role')
-		.when('/role-group', 'root.rgroup.list')
-		.when('/role-group/:id', 'root.rgroup.show')
+		.when('/role-group', 'root.rgroup')
 		.when('/privilege', 'root.privilege')
 
 		.segment('root', {
@@ -71,16 +67,7 @@ var uud = angular.module('authApp', [
 
 			.segment('ugroup', {
 				templateUrl: 'views/ugroup/index.html',
-				controller: 'UgroupCtrl',
-				dependencies: ['id']})
-				.within()
-					.segment('list', {
-						templateUrl: 'views/ugroup/list.html',
-						controller: 'UgroupCtrl'})
-					.segment('show', {
-						templateUrl: 'views/ugroup/show.html',
-						controller: 'ShowGroupCtrl'})
-				.up()
+				controller: 'UgroupCtrl'})
 
 			.segment('role', {
 				templateUrl: 'views/role/index.html',
@@ -88,16 +75,7 @@ var uud = angular.module('authApp', [
 
 			.segment('rgroup', {
 				templateUrl: 'views/rgroup/index.html',
-				controller: 'RgroupCtrl',
-				dependencies: ['id']})
-				.within()
-					.segment('list', {
-						templateUrl: 'views/rgroup/list.html',
-						controller: 'RgroupCtrl'})
-					.segment('show', {
-						templateUrl: 'views/rgroup/show.html',
-						controller: 'ShowRoleCtrl'})
-				.up()
+				controller: 'RgroupCtrl'})
 
 			.segment('privilege', {
 				templateUrl: 'views/privilege/index.html',

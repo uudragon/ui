@@ -5,19 +5,10 @@
 		<div class="form-group">
 			<div uu-input label="姓名" l-col="3" r-col="3" name="name" model="searchModel.name"></div>
 			<div uu-input label="帐号" l-col="3" r-col="3" name="account" model="searchModel.account"></div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="type">用户组: </label>
-				<div class="col-xs-3">
-					<select ng-model="searchModel.group" class="form-control">
-						<option value="group1">组一</option>
-						<option value="group3">组二</option>
-						<option value="group2">组三</option>
-					</select>
-				</div>
-			</div>
+			<div uu-input label="岗位" l-col="3" r-col="3" name="positions" model="searchModel.positions"></div>
 			<div class="form-group">
 				<div class="col-xs-3 col-xs-offset-3">
-					<button class="btn btn-primary" type="submit" ng-click="result.recordsCount=[];page=1;search()">查找</button>
+					<button class="btn btn-primary" type="submit" ng-click="reloadSearch()">查找</button>
 				</div>
 			</div>
 		</div>
@@ -33,17 +24,15 @@
 			<th>岗位</th>
 			<th>Email</th>
 			<th>是否有效</th>
-			<th>用户组</th>
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="user in result.records">
 			<td>{{user.name}}</td>
 			<td>{{user.account}}</td>
-			<td>{{user.gender}}</td>
+			<td>{{user.gender | gender }}</td>
 			<td>{{user.positions}}</td>
 			<td>{{user.email}}</td>
-			<td>{{user.isValid}}</td>
-			<td>{{user.group}}</td>
+			<td>{{user.isValid | valid}}</td>
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(user)" data-toggle="modal" data-target="#uumodal">修改</a></li>
@@ -75,10 +64,10 @@
 							<label class="col-xs-3 control-label">性别: </label>
 							<div class="col-xs-4">
 								<div class="radio-inline">
-									<label><input type="radio" ng-model="model.gender" value="male">男</label>
+									<label><input type="radio" ng-model="model.gender" value="1">男</label>
 								</div>
 								<div class="radio-inline">
-									<label><input type="radio" ng-model="model.gender" value="female">女</label>
+									<label><input type="radio" ng-model="model.gender" value="0">女</label>
 								</div>
 							</div>
 						</div>
@@ -93,23 +82,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-xs-3 control-label" for="type">岗位: </label>
-							<div class="col-xs-4">
-								<select ng-model="model.positions" class="form-control">
-									<option value="岗位一">岗位一</option>
-									<option value="岗位二">岗位二</option>
-									<option value="岗位三">岗位三</option>
-								</select>
-							</div>
-						</div>
+						<div uu-input label="岗位" l-col="3" r-col="5" name="positions" model="model.positions"></div>
 						<div class="form-group">
 							<label class="col-xs-3 control-label" for="type">用户组: </label>
 							<div class="col-xs-4">
-								<select ng-model="model.group" class="form-control">
-									<option value="组一">组一</option>
-									<option value="组二">组二</option>
-									<option value="组三">组三</option>
+								<select ng-model="model.groupName" class="form-control" ng-options="group for group in groups">
 								</select>
 							</div>
 						</div>
