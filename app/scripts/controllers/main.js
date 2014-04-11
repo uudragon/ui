@@ -254,7 +254,7 @@ angular.module('authApp')
 				other: current.other
 			}
 			$scope.modalTitle = '编辑节点';
-			$scope.modalType = 'add';
+			$scope.modalType = 'edit';
 			$scope.$apply();
 			$('#uumodal').modal('show');
 			return false;
