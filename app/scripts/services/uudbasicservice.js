@@ -133,6 +133,10 @@ angular.module('authApp')
 				suffix = 'at/operate.op?className=roleGroupAction&methodName=save';
 				break;
 
+			case 'previlege':
+				suffix = 'at/operate.op?className=previlege&methodName=save';
+				break;
+
 			default:
 				break;
 
@@ -179,6 +183,10 @@ angular.module('authApp')
 
 			case 'roleGroup':
 				suffix = 'at/operate.op?className=roleGroupAction&methodName=delete';
+				break;
+
+			case 'previlege':
+				suffix = 'at/operate.op?className=previlege&methodName=delete';
 				break;
 
 			default:
@@ -347,43 +355,45 @@ angular.module('authApp')
 
 	}
 
-		this.getPrevilegeJSON = function(editor) {
+	this.getPrevilegeJSON = function(setting) {
 
-		var suffix = 'getPrevilegeJSON';
+		var suffix = 'at/operate.op?className=Previlege&methodName=load';
 
 		self.post(baseurl + suffix)
 			.success(function(data, status) {
-				editor.set(data);
+
 			})
 			.error(function(data, status) {
-				console.log('getPrevilegeJSON error status: ' + status + ' use dummy data');
-				// dummy data
-				//
 
-				var result = {
-					'页面一': {
-						'用户一': 'Test1',
-						'用户二': 'Test2',
-					}
-				}
+				var zNodes =[
+					{ id:1, pId:0, name:"页面一", open:true},
+					{ id:11, pId:1, name:"用户组1"},
+					{ id:12, pId:1, name:"用户组2"},
+					{ id:13, pId:1, name:"用户组3"},
+					{ id:2, pId:0, name:"页面二", open:true},
+					{ id:21, pId:2, name:"用户组1"},
+					{ id:22, pId:2, name:"用户组2"},
+					{ id:23, pId:2, name:"用户组3"},
+					{ id:3, pId:0, name:"页面三", open:true},
+					{ id:31, pId:3, name:"用户组1"},
+					{ id:32, pId:3, name:"用户组2"},
+					{ id:33, pId:3, name:"用户组3"}
+				];
 
-				editor.set(result);
-				editor.expandAll();
+				$.fn.zTree.init($("#priv-tree"), setting, zNodes);
 			})
 
 	}
 
-	this.sendPrevilegeJSON = function(json) {
+	this.updatePrevilege = function(zTree, model) {
 
-		var suffix = 'sendPrevilegeJSON';
-
-		self.post(baseurl + suffix, json)
+		var suffix = 'at/operate.op?className=Previlege&methodName=update';
+		self.post(baseurl + suffix, model)
 			.success(function(data, status) {
 				console.log(data);
 			})
 			.error(function(data, status) {
 				console.log('sendPrevilegeJSON error: ');
-				console.log(json);
 			})
 
 	}

@@ -213,5 +213,122 @@ angular.module('authApp')
 
 	.controller('PrivilegeCtrl', function ($scope, UUDBasicService) {
 
+		//	baisc settings
+		var setting = {
+			view: {
+				addHoverDom: addHoverDom,
+				removeHoverDom: removeHoverDom,
+				selectedMulti: false
+			},
+			edit: {
+				enable: true,
+				showRemoveBtn: true,
+				showRenameBtn: true,
+				removeTitle: '删除节点',
+				renameTitle: '更新节点'
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeDrag: beforeDrag,
+				onRemove: onRemove,
+				beforeEditName: beforeEditName
+			}
+		};
+
+		var current;
+		var type = 'previlege';
+
+		UUDBasicService.getPrevilegeJSON(setting);
+
+		function beforeEditName(treeId, treeNode) {
+			current = treeNode;
+			$scope.model = {
+				id: current.id,
+				pid: current.pid,
+				name: current.name,
+				url: current.url,
+				other: current.other
+			}
+			$scope.modalTitle = '编辑节点';
+			$scope.modalType = 'add';
+			$scope.$apply();
+			$('#uumodal').modal('show');
+			return false;
+		}
+
+		function onRemove(e, treeId, treeNode) {
+			console.log(treeNode);
+
+			UUDBasicService.delete(treeNode.id, type);
+		}
+
+
+		function addHoverDom(treeId, treeNode) {
+			if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+
+			var parentNode = $("#" + treeNode.tId + "_span");
+			var newNode = $("<span class='button add' id='addBtn_" + treeNode.tId
+							+ "' title='add node' onfocus='this.blur();'></span>");
+
+			parentNode.after(newNode);
+			newNode.bind("click", function(){
+				current = treeNode;
+				addNote();
+				return false;
+			});
+		};
+
+		function addNote() {
+			console.log('ok');
+			$scope.model = {}
+			$scope.modalTitle = '新增节点';
+			$scope.modalType = 'add';
+			$scope.$apply();
+			$('#uumodal').modal('show');
+		}
+
+		function removeHoverDom(treeId, treeNode) {
+			$("#addBtn_"+treeNode.tId).unbind().remove();
+		};
+
+		$scope.save = function(model) {
+			// current.name = model.name;
+			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+
+			current.name = model.name;
+			current.url = model.url;
+			current.other = model.other;
+			zTree.updateNode(current);
+
+			UUDBasicService.updatePrevilege(zTree, model);
+			$('#uumodal').modal('hide');
+		}
+
+		$scope.add = function(model) {
+			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+
+			UUDBasicService.add(model, type);
+
+			var newCount = 1;
+
+			zTree.addNodes(current, {
+				id: 100 + ++newCount,
+				pId: current.id,
+				name: model.name,
+				url: model.url,
+				other: model.other
+			});
+
+			$('#uumodal').modal('hide');
+		}
+
+		function beforeDrag(treeId, treeNode) {
+			console.log('beforeDrag');
+		}
+
 
 	})
