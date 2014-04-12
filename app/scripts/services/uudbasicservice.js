@@ -187,14 +187,7 @@ angular.module('authApp')
 
 		}
 
-		self.post(baseurl + suffix, {id: id})
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('delete ' + type + ' error status:' + status);
-				return false;
-			})
+		return self.post(baseurl + suffix, {id: id});
 	}
 
 
@@ -229,6 +222,14 @@ angular.module('authApp')
 				suffix = 'at/operate.op?className=roleGroupAction&methodName=update';
 				break;
 
+			case 'previlege':
+				suffix = 'at/operate.op?className=previlege&methodName=update';
+				break;
+
+			case 'roles':
+				suffix = 'at/operate.op?className=userAction&methodName=saveRoles';
+				break;
+
 			default:
 				break;
 
@@ -236,14 +237,7 @@ angular.module('authApp')
 
 		console.log(model);
 
-		self.post(baseurl + suffix, model)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('update ' + type + ' error status:' + status);
-				return false;
-			})
+		return self.post(baseurl + suffix, model);
 	}
 
 
@@ -310,6 +304,59 @@ angular.module('authApp')
 			})
 	}
 
+	// 获取用户对应的角色
+	this.getRoles = function($scope, user) {
+
+		var suffix = "at/operate.op?className=userGroupAction&methodName=getRoles"
+
+		// 假如user不存在， 不执行操作
+		if (!user) {
+			return;
+		}
+		self.post(baseurl + suffix, user.id)
+			.success(function(data, status) {
+				$scope.roles = data;
+			})
+			.error(function(data, status) {
+				console.log('get user role error status: ' + status + ' use dummy data');
+
+				$scope.roles = [
+					{id: 1, name: '财务'},
+					{id: 2, name: '管理人员'}
+				]
+
+			})
+
+	}
+	　
+
+	// get all roles
+	this.getAllRoles = function($scope) {
+
+		var suffix = "at/operate.op?className=userGroupAction&methodName=getAllRoles"
+
+		self.post(baseurl + suffix)
+			.success(function(data, status) {
+				$scope.roles = data;
+			})
+			.error(function(data, status) {
+				console.log('getall roles error status: ' + status + ' use dummy data');
+
+				$scope.allRoles = [
+					{id: 1, name: '财务'},
+					{id: 2, name: '管理人员'},
+					{id: 3, name: '渠道经理'},
+					{id: 4, name: '客服'},
+					{id: 5, name: '客服主管'},
+					{id: 6, name: '发货员'}
+				]
+
+			})
+
+	}
+	　
+
+	// get all groups
 	this.getGroups = function($scope, type) {
 
 		var suffix;
@@ -347,46 +394,22 @@ angular.module('authApp')
 			})
 
 	}
+　
+	this.buildPrivilegeTree = function(setting) {
 
-	this.getPrevilegeJSON = function(setting) {
-
-		var suffix = 'at/operate.op?className=Previlege&methodName=load';
+		var suffix = 'at/operate.op?className=Privilege&methodName=load';
 
 		self.post(baseurl + suffix)
 			.success(function(data, status) {
-
+				console.log(data);
+				$.fn.zTree.init($("#priv-tree"), setting, data);
 			})
 			.error(function(data, status) {
 
-				var zNodes =[
-					{ id:1, pId:0, name:"页面一", open:true},
-					{ id:11, pId:1, name:"用户组1"},
-					{ id:12, pId:1, name:"用户组2"},
-					{ id:13, pId:1, name:"用户组3"},
-					{ id:2, pId:0, name:"页面二", open:true},
-					{ id:21, pId:2, name:"用户组1"},
-					{ id:22, pId:2, name:"用户组2"},
-					{ id:23, pId:2, name:"用户组3"},
-					{ id:3, pId:0, name:"页面三", open:true},
-					{ id:31, pId:3, name:"用户组1"},
-					{ id:32, pId:3, name:"用户组2"},
-					{ id:33, pId:3, name:"用户组3"}
-				];
+				var zNodes =[{"id":1,"name":"test123","open":true,"pId":0, "url": 'uudragon.com'},{"id":2,"name":"test","open":true,"pId":0}];
+
 
 				$.fn.zTree.init($("#priv-tree"), setting, zNodes);
-			})
-
-	}
-
-	this.updatePrevilege = function(zTree, model) {
-
-		var suffix = 'at/operate.op?className=Previlege&methodName=update';
-		self.post(baseurl + suffix, model)
-			.success(function(data, status) {
-				console.log(data);
-			})
-			.error(function(data, status) {
-				console.log('sendPrevilegeJSON error: ');
 			})
 
 	}

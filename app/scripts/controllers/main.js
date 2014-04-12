@@ -73,14 +73,27 @@ angular.module('authApp')
 		$('#uumodal').modal('hide')
 	}
 
+
+	$scope.editRole = function(scope, model, type) {
+
+		$scope.roleModalTitle = "修改角色";
+		scope.currentModel = model;
+
+		UUDBasicService.getRoles(scope, model);
+		UUDBasicService.getAllRoles(scope);
+		// $scope.$parent.editRole($scope, user, "修改角色", type);
+	}
+
 })
 	.controller('LoginCtrl', function ($scope, UUDBasicService) {
 
 	})
 
-	.controller('UserCtrl', function ($scope) {
+	.controller('UserCtrl', function ($scope, UUDBasicService) {
 
 		var type = 'user';
+
+		$scope.$parent.reloadSearch($scope, type);
 
 		$scope.reloadSearch = function() {
 			$scope.$parent.reloadSearch($scope, type);
@@ -108,6 +121,66 @@ angular.module('authApp')
 
 		$scope.save = function(iuser) {
 			$scope.$parent.save($scope, iuser, type);
+		}
+
+		$scope.editRole = function(user) {
+			$scope.$parent.editRole($scope, user, "修改角色", type);
+		}
+
+		$scope.select = function(id, roles) {
+			for (var i in roles) {
+				if (roles[i].id == id) {
+					roles[i].actived = true;
+				} else {
+					roles[i].actived = false;
+				}
+			}
+		}
+
+		$scope.saveRoles = function() {
+			var roles = [];
+			for (var i in $scope.roles) {
+				roles.push($scope.roles[i].id);
+			}
+			var model = {
+				id: $scope.currentModel.id,
+				roles: roles.join(',')
+			}
+
+			UUDBasicService.update(model, 'roles')
+
+			$('#rolemodal').modal('hide');
+		}
+
+		$scope.addRoleToUser = function(role) {
+			var role = role || findSelectedRole($scope.allRoles);
+			if (role) {
+				$scope.roles.push(role);
+			}
+		}
+
+		function findSelectedRole(roles) {
+			for (var i in roles) {
+				if (roles[i].actived) {
+					return roles[i];
+				}
+			}
+		}
+
+		function removeRole(roles, role) {
+			for (var i in roles) {
+				if (roles[i].id == role.id) {
+					roles.splice(i, 1);
+				}
+			}
+		}
+
+		$scope.removeRoleFromUser = function(role) {
+			var role = role || findSelectedRole($scope.roles);
+
+			if (role) {
+				removeRole($scope.roles, role);
+			}
 		}
 
 	})
@@ -237,16 +310,16 @@ angular.module('authApp')
 			},
 			callback: {
 				beforeDrag: beforeDrag,
-				onRemove: onRemove,
+				beforeRemove: beforeRemove,
 				beforeEditName: beforeEditName,
-				onDrop: onDrop
+				beforeDrop: beforeDrop
 			}
 		};
 
 		var current;
 		var type = 'previlege';
 
-		UUDBasicService.getPrevilegeJSON(setting);
+		UUDBasicService.buildPrivilegeTree(setting);
 
 		function beforeEditName(treeId, treeNode) {
 			current = treeNode;
@@ -264,21 +337,43 @@ angular.module('authApp')
 			return false;
 		}
 
-		function onRemove(e, treeId, treeNode) {
-			UUDBasicService.delete(treeNode.id, type);
+		function beforeRemove(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+
+			UUDBasicService.delete(treeNode.id, type)
+				.success(function(data, status) {
+					// 后台成功删除节点后前端再删除节点
+					zTree.removeNode(treeNode);
+				})
+				.error(function(data, status) {
+					console.log('delete ' + type + ' error status:' + status);
+					// 后台删除节点失败，测试起见，前端暂时删除节点
+					zTree.removeNode(treeNode);
+				})
+			return false;
 		}
 
-		function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
-			console.log('drop');
-			console.log(treeId);
-			console.log(treeNodes);
+		function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
 
-			onRemove('', '', treeNodes[0])
-			console.log(targetNode);
+			var treeNode = treeNodes[0];
+			var model = {
+				name: treeNode.name,
+				url: treeNode.url,
+				other: treeNode.other
+			}
+
+			current = targetNode;
+
+			if (!isCopy) {
+				beforeRemove('', treeNodes[0])
+			}
+
 			console.log(moveType);
-			console.log(isCopy);
-		}
 
+			$scope.add(model);
+
+			return false;
+		}
 
 		function addHoverDom(treeId, treeNode) {
 			if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
@@ -314,6 +409,7 @@ angular.module('authApp')
 			$("#addBtn_"+treeNode.tId).unbind().remove();
 		};
 
+		// 保存更新的节点
 		$scope.save = function(model) {
 			// current.name = model.name;
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
@@ -323,11 +419,20 @@ angular.module('authApp')
 			current.other = model.other;
 			zTree.updateNode(current);
 
-			UUDBasicService.updatePrevilege(zTree, current);
+			UUDBasicService.update(model, type)
+				.success(function(data, status) {
+					return true;
+				})
+				.error(function(data, status) {
+					console.log('update ' + type + ' error status:' + status);
+					return false;
+				})
+
 			$('#uumodal').modal('hide');
+
 		}
 
-		$scope.add = function(model) {
+		$scope.add = function(model, isParent) {
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
 			model.pId = current.id;
