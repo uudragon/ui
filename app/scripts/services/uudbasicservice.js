@@ -134,8 +134,8 @@ angular.module('authApp')
 				suffix = 'at/operate.op?className=roleGroupAction&methodName=save';
 				break;
 
-			case 'previlege':
-				suffix = 'at/operate.op?className=previlege&methodName=save';
+			case 'privilege':
+				suffix = 'at/operate.op?className=privilege&methodName=save';
 				break;
 
 			default:
@@ -179,8 +179,8 @@ angular.module('authApp')
 				suffix = 'at/operate.op?className=roleGroupAction&methodName=delete';
 				break;
 
-			case 'previlege':
-				suffix = 'at/operate.op?className=previlege&methodName=delete';
+			case 'privilege':
+				suffix = 'at/operate.op?className=privilege&methodName=delete';
 				break;
 
 			default:
@@ -223,16 +223,16 @@ angular.module('authApp')
 				suffix = 'at/operate.op?className=roleGroupAction&methodName=update';
 				break;
 
-			case 'previlege':
-				suffix = 'at/operate.op?className=previlege&methodName=update';
+			case 'privilege':
+				suffix = 'at/operate.op?className=privilege&methodName=update';
 				break;
 
 			case 'roles':
 				suffix = 'at/operate.op?className=userAction&methodName=saveRoles';
 				break;
 
-			case 'previleges':
-				suffix = 'at/operate.op?className=userAction&methodName=savePrevileges';
+			case 'privileges':
+				suffix = 'at/operate.op?className=userAction&methodName=savePrivileges';
 				break;
 			default:
 				break;

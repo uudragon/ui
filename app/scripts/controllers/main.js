@@ -304,7 +304,7 @@ angular.module('authApp')
 				privileges: result.join(',')
 			}
 
-			UUDBasicService.update(model, 'privilege')
+			UUDBasicService.update(model, 'privileges')
 
 			$('#rolePrivilege').modal('hide');
 
@@ -409,7 +409,7 @@ angular.module('authApp')
 		};
 
 		var current;
-		var type = 'previlege';
+		var type = 'privilege';
 
 		UUDBasicService.buildPrivilegeTree(setting);
 
