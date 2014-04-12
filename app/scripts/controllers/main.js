@@ -311,51 +311,12 @@ angular.module('authApp')
 		}
 
 		$scope.removePrivilegeFromRole = function(privilege) {
+			$scope.privileges = $filter('filterPrivilege')($scope.privileges, $scope.allPrivileges);
+
 			for (var i in $scope.privileges) {
-				removePrivilege(privilege);
-			}
-
-			// var childs = getChilds(privilege);
-
-			// function getChilds(Node) {
-
-			// }
-
-			function removePrivilege(node) {
-				if ($scope.privileges[i].id == node.id) {
+				if ($scope.privileges[i].id == privilege.id) {
 					$scope.privileges.splice(i, 1);
 				}
-			}
-
-			function getIndexById(id) {
-				for (var i in $scope.privileges) {
-					if ($scope.privileges[i].id == id ) {
-						return i;
-					}
-				}
-			}
-
-			function isFamily(nodeA, nodeB) {
-				if (nodeA.pId == nodeB.id) {
-					return true;
-				} else {
-					while (nodeA.pId) {
-						var nodeA = getNodeById(nodeA.pId);
-						if (nodeA) {
-							return isFamily(nodeA, nodeB)
-						}
-					}
-				}
-				return false;
-			}
-
-			function getNodeById(id) {
-				for (var i in $scope.allPrivileges) {
-					if ($scope.allPrivileges[i].id == id) {
-						return $scope.allPrivileges[i];
-					}
-				}
-				return false;
 			}
 
 			UUDBasicService.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
