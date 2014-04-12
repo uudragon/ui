@@ -313,7 +313,7 @@ angular.module('authApp')
 		if (!user) {
 			return;
 		}
-		self.post(baseurl + suffix, user.id)
+		self.post(baseurl + suffix, {id: user.id})
 			.success(function(data, status) {
 				$scope.roles = data;
 			})

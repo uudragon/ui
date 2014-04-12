@@ -78,7 +78,6 @@ angular.module('authApp')
 
 		$scope.roleModalTitle = "修改角色";
 		scope.currentModel = model;
-
 		UUDBasicService.getRoles(scope, model);
 		UUDBasicService.getAllRoles(scope);
 		// $scope.$parent.editRole($scope, user, "修改角色", type);
@@ -93,7 +92,7 @@ angular.module('authApp')
 
 		var type = 'user';
 
-		$scope.$parent.reloadSearch($scope, type);
+		// $scope.$parent.reloadSearch($scope, type);
 
 		$scope.reloadSearch = function() {
 			$scope.$parent.reloadSearch($scope, type);
