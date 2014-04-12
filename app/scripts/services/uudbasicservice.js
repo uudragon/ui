@@ -142,14 +142,7 @@ angular.module('authApp')
 
 		}
 
-		self.post(baseurl + suffix, model)
-			.success(function(data, status) {
-
-			})
-			.error(function(data, status) {
-				console.log('error');
-				console.log(status);
-			})
+		return self.post(baseurl + suffix, model);
 
 	}
 

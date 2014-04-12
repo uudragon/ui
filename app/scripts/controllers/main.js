@@ -229,13 +229,17 @@ angular.module('authApp')
 			},
 			data: {
 				simpleData: {
-					enable: true
+					enable: true,
+					idKey: "id",
+					pIdKey: "pId",
+					rootPId: 0
 				}
 			},
 			callback: {
 				beforeDrag: beforeDrag,
 				onRemove: onRemove,
-				beforeEditName: beforeEditName
+				beforeEditName: beforeEditName,
+				onDrop: onDrop
 			}
 		};
 
@@ -248,7 +252,7 @@ angular.module('authApp')
 			current = treeNode;
 			$scope.model = {
 				id: current.id,
-				pid: current.pid,
+				pId: current.pId,
 				name: current.name,
 				url: current.url,
 				other: current.other
@@ -261,9 +265,18 @@ angular.module('authApp')
 		}
 
 		function onRemove(e, treeId, treeNode) {
-			console.log(treeNode);
-
 			UUDBasicService.delete(treeNode.id, type);
+		}
+
+		function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
+			console.log('drop');
+			console.log(treeId);
+			console.log(treeNodes);
+
+			onRemove('', '', treeNodes[0])
+			console.log(targetNode);
+			console.log(moveType);
+			console.log(isCopy);
 		}
 
 
@@ -277,13 +290,19 @@ angular.module('authApp')
 			parentNode.after(newNode);
 			newNode.bind("click", function(){
 				current = treeNode;
-				addNote();
+				createNode();
 				return false;
 			});
 		};
 
-		function addNote() {
-			console.log('ok');
+		function removeNote(treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+
+			zTree.removeNote(treeNode)
+		}
+
+		// 新增节点，初始化弹出层
+		function createNode() {
 			$scope.model = {}
 			$scope.modalTitle = '新增节点';
 			$scope.modalType = 'add';
@@ -304,24 +323,32 @@ angular.module('authApp')
 			current.other = model.other;
 			zTree.updateNode(current);
 
-			UUDBasicService.updatePrevilege(zTree, model);
+			UUDBasicService.updatePrevilege(zTree, current);
 			$('#uumodal').modal('hide');
 		}
 
 		$scope.add = function(model) {
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
-			UUDBasicService.add(model, type);
+			model.pId = current.id;
 
-			var newCount = 1;
-
-			zTree.addNodes(current, {
-				id: 100 + ++newCount,
-				pId: current.id,
-				name: model.name,
-				url: model.url,
-				other: model.other
-			});
+			UUDBasicService.add(model, type)
+				// 添加成功后，后台返回节点
+				.success(function(node, status) {
+					zTree.addNodes(current, node);
+				})
+				// 后台添加节点失败
+				.error(function(data, status) {
+					console.log('add Note Error');
+					// 添加伪数据
+					zTree.addNodes(current, {
+						id: Math.floor(Math.random() * 10000),
+						pId: current.id,
+						name: model.name,
+						url: model.url,
+						other: model.other
+					});
+				})
 
 			$('#uumodal').modal('hide');
 		}
@@ -329,6 +356,4 @@ angular.module('authApp')
 		function beforeDrag(treeId, treeNode) {
 			console.log('beforeDrag');
 		}
-
-
 	})
