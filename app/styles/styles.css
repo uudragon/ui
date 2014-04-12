@@ -1,5 +1,6 @@
 a {color: #333; }
 .clearfix {clear: both;}
+.f-label-strike {float: left; width: 1px;}
 /**
  * Top Side bar
  * ----------------------------------------------------------------------------
@@ -111,5 +112,6 @@ a {color: #333; }
  * Finacial
  * ----------------------------------------------------------------------------
  */
- #recorded-panel {margin: 0px 50px 50px 50px; }
- #recorded-details {border: 1px solid #DDDDDD; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding: 10px 20px 10px 20px; }
+#recorded-panel {margin: 0px 50px 50px 50px; }
+.recorded-details {border: 1px solid #DDDDDD; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding: 10px 20px 10px 20px; }
+ 

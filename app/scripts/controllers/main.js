@@ -66,9 +66,12 @@ angular.module('mainApp')
 
 	})
 	.controller('depositManage', function ($scope, UUDFinancialService) {
-		// 查询保证金具体信息
-		UUDFinancialService.searchDeposit($scope);
-
+		// 搜索
+		$scope.search = function () {
+			$scope.searchModel = $scope.searchModel || {};
+			// 查询保证金具体信息
+			UUDFinancialService.searchDeposit($scope);
+		};
 	})
 	.controller('rebateManage', function ($scope, UUDFinancialService) {
 		// 查询保证金具体信息

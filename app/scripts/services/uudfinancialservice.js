@@ -38,6 +38,7 @@ angular.module('mainApp')
 	 * @return none
 	 */
 	this.searchDeposit = function($scope) {
+		console.log($scope.searchModel);
 		$http.post(baseurl + 'bam/search_deposit.php', $scope.model)
 		.success(function(data, status) {
 			$scope.result = data;

@@ -10,18 +10,24 @@
 </div>
 
 
-<form action="" class="search-form-dateperiod" ng-submit="search()">
-	<div class="col-xs-4">
-		<span class="key">时间: </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>&nbsp;<span class="key">至 </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>
-	</div>
-	<div class="col-xs-5">
-		<!-- <span class="key">检索: </span> -->
-		<select name="filter-dataperiod" ng-model="model.filterDataperiod" class="form-control">
-			<option value="val1">条件一</option>
-			<option value="val2">条件二</option>
-			<option value="val3">条件三</option>
-		</select>
-	</div>
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
+	<fieldset>
+		<div class="col-xs-10">
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="f-dateFrom">时间区间: </label>
+				<div class="col-xs-3">
+ 					<input type="text" name="dateFrom" placeholder="yyyy-mm-dd" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
+ 				</div>
+ 				<label class="f-label-strike" for="f-dateTo"> - </label>
+				<div class="col-xs-3">
+ 					<input type="text" name="dateTo" placeholder="yyyy-mm-dd" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
+ 				</div>
+ 				<div class="col-xs-1">
+					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</div>
+		</div>
+	</fieldset>
 	<div class="col-xs-2 pull-right">
 		<ul class="list-inline batch-btn-group ">
 			<li><a href="">修改</a></li>
@@ -34,54 +40,87 @@
 
 <div uu-tab id="recorded-panel">
 	<div uu-pane title="银行入账">
-		<div id="recorded-details">
-		<form action="" class="search-form-recorded" ng-submit="search()">
+		<div class="recorded-details">
 			<div class="col-xs-4">
 				<span class="key">今日入账: </span><span class="val">50</span>
 			</div>
-			<div class="col-xs-5">
-				<!-- <span class="key">检索: </span> -->
-				<select name="filter-recorded" ng-model="model.filterRecorded" class="form-control">
-					<option value="val1">条件一</option>
-					<option value="val2">条件二</option>
-					<option value="val3">条件三</option>
-				</select>
-			</div>
-			<div class="col-xs-2 pull-right">
-				<ul class="list-inline batch-btn-group ">
-					<li><a href="">修改</a></li>
-					<li class="split-pipe">|</li>
-					<li><a href="">导出</a></li>
-				</ul>
-			</div>
-		</form>
 
-		<table class="table table-hover table-condensed">
-			<thead>
-				<tr>
-					<th>入账金额</th>
-					<th>入账信息</th>
-					<th>款项说明</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="item in result">
-					<td>{{item.enter_amount}}</td>
-					<td>
-						银行：{{item.bank_code}}<br/>
-						账户名：{{item.account_name}}<br/>
-						账号： {{item.account_no}}
-					</td>
-					<td>{{item.remark}}</td>
-				</tr>
-			</tbody>
-		</table>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>入账金额</th>
+						<th>入账信息</th>
+						<th>款项说明</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in result">
+						<td>{{item.enter_amount}}</td>
+						<td>
+							银行：{{item.bank_code}}<br/>
+							账户名：{{item.account_name}}<br/>
+							账号： {{item.account_no}}
+						</td>
+						<td>{{item.remark}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div uu-pane title="支付宝入账">
+		<div class="recorded-details">
+			<div class="col-xs-4">
+				<span class="key">今日入账: </span><span class="val">50</span>
+			</div>
 
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>入账金额</th>
+						<th>入账信息</th>
+						<th>款项说明</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in result">
+						<td>{{item.enter_amount}}</td>
+						<td>
+							银行：{{item.bank_code}}<br/>
+							账户名：{{item.account_name}}<br/>
+							账号： {{item.account_no}}
+						</td>
+						<td>{{item.remark}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div uu-pane title="货到付款入账">
+		<div class="recorded-details">
+			<div class="col-xs-4">
+				<span class="key">今日入账: </span><span class="val">50</span>
+			</div>
 
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>入账金额</th>
+						<th>入账信息</th>
+						<th>款项说明</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in result">
+						<td>{{item.enter_amount}}</td>
+						<td>
+							银行：{{item.bank_code}}<br/>
+							账户名：{{item.account_name}}<br/>
+							账号： {{item.account_no}}
+						</td>
+						<td>{{item.remark}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

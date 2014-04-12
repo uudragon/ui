@@ -11,17 +11,44 @@
 </div>
 
 
-<form action="" class="search-form" ng-submit="search()">
-	<div class="col-xs-2">
-		<span class="key">时间: </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>
-	</div>
-	<div class="col-xs-5">
-		<select name="filter" ng-model="model.filter" class="form-control">
-			<option value="val1">条件一</option>
-			<option value="val2">条件二</option>
-			<option value="val3">条件三</option>
-		</select>
-	</div>
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
+	<fieldset>
+		<div class="col-xs-10">
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="f-area">代理区域: </label>
+				<div class="col-xs-4">
+					<input type="text" name="area" ng-model="searchModel.area" class="form-control input-small" id="f-area">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="f-agentName">代理商: </label>
+				<div class="col-xs-4">
+					<input type="text" name="agentName" ng-model="searchModel.agentName" class="form-control input-small" id="f-agentName">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="f-creater">隶属销售: </label>
+				<div class="col-xs-4">
+					<input type="text" name="creater" ng-model="searchModel.creater" class="form-control input-small" id="f-creater">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="f-dateFrom">时间区间: </label>
+				<div class="col-xs-2">
+ 					<input type="text" name="dateFrom" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
+ 				</div>
+ 				<label class="f-label-strike" for="f-dateTo"> - </label>
+				<div class="col-xs-2">
+ 					<input type="text" name="dateTo" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
+ 				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-4 col-xs-offset-4">
+					<input type="submit" value="搜索" class="btn btn-default">
+				</div>
+			</div>
+		</div>
+	</fieldset>
 	<div class="col-xs-2 pull-right">
 		<ul class="list-inline batch-btn-group ">
 			<li><a href="">修改</a></li>
@@ -58,3 +85,15 @@
 		</tbody>
 	</table>
 </div>
+
+
+ <!-- js for date picker -->
+ <script src="scripts/bootstrap-datepicker.js"></script>
+ <script>
+ 	$('.date').datepicker({
+ 		"format": 'yyyy-mm-dd'
+ 	}).
+ 	on('changeDate', function() {
+ 		$('.date').datepicker('hide');
+ 	})
+ </script>

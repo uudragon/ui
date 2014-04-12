@@ -11,18 +11,24 @@
 </div>
 
 
-<form action="" class="search-form-dateperiod" ng-submit="search()">
-	<div class="col-xs-4">
-		<span class="key">时间: </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>&nbsp;<span class="key">至 </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span>
-	</div>
-	<div class="col-xs-5">
-		<!-- <span class="key">检索: </span> -->
-		<select name="filter" ng-model="model.filterDateperiod" class="form-control">
-			<option value="val1">条件一</option>
-			<option value="val2">条件二</option>
-			<option value="val3">条件三</option>
-		</select>
-	</div>
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
+	<fieldset>
+		<div class="col-xs-10">
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="f-dateFrom">时间区间: </label>
+				<div class="col-xs-3">
+ 					<input type="text" name="dateFrom" placeholder="yyyy-mm-dd" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
+ 				</div>
+ 				<label class="f-label-strike" for="f-dateTo"> - </label>
+				<div class="col-xs-3">
+ 					<input type="text" name="dateTo" placeholder="yyyy-mm-dd" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
+ 				</div>
+ 				<div class="col-xs-1">
+					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</div>
+		</div>
+	</fieldset>
 	<div class="col-xs-2 pull-right">
 		<ul class="list-inline batch-btn-group ">
 			<li><a href="">修改</a></li>
@@ -31,28 +37,6 @@
 		</ul>
 	</div>
 </form>
-<br/><br/>
-<form action="" class="search-form-quidco" ng-submit="search()">
-	<div class="col-xs-4">
-		<span class="key">本月返利总额: </span><span class="val">{{accu_quidco_amount}}</span>
-	</div>
-	<div class="col-xs-5">
-		<!-- <span class="key">检索: </span> -->
-		<select name="filter" ng-model="model.filterQuidco" class="form-control">
-			<option value="val1">条件一</option>
-			<option value="val2">条件二</option>
-			<option value="val3">条件三</option>
-		</select>
-	</div>
-	<div class="col-xs-2 pull-right">
-		<ul class="list-inline batch-btn-group ">
-			<li><a href="">修改</a></li>
-			<li class="split-pipe">|</li>
-			<li><a href="">导出</a></li>
-		</ul>
-	</div>
-</form>
-
 
 <div class="result">
 	<table class="table table-hover table-condensed ">
