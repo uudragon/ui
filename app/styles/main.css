@@ -122,13 +122,21 @@ a {
   padding-top: 10px; }
 
 /**
- * Breadcrumb
+ * Role and Privilege list
  * ----------------------------------------------------------------------------
  */
-.breadcrumb > li > a {
-  text-decoration: none; }
-.breadcrumb > li > .active {
-  color: #bbb; }
+.list-group-item.active {
+  background-color: lightyellow; }
+
+.role-group {
+  height: 300px;
+  border: solid 1px #ccc;
+  padding: 2px 0 0 2px; }
+
+.role-group .role {
+  border-bottom: solid 1px #ccc;
+  list-style: none;
+  padding: 5px 7px; }
 
 /**
  * Form

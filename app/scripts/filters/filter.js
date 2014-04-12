@@ -31,3 +31,49 @@ angular.module('authApp')
 		return result;
 	}
 })
+.filter('filterPrivilege', function () {
+	return function (privileges, allPrivileges) {
+		if (!privileges) return;
+
+		function isChild(nodeA, nodeB) {
+			if (nodeA.pId == nodeB.id && getNodeById(nodeB.id, privileges)) {
+				return true;
+			} else {
+				while(nodeA.pId) {
+					var nodeA = getNodeById(nodeA.pId, allPrivileges);
+					if (nodeA) {
+						return isChild(nodeA, nodeB);
+					}
+				}
+			}
+
+			return false;
+		}
+
+		function getNodeById(id, scope) {
+			for (var i in scope) {
+				if (scope[i].id == id) {
+					return scope[i];
+				}
+			}
+
+			return false;
+		}
+
+		var result = [];
+
+		for (var i = 0; i < privileges.length; i++) {
+			var isChildNode = false;
+			for (var j in privileges) {
+				if (isChild(privileges[i], privileges[j])) {
+					isChildNode = true;
+					break;
+				}
+			}
+			if (!isChildNode) {
+				result.push(privileges[i]);
+			}
+		}
+		return result;
+	}
+})

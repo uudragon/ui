@@ -6,6 +6,7 @@ angular.module('authApp')
 	var baseurl = 'http://127.0.0.1:8086/';
 	var self = this;
 	var PER_PAGE = 20;
+	var indicator = {};
 
 	this.getBreadcrumb = function(route) {
 
@@ -230,6 +231,9 @@ angular.module('authApp')
 				suffix = 'at/operate.op?className=userAction&methodName=saveRoles';
 				break;
 
+			case 'previleges':
+				suffix = 'at/operate.op?className=userAction&methodName=savePrevileges';
+				break;
 			default:
 				break;
 
@@ -340,7 +344,7 @@ angular.module('authApp')
 				$scope.roles = data;
 			})
 			.error(function(data, status) {
-				console.log('getall roles error status: ' + status + ' use dummy data');
+				console.log('get all roles error status: ' + status + ' use dummy data');
 
 				$scope.allRoles = [
 					{id: 1, name: '财务'},
@@ -394,6 +398,117 @@ angular.module('authApp')
 			})
 
 	}
+
+	this.getPrivileges = function($scope, role) {
+
+		var suffix = "at/operate.op?className=roleAction&methodName=getPrivilege"
+
+		// 假如user不存在， 不执行操作
+		if (!role) {
+			return;
+		}
+		self.post(baseurl + suffix, {id: role.id})
+			.success(function(data, status) {
+				$scope.privileges = data;
+				indicator.privileges = true;
+			})
+			.error(function(data, status) {
+				indicator.privileges = true;
+				console.log('get role role error status: ' + status + ' use dummy data');
+				var zNodes =[
+				{ id:2, pId:0, name:"父节点2", open:true},
+				{ id:231, pId:23, name:"叶子节点231"},
+				{ id:31, pId:3, name:"叶子节点3-1"}
+				];
+
+				$scope.privileges = zNodes;
+
+
+				if (indicator.allPrivileges) {
+					console.log('to privileges');
+					indicator = {};
+					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
+				}
+			})
+
+	}
+
+	this.getAllPrivileges = function($scope, setting) {
+
+		var suffix = 'at/operate.op?className=roleAction&methodName=getAllPrivilege';
+
+		self.post(baseurl + suffix)
+			.success(function(data, status) {
+				indicator.allPrivileges = true;
+				$scope.allPrivileges = data;
+			})
+			.error(function(data, status) {
+				indicator.allPrivileges = true;
+
+				console.log('getAllPrivilege error status: ' + status + ' use dummy data');
+
+				$scope.allPrivileges = [
+					{ id:1, pId:0, name:"父节点1", open:true},
+					{ id:11, pId:1, name:"叶子节点1"},
+					{ id:12, pId:1, name:"叶子节点2"},
+					{ id:13, pId:1, name:"叶子节点3"},
+					{ id:2, pId:0, name:"父节点2", open:true},
+					{ id:21, pId:2, name:"叶子节点1"},
+					{ id:22, pId:2, name:"叶子节点2"},
+					{ id:23, pId:2, name:"叶子节点3"},
+					{ id:231, pId:23, name:"叶子节点231"},
+					{ id:3, pId:0, name:"父节点3", open:true },
+					{ id:31, pId:3, name:"叶子节点1"},
+					{ id:32, pId:3, name:"叶子节点2"},
+					{ id:33, pId:3, name:"叶子节点3"}
+				];
+
+				if (indicator.privileges) {
+					console.log('to all privileges');
+					indicator = {};
+					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
+				}
+
+			})
+
+	}
+
+	this.rebuildTree = function(allPrivileges, privileges, setting) {
+		var result = [];
+
+		for (var i in allPrivileges) {
+			var selected = false;
+			for (var j in privileges) {
+				if (allPrivileges[i].id == privileges[j].id || isFamily(allPrivileges[i], privileges[j])) {
+					selected = true;
+				}
+			}
+			if (!selected) {
+				result.push(allPrivileges[i])
+			}
+		}
+
+		function getNodeById(id) {
+			for (var i in allPrivileges) {
+				if (allPrivileges[i].id == id) {
+					return allPrivileges[i];
+				}
+			}
+		}
+
+		function isFamily(nodeA, nodeB) {
+			if (nodeA.pId == nodeB.id) {
+				return true;
+			} else {
+				while (nodeA.pId) {
+					var nodeA = getNodeById(nodeA.pId);
+					return isFamily(nodeA, nodeB)
+				}
+			}
+		}
+
+		$.fn.zTree.init($("#priv-tree"), setting, result);
+	}
 　
 	this.buildPrivilegeTree = function(setting) {
 
@@ -401,17 +516,26 @@ angular.module('authApp')
 
 		self.post(baseurl + suffix)
 			.success(function(data, status) {
-				console.log(data);
 				$.fn.zTree.init($("#priv-tree"), setting, data);
 			})
 			.error(function(data, status) {
 
-				var zNodes =[{"id":1,"name":"test123","open":true,"pId":0, "url": 'uudragon.com'},{"id":2,"name":"test","open":true,"pId":0}];
-
-
+				var zNodes = [
+					{ id:1, pId:0, name:"父节点1", open:true},
+					{ id:11, pId:1, name:"叶子节点1"},
+					{ id:12, pId:1, name:"叶子节点2"},
+					{ id:13, pId:1, name:"叶子节点3"},
+					{ id:2, pId:0, name:"父节点2", open:true},
+					{ id:21, pId:2, name:"叶子节点1"},
+					{ id:22, pId:2, name:"叶子节点2"},
+					{ id:23, pId:2, name:"叶子节点3"},
+					{ id:3, pId:0, name:"父节点3", open:true },
+					{ id:31, pId:3, name:"叶子节点1"},
+					{ id:32, pId:3, name:"叶子节点2"},
+					{ id:33, pId:3, name:"叶子节点3"}
+				];
 				$.fn.zTree.init($("#priv-tree"), setting, zNodes);
 			})
-
 	}
 
 });

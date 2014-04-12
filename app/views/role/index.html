@@ -6,15 +6,14 @@
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>角色名</th>
-			<!-- <th>角色组</th> -->
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="role in result.records">
-			<td>{{role.roleName}}</td>
-			<!-- <td>{{role.groupId}}</td> -->
+			<td>{{role.rolename}}</td>
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(role)" data-toggle="modal" data-target="#uumodal">修改</a></li>
+					<li><a href="" ng-click="editPrivilege(role)" data-toggle="modal" data-target="#rolePrivilege">修改权限</a></li>
 					<li><a href="" ng-click="delete(role, $index)">删除</a></li>
 				</ul>
 			</td>
@@ -33,7 +32,7 @@
 			<div class="modal-body">
 				<form action="" class="form form-horizontal form-small">
 					<fieldset>
-						<div uu-input label="角色名" l-col="3" r-col="5" name="name" model="model.roleName"></div>
+						<div uu-input label="角色名" l-col="3" r-col="5" name="name" model="model.rolename"></div>
 						<div class="form-group">
 							<label class="col-xs-3 control-label" for="type">角色组: </label>
 							<div class="col-xs-4">
@@ -50,3 +49,35 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" id="rolePrivilege" ng-if="privilegeModalTitle">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{privilegeModalTitle}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-5">
+						<h4>所有权限</h4>
+						<ul id="priv-tree" class="ztree"></ul>
+					</div>
+<!-- 					<div class="col-xs-1">
+						<button class="btn btn-primary btn-sm" ng-click="addPrivilegeToUser()">&gt;&gt;</button>
+						<button class="btn btn-primary btn-sm" ng-click="removePrivilegeFromUser()">&lt;&lt;</button>
+					</div> -->
+					<div class="col-xs-offset-1 col-xs-5">
+						<h4>角色权限</h4>
+						<ul class="role-group list-group">
+							<li class="role" ng-repeat="privilege in privileges | filterPrivilege : allPrivileges" ng-dblclick="removePrivilegeFromRole(privilege)">{{privilege.name}} <span class="close" ng-click="removePrivilegeFromRole(privilege)">&times;</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" ng-click="savePrivilege()" class="btn btn-primary">保存</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>

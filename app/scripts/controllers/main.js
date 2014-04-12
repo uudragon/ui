@@ -73,16 +73,6 @@ angular.module('authApp')
 		$('#uumodal').modal('hide')
 	}
 
-
-	$scope.editRole = function(scope, model, type) {
-
-		$scope.roleModalTitle = "修改角色";
-		scope.currentModel = model;
-		UUDBasicService.getRoles(scope, model);
-		UUDBasicService.getAllRoles(scope);
-		// $scope.$parent.editRole($scope, user, "修改角色", type);
-	}
-
 })
 	.controller('LoginCtrl', function ($scope, UUDBasicService) {
 
@@ -123,7 +113,12 @@ angular.module('authApp')
 		}
 
 		$scope.editRole = function(user) {
-			$scope.$parent.editRole($scope, user, "修改角色", type);
+
+			$scope.roleModalTitle = "修改角色";
+			$scope.currentModel = user;
+
+			UUDBasicService.getRoles($scope, user);
+			UUDBasicService.getAllRoles($scope);
 		}
 
 		$scope.select = function(id, roles) {
@@ -217,9 +212,33 @@ angular.module('authApp')
 		}
 	})
 
-	.controller('RoleCtrl', function ($scope, UUDBasicService) {
+	.controller('RoleCtrl', function ($scope, UUDBasicService, $filter) {
 
 		var type = 'role';
+
+		var setting = {
+			view: {
+				selectedMulti: false
+			},
+			edit: {
+				enable: false,
+				showRemoveBtn: false,
+				showRenameBtn: false
+			},
+			data: {
+				simpleData: {
+					enable: true,
+					idKey: "id",
+					pIdKey: "pId",
+					rootPId: 0
+				}
+			},
+			callback: {
+				onDblClick: onDblClick
+			}
+		};
+
+		$scope.$parent.reloadSearch($scope, type);
 
 		$scope.reloadSearch = function() {
 			$scope.$parent.reloadSearch($scope, type);
@@ -248,6 +267,92 @@ angular.module('authApp')
 		$scope.save = function(iuser) {
 			$scope.$parent.save($scope, iuser, type);
 		}
+
+		function onDblClick(event, treeId, treeNode) {
+			$scope.privileges = $scope.privileges || [];
+
+			removeNode(treeNode);
+
+			$scope.privileges.push(treeNode);
+			$scope.$apply();
+		}
+
+		function removeNode(treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+			zTree.removeNode(treeNode);
+		}
+
+		$scope.editPrivilege = function(role) {
+			$scope.privilegeModalTitle = "修改角色";
+			$scope.currentModel = role;
+			UUDBasicService.getPrivileges($scope, role);
+			UUDBasicService.getAllPrivileges($scope, setting);
+		}
+
+		$scope.savePrivilege = function() {
+			var result = [];
+			var pris = $filter('filterPrivilege')($scope.privileges, $scope.allPrivileges);
+
+			for (var i in pris) {
+				result.push(pris[i].id);
+			}
+
+			var model = {
+				id: $scope.currentModel.id,
+				privileges: result.join(',')
+			}
+
+			UUDBasicService.update(model, 'privilege')
+
+			$('#rolePrivilege').modal('hide');
+
+		}
+
+		$scope.removePrivilegeFromRole = function(privilege) {
+			for (var i in $scope.privileges) {
+				removeNode(privilege);
+			}
+
+			function removeNode(node) {
+				if ($scope.privileges[i].id == node.id) {
+					$scope.privileges.splice(i, 1);
+				}
+			}
+
+			function getIndexById(id) {
+				for (var i in $scope.privileges) {
+					if ($scope.privileges[i].id == id ) {
+						return i;
+					}
+				}
+			}
+
+			function isFamily(nodeA, nodeB) {
+				if (nodeA.pId == nodeB.id) {
+					return true;
+				} else {
+					while (nodeA.pId) {
+						var nodeA = getNodeById(nodeA.pId);
+						if (nodeA) {
+							return isFamily(nodeA, nodeB)
+						}
+					}
+				}
+				return false;
+			}
+
+			function getNodeById(id) {
+				for (var i in $scope.allPrivileges) {
+					if ($scope.allPrivileges[i].id == id) {
+						return $scope.allPrivileges[i];
+					}
+				}
+				return false;
+			}
+
+			UUDBasicService.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
+		}
+
 	})
 
 	.controller('RgroupCtrl', function ($scope, UUDBasicService) {
@@ -389,10 +494,10 @@ angular.module('authApp')
 			});
 		};
 
-		function removeNote(treeNode) {
+		function removeNode(treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
-			zTree.removeNote(treeNode)
+			zTree.removeNode(treeNode)
 		}
 
 		// 新增节点，初始化弹出层
