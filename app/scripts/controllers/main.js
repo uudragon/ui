@@ -218,6 +218,8 @@ angular.module('authApp')
 
 		var setting = {
 			view: {
+				addHoverDom: addHoverDom,
+				removeHoverDom: removeHoverDom,
 				selectedMulti: false
 			},
 			edit: {
@@ -234,7 +236,7 @@ angular.module('authApp')
 				}
 			},
 			callback: {
-				onDblClick: onDblClick
+				onDblClick: addPrivilegeToRole
 			}
 		};
 
@@ -268,7 +270,7 @@ angular.module('authApp')
 			$scope.$parent.save($scope, iuser, type);
 		}
 
-		function onDblClick(event, treeId, treeNode) {
+		function addPrivilegeToRole(event, treeId, treeNode) {
 			$scope.privileges = $scope.privileges || [];
 
 			removeNode(treeNode);
@@ -310,10 +312,16 @@ angular.module('authApp')
 
 		$scope.removePrivilegeFromRole = function(privilege) {
 			for (var i in $scope.privileges) {
-				removeNode(privilege);
+				removePrivilege(privilege);
 			}
 
-			function removeNode(node) {
+			// var childs = getChilds(privilege);
+
+			// function getChilds(Node) {
+
+			// }
+
+			function removePrivilege(node) {
 				if ($scope.privileges[i].id == node.id) {
 					$scope.privileges.splice(i, 1);
 				}
@@ -352,6 +360,25 @@ angular.module('authApp')
 
 			UUDBasicService.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
 		}
+
+		function addHoverDom(treeId, treeNode) {
+			if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+
+			var parentNode = $("#" + treeNode.tId + "_span");
+			var newNode = $("<span class='glyphicon glyphicon-chevron-right' id='addBtn_" + treeNode.tId
+							+ "' title='添加' onfocus='this.blur();'></span>");
+
+			parentNode.after(newNode);
+			newNode.bind("click", function(){
+				addPrivilegeToRole(null, null, treeNode);
+				return false;
+			});
+		};
+
+
+		function removeHoverDom(treeId, treeNode) {
+			$("#addBtn_"+treeNode.tId).unbind().remove();
+		};
 
 	})
 
@@ -494,6 +521,11 @@ angular.module('authApp')
 			});
 		};
 
+
+		function removeHoverDom(treeId, treeNode) {
+			$("#addBtn_"+treeNode.tId).unbind().remove();
+		};
+
 		function removeNode(treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
@@ -511,10 +543,6 @@ angular.module('authApp')
 			}
 			$('#uumodal').modal('show');
 		}
-
-		function removeHoverDom(treeId, treeNode) {
-			$("#addBtn_"+treeNode.tId).unbind().remove();
-		};
 
 		// 保存更新的节点
 		$scope.save = function(model) {
