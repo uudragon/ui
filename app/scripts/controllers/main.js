@@ -104,15 +104,13 @@ angular.module('mainApp')
 	})
 	.controller('ShipCtrl', function ($scope, UUDShipService) {
 
-			var fakeData = {
-				'ORDERS_NO': 'OD_1001',
-				'SHIPMENT_NO': 'FH1001',
-				'EXPRESS_CODE': 'aaaa',
-				'EXPRESS_ORDERS_NO': 'bbbbbb',
-				'CREATER': 'jack'
-			}
-
-		console.log($scope.model);
+		var fakeData = {
+			'ORDERS_NO': 'OD_1001',
+			'SHIPMENT_NO': 'FH1001',
+			'EXPRESS_CODE': 'aaaa',
+			'EXPRESS_ORDERS_NO': 'bbbbbb',
+			'CREATER': 'jack'
+		}
 
 		$scope.newShip = function() {
 			$.extend($scope.model, fakeData);
