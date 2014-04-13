@@ -449,7 +449,7 @@ angular.module('authApp')
 
 				$scope.allPrivileges = [
 					{ id:1, pId:0, name:"父节点1", open:true},
-					{ id:11, pId:1, name:"叶子节点1"},
+					{ id:11, pId:1, name:"叶子节点1", link: 'www.baidu.com'},
 					{ id:12, pId:1, name:"叶子节点2"},
 					{ id:13, pId:1, name:"叶子节点3"},
 					{ id:2, pId:0, name:"父节点2", open:true},
@@ -522,7 +522,7 @@ angular.module('authApp')
 
 				var zNodes = [
 					{ id:1, pId:0, name:"父节点1", open:true},
-					{ id:11, pId:1, name:"叶子节点1"},
+					{ id:11, pId:1, name:"叶子节点1", link: 'www.baidu.com'},
 					{ id:12, pId:1, name:"叶子节点2"},
 					{ id:13, pId:1, name:"叶子节点3"},
 					{ id:2, pId:0, name:"父节点2", open:true},

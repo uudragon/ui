@@ -417,7 +417,7 @@ angular.module('authApp')
 				id: current.id,
 				pId: current.pId,
 				name: current.name,
-				url: current.url,
+				link: current.link,
 				other: current.other
 			}
 			$scope.modalTitle = '编辑节点';
@@ -448,7 +448,7 @@ angular.module('authApp')
 			var treeNode = treeNodes[0];
 			var model = {
 				name: treeNode.name,
-				url: treeNode.url,
+				link: treeNode.link,
 				other: treeNode.other
 			}
 
@@ -509,7 +509,7 @@ angular.module('authApp')
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
 			current.name = model.name;
-			current.url = model.url;
+			current.link = model.link;
 			current.other = model.other;
 			zTree.updateNode(current);
 
@@ -550,7 +550,7 @@ angular.module('authApp')
 					var node = {
 						id: Math.floor(Math.random() * 10000),
 						name: model.name,
-						url: model.url,
+						link: model.link,
 						other: model.other
 					};
 
@@ -565,6 +565,7 @@ angular.module('authApp')
 		}
 
 		function beforeDrag(treeId, treeNode) {
+			return false;
 			console.log('beforeDrag');
 		}
 	})
