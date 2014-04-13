@@ -216,30 +216,7 @@ angular.module('authApp')
 
 		var type = 'role';
 
-		var setting = {
-			view: {
-				addHoverDom: addHoverDom,
-				removeHoverDom: removeHoverDom,
-				selectedMulti: false
-			},
-			edit: {
-				enable: false,
-				showRemoveBtn: false,
-				showRenameBtn: false
-			},
-			data: {
-				simpleData: {
-					enable: true,
-					idKey: "id",
-					pIdKey: "pId",
-					rootPId: 0
-				}
-			},
-			callback: {
-				onDblClick: addPrivilegeToRole
-			}
-		};
-
+		$scope.$parent.reloadSearch($scope, type);
 		$scope.reloadSearch = function() {
 			$scope.$parent.reloadSearch($scope, type);
 		}
@@ -268,21 +245,30 @@ angular.module('authApp')
 			$scope.$parent.save($scope, iuser, type);
 		}
 
-		function addPrivilegeToRole(event, treeId, treeNode) {
-			$scope.privileges = $scope.privileges || [];
-
-			removeNode(treeNode);
-
-			$scope.privileges.push(treeNode);
-			$scope.$apply();
-		}
-
-		function removeNode(treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
-			zTree.removeNode(treeNode);
-		}
-
 		$scope.editPrivilege = function(role) {
+			var setting = {
+				view: {
+					selectedMulti: false
+				},
+				check: {
+					enable: true,
+					chkboxType: { "Y" : "", "N" : "" }
+				},
+				edit: {
+					enable: false,
+					showRemoveBtn: false,
+					showRenameBtn: false
+				},
+				data: {
+					simpleData: {
+						enable: true,
+						idKey: "id",
+						pIdKey: "pId",
+						rootPId: 0
+					}
+				}
+			};
+
 			$scope.privilegeModalTitle = "修改角色";
 			$scope.currentModel = role;
 			UUDBasicService.getPrivileges($scope, role);
@@ -291,10 +277,11 @@ angular.module('authApp')
 
 		$scope.savePrivilege = function() {
 			var result = [];
-			var pris = $filter('filterPrivilege')($scope.privileges, $scope.allPrivileges);
+			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+			var checkedNodes = zTree.getCheckedNodes();
 
-			for (var i in pris) {
-				result.push(pris[i].id);
+			for (var i in checkedNodes) {
+				result.push(checkedNodes[i].id);
 			}
 
 			var model = {
@@ -307,37 +294,6 @@ angular.module('authApp')
 			$('#rolePrivilege').modal('hide');
 
 		}
-
-		$scope.removePrivilegeFromRole = function(privilege) {
-			$scope.privileges = $filter('filterPrivilege')($scope.privileges, $scope.allPrivileges);
-
-			for (var i in $scope.privileges) {
-				if ($scope.privileges[i].id == privilege.id) {
-					$scope.privileges.splice(i, 1);
-				}
-			}
-
-			UUDBasicService.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
-		}
-
-		function addHoverDom(treeId, treeNode) {
-			if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
-
-			var parentNode = $("#" + treeNode.tId + "_span");
-			var newNode = $("<span class='glyphicon glyphicon-chevron-right' id='addBtn_" + treeNode.tId
-							+ "' title='添加' onfocus='this.blur();'></span>");
-
-			parentNode.after(newNode);
-			newNode.bind("click", function(){
-				addPrivilegeToRole(null, null, treeNode);
-				return false;
-			});
-		};
-
-
-		function removeHoverDom(treeId, treeNode) {
-			$("#addBtn_"+treeNode.tId).unbind().remove();
-		};
 
 	})
 

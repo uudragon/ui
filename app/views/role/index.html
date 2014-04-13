@@ -59,19 +59,9 @@
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-xs-5">
-						<h4>所有权限</h4>
-						<ul id="priv-tree" class="ztree"></ul>
-					</div>
-<!-- 					<div class="col-xs-1">
-						<button class="btn btn-primary btn-sm" ng-click="addPrivilegeToUser()">&gt;&gt;</button>
-						<button class="btn btn-primary btn-sm" ng-click="removePrivilegeFromUser()">&lt;&lt;</button>
-					</div> -->
-					<div class="col-xs-offset-1 col-xs-5">
+					<div class="col-xs-11 col-xs-offset-1">
 						<h4>角色权限</h4>
-						<ul class="role-group list-group">
-							<li class="role" ng-repeat="privilege in privileges | filterPrivilege : allPrivileges" ng-dblclick="removePrivilegeFromRole(privilege)">{{privilege.name}} <span class="close" ng-click="removePrivilegeFromRole(privilege)">&times;</span></li>
-						</ul>
+						<ul id="priv-tree" class="ztree"></ul>
 					</div>
 				</div>
 			</div>

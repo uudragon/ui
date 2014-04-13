@@ -411,6 +411,12 @@ angular.module('authApp')
 			.success(function(data, status) {
 				$scope.privileges = data;
 				indicator.privileges = true;
+
+				if (indicator.allPrivileges) {
+					console.log('to privileges ok');
+					indicator = {};
+					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
+				}
 			})
 			.error(function(data, status) {
 				indicator.privileges = true;
@@ -422,7 +428,6 @@ angular.module('authApp')
 				];
 
 				$scope.privileges = zNodes;
-
 
 				if (indicator.allPrivileges) {
 					console.log('to privileges');
@@ -441,6 +446,12 @@ angular.module('authApp')
 			.success(function(data, status) {
 				indicator.allPrivileges = true;
 				$scope.allPrivileges = data;
+
+				if (indicator.privileges) {
+					console.log('to all privileges ok');
+					indicator = {};
+					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
+				}
 			})
 			.error(function(data, status) {
 				indicator.allPrivileges = true;
@@ -452,13 +463,13 @@ angular.module('authApp')
 					{ id:11, pId:1, name:"叶子节点1", link: 'www.baidu.com'},
 					{ id:12, pId:1, name:"叶子节点2"},
 					{ id:13, pId:1, name:"叶子节点3"},
-					{ id:2, pId:0, name:"父节点2", open:true},
+					{ id:2, pId:0, name:"父节点2", open:true, checked:true},
 					{ id:21, pId:2, name:"叶子节点1"},
 					{ id:22, pId:2, name:"叶子节点2"},
 					{ id:23, pId:2, name:"叶子节点3"},
 					{ id:231, pId:23, name:"叶子节点231"},
 					{ id:3, pId:0, name:"父节点3", open:true },
-					{ id:31, pId:3, name:"叶子节点1"},
+					{ id:31, pId:3, name:"叶子节点3-1"},
 					{ id:32, pId:3, name:"叶子节点2"},
 					{ id:33, pId:3, name:"叶子节点3"}
 				];
@@ -477,37 +488,14 @@ angular.module('authApp')
 		var result = [];
 
 		for (var i in allPrivileges) {
-			var selected = false;
 			for (var j in privileges) {
-				if (allPrivileges[i].id == privileges[j].id || isFamily(allPrivileges[i], privileges[j])) {
-					selected = true;
-				}
-			}
-			if (!selected) {
-				result.push(allPrivileges[i])
-			}
-		}
-
-		function getNodeById(id) {
-			for (var i in allPrivileges) {
-				if (allPrivileges[i].id == id) {
-					return allPrivileges[i];
+				if (allPrivileges[i].id == privileges[j].id) {
+					allPrivileges[i].checked = true;
 				}
 			}
 		}
 
-		function isFamily(nodeA, nodeB) {
-			if (nodeA.pId == nodeB.id) {
-				return true;
-			} else {
-				while (nodeA.pId) {
-					var nodeA = getNodeById(nodeA.pId);
-					return isFamily(nodeA, nodeB)
-				}
-			}
-		}
-
-		$.fn.zTree.init($("#priv-tree"), setting, result);
+		$.fn.zTree.init($("#priv-tree"), setting, allPrivileges);
 	}
 　
 	this.buildPrivilegeTree = function(setting) {
