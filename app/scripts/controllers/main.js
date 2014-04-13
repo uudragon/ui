@@ -240,8 +240,6 @@ angular.module('authApp')
 			}
 		};
 
-		$scope.$parent.reloadSearch($scope, type);
-
 		$scope.reloadSearch = function() {
 			$scope.$parent.reloadSearch($scope, type);
 		}
