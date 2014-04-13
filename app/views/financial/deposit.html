@@ -2,11 +2,13 @@
 
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">今日销售额: </span><span class="val">{{sales.sales_today}}</span></li>
-		<li><span class="key">历史销售总额: </span><span class="val">{{sales.sales_history}}</span></li>
-		<li><span class="key">今日新增保证金总额: </span><span class="val">{{sales.sales_added}}</span></li>
-		<li><span class="key">应缴保证金总额: </span><span class="val">{{sales.sales_should}}</span></li>
-		<li><span class="key">保证金差额: </span><span class="val">{{sales.sales_balance}}</span></li>
+		<li uu-info-item label="今日销售额" value="{{sales.sales_today}}"></li>
+		<li uu-info-item label="历史销售总额" value="{{sales.sales_history}}"></li>
+		<li uu-info-item label="今日新增保证金总额" value="{{sales.sales_added}}"></li>
+		<li uu-info-item label="应缴保证金总额" value="{{sales.sales_should}}"></li>
+	</ul>
+	<ul class="list-inline">
+		<li uu-info-item label="保证金差额" value="{{sales.sales_balance}}"></li>
 	</ul>
 </div>
 
