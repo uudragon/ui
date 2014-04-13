@@ -1,4 +1,5 @@
 <div ng-include src="'views/partial/customer/customer-tab.html'"></div>
+
 <div class="info-panel">
 	<ul class="list-inline">
 		<li><span class="key">当前工单总量: </span><span class="val">{{order.sum}}</span></li>
@@ -8,6 +9,7 @@
 		<li><span class="key">历史工单总量: </span><span class="val">{{order.sum_history}}</span></li>
 	</ul>
 </div>
+
 <form action="" class="search-form" ng-submit="search()">
 	<div class="col-xs-7">
 		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control search-box">
