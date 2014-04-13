@@ -95,7 +95,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" ng-click="add(model)" class="btn btn-primary">添加</button>
+				<button type="button" ng-if="modalType=='add'" ng-click="add(model)" class="btn btn-primary">添加</button>
 				<button type="button" ng-if="modalType=='edit'" ng-click="save(model)" class="btn btn-primary">保存</button>
 			</div>
 		</div><!-- /.modal-content -->
