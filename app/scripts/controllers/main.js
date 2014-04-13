@@ -216,7 +216,6 @@ angular.module('authApp')
 
 		var type = 'role';
 
-		$scope.$parent.reloadSearch($scope, type);
 		$scope.reloadSearch = function() {
 			$scope.$parent.reloadSearch($scope, type);
 		}
