@@ -3,7 +3,6 @@
 var uud = angular.module('mainApp', [
 	'ngCookies',
 	'ngResource',
-	'ngSanitize',
 	'ngRoute',
 	'route-segment',
 	'view-segment'

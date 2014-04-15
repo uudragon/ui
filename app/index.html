@@ -44,7 +44,6 @@
 	<script src="bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
 	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
 	<script src="bower_components/angular-route-segment/build/angular-route-segment.min.js"></script>
 	<!-- endbower -->
@@ -53,13 +52,21 @@
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
 	<script src="scripts/directives.js"></script>
+	<!-- controllers -->
 	<script src="scripts/controllers/main.js"></script>
-	<script src="scripts/services/uudbasicservice.js"></script>
-	<script src="scripts/services/uudinfoservice.js"></script>
-	<script src="scripts/services/uudcustomerservice.js"></script>
-	<script src="scripts/services/uudfinancialservice.js"></script>
-	<script src="scripts/services/uudagentsservice.js"></script>
-	<script src="scripts/services/uudshipservice.js"></script>
+	<script src="scripts/controllers/info.js"></script>
+	<script src="scripts/controllers/customer.js"></script>
+	<script src="scripts/controllers/financial.js"></script>
+	<script src="scripts/controllers/ship.js"></script>
+	<script src="scripts/controllers/agents.js"></script>
+	<!-- services -->
+	<script src="scripts/services/basic.js"></script>
+	<script src="scripts/services/info.js"></script>
+	<script src="scripts/services/customer.js"></script>
+	<script src="scripts/services/financial.js"></script>
+	<script src="scripts/services/ship.js"></script>
+	<script src="scripts/services/agents.js"></script>
+	<!-- filters -->
 	<script src="scripts/filters/filter.js"></script>
 	<!-- endbuild -->
 </body>
