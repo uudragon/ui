@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.service('UUDInfoService', function UUDInfoService($http) {
+.service('InfoService', function UUDInfoService($http) {
 
 	var baseurl = 'http://services.bam.uudragon.com/';
 
@@ -12,20 +12,10 @@ angular.module('mainApp')
 	 * @param  object $scope
 	 * @return bool
 	 */
-	this.loadCustomer = function($scope) {
+	this.loadCustomer = function(model) {
 		var suffix = 'bam/customer_load.php';
 
-		$http.post(baseurl + suffix, $scope.model)
-			.success(function(data, status) {
-				$.extend($scope.model, data);
-			})
-			.error(function(data, status) {
-				console.log('load customer error status:' + status);
-				$scope.model = {
-					number: 13123,
-					type: '已付款'
-				}
-			})
+		return $http.post(baseurl + suffix, model);
 	}
 
 	/**
@@ -34,7 +24,7 @@ angular.module('mainApp')
 	 * @param  object $scope
 	 * @return bool
 	 */
-	this.newCustomer = function($scope) {
+	this.newCustomer = function(model) {
 		var suffix = '';
 
 		switch ($scope.model.btn) {
@@ -54,54 +44,9 @@ angular.module('mainApp')
 
 		}
 
-		console.log($scope.model);
-		console.log($scope);
-
-		$http.post(baseurl + suffix, $scope.model)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(function(data, status) {
-				console.log('new customer error status:' + status);
-				return false;
-			})
+		$http.post(baseurl + suffix, model);
 	}
 
-	/**
-	 * New Order
-	 *
-	 * @param  object $scope
-	 * @return bool
-	 */
-	this.newOrder = function($scope) {
-		var suffix = '';
-
-		switch ($scope.model.btn) {
-			case 'saved':
-				suffix = 'bam/consumer_saved';
-				break;
-
-			case 'insert':
-				suffix = 'bam/orders_insert';
-				break;
-
-			case 'query':
-				suffix = 'bam/bamstomer_query';
-				break;
-
-			default: break;
-
-		}
-
-		$http.post(baseurl + suffix, $scope.model)
-		.success(function(data, status) {
-			return true;
-		})
-		.error(function(data, status) {
-			console.log('new order error status: ' + status);
-			return false;
-		})
-	}
 	/***************** 客户信息管理结束 ***********************/
 
 });
