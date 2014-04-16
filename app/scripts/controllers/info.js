@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('InfoCtrl', function ($scope, InfoService) {
+.controller('InfoCtrl', ['$scope', 'InfoService', function ($scope, InfoService) {
 	$scope.summit = function() {
 		InfoService.newCustomer($scope.model)
 			.success(function(data, status) {
@@ -20,8 +20,8 @@ angular.module('mainApp')
 			console.log('new order error status: ' + status);
 		})
 	}
-})
-	.controller('TradedCtrl', function ($scope, InfoService) {
+}])
+	.controller('TradedCtrl', ['$scope', 'InfoService', '$controller', function ($scope, InfoService, $controller) {
 
 		InfoService.loadCustomer($scope.model)
 			.success(function(data, status) {
@@ -34,4 +34,6 @@ angular.module('mainApp')
 					type: '已付款'
 				}
 			})
-	})
+
+		$controller('InfoCtrl', {$scope: $scope})
+	}])

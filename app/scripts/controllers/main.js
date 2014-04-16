@@ -2,7 +2,8 @@
 
 angular.module('mainApp')
 
-.controller('MainCtrl', function ($scope, $routeSegment, loader, BasicService) {
+.controller('MainCtrl', ['$scope', '$routeSegment', 'loader', 'BasicService', function ($scope, $routeSegment, loader, BasicService) {
+	
 	BasicService.loadBasicInfo($scope)
 		.success(function(data, status) {
 			$scope.date = new Date();
@@ -30,4 +31,4 @@ angular.module('mainApp')
 		loader.show = true;
 	})
 
-})
+}])

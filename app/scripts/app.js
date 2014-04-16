@@ -185,7 +185,7 @@ var uud = angular.module('mainApp', [
 			.within()
 				.segment('summary', {
 					templateUrl: 'views/ship/summary.html',
-					controller: 'ShipCtrl'})
+					controller: 'summary'})
 			.up()
 		.up()
 

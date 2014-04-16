@@ -1,22 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('ShipCtrl', function ($scope, ShipService) {
-	// UUDShipService.queryShip($scope);
-
-	ShipService.queryOrderCount($scope.model)
-		.success(function(data, status) {
-			$scope.order = data;
-		})
-		.error(function(data, status) {
-			console.log('shipment_queryOrderCount error status: ' + status);
-			$scope.order = {
-				ordersCount: 523231231,
-				salesAmount: 12321,
-				accuOrdersCount: 12321,
-				accuSalesAmount: 12321
-			}
-		})
+.controller('ShipCtrl', ['$scope', 'ShipService', function ($scope, ShipService) {
 
 	$scope.queryShip = function() {
 
@@ -42,4 +27,26 @@ angular.module('mainApp')
 				return false;
 			})
 	}
-})
+}])
+	// subControllers
+	.controller('summary', ['$scope', 'ShipService', '$controller', function ($scope, ShipService, $controller) {
+
+		// get order informations
+		ShipService.queryOrderCount($scope.model)
+			.success(function(data, status) {
+				$scope.order = data;
+			})
+			.error(function(data, status) {
+				console.log('shipment_queryOrderCount error status: ' + status);
+				$scope.order = {
+					ordersCount: 523231231,
+					salesAmount: 12321,
+					accuOrdersCount: 12321,
+					accuSalesAmount: 12321
+				}
+			})
+
+		// inherit functions from parent
+		$controller('ShipCtrl', {$scope: $scope});
+		
+	}])

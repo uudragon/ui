@@ -1,29 +1,29 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('FinancialCtrl', function ($scope, UUDFinancialService) {
+.controller('FinancialCtrl', function ($scope, FinancialService) {
 	// 获取保证金相关信息
-	UUDFinancialService.querySalesInfo($scope);
+	FinancialService.querySalesInfo($scope);
 
 })
-	.controller('depositManage', function ($scope, UUDFinancialService) {
+	.controller('depositManage', function ($scope, FinancialService) {
 		// 搜索
 		$scope.search = function () {
 			$scope.searchModel = $scope.searchModel || {};
 			// 查询保证金具体信息
-			UUDFinancialService.searchDeposit($scope);
+			FinancialService.searchDeposit($scope);
 		};
 	})
-	.controller('rebateManage', function ($scope, UUDFinancialService) {
+	.controller('rebateManage', function ($scope, FinancialService) {
 		// 查询保证金具体信息
-		UUDFinancialService.searchRebate($scope);
+		FinancialService.searchRebate($scope);
 
 	})
-	.controller('recordedManage', function ($scope, UUDFinancialService) {
+	.controller('recordedManage', function ($scope, FinancialService) {
 		//查询入账总体信息
-		UUDFinancialService.searchOverallRecorded($scope);
+		FinancialService.searchOverallRecorded($scope);
 
 		// 查询入账具体信息
-		UUDFinancialService.searchRecorded($scope);
+		FinancialService.searchRecorded($scope);
 
 	})
