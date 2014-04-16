@@ -2,8 +2,12 @@
 
 $json = <<<JSON
 {
-    "recorded_today": 20000,
-    "recorded_total": 51870120
+	"td_hq_sum": 123,
+	"td_agent_sum": 123,
+	"td_consume": 123,
+	"remain": 123,
+	"hq_sum": 123,
+	"agent_sum": 123
 }
 JSON;
 

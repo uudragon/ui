@@ -1,9 +1,8 @@
 <?php
-
 $json = <<<JSON
 {
-    "recorded_today": 20000,
-    "recorded_total": 51870120
+    "current": 10,
+    "history": 15
 }
 JSON;
 

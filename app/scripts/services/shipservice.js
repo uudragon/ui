@@ -4,6 +4,7 @@ angular.module('mainApp')
 .service('ShipService', function ShipService($http) {
 
 	var baseurl = 'http://bam.uudragon.net/';
+	var baseurl = 'http://services.bam.uudragon.com/';
 
 	/***************** 发货管理开始 ***********************/
 
@@ -38,7 +39,7 @@ angular.module('mainApp')
 	 */
 	this.queryShip = function(model) {
 		console.log(model);
-		var suffix = 'bam/shipment_query';
+		var suffix = 'bam/shipment_query.php';
 		return $http.post(baseurl + suffix, model);
 	}
 	/***************** 发货管理结束 ***********************/

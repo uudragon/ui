@@ -2,8 +2,10 @@
 
 $json = <<<JSON
 {
-    "recorded_today": 20000,
-    "recorded_total": 51870120
+    "countOfToday": 20000,
+    "sumOfToday": 51870120,
+    "count": 51870120,
+    "sum": 51870120
 }
 JSON;
 

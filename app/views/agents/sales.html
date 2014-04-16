@@ -1,10 +1,10 @@
 <div ng-include src="'views/partial/agents/agent-tab.html'"></div>
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">今日订单总数: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">今日订单总额: </span><span class="val">{{order.count_finished}}</span></li>
-		<li><span class="key">累计订单总数: </span><span class="val">{{order.count_finished}}</span></li>
-		<li><span class="key">累计销售总额: </span><span class="val">{{order.count_finished}}</span></li>
+		<li uu-info-item label="今日订单总数" value="{{saleInfo.countOfToday}}"></li>
+		<li uu-info-item label="今日订单总额" value="{{saleInfo.sumOfToday}}"></li>
+		<li uu-info-item label="累计订单总数" value="{{saleInfo.count}}"></li>
+		<li uu-info-item label="累计销售总额" value="{{saleInfo.sum}}"></li>
 	</ul>
 </div>
 <form action="" class="search-form" ng-submit="search()">

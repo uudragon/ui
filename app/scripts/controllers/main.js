@@ -3,7 +3,7 @@
 angular.module('mainApp')
 
 .controller('MainCtrl', ['$scope', '$routeSegment', 'loader', 'BasicService', function ($scope, $routeSegment, loader, BasicService) {
-	
+
 	BasicService.loadBasicInfo($scope)
 		.success(function(data, status) {
 			$scope.date = new Date();
@@ -27,8 +27,10 @@ angular.module('mainApp')
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
 
+	$scope.base = 'service.uud.com';
+
 	$scope.$on('routeSegmentChange', function() {
-		loader.show = true;
+		loader.show = false;
 	})
 
 }])

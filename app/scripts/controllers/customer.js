@@ -1,42 +1,77 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('CustomerCtrl', function ($scope, UUDCustomerService) {
-
+.controller('CustomerCtrl', ['$scope', 'CustomerService', function ($scope, CustomerService) {
 	$scope.summit = function() {
-		UUDCustomerService.newOrder($scope);
+		CustomerService.newCustomer($scope.model)
+			.success(function(data, status) {
+				$scope.model = data;
+			})
+			.error(function(data, status) {
+				console.log('new customer error status:' + status);
+			})
 	}
+	$scope.newOrder = function() {
+		CustomerService.newOrder($scope.model)
+		.success(function(data, status) {
+			console.log('ok');
+		})
+		.error(function(data, status) {
+			console.log('new order error status: ' + status);
+		})
+	}
+}])
+	.controller('TradedCtrl', ['$scope', 'CustomerService', '$controller', function ($scope, CustomerService, $controller) {
 
-})
-	.controller('customerManger', function ($scope, UUDCustomerService) {
+		CustomerService.loadCustomer($scope.model)
+			.success(function(data, status) {
+				$scope.model = data;
+			})
+			.error(function(data, status) {
+				console.log('load customer error status:' + status);
+				$scope.model = {
+					number: 13123,
+					type: '已付款'
+				}
+			})
 
-		// 获取预订总数和成交客户
-		UUDCustomerService.queryContactInfo($scope);
+		$controller('CustomerCtrl', {$scope: $scope})
+	}])
+	.controller('customerManger', ['$scope', 'CSService', function ($scope, CSService) {
 
-		$scope.gender = [{label:'男', value: 'male'}, {label: '女', value: 'female'}];
-		// 搜索
-		$scope.search = function () {
-			$scope.searchModel = $scope.searchModel || {};
-			UUDCustomerService.searchContact($scope)
-		};
-	})
-	.controller('orderManger', function ($scope, UUDCustomerService) {
+			// 获取预订总数和成交客户
+			CSService.queryContactInfo()
+				.success(function(data, status) {
+					$scope.statistics = data;
+				})
+				.error(function(data, status) {
+					console.log('query info error status: ' + status + ' use dummy data');
 
-		// 获取工单相关信息
-		UUDCustomerService.queryOrderInfo($scope);
+					$scope.statistics = {
+						'preorder': 100,
+						'dealed': 5000
+					};
+				})
 
-		// 搜索
-		$scope.search = function () {
-			UUDCustomerService.searchOrder($scope)
-		};
-	})
-	.controller('employeeManger', function ($scope, UUDCustomerService) {
+			// 搜索
+			$scope.searchModel = {};
+			$scope.search = function () {
 
-		// 获取工单相关信息
-		UUDCustomerService.queryEmployeeInfo($scope);
+				CSService.search($scope.searchModel, 'contact')
+					.success(function(data, status) {
+						$scope.result = data;
+					})
+					.error(function(data, status) {
+						console.log('search contact error status: ' + status + ' use dummy data');
 
-		// 搜索
-		$scope.search = function () {
-			UUDCustomerService.searchEmployee($scope)
-		};
-	})
+						// dummy data
+						$scope.result = [
+							{code: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com'},
+							{code: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com'},
+							{code: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com'},
+							{code: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com'},
+						]
+						$scope.pages = 10;
+					})
+			};
+		}])

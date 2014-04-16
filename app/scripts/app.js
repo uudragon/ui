@@ -31,20 +31,20 @@ var uud = angular.module('mainApp', [
 		// customer info
 		.when('/', 'root.login')
 		.when('/login', 'root.login')
-		.when('/info', 'root.info.traded')
-		.when('/info/new', 'root.info.new')
-		.when('/info/customer-manager', 'root.info.customermanager')
-		.when('/info/contacts', 'root.info.contacts')
-		.when('/info/traded', 'root.info.traded')
+		.when('/customer', 'root.customer.traded')
+		.when('/customer/new', 'root.customer.new')
+		.when('/customer/customer-manager', 'root.customer.customermanager')
+		.when('/customer/contacts', 'root.customer.contacts')
+		.when('/customer/traded', 'root.customer.traded')
 
-		// customer manager
-		.when('/customer', 'root.customer.ordermanager')
-		.when('/customer/ordernew', 'root.customer.ordernew')
-		.when('/customer/ordermanager', 'root.customer.ordermanager')
-		.when('/customer/employee', 'root.customer.employee')
-		.when('/customer/online', 'root.customer.ol')
-		.when('/customer/phone', 'root.customer.phone')
-		.when('/customer/data', 'root.customer.data')
+		// customer service manager
+		.when('/service', 'root.service.ordermanager')
+		.when('/service/ordernew', 'root.service.ordernew')
+		.when('/service/ordermanager', 'root.service.ordermanager')
+		.when('/service/employee', 'root.service.employee')
+		.when('/service/online', 'root.service.ol')
+		.when('/service/phone', 'root.service.phone')
+		.when('/service/data', 'root.service.data')
 
 		// financial manager
 		.when('/financial', 'root.financial.deposit')
@@ -89,48 +89,46 @@ var uud = angular.module('mainApp', [
 		})
 		.within()
 			.segment('login', {
-				templateUrl: 'views/login.html',
-				controller: 'InfoCtrl'})
-			.segment('info', {
-					templateUrl: 'views/template.html',
-					controller: 'InfoCtrl'})
+				templateUrl: 'views/login.html'})
 
+			.segment('customer', {
+					templateUrl: 'views/template.html',
+					controller: 'CustomerCtrl'})
 			.within()
 				.segment('new', {
-					templateUrl: 'views/info/new.html',
-					controller: 'InfoCtrl'})
+					templateUrl: 'views/customer/new.html',
+					controller: 'CustomerCtrl'})
 				.segment('customermanager', {
-					templateUrl: 'views/info/customer-manager.html',
+					templateUrl: 'views/customer/customer-manager.html',
 					controller: 'customerManger'})
 				.segment('contacts', {
-					templateUrl: 'views/info/contacts.html',
-					controller: 'InfoCtrl'})
+					templateUrl: 'views/customer/contacts.html',
+					controller: 'CustomerCtrl'})
 				.segment('traded', {
-					templateUrl: 'views/info/traded.html',
+					templateUrl: 'views/customer/traded.html',
 					controller: 'TradedCtrl'})
 			.up()
 
-			.segment('customer', {
+			.segment('service', {
 				templateUrl: 'views/template.html',
-				controller: 'CustomerCtrl'})
-
+				controller: 'ServiceCtrl'})
 			.within()
 				.segment('ordernew', {
-					templateUrl: 'views/customer/order.html',
-					controller: 'CustomerCtrl'})
+					templateUrl: 'views/service/order.html',
+					controller: 'ServiceCtrl'})
 				.segment('ordermanager', {
-					templateUrl: 'views/customer/ordermanager.html',
+					templateUrl: 'views/service/ordermanager.html',
 					controller: 'orderManger'})
 				.segment('employee', {
-					templateUrl: 'views/customer/employee.html',
+					templateUrl: 'views/service/employee.html',
 					controller: 'employeeManger'})
 				.segment('ol', {
-					templateUrl: 'views/customer/online.html',
+					templateUrl: 'views/service/online.html',
 					controller: 'employeeManger'})
 				.segment('phone', {
-					templateUrl: 'views/customer/phone.html'})
+					templateUrl: 'views/service/phone.html'})
 				.segment('data', {
-					templateUrl: 'views/customer/data.html'})
+					templateUrl: 'views/service/data.html'})
 			.up()
 
 			.segment('financial', {
@@ -159,12 +157,13 @@ var uud = angular.module('mainApp', [
 					templateUrl: 'views/agents/rank.html',
 						controller: 'agentRankManage'})
 				.segment('promocode', {
-					templateUrl: 'views/agents/promocode.html'})
+					templateUrl: 'views/agents/promocode.html',
+					controller: 'agentPromoManage'})
 				.segment('sales', {
-					templateUrl: 'views/agents/sales.html'})
+					templateUrl: 'views/agents/sales.html',
+					controller: 'agentSalesManage'})
 				.segment('entryexit', {
-					templateUrl: 'views/agents/entryexit.html',
-					controller: 'AgentsCtrl'})
+					templateUrl: 'views/agents/entryexit.html'})
 				.segment('commissionmanager', {
 					templateUrl: 'views/agents/commissionmanager.html'})
 				.segment('contractmanager', {
@@ -185,7 +184,13 @@ var uud = angular.module('mainApp', [
 			.within()
 				.segment('summary', {
 					templateUrl: 'views/ship/summary.html',
-					controller: 'summary'})
+					controller: 'shipSummary',
+					resolve: {
+						orderCount: function(ShipService) {
+							return ShipService.queryOrderCount();
+						}
+					}
+				})
 			.up()
 		.up()
 

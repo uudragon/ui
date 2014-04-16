@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.service('UUDAgentsService', function UUDAgentsService($http) {
+.service('AgentsService', ['$http', function ($http) {
 
 	var baseurl = 'http://services.bam.uudragon.com/';
 
@@ -12,76 +12,39 @@ angular.module('mainApp')
 	 * @param  object $scope
 	 * @return none
 	 */
-	 this.searchOverallAgent = function ($scope) {
-	 	$http.post(baseurl + 'bam/search_overall_agent.php', $scope.model)
-		.success(function(data, status) {
-			$scope.agentInfo = data;
-		})
-		.error(function(data, status) {
+	 this.searchOverallAgent = function (model) {
+	 	return $http.post(baseurl + 'bam/search_overall_agent.php', model);
+	 }
 
-			console.log('search Overall Agent error status: ' + status + ' use dummy data');
+	/**
+	 * 获取优惠码信息
+	 *
+	 * @param  object $scope
+	 * @return none
+	 */
+	 this.searchPromoCode = function (model) {
+	 	return $http.post(baseurl + 'bam/search_overall_promo.php', model);
+	 }
 
-			// dummy data
-			$scope.agentInfo = {sum_agents: 200, rank_agent_today: 2, sum_sales_today: 8500, sum_sales_history: 51870120, new_customer_today: 25, sum_customer_history: 1000};
-		})
+	/**
+	 * 获取优惠码信息
+	 *
+	 * @param  object $scope
+	 * @return none
+	 */
+	 this.searchSalesInfo = function (model) {
+	 	return $http.post(baseurl + 'bam/search_sales_info.php', model);
 	 }
 
 	 //代理商名单
-	 this.searchAgent = function ($scope) {
-	 	$http.post(baseurl + 'bam/search_agent.php', $scope.model)
-		.success(function(data, status) {
-			$scope.result = data;
-		})
-		.error(function(data, status) {
-
-			console.log('search Agent error status: ' + status + ' use dummy data');
-
-			// dummy data
-			$scope.result = [
-				{agent_code: 12, 
-					agent_name: '代理商名称', 
-					contract_code: 2500, 
-					area: '北京', 
-					leal_person: '法人代表', 
-					company_type: 2, 
-					company_size: '20-100', 
-					registered_capital: 30000, 
-					agent_permission: '代理权限', 
-					begin_time: '2014-03-02 11:00:00', 
-					end_time: '2015-03-02 11:00:00', 
-					cash_deposit: 20000, 
-					contact: '联系方式', 
-					address: '地址', 
-					remark: '备注'}
-			];
-		})
+	 this.searchAgent = function (model) {
+	 	return $http.post(baseurl + 'bam/search_agent.php', model);
 	 }
 
 	 //代理商排名
-	 this.searchAgentRank = function ($scope) {
-	 	$http.post(baseurl + 'bam/search_agent_rank.php', $scope.model)
-		.success(function(data, status) {
-			$scope.result = data;
-		})
-		.error(function(data, status) {
-
-			console.log('search Agent Rank error status: ' + status + ' use dummy data');
-
-			// dummy data
-			$scope.result = [
-				{agent_rank: '一级代理', 
-					agent_name: '代理商名称', 
-					agent_gender: '男', 
-					cash_deposit: 20000.00, 
-					grade: '代理商级别', 
-					agent_duration: 365, 
-					begin_time: '2014-03-02 11:00:00', 
-					end_time: '2015-03-02 11:00:00', 
-					contact: '联系方式', 
-					address: '地址'}
-			];
-		})
+	 this.searchAgentRank = function (model) {
+	 	return $http.post(baseurl + 'bam/search_agent_rank.php', model);
 	 }
 
 	 /***************** 代理商管理结束 ***********************/
-});
+}]);

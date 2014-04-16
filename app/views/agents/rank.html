@@ -1,9 +1,9 @@
 <div ng-include src="'views/partial/agents/agent-tab.html'"></div>
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">目前排名: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">历史排名: </span><span class="val">{{order.count_finished}}</span></li>
-		<li><span class="key">时间: </span><span class="val">{{date | date : "yyyy-MM-dd" }}</span></li>
+		<li uu-info-item label="目前排名" value="{{rank.current}}"></li>
+		<li uu-info-item label="历史排名" value="{{rank.history}}"></li>
+		<li uu-info-item label="时间" value="{{date | date : 'yyyy-MM-dd' }}"></li>
 	</ul>
 </div>
 <form action="" class="search-form" ng-submit="search()">

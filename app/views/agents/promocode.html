@@ -1,14 +1,14 @@
 <div ng-include src="'views/partial/agents/agent-tab.html'"></div>
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">今日总部发放: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">今日代理商发放: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">今日使用: </span><span class="val">{{order.count_finished}}</span></li>
-		<li><span class="key">剩余: </span><span class="val">{{order.count_finished}}</span></li>
+		<li uu-info-item label="今日总部发放" value="{{promoCode.td_hq_sum}}"></li>
+		<li uu-info-item label="今日代理商发放" value="{{promoCode.td_agent_sum}}"></li>
+		<li uu-info-item label="今日使用" value="{{promoCode.td_consume}}"></li>
+		<li uu-info-item label="剩余" value="{{promoCode.remain}}"></li>
 	</ul>
 	<ul class="list-inline">
-		<li><span class="key">总部累计发放: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">代理商累计发放: </span><span class="val">{{order.sum}}</span></li>
+		<li uu-info-item label="总部累计发放" value="{{promoCode.hq_sum}}"></li>
+		<li uu-info-item label="代理商累计发放" value="{{promoCode.agent_sum}}"></li>
 	</ul>
 </div>
 <form action="" class="search-form" ng-submit="search()">

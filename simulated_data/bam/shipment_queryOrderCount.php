@@ -2,8 +2,10 @@
 
 $json = <<<JSON
 {
-    "recorded_today": 20000,
-    "recorded_total": 51870120
+"ordersCount": 42302,
+"salesAmount": 12321,
+"accuOrdersCount": 2343221,
+"accuSalesAmount": 12321
 }
 JSON;
 
