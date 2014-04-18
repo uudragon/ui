@@ -19,7 +19,7 @@ angular.module('mainApp')
 				timing: 1220,
 				jobNumber: 12304,
 				name: "肖锋",
-				group: "管理员"
+				group: "admin"
 			}
 			$.extend($scope, dummydata);
 		})

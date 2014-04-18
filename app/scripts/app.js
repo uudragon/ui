@@ -39,7 +39,7 @@ var uud = angular.module('mainApp', [
 	//////////////////////////
 
 	$stateProvider
-	
+
 	.state('root', {
 		url: "/",
 		templateUrl: "views/template.html",
@@ -160,7 +160,7 @@ var uud = angular.module('mainApp', [
 	.state('root.agents.list', {
 		url: "/list",
 		templateUrl: "views/agents/list.html",
-		controller: 'AgentsCtrl'
+		controller: 'AgentsManager'
 	})
 	.state('root.agents.rank', {
 		url: "/rank",

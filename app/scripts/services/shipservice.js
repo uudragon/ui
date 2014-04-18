@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('mainApp')
-.service('ShipService', function ShipService($http) {
+.service('ShipService', ['$http', function ShipService($http) {
 
 	var baseurl = 'http://bam.uudragon.net/';
-	var baseurl = 'http://services.bam.uudragon.com/';
 
 	/***************** 发货管理开始 ***********************/
 
@@ -27,11 +26,12 @@ angular.module('mainApp')
 
 	this.search = function(model, type) {
 		var suffix;
+		console.log(model);
 		switch (type) {
 			// 查询发货单
 			case 'ship':
-			suffix = 'bam/shipment_query.php';
-			break;
+				suffix = 'bam/shipment_query';
+				break;
 
 			default: break;
 
@@ -53,4 +53,4 @@ angular.module('mainApp')
 
 	/***************** 发货管理结束 ***********************/
 
-})
+}])

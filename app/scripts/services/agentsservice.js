@@ -21,7 +21,7 @@ angular.module('mainApp')
 			case 'rankInfo':
 				suffix = 'bam/search_agent_rank';
 				break;
-			
+
 			// 获取销售信息
 			case 'salesInfo':
 				suffix = 'bam/search_sales_info';
@@ -32,9 +32,9 @@ angular.module('mainApp')
 				suffix = 'bam/search_overall_agent';
 				break;
 
-			// 获取代理商列表
-			case 'agents':
-				suffix = 'bam/search_agent';
+			// 查询目前签约代理数、今日销售总额、累计销售总额、今日新增客户数、历史销售人数
+			case 'agentCountInfo':
+				suffix = 'bam/agent_queryAgentCount';
 				break;
 
 			default: break;
@@ -49,20 +49,25 @@ angular.module('mainApp')
 		var suffix;
 
 		switch (type) {
+			// 获取代理商列表
+			case 'agents':
+				suffix = 'bam/agent_list';
+				break;
+
 			// 保证金信息查询
-			case 'rank':
-			suffix = 'bam/search_deposit';
-			break;
+			case 'deposit':
+				suffix = 'bam/search_deposit';
+				break;
 
 			// 返款信息查询
-			case 'promoCode':
-			suffix = 'bam/search_rebate';
-			break;
-			
+			case 'rebate':
+				suffix = 'bam/search_rebate';
+				break;
+
 			// 入账信息查询
-			case 'sales':
-			suffix = 'bam/search_recorded';
-			break;
+			case 'recorded':
+				suffix = 'bam/search_recorded';
+				break;
 
 			default: break;
 
