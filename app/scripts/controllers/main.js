@@ -2,7 +2,7 @@
 
 angular.module('mainApp')
 
-.controller('MainCtrl', ['$scope', '$routeSegment', 'loader', 'BasicService', function ($scope, $routeSegment, loader, BasicService) {
+.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'BasicService', function ($scope, $state, $stateParams, BasicService) {
 
 	BasicService.loadBasicInfo($scope)
 		.success(function(data, status) {
@@ -24,13 +24,7 @@ angular.module('mainApp')
 			$.extend($scope, dummydata);
 		})
 
-	$scope.$routeSegment = $routeSegment;
-	$scope.loader = loader;
-
-	$scope.base = 'service.uud.com';
-
-	$scope.$on('routeSegmentChange', function() {
-		loader.show = false;
-	})
+	$scope.$state = $state;
+	$scope.$stateParams = $stateParams;
 
 }])

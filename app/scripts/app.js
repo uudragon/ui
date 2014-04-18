@@ -3,197 +3,230 @@
 var uud = angular.module('mainApp', [
 	'ngCookies',
 	'ngResource',
-	'ngRoute',
-	'route-segment',
-	'view-segment'
+	'ui.router'
 	])
-.config(function($routeSegmentProvider, $routeProvider) {
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-	// Configuring provider options
-	$routeSegmentProvider.options.autoLoadTemplates = true;
+	/**
+	 * ============================================================================
+	 * Important !!!!!!!!
+	 *
+	 * ============================================================================
+	 */
 
-	// Setting routes. This consists of two parts:
-	// 1. `when` is similar to vanilla $route `when` but takes segment name instead of params hash
-	// 2. traversing through segment tree to set it up
 
-	$routeSegmentProvider
+	/////////////////////////////
+	// Redirects and Otherwise //
+	/////////////////////////////
 
-		/**
-		 * ============================================================================
-		 * Important !!!!!!!!
-		 *
-		 * 路径不要有相同的名称, 比如root.ship.home, root.law.home, 包含相同名称'home',
-		 * 这是非法的! 当使用相同名称时, template将不会自动切换！
-		 * ( 应为 angular-route-segment 的一个bug )
-		 * ============================================================================
-		 */
+	$urlRouterProvider
 
-		// customer info
-		.when('/', 'root.login')
-		.when('/login', 'root.login')
-		.when('/customer', 'root.customer.traded')
-		.when('/customer/new', 'root.customer.new')
-		.when('/customer/customer-manager', 'root.customer.customermanager')
-		.when('/customer/contacts', 'root.customer.contacts')
-		.when('/customer/traded', 'root.customer.traded')
+	// The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
+	// Here we are just setting up some convenience urls.
+	.when('/customer', '/customer/traded')
+	.when('/service', '/service/ordermanager')
+	.when('/financial', '/financial/deposit')
+	.when('/agents', '/agents/list')
+	.when('/ship', '/ship/summary')
 
-		// customer service manager
-		.when('/service', 'root.service.ordermanager')
-		.when('/service/ordernew', 'root.service.ordernew')
-		.when('/service/ordermanager', 'root.service.ordermanager')
-		.when('/service/employee', 'root.service.employee')
-		.when('/service/online', 'root.service.ol')
-		.when('/service/phone', 'root.service.phone')
-		.when('/service/data', 'root.service.data')
+	// If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
+	.otherwise('/login');
 
-		// financial manager
-		.when('/financial', 'root.financial.deposit')
-		.when('/financial/deposit', 'root.financial.deposit')
-		.when('/financial/rebate', 'root.financial.rebate')
-		.when('/financial/recorded', 'root.financial.recorded')
 
-		// agents manager
-		.when('/agents', 'root.agents.list')
-		.when('/agents/list', 'root.agents.list')
-		.when('/agents/rank', 'root.agents.rank')
-		.when('/agents/promo-code-record', 'root.agents.promocode')
-		.when('/agents/sales-records', 'root.agents.sales')
-		.when('/agents/entry-exit', 'root.agents.entryexit')
-		.when('/agents/commissionmanager', 'root.agents.commissionmanager')
-		.when('/agents/contractmanager', 'root.agents.contractmanager')
-		.when('/agents/financemanager', 'root.agents.financemanager')
-		.when('/agents/location-promo', 'root.agents.locationpromo')
-		.when('/agents/selling', 'root.agents.selling')
-		.when('/agents/assessment', 'root.agents.assessment')
 
-		// ship manager
-		.when('/ship', 'root.ship.summary')
-		.when('/ship/summary', 'root.ship.summary')
+	//////////////////////////
+	// State Configurations //
+	//////////////////////////
 
-		.segment('root', {
-			templateUrl: 'views/root.html',
-			controller: 'MainCtrl',
-			// resolve: {
-			// 	data: function($timeout, loader) {
-			// 		loader.show = true;
-			// 		return $timeout(function() { return 'SLOW DATA CONTENT'; }, 1000);
-			// 	}
-			// },
-			resolveFailed: {
-				templateUrl: 'views/partial/error.html',
-				controller: 'ErrorCtrl'
-			},
-			untilResolved: {
-				templateUrl: 'views/partial/loading.html'
-			}
-		})
-		.within()
-			.segment('login', {
-				templateUrl: 'views/login.html'})
+	$stateProvider
+	
+	.state('root', {
+		url: "/",
+		templateUrl: "views/template.html",
+		controller: 'MainCtrl'
+	})
 
-			.segment('customer', {
-					templateUrl: 'views/template.html',
-					controller: 'CustomerCtrl'})
-			.within()
-				.segment('new', {
-					templateUrl: 'views/customer/new.html',
-					controller: 'CustomerCtrl'})
-				.segment('customermanager', {
-					templateUrl: 'views/customer/customer-manager.html',
-					controller: 'customerManger'})
-				.segment('contacts', {
-					templateUrl: 'views/customer/contacts.html',
-					controller: 'CustomerCtrl'})
-				.segment('traded', {
-					templateUrl: 'views/customer/traded.html',
-					controller: 'TradedCtrl'})
-			.up()
+	.state('login', {
+		url: "/login",
+		templateUrl: "views/login.html",
+		controller: function($scope) {
+			console.log('login');
+		}
+	})
 
-			.segment('service', {
-				templateUrl: 'views/template.html',
-				controller: 'ServiceCtrl'})
-			.within()
-				.segment('ordernew', {
-					templateUrl: 'views/service/order.html',
-					controller: 'ServiceCtrl'})
-				.segment('ordermanager', {
-					templateUrl: 'views/service/ordermanager.html',
-					controller: 'orderManger'})
-				.segment('employee', {
-					templateUrl: 'views/service/employee.html',
-					controller: 'employeeManger'})
-				.segment('ol', {
-					templateUrl: 'views/service/online.html',
-					controller: 'employeeManger'})
-				.segment('phone', {
-					templateUrl: 'views/service/phone.html'})
-				.segment('data', {
-					templateUrl: 'views/service/data.html'})
-			.up()
 
-			.segment('financial', {
-				templateUrl: 'views/template.html',
-				controller: 'FinancialCtrl'})
-			.within()
-				.segment('deposit', {
-					templateUrl: 'views/financial/deposit.html',
-					controller: 'depositManage'})
-				.segment('rebate', {
-					templateUrl: 'views/financial/rebate.html',
-					controller: 'rebateManage'})
-				.segment('recorded', {
-					templateUrl: 'views/financial/recorded.html',
-					controller: 'recordedManage'})
-			.up()
+	///////////////////
+	// Customer Info //
+	///////////////////
 
-			.segment('agents', {
-				templateUrl: 'views/template.html',
-				controller: 'AgentsCtrl'})
-			.within()
-				.segment('list', {
-					templateUrl: 'views/agents/list.html',
-						controller: 'agentManage'})
-				.segment('rank', {
-					templateUrl: 'views/agents/rank.html',
-						controller: 'agentRankManage'})
-				.segment('promocode', {
-					templateUrl: 'views/agents/promocode.html',
-					controller: 'agentPromoManage'})
-				.segment('sales', {
-					templateUrl: 'views/agents/sales.html',
-					controller: 'agentSalesManage'})
-				.segment('entryexit', {
-					templateUrl: 'views/agents/entryexit.html'})
-				.segment('commissionmanager', {
-					templateUrl: 'views/agents/commissionmanager.html'})
-				.segment('contractmanager', {
-					templateUrl: 'views/agents/contractmanager.html'})
-				.segment('financemanager', {
-					templateUrl: 'views/agents/financemanager.html'})
-				.segment('locationpromo', {
-					templateUrl: 'views/agents/locationpromo.html'})
-				.segment('selling', {
-					templateUrl: 'views/agents/selling.html'})
-				.segment('assessment', {
-					templateUrl: 'views/agents/assessment.html'})
-			.up()
+	.state('root.customer', {
+		url: "customer",
+		templateUrl: "views/customer/template.html",
+		controller: 'CustomerCtrl'
+	})
+	.state('root.customer.new', {
+		url: "/new",
+		templateUrl: "views/customer/new.html",
+		controller: 'CustomerManager'
+	})
+	.state('root.customer.traded', {
+		url: "/traded",
+		templateUrl: "views/customer/traded.html",
+		controller: 'CustomerManager'
+	})
+	.state('root.customer.manager', {
+		url: "/manager",
+		templateUrl: "views/customer/manager.html",
+		controller: 'CustomerManager'
+	})
 
-			.segment('ship', {
-				templateUrl: 'views/template.html',
-				controller: 'ShipCtrl'})
-			.within()
-				.segment('summary', {
-					templateUrl: 'views/ship/summary.html',
-					controller: 'shipSummary',
-					resolve: {
-						orderCount: function(ShipService) {
-							return ShipService.queryOrderCount();
-						}
-					}
-				})
-			.up()
-		.up()
 
-	$routeProvider.otherwise({redirectTo: '/'});
-})
-.value('loader', {show: true});
+	//////////////////////
+	// Customer Service //
+	//////////////////////
+
+	.state('root.service', {
+		url: "service",
+		templateUrl: "views/service/template.html",
+		controller: 'ServiceCtrl'
+	})
+	.state('root.service.ordermanager', {
+		url: "/ordermanager",
+		templateUrl: "views/service/ordermanager.html",
+		controller: 'ServiceManager'
+	})
+	.state('root.service.ordernew', {
+		url: "/ordernew",
+		templateUrl: "views/service/ordernew.html",
+		controller: 'ServiceManager'
+	})
+	.state('root.service.employee', {
+		url: "/employee",
+		templateUrl: "views/service/employee.html",
+		controller: 'ServiceManager'
+	})
+	.state('root.service.online', {
+		url: "/online",
+		templateUrl: "views/service/online.html",
+		controller: 'ServiceManager'
+	})
+	.state('root.service.phone', {
+		url: "/phone",
+		templateUrl: "views/service/phone.html",
+		controller: 'ServiceManager'
+	})
+	.state('root.service.data', {
+		url: "/data",
+		templateUrl: "views/service/data.html",
+		controller: 'ServiceManager'
+	})
+
+
+	///////////////////////
+	// Financial Manager //
+	///////////////////////
+
+	.state('root.financial', {
+		url: "financial",
+		templateUrl: "views/financial/template.html",
+		controller: 'FinancialCtrl'
+	})
+	.state('root.financial.deposit', {
+		url: "/deposit",
+		templateUrl: "views/financial/deposit.html",
+		controller: 'FinancialManager'
+	})
+	.state('root.financial.rebate', {
+		url: "/rebate",
+		templateUrl: "views/financial/rebate.html",
+		controller: 'FinancialManager'
+	})
+	.state('root.financial.recorded', {
+		url: "/recorded",
+		templateUrl: "views/financial/recorded.html",
+		controller: 'FinancialManager'
+	})
+
+
+	////////////////////
+	// Agents Manager //
+	////////////////////
+
+	.state('root.agents', {
+		url: "agents",
+		templateUrl: "views/agents/template.html",
+		controller: 'AgentsCtrl'
+	})
+	.state('root.agents.list', {
+		url: "/list",
+		templateUrl: "views/agents/list.html",
+		controller: 'AgentsCtrl'
+	})
+	.state('root.agents.rank', {
+		url: "/rank",
+		templateUrl: "views/agents/rank.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.locationpromo', {
+		url: "/location-promo",
+		templateUrl: "views/agents/locationpromo.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.selling', {
+		url: "/selling",
+		templateUrl: "views/agents/selling.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.entryexit', {
+		url: "/entry-exit",
+		templateUrl: "views/agents/entryexit.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.commissionmanager', {
+		url: "/commissionmanager",
+		templateUrl: "views/agents/commissionmanager.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.contractmanager', {
+		url: "/contractmanager",
+		templateUrl: "views/agents/contractmanager.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.financemanager', {
+		url: "/financemanager",
+		templateUrl: "views/agents/financemanager.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.promocode', {
+		url: "/promocode",
+		templateUrl: "views/agents/promocode.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.sales', {
+		url: "/sales",
+		templateUrl: "views/agents/sales.html",
+		controller: 'AgentsManager'
+	})
+	.state('root.agents.assessment', {
+		url: "/assessment",
+		templateUrl: "views/agents/assessment.html",
+		controller: 'AgentsManager'
+	})
+
+
+	//////////////////
+	// Ship Manager //
+	//////////////////
+
+	.state('root.ship', {
+		url: "ship",
+		templateUrl: "views/ship/template.html",
+		controller: 'ShipCtrl'
+	})
+	.state('root.ship.summary', {
+		url: "/summary",
+		templateUrl: "views/ship/summary.html",
+		controller: 'ShipManager'
+	})
+
+}]);

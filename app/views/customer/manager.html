@@ -1,6 +1,3 @@
-<div ng-include src="'views/partial/customer/customer-tab.html'"></div>
-<div ng-include src="'views/partial/link-group.html'"></div>
-
 <div class="info-panel">
 	<ul class="list-inline">
 		<li uu-info-item label="预约总数" value="{{statistics.preorder}}"></li>
@@ -8,7 +5,7 @@
 	</ul>
 </div>
 
-<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="reloadSearch()">
 	<fieldset>
 		<div class="pull-right">
 			<label><input type="checkbox" ng-click="result=[]; searchModel={}; search.advance = !search.advance; searchModel.advance=search.advance" value="male">高级搜索</label>
@@ -86,7 +83,7 @@
 </form>
 
 <div ng-if="result.length" class="result">
-	<div uu-pagination records="result.length" per-page="5" max-pages="4" action="search()" model="searchModel.pagination"></div>
+<!-- 	<div uu-pagination records="result.length" per-page="5" max-pages="4" action="search()" model="searchModel.pagination"></div> -->
 	<table class="table table-hover table-condensed ">
 		<thead>
 			<tr>

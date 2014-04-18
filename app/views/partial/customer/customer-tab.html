@@ -5,12 +5,12 @@
 </ul>
 <ul class="action-group list-inline ng-scope">
 	<li>
-		<a href="#/customer/traded" ng-class="{active: $routeSegment.startsWith('root.customer.traded')}" class="action-item">成交客户</a>
+		<a ui-sref="root.customer.traded" ng-class="{active: $routeSegment.startsWith('root.customer.traded')}" class="action-item">成交客户</a>
 	</li>
 	<li>
-		<a href="#/customer/new" ng-class="{active: $routeSegment.startsWith('root.customer.new')}" class="action-item">新建客户</a>
+		<a ui-sref="root.customer.new" ng-class="{active: $routeSegment.startsWith('root.customer.new')}" class="action-item">新建客户</a>
 	</li>
 	<li>
-		<a href="#/customer/customer-manager" ng-click="getStatistics()" ng-class="{active: $routeSegment.startsWith('root.customer.customermanager')}" class="action-item">客户管理</a>
+		<a ui-sref="root.customer.manager" ng-class="{active: $routeSegment.startsWith('root.customer.customermanager')}" class="action-item">客户管理</a>
 	</li>
 </ul>

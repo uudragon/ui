@@ -6,11 +6,10 @@ angular.module('mainApp')
 	var baseurl = 'http://services.bam.uudragon.com/';
 
 	/***************** 客户信息管理开始 ***********************/
+	
 	/**
-	 * Load Customer
+	 * Load last Traded Customer
 	 *
-	 * @param  object $scope
-	 * @return bool
 	 */
 	this.loadCustomer = function(model) {
 		var suffix = 'bam/customer_load.php';
@@ -21,13 +20,12 @@ angular.module('mainApp')
 	/**
 	 * New Customer
 	 *
-	 * @param  object $scope
-	 * @return bool
 	 */
 	this.newCustomer = function(model) {
 		var suffix = '';
+		console.log(model);
 
-		switch ($scope.model.btn) {
+		switch (model.btn) {
 			case 'saved':
 				suffix = 'bam/consumer_saved';
 				break;
@@ -44,7 +42,29 @@ angular.module('mainApp')
 
 		}
 
-		$http.post(baseurl + suffix, model);
+		return $http.post(baseurl + suffix, model);
+	}
+
+
+	/**
+	 * 获取预订总数和成交客户
+	 *
+	 */
+	this.loadCustomerInfo = function(model) {
+		return $http.post(baseurl + 'bam/customer_info.php', model);
+	}
+
+
+	/**
+	 * 客户查询
+	 *
+	 */
+
+	this.search = function(model) {
+		console.log(model);
+		var suffix = 'bam/search_contact.php';
+
+		return $http.post(baseurl + suffix, model);
 	}
 
 	/***************** 客户信息管理结束 ***********************/

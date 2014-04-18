@@ -1,18 +1,16 @@
-<div ng-include src="'views/partial/service/service-tab.html'"></div>
-
 <div class="info-panel">
 	<ul class="list-inline">
-		<li><span class="key">当前工单总量: </span><span class="val">{{order.sum}}</span></li>
-		<li><span class="key">今日已处理工单: </span><span class="val">{{order.count_finished}}</span></li>
-		<li><span class="key">今日截止工单: </span><span class="val">{{order.count_end_today}}</span></li>
-		<li><span class="key">未处理工单: </span><span class="val">{{order.count_unfinished}}</span></li>
-		<li><span class="key">历史工单总量: </span><span class="val">{{order.sum_history}}</span></li>
+		<li uu-info-item label="当前工单总量" value="{{statistics.sum}}"></li>
+		<li uu-info-item label="今日已处理工单" value="{{statistics.count_finished}}"></li>
+		<li uu-info-item label="今日截止工单" value="{{statistics.count_end_today}}"></li>
+		<li uu-info-item label="未处理工单" value="{{statistics.count_unfinished}}"></li>
+		<li uu-info-item label="历史工单总量" value="{{statistics.sum_history}}"></li>
 	</ul>
 </div>
 
-<form action="" class="search-form" ng-submit="search()">
+<form action="" class="search-form" ng-submit="search('order')">
 	<div class="col-xs-7">
-		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control search-box">
+		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="searchModel.keyword" class="form-control search-box">
 		<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 	</div>
 	<div class="col-xs-2 pull-right">

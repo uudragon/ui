@@ -8,40 +8,49 @@ angular.module('mainApp')
 
 	/***************** 发货管理开始 ***********************/
 
-	/**
-	 * 查询订单总数、销售总金额等
-	 *
-	 * @param  object $scope
-	 * @return bool
-	 */
-	this.queryOrderCount = function(model) {
-		var suffix = 'bam/shipment_queryOrderCount';
+
+	this.loadInfo = function(model, type) {
+		var suffix;
+
+		switch (type) {
+			// 查询订单总数、销售总金额等
+			case 'orderCountInfo':
+				suffix = 'bam/shipment_queryOrderCount';
+				break;
+
+			default: break;
+
+		}
+
 		return $http.post(baseurl + suffix, model);
 	}
+
+	this.search = function(model, type) {
+		var suffix;
+		switch (type) {
+			// 查询发货单
+			case 'ship':
+			suffix = 'bam/shipment_query.php';
+			break;
+
+			default: break;
+
+		}
+
+		return $http.post(baseurl + suffix, model);
+	}
+
 
 
 	/**
 	 * New Ship
 	 *
-	 * @param  object $scope
-	 * @return bool
 	 */
 	this.newShip = function(model) {
 		var suffix = 'bam/shipment_save';
 		return $http.post(baseurl + suffix, model);
 	}
 
-	/**
-	 * 查询发货单
-	 *
-	 * @param  object $scope
-	 * @return bool
-	 */
-	this.queryShip = function(model) {
-		console.log(model);
-		var suffix = 'bam/shipment_query.php';
-		return $http.post(baseurl + suffix, model);
-	}
 	/***************** 发货管理结束 ***********************/
 
 })

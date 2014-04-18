@@ -1,0 +1,41 @@
+<!-- customer nav tab -->
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="" class="title ng-binding">客户信息</a>
+	</li>
+</ul>
+
+<ul class="action-group list-inline">
+	<li>
+		<a ui-sref="root.customer.traded" ng-class="{active: $state.includes('root.customer.traded')}" class="action-item">成交客户</a>
+	</li>
+	<li>
+		<a ui-sref="root.customer.new" ng-class="{active: $state.includes('root.customer.new')}" class="action-item">新建客户</a>
+	</li>
+	<li>
+		<a ui-sref="root.customer.manager" ng-class="{active: $state.includes('root.customer.manager')}" class="action-item">客户管理</a>
+	</li>
+</ul>
+
+<ul class="list-inline text-right">
+	<li><a href="#" class="link-normal">复制新建</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">预览名单</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">检索名单</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">预约列表</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">订购</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">处理记录</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#/info/contacts" class="link-normal">通讯录</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">修改</a></li>
+	<li class="split-pipe">|</li>
+	<li><a href="#" class="link-normal">保存</a></li>
+</ul>
+
+
+<div ui-view></div>

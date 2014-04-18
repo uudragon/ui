@@ -1,19 +1,19 @@
 <!-- left side bar begin-->
 <div class="col-xs-2 sidebar ng-scope">
 	<ul class="nav nav-sidebar text-center">
-		<li ng-class="{active: $routeSegment.startsWith('root.customer')}">
-			<a href="#/customer" class="ng-binding">客户信息</a>
+		<li ng-class="{active: $state.includes('root.customer')}">
+			<a ui-sref="root.customer" class="ng-binding">客户信息</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('root.service')}">
+		<li ng-class="{active: $state.includes('root.service')}">
 			<a href="#/service" class="ng-binding">客服管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('root.financial')}">
+		<li ng-class="{active: $state.includes('root.financial')}">
 			<a href="#/financial" class="ng-binding">财务管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('root.agents')}">
+		<li ng-class="{active: $state.includes('root.agents')}">
 			<a href="#/agents" class="ng-binding">代理商管理</a>
 		</li>
-		<li ng-class="{active: $routeSegment.startsWith('root.ship')}">
+		<li ng-class="{active: $state.includes('root.ship')}">
 			<a href="#/ship" class="ng-binding">发货管理</a>
 		</li>
 	</ul>

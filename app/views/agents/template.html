@@ -1,0 +1,34 @@
+<!-- nav tab begin-->
+<ul class="nav nav-tabs ng-scope">
+	<li class="active">
+		<a href="" class="title ng-binding">代理商管理</a>
+	</li>
+</ul>
+<ul class="action-group list-inline ng-scope">
+	<li class="ng-scope dropdown">
+		<a href="" ng-class="{active: $state.includes('root.agents.list')}" class="action-item" ng-if="group!='管理员'">代理商名单</a>
+		<a ng-if="group=='管理员'" class="dropdown-toggle action-item" ng-class="{active: $state.includes('root.agents.entryexit') || $state.includes('root.agents.commissionmanager') || $state.includes('root.agents.contractmanager') || $state.includes('root.agents.financemanager') || $state.includes('root.agents.locationpromo') || $state.includes('root.agents.selling') || $state.includes('root.agents.assessment') || $state.includes('root.agents.list') }" data-toggle="dropdown">
+			代理商名单 <b class="caret"></b>
+		</a>
+		<ul ng-if="group=='管理员'" class="dropdown-menu ng-scope">
+			<li><a ui-sref="root.agents.entryexit" class="ng-binding">准入与退出</a></li>
+			<li><a ui-sref="root.agents.contractmanager" class="ng-binding">合同管理</a></li>
+			<li><a ui-sref="root.agents.financemanager" class="ng-binding">财务管理</a></li>
+			<li><a ui-sref="root.agents.commissionmanager" class="ng-binding">佣金结算</a></li>
+			<li><a ui-sref="root.agents.locationpromo" class="ng-binding">地域及优惠码</a></li>
+			<li><a ui-sref="root.agents.selling" class="ng-binding">销售活动</a></li>
+			<li><a ui-sref="root.agents.assessment" class="ng-binding">评估管理</a></li>
+		</ul>
+	</li>
+	<li>
+		<a ui-sref="root.agents.rank" ng-class="{active: $state.includes('root.agents.rank')}" class="action-item">代理商排名</a>
+	</li>
+	<li>
+		<a ui-sref="root.agents.promocode" ng-class="{active: $state.includes('root.agents.promocode')}" class="action-item">优惠码记录</a>
+	</li>
+	<li >
+		<a ui-sref="root.agents.sales" ng-class="{active: $state.includes('root.agents.sales')}" class="action-item">销售记录</a>
+	</li>
+</ul>
+
+<div ui-view></div>

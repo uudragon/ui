@@ -1,17 +1,15 @@
-<div ng-include src="'views/partial/ship/ship-tab.html'"></div>
-
 <div class="info-panel">
 	<ul class="list-inline">
-		<li uu-info-item label="今日订单总数" value="{{orderCount.ordersCount}}"></li>
-		<li uu-info-item label="今日销售总额" value="{{orderCount.salesAmount}}"></li>
-		<li uu-info-item label="累计订单总数" value="{{orderCount.accuOrdersCount}}"></li>
-		<li uu-info-item label="累计销售总n额" value="{{orderCount.accuSalesAmount}}"></li>
+		<li uu-info-item label="今日订单总数" value="{{statistics.ordersCount}}"></li>
+		<li uu-info-item label="今日销售总额" value="{{statistics.salesAmount}}"></li>
+		<li uu-info-item label="累计订单总数" value="{{statistics.accuOrdersCount}}"></li>
+		<li uu-info-item label="累计销售总n额" value="{{statistics.accuSalesAmount}}"></li>
 	</ul>
 </div>
 
-<form action="" class="search-form ng-pristine ng-valid" ng-submit="queryShip()">
+<form action="" class="search-form ng-pristine ng-valid" ng-submit="search('ship')">
 	<div class="col-xs-7">
-		<input type="text" name="search-box" required placeholder="请输入发货单号/快递单号/商品编号进行查询" ng-model="model.keyword" class="form-control search-box ng-pristine ng-valid">
+		<input type="text" name="search-box" required placeholder="请输入发货单号/快递单号/商品编号进行查询" ng-model="searchModel.keyword" class="form-control search-box ng-pristine ng-valid">
 		<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 	</div>
 	<div class="col-xs-2 pull-right">

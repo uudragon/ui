@@ -1,30 +1,28 @@
-<div ng-include src="'views/partial/financial/financial-tab.html'"></div>
-
 <div class="info-panel">
 	<ul class="list-inline">
-		<li uu-info-item label="今日销售额" value="{{sales.sales_today}}"></li>
-		<li uu-info-item label="历史销售总额" value="{{sales.sales_history}}"></li>
-		<li uu-info-item label="今日新增保证金总额" value="{{sales.sales_added}}"></li>
-		<li uu-info-item label="应缴保证金总额" value="{{sales.sales_should}}"></li>
+		<li uu-info-item label="今日销售额" value="{{statistics.sales_today}}"></li>
+		<li uu-info-item label="历史销售总额" value="{{statistics.sales_history}}"></li>
+		<li uu-info-item label="今日新增保证金总额" value="{{statistics.sales_added}}"></li>
+		<li uu-info-item label="应缴保证金总额" value="{{statistics.sales_should}}"></li>
 	</ul>
 	<ul class="list-inline">
-		<li uu-info-item label="保证金差额" value="{{sales.sales_balance}}"></li>
+		<li uu-info-item label="保证金差额" value="{{statistics.sales_balance}}"></li>
 	</ul>
 </div>
 
-<form class="form form-horizontal form-small search-form" role="form" ng-submit="search()">
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="search('rebate')">
 	<fieldset>
 		<div class="col-xs-10">
 			<div class="form-group">
 				<label class="col-xs-4 control-label" for="f-dateFrom">时间区间: </label>
 				<div class="col-xs-3">
- 					<input type="text" name="dateFrom" placeholder="yyyy-mm-dd" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
- 				</div>
- 				<label class="f-label-strike" for="f-dateTo"> - </label>
+					<input type="text" name="dateFrom" placeholder="yyyy-mm-dd" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
+				</div>
+				<label class="f-label-strike" for="f-dateTo"> - </label>
 				<div class="col-xs-3">
- 					<input type="text" name="dateTo" placeholder="yyyy-mm-dd" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
- 				</div>
- 				<div class="col-xs-1">
+					<input type="text" name="dateTo" placeholder="yyyy-mm-dd" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
+				</div>
+				<div class="col-xs-1">
 					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 				</div>
 			</div>
