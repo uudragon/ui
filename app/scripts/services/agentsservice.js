@@ -14,27 +14,27 @@ angular.module('mainApp')
 		switch (type) {
 			// 获取优惠码信息
 			case 'promoCodeInfo':
-				suffix = 'bam/search_overall_promo.php';
+				suffix = 'bam/search_overall_promo';
 				break;
 
 			// 获取代理商排名
 			case 'rankInfo':
-				suffix = 'bam/search_agent_rank.php';
+				suffix = 'bam/search_agent_rank';
 				break;
 			
 			// 获取销售信息
 			case 'salesInfo':
-				suffix = 'bam/search_sales_info.php';
+				suffix = 'bam/search_sales_info';
 				break;
 
 			// 获取代理商名单
 			case 'overallAgent':
-				suffix = 'bam/search_overall_agent.php';
+				suffix = 'bam/search_overall_agent';
 				break;
 
 			// 获取代理商列表
 			case 'agents':
-				suffix = 'bam/search_agent.php';
+				suffix = 'bam/search_agent';
 				break;
 
 			default: break;
@@ -51,17 +51,17 @@ angular.module('mainApp')
 		switch (type) {
 			// 保证金信息查询
 			case 'rank':
-			suffix = 'bam/search_deposit.php';
+			suffix = 'bam/search_deposit';
 			break;
 
 			// 返款信息查询
 			case 'promoCode':
-			suffix = 'bam/search_rebate.php';
+			suffix = 'bam/search_rebate';
 			break;
 			
 			// 入账信息查询
 			case 'sales':
-			suffix = 'bam/search_recorded.php';
+			suffix = 'bam/search_recorded';
 			break;
 
 			default: break;

@@ -68,7 +68,7 @@ angular.module('mainApp')
 
 		if ( $scope.$state.includes('root.ship.summary') ) {
 			// 获取代理商排名等信息
-			$scope.loadInfo('shipInfo');
+			$scope.loadInfo('orderCountInfo');
 
 		}
 
