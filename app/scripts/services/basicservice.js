@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.service('BasicService', function BasicService($http) {
+.service('BasicService', ['$http', function BasicService($http) {
 
 	var baseurl = 'http://services.bam.uudragon.com/';
 
@@ -12,4 +12,4 @@ angular.module('mainApp')
 	}
 
 
-});
+}]);

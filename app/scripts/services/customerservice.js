@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('mainApp')
-.service('CustomerService', function UUDInfoService($http) {
+.service('CustomerService', ['$http', function UUDInfoService($http) {
 
 	var baseurl = 'http://services.bam.uudragon.com/';
 
 	/***************** 客户信息管理开始 ***********************/
-	
+
 
 	this.loadInfo = function(model, type) {
 
@@ -74,4 +74,4 @@ angular.module('mainApp')
 
 	/***************** 客户信息管理结束 ***********************/
 
-});
+}]);
