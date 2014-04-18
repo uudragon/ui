@@ -31,7 +31,7 @@ angular.module('authApp')
 		scope.modalTitle = title;
 		scope.modalType = "add";
 		scope.model = {};
-
+		scope.submitted = false;
 		if (type) {
 			UUDBasicService.getGroups(scope, type);
 		}
@@ -93,10 +93,14 @@ angular.module('authApp')
 		}
 
 		$scope.new = function() {
+			$scope.submitted = false;
+			$scope.model = {};
 			$scope.$parent.new($scope, "添加用户", type);
 		}
 
-		$scope.add = function(user) {
+		$scope.add = function(user, isValid) {
+			$scope.submitted = true;
+			if (!isValid) return;
 			$scope.$parent.add($scope, user, type);
 		}
 
@@ -105,10 +109,14 @@ angular.module('authApp')
 		}
 
 		$scope.modify = function(user) {
+			$scope.submitted = false;
+			// $scope.model = user;
 			$scope.$parent.modify($scope, user, "编辑用户", type);
 		}
 
-		$scope.save = function(iuser) {
+		$scope.save = function(iuser, isValid) {
+			$scope.submitted = true;
+			if (!isValid) return;
 			$scope.$parent.save($scope, iuser, type);
 		}
 

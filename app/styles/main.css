@@ -144,3 +144,6 @@ a {
  */
 .form-small label {
   font-weight: normal; }
+  .help-block {
+    position: absolute;
+  }

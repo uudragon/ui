@@ -1,0 +1,9 @@
+<div class="pagination-wraper">
+	<ul class="pagination">
+		<li><a href="" ng-click="prev()">&laquo;</a></li>
+		<li ng-repeat="page in pages" ng-class="{active : current == page}">
+			<a href="" ng-click="to(page)">{{page}}</a>
+		</li>
+		<li><a href="" ng-click="next()">&raquo;</a></li>
+	</ul>
+</div>
