@@ -7,13 +7,39 @@ angular.module('mainApp')
 
 	/***************** 客户信息管理开始 ***********************/
 	
-	/**
-	 * Load last Traded Customer
-	 *
-	 */
-	this.loadCustomer = function(model) {
-		var suffix = 'bam/customer_load.php';
 
+	this.loadInfo = function(model, type) {
+
+		var suffix = '';
+
+		switch (type) {
+			case 'customerInfo':
+				suffix = 'bam/customer_info.php';
+				break;
+
+			default: break;
+
+		}
+		return $http.post(baseurl + suffix, model);
+	}
+
+
+	this.search = function(model, type) {
+		console.log(model);
+		var suffix;
+
+		switch (type) {
+			case 'customer':
+				suffix = 'bam/customer_load.php';
+				break;
+
+			case 'contact':
+				suffix = 'bam/search_contact.php';
+				break;
+
+			default: break;
+
+		}
 		return $http.post(baseurl + suffix, model);
 	}
 
@@ -45,27 +71,6 @@ angular.module('mainApp')
 		return $http.post(baseurl + suffix, model);
 	}
 
-
-	/**
-	 * 获取预订总数和成交客户
-	 *
-	 */
-	this.loadCustomerInfo = function(model) {
-		return $http.post(baseurl + 'bam/customer_info.php', model);
-	}
-
-
-	/**
-	 * 客户查询
-	 *
-	 */
-
-	this.search = function(model) {
-		console.log(model);
-		var suffix = 'bam/search_contact.php';
-
-		return $http.post(baseurl + suffix, model);
-	}
 
 	/***************** 客户信息管理结束 ***********************/
 
