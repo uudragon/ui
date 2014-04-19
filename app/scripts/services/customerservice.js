@@ -14,7 +14,7 @@ angular.module('mainApp')
 
 		switch (type) {
 			case 'customerInfo':
-				suffix = 'bam/customer_info.php';
+				suffix = 'bam/customer_info';
 				break;
 
 			default: break;
@@ -30,11 +30,11 @@ angular.module('mainApp')
 
 		switch (type) {
 			case 'customer':
-				suffix = 'bam/customer_load.php';
+				suffix = 'bam/customer_load';
 				break;
 
 			case 'contact':
-				suffix = 'bam/search_contact.php';
+				suffix = 'bam/search_contact';
 				break;
 
 			default: break;
