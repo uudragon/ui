@@ -3,8 +3,6 @@
 angular.module('mainApp')
 .service('CSService', ['$http', function ($http) {
 
-	var baseurl = 'http://services.bam.uudragon.com/';
-
 	/***************** 客服管理开始 ***********************/
 	
 	this.loadInfo = function(model, type) {
@@ -13,17 +11,17 @@ angular.module('mainApp')
 		switch (type) {
 			// 获取工单相关信息
 			case 'orderInfo':
-				suffix = 'bam/order_info';
+				suffix = 'order_info';
 				break;
 
 			// 获取员工相关信息
 			case 'employeeInfo':
-				suffix = 'bam/employee_info';
+				suffix = 'employee_info';
 				break;
 
 			// 获取员工相关信息
 			case 'csInfo':
-				suffix = 'bam/customer_service_info';
+				suffix = 'customer_service_info';
 				break;
 
 			default: break;
@@ -40,11 +38,11 @@ angular.module('mainApp')
 		switch (type) {
 			// 工单查询
 			case 'order':
-				suffix = 'bam/search_order';
+				suffix = 'search_order';
 				break;
 			// 员工查询
 			case 'employee':
-				suffix = 'bam/search_employee';
+				suffix = 'search_employee';
 				break;
 
 			default: break;
@@ -64,15 +62,15 @@ angular.module('mainApp')
 
 		switch (model.btn) {
 			case 'saved':
-				suffix = 'bam/consumer_saved';
+				suffix = 'consumer_saved';
 				break;
 
 			case 'insert':
-				suffix = 'bam/orders_insert';
+				suffix = 'orders_insert';
 				break;
 
 			case 'query':
-				suffix = 'bam/bamstomer_query';
+				suffix = 'bamstomer_query';
 				break;
 
 			default: break;
@@ -87,7 +85,7 @@ angular.module('mainApp')
 	 *
 	 */
 	this.newShip = function($scope) {
-		var suffix = 'bam/ship_new';
+		var suffix = 'ship_new';
 
 		return $http.post(baseurl + suffix, model);
 	}

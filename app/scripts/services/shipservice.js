@@ -3,8 +3,6 @@
 angular.module('mainApp')
 .service('ShipService', ['$http', function ShipService($http) {
 
-	var baseurl = 'http://bam.uudragon.net/';
-
 	/***************** 发货管理开始 ***********************/
 
 
@@ -14,7 +12,7 @@ angular.module('mainApp')
 		switch (type) {
 			// 查询订单总数、销售总金额等
 			case 'orderCountInfo':
-				suffix = 'bam/shipment_queryOrderCount';
+				suffix = 'shipment_queryOrderCount';
 				break;
 
 			default: break;
@@ -30,7 +28,7 @@ angular.module('mainApp')
 		switch (type) {
 			// 查询发货单
 			case 'ship':
-				suffix = 'bam/shipment_query';
+				suffix = 'shipment_query';
 				break;
 
 			default: break;
@@ -47,7 +45,7 @@ angular.module('mainApp')
 	 *
 	 */
 	this.newShip = function(model) {
-		var suffix = 'bam/shipment_save';
+		var suffix = 'shipment_save';
 		return $http.post(baseurl + suffix, model);
 	}
 

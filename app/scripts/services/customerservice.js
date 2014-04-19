@@ -3,8 +3,6 @@
 angular.module('mainApp')
 .service('CustomerService', ['$http', function UUDInfoService($http) {
 
-	var baseurl = 'http://services.bam.uudragon.com/';
-
 	/***************** 客户信息管理开始 ***********************/
 
 
@@ -14,7 +12,7 @@ angular.module('mainApp')
 
 		switch (type) {
 			case 'customerInfo':
-				suffix = 'bam/customer_info';
+				suffix = 'customer_info';
 				break;
 
 			default: break;
@@ -30,11 +28,11 @@ angular.module('mainApp')
 
 		switch (type) {
 			case 'customer':
-				suffix = 'bam/customer_load';
+				suffix = 'customer_load';
 				break;
 
 			case 'contact':
-				suffix = 'bam/search_contact';
+				suffix = 'search_contact';
 				break;
 
 			default: break;
@@ -53,15 +51,15 @@ angular.module('mainApp')
 
 		switch (model.btn) {
 			case 'saved':
-				suffix = 'bam/consumer_saved';
+				suffix = 'consumer_saved';
 				break;
 
 			case 'insert':
-				suffix = 'bam/orders_insert';
+				suffix = 'orders_insert';
 				break;
 
 			case 'query':
-				suffix = 'bam/bamstomer_query';
+				suffix = 'bamstomer_query';
 				break;
 
 			default: break;

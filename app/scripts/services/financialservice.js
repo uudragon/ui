@@ -3,8 +3,6 @@
 angular.module('mainApp')
 .service('FinancialService', ['$http', function ($http) {
 
-	var baseurl = 'http://services.bam.uudragon.com/';
-
 	/***************** 财务管理开始 ***********************/
 
 
@@ -14,12 +12,12 @@ angular.module('mainApp')
 		switch (type) {
 			// 销售额信息查询
 			case 'salesInfo':
-				suffix = 'bam/search_sales_info.php';
+				suffix = 'search_sales_info.php';
 				break;
 
 			// 查询入账总体信息
 			case 'recordedInfo':
-				suffix = 'bam/search_overall_recorded.php';
+				suffix = 'search_overall_recorded.php';
 				break;
 
 			default: break;
@@ -36,17 +34,17 @@ angular.module('mainApp')
 		switch (type) {
 			// 保证金信息查询
 			case 'deposit':
-				suffix = 'bam/search_deposit.php';
+				suffix = 'search_deposit.php';
 				break;
 
 			// 返款信息查询
 			case 'rebate':
-				suffix = 'bam/search_rebate.php';
+				suffix = 'search_rebate.php';
 				break;
 		
 			// 入账信息查询
 			case 'recorded':
-				suffix = 'bam/search_recorded.php';
+				suffix = 'search_recorded.php';
 				break;
 
 			default: break;

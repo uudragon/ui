@@ -1,5 +1,7 @@
 'use strict';
 
+var baseurl = 'http://bam.uudragon.net/bam/';
+
 var uud = angular.module('mainApp', [
 	'ngCookies',
 	'ngResource',
