@@ -5,8 +5,7 @@
 	<!-- left side bar -->
 	<div ng-include src="'views/partial/left-side-bar.html'"></div>
 
-	<form class="form form-horizontal form-small" name="infoForm" role="form">
-	 	<input type="hidden" name="operator" ng-model="model.operator" ng-init="model.operator='testOperator'">
+	<form class="form form-horizontal form-small" name="infoForm" ng-submit="login()" role="form">
 	 	<fieldset>
 	 		<!-- <legend></legend> -->
 	 		<div uu-input l-col="3" r-col="3" label="用户名" model="model.name"></div>

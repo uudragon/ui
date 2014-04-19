@@ -10,9 +10,10 @@
 <div uu-simple-search placeholder="请输入发货单号 / 快递单号 / 商品编号进行查询" ng-submit="search('ship')" model="searchModel.keyword"></div>
 
 <div class="result" ng-show="result">
-	<table class="table table-hover table-condensed ">
+	<table class="table table-condensed">
 		<thead>
 			<tr>
+				<th>操作</th>
 				<th>订单号</th>
 				<th>发货单号</th>
 				<th>发货数量</th>
@@ -22,12 +23,23 @@
 				<th>更新日期</th>
 				<th>快递员</th>
 				<th>发货人</th>
+				<th>订单状态</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in result">
-				<td>{{item.orders_no}}</td>
-				<td>{{item.shipment_no}}</td>
+				<td>
+					<a href="" ng-click="item.editMode=true" ng-show="!item.editMode"><span class="glyphicon glyphicon-pencil"></span></a>
+					<a href="" ng-click="item.editMode=false; save(item)" ng-show="item.editMode"><span class="glyphicon glyphicon-ok"></span></a>
+				</td>
+				<td>
+					<span ng-show="!item.editMode">{{item.orders_no}}</span>
+					<input type="text" class="form-control form-sm edit-filed" ng-show="item.editMode" ng-model="item.orders_no">
+				</td>
+				<td>
+					<span ng-show="!item.editMode">{{item.shipment_no}}</span>
+					<input type="text" class="form-control form-sm edit-filed" ng-show="item.editMode" ng-model="item.shipment_no">
+				</td>
 				<td>{{item.shipped_qty}}</td>
 				<td>{{item.express_code}}</td>
 				<td>{{item.express_name}}</td>
@@ -35,6 +47,7 @@
 				<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
 				<td>{{item.courier}}</td>
 				<td>{{item.creater}}</td>
+				<td>{{item.status}}</td>
 			</tr>
 		</tbody>
 	</table>

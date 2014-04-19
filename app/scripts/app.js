@@ -5,7 +5,8 @@ var baseurl = 'http://bam.uudragon.net/bam/';
 var uud = angular.module('mainApp', [
 	'ngCookies',
 	'ngResource',
-	'ui.router'
+	'ui.router',
+	'angular-md5' // you may also use 'ngMd5' or 'gdi2290.md5'
 	])
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
@@ -51,9 +52,7 @@ var uud = angular.module('mainApp', [
 	.state('login', {
 		url: "/login",
 		templateUrl: "views/login.html",
-		controller: function($scope) {
-			console.log('login');
-		}
+		controller: 'MainCtrl'
 	})
 
 

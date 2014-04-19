@@ -30,6 +30,13 @@ angular.module('mainApp')
 			})
 			.error(function(data, status) {
 				console.log('search ' + type + ' error, use fake data');
+				switch (type) {
+					case 'ship':
+						$scope.result = [{orders_no: 2000, shipment_no: '华东', shipped_qty: '迅捷有限公司', express_code: '晓峰', express_name: 1100, actual_amount: 100, balance: 1000, courier: '天意有限公司', creater: '虚竹', status: '待发货'}];
+						break;
+
+					default: break;
+	 			}
 			})
 	}
 
@@ -56,7 +63,7 @@ angular.module('mainApp')
 		if ( $scope.$state.includes('root.ship.summary') ) {
 			// 获取代理商排名等信息
 			$scope.loadInfo('orderCountInfo');
-
+			$scope.search('ship');
 		}
 
 		// inherit functions from parent
