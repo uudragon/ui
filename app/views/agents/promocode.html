@@ -10,22 +10,9 @@
 		<li uu-info-item label="代理商累计发放" value="{{statistics.agent_sum}}"></li>
 	</ul>
 </div>
-<form action="" class="search-form" ng-submit="search()">
-	<div class="col-xs-5">
-		<select name="filter" ng-model="model.filter" class="form-control">
-			<option value="val1">条件一</option>
-			<option value="val2">条件二</option>
-			<option value="val3">条件三</option>
-		</select>
-	</div>
-	<div class="col-xs-2 pull-right">
-		<ul class="list-inline batch-btn-group ">
-			<li><a href="">修改</a></li>
-			<li class="split-pipe">|</li>
-			<li><a href="">导出</a></li>
-		</ul>
-	</div>
-</form>
+
+<div uu-simple-search ng-submit="search('promocode')" model="searchModel.keyword"></div>
+
 <div uu-tab>
 	<div uu-pane title="总部记录">
 		<table class="table table-hover table-condensed">

@@ -12,7 +12,7 @@ angular.module('mainApp')
 		switch (type) {
 			// 获取优惠码信息
 			case 'promoCodeInfo':
-				suffix = 'search_overall_promo';
+				suffix = 'uudCouponcode_query';
 				break;
 
 			// 获取代理商排名
@@ -47,33 +47,39 @@ angular.module('mainApp')
 		var suffix;
 
 		switch (type) {
-			// 获取代理商列表
+			// 代理商列表
 			case 'agents':
 				suffix = 'agent_list';
 				break;
 
-			// 保证金信息查询
-			case 'deposit':
-				suffix = 'search_deposit';
+			// 获取代理商排名
+			case 'rank':
+				suffix = 'agent_rank';
 				break;
 
-			// 返款信息查询
-			case 'rebate':
-				suffix = 'search_rebate';
+			// 查询优惠码记录
+			case 'promocode':
+				suffix = 'search_Couponcode';
 				break;
 
-			// 入账信息查询
-			case 'recorded':
-				suffix = 'search_recorded';
+			// 查询销售记录
+			case 'sales':
+				suffix = 'search_sales';
 				break;
 
 			default: break;
 
 		}
-
+		log(model, type, baseurl+suffix);
 		return $http.post(baseurl + suffix, model);
 	}
 
+
+	function log(model, type, url) {
+		console.log('searchModel is:', model);
+		console.log('type is: ' + type);
+		console.log('requrest url is: ' + url);
+	}
 
 	 /***************** 代理商管理结束 ***********************/
 	}]);

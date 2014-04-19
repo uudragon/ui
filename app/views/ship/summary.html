@@ -3,25 +3,13 @@
 		<li uu-info-item label="今日订单总数" value="{{statistics.ordersCount}}"></li>
 		<li uu-info-item label="今日销售总额" value="{{statistics.salesAmount}}"></li>
 		<li uu-info-item label="累计订单总数" value="{{statistics.accuOrdersCount}}"></li>
-		<li uu-info-item label="累计销售总n额" value="{{statistics.accuSalesAmount}}"></li>
+		<li uu-info-item label="累计销售总额" value="{{statistics.accuSalesAmount}}"></li>
 	</ul>
 </div>
 
-<form action="" class="search-form ng-pristine ng-valid" ng-submit="search('ship')">
-	<div class="col-xs-7">
-		<input type="text" name="search-box" required placeholder="请输入发货单号/快递单号/商品编号进行查询" ng-model="searchModel.keyword" class="form-control search-box ng-pristine ng-valid">
-		<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-	</div>
-	<div class="col-xs-2 pull-right">
-		<ul class="list-inline batch-btn-group ">
-			<li><a href="">修改</a></li>
-			<li class="split-pipe">|</li>
-			<li><a href="">导出</a></li>
-		</ul>
-	</div>
-</form>
+<div uu-simple-search placeholder="请输入发货单号 / 快递单号 / 商品编号进行查询" ng-submit="search('ship')" model="searchModel.keyword"></div>
 
-<div class="result">
+<div class="result" ng-show="result">
 	<table class="table table-hover table-condensed ">
 		<thead>
 			<tr>

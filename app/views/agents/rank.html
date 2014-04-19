@@ -5,25 +5,11 @@
 		<li uu-info-item label="时间" value="{{date | date : 'yyyy-MM-dd' }}"></li>
 	</ul>
 </div>
-<form action="" class="search-form" ng-submit="search()">
-	<div class="col-xs-5">
-		<select name="filter" ng-model="model.filter" class="form-control">
-			<option value="val1">条件一</option>
-			<option value="val2">条件二</option>
-			<option value="val3">条件三</option>
-		</select>
-	</div>
-	<div class="col-xs-2 pull-right">
-		<ul class="list-inline batch-btn-group ">
-			<li><a href="">修改</a></li>
-			<li class="split-pipe">|</li>
-			<li><a href="">导出</a></li>
-		</ul>
-	</div>
-</form>
 
-<div class="result">
-	<table class="table table-hover table-condensed ">
+<div uu-simple-search placeholder="请输入代理商姓名" ng-submit="search('rank')" model="searchModel.keyword"></div>
+
+<div class="result" ng-show="result">
+	<table class="table table-hover table-condensed table-bordered">
 		<thead>
 			<tr>
 				<th>排名</th>
