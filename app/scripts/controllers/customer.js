@@ -46,16 +46,21 @@ angular.module('mainApp')
 					case 'customer':
 						$scope.result = {number: 13123, type: '已付款'}
 						break;
+					
+					case 'contact':
+						// dummy data
+						$scope.result = [
+							{code: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com'},
+							{code: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com'},
+							{code: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com'},
+							{code: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com'},
+						]
+						break;
+
 
 					default: break;
 				}
-				// dummy data
-				$scope.result = [
-					{code: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com'},
-					{code: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com'},
-					{code: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com'},
-					{code: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com'},
-				]
+
 				$scope.pages = 10;
 			})
 	}
@@ -84,7 +89,7 @@ angular.module('mainApp')
 		$scope.searchModel = {};
 
 		if ( $scope.$state.includes('root.customer.traded') ) {
-			$scope.search('customer');
+			$scope.search('tradedCustomer');
 		} else if ( $scope.$state.includes('root.customer.manager') ) {
 			$scope.loadInfo('customerInfo');
 		}

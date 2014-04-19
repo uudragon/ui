@@ -81,6 +81,11 @@ var uud = angular.module('mainApp', [
 		templateUrl: "views/customer/manager.html",
 		controller: 'CustomerManager'
 	})
+	.state('root.customer.contacts', {
+		url: "/contacts",
+		templateUrl: "views/customer/contacts.html",
+		controller: 'CustomerManager'
+	})
 
 
 	//////////////////////

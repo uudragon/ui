@@ -27,8 +27,12 @@ angular.module('mainApp')
 		var suffix;
 
 		switch (type) {
-			case 'customer':
+			case 'tradedCustomer':
 				suffix = 'customer_load';
+				break;
+
+			case 'customer':
+				suffix = 'search_customer';
 				break;
 
 			case 'contact':
