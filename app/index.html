@@ -25,10 +25,7 @@
 	<p class="browsehappy">您的浏览器版本 <strong>过低</strong>. 为了获得更好的用户体验，请 <a href="http://browsehappy.com/">升级浏览器</a>.</p>
 	<![endif]-->
 
-	<div class="container">
-		<div ui-view></div>
-	</div>
-
+	<div ui-view></div>
 
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -41,15 +38,17 @@
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-md5/angular-md5.js"></script>
+	<script src="bower_components/angular-cookie/angular-cookie.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
 	<script src="scripts/directives.js"></script>
+	<script src="scripts/config.js"></script>
 	<!-- controllers -->
 	<script src="scripts/controllers/main.js"></script>
 	<script src="scripts/controllers/customer.js"></script>
@@ -57,7 +56,9 @@
 	<script src="scripts/controllers/financial.js"></script>
 	<script src="scripts/controllers/ship.js"></script>
 	<script src="scripts/controllers/agents.js"></script>
+	<script src="scripts/controllers/auth.js"></script>
 	<!-- services -->
+	<script src="scripts/services/authservice.js"></script>
 	<script src="scripts/services/basicservice.js"></script>
 	<script src="scripts/services/customerservice.js"></script>
 	<script src="scripts/services/csservice.js"></script>

@@ -1,12 +1,14 @@
-<!-- form begin -->
-<div ng-include src="'views/partial/header.html'"></div>
+<div class="container">
+	<!-- form begin -->
+	<div ng-include src="'views/partial/header.html'"></div>
 
-<div class="row">
-	<!-- left side bar -->
-	<div ng-include src="'views/partial/left-side-bar.html'"></div>
-	<!-- main content  -->
-	<div class="col-xs-10 main">
-		<!-- sub view -->
-		<div ui-view></div>
+	<div class="row">
+		<!-- left side bar -->
+		<div ng-include src="'views/partial/left-side-bar.html'"></div>
+		<!-- main content  -->
+		<div class="col-xs-10 main">
+			<!-- sub view -->
+			<div ui-view></div>
+		</div>
 	</div>
 </div>

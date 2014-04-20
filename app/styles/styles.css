@@ -64,6 +64,7 @@ a {color: #333; }
 .input-small {height: 30px; }
 .form-small label {font-weight: normal;}
 .form-small .control-label {padding-top: 6px; }
+.form-control.edit-filed {height: 26px; width: auto;}
 
 .addon-tweak {padding-left: 26px; font-size: 0.9em;line-height: 1em;}
 .non-right {border-right: none;}
@@ -117,4 +118,11 @@ a {color: #333; }
  */
 #recorded-panel {margin: 0px 50px 50px 50px; }
 .recorded-details {border: 1px solid #DDDDDD; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding: 10px 20px 10px 20px; }
- 
+
+
+
+/**
+ * Login
+ * ----------------------------------------------------------------------------
+ */
+.container.login {position: fixed; width: 100%; height: 100%; padding-top: 140px; background: url(../img/body.jpg); }

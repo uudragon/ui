@@ -1,19 +1,24 @@
-<!-- form begin -->
-<div ng-include src="'views/partial/header.html'"></div>
+<div class="container login">
+	<div class="row">
+		<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center">
 
-<div class="row">
-	<!-- left side bar -->
-	<div ng-include src="'views/partial/left-side-bar.html'"></div>
+			<!-- Site Title, your name, HELLO msg, etc. -->
+			<h1 class="title">优优龙</h1>
+			<h3 class="subtitle">幼小衔接家庭课程专家</h3>
 
-	<form class="form form-horizontal form-small" name="infoForm" role="form">
-	 	<input type="hidden" name="operator" ng-model="model.operator" ng-init="model.operator='testOperator'">
-	 	<fieldset>
-	 		<!-- <legend></legend> -->
-	 		<div uu-input l-col="3" r-col="3" label="用户名" model="model.name"></div>
-	 		<div uu-input l-col="3" r-col="3" label="密码" model="model.password"></div>
-	 		<div uu-field-wrap r-offset="3" r-col="3" >
-	 			<input type="submit" value="登陆" class="btn btn-primary">
-	 		</div>
-	 	</fieldset>
-	 </form>
+			<div class="modal-dialog" style="width:350px">
+				<form class="form col-md-12" ng-submit="login()">
+					<div class="form-group">
+						<input type="text" class="form-control" model="model.account" placeholder="用户名">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" model="model.password" placeholder="密码">
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary btn-block" type="submit">登陆</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
