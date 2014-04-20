@@ -3,12 +3,13 @@
 var baseurl = 'http://bam.uudragon.net/bam/';
 
 var uud = angular.module('mainApp', [
-	'ngCookies',
+	'ivpusic.cookie',
 	'ngResource',
 	'ui.router',
 	'angular-md5' // you may also use 'ngMd5' or 'gdi2290.md5'
 	])
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
 
 	/**
 	 * ============================================================================
@@ -26,6 +27,7 @@ var uud = angular.module('mainApp', [
 
 	// The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
 	// Here we are just setting up some convenience urls.
+	.when('/', '/customer/traded')
 	.when('/customer', '/customer/traded')
 	.when('/service', '/service/ordermanager')
 	.when('/financial', '/financial/deposit')
@@ -33,9 +35,19 @@ var uud = angular.module('mainApp', [
 	.when('/ship', '/ship/summary')
 
 	// If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
-	.otherwise('/login');
+	.otherwise('/');
 
-
+	// 拦截器
+	$httpProvider.interceptors.push(function($q, $location) {
+		return {
+			'responseError': function(response) {
+				if(response.status === 401 || response.status === 403) {
+					$location.path('/login');
+				}
+				return $q.reject(response);
+			}
+		};
+	});
 
 	//////////////////////////
 	// State Configurations //
@@ -52,7 +64,7 @@ var uud = angular.module('mainApp', [
 	.state('login', {
 		url: "/login",
 		templateUrl: "views/login.html",
-		controller: 'MainCtrl'
+		controller: 'AuthCtrl'
 	})
 
 
@@ -166,7 +178,8 @@ var uud = angular.module('mainApp', [
 	.state('root.agents.list', {
 		url: "/list",
 		templateUrl: "views/agents/list.html",
-		controller: 'AgentsManager'
+		controller: 'AgentsManager',
+		access: 'admin'
 	})
 	.state('root.agents.rank', {
 		url: "/rank",
@@ -235,4 +248,16 @@ var uud = angular.module('mainApp', [
 		controller: 'ShipManager'
 	})
 
+}])
+
+.run(['$rootScope', '$state', 'Auth', '$location', function ($rootScope, $state, Auth, $location) {
+
+	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+
+		if (!Auth.isLoggedIn()) {
+			$location.path('/login');
+		}
+	});
+
 }]);
+
