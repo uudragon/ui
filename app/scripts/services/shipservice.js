@@ -49,6 +49,17 @@ angular.module('mainApp')
 		return $http.post(baseurl + suffix, model);
 	}
 
+	/**
+	 * 获取发货主档和明细信息
+	 *
+	 * @param  object shipment_no
+	 * @return shipment details
+	 */
+	 this.getShipmentDetails = function(model) {
+	 	var suffix = "shipment_getDetails";
+	 	return $http.post(baseurl + suffix, model);
+	 }
+
 	/***************** 发货管理结束 ***********************/
 
 }])
