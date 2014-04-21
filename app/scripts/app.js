@@ -256,6 +256,8 @@ var uud = angular.module('mainApp', [
 
 		if (!Auth.isLoggedIn()) {
 			$location.path('/login');
+		} else {
+			Auth.loadAccessLevels();
 		}
 	});
 

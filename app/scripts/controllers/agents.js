@@ -36,7 +36,20 @@ angular.module('mainApp')
 		if (!type) return;
 		AgentsService.search($scope.searchModel, type)
 			.success(function(data, status) {
-				$scope.result = data;
+
+				switch (type) {
+					case 'uudCouponcode':
+						$scope.uudResult = data;
+						break;
+
+					case 'agentCouponcode':
+						$scope.agentResult = data;
+						break;
+
+					default: 
+						$scope.result = data;
+					break;
+				}
 			})
 			.error(function(data, status) {
 				console.log('search ' + type + ' error, use fake data');
@@ -59,6 +72,10 @@ angular.module('mainApp')
 
 				$scope.pages = 10;
 			})
+	}
+
+	$scope.updateSearchType = function(type) {
+		$scope.type = type;
 	}
 }])
 

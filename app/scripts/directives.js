@@ -113,7 +113,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		require: '^uuTab',
 		transclude: true,
 		scope: {
-			title: '@'
+			title: '@',
+			action: '&'
 		},
 		link: function(scope, element, attrs, tabsCtrl) {
 			tabsCtrl.addPane(scope);
@@ -383,5 +384,15 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			}
 		},
 		templateUrl: 'views/partial/directives/pagination.html'
+	}
+})
+.directive('uuAuthFilter', function(Auth) {
+	return {
+		restrict: 'A',
+		link: function($scope, element, attrs) {
+			if (!Auth.authorize(attrs.uuAuthFilter)) {
+				element.remove();
+			}
+		}
 	}
 })

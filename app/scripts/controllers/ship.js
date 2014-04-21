@@ -39,7 +39,6 @@ angular.module('mainApp')
 				$scope.result = data;
 			})
 			.error(function(data, status) {
-				console.log('asdfaslkdfjklasdjdfklasjkldfjaskjdflasjdkfjaskdfasdf');
 				console.log('search ' + type + ' error, use fake data');
 				$scope.result = [
 					{orders_no: 'OD1001', shipment_no: 'FH1001', shipped_qty: 1, express_name: '顺风快递', create_time: '2014-04-11', update_time: '2014-04-12', courier: '张三', creater: 'Jack', status: '未发货'},

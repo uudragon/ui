@@ -1,13 +1,12 @@
 'use strict';
 angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, PostService) {
-	var accessLevels = config.accessLevels,
+	var accessLevels = [],
 		userRoles = config.userRoles,
 		currentUser = ipCookie('uuduser') || {username: '', role: userRoles.public };
 
-	function changeUser(user) {
+	function updateUser(user) {
 		ipCookie.remove('uuduser');
-		ipCookie('uuduser', user, {expires: 30, expirationUnit: 'minutes'});
-		// PostService.setHeader(user.token);
+		ipCookie('uuduser', user);
 	}
 
 	function serialize(obj, prefix) {
@@ -20,32 +19,65 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, P
 	}
 
 	return {
-		authorize: function(accessLevel, role) {
-			if (role === undefined) {
-				role = currentUser.role;
-			}
+		authorize: function(accessCode) {
+			if (typeof accessCode === 'undefined') {return true;}
+
+			for (var i = accessLevels.length - 1; i >= 0; i--) {
+				if (accessLevels[i].code == accessCode) {
+					return true;
+				}
+			};
 			return false;
-			return accessLevel.bitMask & role.bitMask;
+		},
+		loadAccessLevels: function() {
+			PostService.get('loadAccessLevels')
+				.success(function(data) {
+					accessLevels = data;
+				})
+				.error(function() {
+					accessLevels = [
+						{code: '1'},
+						{code: '4'},
+						{code: '12'},
+						{code: Math.floor(Math.random() * 100)},
+					]
+				})
+		},
+		getAccessLevels: function() {
+			return accessLevels;
 		},
 		isLoggedIn: function(user) {
 			return ipCookie('uuduser') && ipCookie('uuduser').token ? true : false;
 		},
 		login: function(user, success, error) {
-			$http.post('/login?' + serialize(user)).success(function(user) {
-				changeUser(user);
-				success(user);
-			}).error(error);
+
+			$http.get('/login?' + serialize(user))
+				.success(function(user) {
+					updateUser(user);
+				
+					if (angular.isFunction(success)) {
+						success(user);
+					
+					}
+
+					$location.path('/');
+				})
+					.error(function() {
+						if (angular.isFunction(error)) {
+							error();
+						}
+					});
 
 			var user = {
 				name: 'adsfasdf',
 				asdfa: 'asdfasdf',
 				token: 'myuudtoken-hahahhahhahah'
 			}
-			changeUser(user);
+			updateUser(user);
 			$location.path('/');
 		},
 		logout: function(success, error) {
-			PostService.post('/logout').success(function() {
+			$http.get('/logout').success(function() {
 				ipCookie.remove('uuduser');
 				$location.path('/login');
 				success();

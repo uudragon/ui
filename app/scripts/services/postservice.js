@@ -3,9 +3,11 @@
 angular.module('mainApp')
 .service('PostService', function ($http, ipCookie) {
 
-	this.setHeader = function(token) {
-		if (token) {
-			$http.defaults.headers.common['uu-token'] = token;
+	var setHeader = function(token) {
+		var currentUser = ipCookie('uuduser');
+
+		if (currentUser.token) {
+			$http.defaults.headers.common['uu-token'] = currentUser.token;
 		} else {
 			delete $http.defaults.headers.common['uu-token'];
 		}
@@ -25,7 +27,13 @@ angular.module('mainApp')
 		}
 	}
 
-	this.post = function(url, model, success, error) {
-		return $http.post(url, model).success(success).error(error);
+	this.post = function(url, model) {
+		setHeader()
+		return $http.post(url, wrapHeader(model));
+	}
+
+	this.get = function(url) {
+		setHeader()
+		return $http.get(url);
 	}
 });

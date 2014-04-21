@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.service('ShipService', ['$http', function ShipService($http) {
+.service('ShipService', ['$http', 'PostService', function ShipService($http, PostService) {
 
 	/***************** 发货管理开始 ***********************/
 
@@ -12,7 +12,7 @@ angular.module('mainApp')
 		switch (type) {
 			// 查询订单总数、销售总金额等
 			case 'orderCountInfo':
-				suffix = 'shipment_queryOrderCount';
+				suffix = 'shipment_statistics';
 				break;
 
 			default: break;
@@ -20,7 +20,7 @@ angular.module('mainApp')
 		}
 		console.log('log info');
 
-		return $http.post(baseurl + suffix, model);
+		return PostService.post(baseurl + suffix, model);
 	}
 
 	this.search = function(model, type) {

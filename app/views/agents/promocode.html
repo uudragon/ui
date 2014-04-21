@@ -11,10 +11,10 @@
 	</ul>
 </div>
 
-<div uu-simple-search ng-submit="search('promocode')" model="searchModel.keyword"></div>
+<div uu-simple-search ng-submit="search(type)" model="searchModel.keyword" ng-init="type='uudCouponcode'"></div>
 
 <div uu-tab>
-	<div uu-pane title="总部记录">
+	<div uu-pane title="总部记录" action="updateSearchType('uudCouponcode')">
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr>
@@ -30,21 +30,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="item in result">
-					<td>{{item.order_no}}</td>
-					<td>{{item.type}}</td>
-					<td>{{item.status}}</td>
-					<td>{{item.result}}</td>
-					<td>{{item.channel}}</td>
-					<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
-					<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
-					<td>{{item.refer}}</td>
-					<td>{{item.creater}}</td>
+				<tr ng-repeat="item in uudResult">
+					<td>{{item.GRANT_DATE}}</td>
+					<td>{{item.APPLY_QTY}}</td>
+					<td></td>
+					<td>{{item.ACCU_QTY}}</td>
+					<td>{{item.GRANT_QTY}}</td>
+					<td>{{item.ORDER_QTY}}</td>
+					<td>{{item.ACCU_ORDER_QTY}}</td>
+					<td>{{item.USAGE_RATE}}</td>
+					<td>{{item.remark}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div uu-pane title="代理商记录">
+	<div uu-pane title="代理商记录" action="updateSearchType('agentCouponcode')">
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr>
@@ -63,7 +63,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="item in result">
+				<tr ng-repeat="item in agentResult">
 					<td>{{item.order_no}}</td>
 					<td>{{item.type}}</td>
 					<td>{{item.status}}</td>

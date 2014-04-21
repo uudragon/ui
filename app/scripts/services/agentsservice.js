@@ -32,7 +32,7 @@ angular.module('mainApp')
 
 			// 查询目前签约代理数、今日销售总额、累计销售总额、今日新增客户数、历史销售人数
 			case 'agentCountInfo':
-				suffix = 'agent_queryAgentCount';
+				suffix = 'agent_statistics';
 				break;
 
 			default: break;
@@ -58,8 +58,13 @@ angular.module('mainApp')
 				break;
 
 			// 查询优惠码记录
-			case 'promocode':
-				suffix = 'search_Couponcode';
+			case 'uudCouponcode':
+				suffix = 'uudCouponcode_query';
+				break;
+
+			// 查询优惠码记录
+			case 'agentCouponcode':
+				suffix = 'agentCouponcode_query';
 				break;
 
 			// 查询销售记录
