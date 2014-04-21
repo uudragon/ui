@@ -1,8 +1,6 @@
 'use strict';
 angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, PostService) {
-	var accessLevels = [],
-		userRoles = config.userRoles,
-		currentUser = ipCookie('uuduser') || {username: '', role: userRoles.public };
+	var accessLevels = [];
 
 	function updateUser(user) {
 		ipCookie.remove('uuduser');
@@ -85,9 +83,6 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, P
 
 			ipCookie.remove('uuduser');
 			$location.path('/login');
-		},
-		accessLevels: accessLevels,
-		userRoles: userRoles,
-		user: currentUser
+		}
 	};
 });
