@@ -1,16 +1,13 @@
 'use strict';
-angular.module('mainApp').factory('Auth', function($http, ipCookie, $location) {
+angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, PostService) {
 	var accessLevels = config.accessLevels,
 		userRoles = config.userRoles,
-		currentUser = ipCookie('user') || {
-			username: '',
-			role: userRoles.public
-		};
-	// ipCookie.remove('user');
+		currentUser = ipCookie('uuduser') || {username: '', role: userRoles.public };
 
 	function changeUser(user) {
-		ipCookie.put('user')
-		angular.extend(currentUser, user);
+		ipCookie.remove('uuduser');
+		ipCookie('uuduser', user, {expires: 30, expirationUnit: 'minutes'});
+		// PostService.setHeader(user.token);
 	}
 
 	function serialize(obj, prefix) {
@@ -31,18 +28,7 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location) {
 			return accessLevel.bitMask & role.bitMask;
 		},
 		isLoggedIn: function(user) {
-			if (user === undefined) {
-				user = currentUser;
-			}
-			// console.log(currentUser);
-			return ipCookie('uuduser') ? true : false;
-			return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
-		},
-		register: function(user, success, error) {
-			$http.post('/register', user).success(function(res) {
-				changeUser(res);
-				success();
-			}).error(error);
+			return ipCookie('uuduser') && ipCookie('uuduser').token ? true : false;
 		},
 		login: function(user, success, error) {
 			$http.post('/login?' + serialize(user)).success(function(user) {
@@ -50,27 +36,21 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location) {
 				success(user);
 			}).error(error);
 
-			// changeUser(user);
 			var user = {
 				name: 'adsfasdf',
 				asdfa: 'asdfasdf',
-				token: 'sajdfkajsdkfjaksdfjklasjdflkasjdf'
+				token: 'myuudtoken-hahahhahhahah'
 			}
-			ipCookie('uuduser', user, {
-				expires: 30,
-				expirationUnit: 'minutes'
-			});
-			success(user);
-			$location.path('/customer/traded');
+			changeUser(user);
+			$location.path('/');
 		},
 		logout: function(success, error) {
-			$http.post('/logout?' + serialize(currentUser)).success(function() {
-				changeUser({
-					username: '',
-					role: userRoles.public
-				});
+			PostService.post('/logout').success(function() {
+				ipCookie.remove('uuduser');
+				$location.path('/login');
 				success();
 			}).error(error);
+
 			ipCookie.remove('uuduser');
 			$location.path('/login');
 		},

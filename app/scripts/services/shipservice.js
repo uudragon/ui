@@ -18,13 +18,14 @@ angular.module('mainApp')
 			default: break;
 
 		}
+		console.log('log info');
 
 		return $http.post(baseurl + suffix, model);
 	}
 
 	this.search = function(model, type) {
 		var suffix;
-		console.log(model);
+
 		switch (type) {
 			// 查询发货单
 			case 'ship':
@@ -55,10 +56,10 @@ angular.module('mainApp')
 	 * @param  object shipment_no
 	 * @return shipment details
 	 */
-	 this.getShipmentDetails = function(model) {
-	 	var suffix = "shipment_getDetails";
-	 	return $http.post(baseurl + suffix, model);
-	 }
+	this.getShipmentDetails = function(model) {
+		var suffix = "shipment_getDetails";
+		return $http.post(baseurl + suffix, model);
+	}
 
 	/***************** 发货管理结束 ***********************/
 

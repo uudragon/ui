@@ -9,7 +9,7 @@ a {color: #333; }
 .container {width: 1170px; font: 1em/normal '微软雅黑', '宋体', Arial, Helvetica, sans-serif; }
 .nav-sidebar {border: 1px solid aliceblue; border-bottom: none;}
 .nav-sidebar > li > a {color: #333; }
-.nav-sidebar > .active > a, .nav-sidebar > li > a:hover {background-color: #A52A2A; color: #fff; }
+.nav-sidebar > .active > a, .nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus {background-color: #A52A2A; color: #fff; }
 .i-val {padding-left: 10px}
 .result > table th {text-align: center; vertical-align: top;}
 .result > table td {text-align: center;}

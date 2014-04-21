@@ -6,6 +6,15 @@ angular.module('mainApp')
 	$scope.loadInfo = function(type) {
 		if (!type) return;
 
+		var success = function(data, status) {
+			$scope.statistics = data;
+		}
+
+		var error = function(data, status) {
+			console.log('query order info error status: ' + status + ' use dummy data');
+			$scope.statistics = {ordersCount: 12345, salesAmount: 54321, accuOrdersCount: 12345678, accuSalesAmount: 87654321};
+		}
+
 		ShipService.loadInfo($scope.model, type)
 			.success(function(data, status) {
 				$scope.statistics = data;
@@ -30,6 +39,7 @@ angular.module('mainApp')
 				$scope.result = data;
 			})
 			.error(function(data, status) {
+				console.log('asdfaslkdfjklasdjdfklasjkldfjaskjdflasjdkfjaskdfasdf');
 				console.log('search ' + type + ' error, use fake data');
 				$scope.result = [
 					{orders_no: 'OD1001', shipment_no: 'FH1001', shipped_qty: 1, express_name: '顺风快递', create_time: '2014-04-11', update_time: '2014-04-12', courier: '张三', creater: 'Jack', status: '未发货'},
@@ -61,7 +71,7 @@ angular.module('mainApp')
 			})
 			.error(function(data, status){
 				console.log('get shipment details error, use dummy data');
-				scope.shipmentDetails = [ 	
+				scope.shipmentDetails = [
 					{goods_code: 'SP1001', goods_name: '商品1', goods_qty: 5, actual_qty: 4, goods_desc: '商品1描述'},
 					{goods_code: 'SP1002', goods_name: '商品2', goods_qty: 5, actual_qty: 3, goods_desc: '商品2描述'}
 				];
