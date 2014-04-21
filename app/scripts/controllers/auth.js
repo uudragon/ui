@@ -14,7 +14,6 @@ angular.module('mainApp')
 		Auth.login(user, function(res) {
 			console.log(res);
 		}, function(msg) {
-			// $cookieStore.put('usertoken', 'asdfasfasdfjaisdofjasdfsaf');
 			console.log('faild' + msg);
 		})
 		// // 发送请求
