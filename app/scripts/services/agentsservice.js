@@ -4,7 +4,7 @@ angular.module('mainApp')
 .service('AgentsService', ['$http', function ($http) {
 
 	/***************** 代理商管理开始 ***********************/
-
+	var baseurl = config.baseurl;
 
 	this.loadInfo = function(model, type) {
 		var suffix;

@@ -4,7 +4,7 @@ angular.module('mainApp')
 .service('FinancialService', ['$http', function ($http) {
 
 	/***************** 财务管理开始 ***********************/
-
+	var baseurl = config.baseurl;
 
 	this.loadInfo = function(model, type) {
 		var suffix;

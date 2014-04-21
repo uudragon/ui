@@ -2,6 +2,7 @@
 
 angular.module('mainApp')
 .service('PostService', function ($http, ipCookie) {
+	var baseurl = config.baseurl;
 
 	var setHeader = function(token) {
 		var currentUser = ipCookie('uuduser');

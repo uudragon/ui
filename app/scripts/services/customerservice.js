@@ -5,6 +5,7 @@ angular.module('mainApp')
 
 	/***************** 客户信息管理开始 ***********************/
 
+	var baseurl = config.baseurl;
 
 	this.loadInfo = function(model, type) {
 

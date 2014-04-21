@@ -5,6 +5,7 @@ angular.module('mainApp')
 
 	/***************** 发货管理开始 ***********************/
 
+	var baseurl = config.baseurl;
 
 	this.loadInfo = function(model, type) {
 		var suffix;
