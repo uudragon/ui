@@ -3,7 +3,7 @@
 angular.module('authApp')
 .service('UUDBasicService', function UUDBasicService($http) {
 
-	var baseurl = 'http://127.0.0.1:8086/';
+	var baseurl = '/';
 	var self = this;
 	var PER_PAGE = 20;
 	var indicator = {};
@@ -142,8 +142,17 @@ angular.module('authApp')
 				break;
 
 		}
+		var result = self.post(baseurl + suffix, model).success(function(data, status) {
+			if( type != 'privilege' ){
+				if( data.result ){
+					alert("添加成功！");
+				} else {
+					alert( data.message );
+				}
+			}
+		});
 
-		return self.post(baseurl + suffix, model);
+		return result;
 
 	}
 
@@ -187,8 +196,14 @@ angular.module('authApp')
 				break;
 
 		}
-
-		return self.post(baseurl + suffix, {id: id});
+		var result = self.post(baseurl + suffix, {id: id}).success(function(data, status){
+			if( data.result ){
+				alert( "删除成功!" );
+			} else {
+				alert( data.message );
+			}
+		});
+		return ;
 	}
 
 
@@ -232,7 +247,7 @@ angular.module('authApp')
 				break;
 
 			case 'privileges':
-				suffix = 'at/operate.op?className=userAction&methodName=savePrivileges';
+				suffix = 'at/operate.op?className=roleAction&methodName=savePrivileges';
 				break;
 			default:
 				break;
@@ -240,8 +255,15 @@ angular.module('authApp')
 		}
 
 		console.log(model);
+		var result = self.post(baseurl + suffix, model).success(function( data, status ){
+			if( data.result ){
+				alert( "更新成功！" );
+			} else {
+				alert( data.message );
+			}
+		});
 
-		return self.post(baseurl + suffix, model);
+		return result;
 	}
 
 
@@ -311,7 +333,7 @@ angular.module('authApp')
 	// 获取用户对应的角色
 	this.getRoles = function($scope, user) {
 
-		var suffix = "at/operate.op?className=userGroupAction&methodName=getRoles"
+		var suffix = "at/operate.op?className=userAction&methodName=getRoles"
 
 		// 假如user不存在， 不执行操作
 		if (!user) {
@@ -337,11 +359,11 @@ angular.module('authApp')
 	// get all roles
 	this.getAllRoles = function($scope) {
 
-		var suffix = "at/operate.op?className=userGroupAction&methodName=getAllRoles"
+		var suffix = "at/operate.op?className=roleAction&methodName=getAllRoles"
 
 		self.post(baseurl + suffix)
 			.success(function(data, status) {
-				$scope.roles = data;
+				$scope.allRoles = data;
 			})
 			.error(function(data, status) {
 				console.log('get all roles error status: ' + status + ' use dummy data');
@@ -440,7 +462,7 @@ angular.module('authApp')
 
 	this.getAllPrivileges = function($scope, setting) {
 
-		var suffix = 'at/operate.op?className=roleAction&methodName=getAllPrivilege';
+		var suffix = 'at/operate.op?className=privilege&methodName=load';
 
 		self.post(baseurl + suffix)
 			.success(function(data, status) {
@@ -500,7 +522,7 @@ angular.module('authApp')
 　
 	this.buildPrivilegeTree = function(setting) {
 
-		var suffix = 'at/operate.op?className=Privilege&methodName=load';
+		var suffix = 'at/operate.op?className=privilege&methodName=load';
 
 		self.post(baseurl + suffix)
 			.success(function(data, status) {
