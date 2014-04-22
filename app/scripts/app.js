@@ -1,7 +1,6 @@
 'use strict';
 
 var uud = angular.module('authApp', [
-	'ngAnimate',
 	'ngRoute',
 	'route-segment',
 	'view-segment'

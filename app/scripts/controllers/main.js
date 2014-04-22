@@ -31,6 +31,7 @@ angular.module('authApp')
 		scope.modalTitle = title;
 		scope.modalType = "add";
 		scope.model = {};
+		scope.userForm.$setPristine();
 		scope.submitted = false;
 		if (type) {
 			UUDBasicService.getGroups(scope, type);
@@ -110,7 +111,6 @@ angular.module('authApp')
 
 		$scope.modify = function(user) {
 			$scope.submitted = false;
-			// $scope.model = user;
 			$scope.$parent.modify($scope, user, "编辑用户", type);
 		}
 
