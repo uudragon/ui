@@ -339,6 +339,15 @@ angular.module('authApp')
 
 		var current;
 		var type = 'privilege';
+		var error = function($scope, errorMsg) {
+			return function(msg) {
+				$scope.alertLevel = 'danger';
+				$scope.alertMsg = errorMsg;
+				if (msg) {
+					$scope.alertMsg += ' ' + msg;
+				}
+			}
+		}
 
 		UUDBasicService.buildPrivilegeTree(setting);
 
@@ -389,8 +398,6 @@ angular.module('authApp')
 			if (!isCopy) {
 				beforeRemove('', treeNodes[0])
 			}
-
-			console.log(moveType);
 
 			$scope.add(model);
 
@@ -455,10 +462,7 @@ angular.module('authApp')
 						$scope.alertMsg = '更新成功！';
 						$scope.alertLevel = 'success';
 					})
-					.error(function(data, status) {
-						$scope.alertMsg = '更新失败！';
-						$scope.alertLevel = 'error';
-					})
+					.error( error($scope, '更新失败！') )
 
 				$('#uumodal').modal('hide');
 			}
@@ -494,11 +498,7 @@ angular.module('authApp')
 
 					})
 					// 后台添加节点失败
-					.error(function(data, status) {
-						// 添加伪数据
-						$scope.alertMsg = '添加失败！';
-						$scope.alertLevel = 'danger';
-					})
+					.error( error($scope, '网络错误，添加失败！') )
 
 				$('#uumodal').modal('hide');
 			}

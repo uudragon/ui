@@ -91,13 +91,6 @@ angular.module('authApp')
 			})
 			.error(function(data, status) {
 				console.log('load ' + type + ' error status:' + status);
-				$scope.model = {
-					name: '用户组*',
-					type: '568459226',
-					status: '已订购',
-					isValid: '1',
-					users: ['用户1', '用户3', '用户4', '用户5', '用户6'],
-				}
 			})
 
 	}
@@ -302,12 +295,6 @@ angular.module('authApp')
 			})
 			.error(function(data, status) {
 				console.log('get user role error status: ' + status + ' use dummy data');
-
-				$scope.roles = [
-					{id: 1, name: '财务'},
-					{id: 2, name: '管理人员'}
-				]
-
 			})
 
 	}
@@ -323,17 +310,6 @@ angular.module('authApp')
 				$scope.allRoles = data;
 			})
 			.error(function(data, status) {
-				console.log('get all roles error status: ' + status + ' use dummy data');
-
-				$scope.allRoles = [
-					{id: 1, name: '财务'},
-					{id: 2, name: '管理人员'},
-					{id: 3, name: '渠道经理'},
-					{id: 4, name: '客服'},
-					{id: 5, name: '客服主管'},
-					{id: 6, name: '发货员'}
-				]
-
 			})
 
 	}
@@ -363,17 +339,6 @@ angular.module('authApp')
 				$scope.groups = data;
 			})
 			.error(function(data, status) {
-				console.log('getGroups ' + type + ' error status: ' + status + ' use dummy data');
-
-				$scope.groups = [
-					{id: 1, name: '财务'},
-					{id: 2, name: '管理人员'},
-					{id: 3, name: '渠道经理'},
-					{id: 4, name: '客服'},
-					{id: 5, name: '客服主管'},
-					{id: 6, name: '发货员'}
-				]
-
 			})
 
 	}
@@ -398,21 +363,6 @@ angular.module('authApp')
 				}
 			})
 			.error(function(data, status) {
-				indicator.privileges = true;
-				console.log('get role role error status: ' + status + ' use dummy data');
-				var zNodes =[
-				{ id:2, pId:0, name:"父节点2", open:true},
-				{ id:231, pId:23, name:"叶子节点231"},
-				{ id:31, pId:3, name:"叶子节点3-1"}
-				];
-
-				$scope.privileges = zNodes;
-
-				if (indicator.allPrivileges) {
-					console.log('to privileges');
-					indicator = {};
-					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
-				}
 			})
 
 	}
@@ -433,31 +383,7 @@ angular.module('authApp')
 				}
 			})
 			.error(function(data, status) {
-				indicator.allPrivileges = true;
-
 				console.log('getAllPrivilege error status: ' + status + ' use dummy data');
-
-				$scope.allPrivileges = [
-					{ id:1, pId:0, name:"父节点1", open:true},
-					{ id:11, pId:1, name:"叶子节点1", link: 'www.baidu.com'},
-					{ id:12, pId:1, name:"叶子节点2"},
-					{ id:13, pId:1, name:"叶子节点3"},
-					{ id:2, pId:0, name:"父节点2", open:true, checked:true},
-					{ id:21, pId:2, name:"叶子节点1"},
-					{ id:22, pId:2, name:"叶子节点2"},
-					{ id:23, pId:2, name:"叶子节点3"},
-					{ id:231, pId:23, name:"叶子节点231"},
-					{ id:3, pId:0, name:"父节点3", open:true },
-					{ id:31, pId:3, name:"叶子节点3-1"},
-					{ id:32, pId:3, name:"叶子节点2"},
-					{ id:33, pId:3, name:"叶子节点3"}
-				];
-
-				if (indicator.privileges) {
-					console.log('to all privileges');
-					indicator = {};
-					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
-				}
 
 			})
 
@@ -486,21 +412,6 @@ angular.module('authApp')
 				$.fn.zTree.init($("#priv-tree"), setting, data);
 			})
 			.error(function(data, status) {
-
-				var zNodes = [
-					{ id:1, pId:0, name:"父节点1", open:true},
-					{ id:11, pId:1, name:"叶子节点1", link: 'www.baidu.com'},
-					{ id:12, pId:1, name:"叶子节点2"},
-					{ id:13, pId:1, name:"叶子节点3"},
-					{ id:2, pId:0, name:"父节点2", open:true},
-					{ id:21, pId:2, name:"叶子节点1"},
-					{ id:22, pId:2, name:"叶子节点2"},
-					{ id:23, pId:2, name:"叶子节点3"},
-					{ id:3, pId:0, name:"父节点3", open:true },
-					{ id:31, pId:3, name:"叶子节点1"},
-					{ id:32, pId:3, name:"叶子节点2"},
-					{ id:33, pId:3, name:"叶子节点3"}
-				];
 				$.fn.zTree.init($("#priv-tree"), setting, zNodes);
 			})
 	}
