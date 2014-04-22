@@ -1,4 +1,5 @@
 <div uu-action-item label="添加根结点" ng-click="createNode(true)"></div>
+<div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
 
 <ul id="priv-tree" class="ztree"></ul>
 
@@ -10,17 +11,44 @@
 				<h4 class="modal-title">{{modalTitle}}</h4>
 			</div>
 			<div class="modal-body">
-				<form action="" class="form form-horizontal form-small">
+				<form action="" class="form form-horizontal form-small" name="priForm">
 					<fieldset>
-						<div uu-input label="名称" l-col="3" r-col="5" name="name" model="model.name"></div>
-						<div uu-input label="url" l-col="3" r-col="5" name="link" model="model.link"></div>
-						<div uu-input label="其它" l-col="3" r-col="5" name="other" model="model.other"></div>
+						<div class="form-group" ng-class="{ 'has-error' : priForm.name.$invalid && (!priForm.name.$pristine || submitted) }">
+							<label class="control-label col-xs-3" for="name">名称:</label>
+							<div class="col-xs-5">
+								<input type="text" class="input-sm form-control" required ng-model="model.name" name="name" id="name">
+							</div>
+							<div class="col-xs-4">
+								<p ng-show="priForm.name.$invalid && (!priForm.name.$pristine || submitted)" class="help-block">请输入名称.</p>
+							</div>
+						</div>
+
+						<div class="form-group" ng-class="{ 'has-error' : priForm.link.$invalid && (!priForm.link.$pristine || submitted) }">
+							<label class="control-label col-xs-3" for="link">url:</label>
+							<div class="col-xs-5">
+								<input type="url" class="input-sm form-control" required ng-model="model.link" name="link" id="link">
+							</div>
+							<div class="col-xs-4">
+								<p ng-show="priForm.link.$invalid && (!priForm.link.$pristine || submitted)" class="help-block">请输入合法url.</p>
+							</div>
+						</div>
+
+						<div class="form-group" ng-class="{ 'has-error' : priForm.other.$invalid && (!priForm.other.$pristine || submitted) }">
+							<label class="control-label col-xs-3" for="other">其它:</label>
+							<div class="col-xs-5">
+								<input type="text" class="input-sm form-control" required ng-model="model.other" name="other" id="other">
+							</div>
+							<div class="col-xs-4">
+								<p ng-show="priForm.other.$invalid && (!priForm.other.$pristine || submitted)" class="help-block">请输入其它.</p>
+							</div>
+						</div>
+
 					</fieldset>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" ng-if="modalType=='add'" ng-click="add(model)" class="btn btn-primary">添加</button>
-				<button type="button" ng-if="modalType=='edit'" ng-click="save(model)" class="btn btn-primary">保存</button>
+				<button type="button" ng-if="modalType=='add'" ng-click="add(model, priForm.$valid)" class="btn btn-primary">添加</button>
+				<button type="button" ng-if="modalType=='edit'" ng-click="save(model, priForm.$valid)" class="btn btn-primary">保存</button>
 			</div>
 		</div>
 	</div>

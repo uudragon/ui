@@ -303,7 +303,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			current: '=page',
 			model: '='
 		},
-		link: function($scope, element, attrs, model) {
+		link: function($scope, $element, attrs, model) {
 
 			var maxPages = $scope.maxPages || config.maxPages;
 			var perPage = $scope.perPage || config.perPage;
@@ -347,7 +347,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				// hide pagination when there is only one page
 				if (pages <= 1) {
-					element.css('display', 'none');
+					$element.css('display', 'none');
 				}
 				return pages;
 			}
@@ -410,6 +410,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			$scope.$watch('alertMsg', function(value) {
 				if (value && value.length) {
 					$element.css('display', 'block');
+				} else {
+					$element.css('display', 'none');
 				}
 			})
 		}

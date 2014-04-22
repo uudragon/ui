@@ -1,8 +1,12 @@
 <div uu-action-item label="添加组" target="#uumodal" ng-click="new(groupForm)"></div>
 
+<div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
+
 <div uu-simple-search placeholder="请输入组名" ng-submit="reloadSearch()" model="searchModel.name"></div>
 
 <div class="row container" ng-if="result.recordsCount">
+	<div uu-pagination records="result.recordsCount" page="page" action="search()" model="searchModel.pagination"></div>
+
 	<table class="table table-bordered table-striped" >
 		<tr>
 			<th>组名</th>
@@ -18,7 +22,6 @@
 			</td>
 		</tr>
 	</table>
-	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
 
 

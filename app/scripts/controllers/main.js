@@ -75,7 +75,9 @@ angular.module('authApp')
 			default: break;
 		}
 
-		UUDBasicService.getGroups($scope, $scope.objType);
+		if ($scope.objType === 'user' || $scope.objType === 'role') {
+			UUDBasicService.getGroups($scope, $scope.objType);
+		}
 	}
 
 	$scope.add = function(model, isValid) {
@@ -94,6 +96,7 @@ angular.module('authApp')
 
 	$scope.save = function(newModel, isValid) {
 
+		$scope.submitted = true;
 		var callback = function() {
 			$scope.result.records.map(function(model, index) {
 				if (model.id == newModel.id) {
@@ -130,14 +133,16 @@ angular.module('authApp')
 			default: break;
 		}
 
-		UUDBasicService.getGroups($scope, $scope.objType)
+		if ($scope.objType === 'user' || $scope.objType === 'role') {
+			UUDBasicService.getGroups($scope, $scope.objType);
+		}
 	}
 
 
-	$scope.delete = function(id, index) {
+	$scope.delete = function(model, index) {
 		$scope.alertMsg = "";
 
-		UUDBasicService.delete(id, $scope.objType)
+		UUDBasicService.delete(model.id, $scope.objType)
 			.success(function(data) {
 				if( data.result ){
 					$scope.alertMsg = '删除成功!';
@@ -232,70 +237,15 @@ angular.module('authApp')
 
 	})
 
-	.controller('UgroupCtrl', function ($scope, UUDBasicService) {
-
-		var type = 'userGroup';
-
-		$scope.reloadSearch = function() {
-			$scope.$parent.reloadSearch($scope, type);
-		}
-
-		$scope.search = function() {
-			$scope.$parent.search($scope, type)
-		}
-
-		$scope.new = function() {
-			$scope.$parent.new($scope, "添加组");
-		}
-
-		$scope.add = function(user) {
-			$scope.$parent.add($scope, user, type);
-		}
-
-		$scope.delete = function(user, index) {
-			$scope.$parent.delete($scope, user.id, index, type);
-		}
-
-		$scope.modify = function(user) {
-			$scope.$parent.modify($scope, user, "编辑组");
-		}
-
-		$scope.save = function(iuser) {
-			$scope.$parent.save($scope, iuser, type);
-		}
+	.controller('UgroupCtrl', function ($scope, $controller) {
+		$scope.objType = 'userGroup';
+		$controller('MainCtrl', {$scope: $scope});
 	})
 
-	.controller('RoleCtrl', function ($scope, UUDBasicService, $filter) {
+	.controller('RoleCtrl', function ($scope, UUDBasicService, $controller) {
 
-		var type = 'role';
-
-		$scope.reloadSearch = function() {
-			$scope.$parent.reloadSearch($scope, type);
-		}
-
-		$scope.search = function() {
-			$scope.$parent.search($scope, type)
-		}
-
-		$scope.new = function() {
-			$scope.$parent.new($scope, "添加角色", type);
-		}
-
-		$scope.add = function(user) {
-			$scope.$parent.add($scope, user, type);
-		}
-
-		$scope.delete = function(user, index) {
-			$scope.$parent.delete($scope, user.id, index, type);
-		}
-
-		$scope.modify = function(user) {
-			$scope.$parent.modify($scope, user, "编辑角色", type);
-		}
-
-		$scope.save = function(iuser) {
-			$scope.$parent.save($scope, iuser, type);
-		}
+		$scope.objType = 'role';
+		$controller('MainCtrl', {$scope: $scope});
 
 		$scope.editPrivilege = function(role) {
 			var setting = {
@@ -349,37 +299,10 @@ angular.module('authApp')
 
 	})
 
-	.controller('RgroupCtrl', function ($scope, UUDBasicService) {
+	.controller('RgroupCtrl', function ($scope, $controller) {
 
-		var type = 'roleGroup';
-
-		$scope.reloadSearch = function() {
-			$scope.$parent.reloadSearch($scope, type);
-		}
-
-		$scope.search = function() {
-			$scope.$parent.search($scope, type)
-		}
-
-		$scope.new = function() {
-			$scope.$parent.new($scope, "添加组");
-		}
-
-		$scope.add = function(user) {
-			$scope.$parent.add($scope, user, type);
-		}
-
-		$scope.delete = function(user, index) {
-			$scope.$parent.delete($scope, user.id, index, type);
-		}
-
-		$scope.modify = function(user) {
-			$scope.$parent.modify($scope, user, "编辑组");
-		}
-
-		$scope.save = function(iuser) {
-			$scope.$parent.save($scope, iuser, type);
-		}
+		$scope.objType = 'roleGroup';
+		$controller('MainCtrl', {$scope: $scope});
 	})
 
 	.controller('PrivilegeCtrl', function ($scope, UUDBasicService) {
@@ -441,12 +364,13 @@ angular.module('authApp')
 			UUDBasicService.delete(treeNode.id, type)
 				.success(function(data, status) {
 					// 后台成功删除节点后前端再删除节点
+					$scope.alertMsg = '删除成功！';
+					$scope.alertLevel = 'success';
 					zTree.removeNode(treeNode);
 				})
 				.error(function(data, status) {
-					console.log('delete ' + type + ' error status:' + status);
-					// 后台删除节点失败，测试起见，前端暂时删除节点
-					zTree.removeNode(treeNode);
+					$scope.alertMsg = '删除失败！';
+					$scope.alertLevel = 'error';
 				})
 			return false;
 		}
@@ -504,6 +428,10 @@ angular.module('authApp')
 			$scope.model = {}
 			$scope.modalTitle = '新增节点';
 			$scope.modalType = 'add';
+
+			$scope.submitted = false;
+			$scope.priForm.$setPristine();
+
 			$scope.model.isRoot = isRoot ? true : false;
 			if (!isRoot) {
 				$scope.$apply();
@@ -512,68 +440,71 @@ angular.module('authApp')
 		}
 
 		// 保存更新的节点
-		$scope.save = function(model) {
-			// current.name = model.name;
-			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+		$scope.save = function(model, isValid) {
+			$scope.submitted = true;
+			if (isValid) {
+				var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
-			current.name = model.name;
-			current.link = model.link;
-			current.other = model.other;
-			zTree.updateNode(current);
+				current.name = model.name;
+				current.link = model.link;
+				current.other = model.other;
+				zTree.updateNode(current);
 
-			UUDBasicService.update(model, type)
-				.success(function(data, status) {
-					return true;
-				})
-				.error(function(data, status) {
-					console.log('update ' + type + ' error status:' + status);
-					return false;
-				})
+				UUDBasicService.update(model, type)
+					.success(function(data, status) {
+						$scope.alertMsg = '更新成功！';
+						$scope.alertLevel = 'success';
+					})
+					.error(function(data, status) {
+						$scope.alertMsg = '更新失败！';
+						$scope.alertLevel = 'error';
+					})
 
-			$('#uumodal').modal('hide');
-
+				$('#uumodal').modal('hide');
+			}
 		}
 
-		$scope.add = function(model) {
-			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+		$scope.add = function(model, isValid) {
+			$scope.submitted = true;
+			if (isValid) {
+				var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
-			if (!model.isRoot) {
-				model.pId = current.id;
+				if (!model.isRoot) {
+					model.pId = current.id;
+				}
+
+				UUDBasicService.add(model, type)
+					// 添加成功后，后台返回节点
+					.success(function(node, status) {
+
+						if (node) {
+							// 添加成功后
+							if (model.isRoot) {
+								zTree.addNodes(null, node);
+							} else {
+								zTree.addNodes(current, node);
+							}
+							$scope.alertMsg = '添加成功！';
+							$scope.alertLevel = 'success';
+						} else {
+							// 添加节点失败
+							$scope.alertMsg = '添加失败！';
+							$scope.alertLevel = 'warning';
+						}
+
+					})
+					// 后台添加节点失败
+					.error(function(data, status) {
+						// 添加伪数据
+						$scope.alertMsg = '添加失败！';
+						$scope.alertLevel = 'danger';
+					})
+
+				$('#uumodal').modal('hide');
 			}
-
-			UUDBasicService.add(model, type)
-				// 添加成功后，后台返回节点
-				.success(function(node, status) {
-					if (model.isRoot) {
-						zTree.addNodes(null, node);
-					} else {
-						zTree.addNodes(current, node);
-					}
-				})
-				// 后台添加节点失败
-				.error(function(data, status) {
-					console.log('add Note Error');
-
-					// 添加伪数据
-					var node = {
-						id: Math.floor(Math.random() * 10000),
-						name: model.name,
-						link: model.link,
-						other: model.other
-					};
-
-					if (model.isRoot) {
-						zTree.addNodes(null, node);
-					} else {
-						zTree.addNodes(current, node);
-					}
-				})
-
-			$('#uumodal').modal('hide');
 		}
 
 		function beforeDrag(treeId, treeNode) {
 			return false;
-			console.log('beforeDrag');
 		}
 	})

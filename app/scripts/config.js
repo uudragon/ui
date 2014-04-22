@@ -1,7 +1,7 @@
 (function(config){
 
 	var fig = {
-		perPage: 4,
+		perPage: 15,
 		maxPages: 10
 	}
 

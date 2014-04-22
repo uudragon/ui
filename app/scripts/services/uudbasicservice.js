@@ -250,7 +250,7 @@ angular.module('authApp')
 	this.search = function($scope, type) {
 
 		var suffix;
-
+		console.log('search', type);
 		switch (type) {
 			case 'user':
 				suffix = 'at/operate.op?className=userAction&methodName=searchUser';

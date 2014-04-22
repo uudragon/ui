@@ -1,15 +1,18 @@
-<div uu-action-item label="添加角色" target="#uumodal" ng-click="new()"></div>
+<div uu-action-item label="添加角色" target="#uumodal" ng-click="new(roleForm)"></div>
 
 <div uu-simple-search placeholder="请输入角色名" ng-submit="reloadSearch()" model="searchModel.roleName"></div>
 
+<div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
+
 <div class="row container" ng-if="result.recordsCount">
+	<div uu-pagination records="result.recordsCount" page="page" action="search()" model="searchModel.pagination"></div>
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>角色名</th>
 			<th>操作</th>
 		</tr>
 		<tr ng-repeat="role in result.records">
-			<td>{{role.rolename}}</td>
+			<td>{{role.roleName}}</td>
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(role)" data-toggle="modal" data-target="#uumodal">修改</a></li>
@@ -19,7 +22,6 @@
 			</td>
 		</tr>
 	</table>
-	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
 
 <div class="modal fade" id="uumodal">
@@ -30,21 +32,33 @@
 				<h4 class="modal-title">{{modalTitle}}</h4>
 			</div>
 			<div class="modal-body">
-				<form action="" class="form form-horizontal form-small">
+				<form action="" class="form form-horizontal form-small" name="roleForm">
 					<fieldset>
-						<div uu-input label="角色名" l-col="3" r-col="5" name="name" model="model.rolename"></div>
-						<div class="form-group">
-							<label class="col-xs-3 control-label" for="type">角色组: </label>
+						<div class="form-group" ng-class="{ 'has-error' : roleForm.rolename.$invalid && (!roleForm.rolename.$pristine || submitted) }">
+							<label class="control-label col-xs-3" for="rolename">角色名:</label>
+							<div class="col-xs-5">
+								<input type="text" class="input-sm form-control" required ng-model="model.roleName" name="rolename" id="rolename">
+							</div>
 							<div class="col-xs-4">
-								<select ng-model="model.groupId" class="form-control" ng-options="group.id as group.name for group in groups"></select>
+								<p ng-show="roleForm.rolename.$invalid && (!roleForm.rolename.$pristine || submitted)" class="help-block">请输入角色.</p>
+							</div>
+						</div>
+
+						<div class="form-group" ng-class="{ 'has-error' : roleForm.groupName.$invalid && (!roleForm.groupName.$pristine || submitted) }">
+							<label class="col-xs-3 control-label" for="type">角色组: </label>
+							<div class="col-xs-5">
+								<select ng-model="model.groupId" name="groupName" class="form-control" required ng-options="group.id as group.name for group in groups"></select>
+							</div>
+							<div class="col-xs-4">
+								<p ng-show="roleForm.groupName.$invalid && (!roleForm.groupName.$pristine || submitted)" class="help-block">请选择角色组.</p>
 							</div>
 						</div>
 					</fieldset>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" ng-if="modalType=='add'" ng-click="add(model)" class="btn btn-primary">添加</button>
-				<button type="button" ng-if="modalType=='edit'" ng-click="save(model)" class="btn btn-primary">保存</button>
+				<button type="button" ng-if="modalType=='add'" ng-click="add(model, roleForm.$valid)" class="btn btn-primary">添加</button>
+				<button type="button" ng-if="modalType=='edit'" ng-click="save(model, roleForm.$valid)" class="btn btn-primary">保存</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
