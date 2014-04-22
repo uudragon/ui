@@ -3,122 +3,167 @@
 angular.module('authApp')
 
 .controller('MainCtrl', function ($scope, $routeSegment, loader, UUDBasicService) {
-	// UUDBasicService.loadBasicInfo($scope);
+
 	$scope.$routeSegment = $routeSegment;
 	$scope.loader = loader;
 
-	$scope.reloadSearch = function(scope, type) {
+	var success = function ($scope, successMsg, warningMsg, callback) {
+		return function(data, status) {
+			if( data.result ){
+				$scope.alertMsg = successMsg;
+				$scope.alertLevel = 'success';
+
+				// fire callback
+				if (angular.isFunction(callback)) {
+					callback();
+				}
+			} else {
+				$scope.alertLevel = 'warning';
+				$scope.alertMsg = warningMsg + ' ';
+				$scope.alertMsg += data.message ? data.message : '';
+			}
+		}
+	}
+
+	var error = function($scope, errorMsg) {
+		return function(msg) {
+			$scope.alertLevel = 'danger';
+			$scope.alertMsg = errorMsg;
+			if (msg) {
+				$scope.alertMsg += ' ' + msg;
+			}
+		}
+	}
+
+	$scope.reloadSearch = function() {
 		// reset result
-		scope.result = {};
-		scope.page = 1;
+		$scope.result = {};
+		$scope.page = 1;
 
 		// init serchModel
-		scope.searchModel = scope.searchModel || {};
+		$scope.searchModel = $scope.searchModel || {};
 
 		// reset pagination
-		if (scope.searchModel.pagination) {
-			scope.searchModel.pagination.toPage = 1;
+		if ($scope.searchModel.pagination) {
+			$scope.searchModel.pagination.toPage = 1;
 		}
 
-		this.search(scope, type);
+		this.search();
 	}
 
-	$scope.search = function(scope, type) {
-		UUDBasicService.search(scope, type)
+	$scope.search = function() {
+		UUDBasicService.search($scope, $scope.objType)
 	}
 
-	$scope.new = function(scope, title, type) {
-		scope.modalTitle = title;
-		scope.modalType = "add";
-		scope.model = {};
-		scope.userForm.$setPristine();
-		scope.submitted = false;
-		if (type) {
-			UUDBasicService.getGroups(scope, type);
+	$scope.new = function(form) {
+		$scope.modalType = "add";
+		$scope.model = {};
+		form.$setPristine();
+		$scope.submitted = false;
+
+		switch ($scope.objType) {
+			case 'user':
+				$scope.modalTitle = '添加用户';
+				break;
+			case 'role':
+				$scope.modalTitle = '添加角色';
+				break;
+			case 'userGroup':
+				$scope.modalTitle = '添加组';
+				break;
+
+			default: break;
+		}
+
+		UUDBasicService.getGroups($scope, $scope.objType);
+	}
+
+	$scope.add = function(model, isValid) {
+		$scope.submitted = true;
+		$scope.alertMsg = "";
+		if (isValid) {
+
+			UUDBasicService.add(model, $scope.objType)
+				.success(success($scope, '添加成功!', '添加失败!'))
+				.error(error($scope, '网络出错, 添加失败! '))
+
+			$('#uumodal').modal('hide');
 		}
 	}
 
-	$scope.add = function(scope, model, type) {
-		UUDBasicService.add(model, type);
 
-		if (scope.searchModel) {
-			this.reloadSearch(scope, type);
+	$scope.save = function(newModel, isValid) {
+
+		var callback = function() {
+			$scope.result.records.map(function(model, index) {
+				if (model.id == newModel.id) {
+					$scope.result.records[index] = newModel;
+				}
+			})
 		}
 
-		$('#uumodal').modal('hide');
-	}
+		if (isValid) {
+			UUDBasicService.update(newModel, $scope.objType)
+				.success( success($scope, '更新成功！', '更新失败！', callback) )
+				.error( error($scope, '网络出错, 更新失败!'))
 
-	$scope.delete = function(scope, id, index, type) {
-		UUDBasicService.delete(id, type);
-		scope.result.records.splice(index, 1);
-	}
-
-	$scope.modify = function(scope, model, title, type) {
-		scope.modalTitle = title;
-		scope.modalType = "edit";
-		scope.model = angular.copy(model);
-
-		if (type) {
-			UUDBasicService.getGroups(scope, type);
+			$('#uumodal').modal('hide')
 		}
 	}
 
-	$scope.save = function(scope, newModel, type) {
+	$scope.modify = function(model) {
+		$scope.modalType = "edit";
+		$scope.model = angular.copy(model);
+		$scope.submitted = false;
+		$scope.alertMsg = "";
+		switch ($scope.objType) {
+			case 'user':
+				$scope.modalTitle = '编辑用户';
+				break;
+			case 'role':
+				$scope.modalTitle = '编辑角色';
+				break;
+			case 'userGroup':
+				$scope.modalTitle = '编辑组';
+				break;
 
-		UUDBasicService.update(newModel, type)
-		scope.result.records.map(function(model, index) {
-			if (model.id == newModel.id) {
-				scope.result.records[index] = newModel;
-			}
-		})
-		$('#uumodal').modal('hide')
+			default: break;
+		}
+
+		UUDBasicService.getGroups($scope, $scope.objType)
 	}
+
+
+	$scope.delete = function(id, index) {
+		$scope.alertMsg = "";
+
+		UUDBasicService.delete(id, $scope.objType)
+			.success(function(data) {
+				if( data.result ){
+					$scope.alertMsg = '删除成功!';
+					$scope.alertLevel = 'success';
+					$scope.result.records.splice(index, 1);
+				} else {
+					$scope.alertLevel = 'warning';
+					$scope.alertMsg = '删除失败! ';
+					$scope.alertMsg += data.message ? data.message : '';
+				}
+
+			})
+			.error( error($scope, '网络出错, 删除失败! ') );
+	}
+
 
 })
 	.controller('LoginCtrl', function ($scope, UUDBasicService) {
 
 	})
 
-	.controller('UserCtrl', function ($scope, UUDBasicService) {
+	.controller('UserCtrl', function ($scope, UUDBasicService, $controller) {
 
 		var type = 'user';
-
-		// $scope.$parent.reloadSearch($scope, type);
-
-		$scope.reloadSearch = function() {
-			$scope.$parent.reloadSearch($scope, type);
-		}
-
-		$scope.search = function() {
-			$scope.$parent.search($scope, type)
-		}
-
-		$scope.new = function() {
-			$scope.submitted = false;
-			$scope.model = {};
-			$scope.$parent.new($scope, "添加用户", type);
-		}
-
-		$scope.add = function(user, isValid) {
-			$scope.submitted = true;
-			if (!isValid) return;
-			$scope.$parent.add($scope, user, type);
-		}
-
-		$scope.delete = function(user, index) {
-			$scope.$parent.delete($scope, user.id, index, type);
-		}
-
-		$scope.modify = function(user) {
-			$scope.submitted = false;
-			$scope.$parent.modify($scope, user, "编辑用户", type);
-		}
-
-		$scope.save = function(iuser, isValid) {
-			$scope.submitted = true;
-			if (!isValid) return;
-			$scope.$parent.save($scope, iuser, type);
-		}
+		$scope.objType = 'user';
+		$controller('MainCtrl', {$scope: $scope});
 
 		$scope.editRole = function(user) {
 

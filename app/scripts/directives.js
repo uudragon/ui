@@ -305,8 +305,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function($scope, element, attrs, model) {
 
-			var maxPages = $scope.maxPages || 10;
-			var perPage = $scope.perPage || 20;
+			var maxPages = $scope.maxPages || config.maxPages;
+			var perPage = $scope.perPage || config.perPage;
 
 			var start = 1;
 
@@ -343,6 +343,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				for (var i = start; i < start + pages; i++) {
 					$scope.pages.push(i)
+				}
+
+				// hide pagination when there is only one page
+				if (pages <= 1) {
+					element.css('display', 'none');
 				}
 				return pages;
 			}
@@ -385,3 +390,28 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		templateUrl: 'views/partial/directives/pagination.html'
 	}
 })
+.directive('uuAlert', function() {
+	return {
+		replace: true,
+		scope: false,
+		template: '<div class="alert fade in alert-{{alertLevel}}">' +
+						'<button type="button" class="close" ng-click="hide()" aria-hidden="true">×</button>' +
+						'{{alertMsg}}' +
+					'</div>',
+		link: function($scope, $element, $attr) {
+
+			$scope.hide = function() {
+				$element.css('display', 'none');
+			}
+			$scope.hide();
+			$scope.alertMsg = $attr.msg;
+			$scope.alertLevel = $attr.alertLevel;
+
+			$scope.$watch('alertMsg', function(value) {
+				if (value && value.length) {
+					$element.css('display', 'block');
+				}
+			})
+		}
+	}
+});

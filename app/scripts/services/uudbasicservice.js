@@ -5,7 +5,6 @@ angular.module('authApp')
 
 	var baseurl = '/';
 	var self = this;
-	var PER_PAGE = 20;
 	var indicator = {};
 
 	this.getBreadcrumb = function(route) {
@@ -142,18 +141,7 @@ angular.module('authApp')
 				break;
 
 		}
-		var result = self.post(baseurl + suffix, model).success(function(data, status) {
-			if( type != 'privilege' ){
-				if( data.result ){
-					alert("添加成功！");
-				} else {
-					alert( data.message );
-				}
-			}
-		});
-
-		return result;
-
+		return self.post(baseurl + suffix, model);
 	}
 
 
@@ -196,14 +184,7 @@ angular.module('authApp')
 				break;
 
 		}
-		var result = self.post(baseurl + suffix, {id: id}).success(function(data, status){
-			if( data.result ){
-				alert( "删除成功!" );
-			} else {
-				alert( data.message );
-			}
-		});
-		return ;
+		return self.post(baseurl + suffix, {id: id});
 	}
 
 
@@ -254,16 +235,7 @@ angular.module('authApp')
 
 		}
 
-		console.log(model);
-		var result = self.post(baseurl + suffix, model).success(function( data, status ){
-			if( data.result ){
-				alert( "更新成功！" );
-			} else {
-				alert( data.message );
-			}
-		});
-
-		return result;
+		return self.post(baseurl + suffix, model);
 	}
 
 
@@ -304,9 +276,7 @@ angular.module('authApp')
 
 		}
 
-		$scope.searchModel.pagination = $scope.searchModel.pagination || {toPage: 1, perPage: PER_PAGE}
-
-		console.log($scope.searchModel);
+		$scope.searchModel.pagination = $scope.searchModel.pagination || {toPage: 1, perPage: config.perPage}
 
 		self.post(baseurl + suffix, $scope.searchModel)
 			.success(function(data, status) {
@@ -314,19 +284,6 @@ angular.module('authApp')
 			})
 			.error(function(data, status) {
 				console.log('search ' + type + ' error status: ' + status + ' use dummy data');
-
-				// dummy data
-				$scope.result = {
-					recordsCount: 100,
-					records: [
-						{id: 1, type: 1, rolename: '财务', groupId: "", name: 'test1', account: "account2", isValid: 1, gender: 1, email: 'testemail@email.com', positions: 'admin'},
-						{id: 2, type: 2, rolename: '管理人员', groupId: "", name: 'test2', account: "account6", isValid: 0, gender: 0, email: 'testemdail@email.com', positions: 'admin'},
-						{id: 3, type: 2, rolename: '渠道经理', groupId: "", name: 'test3', account: "account34", isValid: 1, gender: 1, email: 'test3@email.com', positions: 'register'},
-						{id: 4, type: 1, rolename: '客服', groupId: "", name: 'test4', account: "account6", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'},
-						{id: 5, type: 1, rolename: '客服主管', groupId: "", name: 'test45', account: "account4", isValid: 0, gender: 1, email: 'testd4@email.com', positions: 'admin'},
-						{id: 6, type: 1, rolename: '发货员', groupId: "", name: '21312', account: "account2", isValid: 1, gender: 0, email: 'test4@email.com', positions: 'admin'}
-					]
-				}
 			})
 	}
 

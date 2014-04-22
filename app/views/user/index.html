@@ -1,4 +1,6 @@
-<div uu-action-item label="添加用户" ng-click="new()"></div>
+<div uu-action-item label="添加用户" ng-click="new(userForm)"></div>
+
+<div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
 
 <form class="form form-horizontal form-small search-form" role="form" >
 	<div>
@@ -16,6 +18,8 @@
 </form>
 
 <div class="row container" ng-if="result.recordsCount">
+	<div uu-pagination records="result.recordsCount" page="page" action="search()" model="searchModel.pagination"></div>
+
 	<table class="table table-bordered table-striped">
 		<tr>
 			<th>姓名</th>
@@ -37,13 +41,12 @@
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(user)" data-toggle="modal" data-target="#uumodal">修改</a></li>
 					<li><a href="" ng-click="editRole(user)" data-toggle="modal" data-target="#rolemodal">修改角色</a></li>
-					<li><a href="" ng-click="delete(user, $index)">删除</a></li>
+					<li><a href="" ng-click="delete(user.id, $index)">删除</a></li>
 				</ul>
 			</td>
 		</tr>
 	</table>
 
-	<div uu-pagination records="result.recordsCount" per-page="20" max-pages="10" page="page" action="search()" model="searchModel.pagination"></div>
 </div>
 
 
