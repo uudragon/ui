@@ -34,10 +34,9 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, P
 				})
 				.error(function() {
 					accessLevels = [
-						{code: '1'},
+						{code: '10'},
 						{code: '4'},
-						{code: '12'},
-						{code: Math.floor(Math.random() * 100)},
+						{code: '12'}
 					]
 				})
 		},
@@ -52,10 +51,10 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, P
 			$http.get('/login?' + serialize(user))
 				.success(function(user) {
 					updateUser(user);
-				
+
 					if (angular.isFunction(success)) {
 						success(user);
-					
+
 					}
 
 					$location.path('/');

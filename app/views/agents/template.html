@@ -1,17 +1,17 @@
 <!-- nav tab begin-->
-<ul class="nav nav-tabs ng-scope">
+<ul class="nav nav-tabs">
 	<li class="active">
 		<a href="" class="title ng-binding">代理商管理</a>
 	</li>
 </ul>
-<ul class="action-group list-inline ng-scope">
-	<li class="ng-scope dropdown">
+<ul class="action-group list-inline">
+	<li class="dropdown">
 		<a uu-auth-filter="1" ui-sref="root.agents.list" ng-class="{active: $state.is('root.agents.list')}" class="action-item">代理商名单</a>
-		
+
 		<a uu-auth-filter="10" class="dropdown-toggle action-item" ng-class="{active: $state.is('root.agents.entryexit') || $state.is('root.agents.commissionmanager') || $state.is('root.agents.contractmanager') || $state.is('root.agents.financemanager') || $state.is('root.agents.locationpromo') || $state.is('root.agents.selling') || $state.is('root.agents.assessment') || $state.is('root.agents.list') }" data-toggle="dropdown">
 			代理商名单 <b class="caret"></b>
 		</a>
-		<ul uu-auth-filter="10" class="dropdown-menu ng-scope">
+		<ul uu-auth-filter="10" class="dropdown-menu">
 			<li><a ui-sref="root.agents.entryexit" class="ng-binding">准入与退出</a></li>
 			<li><a ui-sref="root.agents.contractmanager" class="ng-binding">合同管理</a></li>
 			<li><a ui-sref="root.agents.financemanager" class="ng-binding">财务管理</a></li>
