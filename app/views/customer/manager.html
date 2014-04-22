@@ -5,48 +5,7 @@
 	</ul>
 </div>
 
-<form class="form form-horizontal form-small search-form" role="form" ng-submit="reloadSearch('customer')">
-	<fieldset>
-		<div class="pull-right">
-			<label><input type="checkbox" ng-click="result=[]; searchModel={}; search.advance = !search.advance; searchModel.advance=search.advance" value="male">高级搜索</label>
-		</div>
-		<div class="unify" ng-show="!search.advance">
-			<div class="form-group" ng-show="!search.advance">
-				<div class="col-xs-6 col-xs-offset-2">
-					<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="searchModel.keyword" class="form-control" id="search-box">
-				</div>
-				<div class="col-xs-2">
-					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-10 advance" ng-show="search.advance">
-			<div class="form-group">
-				<label class="col-xs-4 control-label" for="c-name">姓名: </label>
-				<div class="col-xs-5">
-					<input type="text" name="name" ng-model="searchModel.name" class="form-control input-small" id="c-name">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-4 control-label" for="cp-name">家长姓名:</label>
-				<div class="col-xs-5">
-					<input type="text" name="p-name" ng-model="searchModel.parent.name" class="form-control input-small" id="cp-name">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-4 control-label" for="c-phone">电话:</label>
-				<div class="col-xs-5">
-					<input type="text" name="c-phone" ng-model="searchModel.phone" class="form-control input-small" id="c-phone">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-xs-4 col-xs-offset-4">
-					<input type="submit" value="搜索" class="btn btn-default">
-				</div>
-			</div>
-		</div>
-	</fieldset>
-</form>
+<div uu-simple-search placeholder="姓名 / 家长姓名 / 电话进行查询" ng-submit="reloadSearch('customer')" model="searchModel.keyword"></div>
 
 <div ng-if="result.length" class="result">
 <!-- 	<div uu-pagination records="result.length" per-page="5" max-pages="4" action="search()" model="searchModel.pagination"></div> -->
