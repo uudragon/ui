@@ -26,20 +26,30 @@
 						<div class="form-group" ng-class="{ 'has-error' : priForm.link.$invalid && (!priForm.link.$pristine || submitted) }">
 							<label class="control-label col-xs-3" for="link">url:</label>
 							<div class="col-xs-5">
-								<input type="url" class="input-sm form-control" required ng-model="model.link" name="link" id="link">
+								<input type="text" class="input-sm form-control" required ng-model="model.link" name="link" id="link">
 							</div>
 							<div class="col-xs-4">
-								<p ng-show="priForm.link.$invalid && (!priForm.link.$pristine || submitted)" class="help-block">请输入合法url.</p>
+								<p ng-show="priForm.link.$invalid && (!priForm.link.$pristine || submitted)" class="help-block">请输入url.</p>
 							</div>
 						</div>
 
-						<div class="form-group" ng-class="{ 'has-error' : priForm.other.$invalid && (!priForm.other.$pristine || submitted) }">
-							<label class="control-label col-xs-3" for="other">其它:</label>
+						<div class="form-group" ng-class="{ 'has-error' : priForm.method.$invalid && (!priForm.method.$pristine || submitted) }">
+							<label class="control-label col-xs-3" for="method">method:</label>
 							<div class="col-xs-5">
-								<input type="text" class="input-sm form-control" required ng-model="model.other" name="other" id="other">
+								<input type="text" class="input-sm form-control" required ng-model="model.method" name="method" id="method">
 							</div>
 							<div class="col-xs-4">
-								<p ng-show="priForm.other.$invalid && (!priForm.other.$pristine || submitted)" class="help-block">请输入其它.</p>
+								<p ng-show="priForm.method.$invalid && (!priForm.method.$pristine || submitted)" class="help-block">请输入method.</p>
+							</div>
+						</div>
+
+						<div class="form-group" ng-class="{ 'has-error' : priForm.code.$invalid && (!priForm.code.$pristine || submitted) }">
+							<label class="control-label col-xs-3" for="code">code:</label>
+							<div class="col-xs-5">
+								<input type="text" class="input-sm form-control" required ng-model="model.code" name="code" id="code">
+							</div>
+							<div class="col-xs-4">
+								<p ng-show="priForm.code.$invalid && (!priForm.code.$pristine || submitted)" class="help-block">请输入code.</p>
 							</div>
 						</div>
 
