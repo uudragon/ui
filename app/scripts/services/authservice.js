@@ -58,17 +58,10 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, P
 
 			return false;
 		},
+
 		login: function(user, success, error) {
 
-<<<<<<< HEAD
-			$http.get('/login?' + serialize(user))
-				.success(function(user) {
-					updateUser(user);
 
-					if (angular.isFunction(success)) {
-						success(user);
-
-=======
 			$http.get(config.auth.baseurl + config.auth.login + '?' + serialize(user))
 				.success(function(res) {
 					// 登录成功
@@ -80,7 +73,6 @@ angular.module('mainApp').factory('Auth', function($http, ipCookie, $location, P
 						// 用户名或密码错误
 						var errorCode = res.message.split(':')[0];
 						success(errorCode);
->>>>>>> upstream/master
 					}
 				})
 					.error(function() {
