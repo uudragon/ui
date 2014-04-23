@@ -24,7 +24,6 @@ angular.module('mainApp')
 
 
 	this.search = function(model, type) {
-		console.log(model);
 		var suffix;
 
 		switch (type) {
