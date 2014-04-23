@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.service('PostService', function ($http, ipCookie) {
+.service('PostService', function ($http, ipCookie, $location) {
 	var baseurl = config.baseurl;
 
 	var setHeader = function(token) {

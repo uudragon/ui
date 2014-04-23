@@ -257,6 +257,7 @@ var uud = angular.module('mainApp', [
 		} else {
 			Auth.loadAccessLevels();
 		}
+
 	});
 
 }]);
