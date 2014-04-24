@@ -9,13 +9,6 @@ var uud = angular.module('mainApp', [
 
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
 
-	/**
-	 * ============================================================================
-	 * Important !!!!!!!!
-	 *
-	 * ============================================================================
-	 */
-
 
 	/////////////////////////////
 	// Redirects and Otherwise //
@@ -35,9 +28,18 @@ var uud = angular.module('mainApp', [
 	// If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
 	.otherwise('/');
 
+	$httpProvider.defaults.headers.common['X-Requested-By'] = 'uu-dragon-app';
+
 	// 拦截器
 	$httpProvider.interceptors.push(function($q, $location) {
 		return {
+			'request': function(config) {
+				config.headers.Test = 'asdfasdfasdfasdfasdfjasdklfjasdklfja';
+				return config;
+			},
+			'response': function(resp) {
+				return resp;
+			},
 			'responseError': function(response) {
 				if(response.status === 401 || response.status === 403) {
 					$location.path('/login');
