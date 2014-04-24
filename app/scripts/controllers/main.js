@@ -9,5 +9,4 @@ angular.module('mainApp')
 	$scope.date = new Date();
 	$scope.currentUser = Auth.getCurrentUser();
 
-	console.log($scope.currentUser);
 }])

@@ -10,29 +10,30 @@ angular.module('mainApp')
 		var suffix;
 
 		switch (type) {
+
+			// 查询目前签约代理数、今日销售总额、累计销售总额、今日新增客户数、历史销售人数
+			case 'agent_statistics':
+				suffix = 'agent_statistics';
+				break;
+
 			// 获取优惠码信息
-			case 'promoCodeInfo':
-				suffix = 'uudCouponcode_query';
+			case 'coupon_uud_statistics':
+				suffix = 'coupon_uud_statistics';
 				break;
 
 			// 获取代理商排名
-			case 'rankInfo':
-				suffix = 'search_agent_rank';
+			case 'coupon_agent_statistics':
+				suffix = 'coupon_agent_statistics';
 				break;
 
 			// 获取销售信息
-			case 'salesInfo':
-				suffix = 'search_sales_info';
+			case 'orders_statistics':
+				suffix = 'orders_statistics';
 				break;
 
 			// 获取代理商名单
 			case 'overallAgent':
 				suffix = 'search_overall_agent';
-				break;
-
-			// 查询目前签约代理数、今日销售总额、累计销售总额、今日新增客户数、历史销售人数
-			case 'agentCountInfo':
-				suffix = 'agent_statistics';
 				break;
 
 			default: break;
@@ -75,15 +76,8 @@ angular.module('mainApp')
 			default: break;
 
 		}
-		log(model, type, baseurl+suffix);
+
 		return $http.post(baseurl + suffix, model);
-	}
-
-
-	function log(model, type, url) {
-		console.log('searchModel is:', model);
-		console.log('type is: ' + type);
-		console.log('requrest url is: ' + url);
 	}
 
 	 /***************** 代理商管理结束 ***********************/

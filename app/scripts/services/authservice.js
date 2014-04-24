@@ -53,10 +53,10 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 
 		if (user && user.token) {
 			// updateUser(user);
-			console.log('user is:');
-			console.log(user);
-			console.log('token is:');
-			console.log(user.token);
+			// console.log('user is:');
+			// console.log(user);
+			// console.log('token is:');
+			// console.log(user.token);
 			return true;
 		}
 

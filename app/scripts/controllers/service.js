@@ -20,35 +20,7 @@ angular.module('mainApp')
 			.success(function(data, status) {
 				$scope.statistics = data;
 			})
-			.error(function(data, status) {
-				console.log('query order info error status: ' + status + ' use dummy data');
-				switch (type) {
-					case 'orderInfo':
-						$scope.statistics = {'sum': 100321, 'count_finished': 200, 'count_end_today': 120, 'count_unfinished': 5000, 'sum_history': 23245000 };
-						break;
-
-					case 'employeeInfo':
-						$scope.statistics = {'sum': 100321, 'count_finished': 200, 'count_end_today': 120, 'count_unfinished': 5000, 'sum_history': 23245000 };
-						break;
-					
-					case 'csInfo':
-						$scope.statistics = {
-							network: {
-								wait: 100,
-								Consulting: 124155,
-								received: 123124
-							},
-							telephone: {
-								wait: 10,
-								Consulting: 15,
-								received: 124
-							}
-						}
-						break;
-
-					default: break;
-				}
-			})
+			.error(config.errorLog('load', type))
 	}
 
 	// 搜索
@@ -89,9 +61,9 @@ angular.module('mainApp')
 
 		// 获取工单相关信息
 		if ( $scope.$state.includes('root.service.ordermanager') ) {
-			$scope.loadInfo('orderInfo');
+			$scope.loadInfo('order_statistics');
 		} else if ( $scope.$state.includes('root.service.online') ) {
-			$scope.loadInfo('csInfo');
+			$scope.loadInfo('online_statistics');
 		}
  
 		$controller('ServiceCtrl', {$scope: $scope});

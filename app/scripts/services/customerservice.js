@@ -12,7 +12,7 @@ angular.module('mainApp')
 		var suffix = '';
 
 		switch (type) {
-			case 'customerInfo':
+			case 'customer_statistics':
 				suffix = 'customer_info';
 				break;
 

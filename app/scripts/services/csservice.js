@@ -11,18 +11,13 @@ angular.module('mainApp')
 
 		switch (type) {
 			// 获取工单相关信息
-			case 'orderInfo':
-				suffix = 'order_info';
+			case 'order_statistics':
+				suffix = 'order_statistics';
 				break;
 
 			// 获取员工相关信息
-			case 'employeeInfo':
-				suffix = 'employee_info';
-				break;
-
-			// 获取员工相关信息
-			case 'csInfo':
-				suffix = 'customer_service_info';
+			case 'online_statistics':
+				suffix = 'online_statistics';
 				break;
 
 			default: break;
@@ -41,6 +36,7 @@ angular.module('mainApp')
 			case 'order':
 				suffix = 'search_order';
 				break;
+		
 			// 员工查询
 			case 'employee':
 				suffix = 'search_employee';
@@ -86,9 +82,8 @@ angular.module('mainApp')
 	 *
 	 */
 	this.newShip = function($scope) {
-		var suffix = 'ship_new';
 
-		return $http.post(baseurl + suffix, model);
+		return $http.post(baseurl + 'ship_new', model);
 	}
 
 	/***************** 客服管理结束 ***********************/

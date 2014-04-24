@@ -3,33 +3,19 @@
 angular.module('mainApp')
 .controller('CustomerCtrl', ['$scope', 'CustomerService', function ($scope, CustomerService) {
 	
-
 	$scope.loadInfo = function(type) {
 
 		CustomerService.loadInfo($scope.model, type) 
 			.success(function(data, status) {
 				$scope.statistics = data;
 			})
-			.error(function(data, status) {
-				console.log('query order info error status: ' + status + ' use dummy data');
-				switch (type) {
-					// 获取预订总数和成交客户
-					case 'customerInfo':
-						$scope.statistics = {'preorder': 100, 'dealed': 5000 };
-						break;
-
-					default: break;
-				}
-			})
+			.error(config.errorLog('load', type))
 	}
-
 
 	$scope.reloadSearch = function(type) {
 		$scope.result = [];
-		console.log('reload search');
 		$scope.search(type);
 	}
-
 
 	// 搜索
 	$scope.search = function (type) {
@@ -75,7 +61,6 @@ angular.module('mainApp')
 			})
 	}
 
-
 }])
 
 
@@ -91,7 +76,7 @@ angular.module('mainApp')
 		if ( $scope.$state.includes('root.customer.traded') ) {
 			$scope.search('tradedCustomer');
 		} else if ( $scope.$state.includes('root.customer.manager') ) {
-			$scope.loadInfo('customerInfo');
+			$scope.loadInfo('customer_statistics');
 		}
 
 		$controller('CustomerCtrl', {$scope: $scope});

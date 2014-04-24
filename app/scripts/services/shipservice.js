@@ -12,15 +12,18 @@ angular.module('mainApp')
 
 		switch (type) {
 			// 查询订单总数、销售总金额等
-			case 'orderCountInfo':
+			case 'shipment_statistics':
 				suffix = 'shipment_statistics';
+				break;
+
+			// 获取发货主档和明细信息
+			case 'ship_details':
+				suffix = 'ship_details_statistics';
 				break;
 
 			default: break;
 
 		}
-		console.log('log info');
-
 		return PostService.post(baseurl + suffix, model);
 	}
 
@@ -51,16 +54,6 @@ angular.module('mainApp')
 		return $http.post(baseurl + suffix, model);
 	}
 
-	/**
-	 * 获取发货主档和明细信息
-	 *
-	 * @param  object shipment_no
-	 * @return shipment details
-	 */
-	this.getShipmentDetails = function(model) {
-		var suffix = "shipment_getDetails";
-		return $http.post(baseurl + suffix, model);
-	}
 
 	/***************** 发货管理结束 ***********************/
 

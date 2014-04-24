@@ -11,13 +11,13 @@ angular.module('mainApp')
 
 		switch (type) {
 			// 销售额信息查询
-			case 'salesInfo':
-				suffix = 'search_sales_info.php';
+			case 'cash_deposit_statistics':
+				suffix = 'cash_deposit_statistics';
 				break;
 
 			// 查询入账总体信息
-			case 'recordedInfo':
-				suffix = 'search_overall_recorded.php';
+			case 'recorded_statistics':
+				suffix = 'search_overall_recorded';
 				break;
 
 			default: break;
@@ -34,17 +34,17 @@ angular.module('mainApp')
 		switch (type) {
 			// 保证金信息查询
 			case 'deposit':
-				suffix = 'search_deposit.php';
+				suffix = 'cash_deposit_list';
 				break;
 
 			// 返款信息查询
 			case 'rebate':
-				suffix = 'search_rebate.php';
+				suffix = 'quidco_list';
 				break;
 		
 			// 入账信息查询
 			case 'recorded':
-				suffix = 'search_recorded.php';
+				suffix = 'search_recorded';
 				break;
 
 			default: break;
