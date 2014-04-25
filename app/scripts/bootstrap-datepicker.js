@@ -24,8 +24,9 @@
 	var Datepicker = function(element, options){
 		this.element = $(element);
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
+		this.appendTo = options.appendTo || 'body';
 		this.picker = $(DPGlobal.template)
-							.appendTo('body')
+							.appendTo(this.appendTo)
 							.on({
 								click: $.proxy(this.click, this)//,
 								//mousedown: $.proxy(this.mousedown, this)
@@ -150,7 +151,7 @@
 		},
 
 		place: function(){
-			var offset = this.component.length ? this.component.offset() : this.element.offset();
+			var offset = this.element.offset();
 			this.picker.css({
 				top: offset.top + this.height,
 				left: offset.left

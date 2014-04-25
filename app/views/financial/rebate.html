@@ -16,11 +16,11 @@
 			<div class="form-group">
 				<label class="col-xs-4 control-label" for="f-dateFrom">时间区间: </label>
 				<div class="col-xs-3">
-					<input type="text" name="dateFrom" placeholder="yyyy-mm-dd" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
+					<input type="text" uu-date-picker name="dateFrom" placeholder="起始时间" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
 				</div>
 				<label class="f-label-strike" for="f-dateTo"> - </label>
 				<div class="col-xs-3">
-					<input type="text" name="dateTo" placeholder="yyyy-mm-dd" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
+					<input type="text" uu-date-picker name="dateTo" placeholder="结束时间" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
 				</div>
 				<div class="col-xs-1">
 					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>

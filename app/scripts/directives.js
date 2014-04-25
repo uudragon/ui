@@ -281,111 +281,139 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
-/**
- * generate pagination
- *
- * @param int records 总记录数
- * @param int per-page 每页显示的记录数 default: 10
- * @param int max-pages 最多显示多少页 default: 10
- * @param function action 点击页码后调用的方法
- * @param object model 需要更新的model (最好在controller中初始化: $scope.searchModel = {})
- *
- * example:
- * <div uu-pagination records="1000" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
- */
+ /**
+  * generate pagination
+  *
+  * @param int records 总记录数
+  * @param int per-page 每页显示的记录数 default: 10
+  * @param int max-pages 最多显示多少页 default: 10
+  * @param function action 点击页码后调用的方法
+  * @param object model 需要更新的model (最好在controller中初始化: $scope.searchModel = {})
+  *
+  * example:
+  * <div uu-pagination records="1000" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
+  */
 
-.directive('uuPagination', function() {
+ .directive('uuPagination', function() {
+ 	return {
+ 		scope: {
+ 			records: '=?',
+ 			perPage: '=?',
+ 			maxPages: '=',
+ 			action: '&',
+ 			current: '=page?',
+ 			model: '='
+ 		},
+ 		link: function($scope, $element, attrs, model) {
+
+ 			var maxPages = $scope.maxPages || config.maxPages;
+ 			var perPage = $scope.perPage || config.perPage;
+
+ 			var start = 1;
+
+ 			updatePagination();
+
+ 			$scope.current = $scope.current || 1;
+
+ 			function updatePagination() {
+ 				var totalPages = Math.ceil($scope.records / perPage);
+ 				var pages = betwwen(totalPages , 0, maxPages);
+ 				var middlePage = start + Math.floor(pages / 2);
+ 				var offset = 0;
+
+ 				if ($scope.current > middlePage) {
+ 					offset = $scope.current - middlePage;
+ 					start += offset;
+ 				}
+
+ 				if ($scope.current < middlePage) {
+ 					offset = middlePage - $scope.current;
+ 					start -= offset;
+ 				}
+
+
+ 				start = betwwen(start, 1, totalPages - pages + 1)
+
+ 				// update the model passed in
+ 				$scope.model = {
+ 					'toPage': $scope.current,
+ 					'perPage': perPage
+ 				}
+
+ 				$scope.pages = [];
+
+ 				for (var i = start; i < start + pages; i++) {
+ 					$scope.pages.push(i)
+ 				}
+
+ 				// hide pagination when there is only one page
+ 				if (pages <= 1) {
+ 					$element.css('display', 'none');
+ 				}
+ 				return pages;
+ 			}
+
+ 			$scope.prev = function() {
+ 				$scope.current--;
+ 				if ($scope.current < 1) {
+ 					$scope.current =1;
+ 				}
+ 				updatePagination();
+ 			}
+
+ 			$scope.to = function(page) {
+ 				$scope.current = page;
+ 				updatePagination();
+ 			}
+
+ 			$scope.next = function() {
+ 				var totalPages = Math.ceil($scope.records / perPage);
+ 				$scope.current++;
+ 				if ($scope.current > totalPages) {
+ 					$scope.current = totalPages;
+ 				}
+ 				updatePagination();
+ 			}
+
+ 			// when current page changed, call function
+ 			$scope.$watch('current', function(current, prev, scope) {
+ 				if(current && current !== prev) {
+ 					scope.action();
+ 				}
+ 			})
+
+ 			function betwwen(val, min, max) {
+ 				if (val < min) return min;
+ 				if (val > max) return max;
+ 				return val;
+ 			}
+ 		},
+ 		templateUrl: 'views/partial/directives/pagination.html'
+ 	}
+ })
+
+
+.directive('uuDatePicker', function() {
 	return {
+		restrict: 'A',
 		scope: {
-			records: '=',
-			perPage: '=',
-			maxPages: '=',
-			action: '&',
-			model: '='
+			ngModel: '='
 		},
-		link: function($scope, element, attrs, model) {
-
-			var maxPages = $scope.maxPages || 10;
-			var perPage = $scope.perPage || 20;
-			var totalPages = Math.ceil($scope.records / perPage);
-			var pages = betwwen(totalPages , 0, maxPages);
-			var start = 1;
-			var length = pages;
-			$scope.current = 1;
-
-			updatePagination();
-
-			function updatePagination() {
-				$scope.pages = [];
-
-				for (var i = start; i < start + length; i++) {
-					$scope.pages.push(i)
-				}
-				return pages;
-			}
-
-			$scope.prev = function() {
-				$scope.current--;
-				if ($scope.current < 1) {
-					$scope.current =1;
-				}
-				perform();
-			}
-
-			$scope.to = function(page) {
-				$scope.current = page;
-				perform();
-			}
-
-			$scope.next = function() {
-				$scope.current++;
-				if ($scope.current > totalPages) {
-					$scope.current = totalPages;
-				}
-				perform();
-			}
-
-			function perform() {
-				var middlePage = start + Math.floor(length / 2);
-				var offset = 0;
-
-				if ($scope.current > middlePage) {
-					offset = $scope.current - middlePage;
-					start += offset;
-				}
-
-				if ($scope.current < middlePage) {
-					offset = middlePage - $scope.current;
-					start -= offset;
-				}
-
-				start = betwwen(start, 1, totalPages - length + 1)
-
-				// update the model passed in
-				$scope.model = {
-					'toPage': $scope.current,
-					'perPage': perPage
-				}
-				updatePagination();
-
-			}
-
-			// when current page changed, call function
-			$scope.$watch('current', function(current, prev, scope) {
-				if(angular.isDefined(current) && current !== null) {
-					scope.action();
-				}
+		link: function($scope, $element, $attr, ctrl) {
+			var format = $attr.format || 'yyyy-mm-dd';
+			var elem = $($element);
+			elem.datepicker({
+				"format": 'yyyy-mm-dd',
+				"appendTo": 'form'
+			}).
+			on('changeDate', function(e, data) {
+				$scope.ngModel = $element.val();
+				elem.datepicker('hide');
 			})
-
-			function betwwen(val, min, max) {
-				if (val < min) return min;
-				if (val > max) return max;
-				return val;
-			}
-		},
-		templateUrl: 'views/partial/directives/pagination.html'
+		}
 	}
 })
+
 .directive('uuAuthFilter', function(Auth) {
 	return {
 		restrict: 'A',
@@ -396,3 +424,4 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		}
 	}
 })
+

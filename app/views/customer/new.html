@@ -35,7 +35,7 @@
 			<div class="form-group">
 				<label class="col-xs-3 control-label" for="c-birthday">出生年月: </label>
 				<div class="col-xs-5 ">
-					<input type="text" name="birthday" ng-model="model.birthday" class="form-control input-sm date" id="c-birthday">
+					<input type="text" name="birthday" ng-model="model.birthday" uu-date-picker class="form-control input-sm" id="c-birthday">
 				</div>
 			</div>
 			<div class="form-group">
@@ -202,7 +202,7 @@
 			<div class="form-group">
 				<label class="col-xs-3 control-label" for="effectiveDate">生效日期: </label>
 				<div class="col-xs-5">
-					<input type="text" name="effectiveDate" ng-model="model.effectiveDate" class="form-control input-sm date" id="effectiveDate">
+					<input uu-date-picker type="text" name="effectiveDate" ng-model="model.effectiveDate" class="form-control input-sm date" id="effectiveDate">
 				</div>
 			</div>
 			<div class="form-group">
@@ -291,11 +291,6 @@
 
 <!-- js for date picker -->
 <script>
-	$('.date').datepicker({
-		"format": 'yyyy-mm-dd'
-	}).
-	on('changeDate', function() {
-		$('.date').datepicker('hide');
-	})
+
 </script>
 <!-- form end -->
