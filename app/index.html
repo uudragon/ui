@@ -26,9 +26,15 @@
 	<![endif]-->
 
 	<div class="wrapper">
-
-		<div app-view-segment="0"></div>
-
+		<div ui-view>
+			<div style="margin: 280px auto; text-align: center; width: 500px;">
+				<span>Loading...</span>
+				<div class="progress progress-striped active">
+					<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 
@@ -43,8 +49,6 @@
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular-route-segment/build/angular-route-segment.js"></script>
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->

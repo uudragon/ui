@@ -2,10 +2,9 @@
 
 angular.module('authApp')
 
-.controller('MainCtrl', function ($scope, $routeSegment, loader, UUDBasicService) {
+.controller('MainCtrl', function ($scope, $state, UUDBasicService) {
 
-	$scope.$routeSegment = $routeSegment;
-	$scope.loader = loader;
+	$scope.$state = $state;
 
 	var success = function ($scope, successMsg, warningMsg, callback) {
 		return function(data, status) {

@@ -1,86 +1,90 @@
 'use strict';
 
 var uud = angular.module('authApp', [
-	'ngRoute',
-	'route-segment',
-	'view-segment'
+	'ui.router',
+	'ngAnimate'
 	])
-.config(function($routeSegmentProvider, $routeProvider) {
 
-	// Configuring provider options
-	$routeSegmentProvider.options.autoLoadTemplates = true;
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
 
-	// Setting routes. This consists of two parts:
-	// 1. `when` is similar to vanilla $route `when` but takes segment name instead of params hash
-	// 2. traversing through segment tree to set it up
 
-	$routeSegmentProvider
+	/////////////////////////////
+	// Redirects and Otherwise //
+	/////////////////////////////
 
-		/**
-		 * ============================================================================
-		 * Important !!!!!!!!
-		 *
-		 * 路径不要有相同的名称, 比如root.ship.home, root.law.home, 包含相同名称'home',
-		 * 这是非法的! 当使用相同名称时, template将不会自动切换！
-		 * ( 应为 angular-route-segment 的一个bug )
-		 * ============================================================================
-		 */
+	$urlRouterProvider
 
-		// customer info
-		.when('/', 'root.home')
-		.when('/login', 'root.login')
-		.when('/user', 'root.user')
-		.when('/user-group', 'root.ugroup')
-		.when('/role', 'root.role')
-		.when('/role-group', 'root.rgroup')
-		.when('/privilege', 'root.privilege')
+	// The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
+	// Here we are just setting up some convenience urls.
+	.when('/', '/home')
 
-		.segment('root', {
-			templateUrl: 'views/template.html',
-			controller: 'MainCtrl',
-			// resolve: {
-			// 	data: function($timeout, loader) {
-			// 		loader.show = true;
-			// 		return $timeout(function() { return 'SLOW DATA CONTENT'; }, 1000);
-			// 	}
-			// },
-			resolveFailed: {
-				templateUrl: 'views/partial/error.html',
-				controller: 'ErrorCtrl'
-			},
-			untilResolved: {
-				templateUrl: 'views/partial/loading.html'
+	// If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
+	.otherwise('/');
+
+	// 拦截器
+	$httpProvider.interceptors.push(function($q, $location) {
+		return {
+			'responseError': function(response) {
+				if(response.status === 401 || response.status === 403) {
+					$location.path('/login');
+				}
+				return $q.reject(response);
 			}
-		})
-		.within()
-			.segment('home', {
-				templateUrl: 'views/home.html'})
+		};
+	});
 
-			.segment('login', {
-				templateUrl: 'views/login/index.html',
-				controller: 'LoginCtrl'})
+	//////////////////////////
+	// State Configurations //
+	//////////////////////////
 
-			.segment('user', {
-				templateUrl: 'views/user/index.html',
-				controller: 'UserCtrl'})
+	$stateProvider
 
-			.segment('ugroup', {
-				templateUrl: 'views/ugroup/index.html',
-				controller: 'UgroupCtrl'})
+	.state('root', {
+		url: "/",
+		templateUrl: "views/template.html",
+		controller: 'MainCtrl'
+	})
 
-			.segment('role', {
-				templateUrl: 'views/role/index.html',
-				controller: 'RoleCtrl'})
+	.state('login', {
+		url: "/login",
+		templateUrl: "views/login/index.html",
+		controller: 'LoginCtrl'
+	})
 
-			.segment('rgroup', {
-				templateUrl: 'views/rgroup/index.html',
-				controller: 'RgroupCtrl'})
 
-			.segment('privilege', {
-				templateUrl: 'views/privilege/index.html',
-				controller: 'PrivilegeCtrl'})
-		.up()
+	////////////////
+	// Sub Router //
+	////////////////
 
-	$routeProvider.otherwise({redirectTo: '/'});
-})
-.value('loader', {show: true});
+	.state('root.home', {
+		url: "home",
+		templateUrl: "views/home.html"
+	})
+	.state('root.user', {
+		url: "user",
+		templateUrl: "views/user/index.html",
+		controller: 'UserCtrl'
+	})
+	.state('root.ugroup', {
+		url: "user-group",
+		templateUrl: "views/ugroup/index.html",
+		controller: 'UgroupCtrl'
+	})
+	.state('root.role', {
+		url: "role",
+		templateUrl: "views/role/index.html",
+		controller: 'RoleCtrl'
+	})
+	.state('root.rgroup', {
+		url: "role-group",
+		templateUrl: "views/rgroup/index.html",
+		controller: 'RgroupCtrl'
+	})
+	.state('root.privilege', {
+		url: "privilege",
+		templateUrl: "views/privilege/index.html",
+		controller: 'PrivilegeCtrl'
+	})
+}])
+
+
