@@ -390,30 +390,33 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		templateUrl: 'views/partial/directives/pagination.html'
 	}
 })
-.directive('uuAlert', function() {
+.directive('uuAlert', ['$animate', function($animate) {
 	return {
 		replace: true,
 		scope: false,
-		template: '<div class="alert fade in alert-{{alertLevel}}">' +
+		template: '<div class="alert alert-{{alertLevel}}">' +
 						'<button type="button" class="close" ng-click="hide()" aria-hidden="true">×</button>' +
 						'{{alertMsg}}' +
 					'</div>',
 		link: function($scope, $element, $attr) {
 
 			$scope.hide = function() {
-				$element.css('display', 'none');
+				$scope.alertMsg = "";
 			}
+
 			$scope.hide();
 			$scope.alertMsg = $attr.msg;
 			$scope.alertLevel = $attr.alertLevel;
 
 			$scope.$watch('alertMsg', function(value) {
 				if (value && value.length) {
-					$element.css('display', 'block');
+					$animate.removeClass($element, 'ng-hide-remove');
+					$animate.addClass($element, 'ng-hide-add')
 				} else {
-					$element.css('display', 'none');
+					$animate.removeClass($element, 'ng-hide-add')
+					$animate.addClass($element, 'ng-hide-remove');
 				}
 			})
 		}
 	}
-});
+}]);
