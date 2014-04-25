@@ -28,21 +28,25 @@ var uud = angular.module('mainApp', [
 	// If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
 	.otherwise('/');
 
-	$httpProvider.defaults.headers.common['X-Requested-By'] = 'uu-dragon-app';
+	$httpProvider.defaults.headers.common['Requested-By'] = 'uu-dragon-app';
 
 	// 拦截器
-	$httpProvider.interceptors.push(function($q, $location) {
+	$httpProvider.interceptors.push(function($q, $location, $rootScope, $injector) {
 		return {
 			'request': function(config) {
 				config.headers.Test = 'asdfasdfasdfasdfasdfjasdklfjasdklfja';
+				// $location.path('/login')
 				return config;
 			},
 			'response': function(resp) {
+
 				return resp;
 			},
 			'responseError': function(response) {
+
 				if(response.status === 401 || response.status === 403) {
-					$location.path('/login');
+					// token is outdate or request for resource beyond the privilege of current user. 
+					$rootScope.$broadcast('auth:invalid', response);
 				}
 				return $q.reject(response);
 			}
@@ -250,7 +254,7 @@ var uud = angular.module('mainApp', [
 
 }])
 
-.run(['$rootScope', '$state', 'Auth', '$location', function ($rootScope, $state, Auth, $location) {
+.run(['$rootScope', '$state', 'Auth', '$location', '$q', function ($rootScope, $state, Auth, $location, $q) {
 
 	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
 
