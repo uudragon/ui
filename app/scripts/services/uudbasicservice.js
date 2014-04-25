@@ -410,10 +410,7 @@ angular.module('authApp')
 		self.post(baseurl + suffix)
 			.success(function(data, status) {
 				$.fn.zTree.init($("#priv-tree"), setting, data);
-			})
-			.error(function(data, status) {
-				$.fn.zTree.init($("#priv-tree"), setting, zNodes);
-			})
+			});
 	}
 
 });
