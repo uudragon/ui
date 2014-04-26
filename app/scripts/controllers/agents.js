@@ -40,6 +40,8 @@ angular.module('mainApp')
 	$scope.updateSearchType = function(type) {
 		$scope.type = type;
 	}
+
+
 }])
 
 	/**
@@ -54,10 +56,10 @@ angular.module('mainApp')
 			$scope.loadInfo('agent_statistics');
 		} else if ( $scope.$state.is('root.agents.rank') ) {
 			// 获取代理商排名等信息
-			$scope.loadInfo('coupon_agent_statistics');
+			$scope.loadInfo('rank_agent_statistics');
 		} else if ( $scope.$state.is('root.agents.promocode') ) {
 			// 获取优惠码信息
-			$scope.loadInfo('coupon_uud_statistics');
+			$scope.loadInfo('coupon_agent_statistics');
 		} else if ( $scope.$state.is('root.agents.sales') ) {
 			// 获取销售信息
 			$scope.loadInfo('orders_statistics');

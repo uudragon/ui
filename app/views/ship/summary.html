@@ -63,10 +63,27 @@
 						</div>
 						<div class="col-xs-6">
 							<fieldset>
-								<div uu-input label="快递公司名称" l-col="6" r-col="6" name="express_name" model="model.express_name"></div>
+								<div class="form-group">
+									<label for="express_name" class="control-label col-xs-6">快递公司名称</label>
+									<div class="col-xs-6">
+										<select name="express_name" id="express_name" model="model.express_name" class="form-control">
+											<option value="001">顺丰快递</option>
+											<option value="002">联邦快递</option>
+										</select>
+									</div>
+								</div>
 								<div uu-input label="快递费用" l-col="6" r-col="6" name="express_name" model="model.express_cost"></div>
 								<div uu-input label="快递员" l-col="6" r-col="6" name="courier" model="model.courier"></div>
-								<div uu-input label="发货状态" l-col="6" r-col="6" name="status" model="model.status"></div>
+
+								<div class="form-group">
+									<label for="status" class="control-label col-xs-6">发货状态</label>
+									<div class="col-xs-6">
+										<select name="status" id="status" model="model.status" class="form-control">
+											<option value="1">未发货</option>
+											<option value="1">已发货</option>
+										</select>
+									</div>
+								</div>
 							</fieldset>
 						</div>
 					</div>
@@ -91,7 +108,6 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" ng-if="modalType=='add'" ng-click="add(model)" class="btn btn-primary">添加</button>
 				<button type="button" ng-if="modalType=='edit'" ng-click="save(model)" class="btn btn-primary">保存</button>
 			</div>
 		</div><!-- /.modal-content -->

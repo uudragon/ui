@@ -49,12 +49,11 @@ angular.module('mainApp')
 	 * New Ship
 	 *
 	 */
-	this.newShip = function(model) {
+
+	this.save = function(model, type) {
 		var suffix = 'shipment_save';
 		return $http.post(baseurl + suffix, model);
 	}
-
-
 	/***************** 发货管理结束 ***********************/
 
 }])

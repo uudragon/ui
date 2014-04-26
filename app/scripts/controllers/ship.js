@@ -29,14 +29,6 @@ angular.module('mainApp')
 			.error(config.errorLog('search', type))
 	}
 
-	$scope.newShip = function() {
-
-		ShipService.newShip($scope.model)
-			.success(function(data, status) {
-				return true;
-			})
-			.error(config.errorLog('save', 'ship'))
-	}
 
 	$scope.modify = function(model, title) {
 		$scope.modalTitle = title;
@@ -54,6 +46,18 @@ angular.module('mainApp')
 					{goods_code: 'SP1002', goods_name: '商品2', goods_qty: 5, actual_qty: 3, goods_desc: '商品2描述'}
 				];
 			})
+	}
+
+
+	$scope.save = function(model) {
+		ShipService.save(model)
+			.success(function(data, status) {
+
+			})
+			.error(function(data, status) {
+				
+			})
+		$('#uumodal').modal('hide');
 	}
 
 }])

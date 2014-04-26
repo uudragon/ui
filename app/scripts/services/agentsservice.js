@@ -17,13 +17,13 @@ angular.module('mainApp')
 				break;
 
 			// 获取优惠码信息
-			case 'coupon_uud_statistics':
-				suffix = 'coupon_uud_statistics';
+			case 'coupon_agent_statistics':
+				suffix = 'coupon_agent_statistics';
 				break;
 
 			// 获取代理商排名
-			case 'coupon_agent_statistics':
-				suffix = 'coupon_agent_statistics';
+			case 'rank_agent_statistics':
+				suffix = 'rank_agent_statistics';
 				break;
 
 			// 获取销售信息
@@ -79,6 +79,8 @@ angular.module('mainApp')
 
 		return $http.post(baseurl + suffix, model);
 	}
+
+
 
 	 /***************** 代理商管理结束 ***********************/
 	}]);

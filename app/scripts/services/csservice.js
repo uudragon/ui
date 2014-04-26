@@ -77,15 +77,6 @@ angular.module('mainApp')
 		return $http.post(baseurl + suffix, model);
 	}
 
-	/**
-	 * New Ship
-	 *
-	 */
-	this.newShip = function($scope) {
-
-		return $http.post(baseurl + 'ship_new', model);
-	}
-
 	/***************** 客服管理结束 ***********************/
 
 }]);
