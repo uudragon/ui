@@ -26,6 +26,10 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 		return currentUser;
 	}
 
+	this.getToken = function() {
+		return ipCookie('uuduser').token;
+	}
+
 	this.authorize = function(accessCode) {
 		if (typeof accessCode === 'undefined') {return true;}
 
@@ -38,7 +42,7 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 	}
 
 	this.loadAccessLevels = function() {
-		PostService.get(config.auth.baseurl + config.auth.resource)
+		PostService.get(config.auth.baseurl + config.auth.resource + '?token=' + this.getToken())
 			.success(function(data) {
 				accessLevels = data;
 			})
@@ -80,17 +84,17 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 				}
 			})
 
-		var res = {
-			token: 'myuudtoken-hahahhahhahah',
-			user: {
-				name: 'adsfasdf',
-				phone: '123123',
-				positions: 'admin',
-				userNo: '09'
-			}
-		}
-		updateUser(res);
-		$location.path('/');
+		// var res = {
+		// 	token: 'myuudtoken-hahahhahhahah',
+		// 	user: {
+		// 		name: 'adsfasdf',
+		// 		phone: '123123',
+		// 		positions: 'admin',
+		// 		userNo: '09'
+		// 	}
+		// }
+		// updateUser(res);
+		// $location.path('/');
 	}
 
 	this.logout = function(success, error) {

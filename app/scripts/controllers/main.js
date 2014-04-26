@@ -9,4 +9,7 @@ angular.module('mainApp')
 	$scope.date = new Date();
 	$scope.currentUser = Auth.getCurrentUser();
 
+	$scope.$on('auth:invalid', function(e, d) {
+		$state.go('login');
+	})
 }])

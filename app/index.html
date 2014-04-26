@@ -25,7 +25,15 @@
 	<p class="browsehappy">您的浏览器版本 <strong>过低</strong>. 为了获得更好的用户体验，请 <a href="http://browsehappy.com/">升级浏览器</a>.</p>
 	<![endif]-->
 
-	<div ui-view></div>
+	<div ui-view>
+		<div style="margin: 280px auto; text-align: center; width: 500px;">
+			<span>Loading...</span>
+			<div class="progress progress-striped active">
+				<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>

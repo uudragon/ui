@@ -103,7 +103,14 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				panes.push(pane);
 			};
 		},
-		templateUrl: 'views/partial/directives/uutab.html'
+		template: '<div class="bs-tabs">' +
+					'<ul class="nav nav-tabs">' +
+						'<li ng-repeat="pane in panes" ng-class="{active:pane.selected}" ng-click="pane.action()">' +
+							'<a href="" ng-click="select(pane)">{{pane.title}}</a>' +
+						'</li>' +
+					'</ul>' +
+					'<div class="tab-content" ng-transclude></div>' +
+				  '</div>'
 	};
 })
 
@@ -119,7 +126,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		link: function(scope, element, attrs, tabsCtrl) {
 			tabsCtrl.addPane(scope);
 		},
-		templateUrl: 'views/partial/directives/uupane.html'
+		template: '<div class="tab-pane" ng-show="selected" ng-transclude></div>'
 	};
 })
 
@@ -129,14 +136,22 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		scope: {
 			label: '@',
 			name: '@',
-			lCol: '@',
-			rCol: '@',
-			lOffset: '@',
-			rOffset: '@',
-			type: '@',
-			model: '='
+			model: '=?'
 		},
-		templateUrl: 'views/partial/directives/uuinput.html'
+		link: function(scope, elem, attrs) {
+			scope.labelCol = 'col-xs-' + (attrs.lCol || 4);
+			scope.labelOffset = attrs.lOffset ? ('col-xs-' + attrs.lOffset) : '';
+			scope.inputCol = 'col-xs-' + (attrs.rCol || 4);
+			scope.inputOffset = attrs.rOffset ? ('col-xs-' + attrs.rOffset) : '';
+			scope.type = attrs.type || 'text';
+			scope.prefix = attrs.prefix || '';
+		},
+		template: '<div class="form-group">' +
+						'<label class="control-label {{ labelCol }} {{ labelOffset }}" for="{{name}}">{{label}}:</label>' +
+						'<div class="{{ inputCol }} {{ inputOffset }}">' +
+							'<input type="{{ type }}" class="input-sm form-control" ng-model="model" name="{{name}}" id="{{name}}">' +
+						'</div>' +
+					'</div>'
 	}
 })
 
@@ -147,29 +162,33 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			label: '@',
 			datetime: '@'
 		},
-		templateUrl: 'views/partial/directives/uutimeinicator.html'
+		template: '<span class="key" ng-if="label">{{label}}:</span>' +
+					'<span class="val">{{datetime}}</span>' +
+					'<span class="time-indicator"></span>'
 	}
 })
 
-// generate raido field in form
+// generate statistics field
 .directive('uuInfoPanel', function() {
 	return {
 		transclude: true,
-		templateUrl: 'views/partial/directives/uuinfopanel.html'
+		template: '<div class="info-panel" ng-transclude></div>'
 	}
 })
 
-// generate raido field in form
+// generate statistics field
 .directive('uuInfoTab', function() {
 	return {
 		transclude: true,
 		scope: {
 			title: '@'
 		},
-		templateUrl: 'views/partial/directives/uuinfotab.html'
+		template: '<h3 class="info-panel-title" ng-if="title">{{title}}</h3>' +
+					'<ul class="list-inline info-panel-content" ng-transclude></ul>'
 	}
 })
-// generate raido field in form
+
+// generate statistics field
 .directive('uuInfoItem', function() {
 	return {
 		scope: {
@@ -178,7 +197,12 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			indicator: '@',
 			unit: '@'
 		},
-		templateUrl: 'views/partial/directives/uuinfoitem.html'
+		link: function(scope, elem, attrs) {
+			scope.class = attrs.class || 'val';
+		},
+		template: '<span class="key" ng-if="label">{{label}}:</span>' +
+				  '<span class="{{ class }}">{{value}} <span class="unit" ng-if="unit">{{unit}}</span></span>' +
+				  '<span class="time-indicator" ng-if="indicator"></span>'
 	}
 })
 
@@ -188,6 +212,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		scope: {
 			label: '@',
 			ngChange: '&',
+			modify: '&',
+			export: '&',
 			model: '=',
 			options: '='
 		},
@@ -308,7 +334,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
  			var maxPages = $scope.maxPages || config.maxPages;
  			var perPage = $scope.perPage || config.perPage;
-
  			var start = 1;
 
  			updatePagination();
@@ -401,15 +426,15 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function($scope, $element, $attr, ctrl) {
 			var format = $attr.format || 'yyyy-mm-dd';
-			var elem = $($element);
-			elem.datepicker({
-				"format": 'yyyy-mm-dd',
-				"appendTo": 'form'
-			}).
-			on('changeDate', function(e, data) {
-				$scope.ngModel = $element.val();
-				elem.datepicker('hide');
-			})
+			$element
+				.datepicker({
+					"format": format,
+					"appendTo": 'form'
+					})
+				.on('changeDate', function(e, data) {
+					$scope.ngModel = $element.val();
+					$element.datepicker('hide');
+				})
 		}
 	}
 })
