@@ -4,6 +4,7 @@ var uud = angular.module('mainApp', [
 	'ivpusic.cookie',
 	'ngResource',
 	'ui.router',
+	'ngAnimate',
 	'angular-md5' // you may also use 'ngMd5' or 'gdi2290.md5'
 	])
 
