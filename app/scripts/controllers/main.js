@@ -330,8 +330,8 @@ angular.module('authApp')
 			},
 			callback: {
 				beforeDrag: beforeDrag,
-				beforeRemove: beforeRemove,
-				beforeEditName: beforeEditName,
+				beforeRemove: deleteNode,
+				beforeEditName: EditNode,
 				beforeDrop: beforeDrop
 			}
 		};
@@ -348,9 +348,14 @@ angular.module('authApp')
 			}
 		}
 
+		var resetForm =  function () {
+			$scope.submitted = false;
+			$scope.priForm.$setPristine();
+		}
+
 		UUDBasicService.buildPrivilegeTree(setting);
 
-		function beforeEditName(treeId, treeNode) {
+		function EditNode(treeId, treeNode) {
 			current = treeNode;
 			$scope.model = {
 				id: current.id,
@@ -361,12 +366,13 @@ angular.module('authApp')
 			}
 			$scope.modalTitle = '编辑节点';
 			$scope.modalType = 'edit';
+			resetForm();
 			$scope.$apply();
 			$('#uumodal').modal('show');
 			return false;
 		}
 
-		function beforeRemove(treeId, treeNode) {
+		function deleteNode(treeId, treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
 			UUDBasicService.delete(treeNode.id, type)
@@ -403,12 +409,13 @@ angular.module('authApp')
 			return false;
 		}
 
+
 		function addHoverDom(treeId, treeNode) {
 			if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
 
 			var parentNode = $("#" + treeNode.tId + "_span");
 			var newNode = $("<span class='button add' id='addBtn_" + treeNode.tId
-							+ "' title='add node' onfocus='this.blur();'></span>");
+							+ "' title='添加节点' onfocus='this.blur();'></span>");
 
 			parentNode.after(newNode);
 			newNode.bind("click", function(){
@@ -423,20 +430,13 @@ angular.module('authApp')
 			$("#addBtn_"+treeNode.tId).unbind().remove();
 		};
 
-		function removeNode(treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
-
-			zTree.removeNode(treeNode)
-		}
-
 		// 新增节点，初始化弹出层
 		$scope.createNode = function(isRoot) {
 			$scope.model = {}
 			$scope.modalTitle = '新增节点';
 			$scope.modalType = 'add';
 
-			$scope.submitted = false;
-			$scope.priForm.$setPristine();
+			resetForm();
 
 			$scope.model.isRoot = isRoot ? true : false;
 			if (!isRoot) {
