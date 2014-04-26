@@ -1,211 +1,25 @@
-// timer
-uud.directive('timing', ['$interval', 'dateFilter',
-	function($interval, dateFilter) {
-		var Counter = {
-			createNew: function() {
-				var counter = {
-					h: 0,
-					m: 0,
-					s: 0
-				}
-				counter.add = function() {
-					counter.s += 1;
-					if (counter.s >= 60) {
-						counter.m += 1
-						counter.s = 0;
-
-						if (counter.m >= 60) {
-							counter.h += 1;
-							counter.m = 0;
-						}
-					}
-				}
-				counter.text = function() {
-					function format(num) {
-						if (!num) return '00';
-						if (num < 10) return '0' + String(num);
-						return String(num);
-					}
-					return format(counter.h) + ':' + format(counter.m) + ':' + format(counter.s);
-				}
-				return counter;
-			}
-		}
-
-		function link(scope, element, attrs) {
-			var format,
-				timeoutId,
-				c = Counter.createNew();
-
-			function updateTime() {
-				c.add();
-				element.text(c.text());
-			}
-
-			scope.$watch(attrs.timing, function(value) {
-				format = value;
-				updateTime();
-			});
-
-			element.on('$destroy', function() {
-				$interval.cancel(timeoutId);
-			});
-
-			// start the UI update process; save the timeoutId for canceling
-			timeoutId = $interval(function() {
-				updateTime(); // update DOM
-			}, 1000);
-		}
-
-		return {
-			link: link
-		};
-	}
-])
-
-// get week form date
-.directive('toWeek', function() {
-
-	function toWeek(scope, element, attrs) {
-		scope.$watch(attrs.toWeek, function(d) {
-			if (!d) return;
-			d = new Date(+d);
-			d.setHours(0, 0, 0);
-			d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-			var yearStart = new Date(d.getFullYear(), 0, 1);
-			element.text(Math.ceil((((d - yearStart) / 86400000) + 1) / 7))
-		});
-	}
-	return {
-		link: toWeek
-	}
-})
-
-// generate clickable tab
-.directive('uuTab', function() {
-	return {
-		transclude: true,
-		scope: {},
-		controller: function($scope) {
-			var panes = $scope.panes = [];
-
-			$scope.select = function(pane) {
-				angular.forEach(panes, function(pane) {
-					pane.selected = false;
-				});
-				pane.selected = true;
-			};
-
-			this.addPane = function(pane) {
-				if (panes.length === 0) {
-					$scope.select(pane);
-				}
-				panes.push(pane);
-			};
-		},
-		templateUrl: 'views/partial/directives/uutab.html'
-	};
-})
-
-// content inner clickable tab
-.directive('uuPane', function() {
-	return {
-		require: '^uuTab',
-		transclude: true,
-		scope: {
-			title: '@'
-		},
-		link: function(scope, element, attrs, tabsCtrl) {
-			tabsCtrl.addPane(scope);
-		},
-		templateUrl: 'views/partial/directives/uupane.html'
-	};
-})
-
 // generate input field in form
-.directive('uuInput', function() {
+uud.directive('uuInput', function() {
 	return {
 		scope: {
 			label: '@',
 			name: '@',
-			lCol: '@',
-			rCol: '@',
-			lOffset: '@',
-			rOffset: '@',
-			type: '@',
-			model: '='
+			model: '=?'
 		},
-		templateUrl: 'views/partial/directives/uuinput.html'
-	}
-})
-
-// generate raido field in form
-.directive('uuTimeInicator', function() {
-	return {
-		scope: {
-			label: '@',
-			datetime: '@'
+		link: function(scope, elem, attrs) {
+			scope.labelCol = 'col-xs-' + (attrs.lCol || 4);
+			scope.labelOffset = attrs.lOffset ? ('col-xs-' + attrs.lOffset) : '';
+			scope.inputCol = 'col-xs-' + (attrs.rCol || 4);
+			scope.inputOffset = attrs.rOffset ? ('col-xs-' + attrs.rOffset) : '';
+			scope.type = attrs.type || 'text';
+			scope.prefix = attrs.prefix || '';
 		},
-		templateUrl: 'views/partial/directives/uutimeinicator.html'
-	}
-})
-
-// generate raido field in form
-.directive('uuInfoPanel', function() {
-	return {
-		transclude: true,
-		templateUrl: 'views/partial/directives/uuinfopanel.html'
-	}
-})
-
-// generate raido field in form
-.directive('uuInfoTab', function() {
-	return {
-		transclude: true,
-		scope: {
-			title: '@'
-		},
-		templateUrl: 'views/partial/directives/uuinfotab.html'
-	}
-})
-// generate raido field in form
-.directive('uuInfoItem', function() {
-	return {
-		scope: {
-			label: '@',
-			value: '@',
-			indicator: '@',
-			unit: '@'
-		},
-		templateUrl: 'views/partial/directives/uuinfoitem.html'
-	}
-})
-
-// generate raido field in form
-.directive('uuSwitcher', function() {
-	return {
-		scope: {
-			label: '@',
-			ngChange: '&',
-			model: '=',
-			options: '='
-		},
-		templateUrl: 'views/partial/directives/uuswitcher.html'
-	}
-})
-
-// generate raido field in form
-.directive('uuFieldWrap', function() {
-	return {
-		transclude: true,
-		scope: {
-			label: '@',
-			lCol: '@',
-			lOffset: '@',
-			rOffset: '@',
-			rCol: '@'
-		},
-		templateUrl: 'views/partial/directives/uufieldwrap.html'
+		template: '<div class="form-group">' +
+						'<label class="control-label {{ labelCol }} {{ labelOffset }}" for="{{name}}">{{label}}:</label>' +
+						'<div class="{{ inputCol }} {{ inputOffset }}">' +
+							'<input type="{{ type }}" class="input-sm form-control" ng-model="model" name="{{name}}" id="{{name}}">' +
+						'</div>' +
+					'</div>'
 	}
 })
 
@@ -214,40 +28,18 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		scope: {
 			label: '@',
-			ngClick: '&',
-			target: '@'
+			ngClick: '&'
 		},
-		templateUrl: 'views/partial/directives/uuactionitem.html'
+		link: function(scope, elem, attrs) {
+			scope.target = attrs.target || '#uumodal';
+		},
+		template: '<ul class="action-group list-inline ng-scope">' +
+						'<li><a href="" ng-click="ngClick" data-toggle="modal" data-target="{{ target }}" class="action-item btn">{{label}}</a></li>' +
+					'</ul>'
+
 	}
 })
 
-// generate static field in form
-.directive('uuStatic', function() {
-	return {
-		scope: {
-			label: '@',
-			lCol: '@',
-			rCol: '@',
-			text: '='
-		},
-		templateUrl: 'views/partial/directives/uustatic.html'
-	}
-})
-
-// generate static field for phone in form
-.directive('uuStaticPhone', function() {
-	return {
-		scope: {
-			label: '@',
-			name: '@',
-			lCol: '@',
-			rCol: '@',
-			text: '=',
-			main: '=',
-		},
-		templateUrl: 'views/partial/directives/uustaticphone.html'
-	}
-})
 
 // generate simple search field
 .directive('uuSimpleSearch', function() {
@@ -255,30 +47,27 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		scope: {
 			placeholder: '@',
 			ngSubmit: '&',
-			lCol: '@',
-			rCol: '@',
-			offset: '@',
 			model: '='
 		},
-		templateUrl: 'views/partial/directives/uusimplesearch.html'
+		link: function(scope, elem, attrs) {
+			scope.inputCol = 'col-xs-' + (attrs.lCol || '6');
+			scope.offset = 'col-xs-offset-' + (attrs.offset || '2');
+			scope.btnCol = 'col-xs-' + (attrs.rCol || '2');
+			scope.placeholder = attrs.placeholder || '';
+		},
+		template: '<form class="form form-horizontal form-small search-form" role="form" ng-submit="ngSubmit">' +
+					'<div class="form-group">' +
+						'<div class="{{ inputCol }} {{ offset }}">' +
+							'<input type="text" name="search-box" placeholder="{{ placeholder }}" ng-model="model" class="form-control" id="search-box">' +
+						'</div>' +
+						'<div class="{{ btnCol }}">' +
+							'<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>' +
+						'</div>' +
+					'</div>' +
+				'</form>'
 	}
 })
 
-// generate search field
-.directive('uuSearch', function() {
-	return {
-		transclude: true,
-		scope: {
-			placeholder: '@',
-			ngSubmit: '&',
-			lCol: '@',
-			rCol: '@',
-			offset: '@',
-			model: '='
-		},
-		templateUrl: 'views/partial/directives/uusearch.html'
-	}
-})
 
 /**
  * generate pagination
@@ -307,7 +96,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			var maxPages = $scope.maxPages || config.maxPages;
 			var perPage = $scope.perPage || config.perPage;
-
 			var start = 1;
 
 			updatePagination();
@@ -387,9 +175,19 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				return val;
 			}
 		},
-		templateUrl: 'views/partial/directives/pagination.html'
+		template: '<div class="pagination-wraper">' +
+						'<ul class="pagination">' +
+							'<li><a href="" ng-click="prev()" class="prev">&laquo;</a></li>' +
+							'<li ng-repeat="page in pages" ng-class="{active : current == page}">' +
+								'<a href="" ng-click="to(page)">{{page}}</a>' +
+							'</li>' +
+							'<li><a href="" ng-click="next()" class="next">&raquo;</a></li>' +
+						'</ul>' +
+					'</div>'
 	}
 })
+
+// use for show error message
 .directive('uuAlert', ['$animate', function($animate) {
 	return {
 		replace: true,
