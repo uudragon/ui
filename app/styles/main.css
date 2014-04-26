@@ -11,7 +11,7 @@
   color: #333333;
   text-decoration: none; }
   .header-link.ative, .header-link:hover {
-    color: teal; }
+    color: #9b3a1b; }
 
 .border, .indicator {
   border: 1px solid #cccccc; }
@@ -80,19 +80,19 @@ a {
 .uu-close {
   float: none; }
 
-.pagination-wraper {
-  text-align: center; }
-
 .action-item {
   font-size: 1.2em;
   cursor: pointer; }
   .action-item.active, .action-item:hover {
-    color: teal;
+    color: #9b3a1b;
     text-decoration: none; }
   .action-item.btn {
     font-size: 1.1em;
     padding: 5px 11px;
     border: 1px dashed #ccc; }
+
+.alert {
+  margin-bottom: 5px; }
 
 /**
  * Frame
@@ -102,41 +102,83 @@ a {
   font: 1em/normal "微软雅黑", "宋体", Arial, Helvetica, sans-serif; }
 
 .main {
-  margin: 100px auto;
-  position: relative; }
+  margin-left: 220px; }
+
+.content {
+  padding: 40px 0 0 0; }
 
 /**
- * Top Nav
+ * Left Nav
  * ----------------------------------------------------------------------------
  */
-.navbar-default .navbar-nav > li a, .navbar-default .navbar-nav > li a:hover {
-  background-color: transparent; }
-.navbar-default .navbar-nav > li a:hover {
-  color: teal; }
-.navbar-default .navbar-nav > li.active a, .navbar-default .navbar-nav > li.active a:hover {
-  color: teal;
-  background-color: transparent; }
+.left-sidebar {
+  position: fixed;
+  height: 100%;
+  left: 0;
+  width: 220px;
+  border-right: 1px solid #eee;
+  padding-right: 3px; }
+  .left-sidebar .header {
+    text-align: center; }
+  .left-sidebar .brand {
+    margin: 40px 0 auto;
+    padding-bottom: 20px; }
 
-.topnav {
-  overflow: hidden;
-  padding-top: 10px; }
+.nav-sidebar {
+  padding: 20px 0 0 25px; }
+  .nav-sidebar > li a, .nav-sidebar > li a:hover {
+    background-color: transparent; }
+  .nav-sidebar > li a:hover {
+    color: #9b3a1b;
+    transition: 200ms; }
+  .nav-sidebar > li.active a, .nav-sidebar > li.active a:hover {
+    color: #9b3a1b;
+    border-right: 4px solid;
+    background-color: transparent;
+    transition: 200ms; }
+
+.subtitle {
+  margin-top: 10px;
+  font-weight: bold; }
 
 /**
  * Role and Privilege list
  * ----------------------------------------------------------------------------
  */
-.list-group-item.active {
-  background-color: lightyellow; }
+.large-modal {
+  width: 700px; }
 
 .role-group {
-  height: 300px;
-  border: solid 1px #ccc;
-  padding: 2px 0 0 2px; }
+  height: 353px;
+  padding: 2px 0 0 2px;
+  overflow-y: scroll;
+  margin-bottom: 0px; }
+  .role-group .role {
+    list-style: none;
+    padding: 5px 12px 5px 9px;
+    border-bottom: 1px solid #efefef; }
+    .role-group .role:nth-child(even) {
+      background-color: #f8f8f8; }
 
-.role-group .role {
-  border-bottom: solid 1px #ccc;
-  list-style: none;
-  padding: 5px 7px; }
+.group-wraper {
+  border: 1px solid #efefef;
+  float: left;
+  width: 320px;
+  padding: 0; }
+
+.hr-split {
+  width: 20px;
+  float: left;
+  height: 1px; }
+
+.role-group-header {
+  background: steelblue;
+  margin: 0;
+  color: #efefef;
+  padding: 7px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: normal; }
 
 /**
  * Form
@@ -144,6 +186,11 @@ a {
  */
 .form-small label {
   font-weight: normal; }
-  .help-block {
-    position: absolute;
-  }
+
+.help-block {
+  position: absolute; }
+
+.large-btn {
+  position: relative;
+  top: -18px;
+  font-size: 24px; }
