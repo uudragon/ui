@@ -6,12 +6,15 @@
  */
 
 $primary-font: 1em/normal '微软雅黑', '宋体', Arial, Helvetica, sans-serif;
-$container-width: 1170px;
-
+$container-width: 100%;
+$sidebar-width: 220px;
+$large-modal-width: 700px;
+$role-group-height: 353px;
+$hr-split-width: 20px;
 
 // Colors
 $primary-color: #333;
-$link-actived: #008080;
+$link-actived: rgb(155, 58, 27);
 $side-active-color: #fff;
 $side-active-bg: #a52a2a;
 $side-border-color: #f0f8ff;

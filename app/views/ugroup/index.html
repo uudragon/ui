@@ -2,7 +2,7 @@
 
 <div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
 
-<div uu-simple-search placeholder="请输入组名" ng-submit="reloadSearch()" model="searchModel.name"></div>
+<div uu-simple-search placeholder="请输入组名" fieldtitle="用户组搜索" ng-submit="reloadSearch()" model="searchModel.name"></div>
 
 <div class="row container" ng-if="result.recordsCount">
 	<div uu-pagination records="result.recordsCount" page="page" action="search()" model="searchModel.pagination"></div>
@@ -17,6 +17,9 @@
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(group)" data-toggle="modal" data-target="#uumodal">修改</a></li>
+					<li>
+						<a href="" ng-click="editRole(group)" data-toggle="modal" data-target="#rolemodal">修改角色</a>
+					</li>
 					<li><a title="确定删除吗？" confirm="delete(group, $index)" text="请确定您的操作，删除将无法撤销!" uu-confirm label="删除"></a></li>
 				</ul>
 			</td>
@@ -54,3 +57,42 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" id="rolemodal" ng-if="roleModalTitle">
+	<div class="modal-dialog large-modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{roleModalTitle}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="group-wraper">
+						<h4 class="role-group-header">所有角色</h4>
+						<ul class="role-group">
+							<li class="role" ng-repeat="role in allRoles | filterRole : roles" ng-class="{active: role.actived}" ng-dblclick="assignRole(role)">
+								<span class="rolename">{{role.name}}</span>
+								<span class="close" ng-click="assignRole(role)">&gt;</span>
+							</li>
+						</ul>
+					</div>
+					<div class="hr-split"></div>
+					<div class="group-wraper">
+						<h4 class="role-group-header">用户组角色</h4>
+						<ul class="role-group">
+							<li class="role" ng-repeat="role in roles" ng-class="{active: role.actived}" ng-dblclick="unsignRole(role)">
+								<span class="rolename">{{role.name}}</span>
+								<span class="close" ng-click="unsignRole(role)">&times;</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" ng-click="saveRoles()" class="btn btn-primary">保存</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

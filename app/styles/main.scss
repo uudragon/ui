@@ -15,8 +15,7 @@ a {color: $primary-color; background: transparent;}
 .non-left {border-left: none;}
 .underline {text-decoration: underline !important;}
 .uu-close {float: none}
-.pagination-wraper {text-align: center}
-.action-item {
+ .action-item {
 	font-size: 1.2em;
 	cursor: pointer;
 		&.active, &:hover {
@@ -29,68 +28,123 @@ a {color: $primary-color; background: transparent;}
 		border: 1px dashed #ccc;
 	}
 }
+.alert {margin-bottom: 5px;}
 
 /**
  * Frame
  * ----------------------------------------------------------------------------
  */
 
+
 .wrapper {
 	font: $primary-font;
 }
 
-.main {margin: 100px auto; position: relative;}
+.main {
+	margin-left: $sidebar-width;
+}
+
+.content {
+	padding: 40px 0 0 0;
+}
+
+.search-form {
+	// background-color: #eee;
+}
 
 /**
- * Top Nav
+ * Left Nav
  * ----------------------------------------------------------------------------
  */
 
-.navbar-default .navbar-nav {
+.left-sidebar {
+	position: fixed;
+	height: 100%;
+	left: 0;
+	width: $sidebar-width;
+	border-right: 1px solid #eee;
+	padding-right: 3px;
+	.header {
+		text-align: center;
+	}
+	.brand {
+		margin: 40px 0 auto;
+		padding-bottom: 20px;
+	}
+}
+
+.nav-sidebar {
 	> li {
 		a, a:hover {
 			background-color: transparent;
 		}
 		a:hover {
 			color: $link-actived;
+			transition: 200ms;
 		}
 	}
 	> li.active {
 		a, a:hover{
 			color: $link-actived;
+			border-right: 4px solid;
 			background-color: transparent;
+			transition: 200ms;
 		}
 	}
+	padding: 20px 0 0 25px;
 }
 
-.topnav {
-	overflow: hidden;
-	padding-top: 10px;
+.subtitle {
+	margin-top: 10px;
+	font-weight: bold;
 }
-
 
 
 /**
  * Role and Privilege list
  * ----------------------------------------------------------------------------
  */
+ .large-modal {
+	width: $large-modal-width;
+ }
 
-.list-group-item.active {
-    background-color: lightyellow;
+ .role-group {
+	height: $role-group-height;
+	padding: 2px 0 0 2px;
+	overflow-y: scroll;
+	margin-bottom: 0px;
+	.role {
+		list-style: none;
+		padding: 5px 12px 5px 9px;
+		border-bottom: 1px solid #efefef;
+		&:nth-child(even) {
+			background-color: rgb(248, 248, 248);
+		}
+	}
+ }
+
+.group-wraper {
+	border: 1px solid #efefef;
+	float: left;
+	width: ($large-modal-width - $hr-split-width - 40px) / 2;
+	padding: 0;
 }
 
-.role-group {
-  height: 300px;
-  border: solid 1px #ccc;
-  padding: 2px 0 0 2px;
+.hr-split {
+	width: $hr-split-width;
+	float: left;
+	height: 1px;
 }
 
-.role-group .role {
-  border-bottom: solid 1px #ccc;
-  list-style: none;
-  padding: 5px 7px;
+.role-group-header {
+	background: steelblue;
+	margin: 0;
+	color: #efefef;
+	padding: 7px 0;
+	text-align: center;
+	font-size: 16px;
+	font-weight: normal;
 }
-
 
 /**
  * Form
@@ -100,4 +154,9 @@ a {color: $primary-color; background: transparent;}
 
 .form-small label {font-weight: normal;}
 .help-block {position: absolute; }
+.large-btn {
+	position: relative;
+	top: -18px;
+	font-size: 24px;
+}
 

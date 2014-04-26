@@ -64,11 +64,17 @@ angular.module('authApp')
 			case 'user':
 				$scope.modalTitle = '添加用户';
 				break;
+
 			case 'role':
 				$scope.modalTitle = '添加角色';
 				break;
+
 			case 'userGroup':
-				$scope.modalTitle = '添加组';
+				$scope.modalTitle = '添加用户组';
+				break;
+
+			case 'roleGroup':
+				$scope.modalTitle = '添加角色组';
 				break;
 
 			default: break;
@@ -158,85 +164,139 @@ angular.module('authApp')
 	}
 
 
-})
-	.controller('LoginCtrl', function ($scope, UUDBasicService) {
 
+	$scope.editRole = function(newModel) {
+
+		$scope.roleModalTitle = "修改角色";
+		$scope.currentModel = newModel;
+
+		UUDBasicService.getRoles($scope, newModel, $scope.objType);
+		UUDBasicService.getAllRoles($scope);
+	}
+
+	$scope.saveRoles = function() {
+		var roles = [];
+		for (var i in $scope.roles) {
+			roles.push($scope.roles[i].id);
+		}
+		var model = {
+			id: $scope.currentModel.id,
+			roles: roles.join(',')
+		}
+
+		UUDBasicService.update(model, $scope.objType === 'user' ? 'userRoles' : 'userGroupRoles')
+			.success(success($scope, '更新成功!', '更新失败!'))
+			.error(error($scope, '网络出错, 更新失败! '))
+
+		$('#rolemodal').modal('hide');
+	}
+
+	$scope.assignRole = function(role) {
+		var role = role || findSelectedRole($scope.allRoles);
+		if (role) {
+			$scope.roles.push(role);
+		}
+	}
+
+	function findSelectedRole(roles) {
+		for (var i in roles) {
+			if (roles[i].actived) {
+				return roles[i];
+			}
+		}
+	}
+
+	function removeRole(roles, role) {
+		for (var i in roles) {
+			if (roles[i].id == role.id) {
+				roles.splice(i, 1);
+			}
+		}
+	}
+
+	$scope.unsignRole = function(role) {
+		var role = role || findSelectedRole($scope.roles);
+
+		if (role) {
+			removeRole($scope.roles, role);
+		}
+	}
+
+	$scope.editPrivilege = function(model) {
+		var setting = {
+			view: {
+				selectedMulti: false
+			},
+			check: {
+				enable: true,
+				chkboxType: { "Y" : "", "N" : "" }
+			},
+			edit: {
+				enable: false,
+				showRemoveBtn: false,
+				showRenameBtn: false
+			},
+			data: {
+				simpleData: {
+					enable: true,
+					idKey: "id",
+					pIdKey: "pId",
+					rootPId: 0
+				}
+			}
+		};
+
+		$scope.privilegeModalTitle = "修改权限";
+		$scope.currentModel = model;
+		UUDBasicService.getPrivileges($scope, model, $scope.objType);
+		UUDBasicService.getAllPrivileges($scope, setting);
+	}
+
+	$scope.savePrivilege = function() {
+		var result = [];
+		var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+
+		if (!zTree) {
+			$('#rolePrivilege').modal('hide');
+			return;
+		}
+
+		var checkedNodes = zTree.getCheckedNodes();
+
+		for (var i in checkedNodes) {
+			result.push(checkedNodes[i].id);
+		}
+
+		var model = {
+			id: $scope.currentModel.id,
+			privileges: result.join(',')
+		}
+
+		UUDBasicService.update(model,  $scope.objType === 'role' ? 'rolePrivileges' : 'roleGroupPrivileges')
+			.success(success($scope, '更新成功!', '更新失败!'))
+			.error(error($scope, '网络出错, 更新失败! '))
+
+		$('#rolePrivilege').modal('hide');
+	}
+})
+
+	/*
+	 * Sub Controllers
+	 * ----------------------------------------------------------------------
+	 */
+	
+	.controller('LoginCtrl', function ($scope, UUDBasicService) {
+		// empty for now
 	})
 
 	.controller('UserCtrl', function ($scope, UUDBasicService, $controller) {
 
-		var type = 'user';
 		$scope.objType = 'user';
 		$controller('MainCtrl', {$scope: $scope});
-
-		$scope.editRole = function(user) {
-
-			$scope.roleModalTitle = "修改角色";
-			$scope.currentModel = user;
-
-			UUDBasicService.getRoles($scope, user);
-			UUDBasicService.getAllRoles($scope);
-		}
-
-		$scope.select = function(id, roles) {
-			for (var i in roles) {
-				if (roles[i].id == id) {
-					roles[i].actived = true;
-				} else {
-					roles[i].actived = false;
-				}
-			}
-		}
-
-		$scope.saveRoles = function() {
-			var roles = [];
-			for (var i in $scope.roles) {
-				roles.push($scope.roles[i].id);
-			}
-			var model = {
-				id: $scope.currentModel.id,
-				roles: roles.join(',')
-			}
-
-			UUDBasicService.update(model, 'roles')
-
-			$('#rolemodal').modal('hide');
-		}
-
-		$scope.addRoleToUser = function(role) {
-			var role = role || findSelectedRole($scope.allRoles);
-			if (role) {
-				$scope.roles.push(role);
-			}
-		}
-
-		function findSelectedRole(roles) {
-			for (var i in roles) {
-				if (roles[i].actived) {
-					return roles[i];
-				}
-			}
-		}
-
-		function removeRole(roles, role) {
-			for (var i in roles) {
-				if (roles[i].id == role.id) {
-					roles.splice(i, 1);
-				}
-			}
-		}
-
-		$scope.removeRoleFromUser = function(role) {
-			var role = role || findSelectedRole($scope.roles);
-
-			if (role) {
-				removeRole($scope.roles, role);
-			}
-		}
-
 	})
 
 	.controller('UgroupCtrl', function ($scope, $controller) {
+		
 		$scope.objType = 'userGroup';
 		$controller('MainCtrl', {$scope: $scope});
 	})
@@ -245,57 +305,6 @@ angular.module('authApp')
 
 		$scope.objType = 'role';
 		$controller('MainCtrl', {$scope: $scope});
-
-		$scope.editPrivilege = function(role) {
-			var setting = {
-				view: {
-					selectedMulti: false
-				},
-				check: {
-					enable: true,
-					chkboxType: { "Y" : "", "N" : "" }
-				},
-				edit: {
-					enable: false,
-					showRemoveBtn: false,
-					showRenameBtn: false
-				},
-				data: {
-					simpleData: {
-						enable: true,
-						idKey: "id",
-						pIdKey: "pId",
-						rootPId: 0
-					}
-				}
-			};
-
-			$scope.privilegeModalTitle = "修改角色";
-			$scope.currentModel = role;
-			UUDBasicService.getPrivileges($scope, role);
-			UUDBasicService.getAllPrivileges($scope, setting);
-		}
-
-		$scope.savePrivilege = function() {
-			var result = [];
-			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
-			var checkedNodes = zTree.getCheckedNodes();
-
-			for (var i in checkedNodes) {
-				result.push(checkedNodes[i].id);
-			}
-
-			var model = {
-				id: $scope.currentModel.id,
-				privileges: result.join(',')
-			}
-
-			UUDBasicService.update(model, 'privileges')
-
-			$('#rolePrivilege').modal('hide');
-
-		}
-
 	})
 
 	.controller('RgroupCtrl', function ($scope, $controller) {
@@ -374,15 +383,6 @@ angular.module('authApp')
 
 		function deleteNode(treeId, treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
-			// console.log(treeNode);
-			// $('#priv-tree_2_remove').confirmation('show');
-			// return false;
-			// if (window.confirm('are you sure?')) {
-			// 	console.log('var');
-			// } else {
-			// 	console.log('cancel');
-			// }
-
 			var confirm = function() {
 				UUDBasicService.delete(treeNode.id, type)
 					.success(function(data, status) {
@@ -396,7 +396,6 @@ angular.module('authApp')
 						$scope.alertLevel = 'error';
 					})
 			}
-
 
 			$.confirm({
 				text: "请确定您的操作，删除将无法撤销!",

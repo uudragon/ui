@@ -2,7 +2,7 @@
 
 <div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
 
-<div uu-simple-search placeholder="请输入角色名" ng-submit="reloadSearch()" model="searchModel.roleName"></div>
+<div uu-simple-search placeholder="请输入角色名" fieldtitle="角色搜索" ng-submit="reloadSearch()" model="searchModel.roleName"></div>
 
 <div class="row container" ng-if="result.recordsCount">
 	<div uu-pagination records="result.recordsCount" page="page" action="search()" model="searchModel.pagination"></div>

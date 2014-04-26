@@ -22,9 +22,7 @@ angular.module('authApp')
 		}
 
 		return breadcrumb[route];
-
 	}
-
 
 
 	this.post = function(url, data) {
@@ -196,33 +194,39 @@ angular.module('authApp')
 			case 'user':
 				suffix = 'at/operate.op?className=userAction&methodName=update';
 				break;
+
+			case 'userRoles':
+				suffix = 'at/operate.op?className=userAction&methodName=saveRoles';
+				break;
+
 			case 'userGroup':
 				suffix = 'at/operate.op?className=userGroupAction&methodName=update';
+				break;
+
+			case 'userGroupRoles':
+				suffix = 'at/operate.op?className=userGroupAction&methodName=saveRoles';
 				break;
 
 			case 'role':
 				suffix = 'at/operate.op?className=roleAction&methodName=update';
 				break;
 
-			case 'userRole':
-				suffix = 'bam/update_user_role';
+			case 'rolePrivileges':
+				suffix = 'at/operate.op?className=roleAction&methodName=savePrivileges';
 				break;
 
 			case 'roleGroup':
 				suffix = 'at/operate.op?className=roleGroupAction&methodName=update';
 				break;
 
+			case 'roleGroupPrivileges':
+				suffix = 'at/operate.op?className=roleGroupAction&methodName=savePrivileges';
+				break;
+
 			case 'privilege':
 				suffix = 'at/operate.op?className=privilege&methodName=update';
 				break;
 
-			case 'roles':
-				suffix = 'at/operate.op?className=userAction&methodName=saveRoles';
-				break;
-
-			case 'privileges':
-				suffix = 'at/operate.op?className=roleAction&methodName=savePrivileges';
-				break;
 			default:
 				break;
 
@@ -281,20 +285,34 @@ angular.module('authApp')
 	}
 
 	// 获取用户对应的角色
-	this.getRoles = function($scope, user) {
+	this.getRoles = function($scope, model, type) {
+		var suffix;
 
-		var suffix = "at/operate.op?className=userAction&methodName=getRoles"
+		switch (type) {
+			case 'user':
+		 		suffix = "at/operate.op?className=userAction&methodName=getRoles";
+		 		break;
 
-		// 假如user不存在， 不执行操作
-		if (!user) {
+		 	case 'userGroup':
+		 		suffix = "at/operate.op?className=userGroupAction&methodName=getRoles";
+		 		break;
+
+		 	default:
+		 		break;
+
+		}
+
+		// 假如model不存在， 不执行操作
+		if (!model) {
 			return;
 		}
-		self.post(baseurl + suffix, {id: user.id})
+
+		self.post(baseurl + suffix, {id: model.id})
 			.success(function(data, status) {
-				$scope.roles = data;
+				$scope.roles = data ? data : [];
 			})
 			.error(function(data, status) {
-				console.log('get user role error status: ' + status + ' use dummy data');
+				console.log('get role error, status: ' + status);
 			})
 
 	}
@@ -343,26 +361,36 @@ angular.module('authApp')
 
 	}
 
-	this.getPrivileges = function($scope, role) {
+	this.getPrivileges = function($scope, model, type) {
 
-		var suffix = "at/operate.op?className=roleAction&methodName=getPrivilege"
+		var suffix;
+
+		switch (type) {
+			case 'role':
+				suffix = "at/operate.op?className=roleAction&methodName=getPrivilege";
+				break;
+
+			case 'roleGroup':
+				suffix = "at/operate.op?className=roleGroupAction&methodName=getPrivilege";
+				break;
+
+			default: break;
+		}
 
 		// 假如user不存在， 不执行操作
-		if (!role) {
+		if (!model) {
 			return;
 		}
-		self.post(baseurl + suffix, {id: role.id})
+
+		self.post(baseurl + suffix, {id: model.id})
 			.success(function(data, status) {
 				$scope.privileges = data;
 				indicator.privileges = true;
 
 				if (indicator.allPrivileges) {
-					console.log('to privileges ok');
 					indicator = {};
 					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
 				}
-			})
-			.error(function(data, status) {
 			})
 
 	}
@@ -377,7 +405,6 @@ angular.module('authApp')
 				$scope.allPrivileges = data;
 
 				if (indicator.privileges) {
-					console.log('to all privileges ok');
 					indicator = {};
 					self.rebuildTree($scope.allPrivileges, $scope.privileges, setting);
 				}
