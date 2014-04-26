@@ -84,17 +84,17 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 				}
 			})
 
-		// var res = {
-		// 	token: 'myuudtoken-hahahhahhahah',
-		// 	user: {
-		// 		name: 'adsfasdf',
-		// 		phone: '123123',
-		// 		positions: 'admin',
-		// 		userNo: '09'
-		// 	}
-		// }
-		// updateUser(res);
-		// $location.path('/');
+		var res = {
+			token: 'myuudtoken-hahahhahhahah',
+			user: {
+				name: 'adsfasdf',
+				phone: '123123',
+				positions: 'admin',
+				userNo: '09'
+			}
+		}
+		updateUser(res);
+		$location.path('/');
 	}
 
 	this.logout = function(success, error) {
