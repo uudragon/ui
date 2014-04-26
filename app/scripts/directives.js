@@ -187,8 +187,36 @@ uud.directive('uuInput', function() {
 	}
 })
 
+// confirm dialog, require plugin jquery.confirm
+.directive('uuConfirm', function() {
+	return {
+		scope: {
+			label: '@',
+			confirm: '&',
+			cancel: '&'
+		},
+		replace: true,
+		link: function(scope, elem, attrs) {
+			elem.confirm({
+				text: attrs.text,
+				title: attrs.title,
+				confirm: function() {
+					scope.confirm();
+				},
+				cancel: function(button) {
+					scope.cancel();
+				},
+				confirmButton: attrs.confirmBtn || "确定",
+				cancelButton: attrs.cancelBtn || "取消",
+				confirmButtonClass: "btn-danger"
+			})
+		},
+		template: '<a href="">{{label}}</a>'
+	}
+})
+
 // use for show error message
-.directive('uuAlert', ['$animate', function($animate) {
+.directive('uuAlert', ['$animate', '$timeout', function($animate, $timeout) {
 	return {
 		replace: true,
 		scope: false,
@@ -210,6 +238,10 @@ uud.directive('uuInput', function() {
 				if (value && value.length) {
 					$animate.removeClass($element, 'ng-hide-remove');
 					$animate.addClass($element, 'ng-hide-add')
+
+					$timeout(function() {
+						$scope.alertMsg = '';
+					}, 2000)
 				} else {
 					$animate.removeClass($element, 'ng-hide-add')
 					$animate.addClass($element, 'ng-hide-remove');

@@ -331,8 +331,7 @@ angular.module('authApp')
 			callback: {
 				beforeDrag: beforeDrag,
 				beforeRemove: deleteNode,
-				beforeEditName: EditNode,
-				beforeDrop: beforeDrop
+				beforeEditName: EditNode
 			}
 		};
 
@@ -348,6 +347,7 @@ angular.module('authApp')
 			}
 		}
 
+		// reset form status
 		var resetForm =  function () {
 			$scope.submitted = false;
 			$scope.priForm.$setPristine();
@@ -374,41 +374,41 @@ angular.module('authApp')
 
 		function deleteNode(treeId, treeNode) {
 			var zTree = $.fn.zTree.getZTreeObj("priv-tree");
+			// console.log(treeNode);
+			// $('#priv-tree_2_remove').confirmation('show');
+			// return false;
+			// if (window.confirm('are you sure?')) {
+			// 	console.log('var');
+			// } else {
+			// 	console.log('cancel');
+			// }
 
-			UUDBasicService.delete(treeNode.id, type)
-				.success(function(data, status) {
-					// 后台成功删除节点后前端再删除节点
-					$scope.alertMsg = '删除成功！';
-					$scope.alertLevel = 'success';
-					zTree.removeNode(treeNode);
-				})
-				.error(function(data, status) {
-					$scope.alertMsg = '删除失败！';
-					$scope.alertLevel = 'error';
-				})
-			return false;
-		}
-
-		function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
-
-			var treeNode = treeNodes[0];
-			var model = {
-				name: treeNode.name,
-				link: treeNode.link,
-				other: treeNode.other
+			var confirm = function() {
+				UUDBasicService.delete(treeNode.id, type)
+					.success(function(data, status) {
+						// 后台成功删除节点后前端再删除节点
+						$scope.alertMsg = '删除成功！';
+						$scope.alertLevel = 'success';
+						zTree.removeNode(treeNode);
+					})
+					.error(function(data, status) {
+						$scope.alertMsg = '删除失败！';
+						$scope.alertLevel = 'error';
+					})
 			}
 
-			current = targetNode;
 
-			if (!isCopy) {
-				beforeRemove('', treeNodes[0])
-			}
-
-			$scope.add(model);
+			$.confirm({
+				text: "请确定您的操作，删除将无法撤销!",
+				title: "确定删除吗？",
+				confirm: confirm,
+				confirmButton: "确定",
+				cancelButton: "取消",
+				confirmButtonClass: "btn-danger"
+			});
 
 			return false;
 		}
-
 
 		function addHoverDom(treeId, treeNode) {
 			if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;

@@ -1,6 +1,7 @@
 <div uu-action-item label="添加组" target="#uumodal" ng-click="new(groupForm)"></div>
 
 <div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
+
 <div uu-simple-search placeholder="请输入组名" ng-submit="reloadSearch()" model="searchModel.groupName"></div>
 
 <div class="row container" ng-if="result.recordsCount">
@@ -15,7 +16,7 @@
 			<td>
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(group)" data-toggle="modal" data-target="#uumodal">修改</a></li>
-					<li><a href="" ng-click="delete(group, $index)">删除</a></li>
+					<li><a title="确定删除吗？" confirm="delete(group, $index)" text="请确定您的操作，删除将无法撤销!" uu-confirm label="删除"></a></li>
 				</ul>
 			</td>
 		</tr>

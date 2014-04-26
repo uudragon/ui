@@ -1,8 +1,8 @@
 <div uu-action-item label="添加角色" target="#uumodal" ng-click="new(roleForm)"></div>
 
-<div uu-simple-search placeholder="请输入角色名" ng-submit="reloadSearch()" model="searchModel.roleName"></div>
-
 <div uu-alert level="{{alertLevel}}" msg="{{alertMsg}}"></div>
+
+<div uu-simple-search placeholder="请输入角色名" ng-submit="reloadSearch()" model="searchModel.roleName"></div>
 
 <div class="row container" ng-if="result.recordsCount">
 	<div uu-pagination records="result.recordsCount" page="page" action="search()" model="searchModel.pagination"></div>
@@ -17,7 +17,7 @@
 				<ul class="list-inline">
 					<li><a href="" ng-click="modify(role)" data-toggle="modal" data-target="#uumodal">修改</a></li>
 					<li><a href="" ng-click="editPrivilege(role)" data-toggle="modal" data-target="#rolePrivilege">修改权限</a></li>
-					<li><a href="" ng-click="delete(role, $index)">删除</a></li>
+					<li><a title="确定删除吗？" confirm="delete(role, $index)" text="请确定您的操作，删除将无法撤销!" uu-confirm label="删除"></a></li>
 				</ul>
 			</td>
 		</tr>

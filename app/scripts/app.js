@@ -53,7 +53,7 @@ var uud = angular.module('authApp', [
 
 
 	////////////////
-	// Sub Router //
+	// Sub States //
 	////////////////
 
 	.state('root.home', {
