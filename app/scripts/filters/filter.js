@@ -11,3 +11,12 @@ angular.module('mainApp')
 		return valid == 1 ? "有效" : "无效";
 	}
 })
+.filter('age', function() {
+	return function (birthday) {
+		if (birthday) {
+			var birthYear = parseInt(birthday.split('-')[0], 10);
+			var currentYear = parseInt(new Date().getFullYear(), 10);
+			return currentYear - birthYear + 1;
+		}
+	}
+})

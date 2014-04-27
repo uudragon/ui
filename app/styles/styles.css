@@ -79,7 +79,7 @@ a {color: #333; }
 .main-phone {padding-left: 10px;}
 .form-control-static {color: #696969 }
 .empty-legend {border: none;}
-
+.select-inline {padding: 0 6px 0 0;}
 /**
  * Search
  * ----------------------------------------------------------------------------

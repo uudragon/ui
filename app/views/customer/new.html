@@ -3,20 +3,19 @@
 	<div class="col-xs-6">
 		<fieldset>
 			<legend></legend>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-number">编号: </label>
-				<div class="col-xs-6">
-					<input type="text" name="number" ng-model="model.code" class="form-control input-sm" id="c-number">
-				</div>
-			</div>
+			<!-- <div uu-static l-col="3" r-col="5" label="编号" text="model.code"></div> -->
 			<div class="form-group">
 				<label class="col-xs-3 control-label" for="c-type">类型: </label>
 				<div class="col-xs-4">
-					<input type="text" name="type" ng-model="model.type" class="form-control input-sm" id="c-type">
+					<select name="type" id="c-type" model="model.type" class="form-control">
+						<option value=""></option>
+						<option value="1">已购买客户</option>
+						<option value="2">潜在客户</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-name">姓名: </label>
+				<label class="col-xs-3 control-label" for="c-name">宝宝姓名: </label>
 				<div class="col-xs-5">
 					<input type="text" name="name" ng-model="model.name" class="form-control input-sm" id="c-name">
 				</div>
@@ -38,6 +37,7 @@
 					<input type="text" name="birthday" ng-model="model.birthday" uu-date-picker class="form-control input-sm" id="c-birthday">
 				</div>
 			</div>
+			<div uu-static l-col="3" r-col="5" label="年龄" text="model.birthday | age"></div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label" for="cp-name">家长姓名:</label>
 				<div class="col-xs-5">
@@ -67,25 +67,23 @@
 			<div class="form-group">
 				<label class="col-xs-3 control-label">省/市/区: </label>
 				<div class="col-xs-9">
-					<div class="input-group">
-						<input type="text" name="provice" ng-model="model.provice" class="form-control input-sm non-right">
-						<span class="input-group-addon">省</span>
-						<input type="text" name="city" ng-model="model.city" class="form-control input-sm non-right non-left">
-						<span class="input-group-addon">市</span>
-						<input type="text" name="area" ng-model="model.area" class="form-control input-sm non-left">
-						<span class="input-group-addon">区</span>
+					<div class="col-xs-4 select-inline">
+						<select name="provice" class="form-control" ng-model="model.provice"></select>
 					</div>
+					<div class="col-xs-4 select-inline">
+						<select name="city" class="form-control" ng-model="model.city"></select>
+					</div>
+					<div class="col-xs-4 select-inline">
+						<select name="area" class="form-control" ng-model="model.area"></select>
+					</div>
+					<script src="scripts/PCASClass.js"></script>
+					<script>
+						new PCAS("provice","city","area");
+					</script>
 				</div>
-
 			</div>
 			<div class="form-group">
-				<label class="col-xs-3 control-label" for="cp-street">街道: </label>
-				<div class="col-xs-6">
-					<input type="text" name="street" ng-model="model.street" class="form-control input-sm" id="cp-street">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-addr">地址: </label>
+				<label class="col-xs-3 control-label" for="c-addr">街道地址: </label>
 				<div class="col-xs-6">
 					<input type="text" name="address" ng-model="model.address" class="form-control input-sm" id="c-addr">
 				</div>

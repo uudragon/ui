@@ -17,13 +17,21 @@
 			<div class="form-group">
 				<label class="col-xs-4 control-label" for="f-area">代理区域: </label>
 				<div class="col-xs-4">
-					<input type="text" name="area" ng-model="searchModel.area" class="form-control input-small" id="f-area">
+					<select name="area" id="f-area" ng-model="searchModel.area" class="form-control">
+						<option value=""></option>
+						<option value="0">华东</option>
+						<option value="1">华北</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-4 control-label" for="f-agentName">代理商: </label>
 				<div class="col-xs-4">
-					<input type="text" name="agentName" ng-model="searchModel.agentName" class="form-control input-small" id="f-agentName">
+					<select name="agentName" id="f-agentName" ng-model="searchModel.agentName" class="form-control">
+						<option value=""></option>
+						<option value="0">代理商一</option>
+						<option value="1">代理商二</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">

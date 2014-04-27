@@ -36,7 +36,6 @@ var uud = angular.module('mainApp', [
 		return {
 			'request': function(config) {
 				config.headers.Test = 'asdfasdfasdfasdfasdfjasdklfjasdklfja';
-				// $location.path('/login')
 				return config;
 			},
 			'response': function(resp) {
