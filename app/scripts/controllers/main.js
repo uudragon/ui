@@ -256,7 +256,7 @@ angular.module('authApp')
 		var result = [];
 		var zTree = $.fn.zTree.getZTreeObj("priv-tree");
 
-		if (!zTree) {
+		if (!zTree || !$scope.currentModel) {
 			$('#rolePrivilege').modal('hide');
 			return;
 		}

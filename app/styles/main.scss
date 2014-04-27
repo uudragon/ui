@@ -40,8 +40,9 @@ a {color: $primary-color; background: transparent;}
 	font: $primary-font;
 }
 
-.main {
-	margin-left: $sidebar-width;
+.content {
+	margin-left: $sidebar-width + 20px;
+	overflow-x: hidden;
 }
 
 .content {

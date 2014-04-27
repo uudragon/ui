@@ -101,8 +101,9 @@ a {
 .wrapper {
   font: 1em/normal "微软雅黑", "宋体", Arial, Helvetica, sans-serif; }
 
-.main {
-  margin-left: 220px; }
+.content {
+  margin-left: 240px;
+  overflow-x: hidden; }
 
 .content {
   padding: 40px 0 0 0; }
