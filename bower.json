@@ -11,7 +11,8 @@
     "angular-ui-router": "~0.2.10",
     "angular-animate": "~1.2.16",
     "angular-md5": "~0.1.7",
-    "angular-cookie": "*"
+    "angular-cookie": "*",
+    "bootstrap-datepicker": "~1.3.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",

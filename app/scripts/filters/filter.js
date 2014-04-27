@@ -16,7 +16,7 @@ angular.module('mainApp')
 		if (birthday) {
 			var birthYear = parseInt(birthday.split('-')[0], 10);
 			var currentYear = parseInt(new Date().getFullYear(), 10);
-			return currentYear - birthYear + 1;
+			return (currentYear - birthYear + 1) + " 岁";
 		}
 	}
 })

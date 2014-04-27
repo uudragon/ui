@@ -417,24 +417,25 @@ uud.directive('timing', ['$interval', 'dateFilter',
  	}
  })
 
-
+// check http://eternicode.github.io/bootstrap-datepicker for full documentation
 .directive('uuDatePicker', function() {
 	return {
 		restrict: 'A',
 		scope: {
 			ngModel: '='
 		},
-		link: function($scope, $element, $attr, ctrl) {
-			var format = $attr.format || 'yyyy-mm-dd';
-			$element
-				.datepicker({
-					"format": format,
-					"appendTo": 'form'
-					})
-				.on('changeDate', function(e, data) {
-					$scope.ngModel = $element.val();
-					$element.datepicker('hide');
-				})
+		link: function($scope, $element, $attrs) {
+			
+			var settings = {
+				format: $attrs.format || 'yyyy-mm-dd',
+				startView: parseInt($attrs.startView, 10) || 0,
+				minViewMode: parseInt($attrs.minViewMode, 10) || 0,
+				endDate: $attrs.endDate || 0,
+				autoclose: true,
+				language: "zh-CN"
+			}
+
+			$element.datepicker(settings)
 		}
 	}
 })
