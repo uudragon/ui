@@ -66,19 +66,19 @@
 			<legend></legend>
 			<div class="form-group">
 				<label class="col-xs-3 control-label">省/市/区: </label>
-				<div class="col-xs-9">
-					<div class="col-xs-4 select-inline">
-						<select name="province" class="form-control" ng-model="model.province"></select>
+				<div class="col-xs-9" id="city-select">
+					<div class="col-xs-4 select-inline" >
+						<select name="province" class="form-control prov" ng-model="model.province"></select>
 					</div>
 					<div class="col-xs-4 select-inline">
-						<select name="city" class="form-control" ng-model="model.city"></select>
+						<select name="city" class="form-control city" ng-model="model.city"></select>
 					</div>
 					<div class="col-xs-4 select-inline">
-						<select name="district" class="form-control" ng-model="model.district"></select>
+						<select name="district" class="form-control dist" ng-model="model.district"></select>
 					</div>
-					<script src="scripts/PCASClass.js"></script>
+					<script src="scripts/cityselect.js"></script>
 					<script>
-						new PCAS("province","city","district");
+						$("#city-select").citySelect({prov:"", nodata:"none", required:false}); 
 					</script>
 				</div>
 			</div>
