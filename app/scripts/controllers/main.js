@@ -345,7 +345,7 @@ angular.module('authApp')
 		};
 
 		var current;
-		var type = 'privilege';
+		var type = "privilege";
 		var error = function($scope, errorMsg) {
 			return function(msg) {
 				$scope.alertLevel = 'danger';
@@ -366,12 +366,14 @@ angular.module('authApp')
 
 		function EditNode(treeId, treeNode) {
 			current = treeNode;
+
 			$scope.model = {
 				id: current.id,
 				pId: current.pId,
 				name: current.name,
 				link: current.link,
-				other: current.other
+				code: current.code,
+				method: current.method
 			}
 			$scope.modalTitle = '编辑节点';
 			$scope.modalType = 'edit';
@@ -449,12 +451,16 @@ angular.module('authApp')
 			$scope.submitted = true;
 			if (isValid) {
 				var zTree = $.fn.zTree.getZTreeObj("priv-tree");
-
-				current.name = model.name;
-				current.link = model.link;
-				current.other = model.other;
+				var node = {
+					id: model.id,
+					name: model.name,
+					link: model.link,
+					code: model.code,
+					method: model.method
+				};
+				$.extend(current, node);
+			
 				zTree.updateNode(current);
-
 				UUDBasicService.update(model, type)
 					.success(function(data, status) {
 						$scope.alertMsg = '更新成功！';
@@ -486,6 +492,7 @@ angular.module('authApp')
 							} else {
 								zTree.addNodes(current, node);
 							}
+
 							$scope.alertMsg = '添加成功！';
 							$scope.alertLevel = 'success';
 						} else {

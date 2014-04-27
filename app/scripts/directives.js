@@ -222,7 +222,6 @@ uud.directive('uuInput', function() {
 		replace: true,
 		scope: false,
 		template: '<div class="alert alert-{{alertLevel}}">' +
-						'<button type="button" class="close" ng-click="hide()" aria-hidden="true">×</button>' +
 						'{{alertMsg}}' +
 					'</div>',
 		link: function($scope, $element, $attr) {
