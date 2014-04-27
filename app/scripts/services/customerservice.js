@@ -32,7 +32,7 @@ angular.module('mainApp')
 				break;
 
 			case 'customer':
-				suffix = 'search_customer';
+				suffix = 'consumer_query';
 				break;
 
 			case 'contact':
