@@ -7,7 +7,7 @@
 			<div class="form-group">
 				<label class="col-xs-3 control-label" for="c-type">类型: </label>
 				<div class="col-xs-4">
-					<select name="type" id="c-type" model="model.type" class="form-control">
+					<select name="type" id="c-type" ng-model="model.type" class="form-control">
 						<option value=""></option>
 						<option value="1">已购买客户</option>
 						<option value="2">潜在客户</option>
@@ -36,24 +36,6 @@
 				<div class="col-xs-5">
 					<input type="text" name="birthday" end-date="+0d" start-view="2" ng-model="model.birthday" uu-date-picker class="form-control input-sm" id="c-birthday">
 				</div>
-
-				<!-- <div class="col-xs-9">
-					<div class="col-xs-4 select-inline">
-						<select name="birthyear" class="form-control" ng-model="model.birthyear">
-							<option value="">请选择年份</option>
-						</select>
-					</div>
-					<div class="col-xs-4 select-inline">
-						<select name="birthmonth" class="form-control" ng-model="model.birthmonth">
-							<option value="">请选择月份</option>
-						</select>
-					</div>
-					<div class="col-xs-4 select-inline">
-						<select name="birthday" class="form-control" ng-model="model.birthday">
-							<option value="">请选择日期</option>
-						</select>
-					</div>
-				</div> -->
 			</div>
 			<div uu-static l-col="3" r-col="5" label="年龄" text="model.birthday | age"></div>
 			<div class="form-group">
@@ -101,7 +83,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-3 control-label" for="c-addr">街道地址: </label>
+				<label class="col-xs-3 control-label" for="c-addr">地址: </label>
 				<div class="col-xs-6">
 					<input type="text" name="address" ng-model="model.address" class="form-control input-sm" id="c-addr">
 				</div>

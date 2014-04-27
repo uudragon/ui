@@ -418,6 +418,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
  })
 
 // check http://eternicode.github.io/bootstrap-datepicker for full documentation
+// http://bootstrap-datepicker.readthedocs.org/en/release/index.html
 .directive('uuDatePicker', function() {
 	return {
 		restrict: 'A',
