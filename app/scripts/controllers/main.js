@@ -289,51 +289,59 @@ angular.module('authApp')
 	 * ----------------------------------------------------------------------
 	 */
 	
-	.controller('LoginCtrl', function ($scope, Auth, md5) {
+	.controller('LoginCtrl', function ($scope, md5, UUDBasicService) {
 		// init
 		$scope.model = {account: '', password: ''};
 
 		$scope.login = function(isValid) {
 
-			console.log('log in');
 			$scope.submitted = true;
 			if (!isValid) return;
 
-			var user = {
-				account: $scope.model.account,
-				password: md5.createHash($scope.model.password)
-			}
+			var user = 'account=' + $scope.model.account + '&password=' + md5.createHash($scope.model.password);
 
-			$scope.date = new Date();
-			Auth.login(user, function(code) {
-				switch (code) {
+			UUDBasicService.login(user)
+				.success(function(res, status) {
 
-					case 'E_00101':
-						$scope.errorMsg = '用户不存在！';
-						$scope.inValid = 'account';
-						break;
+					if (res.legal) {
+						// 登陆成功
+						// $location.path('/');
+					} else if(angular.isString(res.message)) {
+						// 用户名或密码错误
+						var errorCode = res.message.split(':')[0];
+						
+						switch (errorCode) {
 
-					case 'E_00100':
-						$scope.errorMsg = '密码与用户名不匹配！';
-						$scope.inValid = 'password';
-						break;
+							case 'E_00101':
+								$scope.errorMsg = '用户不存在！';
+								$scope.inValid = 'account';
+								break;
 
-					case '0':
-						delete $scope.errorMsg;
-						delete $scope.inValid;
-						break;
+							case 'E_00100':
+								$scope.errorMsg = '密码与用户名不匹配！';
+								$scope.inValid = 'password';
+								break;
 
-					default:
-						$scope.errorMsg = '错误！code: ' + code
-						break;
-				}
-			}, function(msg) {
-				console.log('faild' + msg);
-			})
+							case '0':
+								delete $scope.errorMsg;
+								delete $scope.inValid;
+								break;
+
+							default:
+								$scope.errorMsg = '错误！code: ' + code
+								break;
+						}
+					}
+
+
+				})
+				.error(function(msg, status) {
+					$scope.errorMsg = '网络错误！msg: ' + msg
+				})
 		}
 
 		$scope.logout = function() {
-			Auth.logout(function(){}, function() {})
+			UUDBasicService.logout();
 		}
 	})
 

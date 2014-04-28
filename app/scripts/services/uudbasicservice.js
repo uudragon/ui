@@ -47,6 +47,18 @@ angular.module('authApp')
 	}
 
 
+	this.login = function(user) {
+		var suffix = 'at/operate.op?className=loginAction&methodName=login&';
+
+		return $http.get(baseurl + suffix + user);
+	}
+
+	this.logout = function(user) {
+		var suffix = 'at/operate.op?className=loginAction&methodName=logout';
+
+		return $http.get(baseurl + suffix);
+	}
+
 	/**
 	 * 载入对象
 	 *
