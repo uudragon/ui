@@ -1,11 +1,37 @@
 'use strict';
 
 var uud = angular.module('authApp', [
+	'ivpusic.cookie',
 	'ui.router',
+	'angular-md5',
 	'ngAnimate'
 	])
 
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+
+	$httpProvider.defaults.headers.common['Requested-By'] = 'uu-dragon-app';
+
+	// 拦截器
+	$httpProvider.interceptors.push(function($q, $location, $rootScope, $injector) {
+		return {
+			'response': function(resp) {
+				if (resp && resp.errorCode) {
+					$rootScope.$broadcast('auth:invalid', res);
+					return $q.reject(res);
+				}
+				return resp;
+			},
+			'responseError': function(response) {
+
+				if(response.status === 401 || response.status === 403) {
+					// token is outdate or request for resource beyond the privilege of current user. 
+					$rootScope.$broadcast('auth:invalid', response);
+				}
+				return $q.reject(response);
+			}
+		};
+	});
 
 
 	/////////////////////////////
@@ -47,7 +73,7 @@ var uud = angular.module('authApp', [
 
 	.state('login', {
 		url: "/login",
-		templateUrl: "views/login/index.html",
+		templateUrl: "views/login.html",
 		controller: 'LoginCtrl'
 	})
 
@@ -87,4 +113,13 @@ var uud = angular.module('authApp', [
 	})
 }])
 
+.run(['$rootScope', '$state', 'Auth', '$location', function ($rootScope, $state, Auth, $location) {
 
+	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+
+		if (!Auth.isLoggedIn()) {
+			$location.path('/login');
+		}
+	});
+
+}]);

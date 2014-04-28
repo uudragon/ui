@@ -3,7 +3,7 @@
 angular.module('authApp')
 .service('UUDBasicService', function UUDBasicService($http) {
 
-	var baseurl = '/';
+	var baseurl = config.baseurl;
 	var self = this;
 	var indicator = {};
 

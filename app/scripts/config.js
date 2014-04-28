@@ -2,7 +2,8 @@
 
 	var fig = {
 		perPage: 15,
-		maxPages: 10
+		maxPages: 10,
+		baseurl: '/',
 	}
 
 	angular.extend(config, fig);

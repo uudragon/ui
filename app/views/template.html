@@ -22,5 +22,8 @@
 			<li ng-class="{active: $state.is('root.privilege')}"><a href="#/privilege" class="action-item">权限管理</a></li>
 		</ul>
 	</div>
-	<div ui-view class="content"></div>
+	<div class="content">
+		<a ng-controller="LoginCtrl" href="" class="logout" style="position: relative; top: -20px; left: 3px; color: #8A2BE2;" ng-click="logout()">登出系统</a>
+		<div ui-view></div>
+	</div>
 </div>
