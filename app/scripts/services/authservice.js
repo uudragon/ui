@@ -32,7 +32,6 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 
 	this.authorize = function(accessCode) {
 		if (typeof accessCode === 'undefined') {return true;}
-
 		for (var i = accessLevels.length - 1; i >= 0; i--) {
 			if (accessLevels[i].code == accessCode) {
 				return true;
@@ -42,9 +41,9 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 	}
 
 	this.loadAccessLevels = function() {
-		PostService.get(config.auth.baseurl + config.auth.resource + '?token=' + this.getToken())
+		PostService.get(config.auth.baseurl + config.auth.resource)
 			.success(function(data) {
-				accessLevels = data;
+				accessLevels = [{"id":1,"name":"用户信息","code":"01","url":"customer/new","method":"get","parent":0,"active":true},{"id":2,"name":"客服管理","code":"02","url":"service/ordermanager","method":"get","parent":0,"active":true}];
 			})
 	}
 
@@ -56,11 +55,6 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 		var user = ipCookie('uuduser');
 
 		if (user && user.token) {
-			// updateUser(user);
-			// console.log('user is:');
-			// console.log(user);
-			// console.log('token is:');
-			// console.log(user.token);
 			return true;
 		}
 
@@ -68,7 +62,6 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 	}
 
 	this.login = function(user, success, error) {
-
 
 		$http.get(config.auth.baseurl + config.auth.login + '?' + serialize(user))
 			.success(function(res) {
@@ -83,27 +76,9 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 					success(errorCode);
 				}
 			})
-
-		// var res = {
-		// 	token: 'myuudtoken-hahahhahhahah',
-		// 	user: {
-		// 		name: 'adsfasdf',
-		// 		phone: '123123',
-		// 		positions: 'admin',
-		// 		userNo: '09'
-		// 	}
-		// }
-		// updateUser(res);
-		// $location.path('/');
 	}
 
 	this.logout = function(success, error) {
-/*			$http.get('/at/ws/auth/logout').success(function() {
-			ipCookie.remove('uuduser');
-			$location.path('/login');
-			success();
-		}).error(error);*/
-		console.log('log out');
 		ipCookie.remove('uuduser');
 		$location.path('/login');
 	}

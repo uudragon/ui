@@ -8,9 +8,9 @@ angular.module('mainApp')
 		var currentUser = ipCookie('uuduser');
 
 		if (currentUser.token) {
-			$http.defaults.headers.common['Token'] = currentUser.token;
+			$http.defaults.headers.common['token'] = currentUser.token;
 		} else {
-			delete $http.defaults.headers.common['Token'];
+			delete $http.defaults.headers.common['token'];
 		}
 
 	}

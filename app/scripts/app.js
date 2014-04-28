@@ -35,11 +35,18 @@ var uud = angular.module('mainApp', [
 	$httpProvider.interceptors.push(function($q, $location, $rootScope, $injector) {
 		return {
 			'request': function(config) {
-				config.headers.Test = 'asdfasdfasdfasdfasdfjasdklfjasdklfja';
 				return config;
 			},
 			'response': function(resp) {
 
+				try {
+					var errorCode = resp.data.split(':')[0];
+					if (errorCode == 'E_00201') {
+						$rootScope.$broadcast('auth:invalid', res);
+						return $q.reject(res);
+					}
+				} catch(e) {}
+				
 				return resp;
 			},
 			'responseError': function(response) {

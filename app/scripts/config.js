@@ -5,7 +5,7 @@
 
 	exports.auth = {
 		baseurl: '/at/ws/auth/',
-		resource: 'resourceListByCode/',
+		resource: 'resourceListByCode',
 		login: 'login/'
 	}
 
