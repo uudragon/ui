@@ -32,7 +32,7 @@ angular.module('mainApp')
 				break;
 
 			case 'customer':
-				suffix = 'consumer_query';
+				suffix = 'consumer_list';
 				break;
 
 			case 'contact':
@@ -55,7 +55,7 @@ angular.module('mainApp')
 
 		switch (model.btn) {
 			case 'saved':
-				suffix = 'consumer_saved';
+				suffix = 'customer_saved';
 				break;
 
 			case 'insert':
