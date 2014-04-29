@@ -1,0 +1,134 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>优优龙</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<!-- build:css styles/vendor.css -->
+	<!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+	<!-- endbower -->
+	<!-- endbuild -->
+	<!-- build:css({.tmp,app}) styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- endbuild -->
+</head>
+<body ng-app="loginApp">
+	<!--[if lt IE 7]>
+	<p class="browsehappy">您的浏览器版本 <strong>过低</strong>. 为了获得更好的用户体验，请 <a href="http://browsehappy.com/">升级浏览器</a>.</p>
+	<![endif]-->
+
+	<div class="wrapper">
+		<div class="container login" ng-controller="LoginCtrl">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+
+					<!-- Site Title, your name, HELLO msg, etc. -->
+					<h1 class="title">优优龙</h1>
+					<h3 class="subtitle">优优龙权限管理系统</h3>
+
+					<div class="modal-dialog" style="width:350px">
+						<div class="form-error-msg" ng-if="errorMsg"> {{errorMsg}} </div>
+						<form class="form col-xs-12" ng-submit="login(loginForm.$valid)" name="loginForm" novalidate>
+							<div class="input-group login" ng-class="{ 'has-error' : (loginForm.account.$invalid || inValid == 'account') && (!loginForm.account.$pristine || submitted) }">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+								<input type="text" class="form-control" required ng-model="model.account" name="account" id="account" placeholder="用户名">
+							</div>
+							<div class="input-group login" ng-class="{ 'has-error' : (loginForm.password.$invalid || inValid == 'password') && (!loginForm.password.$pristine || submitted) }">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+								<input type="password" class="form-control" required ng-model="model.password" name="password" id="password" placeholder="密码">
+							</div>
+
+							<div class="form-group">
+								<button class="btn btn-primary btn-block" type="submit">登陆</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<!--[if lt IE 9]>
+	<script src="bower_components/es5-shim/es5-shim.js"></script>
+	<script src="bower_components/json3/lib/json3.min.js"></script>
+	<![endif]-->
+
+	<!-- build:js scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-md5/angular-md5.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="scripts/config.js"></script>
+	<script>
+		angular.module('loginApp', ['angular-md5'])
+
+		.controller('LoginCtrl', function ($scope, md5, $http) {
+			// init
+			$scope.model = {account: '', password: ''};
+
+			$scope.login = function(isValid) {
+
+				$scope.submitted = true;
+				if (!isValid) return;
+
+				var user = 'account=' + $scope.model.account + '&password=' + md5.createHash($scope.model.password);
+				var url = 'at/operate.op?className=loginAction&methodName=login&';
+
+				$http.get(config.baseurl + url + user)
+					.success(function(res, status) {
+
+						if (res.legal) {
+							// 登陆成功
+							// $location.path('/');
+						} else if(angular.isString(res.message)) {
+							// 用户名或密码错误
+							var errorCode = res.message.split(':')[0];
+							
+							switch (errorCode) {
+
+								case 'E_00101':
+									$scope.errorMsg = '用户不存在！';
+									$scope.inValid = 'account';
+									break;
+
+								case 'E_00100':
+									$scope.errorMsg = '密码与用户名不匹配！';
+									$scope.inValid = 'password';
+									break;
+
+								case '0':
+									delete $scope.errorMsg;
+									delete $scope.inValid;
+									break;
+
+								default:
+									$scope.errorMsg = '错误！code: ' + code
+									break;
+							}
+						}
+
+
+					})
+					.error(function(msg, status) {
+						$scope.errorMsg = '网络错误！'
+					})
+			}
+
+		})
+	</script>
+	
+	<!-- endbuild -->
+</body>
+</html>
