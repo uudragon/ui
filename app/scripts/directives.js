@@ -445,9 +445,28 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		restrict: 'A',
 		link: function($scope, element, attrs) {
-			if (!Auth.authorize(attrs.uuAuthFilter)) {
-				element.remove();
+
+			var accessCode = attrs.uuAuthFilter;
+			var valid = false;
+
+			if (accessCode) {
+				Auth.getAccessLevels()
+					.success(function(data) {
+						for (var i = data.length - 1; i >= 0; i--) {
+							if (data[i].code == accessCode) {
+								valid = true;
+							}
+						};
+
+						if (!valid) {
+							element.remove();
+						}
+					})
+					.error(function(msg) {
+						element.remove();
+					})
 			}
+
 		}
 	}
 })

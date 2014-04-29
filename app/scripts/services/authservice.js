@@ -1,6 +1,6 @@
 'use strict';
 angular.module('mainApp').service('Auth', function($http, ipCookie, $location, PostService) {
-	var accessLevels = [],
+	var accessPromise,
 		currentUser;
 
 	function updateUser(user) {
@@ -30,27 +30,12 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 		return ipCookie('uuduser').token;
 	}
 
-	this.authorize = function(accessCode) {
-		if (typeof accessCode === 'undefined') {return true;}
-		console.log(accessLevels);
-		for (var i = accessLevels.length - 1; i >= 0; i--) {
-			// console.log(accessLevels[i].code, accessCode);
-			if (accessLevels[i].code == accessCode) {
-				return true;
-			}
-		};
-		return false;
-	}
-
 	this.loadAccessLevels = function() {
-		PostService.get(config.auth.baseurl + config.auth.resource)
-			.success(function(data) {
-				accessLevels = data;
-			})
+		accessPromise = PostService.get(config.auth.baseurl + config.auth.resource)
 	}
 
 	this.getAccessLevels = function() {
-		return accessLevels;
+		return accessPromise;
 	}
 
 	this.isLoggedIn = function(user) {

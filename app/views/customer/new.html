@@ -1,5 +1,6 @@
 <form class="form form-horizontal form-small" name="infoForm" role="form" ng-submit="newCustomer()">
-	<input type="hidden" name="operator" ng-model="model.operator" ng-init="model.operator='testOperator'">
+	<input type="hidden" name="operator" ng-model="model.code" ng-init="model.code=123">
+	<!-- <input type="hidden" name="operator" ng-model="model.code" ng-init="model.code=currentUser.userNo"> -->
 	<div class="col-xs-6">
 		<fieldset>
 			<legend></legend>
@@ -24,10 +25,10 @@
 				<label class="col-xs-3 control-label">性别: </label>
 				<div class="col-xs-4">
 					<div class="radio-inline">
-						<label><input type="radio" ng-model="model.sex" value="male">男</label>
+						<label><input type="radio" ng-model="model.gender" value="male">男</label>
 					</div>
 					<div class="radio-inline">
-						<label><input type="radio" ng-model="model.sex" value="female">女</label>
+						<label><input type="radio" ng-model="model.gender" value="female">女</label>
 					</div>
 				</div>
 			</div>

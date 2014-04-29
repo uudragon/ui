@@ -55,7 +55,7 @@ angular.module('mainApp')
 
 		switch (model.btn) {
 			case 'saved':
-				suffix = 'customer_saved';
+				suffix = 'consumer_saved';
 				break;
 
 			case 'insert':

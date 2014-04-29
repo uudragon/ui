@@ -67,12 +67,7 @@ var uud = angular.module('mainApp', [
 	.state('root', {
 		url: "/",
 		templateUrl: "views/template.html",
-		controller: 'MainCtrl',
-		resolve: {
-			Resource: function(Auth, $q) {
-				return Auth.loadAccessLevels()
-			}
-		}
+		controller: 'MainCtrl'
 	})
 
 	.state('login', {
