@@ -1,10 +1,7 @@
 'use strict';
 
 var uud = angular.module('authApp', [
-	'ivpusic.cookie',
-	'ui.router',
-	'angular-md5',
-	'ngAnimate'
+	'ui.router'
 	])
 
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -25,18 +22,6 @@ var uud = angular.module('authApp', [
 	// If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
 	.otherwise('/');
 
-	// 拦截器
-	$httpProvider.interceptors.push(function($q, $location) {
-		return {
-			'responseError': function(response) {
-				if(response.status === 401 || response.status === 403) {
-					$location.path('/login');
-				}
-				return $q.reject(response);
-			}
-		};
-	});
-
 	//////////////////////////
 	// State Configurations //
 	//////////////////////////
@@ -47,12 +32,6 @@ var uud = angular.module('authApp', [
 		url: "/",
 		templateUrl: "views/template.html",
 		controller: 'MainCtrl'
-	})
-
-	.state('login', {
-		url: "/login",
-		templateUrl: "views/login.html",
-		controller: 'LoginCtrl'
 	})
 
 
