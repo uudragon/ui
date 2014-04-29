@@ -108,15 +108,19 @@
 									$scope.inValid = 'password';
 									break;
 
-								case '0':
-									delete $scope.errorMsg;
+								case 'E_00103':
+									$scope.errorMsg = '没有权限访问！';
 									delete $scope.inValid;
 									break;
 
 								default:
-									$scope.errorMsg = '错误！code: ' + code
+									$scope.errorMsg = res.message;
+									delete $scope.inValid;
 									break;
 							}
+						} else {
+							$scope.errorMsg = '错误！';
+							delete $scope.inValid;
 						}
 
 
