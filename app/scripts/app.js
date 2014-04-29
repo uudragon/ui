@@ -4,8 +4,7 @@ var uud = angular.module('mainApp', [
 	'ivpusic.cookie',
 	'ngResource',
 	'ui.router',
-	'ngAnimate',
-	'angular-md5' // you may also use 'ngMd5' or 'gdi2290.md5'
+	'angular-md5'
 	])
 
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -38,7 +37,6 @@ var uud = angular.module('mainApp', [
 				return config;
 			},
 			'response': function(resp) {
-
 				try {
 					var errorCode = resp.data.split(':')[0];
 					if (errorCode == 'E_00201') {
@@ -69,7 +67,12 @@ var uud = angular.module('mainApp', [
 	.state('root', {
 		url: "/",
 		templateUrl: "views/template.html",
-		controller: 'MainCtrl'
+		controller: 'MainCtrl',
+		resolve: {
+			Resource: function(Auth, $q) {
+				return Auth.loadAccessLevels()
+			}
+		}
 	})
 
 	.state('login', {

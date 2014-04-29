@@ -32,7 +32,9 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 
 	this.authorize = function(accessCode) {
 		if (typeof accessCode === 'undefined') {return true;}
+		console.log(accessLevels);
 		for (var i = accessLevels.length - 1; i >= 0; i--) {
+			// console.log(accessLevels[i].code, accessCode);
 			if (accessLevels[i].code == accessCode) {
 				return true;
 			}
@@ -43,7 +45,7 @@ angular.module('mainApp').service('Auth', function($http, ipCookie, $location, P
 	this.loadAccessLevels = function() {
 		PostService.get(config.auth.baseurl + config.auth.resource)
 			.success(function(data) {
-				accessLevels = [{"id":1,"name":"用户信息","code":"01","url":"customer/new","method":"get","parent":0,"active":true},{"id":2,"name":"客服管理","code":"02","url":"service/ordermanager","method":"get","parent":0,"active":true}];
+				accessLevels = data;
 			})
 	}
 
