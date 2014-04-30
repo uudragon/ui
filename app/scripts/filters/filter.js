@@ -11,6 +11,11 @@ angular.module('mainApp')
 		return valid == 1 ? "有效" : "无效";
 	}
 })
+.filter('cType', function () {
+	return function (valid) {
+		return valid >= 1 ? "已购买" : "潜在";
+	}
+})
 .filter('age', function() {
 	return function (birthday) {
 		if (birthday) {

@@ -3,6 +3,16 @@
 angular.module('mainApp')
 .controller('CustomerCtrl', ['$scope', 'CustomerService', function ($scope, CustomerService) {
 	
+	// init
+	$scope.searchModel = {
+		pagination: {
+			perPage: config.perPage,
+			toPage: 1
+		}
+	}
+
+	$scope.page = 1;
+
 	$scope.loadInfo = function(type) {
 
 		CustomerService.loadInfo($scope.model, type) 
@@ -19,42 +29,25 @@ angular.module('mainApp')
 
 	// 搜索
 	$scope.search = function (type) {
-
+		console.log($scope.searchModel);
 		CustomerService.search($scope.searchModel, type)
 			.success(function(data, status) {
 				$scope.result = data;
 			})
 			.error(function(data, status) {
 				console.log('search contact error status: ' + status + ' use dummy data');
-
-				switch (type) {
-					// 获取预订总数和成交客户
-					case 'customer':
-						$scope.result = {number: 13123, type: '已付款'}
-						break;
-					
-					case 'contact':
-						// dummy data
-						$scope.result = [
-							{code: 1, name: 'test1', type: 2, gender: 'male', email: 'testemail@email.com'},
-							{code: 4, name: 'test2', type: 6, gender: 'female', email: 'testemdail@email.com'},
-							{code: 14, name: 'test3', type: 34, gender: 'male', email: 'test3@email.com'},
-							{code: 43, name: 'test4', type: 6, gender: 'female', email: 'test4@email.com'},
-						]
-						break;
-
-
-					default: break;
-				}
-
-				$scope.pages = 10;
 			})
 	}
 
 	$scope.newCustomer = function() {
 		CustomerService.newCustomer($scope.model)
 			.success(function(data, status) {
-				$scope.model = data;
+				if (data.success) {
+					// 成功保存
+					$scope.model = {};
+				} else {
+					// 保存失败
+				}
 			})
 			.error(function(data, status) {
 				console.log('new customer error status:' + status);

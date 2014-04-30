@@ -206,6 +206,34 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
+// confirm dialog, require plugin jquery.confirm
+.directive('uuConfirm', function() {
+	return {
+		scope: {
+			label: '@',
+			confirm: '&',
+			cancel: '&'
+		},
+		replace: true,
+		link: function(scope, elem, attrs) {
+			elem.confirm({
+				text: attrs.text,
+				title: attrs.title,
+				confirm: function() {
+					scope.confirm();
+				},
+				cancel: function(button) {
+					scope.cancel();
+				},
+				confirmButton: attrs.confirmBtn || "确定",
+				cancelButton: attrs.cancelBtn || "取消",
+				confirmButtonClass: "btn-danger"
+			})
+		},
+		template: '<a href="">{{label}}</a>'
+	}
+})
+
 // generate raido field in form
 .directive('uuSwitcher', function() {
 	return {
@@ -261,21 +289,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
-// generate static field for phone in form
-.directive('uuStaticPhone', function() {
-	return {
-		scope: {
-			label: '@',
-			name: '@',
-			lCol: '@',
-			rCol: '@',
-			text: '=',
-			main: '=',
-		},
-		templateUrl: 'views/partial/directives/uustaticphone.html'
-	}
-})
-
 // generate simple search field
 .directive('uuSimpleSearch', function() {
 	return {
@@ -307,115 +320,124 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
- /**
-  * generate pagination
-  *
-  * @param int records 总记录数
-  * @param int per-page 每页显示的记录数 default: 10
-  * @param int max-pages 最多显示多少页 default: 10
-  * @param function action 点击页码后调用的方法
-  * @param object model 需要更新的model (最好在controller中初始化: $scope.searchModel = {})
-  *
-  * example:
-  * <div uu-pagination records="1000" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
-  */
 
- .directive('uuPagination', function() {
- 	return {
- 		scope: {
- 			records: '=?',
- 			perPage: '=?',
- 			maxPages: '=',
- 			action: '&',
- 			current: '=page?',
- 			model: '='
- 		},
- 		link: function($scope, $element, attrs, model) {
+/**
+ * generate pagination
+ *
+ * @param int records 总记录数
+ * @param int per-page 每页显示的记录数 default: 10
+ * @param int max-pages 最多显示多少页 default: 10
+ * @param function action 点击页码后调用的方法
+ * @param object model 需要更新的model (最好在controller中初始化: $scope.searchModel = {})
+ *
+ * example:
+ * <div uu-pagination records="1000" per-page="20" max-pages="10" action="search()" model="searchModel.toPage"></div>
+ */
 
- 			var maxPages = $scope.maxPages || config.maxPages;
- 			var perPage = $scope.perPage || config.perPage;
- 			var start = 1;
+.directive('uuPagination', function() {
+	return {
+		scope: {
+			records: '=',
+			perPage: '=',
+			maxPages: '=',
+			action: '&',
+			current: '=page',
+			model: '='
+		},
+		link: function($scope, $element, attrs, model) {
 
- 			updatePagination();
+			var maxPages = $scope.maxPages || config.maxPages;
+			var perPage = $scope.perPage || config.perPage;
+			var start = 1;
 
- 			$scope.current = $scope.current || 1;
+			updatePagination();
 
- 			function updatePagination() {
- 				var totalPages = Math.ceil($scope.records / perPage);
- 				var pages = betwwen(totalPages , 0, maxPages);
- 				var middlePage = start + Math.floor(pages / 2);
- 				var offset = 0;
+			$scope.current = $scope.current || 1;
 
- 				if ($scope.current > middlePage) {
- 					offset = $scope.current - middlePage;
- 					start += offset;
- 				}
+			function updatePagination() {
+				var totalPages = Math.ceil($scope.records / perPage);
+				var pages = betwwen(totalPages , 0, maxPages);
+				var middlePage = start + Math.floor(pages / 2);
+				var offset = 0;
 
- 				if ($scope.current < middlePage) {
- 					offset = middlePage - $scope.current;
- 					start -= offset;
- 				}
+				if ($scope.current > middlePage) {
+					offset = $scope.current - middlePage;
+					start += offset;
+				}
+
+				if ($scope.current < middlePage) {
+					offset = middlePage - $scope.current;
+					start -= offset;
+				}
 
 
- 				start = betwwen(start, 1, totalPages - pages + 1)
+				start = betwwen(start, 1, totalPages - pages + 1)
 
- 				// update the model passed in
- 				$scope.model = {
- 					'toPage': $scope.current,
- 					'perPage': perPage
- 				}
+				// update the model passed in
+				$scope.model = {
+					'toPage': $scope.current,
+					'perPage': perPage
+				}
 
- 				$scope.pages = [];
+				$scope.pages = [];
 
- 				for (var i = start; i < start + pages; i++) {
- 					$scope.pages.push(i)
- 				}
+				for (var i = start; i < start + pages; i++) {
+					$scope.pages.push(i)
+				}
 
- 				// hide pagination when there is only one page
- 				if (pages <= 1) {
- 					$element.css('display', 'none');
- 				}
- 				return pages;
- 			}
+				// hide pagination when there is only one page
+				if (pages <= 1) {
+					$element.css('display', 'none');
+				}
+				return pages;
+			}
 
- 			$scope.prev = function() {
- 				$scope.current--;
- 				if ($scope.current < 1) {
- 					$scope.current =1;
- 				}
- 				updatePagination();
- 			}
+			$scope.prev = function() {
+				$scope.current--;
+				if ($scope.current < 1) {
+					$scope.current =1;
+				}
+				updatePagination();
+			}
 
- 			$scope.to = function(page) {
- 				$scope.current = page;
- 				updatePagination();
- 			}
+			$scope.to = function(page) {
+				$scope.current = page;
+				updatePagination();
+			}
 
- 			$scope.next = function() {
- 				var totalPages = Math.ceil($scope.records / perPage);
- 				$scope.current++;
- 				if ($scope.current > totalPages) {
- 					$scope.current = totalPages;
- 				}
- 				updatePagination();
- 			}
+			$scope.next = function() {
+				var totalPages = Math.ceil($scope.records / perPage);
+				$scope.current++;
+				if ($scope.current > totalPages) {
+					$scope.current = totalPages;
+				}
+				updatePagination();
+			}
 
- 			// when current page changed, call function
- 			$scope.$watch('current', function(current, prev, scope) {
- 				if(current && current !== prev) {
- 					scope.action();
- 				}
- 			})
+			// when current page changed, call function
+			$scope.$watch('current', function(current, prev, scope) {
+				if(current && current !== prev) {
+					scope.action();
+				}
+			})
 
- 			function betwwen(val, min, max) {
- 				if (val < min) return min;
- 				if (val > max) return max;
- 				return val;
- 			}
- 		},
- 		templateUrl: 'views/partial/directives/pagination.html'
- 	}
- })
+			function betwwen(val, min, max) {
+				if (val < min) return min;
+				if (val > max) return max;
+				return val;
+			}
+		},
+		template: '<div class="pagination-wraper">' +
+						'<ul class="pagination">' +
+							'<li><a href="" ng-click="prev()" class="prev">&laquo;</a></li>' +
+							'<li ng-repeat="page in pages" ng-class="{active : current == page}">' +
+								'<a href="" ng-click="to(page)">{{page}}</a>' +
+							'</li>' +
+							'<li><a href="" ng-click="next()" class="next">&raquo;</a></li>' +
+						'</ul>' +
+					'</div>'
+	}
+})
 
 // check http://eternicode.github.io/bootstrap-datepicker for full documentation
 // http://bootstrap-datepicker.readthedocs.org/en/release/index.html

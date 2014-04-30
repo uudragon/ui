@@ -18,7 +18,7 @@ var uud = angular.module('mainApp', [
 
 	// The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
 	// Here we are just setting up some convenience urls.
-	.when('/', '/customer/traded')
+	.when('/', '/home')
 	.when('/customer', '/customer/traded')
 	.when('/service', '/service/ordermanager')
 	.when('/financial', '/financial/deposit')
@@ -74,6 +74,11 @@ var uud = angular.module('mainApp', [
 		url: "/login",
 		templateUrl: "views/login.html",
 		controller: 'AuthCtrl'
+	})
+
+	.state('root.home', {
+		url: "home",
+		template: "<h2>Home Page</h2>"
 	})
 
 

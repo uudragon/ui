@@ -2,6 +2,7 @@
 
 	// global variables
 	exports.baseurl = '/bam/';
+	exports.perPage = 2;
 
 	exports.auth = {
 		baseurl: '/at/ws/auth/',

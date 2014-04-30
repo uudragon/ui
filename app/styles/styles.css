@@ -7,7 +7,8 @@ a {color: #333; }
  */
 /*body {background: url('../img/body-bg.png');}*/
 .container {width: 1170px; font: 1em/normal '微软雅黑', '宋体', Arial, Helvetica, sans-serif; }
-.nav-sidebar {border: 1px solid aliceblue; border-bottom: none;}
+.sidebar {border-right: 1px solid #EEE; height: 500px;}
+.nav-sidebar {border: 1px solid #EFEFEF; border-bottom: none; }
 .nav-sidebar > li > a {color: #333; }
 .nav-sidebar > .active > a, .nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus {background-color: #A52A2A; color: #fff; }
 .i-val {padding-left: 10px}
@@ -34,7 +35,7 @@ a {color: #333; }
 .info > ul > li {float: left; }
 .info > ul > li > a { font-size: 0.9em; padding: 15px;text-align: right;}
 .info > ul > li > a:hover {background-color: transparent; color: #800000;  }
-.main {border-left: solid 1px #ccc; position: initial; }
+.main {position: initial; }
 
 .bs-tabs > ul > li > a:hover {color: #800000; background-color: #fff; }
 

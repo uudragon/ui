@@ -1,6 +1,4 @@
 <form class="form form-horizontal form-small" name="infoForm" role="form" ng-submit="newCustomer()">
-	<input type="hidden" name="operator" ng-model="model.code" ng-init="model.code=123">
-	<!-- <input type="hidden" name="operator" ng-model="model.code" ng-init="model.code=currentUser.userNo"> -->
 	<div class="col-xs-6">
 		<fieldset>
 			<legend></legend>
@@ -25,10 +23,10 @@
 				<label class="col-xs-3 control-label">性别: </label>
 				<div class="col-xs-4">
 					<div class="radio-inline">
-						<label><input type="radio" ng-model="model.gender" value="male">男</label>
+						<label><input type="radio" ng-model="model.sex" value="1">男</label>
 					</div>
 					<div class="radio-inline">
-						<label><input type="radio" ng-model="model.gender" value="female">女</label>
+						<label><input type="radio" ng-model="model.sex" value="0">女</label>
 					</div>
 				</div>
 			</div>
@@ -49,10 +47,10 @@
 				<label class="col-xs-3 control-label" for="cp-gender">家长性别: </label>
 				<div class="col-xs-4">
 					<div class="radio-inline">
-						<label><input type="radio" name="cp-name" ng-model="model.p_sex" value="male">男</label>
+						<label><input type="radio" name="cp-name" ng-model="model.p_sex" value="1">男</label>
 					</div>
 					<div class="radio-inline">
-						<label><input type="radio" name="cp-name" ng-model="model.p_sex" value="female">女</label>
+						<label><input type="radio" name="cp-name" ng-model="model.p_sex" value="0">女</label>
 					</div>
 				</div>
 			</div>
@@ -107,9 +105,9 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-3 control-label" for="phone-mobile">手机: </label>
+				<label class="col-xs-3 control-label" for="mobile">手机: </label>
 				<div class="col-xs-6">
-					<input type="text" name="phone-mobile" ng-model="model.mobile" class="form-control input-sm" id="phone-mobile">
+					<input type="text" name="mobile" ng-model="model.mobile" class="form-control input-sm" id="mobile">
 				</div>
 			</div>
 			<div class="form-group">
@@ -146,10 +144,10 @@
 				<label class="col-xs-3 control-label">付款方式:</label>
 				<div class="col-xs-9">
 					<div class="radio-inline">
-						<label><input type="radio" name="payway" ng-model="model.payway" value="online">在线支付</label>
+						<label><input type="radio" name="payway" ng-model="model.payway" value="1">在线支付</label>
 					</div>
 					<div class="radio-inline">
-						<label><input type="radio" name="payway" ng-model="model.payway" value="delivery">货到付款</label>
+						<label><input type="radio" name="payway" ng-model="model.payway" value="2">货到付款</label>
 					</div>
 				</div>
 			</div>
@@ -157,17 +155,17 @@
 				<label class="col-xs-3 control-label">发票类型:</label>
 				<div class="col-xs-6">
 					<div class="radio-inline">
-						<label><input type="radio" ng-model="model.invoice.type" value="personal">个人</label>
+						<label><input type="radio" ng-model="model.invoice.type" value="1">个人</label>
 					</div>
 					<div class="radio-inline">
-						<label><input type="radio" ng-model="model.invoice.type" value="company">公司</label>
+						<label><input type="radio" ng-model="model.invoice.type" value="2">公司</label>
 					</div>
 				</div>
 			</div>
 			<div class="form-group" ng-show="model.invoice.type=='company'" >
-				<label class="col-xs-3 control-label" for="c-taitou">发票抬头:</label>
+				<label class="col-xs-3 control-label" for="c-header">发票抬头:</label>
 				<div class="col-xs-5">
-					<input type="text" name="invoice" ng-model="model.invoice.taitou" class="form-control input-sm" id="c-taitou">
+					<input type="text" name="invoice" ng-model="model.invoice.header" class="form-control input-sm" id="c-header">
 				</div>
 			</div>
 			<div class="form-group" ng-show="model.invoice.type" for="c-invoice">
