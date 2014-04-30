@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.service('ShipService', ['$http', 'PostService', function ShipService($http, PostService) {
+.service('ShipService', ['$http', function ShipService($http) {
 
 	/***************** 发货管理开始 ***********************/
 
@@ -24,7 +24,7 @@ angular.module('mainApp')
 			default: break;
 
 		}
-		return PostService.post(baseurl + suffix, model);
+		return $http.post(baseurl + suffix, model);
 	}
 
 	this.search = function(model, type) {

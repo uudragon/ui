@@ -1,72 +1,59 @@
 'use strict';
-angular.module('mainApp').service('Auth', function($http, ipCookie, $location, PostService) {
-	var accessPromise,
-		currentUser;
+angular.module('mainApp').service('Auth', function($http, $location, ipCookie) {
+	var _accessPromise, _user;
 
-	function updateUser(user) {
-		ipCookie.remove('uuduser');
-		ipCookie('uuduser', user);
-		// ipCookie('uuduser', user, config.cookieOption);
+	var setUser = function (user) {
+		ipCookie('user', user);
 	}
 
-	function serialize(obj, prefix) {
-		var str = [];
-		for(var p in obj) {
-			var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-			str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
+	var setHeader = function (token) {
+		if (token) {
+			$http.defaults.headers.common['token'] = token;
+		} else {
+			delete $http.defaults.headers.common['token'];
 		}
-		return str.join("&");
 	}
 
-	this.getCurrentUser = function() {
-		if (!currentUser) {
-			currentUser = ipCookie('uuduser').user;
+	var setToken = function (token) {
+		ipCookie('token', token);
+	}
+
+	var getToken = function() {
+		return ipCookie('token');
+	}
+
+	this.getUser = function () {
+		if (!_user) {
+			_user = ipCookie('user');
 		}
-
-		return currentUser;
-	}
-
-	this.getToken = function() {
-		return ipCookie('uuduser').token;
+		return _user;
 	}
 
 	this.loadAccessLevels = function() {
-		accessPromise = PostService.get(config.auth.baseurl + config.auth.resource)
+		setHeader(getToken());
+		_accessPromise = $http.get(config.auth.baseurl + config.auth.resource)
 	}
 
 	this.getAccessLevels = function() {
-		return accessPromise;
+		return _accessPromise;
 	}
 
-	this.isLoggedIn = function(user) {
-		var user = ipCookie('uuduser');
-
-		if (user && user.token) {
+	this.isLoggedIn = function() {
+		if (getToken()) {
 			return true;
 		}
-
 		return false;
 	}
 
-	this.login = function(user, success, error) {
-
-		$http.get(config.auth.baseurl + config.auth.login + '?' + serialize(user))
-			.success(function(res) {
-				// 登录成功
-				if (res.legal) {
-					success('0');
-					updateUser(res);
-					$location.path('/');
-				} else {
-					// 用户名或密码错误
-					var errorCode = res.message.split(':')[0];
-					success(errorCode);
-				}
-			})
+	this.login = function(res) {
+		setUser(res.user);
+		setToken(res.token);
+		$location.path('/');
 	}
 
-	this.logout = function(success, error) {
-		ipCookie.remove('uuduser');
+	this.logout = function() {
+		ipCookie.remove('user');
+		ipCookie.remove('token');
 		$location.path('/login');
 	}
 });
