@@ -25,7 +25,6 @@ var uud = angular.module('mainApp', [
 	.when('/agents', '/agents/list')
 	.when('/ship', '/ship/summary')
 
-	// If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
 	.otherwise('/');
 
 	$httpProvider.defaults.headers.common['Requested-By'] = 'uu-dragon-app';
@@ -40,6 +39,7 @@ var uud = angular.module('mainApp', [
 				try {
 					var errorCode = resp.data.split(':')[0];
 					if (errorCode == 'E_00201') {
+						// 服务器返回token过期信息
 						$rootScope.$broadcast('auth:invalid', res);
 						return $q.reject(res);
 					}
