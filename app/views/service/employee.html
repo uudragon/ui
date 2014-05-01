@@ -6,12 +6,12 @@
 
 <form action="" class="search-form" ng-submit="search('employee')">
 	<div class="col-xs-7">
-		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="model.keyword" class="form-control search-box">
+		<input type="text" name="search-box" placeholder="请输入搜索关键字" ng-model="searchModel.keyword" class="form-control search-box">
 		<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 	</div>
 	<div class="col-xs-2 pull-right">
 		<ul class="list-inline batch-btn-group ">
-			<li><a href="">修改</a></li>
+			<li><a href="" data-toggle="modal" data-target="#uumodal">修改</a></li>
 			<li class="split-pipe">|</li>
 			<li><a href="">导出</a></li>
 		</ul>
@@ -19,7 +19,7 @@
 </form>
 
 <div class="result" ng-show="result.length">
-	<table class="table table-hover table-condensed ">
+	<table class="table table-condensed table-bordered">
 		<thead>
 			<tr>
 				<th>时间</th>
@@ -28,54 +28,106 @@
 				<th>姓名</th>
 				<th>上周累计在岗时间</th>
 				<th>上周接待量</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="item in result">
-				<th>周一</th>
-				<td rowspan="2">{{item.order_no}}</td>
+			<tr >
+				<th rowspan="4">周一</th>
+				<td rowspan="2">网络客服2人</td>
 				<td>{{item.type}}</td>
 				<td>{{item.status}}</td>
 				<td>{{item.result}}</td>
 				<td>{{item.channel}}</td>
-				<td>{{item.update_time | date : "yyyy-MM-dd" }}</td>
-				<td>{{item.create_time | date : "yyyy-MM-dd" }}</td>
-				<td>{{item.refer}}</td>
-				<td>{{item.creater}}</td>
-				<td>
-					<table>
-						<tr>
-							<th>客户编号:</th>
-							<td>{{item.customer.code}}</td>
-						</tr>
-						<tr>
-							<th>宝宝姓名:</th>
-							<td>{{item.customer.name}}</td>
-							<th>性别:</th>
-							<td>{{item.customer.gender}}</td>
-						</tr>
-						<tr>
-							<th>家长姓名:</th>
-							<td>{{item.customer.c_name}}</td>
-							<th>性别:</th>
-							<td>{{item.customer.c_gender}}</td>
-						</tr>
-						<tr>
-							<th>订单摘要:</th>
-							<td>{{item.customer.order_type}}</td>
-						</tr>
-						<tr>
-							<th>联系电话:</th>
-							<td>{{item.customer.phone}}</td>
-						</tr>
-						<tr>
-							<th>地址:</th>
-							<td>{{item.customer.addr}}</td>
-						</tr>
-					</table>
-				</td>
+			</tr>
+			<tr >
+				<td>{{item.type}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.result}}</td>
+				<td>{{item.channel}}</td>
+			</tr>
+			<tr >
+				<td rowspan="2">电话客服2人</td>
+				<td>{{item.type}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.result}}</td>
+				<td>{{item.channel}}</td>
+			</tr>
+			<tr >
+				<td>{{item.type}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.result}}</td>
+				<td>{{item.channel}}</td>
 			</tr>
 		</tbody>
 	</table>
+</div>
+
+<div class="modal fade" id="uumodal">
+	<div class="modal-dialog modal-lg">
+		<!-- <form class="form form-small form-horizontal" ng-submit="saveTask()" novalidate> -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">修改排班</h4>
+				</div>
+				<div class="modal-body">
+					<div uu-tab>
+						<div uu-pane title="周一">
+							<h4>网络客服</h4>
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="item in tasks.net">
+									<span class="col-xs-4">工号：{{item.userno}}</span>
+									<span class="col-xs-4">姓名：{{item.name}}</span>
+									<span class="close" ng-click="removeTask($index, 'net')">×</span>
+								</li>
+							</ul>
+
+							<h4>电话客服</h4>
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="item in tasks.phone">
+									<span class="col-xs-4">工号：{{item.userno}}</span>
+									<span class="col-xs-4">姓名：{{item.name}}</span>
+									<span class="close" ng-click="removeTask($index, 'phone')">×</span>
+								</li>
+							</ul>
+
+							<form class="form form-small form-horizontal" name="taskForm" ng-submit="addTask(taskForm, 'phone')" novalidate>
+								<div class="form-group col-xs-4" ng-class="{ 'has-error' : taskForm.type.$invalid && (taskForm.order.$dirty || submitted) }">
+									<label class="col-xs-5 control-label" for="type">类别: </label>
+									<div class="col-xs-7">
+										<select name="type" required id="type" ng-model="model.type" class="form-control input-sm">
+											<option value=""></option>
+											<option value="net">网络客服</option>
+											<option value="phone">电话客服</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-xs-4" ng-class="{ 'has-error' : taskForm.userno.$invalid && (taskForm.userno.$dirty || submitted) }">
+									<label class="col-xs-5 control-label" for="userno">工号: </label>
+									<div class="col-xs-7">
+										<input type="text" name="userno" ng-model="model.userno" ng-required="true" class="form-control input-sm" id="userno">
+									</div>
+								</div>
+								<div class="form-group col-xs-4" ng-class="{ 'has-error' : taskForm.name.$invalid && (taskForm.name.$dirty || submitted) }">
+									<label class="col-xs-5 control-label" for="name">姓名: </label>
+									<div class="col-xs-7">
+										<input type="text" name="name" ng-required="true" ng-model="model.name" class="form-control input-sm" id="name">
+									</div>
+								</div>
+								<div class="form-group col-xs-2 col-xs-offset-1">
+									<input type="submit" value="添加" class="btn btn-danger btn-sm">
+								</div>
+							</form>
+						</div>
+						<div uu-pane title="周二">
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" ng-click="saveCS()" class="btn btn-primary">保存</button>
+				</div>
+			<!-- </form> -->
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div>

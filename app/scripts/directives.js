@@ -254,17 +254,20 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		transclude: true,
 		scope: {
-			label: '@'
+			label: '@',
+			form: '=',
+			name: '@'
 		},
+		require: '^form',
 		replace: true,
-		link: function($scope, $elem, $attrs) {
+		link: function($scope, $elem, $attrs, ctrl) {
 			$scope.labelCol = 'col-xs-' + ($attrs.lCol || 4);
 			$scope.inputCol = 'col-xs-' + ($attrs.rCol || 4);
 			$scope.labelOffset = $attrs.lOffset ? ('col-xs-' + $attrs.lOffset) : '';
 			$scope.inputOffset = $attrs.rOffset ? ('col-xs-' + $attrs.rOffset) : '';
 		},
-		template: '<div class="form-group">' +
-					'<label ng-if="label" class="control-label {{ labelCol }} {{ labelOffset }}">{{label}}: </label>' +
+		template: '<div class="form-group" > ' +
+					'<label ng-if="label" for="{{name}}" class="control-label {{ labelCol }} {{ labelOffset }}">{{label}}: </label>' +
 					'<div class="{{ inputOffset }} {{ inputCol }}" ng-transclude></div>' +
 				'</div>'
 	}

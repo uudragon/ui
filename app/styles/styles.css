@@ -14,15 +14,14 @@ a {color: #333; }
 .i-val {padding-left: 10px}
 .result > table th {text-align: center; vertical-align: top;}
 .result > table td {text-align: center;}
-.decorator {height: 12px; border-top: 2px solid; border-bottom: 7px solid; border-color: #A7A7A7; margin: 0 15px; position: relative; top: -23px; z-index: -1; }
-.wrapper {position: relative; top: -13px;}
+.decorator {height: 12px; border-top: 2px solid; border-bottom: 7px solid; border-color: #A7A7A7; margin: 7px 15px 12px 15px; z-index: -1; }
+
 /**
  * Jumbotron
  * ----------------------------------------------------------------------------
  */
 
-.container .jumbotron {padding: 14px 0; background: url('../img/body-bg.png'); margin-top: 10px; color: black;}
-.container .jumbotron {padding: 14px 0; background-color: transparent; margin-top: 10px; color: black;}
+.container .jumbotron {padding: 14px 0; background: url('../img/body-bg.png'); margin: 10px 0 0 0; color: black;}
 .jumbotron p.des {font-size: 14px; text-align: center; padding-top: 6px; margin: 0 0 0 10px; }
 .brand {margin: 6px auto; display: block; }
 .logo {padding: 3px; display: block; float: left;}
@@ -83,6 +82,10 @@ a {color: #333; }
 .form-control-static {color: #696969 }
 .empty-legend {border: none;}
 .select-inline {padding: 0 6px 0 0;}
+.pane-field {margin-top: 20px;}
+.modal-lg {width: 700px}
+.list-group-item {overflow: hidden;}
+
 
 /**
  * Search

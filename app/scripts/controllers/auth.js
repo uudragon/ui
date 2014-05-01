@@ -65,6 +65,7 @@ angular.module('mainApp')
 	}
 
 	$scope.logout = function() {
+		$http.get(config.auth.baseurl + config.auth.logout);
 		Auth.logout();
 	}
 });

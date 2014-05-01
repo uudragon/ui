@@ -28,8 +28,7 @@ angular.module('mainApp')
 
 	// 搜索
 	$scope.search = function (type) {
-		if (!type) return;
-		
+
 		CSService.search($scope.searchModel, type)
 			.success(function(data, status) {
 				$scope.result = data;
@@ -70,8 +69,32 @@ angular.module('mainApp')
 			$scope.search('task');
 		} else if ( $scope.$state.is('root.service.online') ) {
 			$scope.loadInfo('online_statistics');
-		}
+		} 
  
 		$controller('ServiceCtrl', {$scope: $scope});
 
+	}])
+
+
+	.controller('EmployeeCtrl', ['$scope', '$controller', function ($scope, $controller) {
+		$scope.tasks ={ net: [], phone: [] };
+		$scope.search('employee');
+		$scope.model = {};
+
+		$scope.addTask = function(form) {
+			var type = $scope.model.type;
+			$scope.submitted = true;
+			if (form.$valid) {
+				$scope.tasks[type].push(angular.copy($scope.model));
+				$scope.model = {};
+				form.$setPristine();
+				$scope.submitted = false;
+			}
+		}
+
+		$scope.removeTask = function($index, type) {
+			$scope.tasks[type].splice($index, 1);
+		}
+
+		$controller('ServiceCtrl', {$scope: $scope});
 	}])

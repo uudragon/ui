@@ -143,7 +143,7 @@ var uud = angular.module('mainApp', [
 	.state('root.service.employee', {
 		url: "/employee",
 		templateUrl: "views/service/employee.html",
-		controller: 'ServiceManager'
+		controller: 'EmployeeCtrl'
 	})
 	.state('root.service.online', {
 		url: "/online",
@@ -279,7 +279,7 @@ var uud = angular.module('mainApp', [
 	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
 
 		if (!Auth.isLoggedIn()) {
-			$location.path('/login');
+			$location.path('/' + config.auth.login);
 		} else {
 			Auth.loadAccessLevels();
 		}
