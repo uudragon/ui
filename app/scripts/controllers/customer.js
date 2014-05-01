@@ -39,12 +39,16 @@ angular.module('mainApp')
 			})
 	}
 
-	$scope.newCustomer = function() {
+	$scope.newCustomer = function(form) {
+		$scope.submitted = true;
+		if (!form.$valid) return;
 		CustomerService.newCustomer($scope.model)
 			.success(function(data, status) {
 				if (data.success) {
 					// 成功保存
 					$scope.model = {};
+					form.$setPristine();
+					$scope.submitted = false;
 				} else {
 					// 保存失败
 				}

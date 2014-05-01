@@ -444,10 +444,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 .directive('uuDatePicker', function() {
 	return {
 		restrict: 'A',
+		require: '?ngModel',
 		scope: {
-			ngModel: '='
+			ngModel: "="
 		},
-		link: function($scope, $element, $attrs) {
+		link: function($scope, $element, $attrs, ctrl) {
 			
 			var settings = {
 				format: $attrs.format || 'yyyy-mm-dd',
@@ -458,7 +459,20 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				language: "zh-CN"
 			}
 
-			$element.datepicker(settings)
+			var validate = function(value) {
+				// valid
+				if (!value || /^\s*\d{4}-\d{1,2}(?:-\d{1,2})?\s*$/.test(value)) {
+					ctrl.$setValidity('date', true);
+					return value;
+				} else {
+					ctrl.$setValidity('date', false);
+					return undefined;
+				}
+			}
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+
+			$element.datepicker(settings);
 		}
 	}
 })
@@ -493,3 +507,22 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 })
 
+.directive('uuNum', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^\s*\d*\s*$/.test(value)) {
+					ctrl.$setValidity('digit', true);
+					return value;
+				} else {
+					ctrl.$setValidity('digit', false);
+					return undefined;
+				}
+			}
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	}
+})

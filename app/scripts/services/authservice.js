@@ -1,21 +1,19 @@
 'use strict';
 angular.module('mainApp').service('Auth', function($http, $location, ipCookie) {
 	var _accessPromise, _user;
+	var self = this;
 
 	var setUser = function (user) {
 		ipCookie('user', user);
 	}
 
-	var setHeader = function (token) {
-		if (token) {
-			$http.defaults.headers.common['token'] = token;
-		} else {
-			delete $http.defaults.headers.common['token'];
-		}
+	this.setHeader = function (token) {
+		$http.defaults.headers.common['token'] = token || ipCookie('token');
 	}
 
 	var setToken = function (token) {
 		ipCookie('token', token);
+		self.setHeader(token);
 	}
 
 	var getToken = function() {
@@ -30,7 +28,6 @@ angular.module('mainApp').service('Auth', function($http, $location, ipCookie) {
 	}
 
 	this.loadAccessLevels = function() {
-		setHeader(getToken());
 		_accessPromise = $http.get(config.auth.baseurl + config.auth.resource)
 	}
 

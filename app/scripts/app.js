@@ -266,6 +266,8 @@ var uud = angular.module('mainApp', [
 
 .run(['$rootScope', '$state', 'Auth', '$location', '$q', function ($rootScope, $state, Auth, $location, $q) {
 
+	Auth.setHeader();
+	
 	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
 
 		if (!Auth.isLoggedIn()) {
@@ -273,8 +275,6 @@ var uud = angular.module('mainApp', [
 		} else {
 			Auth.loadAccessLevels();
 		}
-
 	});
-
 }]);
 
