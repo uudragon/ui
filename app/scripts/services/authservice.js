@@ -51,6 +51,6 @@ angular.module('mainApp').service('Auth', function($http, $location, ipCookie) {
 	this.logout = function() {
 		ipCookie.remove('user');
 		ipCookie.remove('token');
-		$location.path('/login');
+		$location.path('/' + config.auth.login);
 	}
 });

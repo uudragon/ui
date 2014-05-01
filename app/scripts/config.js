@@ -7,7 +7,7 @@
 	exports.auth = {
 		baseurl: '/at/ws/auth/',
 		resource: 'resourceListByCode',
-		login: 'login/'
+		login: 'login'
 	}
 
 	// cookie options

@@ -10,6 +10,6 @@ angular.module('mainApp')
 	$scope.currentUser = Auth.getUser();
 
 	$scope.$on('auth:invalid', function(e, d) {
-		$state.go('login');
+		Auth.logout();
 	})
 }])
