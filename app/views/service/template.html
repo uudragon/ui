@@ -6,12 +6,12 @@
 </ul>
 <ul class="action-group list-inline ng-scope">
 	<li class="ng-scope dropdown">
-		<a class="dropdown-toggle action-item" ng-class="{active: $state.includes('root.service.ordernew') || $state.includes('root.service.ordermanager')}" data-toggle="dropdown">
+		<a class="dropdown-toggle action-item" ng-class="{active: $state.is('root.service.getorder') || $state.is('root.service.ordermanager')}" data-toggle="dropdown">
 			工单管理 <b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu ng-scope">
 			<li>
-				<a ui-sref="root.service.ordernew"  class="ng-binding">领取工单</a>
+				<a ui-sref="root.service.getorder"  class="ng-binding">领取工单</a>
 			</li>
 			<li>
 				<a ui-sref="root.service.ordermanager"  class="ng-binding">工单管理</a>
@@ -19,16 +19,16 @@
 		</ul>
 	</li>
 	<li>
-		<a ui-sref="root.service.employee"  ng-class="{active: $state.includes('root.service.employee')}" class="action-item">员工管理</a>
+		<a ui-sref="root.service.employee"  ng-class="{active: $state.is('root.service.employee')}" class="action-item">员工管理</a>
 	</li>
 	<li>
-		<a ui-sref="root.service.online"  ng-class="{active: $state.includes('root.service.online')}" class="action-item">在线情况</a>
+		<a ui-sref="root.service.online"  ng-class="{active: $state.is('root.service.online')}" class="action-item">在线情况</a>
 	</li>
 	<li>
-		<a ui-sref="root.service.phone"  ng-class="{active: $state.includes('root.service.phone')}" class="action-item">电话报表</a>
+		<a ui-sref="root.service.phone"  ng-class="{active: $state.is('root.service.phone')}" class="action-item">电话报表</a>
 	</li>
 	<li >
-		<a ui-sref="root.service.data"  ng-class="{active: $state.includes('root.service.data')}" class="action-item">数据管理</a>
+		<a ui-sref="root.service.data"  ng-class="{active: $state.is('root.service.data')}" class="action-item">数据管理</a>
 	</li>
 </ul>
 <!-- service nav tab end -->

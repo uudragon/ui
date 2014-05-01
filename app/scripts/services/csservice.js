@@ -32,6 +32,11 @@ angular.module('mainApp')
 		var suffix;
 
 		switch (type) {
+			// 领取工单
+			case 'task':
+				suffix = 'getTask';
+				break;
+		
 			// 工单查询
 			case 'order':
 				suffix = 'search_order';
@@ -56,14 +61,14 @@ angular.module('mainApp')
 	 */
 	this.newOrder = function(model) {
 		var suffix;
-
+		console.log(model);
 		switch (model.btn) {
 			case 'saved':
 				suffix = 'consumer_saved';
 				break;
 
 			case 'insert':
-				suffix = 'orders_insert';
+				suffix = 'task_insert';
 				break;
 
 			case 'query':

@@ -1,14 +1,75 @@
 <div class="container">
-	<!-- form begin -->
-	<div ng-include src="'views/partial/header.html'"></div>
+	<!-- header begin -->
+	<div id="header" class="jumbotron">
+		<div class="row">
+			<div class="col-xs-2 brand-container">
+				<a href="#"><img src="img/brand.png" class="brand" alt="brand" width="120" height="120"></a>
+				<p class="des">幼小衔接家庭课程专家</p>
+			</div>
+			<div class="col-xs-10 info">
+				<div class="row">
+					<div class="col-xs-2">
+						<a class="logo" href="#"><img src="img/logo.png" alt="logo" width="125" height="60"></a>
+					</div>
+					<div class="status-bar col-xs-10 info-panel header">
+						<ul class="list-inline">
+							<li><span class="key">当前日期:</span> <span class="val">{{date | date : "yyyy-MM-dd" }}</span></li>
+							<li><span class="key">分机:</span> <span class="val">{{currentUser.phone}}</span></li>
+							<li><span class="key">坐席:</span> <span class="val">{{currentUser.positions}}</span></li>
+							<li><span class="key">状态:</span> <span class="val">{{currentUser.isValid}}</span></li>
+							<li><span class="key">计时:</span> <span timing="'h:mm:ss'"></span></li>
+						</ul>
+						<ul class="list-inline">
+							<li><span class="key">工号:</span> <span class="val">{{currentUser.userNo}}</span></li>
+							<li><span class="key">姓名:</span> <span class="val">{{currentUser.name}}</span></li>
+							<li><span class="key">所在组:</span> <span class="val">{{currentUser.groupId}}</span></li>
+						</ul>
+					</div>
+				</div>
+				<ul class="nav navbar-nav">
+					<li ng-controller="AuthCtrl"><a href="" ng-click="logout()" class="link-normal">登出系统</a></li>
+					<li><a href="#" class="link-normal">修改密码</a></li>
+					<li><a href="#" class="link-normal">资料库</a></li>
+					<li><a href="#" class="link-normal">联系记录</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- header end -->
+
 
 	<div class="row">
-		<!-- left side bar -->
-		<div ng-include src="'views/partial/left-side-bar.html'"></div>
-		<!-- main content  -->
-		<div class="col-xs-10 main">
-			<!-- sub view -->
-			<div ui-view></div>
+		
+		<!-- decorator -->
+		<div class="decorator"></div>
+	
+		<div class="wrapper">
+			<!-- left side bar begin-->
+			<div class="col-xs-2 sidebar">
+				<ul class="nav nav-sidebar text-center">
+					<li ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
+						<a ui-sref="root.customer.traded" class="ng-binding">客户信息</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.service')}" uu-auth-filter="02">
+						<a ui-sref="root.service.ordermanager" class="ng-binding">客服管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.financial')}" uu-auth-filter="03">
+						<a ui-sref="root.financial.deposit" class="ng-binding">财务管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.agents')}" uu-auth-filter="04">
+						<a ui-sref="root.agents.list" class="ng-binding">代理商管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.ship')}" uu-auth-filter="05">
+						<a ui-sref="root.ship.summary" class="ng-binding">发货管理</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- main content  -->
+			<div class="col-xs-10 main">
+				<div ui-view></div>
+			</div>
 		</div>
+
 	</div>
 </div>

@@ -34,9 +34,7 @@ angular.module('mainApp')
 			.success(function(data, status) {
 				$scope.result = data;
 			})
-			.error(function(data, status) {
-				console.log('search contact error status: ' + status + ' use dummy data');
-			})
+			.error(config.errorLog('search', type))
 	}
 
 	$scope.newCustomer = function(form) {
@@ -53,9 +51,7 @@ angular.module('mainApp')
 					// 保存失败
 				}
 			})
-			.error(function(data, status) {
-				console.log('new customer error status:' + status);
-			})
+			.error(config.errorLog('new', 'customer'))
 	}
 
 }])

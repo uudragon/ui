@@ -254,25 +254,19 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		transclude: true,
 		scope: {
-			label: '@',
-			lCol: '@',
-			lOffset: '@',
-			rOffset: '@',
-			rCol: '@'
+			label: '@'
 		},
-		templateUrl: 'views/partial/directives/uufieldwrap.html'
-	}
-})
-
-// action buttion in page
-.directive('uuActionItem', function() {
-	return {
-		scope: {
-			label: '@',
-			ngClick: '&',
-			target: '@'
+		replace: true,
+		link: function($scope, $elem, $attrs) {
+			$scope.labelCol = 'col-xs-' + ($attrs.lCol || 4);
+			$scope.inputCol = 'col-xs-' + ($attrs.rCol || 4);
+			$scope.labelOffset = $attrs.lOffset ? ('col-xs-' + $attrs.lOffset) : '';
+			$scope.inputOffset = $attrs.rOffset ? ('col-xs-' + $attrs.rOffset) : '';
 		},
-		templateUrl: 'views/partial/directives/uuactionitem.html'
+		template: '<div class="form-group">' +
+					'<label ng-if="label" class="control-label {{ labelCol }} {{ labelOffset }}">{{label}}: </label>' +
+					'<div class="{{ inputOffset }} {{ inputCol }}" ng-transclude></div>' +
+				'</div>'
 	}
 })
 
@@ -281,11 +275,19 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		scope: {
 			label: '@',
-			lCol: '@',
-			rCol: '@',
 			text: '='
 		},
-		templateUrl: 'views/partial/directives/uustatic.html'
+		replace: true,
+		link: function($scope, $elem, $attrs) {
+			$scope.labelCol = 'col-xs-' + ($attrs.lCol || 4);
+			$scope.inputCol = 'col-xs-' + ($attrs.rCol || 4);
+		},
+		template: '<div class="form-group">' +
+					'<label class="control-label" ng-class="labelCol">{{label}}:</label>' +
+					'<div ng-class="inputCol">' +
+						'<p class="form-control-static">{{text}}</p>' +
+					'</div>' +
+				'</div>'
 	}
 })
 
@@ -301,22 +303,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			$scope.placeholder = attrs.placeholder ? attrs.placeholder : '请输入搜索关键字';
 		},
 		templateUrl: 'views/partial/directives/uusimplesearch.html'
-	}
-})
-
-// generate search field
-.directive('uuSearch', function() {
-	return {
-		transclude: true,
-		scope: {
-			placeholder: '@',
-			ngSubmit: '&',
-			lCol: '@',
-			rCol: '@',
-			offset: '@',
-			model: '='
-		},
-		templateUrl: 'views/partial/directives/uusearch.html'
 	}
 })
 

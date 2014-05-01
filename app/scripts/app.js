@@ -127,9 +127,9 @@ var uud = angular.module('mainApp', [
 		templateUrl: "views/service/ordermanager.html",
 		controller: 'ServiceManager'
 	})
-	.state('root.service.ordernew', {
-		url: "/ordernew",
-		templateUrl: "views/service/ordernew.html",
+	.state('root.service.getorder', {
+		url: "/getorder",
+		templateUrl: "views/service/getorder.html",
 		controller: 'ServiceManager'
 	})
 	.state('root.service.employee', {

@@ -3,15 +3,18 @@
 angular.module('mainApp')
 .controller('ServiceCtrl', ['$scope', 'CSService', function ($scope, CSService) {
 
-	$scope.summit = function() {
-		CSService.newOrder()
+	$scope.summit = function(form) {
+		$scope.submitted = true;
+
+		if (!form.$valid) return;
+
+		CSService.newOrder($scope.model)
 			.success(function(data, status) {
-				return true;
+				$scope.model = {};
+				form.$setPristine();
+				$scope.submitted = false;
 			})
-			.error(function(data, status) {
-				console.log('new order error status: ' + status);
-				return false;
-			});
+			.error(config.errorLog('new', 'task'));
 	}
 
 	$scope.loadInfo = function(type) {
@@ -46,7 +49,6 @@ angular.module('mainApp')
 					default: break;
 				}
 
-				$scope.pages = 10;
 			})
 	}
 
@@ -60,9 +62,13 @@ angular.module('mainApp')
 	.controller('ServiceManager', ['$scope', '$controller', function ($scope, $controller) {
 
 		// 获取工单相关信息
-		if ( $scope.$state.includes('root.service.ordermanager') ) {
+		if ( $scope.$state.is('root.service.ordermanager') ) {
 			$scope.loadInfo('order_statistics');
-		} else if ( $scope.$state.includes('root.service.online') ) {
+		} else if ( $scope.$state.is('root.service.getorder') ) {
+			// 领取工单
+			$scope.searchModel = {userNo: '1'}
+			$scope.search('task');
+		} else if ( $scope.$state.is('root.service.online') ) {
 			$scope.loadInfo('online_statistics');
 		}
  
