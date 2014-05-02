@@ -9,6 +9,10 @@ angular.module('mainApp')
 	$scope.date = new Date();
 	$scope.currentUser = Auth.getUser();
 
+	$scope.range = function(n) {
+		return new Array(n);
+	};
+	    
 	$scope.$on('auth:invalid', function(e, d) {
 		Auth.logout();
 	})

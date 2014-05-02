@@ -17,11 +17,19 @@
 		expirationUnit: 'minutes'
 	}
 
+	exports.workDays = 6;
+
 	//	Helper functions
 	exports.errorLog = function(action, type) {
 		return function(data, status) {
 			console.log(action + ' ' + type + ' error, status: ' + status);
 		}
+	}
+
+	exports.resetForm = function(form, $scope) {
+		$scope.model = {};
+		$scope.submit = false;
+		form.$setPristine();
 	}
 
 	exports.searchLog = function (model, type, url) {
