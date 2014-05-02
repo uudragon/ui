@@ -20,11 +20,11 @@
 
 <div class="printable">
 	<div ng-repeat="tasks in allTasks" class="static-area weekday">
-		<h4 ng-bind="$index | week"></h4>
+		<h4 ng-bind="$index | week" class="weekday-header"></h4>
 		<hr>
 		<div ng-repeat="(key, value) in tasks">
 			<h5>{{key === 'net' ? '网络客服' : '电话客服' }} {{value.length}} 人</h5>
-			<table class="table table-condensed table-hover" ng-if="value.length">
+			<table class="table table-condensed table-hover table-bordered" ng-if="value.length">
 				<thead>
 					<tr>
 						<th>工号</th>
