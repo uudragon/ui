@@ -122,7 +122,20 @@ a {color: #333; }
  */
 
 .home-statics li {margin: 3px 0;}
+.line-path {
+	stroke: steelblue;
+	stroke-width: 2;
+	fill: none;
+}
 
+line {
+	stroke: black;
+}
+
+text {
+	font-family: Arial;
+	font-size: 9pt;
+}
 
 /**
  * Service
