@@ -11,44 +11,38 @@
 
 <form class="form form-horizontal form-small search-form" role="form" ng-submit="search('deposit')">
 	<fieldset>
-		<div class="col-xs-10">
-			<div class="form-group">
-				<label class="col-xs-4 control-label" for="f-area">代理区域: </label>
-				<div class="col-xs-4">
-					<select name="area" id="f-area" ng-model="searchModel.area" class="form-control">
-						<option value=""></option>
-						<option value="0">华东</option>
-						<option value="1">华北</option>
-					</select>
-				</div>
+		<div class="col-xs-12">
+
+			<div uu-field-wrap label="代理区域" l-col="2" r-col="4" name="f-area">
+				<select name="area" id="f-area" ng-model="searchModel.area" class="form-control">
+					<option value=""></option>
+					<option value="0">全国</option>
+					<option value="1">区域</option>
+					<option value="2">代理商</option>
+				</select>
 			</div>
-			<div class="form-group">
-				<label class="col-xs-4 control-label" for="f-agentName">代理商: </label>
-				<div class="col-xs-4">
-					<select name="agentName" id="f-agentName" ng-model="searchModel.agentName" class="form-control">
-						<option value=""></option>
-						<option value="0">代理商一</option>
-						<option value="1">代理商二</option>
-					</select>
-				</div>
+
+			<div uu-field-wrap label="代理商" l-col="2" r-col="4" name="f-agentName">
+				<select name="agentName" id="f-agentName" ng-model="searchModel.agentName" class="form-control">
+					<option value=""></option>
+					<option value="0">代理商一</option>
+					<option value="1">代理商二</option>
+				</select>
 			</div>
-			<div class="form-group">
-				<label class="col-xs-4 control-label" for="f-creater">隶属销售: </label>
-				<div class="col-xs-4">
-					<input type="text" name="creater" ng-model="searchModel.creater" class="form-control input-small" id="f-creater">
-				</div>
+
+			<div uu-field-wrap label="隶属销售" l-col="2" r-col="4" name="creater">
+				<input type="text" name="creater" id="creater" ng-model="searchModel.creater" class="form-control input-small">
 			</div>
-			<div uu-field-wrap label="时间区间" l-col="4" r-col="4" name="start-date">
+
+			<div uu-field-wrap label="时间区间" l-col="2" r-col="4" name="start-date">
 				<div class="input-daterange input-group">
 					<input type="text" class="input-sm form-control" uu-date-picker id="start-date" ng-model="searchModel.startDate" name="start" id="f-dateFrom">
 					<span class="input-group-addon">-</span>
 					<input type="text" class="input-sm form-control" uu-date-picker ng-model="searchModel.endDate" name="end">
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="col-xs-4 col-xs-offset-4">
-					<input type="submit" value="搜索" class="btn btn-default">
-				</div>
+			<div uu-field-wrap r-offset="2">
+				<input type="submit" value="搜索" class="btn btn-default">
 			</div>
 		</div>
 	</fieldset>
