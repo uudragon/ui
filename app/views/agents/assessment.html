@@ -11,17 +11,34 @@
 	</ul>
 </div>
 
-<form action="" class="search-form" ng-submit="search()">
-	<div class="form-group">
-		<div class="col-xs-3">
-			<select name="filter" ng-model="model.filter" class="form-control">
-				<option value="val1">全国</option>
-				<option value="val2">区域</option>
-				<option value="val3">代理商</option>
-			</select>
+<form class="form form-horizontal form-small search-form" role="form" ng-submit="search('deposit')">
+	<fieldset>
+		<div class="col-xs-12">
+			<div uu-field-wrap label="代理区域" l-col="2" r-col="3" name="f-area">
+				<select name="area" id="f-area" ng-model="searchModel.area" class="form-control">
+					<option value=""></option>
+					<option value="0">全国</option>
+					<option value="1">区域</option>
+					<option value="2">代理商</option>
+				</select>
+			</div>
+
+			<div uu-field-wrap label="搜索关键字" l-col="2" r-col="4" name="keyword">
+				<input type="text" name="creater" id="keyword" ng-model="searchModel.keyword" class="form-control input-small">
+			</div>
+
+			<div uu-field-wrap label="时间区间" l-col="2" r-col="4" name="start-date">
+				<div class="input-daterange input-group">
+					<input type="text" class="input-sm form-control" uu-date-picker id="start-date" ng-model="searchModel.startDate" name="start" id="f-dateFrom">
+					<span class="input-group-addon">-</span>
+					<input type="text" class="input-sm form-control" uu-date-picker ng-model="searchModel.endDate" name="end">
+				</div>
+			</div>
+			<div uu-field-wrap r-offset="2">
+				<input type="submit" value="搜索" class="btn btn-default">
+			</div>
 		</div>
-	</div>
-	<div uu-input label="其它检索" name="others" l-col="2" r-col="3"></div>
+	</fieldset>
 </form>
 
 <table class="table table-bordered">
@@ -46,14 +63,33 @@
 		</tr>
 	</thead>
 </table>
-<div uu-tab>
-	<div uu-pane title="季度">
 
+<hr>
+<div uu-tab class="col-xs-6">
+	<div uu-pane title="季度">
 	</div>
 	<div uu-pane title="半年">
-
 	</div>
 	<div uu-pane title="年度">
-
 	</div>
 </div>
+
+<div uu-tab class="col-xs-6">
+	<table class="table table-bordered table-hover">
+		<tr>
+			<th></th>
+			<th>半年</th>
+			<th>一年</th>
+			<th>季度</th>
+			<th>周边产品</th>
+		</tr>
+		<tr>
+			<th>订购数量</th>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+

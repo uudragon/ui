@@ -10,19 +10,17 @@
 <form class="form form-horizontal form-small search-form" role="form" ng-submit="search('recorded')">
 	<fieldset>
 		<div class="col-xs-10">
-			<div class="form-group">
-				<label class="col-xs-4 control-label" for="f-dateFrom">时间区间: </label>
-				<div class="col-xs-3">
-					<input type="text" uu-date-picker name="dateFrom" placeholder="起始时间" ng-model="searchModel.dateFrom" class="form-control input-small date" id="f-dateFrom">
- 				</div>
- 				<label class="f-label-strike" for="f-dateTo"> - </label>
-				<div class="col-xs-3">
-					<input type="text" uu-date-picker name="dateTo" placeholder="结束时间" ng-model="searchModel.dateTo" class="form-control input-small date" id="f-dateTo">
- 				</div>
- 				<div class="col-xs-1">
-					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-				</div>
-			</div>
+			<form class="form form-horizontal form-small search-form" role="form" ng-submit="search('deposit')">
+				<fieldset>
+					<div uu-field-wrap label="时间区间" l-col="2" r-col="5" search-btn="true" name="start-date">
+						<div class="input-daterange input-group">
+							<input type="text" class="input-sm form-control" uu-date-picker id="start-date" ng-model="searchModel.startDate" name="start" id="f-dateFrom">
+							<span class="input-group-addon">-</span>
+							<input type="text" class="input-sm form-control" uu-date-picker ng-model="searchModel.endDate" name="end">
+						</div>
+					</div>
+				</fieldset>
+			</form>
 		</div>
 	</fieldset>
 	<div class="col-xs-2 pull-right">

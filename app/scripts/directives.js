@@ -140,9 +140,9 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function(scope, elem, attrs) {
 			scope.labelCol = 'col-xs-' + (attrs.lCol || 4);
-			scope.labelOffset = attrs.lOffset ? ('col-xs-' + attrs.lOffset) : '';
+			scope.labelOffset = attrs.lOffset ? ('col-xs-offset-' + attrs.lOffset) : '';
 			scope.inputCol = 'col-xs-' + (attrs.rCol || 4);
-			scope.inputOffset = attrs.rOffset ? ('col-xs-' + attrs.rOffset) : '';
+			scope.inputOffset = attrs.rOffset ? ('col-xs-offset-' + attrs.rOffset) : '';
 			scope.type = attrs.type || 'text';
 			scope.prefix = attrs.prefix || '';
 		},
@@ -263,12 +263,15 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		link: function($scope, $elem, $attrs, ctrl) {
 			$scope.labelCol = 'col-xs-' + ($attrs.lCol || 4);
 			$scope.inputCol = 'col-xs-' + ($attrs.rCol || 4);
-			$scope.labelOffset = $attrs.lOffset ? ('col-xs-' + $attrs.lOffset) : '';
-			$scope.inputOffset = $attrs.rOffset ? ('col-xs-' + $attrs.rOffset) : '';
+			$scope.searchBtn = $attrs.searchBtn ? true : false;
+			console.log($attrs);
+			$scope.labelOffset = $attrs.lOffset ? ('col-xs-offset-' + $attrs.lOffset) : '';
+			$scope.inputOffset = $attrs.rOffset ? ('col-xs-offset-' + $attrs.rOffset) : '';
 		},
 		template: '<div class="form-group" > ' +
 					'<label ng-if="label" for="{{name}}" class="control-label {{ labelCol }} {{ labelOffset }}">{{label}}: </label>' +
 					'<div class="{{ inputOffset }} {{ inputCol }}" ng-transclude></div>' +
+					'<div class="col-xs-1" ng-if="searchBtn"><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button></div>' +
 				'</div>'
 	}
 })
@@ -444,6 +447,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				startView: parseInt($attrs.startView, 10) || 0,
 				minViewMode: parseInt($attrs.minViewMode, 10) || 0,
 				endDate: $attrs.endDate || 0,
+				todayHighlight: true,
 				autoclose: true,
 				language: "zh-CN"
 			}
