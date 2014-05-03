@@ -28,7 +28,7 @@
 	</div>
 </div>
 <hr>
-<div uu-tab class="col-xs-6">
+<div uu-tab class="col-xs-4">
 	<div uu-pane title="季度">
 	</div>
 	<div uu-pane title="半年">
@@ -37,21 +37,25 @@
 	</div>
 </div>
 
-<div uu-tab class="col-xs-6">
-	<table class="table table-bordered table-hover">
-		<tr>
-			<th></th>
-			<th>半年</th>
-			<th>一年</th>
-			<th>季度</th>
-			<th>周边产品</th>
-		</tr>
-		<tr>
-			<th>订购数量</th>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
+<div class="col-xs-8">
+	<div uu-pie-chart ng-model="chart" class="col-xs-6"></div>
+	<div uu-pie-chart ng-model="chart" class="col-xs-6"></div>
+	<div uu-tab>
+		<table class="table table-bordered table-hover">
+			<tr>
+				<th></th>
+				<th>半年</th>
+				<th>一年</th>
+				<th>季度</th>
+				<th>周边产品</th>
+			</tr>
+			<tr>
+				<th>订购数量</th>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
 </div>
