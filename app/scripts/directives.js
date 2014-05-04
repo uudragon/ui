@@ -264,7 +264,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			$scope.labelCol = 'col-xs-' + ($attrs.lCol || 4);
 			$scope.inputCol = 'col-xs-' + ($attrs.rCol || 4);
 			$scope.searchBtn = $attrs.searchBtn ? true : false;
-			console.log($attrs);
 			$scope.labelOffset = $attrs.lOffset ? ('col-xs-offset-' + $attrs.lOffset) : '';
 			$scope.inputOffset = $attrs.rOffset ? ('col-xs-offset-' + $attrs.rOffset) : '';
 		},
@@ -652,145 +651,145 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				if(filteredPieData.length > 0 && oldPieData.length > 0){
 
-			    //REMOVE PLACEHOLDER CIRCLE
-			    arc_group.selectAll("circle").remove();
+				//REMOVE PLACEHOLDER CIRCLE
+				arc_group.selectAll("circle").remove();
 
-			    totalValue.text(function(){
-			    	var kb = totalOctets/1024;
-			    	return kb.toFixed(1);
-			      //return bchart.label.abbreviated(totalOctets*8);
+				totalValue.text(function(){
+					var kb = totalOctets/1024;
+					return kb.toFixed(1);
+				  //return bchart.label.abbreviated(totalOctets*8);
 			  });
 
-			    //DRAW ARC PATHS
-			    paths = arc_group.selectAll("path").data(filteredPieData);
-			    paths.enter().append("svg:path")
-			    .attr("stroke", "white")
-			    .attr("stroke-width", 0.5)
-			    .attr("fill", function(d, i) { return color(i); })
-			    .transition()
-			    .duration(tweenDuration)
-			    .attrTween("d", pieTween);
-			    paths
-			    .transition()
-			    .duration(tweenDuration)
-			    .attrTween("d", pieTween);
-			    paths.exit()
-			    .transition()
-			    .duration(tweenDuration)
-			    .attrTween("d", removePieTween)
-			    .remove();
+				//DRAW ARC PATHS
+				paths = arc_group.selectAll("path").data(filteredPieData);
+				paths.enter().append("svg:path")
+				.attr("stroke", "white")
+				.attr("stroke-width", 0.5)
+				.attr("fill", function(d, i) { return color(i); })
+				.transition()
+				.duration(tweenDuration)
+				.attrTween("d", pieTween);
+				paths
+				.transition()
+				.duration(tweenDuration)
+				.attrTween("d", pieTween);
+				paths.exit()
+				.transition()
+				.duration(tweenDuration)
+				.attrTween("d", removePieTween)
+				.remove();
 
-			    //DRAW TICK MARK LINES FOR LABELS
-			    lines = label_group.selectAll("line").data(filteredPieData);
-			    lines.enter().append("svg:line")
-			    .attr("x1", 0)
-			    .attr("x2", 0)
-			    .attr("y1", -r-3)
-			    .attr("y2", -r-8)
-			    .attr("stroke", "gray")
-			    .attr("transform", function(d) {
-			    	return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
-			    });
-			    lines.transition()
-			    .duration(tweenDuration)
-			    .attr("transform", function(d) {
-			    	return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
-			    });
-			    lines.exit().remove();
+				//DRAW TICK MARK LINES FOR LABELS
+				lines = label_group.selectAll("line").data(filteredPieData);
+				lines.enter().append("svg:line")
+				.attr("x1", 0)
+				.attr("x2", 0)
+				.attr("y1", -r-3)
+				.attr("y2", -r-8)
+				.attr("stroke", "gray")
+				.attr("transform", function(d) {
+					return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
+				});
+				lines.transition()
+				.duration(tweenDuration)
+				.attr("transform", function(d) {
+					return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
+				});
+				lines.exit().remove();
 
-			    //DRAW LABELS WITH PERCENTAGE VALUES
-			    valueLabels = label_group.selectAll("text.value").data(filteredPieData)
-			    .attr("dy", function(d){
-			    	if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
-			    		return 5;
-			    	} else {
-			    		return -7;
-			    	}
-			    })
-			    .attr("text-anchor", function(d){
-			    	if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
-			    		return "beginning";
-			    	} else {
-			    		return "end";
-			    	}
-			    })
-			    .text(function(d){
-			    	var percentage = (d.value/totalOctets)*100;
-			    	return percentage.toFixed(1) + "%";
-			    });
+				//DRAW LABELS WITH PERCENTAGE VALUES
+				valueLabels = label_group.selectAll("text.value").data(filteredPieData)
+				.attr("dy", function(d){
+					if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
+						return 5;
+					} else {
+						return -7;
+					}
+				})
+				.attr("text-anchor", function(d){
+					if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
+						return "beginning";
+					} else {
+						return "end";
+					}
+				})
+				.text(function(d){
+					var percentage = (d.value/totalOctets)*100;
+					return percentage.toFixed(1) + "%";
+				});
 
-			    valueLabels.enter().append("svg:text")
-			    .attr("class", "value")
-			    .attr("transform", function(d) {
-			    	return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ")";
-			    })
-			    .attr("dy", function(d){
-			    	if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
-			    		return 5;
-			    	} else {
-			    		return -7;
-			    	}
-			    })
-			    .attr("text-anchor", function(d){
-			    	if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
-			    		return "beginning";
-			    	} else {
-			    		return "end";
-			    	}
-			    }).text(function(d){
-			    	var percentage = (d.value/totalOctets)*100;
-			    	return percentage.toFixed(1) + "%";
-			    });
+				valueLabels.enter().append("svg:text")
+				.attr("class", "value")
+				.attr("transform", function(d) {
+					return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ")";
+				})
+				.attr("dy", function(d){
+					if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
+						return 5;
+					} else {
+						return -7;
+					}
+				})
+				.attr("text-anchor", function(d){
+					if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
+						return "beginning";
+					} else {
+						return "end";
+					}
+				}).text(function(d){
+					var percentage = (d.value/totalOctets)*100;
+					return percentage.toFixed(1) + "%";
+				});
 
-			    valueLabels.transition().duration(tweenDuration).attrTween("transform", textTween);
+				valueLabels.transition().duration(tweenDuration).attrTween("transform", textTween);
 
-			    valueLabels.exit().remove();
+				valueLabels.exit().remove();
 
 
-			    //DRAW LABELS WITH ENTITY NAMES
-			    nameLabels = label_group.selectAll("text.units").data(filteredPieData)
-			    .attr("dy", function(d){
-			    	if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
-			    		return 17;
-			    	} else {
-			    		return 5;
-			    	}
-			    })
-			    .attr("text-anchor", function(d){
-			    	if ((d.startAngle+d.endAngle)/2 < Math.PI ) {
-			    		return "beginning";
-			    	} else {
-			    		return "end";
-			    	}
-			    }).text(function(d){
-			    	return d.name;
-			    });
+				//DRAW LABELS WITH ENTITY NAMES
+				nameLabels = label_group.selectAll("text.units").data(filteredPieData)
+				.attr("dy", function(d){
+					if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
+						return 17;
+					} else {
+						return 5;
+					}
+				})
+				.attr("text-anchor", function(d){
+					if ((d.startAngle+d.endAngle)/2 < Math.PI ) {
+						return "beginning";
+					} else {
+						return "end";
+					}
+				}).text(function(d){
+					return d.name;
+				});
 
-			    nameLabels.enter().append("svg:text")
-			    .attr("class", "units")
-			    .attr("transform", function(d) {
-			    	return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ")";
-			    })
-			    .attr("dy", function(d){
-			    	if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
-			    		return 17;
-			    	} else {
-			    		return 5;
-			    	}
-			    })
-			    .attr("text-anchor", function(d){
-			    	if ((d.startAngle+d.endAngle)/2 < Math.PI ) {
-			    		return "beginning";
-			    	} else {
-			    		return "end";
-			    	}
-			    }).text(function(d){
-			    	return d.name;
-			    });
+				nameLabels.enter().append("svg:text")
+				.attr("class", "units")
+				.attr("transform", function(d) {
+					return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ")";
+				})
+				.attr("dy", function(d){
+					if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
+						return 17;
+					} else {
+						return 5;
+					}
+				})
+				.attr("text-anchor", function(d){
+					if ((d.startAngle+d.endAngle)/2 < Math.PI ) {
+						return "beginning";
+					} else {
+						return "end";
+					}
+				}).text(function(d){
+					return d.name;
+				});
 
-			    nameLabels.transition().duration(tweenDuration).attrTween("transform", textTween);
+				nameLabels.transition().duration(tweenDuration).attrTween("transform", textTween);
 
-			    nameLabels.exit().remove();
+				nameLabels.exit().remove();
 			}  
 		}
 
@@ -934,3 +933,135 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		}
 	}
 })
+
+/**
+ * ng-csv module
+ * Export Javascript's arrays to csv files from the browser
+ *
+ * Author: asafdav - https://github.com/asafdav
+ */
+ .directive('uuCsv', ['$parse', '$q', function($parse, $q) {
+ 	return {
+ 		restrict: 'A',
+ 		replace: true,
+ 		transclude: true,
+ 		scope: {
+ 			data: '&uuCsv',
+ 			filename: '@filename',
+ 			header: '&header',
+ 			txtDelim: '@textDelimiter',
+ 			fieldSep: '@fieldSeparator',
+ 			lazyLoad: '@lazyLoad',
+ 			ngClick: '&'
+ 		},
+ 		controller: ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
+ 			var stringifyCell = function(data) {
+ 				if (typeof data === 'string') {
+ 					data = data.replace(/"/g, '""'); // Escape double qoutes
+ 					if ($scope.txtDelim) data = $scope.txtDelim + data + $scope.txtDelim;
+ 					return data;
+ 				}
+
+ 				if (typeof data === 'boolean') {
+ 					return data ? 'TRUE' : 'FALSE';
+ 				}
+
+ 				return data;
+ 			};
+
+ 			$scope.csv = '';
+
+ 			if (!angular.isDefined($scope.lazyLoad) || $scope.lazyLoad != "true") {
+ 				if (angular.isArray($scope.data)) {
+ 					$scope.$watch("data", function(newValue) {
+ 						$scope.buildCsv($scope.data(), function() {});
+ 					}, true);
+ 				}
+ 			}
+
+ 			$scope.buildCsv = function(data, callback) {
+ 				var csvContent = "data:text/csv;charset=utf-8,";
+
+ 				$q.when(data).then(function() {
+ 					// Check if there's a provided header array
+ 					if (angular.isDefined($attrs.header)) {
+ 						var header = $scope.$eval($scope.header);
+ 						var encodingArray, headerString;
+
+ 						if (angular.isArray(header)) {
+ 							encodingArray = header;
+ 						} else {
+ 							encodingArray = [];
+ 							angular.forEach(header, function(title, key) {
+ 								this.push(stringifyCell(title));
+ 							}, encodingArray);
+ 						}
+
+ 						headerString = encodingArray.join($scope.fieldSep ? $scope.fieldSep : ",");
+ 						csvContent += headerString + "\n";
+ 					}
+
+ 					var arrData;
+
+ 					if (angular.isArray(data))
+ 						arrData = data;
+ 					else if (angular.isFunction(data))
+ 						arrData = data();
+
+ 					angular.forEach(arrData, function(row, index) {
+ 						var dataString, infoArray;
+
+ 						if (angular.isArray(row)) {
+ 							infoArray = row;
+ 						} else {
+ 							infoArray = [];
+
+ 							angular.forEach(row, function(field, key) {
+ 								this.push(stringifyCell(field));
+ 							}, infoArray);
+ 						}
+
+ 						dataString = infoArray.join($scope.fieldSep ? $scope.fieldSep : ",");
+ 						csvContent += index < arrData.length ? dataString + "\n" : dataString;
+ 					});
+
+ 					$scope.csv = encodeURI(csvContent);
+
+ 				}).then(function() {
+ 					callback();
+ 				});
+
+ 			};
+
+ 			$scope.getFilename = function() {
+ 				return $scope.filename || 'download.csv';
+ 			};
+ 		}],
+ 	template: '<div class="csv-wrap">' +
+	 		'<div class="element" ng-transclude></div>' +
+	 		'<a class="hidden-link" ng-hide="true" ng-href="{{ csv }}" download="{{ getFilename() }}"></a>' +
+	 		'</div>',
+ 	link: function(scope, element, attrs) {
+ 		var subject = angular.element(element.children()[0]),
+ 			link = angular.element(element.children()[1]);
+
+ 		function doClick() {
+ 			link[0].href = "";
+ 			link[0].click();
+ 			link[0].href = scope.csv;
+ 			link[0].click();
+ 		}
+
+ 		subject.bind('click', function(e) {
+ 			scope.buildCsv(scope.data(), function() {
+ 				doClick();
+ 			});
+
+ 			if (!!scope.ngClick) {
+ 				scope.ngClick();
+ 			}
+ 		});
+ 	}
+ 	}
+ }
+ ]);
