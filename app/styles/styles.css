@@ -28,12 +28,12 @@ a {color: #333; }
 
 .info {position: relative; top: 16px; }
 .status-bar {float: left;margin: 9px 0;font-size: 0.6em;}
-.status-bar > ul { float: left; margin-left: 25px; font-size: 1em;}
+.status-bar > ul { float: left; margin-left: 25px; font-size: 14px;}
 .status-bar > ul > li {padding-right: 10px; }
 
-.info > ul {clear: left; float: left;margin-top: 10px;font-size: 0.9em;}
+.info > ul {clear: left; float: left;margin-top: 10px; font-size: 1.2em; }
 .info > ul > li {float: left; }
-.info > ul > li > a { font-size: 0.9em; padding: 15px;text-align: right;}
+.info > ul > li > a { padding: 15px;text-align: right;}
 .info > ul > li > a:hover {background-color: transparent; color: #800000;  }
 .main {position: initial; }
 
