@@ -1,5 +1,8 @@
 'use strict';
-angular.module('mainApp').service('Auth', function($http, $location, ipCookie) {
+
+angular.module('mainApp')
+.service('Auth', ['$http', '$location', 'ipCookie', function($http, $location, ipCookie) {
+
 	var _accessPromise, _user;
 	var self = this;
 
@@ -53,4 +56,4 @@ angular.module('mainApp').service('Auth', function($http, $location, ipCookie) {
 		ipCookie.remove('token');
 		$location.path('/' + config.auth.login);
 	}
-});
+}]);

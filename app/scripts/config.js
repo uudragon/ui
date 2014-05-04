@@ -20,9 +20,12 @@
 	exports.workDays = 6;
 
 	//	Helper functions
-	exports.errorLog = function(action, type) {
+	exports.errorLog = function(action, type, callback) {
 		return function(data, status) {
 			console.log(action + ' ' + type + ' error, status: ' + status);
+			if (angular.isFunction(callback)) {
+				callback()
+			}
 		}
 	}
 

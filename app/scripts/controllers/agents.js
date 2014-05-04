@@ -2,46 +2,32 @@
 
 angular.module('mainApp')
 //代理商管理
-.controller('AgentsCtrl', ['$scope', 'AgentsService', function ($scope, AgentsService) {
-
-	$scope.loadInfo = function(type) {
-
-		AgentsService.loadInfo($scope.model, type)
-			.success(function(data, status) {
-				$scope.statistics = data;
-			})
-			.error(config.errorLog('load', type))
-	}
+.controller('AgentsCtrl', ['$scope', '$controller', function ($scope, $controller) {
 
 	// 搜索
-	$scope.search = function (type) {
+	$scope.performSearch = function (type) {
 		if (!type) return;
 		
-		AgentsService.search($scope.searchModel, type)
-			.success(function(data, status) {
+		switch (type) {
+			case 'uudCouponcode':
+				$scope.search(type, 'uudResult');
+				break;
 
-				switch (type) {
-					case 'uudCouponcode':
-						$scope.uudResult = data;
-						break;
+			case 'agentCouponcode':
+				$scope.search(type, 'agentResult');
+				break;
 
-					case 'agentCouponcode':
-						$scope.agentResult = data;
-						break;
-
-					default: 
-						$scope.result = data;
-					break;
-				}
-			})
-			.error(config.errorLog('search', type))
+			default: 
+				$scope.result = data;
+			break;
+		}
 	}
 
 	$scope.updateSearchType = function(type) {
 		$scope.type = type;
 	}
 
-
+	$controller('MainCtrl', {$scope: $scope});
 }])
 
 	/**
@@ -53,16 +39,16 @@ angular.module('mainApp')
 
 		if ( $scope.$state.is('root.agents.list') ) {
 			// 查询目前签约代理数、今日销售总额、累计销售总额、今日新增客户数、历史销售人数
-			$scope.loadInfo('agent_statistics');
+			$scope.load('agent_statistics');
 		} else if ( $scope.$state.is('root.agents.rank') ) {
 			// 获取代理商排名等信息
-			$scope.loadInfo('rank_agent_statistics');
+			$scope.load('rank_agent_statistics');
 		} else if ( $scope.$state.is('root.agents.promocode') ) {
 			// 获取优惠码信息
-			$scope.loadInfo('coupon_agent_statistics');
+			$scope.load('coupon_agent_statistics');
 		} else if ( $scope.$state.is('root.agents.sales') ) {
 			// 获取销售信息
-			$scope.loadInfo('orders_statistics');
+			$scope.load('orders_statistics');
 		}
 
 		$controller('AgentsCtrl', {$scope: $scope});
