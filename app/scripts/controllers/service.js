@@ -32,7 +32,7 @@ angular.module('mainApp')
 	}])
 
 
-	.controller('EmployeeCtrl', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('EmployeeManager', ['$scope', '$controller', function ($scope, $controller) {
 
 		$scope.allTasks = [];
 		$scope.search('employee');

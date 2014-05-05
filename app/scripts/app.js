@@ -143,7 +143,7 @@ var uud = angular.module('mainApp', [
 	.state('root.service.employee', {
 		url: "/employee",
 		templateUrl: "views/service/employee.html",
-		controller: 'EmployeeCtrl'
+		controller: 'EmployeeManager'
 	})
 	.state('root.service.online', {
 		url: "/online",
