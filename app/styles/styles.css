@@ -35,11 +35,11 @@ a {color: #333; }
 .brand {margin: 6px auto; display: block; }
 .logo {padding: 3px; display: block; float: left;}
 
-.info {position: relative; top: 16px; }
-.status-bar {float: left;margin: 9px 0;font-size: 0.6em;}
-.status-bar > ul { float: left; margin-left: 25px; font-size: 14px;}
+.status-bar {float: left; margin: 9px 0;}
+.status-bar > ul { float: left; margin-left: 25px;}
 .status-bar > ul > li {padding-right: 10px; }
 
+.info {position: relative; top: 16px; }
 .info > ul {clear: left; float: left;margin-top: 10px; font-size: 1.2em; }
 .info > ul > li {float: left; }
 .info > ul > li > a { padding: 15px;text-align: right;}
@@ -109,7 +109,7 @@ a {color: #333; }
 .info-panel.header {margin: 4px 0; }
 .info-panel-title {font-size: 1.1em}
 .info-panel-title, .info-panel-content {display: inline-block;}
-.info-panel .val {width: 77px; display: inline-block; padding-left: 3px; color: #000; }
+.info-panel .val {width: 79px; display: inline-block; padding-left: 3px; color: #000; /* font-size: 13px; */}
 .info-panel .val-m {width: 23px; display: inline-block; padding-left: 3px; color: #000; }
 .time-indicator {width: 17px; height: 17px; background-color: #F03558; border: 2px solid #E6E6E6; display: inline-block; position: relative; top: 3px; left: 2px; }
 
@@ -130,7 +130,7 @@ a {color: #333; }
  * ----------------------------------------------------------------------------
  */
 
-.home-statics li {margin: 3px 0;}
+.home-statics li {margin: 3px 0;padding-left: 2px;}
 .line-path {
 	stroke: steelblue;
 	stroke-width: 2;
