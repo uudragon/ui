@@ -248,7 +248,7 @@ angular.module('authApp')
 
 		$scope.privilegeModalTitle = "修改权限";
 		$scope.currentModel = model;
-		UUDBasicService.getPrivileges($scope, model, $scope.objType);
+		UUDBasicService.getPrivileges($scope, model, $scope.objType, setting);
 		UUDBasicService.getAllPrivileges($scope, setting);
 	}
 
