@@ -10,10 +10,6 @@ angular.module('mainApp')
 		ipCookie('user', user);
 	}
 
-	this.setHeader = function (token) {
-		$http.defaults.headers.common['token'] = token || ipCookie('token');
-	}
-
 	var setToken = function (token) {
 		ipCookie('token', token);
 		self.setHeader(token);
@@ -21,6 +17,10 @@ angular.module('mainApp')
 
 	var getToken = function() {
 		return ipCookie('token');
+	}
+
+	this.setHeader = function (token) {
+		$http.defaults.headers.common['token'] = token || ipCookie('token');
 	}
 
 	this.getUser = function () {

@@ -195,7 +195,8 @@ var uud = angular.module('mainApp', [
 	.state('root.agents', {
 		url: "agents",
 		templateUrl: "views/agents/template.html",
-		controller: 'AgentsCtrl'
+		controller: 'AgentsCtrl',
+		accessCode: '04'
 	})
 	.state('root.agents.list', {
 		url: "/list",
