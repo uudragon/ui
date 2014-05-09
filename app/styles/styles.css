@@ -131,20 +131,6 @@ a {color: #333; }
  */
 
 .home-statics li {margin: 3px 0;padding-left: 2px;}
-.line-path {
-	stroke: steelblue;
-	stroke-width: 2;
-	fill: none;
-}
-
-line {
-	stroke: black;
-}
-
-text {
-	font-family: Arial;
-	font-size: 9pt;
-}
 
 /**
  * Service
@@ -174,6 +160,30 @@ text {
 .input-group.login {margin: 12px 0px}
 .form-error-msg {text-align: left; margin-left: 16px; color: #CC2A23; font-weight: bold; }
 
+
+/**
+ * Chart
+ * ----------------------------------------------------------------------------
+ */
+ .title-label {
+     font-size: 13px;
+     font-weight: bold;
+ }
+ 
+ .line-path {
+ 	stroke: steelblue;
+ 	stroke-width: 2;
+ 	fill: none;
+ }
+
+ line {
+ 	stroke: black;
+ }
+
+ text {
+ 	font-family: Arial;
+ 	font-size: 9pt;
+ }
 
 /**
  * Print
