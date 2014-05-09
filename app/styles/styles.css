@@ -169,7 +169,7 @@ a {color: #333; }
      font-size: 13px;
      font-weight: bold;
  }
- 
+
  .line-path {
  	stroke: steelblue;
  	stroke-width: 2;
@@ -183,6 +183,10 @@ a {color: #333; }
  text {
  	font-family: Arial;
  	font-size: 9pt;
+ }
+
+ path {
+ 	transition: 500ms;
  }
 
 /**
