@@ -25,6 +25,14 @@ angular.module('mainApp')
 
 		} else if ( $scope.$state.is('root.service.online') ) {
 			$scope.load('online_statistics');
+		} else if ( $scope.$state.is('root.service.phone') ) {
+			$scope.load('phone_report', 'report');
+
+			$scope.report = {1: [{phone: '023423', status: '接听，并完整沟通', duration: '10', cs: '张三', info: '管理员'}, {phone: '312423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}], 2: [{phone: '723423', status: '接听，但忙碌', duration: '10', cs: '张三', info: '管理员'}, {phone: '612423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}] }
+		} else if ( $scope.$state.is('root.service.data') ) {
+			$scope.load('phone_report', 'report');
+
+			$scope.report = {1: [{phone: '023423', status: '接听，并完整沟通', duration: '10', cs: '张三', info: '管理员'}, {phone: '312423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}], 2: [{phone: '723423', status: '接听，但忙碌', duration: '10', cs: '张三', info: '管理员'}, {phone: '612423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}] }
 		} 
  
 		$controller('ServiceCtrl', {$scope: $scope});
