@@ -211,7 +211,7 @@ angular.module('mainApp')
 		return $http.post(baseurl + suffix, model);
 	}
 
-	this.new = function(model, type) {
+	this.createNew = function(model, type) {
 		var suffix;
 		console.log(model, type);
 		switch (type) {

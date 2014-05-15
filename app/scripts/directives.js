@@ -198,10 +198,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			unit: '@'
 		},
 		link: function(scope, elem, attrs) {
-			scope.class = attrs.class || 'val';
+			scope.classname = attrs.classname || 'val';
 		},
 		template: '<span class="key" ng-if="label">{{label}}:</span>' +
-				  '<span class="{{ class }}">{{value}} <span class="unit" ng-if="unit">{{unit}}</span></span>' +
+				  '<span class="{{ classname }}">{{value}} <span class="unit" ng-if="unit">{{unit}}</span></span>' +
 				  '<span class="time-indicator" ng-if="indicator"></span>'
 	}
 })
