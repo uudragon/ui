@@ -9,6 +9,8 @@ angular.module('mainApp')
 	$scope.date = new Date();
 	$scope.currentUser = Auth.getUser();
 
+	$scope.searchModel = {};
+
 	$scope.range = function(n) {
 		return new Array(n);
 	};
