@@ -12,7 +12,7 @@ angular.module('mainApp')
 	$scope.range = function(n) {
 		return new Array(n);
 	};
-	    
+
 	$scope.$on('auth:invalid', function(e, d) {
 		Auth.logout();
 	})
@@ -25,9 +25,9 @@ angular.module('mainApp')
 
 	// load records or statistics
 	$scope.load = function(type, keyname, errorCallBack, successCallBack) {
-		Resource.load($scope.model, type) 
+		Resource.load($scope.model, type)
 			.success(function(data, status) {
-				
+
 				if (keyname) {
 					$scope[keyname] = data;
 				} else {
@@ -59,10 +59,10 @@ angular.module('mainApp')
 			.error(config.errorLog('search', type))
 	}
 
-	$scope.new = function(form) {
+	$scope.createNew = function(form) {
 		$scope.submitted = true;
 		if (!form.$valid) return;
-		Resource.new($scope.model, $scope.objType)
+		Resource.createNew($scope.model, $scope.objType)
 			.success(function(data, status) {
 				if (data.success) {
 					// 成功保存
@@ -80,7 +80,7 @@ angular.module('mainApp')
 
 			})
 			.error(function(data, status) {
-				
+
 			})
 		$('#uumodal').modal('hide');
 	}

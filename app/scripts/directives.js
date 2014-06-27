@@ -198,10 +198,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			unit: '@'
 		},
 		link: function(scope, elem, attrs) {
-			scope.class = attrs.class || 'val';
+			scope.clax = attrs.clax || 'val';
 		},
 		template: '<span class="key" ng-if="label">{{label}}:</span>' +
-				  '<span class="{{ class }}">{{value}} <span class="unit" ng-if="unit">{{unit}}</span></span>' +
+				  '<span class="{{ clax }}">{{value}} <span class="unit" ng-if="unit">{{unit}}</span></span>' +
 				  '<span class="time-indicator" ng-if="indicator"></span>'
 	}
 })
@@ -241,7 +241,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			label: '@',
 			ngChange: '&',
 			modify: '&',
-			export: '&',
 			model: '=',
 			options: '='
 		},
@@ -440,7 +439,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			ngModel: "="
 		},
 		link: function($scope, $element, $attrs, ctrl) {
-			
+
 			var settings = {
 				format: $attrs.format || 'yyyy-mm-dd',
 				startView: parseInt($attrs.startView, 10) || 0,
@@ -541,7 +540,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			//OBJECTS TO BE POPULATED WITH DATA LATER
 			var lines, valueLabels, nameLabels;
-			var pieData = [];    
+			var pieData = [];
 			var oldPieData = [];
 			var filteredPieData = [];
 
@@ -579,12 +578,12 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			.attr("class", "label_group")
 			.attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
 
-			//GROUP FOR CENTER TEXT  
+			//GROUP FOR CENTER TEXT
 			var center_group = vis.append("svg:g")
 			.attr("class", "center_group")
 			.attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
 
-			//GROUP FOR TITLE TEXT  
+			//GROUP FOR TITLE TEXT
 			var title_group = vis.append("svg:g")
 			.attr("class", "title_group")
 			.attr("transform", "translate(" + (w/2) + "," + 0 + ")");
@@ -636,7 +635,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				oldPieData = filteredPieData;
 				pieData = donut(data);
 				filteredPieData = pieData.filter(filterData);
-				
+
 				function filterData(element, index, array) {
 					element.name = data[index].name;
 					element.value = data[index].value;
@@ -786,7 +785,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 					nameLabels.exit().remove();
 
-				}  
+				}
 			}
 
 			///////////////////////////////////////////////////////////
@@ -866,7 +865,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			.append("svg:svg")
 			.attr("width", w)
 			.attr("height", h);
-			 
+
 			var g = vis.append("svg:g")
 			.attr("transform", "translate(0, 200)");
 

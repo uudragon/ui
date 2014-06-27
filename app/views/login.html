@@ -2,12 +2,11 @@
 	<div class="row">
 		<div class="col-xs-12 text-center">
 
-			<!-- Site Title, your name, HELLO msg, etc. -->
 			<h1 class="title">优优龙</h1>
 			<h3 class="subtitle">幼小衔接家庭课程专家</h3>
 
 			<div class="modal-dialog" style="width:350px">
-				<div class="form-error-msg" ng-if="errorMsg"> {{errorMsg}} </div>
+				<div class="form-error-msg" ng-if="errorMsg" ng-bind="errorMsg"></div>
 				<form class="form col-xs-12" ng-submit="login(loginForm.$valid)" name="loginForm" novalidate>
 					<div class="input-group login" ng-class="{ 'has-error' : (loginForm.account.$invalid || inValid == 'account') && (!loginForm.account.$pristine || submitted) }">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
