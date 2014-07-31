@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     watch: {
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['jshint:all'],
         options: {
           livereload: true
         }
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{css}']
+        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss}']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -50,6 +50,7 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
+          '.tmp/styles/{,*/}*.scss',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -150,7 +151,7 @@ module.exports = function (grunt) {
 
 
     // Compiles Sass to CSS and generates necessary files if requested
- 
+
     // Renames files for browser caching purposes
     rev: {
       dist: {

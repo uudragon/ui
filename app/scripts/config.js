@@ -1,4 +1,5 @@
 (function(exports){
+	'use strict';
 
 	// global variables
 	exports.baseurl = '/bam/';
@@ -9,13 +10,13 @@
 		resource: 'resourceListByCode',
 		login: 'login',
 		logout: 'logout'
-	}
+	};
 
 	// cookie options
 	exports.cookieOption = {
 		expires: 1,
 		expirationUnit: 'minutes'
-	}
+	};
 
 	exports.workDays = 6;
 

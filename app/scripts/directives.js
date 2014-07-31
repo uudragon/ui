@@ -19,7 +19,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 							counter.m = 0;
 						}
 					}
-				}
+				};
 				counter.text = function() {
 					function format(num) {
 						if (!num) return '00';
@@ -27,7 +27,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 						return String(num);
 					}
 					return format(counter.h) + ':' + format(counter.m) + ':' + format(counter.s);
-				}
+				};
 				return counter;
 			}
 		}
@@ -78,7 +78,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	}
 	return {
 		link: toWeek
-	}
+	};
 })
 
 // generate clickable tab
@@ -152,7 +152,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 							'<input type="{{ type }}" class="input-sm form-control" ng-model="model" name="{{name}}" id="{{name}}">' +
 						'</div>' +
 					'</div>'
-	}
+	};
 })
 
 // generate raido field in form
@@ -165,7 +165,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		template: '<span class="key" ng-if="label">{{label}}:</span>' +
 					'<span class="val">{{datetime}}</span>' +
 					'<span class="time-indicator"></span>'
-	}
+	};
 })
 
 // generate statistics field
@@ -185,7 +185,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		template: '<h3 class="info-panel-title" ng-if="title">{{title}}</h3>' +
 					'<ul class="list-inline info-panel-content" ng-transclude></ul>'
-	}
+	};
 })
 
 // generate statistics field
@@ -203,7 +203,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		template: '<span class="key" ng-if="label">{{label}}:</span>' +
 				  '<span class="{{ classname }}">{{value}} <span class="unit" ng-if="unit">{{unit}}</span></span>' +
 				  '<span class="time-indicator" ng-if="indicator"></span>'
-	}
+	};
 })
 
 // confirm dialog, require plugin jquery.confirm
@@ -231,7 +231,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			})
 		},
 		template: '<a href="">{{label}}</a>'
-	}
+	};
 })
 
 // generate raido field in form
@@ -246,7 +246,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			options: '='
 		},
 		templateUrl: 'views/partial/directives/uuswitcher.html'
-	}
+	};
 })
 
 // generate raido field in form
@@ -272,7 +272,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					'<div class="{{ inputOffset }} {{ inputCol }}" ng-transclude></div>' +
 					'<div class="col-xs-1" ng-if="searchBtn"><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button></div>' +
 				'</div>'
-	}
+	};
 })
 
 // generate static field in form
@@ -293,7 +293,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 						'<p class="form-control-static">{{text}}</p>' +
 					'</div>' +
 				'</div>'
-	}
+	};
 })
 
 // generate simple search field
@@ -308,7 +308,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			$scope.placeholder = attrs.placeholder ? attrs.placeholder : '请输入搜索关键字';
 		},
 		templateUrl: 'views/partial/directives/uusimplesearch.html'
-	}
+	};
 })
 
 
@@ -427,7 +427,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 							'<li><a href="" ng-click="next()" class="next">&raquo;</a></li>' +
 						'</ul>' +
 					'</div>'
-	}
+	};
 })
 
 // check http://eternicode.github.io/bootstrap-datepicker for full documentation
@@ -440,7 +440,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			ngModel: "="
 		},
 		link: function($scope, $element, $attrs, ctrl) {
-			
+
 			var settings = {
 				format: $attrs.format || 'yyyy-mm-dd',
 				startView: parseInt($attrs.startView, 10) || 0,
@@ -466,7 +466,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			$element.datepicker(settings);
 		}
-	}
+	};
 })
 
 .directive('uuAuthFilter', function(Auth) {
@@ -496,7 +496,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			}
 
 		}
-	}
+	};
 })
 
 .directive('uuNum', function() {
@@ -516,7 +516,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			ctrl.$parsers.push(validate);
 			ctrl.$formatters.push(validate);
 		}
-	}
+	};
 })
 
 .directive('uuPieChart', function() {
@@ -541,7 +541,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			//OBJECTS TO BE POPULATED WITH DATA LATER
 			var lines, valueLabels, nameLabels;
-			var pieData = [];    
+			var pieData = [];
 			var oldPieData = [];
 			var filteredPieData = [];
 
@@ -579,12 +579,12 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			.attr("class", "label_group")
 			.attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
 
-			//GROUP FOR CENTER TEXT  
+			//GROUP FOR CENTER TEXT
 			var center_group = vis.append("svg:g")
 			.attr("class", "center_group")
 			.attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
 
-			//GROUP FOR TITLE TEXT  
+			//GROUP FOR TITLE TEXT
 			var title_group = vis.append("svg:g")
 			.attr("class", "title_group")
 			.attr("transform", "translate(" + (w/2) + "," + 0 + ")");
@@ -636,7 +636,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				oldPieData = filteredPieData;
 				pieData = donut(data);
 				filteredPieData = pieData.filter(filterData);
-				
+
 				function filterData(element, index, array) {
 					element.name = data[index].name;
 					element.value = data[index].value;
@@ -786,7 +786,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 					nameLabels.exit().remove();
 
-				}  
+				}
 			}
 
 			///////////////////////////////////////////////////////////
@@ -847,7 +847,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				};
 			}
 		}
-	}
+	};
 })
 
 .directive('uuLineChart', function() {
@@ -866,7 +866,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			.append("svg:svg")
 			.attr("width", w)
 			.attr("height", h);
-			 
+
 			var g = vis.append("svg:g")
 			.attr("transform", "translate(0, 200)");
 
@@ -927,7 +927,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			.attr("y2", function(d) { return -1 * y(d); })
 			.attr("x2", x(0))
 		}
-	}
+	};
 })
 
 /**
@@ -1033,31 +1033,31 @@ uud.directive('timing', ['$interval', 'dateFilter',
  				return $scope.filename || 'download.csv';
  			};
  		}],
- 	template: '<div class="csv-wrap">' +
-		 		'<div class="element" ng-transclude></div>' +
-		 		'<a class="hidden-link" ng-hide="true" ng-href="{{ csv }}" download="{{ getFilename() }}"></a>' +
-	 		'</div>',
- 	link: function(scope, element, attrs) {
- 		var subject = angular.element(element.children()[0]),
- 			link = angular.element(element.children()[1]);
+	 	template: '<div class="csv-wrap">' +
+			 		'<div class="element" ng-transclude></div>' +
+			 		'<a class="hidden-link" ng-hide="true" ng-href="{{ csv }}" download="{{ getFilename() }}"></a>' +
+		 		'</div>',
+	 	link: function(scope, element, attrs) {
+	 		var subject = angular.element(element.children()[0]),
+	 			link = angular.element(element.children()[1]);
 
- 		function doClick() {
- 			link[0].href = "";
- 			link[0].click();
- 			link[0].href = scope.csv;
- 			link[0].click();
- 		}
+	 		function doClick() {
+	 			link[0].href = "";
+	 			link[0].click();
+	 			link[0].href = scope.csv;
+	 			link[0].click();
+	 		}
 
- 		subject.bind('click', function(e) {
- 			scope.buildCsv(scope.data(), function() {
- 				doClick();
- 			});
+	 		subject.bind('click', function(e) {
+	 			scope.buildCsv(scope.data(), function() {
+	 				doClick();
+	 			});
 
- 			if (!!scope.ngClick) {
- 				scope.ngClick();
- 			}
- 		});
- 	}
- 	}
+	 			if (!!scope.ngClick) {
+	 				scope.ngClick();
+	 			}
+	 		});
+	 	}
+ 	};
  }
  ]);
