@@ -1,0 +1,56 @@
+
+
+/**
+ * Header
+ * ----------------------------------------------------------------------------
+ */
+
+.page-header {
+	padding: 14px 0;
+	background: url('../img/body-bg.png');
+	margin-top: 10px;
+
+	/* left side start */
+
+	.brand {
+		margin: 6px auto;
+		display: block;
+	}
+
+	.des {
+		font-size: 14px;
+		text-align: center;
+		padding-top: 6px;
+		margin: 0 0 0 10px;
+	}
+
+
+	/* right side */
+
+	.rightside {
+		position: relative;
+		top: 16px;
+	}
+
+	.logo {
+		padding: 3px;
+	}
+
+	.profile {
+		display: inline-block;
+		margin: 9px 0;
+		> ul {
+			margin-left: 25px;
+			> li {
+				padding-right: 10px;
+			}
+		}
+	}
+
+	.links-btn-groups {
+		margin-top: 23px;
+		font-size: 1.3em;
+	}
+
+}
+

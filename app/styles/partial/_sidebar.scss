@@ -1,0 +1,36 @@
+
+/**
+ * Left side bar
+ * ----------------------------------------------------------------------------
+ */
+
+/*body {background: url('../img/body-bg.png');}*/
+
+.decorator {
+	height: 12px;
+	border-top: 2px solid;
+	border-bottom: 7px solid;
+	border-color: #A7A7A7;
+	margin: 7px 15px 12px 15px;
+	z-index: -1;
+}
+
+.sidebar {
+	border-right: 1px solid #EEE;
+	height: 500px;
+	background-color: #FFF;
+}
+
+.nav-sidebar {
+	border: 1px solid #EFEFEF;
+	border-bottom: none;
+	> li > a {
+		color: #333;
+	}
+	.active > a,
+	li > a:hover,
+	li > a:focus {
+		background-color: #A52A2A;
+		color: #fff;
+	}
+}

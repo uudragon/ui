@@ -1,0 +1,28 @@
+/**
+ * Chart
+ * ----------------------------------------------------------------------------
+ */
+
+.title-label {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.line-path {
+	stroke: steelblue;
+	stroke-width: 2;
+	fill: none;
+}
+
+line {
+	stroke: black;
+}
+
+text {
+	font-family: Arial;
+	font-size: 9pt;
+}
+
+path {
+	transition: 500ms;
+}

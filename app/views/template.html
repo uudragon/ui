@@ -1,17 +1,17 @@
 <div class="container">
 	<!-- header begin -->
-	<div id="header" class="jumbotron">
+	<div id="header" class="page-header">
 		<div class="row">
-			<div class="col-xs-2 brand-container">
+			<div class="col-xs-2 leftside">
 				<a href="#"><img src="img/brand.png" class="brand" alt="brand" width="120" height="120"></a>
 				<p class="des">幼小衔接家庭课程专家</p>
 			</div>
-			<div class="col-xs-10 info">
+			<div class="col-xs-10 rightside">
 				<div class="row">
 					<div class="col-xs-2">
 						<a class="logo" href="#"><img src="img/logo.png" alt="logo" width="125" height="60"></a>
 					</div>
-					<div class="status-bar col-xs-10 info-panel header">
+					<div class="profile col-xs-10 info-panel">
 						<ul class="list-inline">
 							<li><span class="key">当前日期:</span> <span class="val">{{date | date : "yyyy-MM-dd" }}</span></li>
 							<li><span class="key">分机:</span> <span class="val">{{currentUser.phone}}</span></li>
@@ -26,7 +26,7 @@
 						</ul>
 					</div>
 				</div>
-				<ul class="nav navbar-nav">
+				<ul class="links-btn-groups">
 					<li ng-controller="AuthCtrl"><a href="" ng-click="logout()" class="link-normal">登出系统</a></li>
 					<li><a href="#" class="link-normal">修改密码</a></li>
 					<li><a href="#" class="link-normal">资料库</a></li>
@@ -39,10 +39,10 @@
 
 
 	<div class="row">
-		
+
 		<!-- decorator -->
 		<div class="decorator"></div>
-	
+
 		<div class="wrapper">
 			<!-- left side bar begin-->
 			<div class="col-xs-2 sidebar">
