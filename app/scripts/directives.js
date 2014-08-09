@@ -7,11 +7,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					h: 0,
 					m: 0,
 					s: 0
-				}
+				};
 				counter.add = function() {
 					counter.s += 1;
 					if (counter.s >= 60) {
-						counter.m += 1
+						counter.m += 1;
 						counter.s = 0;
 
 						if (counter.m >= 60) {
@@ -30,7 +30,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				};
 				return counter;
 			}
-		}
+		};
 
 		function link(scope, element, attrs) {
 			var format,
@@ -73,7 +73,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			d.setHours(0, 0, 0);
 			d.setDate(d.getDate() + 4 - (d.getDay() || 7));
 			var yearStart = new Date(d.getFullYear(), 0, 1);
-			element.text(Math.ceil((((d - yearStart) / 86400000) + 1) / 7))
+			element.text(Math.ceil((((d - yearStart) / 86400000) + 1) / 7));
 		});
 	}
 	return {
@@ -173,7 +173,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		transclude: true,
 		template: '<div class="info-panel" ng-transclude></div>'
-	}
+	};
 })
 
 // generate statistics field
@@ -225,10 +225,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				cancel: function(button) {
 					scope.cancel();
 				},
-				confirmButton: attrs.confirmBtn || "确定",
-				cancelButton: attrs.cancelBtn || "取消",
-				confirmButtonClass: "btn-danger"
-			})
+				confirmButton: attrs.confirmBtn || '确定',
+				cancelButton: attrs.cancelBtn || '取消',
+				confirmButtonClass: 'btn-danger'
+			});
 		},
 		template: '<a href="">{{label}}</a>'
 	};
@@ -362,18 +362,18 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				}
 
 
-				start = betwwen(start, 1, totalPages - pages + 1)
+				start = betwwen(start, 1, totalPages - pages + 1);
 
 				// update the model passed in
 				$scope.model = {
 					'toPage': $scope.current,
 					'perPage': perPage
-				}
+				};
 
 				$scope.pages = [];
 
 				for (var i = start; i < start + pages; i++) {
-					$scope.pages.push(i)
+					$scope.pages.push(i);
 				}
 
 				// hide pagination when there is only one page
@@ -389,12 +389,12 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					$scope.current =1;
 				}
 				updatePagination();
-			}
+			};
 
 			$scope.to = function(page) {
 				$scope.current = page;
 				updatePagination();
-			}
+			};
 
 			$scope.next = function() {
 				var totalPages = Math.ceil($scope.records / perPage);
@@ -403,14 +403,14 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					$scope.current = totalPages;
 				}
 				updatePagination();
-			}
+			};
 
 			// when current page changed, call function
 			$scope.$watch('current', function(current, prev, scope) {
 				if(current && current !== prev) {
 					scope.action();
 				}
-			})
+			});
 
 			function betwwen(val, min, max) {
 				if (val < min) return min;
@@ -437,7 +437,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		restrict: 'A',
 		require: '?ngModel',
 		scope: {
-			ngModel: "="
+			ngModel: '='
 		},
 		link: function($scope, $element, $attrs, ctrl) {
 
@@ -448,8 +448,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				endDate: $attrs.endDate || 0,
 				todayHighlight: true,
 				autoclose: true,
-				language: "zh-CN"
-			}
+				language: 'zh-CN'
+			};
 
 			var validate = function(value) {
 				// valid
@@ -460,7 +460,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					ctrl.$setValidity('date', false);
 					return undefined;
 				}
-			}
+			};
 			ctrl.$parsers.push(validate);
 			ctrl.$formatters.push(validate);
 
@@ -484,7 +484,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 							if (data[i].code == accessCode) {
 								valid = true;
 							}
-						};
+						}
 
 						if (!valid) {
 							element.remove();
@@ -492,7 +492,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					})
 					.error(function(msg) {
 						element.remove();
-					})
+					});
 			}
 
 		}
@@ -512,7 +512,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					ctrl.$setValidity('digit', false);
 					return undefined;
 				}
-			}
+			};
 			ctrl.$parsers.push(validate);
 			ctrl.$formatters.push(validate);
 		}
@@ -532,7 +532,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			var ir = 45;
 			var textOffset = 14;
 			var tweenDuration = 500;
-			var title = attrs.header || "";
+			var title = attrs.header || '';
 			var data = $scope.data;
 
 			if (!angular.isArray(data)) {
@@ -565,61 +565,61 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			// CREATE VIS & GROUPS ////////////////////////////////////
 			///////////////////////////////////////////////////////////
 
-			var vis = d3.select(elem[0]).append("svg:svg")
-			.attr("width", w)
-			.attr("height", h);
+			var vis = d3.select(elem[0]).append('svg:svg')
+			.attr('width', w)
+			.attr('height', h);
 
 			//GROUP FOR ARCS/PATHS
-			var arc_group = vis.append("svg:g")
-			.attr("class", "arc")
-			.attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
+			var arc_group = vis.append('svg:g')
+			.attr('class', 'arc')
+			.attr('transform', 'translate(' + (w/2) + ',' + (h/2) + ')');
 
 			//GROUP FOR LABELS
-			var label_group = vis.append("svg:g")
-			.attr("class", "label_group")
-			.attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
+			var label_group = vis.append('svg:g')
+			.attr('class', 'label_group')
+			.attr('transform', 'translate(' + (w/2) + ',' + (h/2) + ')');
 
 			//GROUP FOR CENTER TEXT
-			var center_group = vis.append("svg:g")
-			.attr("class", "center_group")
-			.attr("transform", "translate(" + (w/2) + "," + (h/2) + ")");
+			var center_group = vis.append('svg:g')
+			.attr('class', 'center_group')
+			.attr('transform', 'translate(' + (w/2) + ',' + (h/2) + ')');
 
 			//GROUP FOR TITLE TEXT
-			var title_group = vis.append("svg:g")
-			.attr("class", "title_group")
-			.attr("transform", "translate(" + (w/2) + "," + 0 + ")");
+			var title_group = vis.append('svg:g')
+			.attr('class', 'title_group')
+			.attr('transform', 'translate(' + (w/2) + ',' + 0 + ')');
 
 			title_group.append('svg:text')
-			.attr("class", "title-label")
-			.attr("dy", 12)
-			  .attr("text-anchor", "middle") // text-align: right
+			.attr('class', 'title-label')
+			.attr('dy', 12)
+			  .attr('text-anchor', 'middle') // text-align: right
 			  .text(title);
 
 			//PLACEHOLDER GRAY CIRCLE
-			// var paths = arc_group.append("svg:circle")
-			// .attr("fill", "#EFEFEF")
-			// .attr("r", r);
+			// var paths = arc_group.append('svg:circle')
+			// .attr('fill', '#EFEFEF')
+			// .attr('r', r);
 
 			///////////////////////////////////////////////////////////
 			// CENTER TEXT ////////////////////////////////////////////
 			///////////////////////////////////////////////////////////
 
 			//WHITE CIRCLE BEHIND LABELS
-			var whiteCircle = center_group.append("svg:circle")
-			.attr("fill", "white")
-			.attr("r", ir);
+			var whiteCircle = center_group.append('svg:circle')
+			.attr('fill', 'white')
+			.attr('r', ir);
 
-			// "TOTAL" LABEL
-			var activeLabel = center_group.append("svg:text")
-			.attr("class", "label")
-			.attr("dy", -12)
-			  .attr("text-anchor", "middle"); // text-align: right
+			// 'TOTAL' LABEL
+			var activeLabel = center_group.append('svg:text')
+			.attr('class', 'label')
+			.attr('dy', -12)
+			  .attr('text-anchor', 'middle'); // text-align: right
 
 			//TOTAL TRAFFIC VALUE
-			var activeValue = center_group.append("svg:text")
-			.attr("class", "total")
-			.attr("dy", 10)
-			  .attr("text-anchor", "middle"); // text-align: right
+			var activeValue = center_group.append('svg:text')
+			.attr('class', 'total')
+			.attr('dy', 10)
+			  .attr('text-anchor', 'middle'); // text-align: right
 
 
 			///////////////////////////////////////////////////////////
@@ -646,11 +646,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				if(filteredPieData.length > 0 ){
 					//DRAW ARC PATHS
-					paths = arc_group.selectAll("path").data(filteredPieData);
-					paths.enter().append("svg:path")
-						.attr("stroke", "white")
-						.attr("stroke-width", 0.5)
-						.attr("fill", function(d, i) { return color(i); })
+					paths = arc_group.selectAll('path').data(filteredPieData);
+					paths.enter().append('svg:path')
+						.attr('stroke', 'white')
+						.attr('stroke-width', 0.5)
+						.attr('fill', function(d, i) { return color(i); })
 						.on('mouseover', function(d, i) {
 							activeLabel.text(d.name);
 							activeValue.text(d.value);
@@ -663,126 +663,126 @@ uud.directive('timing', ['$interval', 'dateFilter',
 						})
 						.transition()
 						.duration(tweenDuration)
-						.attrTween("d", pieTween);
+						.attrTween('d', pieTween);
 					paths
 						.transition()
 						.duration(tweenDuration)
-						.attrTween("d", pieTween);
+						.attrTween('d', pieTween);
 					paths.exit()
 						.transition()
 						.duration(tweenDuration)
-						.attrTween("d", removePieTween)
+						.attrTween('d', removePieTween)
 						.remove();
 
 					//DRAW TICK MARK LINES FOR LABELS
-					lines = label_group.selectAll("line").data(filteredPieData);
-					lines.enter().append("svg:line")
-						.attr("x1", 0)
-						.attr("x2", 0)
-						.attr("y1", -r-3)
-						.attr("y2", -r-8)
-						.attr("stroke", "gray")
-						.attr("transform", function(d) {
-							return "rotate(" + (d.startAngle+d.endAngle)/4 * (180/Math.PI) + ")";
+					lines = label_group.selectAll('line').data(filteredPieData);
+					lines.enter().append('svg:line')
+						.attr('x1', 0)
+						.attr('x2', 0)
+						.attr('y1', -r-3)
+						.attr('y2', -r-8)
+						.attr('stroke', 'gray')
+						.attr('transform', function(d) {
+							return 'rotate(' + (d.startAngle+d.endAngle)/4 * (180/Math.PI) + ')';
 						});
 					lines.transition()
 						.duration(tweenDuration)
-						.attr("transform", function(d) {
-							return "rotate(" + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ")";
+						.attr('transform', function(d) {
+							return 'rotate(' + (d.startAngle+d.endAngle)/2 * (180/Math.PI) + ')';
 						});
 					lines.exit().remove();
 
 					//DRAW LABELS WITH PERCENTAGE VALUES
-					valueLabels = label_group.selectAll("text.value").data(filteredPieData)
-					.attr("dy", function(d){
+					valueLabels = label_group.selectAll('text.value').data(filteredPieData)
+					.attr('dy', function(d){
 						if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
 							return 5;
 						} else {
 							return -7;
 						}
 					})
-					.attr("text-anchor", function(d){
+					.attr('text-anchor', function(d){
 						if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
-							return "beginning";
+							return 'beginning';
 						} else {
-							return "end";
+							return 'end';
 						}
 					})
 					.text(function(d){
 						return d.value;
 					});
 
-					valueLabels.enter().append("svg:text")
-					.attr("class", "value")
-					.attr("transform", function(d) {
-						return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ")";
+					valueLabels.enter().append('svg:text')
+					.attr('class', 'value')
+					.attr('transform', function(d) {
+						return 'translate(' + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + ',' + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ')';
 					})
-					.attr("dy", function(d){
+					.attr('dy', function(d){
 						if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
 							return 5;
 						} else {
 							return -7;
 						}
 					})
-					.attr("text-anchor", function(d){
+					.attr('text-anchor', function(d){
 						if ( (d.startAngle+d.endAngle)/2 < Math.PI ){
-							return "beginning";
+							return 'beginning';
 						} else {
-							return "end";
+							return 'end';
 						}
 					}).text(function(d){
 						var percentage = (d.value/totalOctets)*100;
-						return percentage.toFixed(1) + "%";
+						return percentage.toFixed(1) + '%';
 						return d.value;
 					});
 
-					valueLabels.transition().duration(tweenDuration).attrTween("transform", textTween);
+					valueLabels.transition().duration(tweenDuration).attrTween('transform', textTween);
 
 					valueLabels.exit().remove();
 
 
 					//DRAW LABELS WITH ENTITY NAMES
-					nameLabels = label_group.selectAll("text.units").data(filteredPieData)
-					.attr("dy", function(d){
+					nameLabels = label_group.selectAll('text.units').data(filteredPieData)
+					.attr('dy', function(d){
 						if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
 							return 17;
 						} else {
 							return 5;
 						}
 					})
-					.attr("text-anchor", function(d){
+					.attr('text-anchor', function(d){
 						if ((d.startAngle+d.endAngle)/2 < Math.PI ) {
-							return "beginning";
+							return 'beginning';
 						} else {
-							return "end";
+							return 'end';
 						}
 					}).text(function(d){
 						return d.name;
 					});
 
-					nameLabels.enter().append("svg:text")
-					.attr("class", "units")
-					.attr("transform", function(d) {
-						return "translate(" + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + "," + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ")";
+					nameLabels.enter().append('svg:text')
+					.attr('class', 'units')
+					.attr('transform', function(d) {
+						return 'translate(' + Math.cos(((d.startAngle+d.endAngle - Math.PI)/2)) * (r+textOffset) + ',' + Math.sin((d.startAngle+d.endAngle - Math.PI)/2) * (r+textOffset) + ')';
 					})
-					.attr("dy", function(d){
+					.attr('dy', function(d){
 						if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
 							return 17;
 						} else {
 							return 5;
 						}
 					})
-					.attr("text-anchor", function(d){
+					.attr('text-anchor', function(d){
 						if ((d.startAngle+d.endAngle)/2 < Math.PI ) {
-							return "beginning";
+							return 'beginning';
 						} else {
-							return "end";
+							return 'end';
 						}
 					}).text(function(d){
 						return d.name;
 					});
 
-					nameLabels.transition().duration(tweenDuration).attrTween("transform", textTween);
+					nameLabels.transition().duration(tweenDuration).attrTween('transform', textTween);
 
 					nameLabels.exit().remove();
 
@@ -843,7 +843,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				var fn = d3.interpolateNumber(a, b);
 				return function(t) {
 					var val = fn(t);
-					return "translate(" + Math.cos(val) * (r+textOffset) + "," + Math.sin(val) * (r+textOffset) + ")";
+					return 'translate(' + Math.cos(val) * (r+textOffset) + ',' + Math.sin(val) * (r+textOffset) + ')';
 				};
 			}
 		}
@@ -863,201 +863,69 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]),
 			x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
 			var vis = d3.select(elem[0])
-			.append("svg:svg")
-			.attr("width", w)
-			.attr("height", h);
+			.append('svg:svg')
+			.attr('width', w)
+			.attr('height', h);
 
-			var g = vis.append("svg:g")
-			.attr("transform", "translate(0, 200)");
+			var g = vis.append('svg:g')
+			.attr('transform', 'translate(0, 200)');
 
 			var line = d3.svg.line()
 			.x(function(d,i) { return x(i); })
 			.y(function(d) { return -1 * y(d); });
 
-			g.append("svg:path")
-			.attr("class", "line-path")
-			.attr("d", line(data));
+			g.append('svg:path')
+			.attr('class', 'line-path')
+			.attr('d', line(data));
 
-			g.append("svg:line")
-			.attr("x1", x(0))
-			.attr("y1", -1 * y(0))
-			.attr("x2", x(w))
-			.attr("y2", -1 * y(0))
+			g.append('svg:line')
+			.attr('x1', x(0))
+			.attr('y1', -1 * y(0))
+			.attr('x2', x(w))
+			.attr('y2', -1 * y(0));
 
-			g.append("svg:line")
-			.attr("x1", x(0))
-			.attr("y1", -1 * y(0))
-			.attr("x2", x(0))
-			.attr("y2", -1 * y(d3.max(data)))
+			g.append('svg:line')
+			.attr('x1', x(0))
+			.attr('y1', -1 * y(0))
+			.attr('x2', x(0))
+			.attr('y2', -1 * y(d3.max(data)));
 
-			g.selectAll(".xLabel")
+			g.selectAll('.xLabel')
 			.data(x.ticks(5))
-			.enter().append("svg:text")
-			.attr("class", "xLabel")
+			.enter().append('svg:text')
+			.attr('class', 'xLabel')
 			.text(String)
-			.attr("x", function(d) { return x(d) })
-			.attr("y", 0)
-			.attr("text-anchor", "middle")
+			.attr('x', function(d) { return x(d) })
+			.attr('y', 0)
+			.attr('text-anchor', 'middle');
 
-			g.selectAll(".yLabel")
+			g.selectAll('.yLabel')
 			.data(y.ticks(4))
-			.enter().append("svg:text")
-			.attr("class", "yLabel")
+			.enter().append('svg:text')
+			.attr('class', 'yLabel')
 			.text(String)
-			.attr("x", 0)
-			.attr("y", function(d) { return -1 * y(d) })
-			.attr("text-anchor", "right")
-			.attr("dy", 4)
+			.attr('x', 0)
+			.attr('y', function(d) { return -1 * y(d) })
+			.attr('text-anchor', 'right')
+			.attr('dy', 4);
 
-			g.selectAll(".xTicks")
+			g.selectAll('.xTicks')
 			.data(x.ticks(5))
-			.enter().append("svg:line")
-			.attr("class", "xTicks")
-			.attr("x1", function(d) { return x(d); })
-			.attr("y1", -1 * y(0))
-			.attr("x2", function(d) { return x(d); })
-			.attr("y2", -1 * y(-0.3))
+			.enter().append('svg:line')
+			.attr('class', 'xTicks')
+			.attr('x1', function(d) { return x(d); })
+			.attr('y1', -1 * y(0))
+			.attr('x2', function(d) { return x(d); })
+			.attr('y2', -1 * y(-0.3));
 			 
-			g.selectAll(".yTicks")
+			g.selectAll('.yTicks')
 			.data(y.ticks(4))
-			.enter().append("svg:line")
-			.attr("class", "yTicks")
-			.attr("y1", function(d) { return -1 * y(d); })
-			.attr("x1", x(-0.3))
-			.attr("y2", function(d) { return -1 * y(d); })
-			.attr("x2", x(0))
+			.enter().append('svg:line')
+			.attr('class', 'yTicks')
+			.attr('y1', function(d) { return -1 * y(d); })
+			.attr('x1', x(-0.3))
+			.attr('y2', function(d) { return -1 * y(d); })
+			.attr('x2', x(0));
 		}
 	};
 })
-
-/**
- * ng-csv module
- * Export Javascript's arrays to csv files from the browser
- *
- * Author: asafdav - https://github.com/asafdav
- */
- .directive('uuCsv', ['$parse', '$q', function($parse, $q) {
- 	return {
- 		restrict: 'A',
- 		replace: true,
- 		transclude: true,
- 		scope: {
- 			data: '&uuCsv',
- 			filename: '@filename',
- 			header: '&header',
- 			txtDelim: '@textDelimiter',
- 			fieldSep: '@fieldSeparator',
- 			lazyLoad: '@lazyLoad',
- 			ngClick: '&'
- 		},
- 		controller: ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
- 			var stringifyCell = function(data) {
- 				if (typeof data === 'string') {
- 					data = data.replace(/"/g, '""'); // Escape double qoutes
- 					if ($scope.txtDelim) data = $scope.txtDelim + data + $scope.txtDelim;
- 					return data;
- 				}
-
- 				if (typeof data === 'boolean') {
- 					return data ? 'TRUE' : 'FALSE';
- 				}
-
- 				return data;
- 			};
-
- 			$scope.csv = '';
-
- 			if (!angular.isDefined($scope.lazyLoad) || $scope.lazyLoad != "true") {
- 				if (angular.isArray($scope.data)) {
- 					$scope.$watch("data", function(newValue) {
- 						$scope.buildCsv($scope.data(), function() {});
- 					}, true);
- 				}
- 			}
-
- 			$scope.buildCsv = function(data, callback) {
- 				var csvContent = "data:text/csv;charset=utf-8,";
-
- 				$q.when(data).then(function() {
- 					// Check if there's a provided header array
- 					if (angular.isDefined($attrs.header)) {
- 						var header = $scope.$eval($scope.header);
- 						var encodingArray, headerString;
-
- 						if (angular.isArray(header)) {
- 							encodingArray = header;
- 						} else {
- 							encodingArray = [];
- 							angular.forEach(header, function(title, key) {
- 								this.push(stringifyCell(title));
- 							}, encodingArray);
- 						}
-
- 						headerString = encodingArray.join($scope.fieldSep ? $scope.fieldSep : ",");
- 						csvContent += headerString + "\n";
- 					}
-
- 					var arrData;
-
- 					if (angular.isArray(data))
- 						arrData = data;
- 					else if (angular.isFunction(data))
- 						arrData = data();
-
- 					angular.forEach(arrData, function(row, index) {
- 						var dataString, infoArray;
-
- 						if (angular.isArray(row)) {
- 							infoArray = row;
- 						} else {
- 							infoArray = [];
-
- 							angular.forEach(row, function(field, key) {
- 								this.push(stringifyCell(field));
- 							}, infoArray);
- 						}
-
- 						dataString = infoArray.join($scope.fieldSep ? $scope.fieldSep : ",");
- 						csvContent += index < arrData.length ? dataString + "\n" : dataString;
- 					});
-
- 					$scope.csv = encodeURI(csvContent);
-
- 				}).then(function() {
- 					callback();
- 				});
-
- 			};
-
- 			$scope.getFilename = function() {
- 				return $scope.filename || 'download.csv';
- 			};
- 		}],
-	 	template: '<div class="csv-wrap">' +
-			 		'<div class="element" ng-transclude></div>' +
-			 		'<a class="hidden-link" ng-hide="true" ng-href="{{ csv }}" download="{{ getFilename() }}"></a>' +
-		 		'</div>',
-	 	link: function(scope, element, attrs) {
-	 		var subject = angular.element(element.children()[0]),
-	 			link = angular.element(element.children()[1]);
-
-	 		function doClick() {
-	 			link[0].href = "";
-	 			link[0].click();
-	 			link[0].href = scope.csv;
-	 			link[0].click();
-	 		}
-
-	 		subject.bind('click', function(e) {
-	 			scope.buildCsv(scope.data(), function() {
-	 				doClick();
-	 			});
-
-	 			if (!!scope.ngClick) {
-	 				scope.ngClick();
-	 			}
-	 		});
-	 	}
- 	};
- }
- ]);
