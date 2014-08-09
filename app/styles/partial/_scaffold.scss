@@ -1,15 +1,24 @@
 /*body {background: url('../img/body-bg.png');}*/
+body {
+	min-width: $container-width + 20px;
+}
+
+.wrapper {
+	> .container {
+		padding: 0 2px;
+	}
+}
 
 .container {
-	width: 1170px;
+	width: $container-width;
 	margin-top: 10px;
 	font: 1em/normal '微软雅黑', '宋体', Arial, Helvetica, sans-serif;
 }
 
 .decorator {
-	height: 12px;
+	height: 5px;
 	border-top: 2px solid;
-	border-bottom: 7px solid;
+	border-bottom: 2px solid;
 	border-color: #A7A7A7;
 	margin: 7px 15px 12px 15px;
 	z-index: -1;

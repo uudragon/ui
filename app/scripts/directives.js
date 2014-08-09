@@ -478,7 +478,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			var valid = false;
 
 			if (accessCode) {
-				Auth.getAccessLevels()
+				Auth.getAccessLevels() && Auth.getAccessLevels()
 					.success(function(data) {
 						for (var i = data.length - 1; i >= 0; i--) {
 							if (data[i].code == accessCode) {

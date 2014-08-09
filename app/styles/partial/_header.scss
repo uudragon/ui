@@ -1,14 +1,33 @@
 /**
- * Header
+ * Page Info
  * ----------------------------------------------------------------------------
  */
 
-.page-header {
-	padding: 14px 0;
-	background: url('../img/body-bg.png');
-	margin: 0;
+.pg-info {
+	// padding: 14px 0;
+	// background: url('../img/body-bg.png');
+	border: none;
+
+	ul > li {
+		width: 170px;
+		padding-left: 14px;
+		line-height: 2;
+	}
+
+	.table {
+		margin: 0;
+		> tbody {
+			td {
+				border: none;
+			}
+		}
+	}
 
 	/* left side start */
+
+	.leftside {
+		margin-top: 10px;
+	}
 
 	.brand {
 		margin: 6px auto;
@@ -16,19 +35,15 @@
 	}
 
 	.des {
-		font-size: 14px;
+		font-size: 1.1em;
 		text-align: center;
 		padding-top: 6px;
 		margin: 0 0 0 10px;
+		font-weight: bold;
 	}
 
 
 	/* right side */
-
-	.rightside {
-		position: relative;
-		top: 16px;
-	}
 
 	.logo {
 		padding: 3px;
@@ -43,11 +58,6 @@
 				padding-right: 10px;
 			}
 		}
-	}
-
-	.links-btn-groups {
-		margin-top: 23px;
-		font-size: 1.3em;
 	}
 
 }

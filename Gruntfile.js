@@ -43,7 +43,9 @@ module.exports = function (grunt) {
           tasks: ['jade:dev']
       },
       compass: {
-        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: [
+                '<%= config.app %>/styles/{,*/}*.{scss,sass}',
+                '<%= config.app %>/bower_components/bootstrap-sass-official/assets/stylesheets/{,*/}*.scss' ],
         tasks: ['compass:server']
       },
       gruntfile: {

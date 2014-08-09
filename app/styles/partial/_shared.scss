@@ -8,6 +8,10 @@ a {
 	color: $default-text-color;
 }
 
+.tooltip {
+	white-space: nowrap;
+}
+
 .f-label-strike {
 	float: left;
 	width: 1px;
