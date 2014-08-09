@@ -38,6 +38,10 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
+      jade: {
+          files: ['<%= config.app %>/jade/**/*.jade'],
+          tasks: ['jade:dev']
+      },
       compass: {
         files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
@@ -146,11 +150,6 @@ module.exports = function (grunt) {
         ignorePath: '<%= config.app %>/'
       }
     },
-
-
-
-
-    // Compiles Sass to CSS and generates necessary files if requested
 
     // Renames files for browser caching purposes
     rev: {
@@ -275,6 +274,7 @@ module.exports = function (grunt) {
       }
     },
 
+    // Compiles Sass to CSS and generates necessary files if requested
     compass: {
         options: {
             // The source directory where you keep your Sass stylesheets.
@@ -301,6 +301,31 @@ module.exports = function (grunt) {
             options: {
                 debugInfo: false,
             }
+        }
+    },
+
+    // Compiles jade to html..
+    jade: {
+        options: {
+            pretty: true,
+        },
+        dev: {
+            options: {
+                data: {
+                    debug: true,
+                    timestamp: "<%= grunt.template.today() %>"
+                }
+            },
+            files: [{
+                expand: true,
+                cwd: '<%= config.app %>/jade',
+                src: [
+                    '*.jade',
+                    'views/{,*/}*.jade'
+                ],
+                dest: '<%= config.app %>',
+                ext: '.html'
+            }]
         }
     },
 
@@ -349,6 +374,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'jade:dev',
       'autoprefixer',
       'connect:livereload',
       'watch'
@@ -369,6 +395,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'jade:dev',
     'useminPrepare',
     'autoprefixer',
     'concat',
