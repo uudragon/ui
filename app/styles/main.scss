@@ -1,12 +1,12 @@
 // $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
-// @import 'bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
 
 @import 'variables.scss';
-@import 'scaffold.scss';
 @import 'shared.scss';
+@import 'scaffold.scss';
 @import 'header.scss';
-@import 'sidebar.scss';
+@import 'leftnav.scss';
 @import 'table.scss';
 @import 'chart.scss';
 @import 'others.scss';

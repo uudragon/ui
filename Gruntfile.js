@@ -349,7 +349,6 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'bower-install',
       'autoprefixer',
       'connect:livereload',
       'watch'
@@ -370,7 +369,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'bower-install',
     'useminPrepare',
     'autoprefixer',
     'concat',

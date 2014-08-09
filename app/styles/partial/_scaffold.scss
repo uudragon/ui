@@ -1,4 +1,16 @@
+/*body {background: url('../img/body-bg.png');}*/
+
 .container {
 	width: 1170px;
+	margin-top: 10px;
 	font: 1em/normal '微软雅黑', '宋体', Arial, Helvetica, sans-serif;
+}
+
+.decorator {
+	height: 12px;
+	border-top: 2px solid;
+	border-bottom: 7px solid;
+	border-color: #A7A7A7;
+	margin: 7px 15px 12px 15px;
+	z-index: -1;
 }
