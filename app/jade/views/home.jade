@@ -1,0 +1,25 @@
+include ../modules/mixins.jade
+
+- var ths = ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具'];
+
+h1 Home Page
+
+table.uud-table
+	thead
+		tr
+			each th in ths
+				th=th
+	tbody
+		- fake = ['李四民', '20141020', '15006492314', '山东', '青岛', '年度', '已付款', '20141018', '1']
+		- var i = 5
+		while (--i > 0)
+			tr
+				each td in fake
+					td=td
+				td
+					+tooltip('修改订单')
+						+glyphicon('pencil')
+							&nbsp;
+
+					+tooltip('发送消息')
+						+glyphicon('send')

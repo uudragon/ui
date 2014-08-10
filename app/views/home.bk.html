@@ -1,0 +1,67 @@
+<h3>信息总汇</h3>
+<hr>
+<div uu-info-panel class="home-statics">
+	<div uu-info-tab>
+		<li uu-info-item label="今日新建客户" value="{{statistics.telephone.wait}}"></li>
+		<li uu-info-item label="历史成交客户" value="{{statistics.telephone.Consulting}}"></li>
+		<li uu-info-item label="今日值班客服" value="{{statistics.telephone.received}}"></li>
+		<li uu-info-item label="网络" value="{{statistics.telephone.received}}"></li>
+		<li uu-info-item label="电话" value="{{statistics.telephone.received}}"></li>
+	</div>
+	<div uu-info-tab>
+		<li uu-info-item label="今日新增订单" value="{{statistics.telephone.wait}}"></li>
+		<li uu-info-item label="今日新增销售额" value="{{statistics.telephone.Consulting}}"></li>
+		<li uu-info-item label="今日新增代理商" value="{{statistics.telephone.received}}"></li>
+		<li uu-info-item label="今日新增保证金" value="{{statistics.telephone.received}}"></li>
+		<li uu-info-item label="今日代理商结算" value="{{statistics.telephone.received}}"></li>
+	</div>
+	<div uu-info-tab>
+		<li uu-info-item label="历史新增订单" value="{{statistics.telephone.wait}}"></li>
+		<li uu-info-item label="历史新增销售额" value="{{statistics.telephone.Consulting}}"></li>
+		<li uu-info-item label="历史新增代理商" value="{{statistics.telephone.received}}"></li>
+		<li uu-info-item label="历史新增保证金" value="{{statistics.telephone.received}}"></li>
+		<li uu-info-item label="历史代理商结算" value="{{statistics.telephone.received}}"></li>
+	</div>
+	<div uu-info-tab>
+		<li uu-info-item label="今日到期合同" value="{{statistics.telephone.wait}}"></li>
+		<li uu-info-item label="历史合同总数" value="{{statistics.telephone.Consulting}}"></li>
+	</div>
+</div>
+<hr>
+<div uu-tab class="col-xs-4">
+	<div uu-pane title="季度">
+		<div uu-line-chart data="[3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 7]"></div>
+	</div>
+	<div uu-pane title="半年">
+		<div uu-line-chart data="[6, 4, 2, 8, 5, 2, 4, 3, 6, 9, 5, 5, 8]"></div>
+	</div>
+	<div uu-pane title="年度">
+		<div uu-line-chart data="[8, 6, 9, 7, 5, 6, 5, 3, 9, 9, 6, 5, 9]"></div>
+	</div>
+</div>
+
+<div class="col-xs-8">
+	
+	<div uu-pie-chart data='[{value: 5332, name: "华北"}, {value: 3465, name: "华南"}, {value: 7485, name: "华东"}, {value: 4488, name: "华中"}, {value: 6684, name: "华西"}]' class="col-xs-6" header="全国各区域销量比值"></div>
+
+	<div uu-pie-chart data='[{value: 833, name: "华北"}, {value: 765, name: "华南"}, {value: 748, name: "华东"}, {value: 488, name: "华中"}, {value: 664, name: "华西"}]' class="col-xs-6" header="全国各区域销售额比值"></div>
+	
+	<div class="col-xs-11 col-xs-offset-1">
+		<table class="table table-bordered table-hover">
+			<tr>
+				<th></th>
+				<th>半年</th>
+				<th>一年</th>
+				<th>季度</th>
+				<th>周边产品</th>
+			</tr>
+			<tr>
+				<th>订购数量</th>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -519,6 +519,15 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuTooltip', function() {
+	return {
+		restrict: 'A',
+		link: function($scope, elem) {
+			elem.tooltip();
+		}
+	};
+})
+
 .directive('uuPieChart', function() {
 	return {
 		scope: {
