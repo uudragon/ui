@@ -294,11 +294,11 @@ module.exports = function (grunt) {
             relativeAssets: false,
             assetCacheBuster: false
         },
-        // dist: {
-        //     options: {
-        //         generatedImagesDir: '<%= config.dist %>/images/generated'
-        //     }
-        // },
+        dist: {
+            options: {
+                generatedImagesDir: '<%= config.dist %>/images/generated'
+            }
+        },
         server: {
             options: {
                 debugInfo: false,
@@ -376,6 +376,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'compass:server',
       'jade:dev',
       'autoprefixer',
       'connect:livereload',

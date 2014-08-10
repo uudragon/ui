@@ -40,18 +40,6 @@
 				</div>
 				<div class="col-xs-10 rightside">
 					<div class="row">
-<!-- 						<ul class="list-inline">
-							<li><span class="key">当前日期:</span> <span class="val">{{date | date : "yyyy-MM-dd" }}</span></li>
-							<li><span class="key">分机:</span> <span class="val">{{currentUser.phone}}</span></li>
-							<li><span class="key">坐席:</span> <span class="val">{{currentUser.positions}}</span></li>
-							<li><span class="key">状态:</span> <span class="val">{{currentUser.isValid}}</span></li>
-							<li><span class="key">计时:</span> <span timing="'h:mm:ss'"></span></li>
-						</ul> -->
-						<!-- <ul class="list-inline">
-							<li><span class="key">工号:</span> <span class="val">{{currentUser.userNo}}</span></li>
-							<li><span class="key">姓名:</span> <span class="val">{{currentUser.name}}</span></li>
-							<li><span class="key">所在组:</span> <span class="val">{{currentUser.groupId}}</span></li>
-						</ul> -->
 						<ul class="list-inline">
 							<li><span class="key">当前日期:</span> <span class="val">{{date | date : "yyyy-MM-dd" }}</span></li>
 							<li><span class="key">分机:</span> <span class="val">{{currentUser.phone}}</span></li>
@@ -62,17 +50,8 @@
 							<li><span class="key">姓名:</span> <span class="val">{{currentUser.name}}</span></li>
 							<li><span class="key">所在组:</span> <span class="val">{{currentUser.groupId}}</span></li>
 						</ul>
+						<hr>
 						<table class="table">
-							<!-- <tr>
-								<td><span class="key">当前日期:</span> <span class="val">{{date | date : "yyyy-MM-dd" }}</span></td>
-								<td><span class="key">分机:</span> <span class="val">{{currentUser.phone}}</span></td>
-								<td><span class="key">坐席:</span> <span class="val">{{currentUser.positions}}</span></td>
-								<td><span class="key">状态:</span> <span class="val">{{currentUser.isValid}}</span></td>
-								<td><span class="key">计时:</span> <span timing="'h:mm:ss'"></span></td>
-								<td><span class="key">工号:</span> <span class="val">{{currentUser.userNo}}</span></td>
-								<td><span class="key">姓名:</span> <span class="val">{{currentUser.name}}</span></td>
-								<td><span class="key">所在组:</span> <span class="val">{{currentUser.groupId}}</span></td>
-							</tr> -->
 							<tr>
 								<td><span class="key">网络沟通量:</span> <span class="val">{{currentUser.userNo}}</span></td>
 								<td><span class="key">电话接听量:</span> <span class="val">{{currentUser.name}}</span></td>
@@ -90,36 +69,47 @@
 		</div>
 		<!-- page info end -->
 
-		<!-- decorator -->
+		<div class="splitline"></div>
+
 		<div class="row">
-			<div class="decorator"></div>
+			<!-- left side bar begin-->
+			<!-- <div class="col-xs-2 sidebar">
+				<ul class="nav nav-sidebar text-center">
+					<li ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
+						<a ui-sref="root.customer.traded" class="ng-binding">客户信息</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.service')}" uu-auth-filter="02">
+						<a ui-sref="root.service.ordermanager" class="ng-binding">客服管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.financial')}" uu-auth-filter="03">
+						<a ui-sref="root.financial.deposit" class="ng-binding">财务管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.agents')}" uu-auth-filter="04">
+						<a ui-sref="root.agents.list" class="ng-binding">代理商管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.ship')}" uu-auth-filter="05">
+						<a ui-sref="root.ship.summary" class="ng-binding">发货管理</a>
+					</li>
+				</ul>
+			</div> -->
 
-			<div class="site">
-				<!-- left side bar begin-->
-				<div class="col-xs-2 sidebar">
-					<ul class="nav nav-sidebar text-center">
-						<li ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
-							<a ui-sref="root.customer.traded" class="ng-binding">客户信息</a>
-						</li>
-						<li ng-class="{active: $state.includes('root.service')}" uu-auth-filter="02">
-							<a ui-sref="root.service.ordermanager" class="ng-binding">客服管理</a>
-						</li>
-						<li ng-class="{active: $state.includes('root.financial')}" uu-auth-filter="03">
-							<a ui-sref="root.financial.deposit" class="ng-binding">财务管理</a>
-						</li>
-						<li ng-class="{active: $state.includes('root.agents')}" uu-auth-filter="04">
-							<a ui-sref="root.agents.list" class="ng-binding">代理商管理</a>
-						</li>
-						<li ng-class="{active: $state.includes('root.ship')}" uu-auth-filter="05">
-							<a ui-sref="root.ship.summary" class="ng-binding">发货管理</a>
-						</li>
-					</ul>
-				</div>
-
-				<!-- main content  -->
-				<div class="col-xs-10 main">
-					<div ui-view></div>
-				</div>
+			<!-- main content  -->
+			<div class="col-xs-12 main">
+				<ul class="nav nav-tabs">
+					<li ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
+						<a ui-sref="root.customer.traded" class="ng-binding">客户服务</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.service')}" uu-auth-filter="02">
+						<a ui-sref="root.service.ordermanager" class="ng-binding">客服管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.financial')}" uu-auth-filter="03">
+						<a ui-sref="root.financial.deposit" class="ng-binding">数据管理</a>
+					</li>
+					<li ng-class="{active: $state.includes('root.agents')}" uu-auth-filter="04">
+						<a ui-sref="root.agents.list" class="ng-binding">知识库</a>
+					</li>
+				</ul>
+				<div ui-view class="tab-content"></div>
 			</div>
 		</div>
 
