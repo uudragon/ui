@@ -19,7 +19,7 @@ var uud = angular.module('mainApp', [
 	// The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
 	// Here we are just setting up some convenience urls.
 	.when('/', '/home')
-	.when('/customer', '/customer/traded')
+	.when('/customer', '/customer/checkorder')
 	.when('/service', '/service/ordermanager')
 	.when('/financial', '/financial/deposit')
 	.when('/agents', '/agents/list')
@@ -90,39 +90,34 @@ var uud = angular.module('mainApp', [
 	})
 
 
-	///////////////////
-	// Customer Info //
-	///////////////////
+	//////////////////////
+	// Customer Service //
+	//////////////////////
 
 	.state('root.customer', {
 		url: 'customer',
 		templateUrl: 'views/customer/template.html',
 		controller: 'CustomerCtrl'
 	})
-	.state('root.customer.new', {
-		url: '/new',
-		templateUrl: 'views/customer/new.html',
+	.state('root.customer.splitorder', {
+		url: '/splitorder',
+		templateUrl: 'views/customer/splitorder.html',
 		controller: 'CustomerManager'
 	})
-	.state('root.customer.traded', {
-		url: '/traded',
-		templateUrl: 'views/customer/traded.html',
+	.state('root.customer.checkorder', {
+		url: '/checkorder',
+		templateUrl: 'views/customer/checkorder.html',
 		controller: 'CustomerManager'
 	})
-	.state('root.customer.manager', {
-		url: '/manager',
-		templateUrl: 'views/customer/manager.html',
-		controller: 'CustomerManager'
-	})
-	.state('root.customer.contacts', {
-		url: '/contacts',
-		templateUrl: 'views/customer/contacts.html',
+	.state('root.customer.complaints', {
+		url: '/complaints',
+		templateUrl: 'views/customer/complaints.html',
 		controller: 'CustomerManager'
 	})
 
 
 	//////////////////////
-	// Customer Service //
+	// Customer Manager //
 	//////////////////////
 
 	.state('root.service', {

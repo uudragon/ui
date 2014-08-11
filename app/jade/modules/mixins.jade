@@ -1,7 +1,19 @@
-mixin tooltip(title)
-	a(href='', uu-tooltip, data-placement='bottom', data-toggle='tooltip', title=title)
+mixin tooltip(title, placement)
+	if !placement
+		placement = 'bottom'
+	a(href='', uu-tooltip, data-placement=placement, data-toggle='tooltip', title=title, class!=attributes.class)
 		if block
 			block
+
+
+mixin sub-navbar-link(href, name)
+	a(ui-sref=href, ng-class='{active: $state.is("' + href + '")}')=name
+
+
+mixin option(title, value)
+	if !value
+		value = title
+	option(value=value)=title
 
 mixin glyphicon(className)
 	span.glyphicon(class='glyphicon-' + className)

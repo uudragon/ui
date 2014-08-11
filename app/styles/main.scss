@@ -8,9 +8,10 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/bootstr
 
 
 @import 'navbar.scss';
-@import 'header.scss';
-@import 'leftnav.scss';
+@import 'headerinfo.scss';
+// @import 'leftnav.scss';
 @import 'login.scss';
 @import 'tables.scss';
-@import 'chart.scss';
+@import 'forms.scss';
+// @import 'chart.scss';
 @import 'others.scss';

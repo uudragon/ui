@@ -26,6 +26,27 @@ body {
 	border-top: 2px solid;
 	border-bottom: 2px solid;
 	border-color: #A7A7A7;
-	margin:  7px 0 12px;
+	margin:  7px 0 4px;
 	z-index: -1;
+}
+
+.criteria-bar {
+	margin: 10px 0;
+
+	.form-control {
+		margin-right: 10px;
+	}
+
+	a:hover,
+	a.active {
+		color: $default-text-color;
+	}
+
+	.btn + .btn {
+		// margin-left: 5px;
+	}
+
+	select {
+		min-width: 160px;
+	}
 }

@@ -1,35 +1,14 @@
 <!-- customer nav tab -->
-<ul class="action-group list-inline">
+<ul class="sub-navbar list-inline">
 	<li>
-		<a ui-sref="root.customer.traded" ng-class="{active: $state.is('root.customer.traded')}" class="action-item">成交客户</a>
+		<a ui-sref="root.customer.checkorder" ng-class="{active: $state.is('root.customer.checkorder')}" class="action-item">官网核实订单</a>
 	</li>
 	<li>
-		<a ui-sref="root.customer.new" ng-class="{active: $state.is('root.customer.new')}" class="action-item">新建客户</a>
+		<a ui-sref="root.customer.splitorder" ng-class="{active: $state.is('root.customer.splitorder')}" class="action-item">拆分订单</a>
 	</li>
 	<li>
-		<a ui-sref="root.customer.manager" ng-class="{active: $state.is('root.customer.manager')}" class="action-item">客户管理</a>
+		<a ui-sref="root.customer.complaints" ng-class="{active: $state.is('root.customer.complaints')}" class="action-item">投诉</a>
 	</li>
 </ul>
-
-<ul class="list-inline text-right">
-	<li><a ui-sref="root.customer.new" class="link-normal">复制新建</a></li>
-	<li class="split-pipe">|</li>
-	<li><a class="link-normal">预览名单</a></li>
-	<li class="split-pipe">|</li>
-	<li><a class="link-normal">检索名单</a></li>
-	<li class="split-pipe">|</li>
-	<li><a class="link-normal">预约列表</a></li>
-	<li class="split-pipe">|</li>
-	<li><a class="link-normal">订购</a></li>
-	<li class="split-pipe">|</li>
-	<li><a class="link-normal">处理记录</a></li>
-	<li class="split-pipe">|</li>
-	<li><a ui-sref="root.customer.contacts" class="link-normal">通讯录</a></li>
-	<li class="split-pipe">|</li>
-	<li><a class="link-normal">修改</a></li>
-	<li class="split-pipe">|</li>
-	<li><a class="link-normal">保存</a></li>
-</ul>
-
 
 <div ui-view></div>
