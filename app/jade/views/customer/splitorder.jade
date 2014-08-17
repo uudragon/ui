@@ -1,21 +1,20 @@
 include ../../modules/mixins.jade
 
-- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
 .criteria-bar
 	form.form-inline(role='form')
 		.form-group
 			label(for='customer-scope') 查看范围
 			select#customer-scope.form-control.input-sm(name='customerScope')
-				each val in customerOptions
-					+option(val.title, val.value)
+				+option('所有客户', 0)
+				+option('潜在客户', 1)
 
-		.btn.uu-btn
+		.btn.btn.uu-btn
 			+tooltip('转移', 'top')
-				+glyphicon('transfer')
-
-		.btn.uu-btn
-			+tooltip('更多操作', 'top')
 				+glyphicon('send')
+
+		.btn.btn.uu-btn
+			+tooltip('更多操作', 'top')
+				+glyphicon('transfer')
 
 
 .filter-bar
@@ -29,6 +28,7 @@ include ../../modules/mixins.jade
 		label.btn.uu-btn
 			input(name='customer-type', type='radio')
 			| 未付费
+
 - var ths = ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具'];
 
 table.uud-table
@@ -42,30 +42,11 @@ table.uud-table
 		while (--i > 0)
 			tr
 				each td in fake
-					td
-						a(href='#abc')=td
+					td=td
 				td
-					+tooltip('修改负责人', 'left')
+					+tooltip('修改订单', 'left')
 						+glyphicon('pencil')
 							&nbsp;
 
 					+tooltip('发送消息', 'right')
 						+glyphicon('comment')
-
-#uu-modal.modal.fade
-	.modal-dialog
-		.modal-content
-			.modal-header
-				button.close(data-dismiss='modal', aria-hidden='true') &times;
-				h4.modal-title 修改负责人
-			.modal-body
-				form.form-horizontal
-					.from-group
-						label.control-label
-							类别
-						select.form-control.input-sm
-							+option('haha')
-							+option('hehe')
-			.modal-footer
-				button.btn.uu-btn(ng-click='save()')
-					保存

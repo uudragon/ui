@@ -31,7 +31,7 @@ body {
 }
 
 .criteria-bar {
-	margin: 10px 0;
+	margin: 20px 0;
 
 	.form-control {
 		margin-right: 10px;
@@ -49,4 +49,8 @@ body {
 	select {
 		min-width: 160px;
 	}
+}
+
+.filter-bar {
+	margin: 20px 0px 13px;
 }

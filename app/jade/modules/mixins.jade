@@ -1,6 +1,6 @@
 mixin tooltip(title, placement)
-	if !placement
-		placement = 'bottom'
+	if placement === null
+		- var placement = 'bottom'
 	a(href='', uu-tooltip, data-placement=placement, data-toggle='tooltip', title=title, class!=attributes.class)
 		if block
 			block
@@ -11,8 +11,8 @@ mixin sub-navbar-link(href, name)
 
 
 mixin option(title, value)
-	if !value
-		value = title
+	if value === null
+		- var value = title
 	option(value=value)=title
 
 mixin glyphicon(className)

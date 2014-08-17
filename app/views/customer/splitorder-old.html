@@ -1,0 +1,264 @@
+<form class="form form-horizontal form-small" name="newCustomerForm" role="form" ng-submit="createNew(newCustomerForm)" novalidate>
+	<div class="col-xs-6">
+		<fieldset>
+			<legend></legend>
+			<div class="form-group" field="infoForm.name" ng-class="{ 'has-error' : newCustomerForm.type.$invalid && (newCustomerForm.type.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="c-type">类型: </label>
+				<div class="col-xs-4">
+					<select name="type" id="c-type" required ng-model="model.type" class="form-control">
+						<option value=""></option>
+						<option value="1">已购买客户</option>
+						<option value="2">潜在客户</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.name.$invalid && (newCustomerForm.name.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="c-name">宝宝姓名: </label>
+				<div class="col-xs-5">
+					<input type="text" name="name" ng-model="model.name" required class="form-control input-sm" id="c-name">
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.sex.$invalid && (newCustomerForm.order.$dirty || submitted) }">
+				<label class="col-xs-3 control-label">性别: </label>
+				<div class="col-xs-4">
+					<div class="radio-inline">
+						<label><input type="radio" ng-required="true" name="sex" ng-model="model.sex" value="1">男</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" ng-required="true" name="sex" ng-model="model.sex" value="0">女</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.birthday.$invalid && (newCustomerForm.birthday.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="c-birthday">出生年月: </label>
+				<div class="col-xs-5">
+					<input type="text" name="birthday" end-date="+0d" start-view="2" ng-model="model.birthday" uu-date-picker class="form-control input-sm" id="c-birthday">
+				</div>
+			</div>
+			<div uu-static l-col="3" r-col="5" label="年龄" text="model.birthday | age"></div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.parent.$invalid && (newCustomerForm.parent.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="cp-name">家长姓名:</label>
+				<div class="col-xs-5">
+					<input type="text" name="parent" required ng-model="model.parent" class="form-control input-sm" id="cp-name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="cp-gender">家长性别: </label>
+				<div class="col-xs-4">
+					<div class="radio-inline">
+						<label><input type="radio" name="cp-name" ng-model="model.p_sex" value="1">男</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="cp-name" ng-model="model.p_sex" value="0">女</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.email.$invalid && (newCustomerForm.email.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="c-emal">E-mail: </label>
+				<div class="col-xs-6">
+					<input type="email" name="email" ng-model="model.email" class="form-control input-sm" id="c-emal">
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend></legend>
+			<div class="form-group">
+				<label class="col-xs-3 control-label">省/市/区: </label>
+				<div class="col-xs-9" id="city-select">
+					<div class="col-xs-4 select-inline" >
+						<select name="province" class="form-control prov" ng-model="model.province"></select>
+					</div>
+					<div class="col-xs-4 select-inline">
+						<select name="city" class="form-control city" ng-model="model.city"></select>
+					</div>
+					<div class="col-xs-4 select-inline">
+						<select name="district" class="form-control dist" ng-model="model.district"></select>
+					</div>
+					<script src="scripts/cityselect.js"></script>
+					<script>
+						$("#city-select").citySelect({prov:"", nodata:"none", required:false});
+					</script>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-addr">地址: </label>
+				<div class="col-xs-6">
+					<input type="text" name="address" ng-model="model.address" class="form-control input-sm" id="c-addr">
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.post.$invalid && (newCustomerForm.post.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="c-post-code">邮编: </label>
+				<div class="col-xs-5">
+					<input type="text" uu-num name="post" ng-model="model.post" class="form-control input-sm" id="c-post-code">
+				</div>
+			</div>
+		</fieldset>
+	</div>
+	<div class="col-xs-6">
+		<fieldset id="phone-box">
+			<legend></legend>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.phone.$invalid && (newCustomerForm.phone.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="phone">电话: </label>
+				<div class="col-xs-6">
+					<input type="text" uu-num name="phone" ng-model="model.phone" class="form-control input-sm" id="phone">
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.mobile.$invalid && (newCustomerForm.mobile.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="mobile">手机: </label>
+				<div class="col-xs-6">
+					<input type="text" uu-num name="mobile" ng-model="model.mobile" class="form-control input-sm" id="mobile">
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.fax.$invalid && (newCustomerForm.fax.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="c-fax">传真: </label>
+				<div class="col-xs-6">
+					<input type="text" uu-num ng-model="model.fax" name="fax" class="form-control input-sm" id="c-fax">
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend></legend>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.order.$invalid && (newCustomerForm.order.$dirty || submitted) }">
+				<label class="col-xs-3 control-label">订购产品:</label>
+				<div class="col-xs-9">
+					<div class="radio-inline">
+						<label><input type="radio" name="order" ng-required="true" ng-model="model.order" value="quarter">季度</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="order" ng-required="true" ng-model="model.order" value="half-year">半年</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="order" ng-required="true" ng-model="model.order" value="one-year">一年</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="order" ng-required="true" ng-model="model.order" value="onetime">一次性周边</label>
+					</div><br/>
+					<div class="radio-inline">
+						<label><input type="radio" name="order" ng-required="true" ng-model="model.order" value="others">其它</label>
+						<input ng-show="model.order=='others'" ng-model="model.others" type="text">
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.payway.$invalid && (newCustomerForm.payway.$dirty || submitted) }">
+				<label class="col-xs-3 control-label">付款方式:</label>
+				<div class="col-xs-9">
+					<div class="radio-inline">
+						<label><input type="radio" name="payway" ng-required="true" ng-model="model.payway" value="1">在线支付</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" name="payway" ng-required="true" ng-model="model.payway" value="2">货到付款</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.intype.$invalid && (newCustomerForm.intype.$dirty || submitted) }">
+				<label class="col-xs-3 control-label">发票类型:</label>
+				<div class="col-xs-6">
+					<div class="radio-inline">
+						<label><input type="radio" ng-required="true" name="intype" ng-model="model.invoice.type" value="1">个人</label>
+					</div>
+					<div class="radio-inline">
+						<label><input type="radio" ng-required="true" name="intype" ng-model="model.invoice.type" value="2">公司</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-show="model.invoice.type=='company'" >
+				<label class="col-xs-3 control-label" for="c-header">发票抬头:</label>
+				<div class="col-xs-5">
+					<input type="text" name="invoice" ng-model="model.invoice.header" class="form-control input-sm" id="c-header">
+				</div>
+			</div>
+			<div class="form-group" ng-show="model.invoice.type" for="c-invoice">
+				<label class="col-xs-3 control-label" for="c-invoice">发票内容:</label>
+				<div class="col-xs-6">
+					<input type="text" name="invoice" ng-model="model.invoice.content" class="form-control input-sm" id="c-invoice">
+				</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : newCustomerForm.effectiveDate.$invalid && (newCustomerForm.effectiveDate.$dirty || submitted) }">
+				<label class="col-xs-3 control-label" for="effectiveDate">生效日期: </label>
+				<div class="col-xs-5">
+					<input uu-date-picker ng-required="true" min-view-mode="1" format="yyyy-mm" type="text" name="effectiveDate" ng-model="model.effectiveDate" class="form-control input-sm date" id="effectiveDate">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-3 control-label" for="c-comment">备注:</label>
+				<div class="col-xs-9">
+					<textarea name="comment" ng-model="model.comment" id="c-comment" rows="3" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="from-group" ng-class="{ 'has-error' : newCustomerForm.type.$invalid && (newCustomerForm.type.$dirty || submitted) }">
+				<div class="col-xs-10 submit-btns col-xs-offset-3">
+					<input type="submit" class="btn btn-primary btn-sm" ng-click="model.btn='saved'" value="处理完成">
+					<input type="submit" class="btn btn-default btn-sm" ng-click="model.btn='insert'"  value="未完成，提交上级">
+					<input type="submit" class="btn btn-default btn-sm" ng-click="model.btn='query'"  value="我的订单记录">
+				</div>
+			</div>
+		</fieldset>
+	</div>
+</form>
+
+<!-- product panel -->
+<div class="panel panel-default col-xs-offset-1">
+	<div class="panel-heading">
+		<span class="">已发产品</span>
+		<ul class="side-info list-inline">
+			<li>已发货次数：</li>
+			<li>剩余发货次数：</li>
+		</ul>
+	</div>
+
+	<div class="panel-body">
+		<ul class="list-group">
+			<li class="list-group-item">1月号</li>
+			<li class="list-group-item">2月号</li>
+		</ul>
+	</div>
+</div>
+
+<!-- comminite panel -->
+<div class="panel panel-default col-xs-offset-1">
+	<!-- Default panel contents -->
+	<div class="panel-heading">沟通记录</div>
+
+	<!-- Table -->
+	<div class="panel-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>开始时间</th>
+					<th>结束时间</th>
+					<th>沟通内容</th>
+					<th>描述</th>
+					<th>客服编号</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>
+						<select class="form-control" name="subject" ng-model="model.subject" id="">
+							<option value="1">option 1</option>
+							<option value="2">option 2</option>
+							<option value="3">option 3</option>
+						</select>
+					</td>
+					<td></td>
+					<td>001</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>
+						<select class="form-control" name="subject" ng-model="model.subject" id="">
+							<option value="1">option 1</option>
+							<option value="2">option 2</option>
+							<option value="3">option 3</option>
+						</select>
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

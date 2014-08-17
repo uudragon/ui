@@ -9,6 +9,18 @@
 				<li ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
 					<a ui-sref="root.customer.checkorder" class="ng-binding">客户服务</a>
 				</li>
+				<li class="dropdown">
+				<a href="" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul>
+				</li>
 				<li ng-class="{active: $state.includes('root.service')}" uu-auth-filter="02">
 					<a ui-sref="root.service.ordermanager" class="ng-binding">客服管理</a>
 				</li>
