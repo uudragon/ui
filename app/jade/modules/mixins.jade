@@ -1,3 +1,13 @@
+
+//- 注意: 文件末尾必须有回车，否则会造成解析不正确
+//- -----------------------------------------
+
+
+
+//- Bootstrap helpers
+//- ----------------------
+
+//- bootstrap tooltip helper
 mixin tooltip(title, placement)
 	if placement === null
 		- var placement = 'bottom'
@@ -6,16 +16,45 @@ mixin tooltip(title, placement)
 			block
 
 
+//- bootstrap glyphicon helper
+mixin glyphicon(className)
+	span.glyphicon(class='glyphicon-' + className)
+		if block
+			block
+
+//- bootstrap input helper
+mixin input(title, id)
+	.form-group.form-group-sm.col-xs-6
+		label.control-label.col-xs-3(for='form-' + id)=title
+		.col-xs-7
+			input.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+
+
+
+
+
+//- Other HTML helpers
+//- ----------------------
+
 mixin sub-navbar-link(href, name)
 	a(ui-sref=href, ng-class='{active: $state.is("' + href + '")}')=name
 
-
+//- html option helper
 mixin option(title, value)
 	if value === null
 		- var value = title
 	option(value=value)=title
 
-mixin glyphicon(className)
-	span.glyphicon(class='glyphicon-' + className)
+//-
+mixin jslink(action)
+	a.jslink(href='', ng-click=action)
 		if block
 			block
+
+//- thead in table
+mixin thead()
+	thead
+		tr
+			block
+
+

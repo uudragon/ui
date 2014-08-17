@@ -156,7 +156,7 @@ table {
 @include table-row-variant('warning', $state-warning-bg);
 @include table-row-variant('danger', $state-danger-bg);
 
-.uud-table {
+.uu-table {
 	@extend .table;
 	@extend .table-bordered;
 	@extend .table-hover;

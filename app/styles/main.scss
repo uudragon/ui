@@ -2,18 +2,20 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/bootstr
 
 @import 'bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
 
+// Variables
 @import 'variables.scss';
-@import 'shared.scss';
+
+// Components
 @import 'scaffold.scss';
-
-
+@import 'shared.scss';
 @import 'navbar.scss';
 @import 'headerinfo.scss';
-// @import 'leftnav.scss';
 @import 'login.scss';
 @import 'tables.scss';
 @import 'forms.scss';
 @import 'buttons.scss';
 @import 'dropdown.scss';
-// @import 'chart.scss';
 @import 'others.scss';
+
+// @import 'leftnav.scss';
+// @import 'chart.scss';

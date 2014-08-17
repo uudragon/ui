@@ -1,6 +1,10 @@
 include ../../modules/mixins.jade
 
+h2 官网核实定单
+hr
+
 - var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
+
 .criteria-bar
 	form.form-inline(role='form')
 		.form-group
@@ -29,21 +33,25 @@ include ../../modules/mixins.jade
 		label.btn.uu-btn
 			input(name='customer-type', type='radio')
 			| 未付费
-- var ths = ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具'];
 
-table.uud-table
-	thead
-		tr
-			each th in ths
-				th=th
+table.uu-table
+	+thead
+		each th in ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具']
+			th=th
 	tbody
-		- fake = ['李四民', '20141020', '15006492314', '山东', '青岛', '年度', '已付费', '20141018', '1']
 		- var i = 5
 		while (--i > 0)
 			tr
-				each td in fake
-					td
-						a(href='#abc')=td
+				td 李四民
+				td
+					+jslink() 20141020
+				td 15006492314
+				td 山东
+				td 青岛
+				td 年度
+				td 已付费
+				td 20141018
+				td 1
 				td
 					+tooltip('修改负责人', 'left')
 						+glyphicon('pencil')
@@ -69,3 +77,65 @@ table.uud-table
 			.modal-footer
 				button.btn.uu-btn(ng-click='save()')
 					保存
+
+
+form#order-details.form-horizontal.uu-subpage
+	fieldset
+		legend 基本信息
+		.row
+			+input('客户姓名', 'name')(ng-model='user.name')
+			+input('订单编号', 'order')(ng-model='user.order')
+		.row
+			+input('客户性别', 'sex')(ng-model='user.gender')
+			+input('订购产品', 'good')(ng-model='user.good')
+		.row
+			+input('联系电话', 'telphone')(ng-model='user.telphone')
+			+input('起订日期', 'startDate')(ng-model='user.startDate')
+		.row
+			+input('儿童姓名', 'child-name')(ng-model='user.childName')
+			+input('结束日期', 'enddate')(ng-model='user.enddate')
+		.row
+			+input('儿童性别', 'child-gender')(ng-model='user.childGender')
+			+input('支付方式', 'payway')(ng-model='user.payway')
+		.row
+			+input('出生日期', 'birthday')(ng-model='user.birthday')
+			+input('支付状态', 'pay-status')(ng-model='user.payStatus')
+
+	fieldset
+		legend 详细地址
+		.row
+			.form-group.form-group-sm
+				label.control-label.label-location
+					span 省：山东省
+					span 市：青岛市
+					span 详细: 宁夏路208号
+	fieldset
+		legend 订单
+		table.uu-table
+			+thead
+				each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '操作']
+					th=th
+			tbody
+				tr
+					td 123071231
+					td 李四民
+					td 季度
+					td 2014-10-15
+					td 在线支付
+					td 已支付
+					td 2010-06-01
+					td 正常
+					td
+						+tooltip('修改', 'left')
+							+glyphicon('pencil')
+								&nbsp;
+
+						+tooltip('共享订单', 'right')
+							+glyphicon('send')
+
+
+script.
+	$('.jslink').on('click', function() {
+		$('#order-details').slideToggle()
+	});
+

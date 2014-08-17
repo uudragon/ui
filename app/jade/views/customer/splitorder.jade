@@ -1,5 +1,8 @@
 include ../../modules/mixins.jade
 
+h2 拆分定单
+hr
+
 .criteria-bar
 	form.form-inline(role='form')
 		.form-group
@@ -40,8 +43,9 @@ table.uud-table
 		- var i = 5
 		while (--i > 0)
 			tr
-				each td in fake
-					td=td
+				td  = '李四民'
+				td  = '20141020'
+
 				td
 					+tooltip('修改订单', 'left')
 						+glyphicon('pencil')
