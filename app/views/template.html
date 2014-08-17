@@ -6,19 +6,18 @@
 			</div> -->
 
 			<ul class="nav navbar-nav">
-				<li ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
-					<a ui-sref="root.customer.checkorder" class="ng-binding">客户服务</a>
-				</li>
-				<li class="dropdown">
-				<a href="" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+				<li class="dropdown" ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
+					<a ui-sref="root.customer.checkorder" class="dropdown-toggle">客户服务</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-						<li class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
+						<li>
+							<a ui-sref="root.customer.checkorder" ng-class="{active: $state.is('root.customer.checkorder')}" class="action-item">官网核实订单</a>
+						</li>
+						<li>
+							<a ui-sref="root.customer.splitorder" ng-class="{active: $state.is('root.customer.splitorder')}" class="action-item">拆分订单</a>
+						</li>
+						<li>
+							<a ui-sref="root.customer.complaints" ng-class="{active: $state.is('root.customer.complaints')}" class="action-item">投诉</a>
+						</li>
 					</ul>
 				</li>
 				<li ng-class="{active: $state.includes('root.service')}" uu-auth-filter="02">
@@ -134,7 +133,7 @@
 						<a ui-sref="root.agents.list" class="ng-binding">知识库</a>
 					</li>
 				</ul> -->
-				<div ui-view class="tab-content"></div>
+				<div ui-view></div>
 			</div>
 		</div>
 
