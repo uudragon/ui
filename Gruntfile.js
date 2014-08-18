@@ -398,6 +398,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'compass:server',
     'jade:dev',
     'useminPrepare',
     'autoprefixer',

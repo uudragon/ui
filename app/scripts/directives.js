@@ -937,4 +937,4 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			.attr('x2', x(0));
 		}
 	};
-})
+});
