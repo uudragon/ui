@@ -96,7 +96,7 @@ var uud = angular.module('mainApp', [
 
 	.state('root.customer', {
 		url: 'customer',
-		templateUrl: 'views/customer/template.html',
+		templateUrl: 'views/customer/layout.html',
 		controller: 'CustomerCtrl'
 	})
 	.state('root.customer.splitorder', {
