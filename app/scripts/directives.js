@@ -469,7 +469,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
-.directive('uuAuthFilter', function(Auth) {
+.directive('uuAuthFilter', ['Auth', function(Auth) {
 	return {
 		restrict: 'A',
 		link: function($scope, element, attrs) {
@@ -497,7 +497,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 		}
 	};
-})
+}])
 
 .directive('uuNum', function() {
 	return {

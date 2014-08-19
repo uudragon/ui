@@ -30,41 +30,41 @@ var uud = angular.module('mainApp', [
 	$httpProvider.defaults.headers.common['Requested-By'] = 'uu-dragon-app';
 
 	// 拦截器
-	$httpProvider.interceptors.push(function($q, $location, $rootScope, $injector, $timeout) {
-		return {
-			'request': function(config) {
-				return config;
-			},
-			'response': function(resp) {
-				// try {
-				// 	var errorCode = resp.data.split(':')[0];
-				// 	if (errorCode == 'E_00201') {
-				// 		$rootScope.$broadcast('auth:invalid', res);
-				// 		return $q.reject(res);
-				// 	}
-				// } catch(e) {}
+	$httpProvider.interceptors.push(['$q', '$location', '$rootScope', '$injector', '$timeout', function($q, $location, $rootScope, $injector, $timeout) {
+			return {
+				'request': function(config) {
+					return config;
+				},
+				'response': function(resp) {
+					// try {
+					// 	var errorCode = resp.data.split(':')[0];
+					// 	if (errorCode == 'E_00201') {
+					// 		$rootScope.$broadcast('auth:invalid', res);
+					// 		return $q.reject(res);
+					// 	}
+					// } catch(e) {}
 
-				// token过期信息
-				if (resp.config.url === (config.auth.baseurl + config.auth.resource) && resp.status === 204) {
-					$timeout(function(){
-						$rootScope.$broadcast('auth:invalid', resp);
-					}, 100);
-					return $q.reject(resp);
-				} else {
-					return resp;
+					// token过期信息
+					if (resp.config.url === (config.auth.baseurl + config.auth.resource) && resp.status === 204) {
+						$timeout(function(){
+							$rootScope.$broadcast('auth:invalid', resp);
+						}, 100);
+						return $q.reject(resp);
+					} else {
+						return resp;
+					}
+
+				},
+				'responseError': function(response) {
+
+					if(response.status === 401 || response.status === 403) {
+						// token is outdate or request for resource beyond the privilege of current user.
+						$rootScope.$broadcast('auth:invalid', response);
+					}
+					return $q.reject(response);
 				}
-
-			},
-			'responseError': function(response) {
-
-				if(response.status === 401 || response.status === 403) {
-					// token is outdate or request for resource beyond the privilege of current user.
-					$rootScope.$broadcast('auth:invalid', response);
-				}
-				return $q.reject(response);
-			}
-		};
-	});
+			};
+		}]);
 
 	//////////////////////////
 	// State Configurations //

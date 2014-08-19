@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('AuthCtrl', function ($scope, Auth, md5, $http) {
+.controller('AuthCtrl', ['$scope', 'Auth', 'md5', '$http', function ($scope, Auth, md5, $http) {
 
 	// init
 	$scope.model = {account: '', password: ''};
@@ -68,4 +68,4 @@ angular.module('mainApp')
 		$http.get(config.auth.baseurl + config.auth.logout);
 		Auth.logout();
 	}
-});
+}]);

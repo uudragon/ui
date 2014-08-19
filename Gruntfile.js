@@ -58,7 +58,7 @@ module.exports = function (grunt) {
         files: [
           '<%= config.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= config.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -401,6 +401,7 @@ module.exports = function (grunt) {
     'compass:server',
     'jade:dev',
     'useminPrepare',
+    'imagemin',
     'autoprefixer',
     'concat',
     'ngmin',
