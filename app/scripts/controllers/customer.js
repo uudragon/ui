@@ -2,7 +2,7 @@
 
 angular.module('mainApp')
 .controller('CustomerCtrl', ['$scope', '$controller',function ($scope, $controller) {
-	
+
 	// init
 	$scope.searchModel = {
 		pagination: {
@@ -32,6 +32,18 @@ angular.module('mainApp')
 			$scope.search('tradedCustomer');
 		} else if ( $scope.$state.includes('root.customer.manager') ) {
 			$scope.load('customer_statistics');
+		}
+
+		$scope.showOrder = function(index, id) {
+			var $elem = $('#' + id);
+
+			if ( $elem.css('display') === 'none' || index !== $scope.lastOrderIndex) {
+				$elem.slideDown();
+			} else if ( $scope.lastOrderIndex === index ) {
+				$elem.slideToggle();
+			}
+
+			$scope.lastOrderIndex = index;
 		}
 
 		$controller('CustomerCtrl', {$scope: $scope});

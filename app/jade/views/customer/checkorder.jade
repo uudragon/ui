@@ -44,7 +44,7 @@ table.uu-table
 			tr
 				td 李四民
 				td
-					+jslink() 20141020
+					+jslink('showOrder(' + i + ', "order-details")') 20141020
 				td 15006492314
 				td 山东
 				td 青岛
@@ -132,10 +132,3 @@ form#order-details.form-horizontal.uu-subpage
 
 						+tooltip('共享订单', 'right')
 							+glyphicon('send')
-
-
-script.
-	$('.jslink').on('click', function() {
-		$('#order-details').slideToggle()
-	});
-
