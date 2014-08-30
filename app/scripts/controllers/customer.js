@@ -34,16 +34,16 @@ angular.module('mainApp')
 			$scope.load('customer_statistics');
 		}
 
-		$scope.showOrder = function(index, id) {
-			var $elem = $('#' + id);
+		$scope.shareOrder = function() {
+			$('#share-order').modal('show');
+		}
 
-			if ( $elem.css('display') === 'none' || index !== $scope.lastOrderIndex) {
-				$elem.slideDown();
-			} else if ( $scope.lastOrderIndex === index ) {
-				$elem.slideToggle();
-			}
+		$scope.showOrder = function(index) {
+			$('#order-details').modal('show');
+		}
 
-			$scope.lastOrderIndex = index;
+		$scope.checkOrder = function() {
+			$('#recheck-order').modal('show');
 		}
 
 		$controller('CustomerCtrl', {$scope: $scope});

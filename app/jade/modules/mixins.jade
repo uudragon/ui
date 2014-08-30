@@ -8,10 +8,10 @@
 //- ----------------------
 
 //- bootstrap tooltip helper
-mixin tooltip(title, placement)
+mixin tooltip(title, placement, action)
 	if placement === null
 		- var placement = 'bottom'
-	a(href='', uu-tooltip, data-placement=placement, data-toggle='tooltip', title=title, class!=attributes.class)
+	a(href='', uu-tooltip, data-placement=placement, data-toggle='tooltip', title=title, class!=attributes.class, ng-click=action)
 		if block
 			block
 
@@ -24,14 +24,46 @@ mixin glyphicon(className)
 
 //- bootstrap input helper
 mixin input(title, id)
-	.form-group.form-group-sm.col-xs-6
-		label.control-label.col-xs-3(for='form-' + id)=title
-		.col-xs-7
-			input.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7
+		input.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
 
+//- bootstrap input helper
+mixin textarea(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7
+		textarea.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
 
+mixin select(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7
+		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+			block
 
+//- bootstrap modal helper
+mixin modal(id, className)
+	div(id=id).modal.fade
+		if className === null
+			- var className = ''
+		.modal-dialog(class!=className)
+			.modal-content
+				if block
+					block
 
+//- bootstrap modal helper
+mixin submodal(id, className)
+	div(id=id).modal.fade.sub-modal
+		if className === null
+			- var className = ''
+		.modal-dialog(class!=className)
+			.modal-content
+				if block
+					block
+
+//- 50% width form group
+mixin hgroup()
+	.form-group.col-xs-6
+		block
 
 //- Other HTML helpers
 //- ----------------------

@@ -30,7 +30,6 @@
 .empty-legend {border: none;}
 .select-inline {padding: 0 6px 0 0;}
 .pane-field {margin-top: 20px;}
-.modal-lg {width: 700px}
 .list-group-item {overflow: hidden;}
 
 
@@ -92,25 +91,3 @@
 .recorded-details {border: 1px solid #DDDDDD; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding: 10px 20px 10px 20px; }
 
 
-
-
-/**
- * Print
- * ----------------------------------------------------------------------------
- */
-
-@media print {
-	body * {
-		visibility: hidden;
-	}
-	.printable, .printable * {
-		visibility: visible;
-	}
-
-	.printable {
-		position: absolute;
-		top: 0;
-		left: 5%;
-		width: 90%;
-	}
-}

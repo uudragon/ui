@@ -50,7 +50,7 @@
   <tbody>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(4, &quot;order-details&quot;)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -64,7 +64,7 @@
     </tr>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(3, &quot;order-details&quot;)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -78,7 +78,7 @@
     </tr>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(2, &quot;order-details&quot;)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -92,7 +92,7 @@
     </tr>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(1, &quot;order-details&quot;)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -106,7 +106,143 @@
     </tr>
   </tbody>
 </table>
-<div id="uu-modal" class="modal fade">
+<div id="order-details" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">核实订单</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>基本信息</legend>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">客户姓名</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="user.name" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-order" class="control-label col-xs-3">订单编号</label>
+              <div class="col-xs-7">
+                <input id="form-order" ng-model="user.order" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-sex" class="control-label col-xs-3">客户性别</label>
+              <div class="col-xs-7">
+                <input id="form-sex" ng-model="user.gender" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good" class="control-label col-xs-3">订购产品</label>
+              <div class="col-xs-7">
+                <input id="form-good" ng-model="user.good" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
+              <div class="col-xs-7">
+                <input id="form-telphone" ng-model="user.telphone" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
+              <div class="col-xs-7">
+                <input id="form-startDate" ng-model="user.startDate" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
+              <div class="col-xs-7">
+                <input id="form-child-name" ng-model="user.childName" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
+              <div class="col-xs-7">
+                <input id="form-enddate" ng-model="user.enddate" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
+              <div class="col-xs-7">
+                <input id="form-child-gender" ng-model="user.childGender" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-payway" class="control-label col-xs-3">支付方式</label>
+              <div class="col-xs-7">
+                <input id="form-payway" ng-model="user.payway" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
+              <div class="col-xs-7">
+                <input id="form-birthday" ng-model="user.birthday" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
+              <div class="col-xs-7">
+                <input id="form-pay-status" ng-model="user.payStatus" class="form-control"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>详细地址</legend>
+            <div class="form-group form-group-sm">
+              <label class="control-label label-location"><span>省：山东省</span><span>市：青岛市</span><span>详细: 宁夏路208号</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>订单</legend>
+            <table class="uu-table">
+              <thead>
+                <tr>
+                  <th>订单编号</th>
+                  <th>客户姓名</th>
+                  <th>订单产品</th>
+                  <th>下单日期</th>
+                  <th>支付方式</th>
+                  <th>支付状态</th>
+                  <th>出生日期</th>
+                  <th>订单状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>123071231</td>
+                  <td>李四民</td>
+                  <td>季度</td>
+                  <td>2014-10-15</td>
+                  <td>在线支付</td>
+                  <td>已支付</td>
+                  <td>2010-06-01</td>
+                  <td>正常</td>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-send"></span></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </fieldset>
+          <p>
+            <ul class="list-inline">
+              <li>联系记录</li>
+              <li><a href="" ng-click="checkOrder()" class="jslink"><span class="glyphicon glyphicon-plus"></span></a>
+              </li>
+              <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
+              </li>
+            </ul>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="share-order" class="modal fade sub-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -115,147 +251,127 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
-          <div class="from-group">
-            <label class="control-label">类别</label>
-            <select class="form-control input-sm">
-              <option>haha</option>
-              <option>hehe</option>
-            </select>
+          <div class="form-group">
+            <label for="form-responsor" class="control-label col-xs-3">共享订单</label>
+            <div class="col-xs-7">
+              <select id="form-responsor" class="form-control input-sm">
+                <option value="0">所有客户</option>
+                <option value="0">我的客户</option>
+                <option value="0">我共享的客户</option>
+                <option value="0">共享给我的客户</option>
+                <option value="0">下属的客户</option>
+              </select>
+            </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button ng-click="save()" class="btn uu-btn">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
   </div>
 </div>
-<form id="order-details" class="form-horizontal uu-subpage">
-  <fieldset>
-    <legend>基本信息</legend>
-    <div class="row">
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-name" class="control-label col-xs-3">客户姓名</label>
-        <div class="col-xs-7">
-          <input id="form-name" ng-model="user.name" class="form-control"/>
-        </div>
+<div id="recheck-order" class="modal fade sub-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">核实订单</h4>
       </div>
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-order" class="control-label col-xs-3">订单编号</label>
-        <div class="col-xs-7">
-          <input id="form-order" ng-model="user.order" class="form-control"/>
-        </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="form-group">
+              <label for="form-header" class="control-label col-xs-3">主题</label>
+              <div class="col-xs-7">
+                <input id="form-header" ng-model="user.header" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-deal-result" class="control-label col-xs-3">处理结果</label>
+              <div class="col-xs-7">
+                <select id="form-deal-result" ng-model="user.dealResult" class="form-control input-sm">
+                  <option value="0">good</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-contact-time" class="control-label col-xs-3">联系时间</label>
+              <div class="col-xs-7">
+                <input id="form-contact-time" ng-model="user.contactTime" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-responsor" class="control-label col-xs-3">负责人</label>
+              <div class="col-xs-7">
+                <input id="form-responsor" ng-model="user.responsor" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-deal-result" class="control-label col-xs-3">电话状态</label>
+              <div class="col-xs-7">
+                <select id="form-deal-result" ng-model="user.dealResult" class="form-control input-sm">
+                  <option value="0">good</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-urgency" class="control-label col-xs-3">紧急程度</label>
+              <div class="col-xs-7">
+                <select id="form-urgency" ng-model="user.urgency" class="form-control input-sm">
+                  <option value="0">一般</option>
+                  <option value="1">优先</option>
+                  <option value="1">紧急</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-content" class="control-label col-xs-3">内容</label>
+              <div class="col-xs-7">
+                <textarea id="form-content" ng-model="content" class="form-control"></textarea>
+              </div>
+            </div>
+          </fieldset>
+        </form>
       </div>
-    </div>
-    <div class="row">
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-sex" class="control-label col-xs-3">客户性别</label>
-        <div class="col-xs-7">
-          <input id="form-sex" ng-model="user.gender" class="form-control"/>
-        </div>
-      </div>
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-good" class="control-label col-xs-3">订购产品</label>
-        <div class="col-xs-7">
-          <input id="form-good" ng-model="user.good" class="form-control"/>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
-        <div class="col-xs-7">
-          <input id="form-telphone" ng-model="user.telphone" class="form-control"/>
-        </div>
-      </div>
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
-        <div class="col-xs-7">
-          <input id="form-startDate" ng-model="user.startDate" class="form-control"/>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
-        <div class="col-xs-7">
-          <input id="form-child-name" ng-model="user.childName" class="form-control"/>
-        </div>
-      </div>
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
-        <div class="col-xs-7">
-          <input id="form-enddate" ng-model="user.enddate" class="form-control"/>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
-        <div class="col-xs-7">
-          <input id="form-child-gender" ng-model="user.childGender" class="form-control"/>
-        </div>
-      </div>
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-payway" class="control-label col-xs-3">支付方式</label>
-        <div class="col-xs-7">
-          <input id="form-payway" ng-model="user.payway" class="form-control"/>
-        </div>
+      <div class="modal-footer">
+        <button ng-click="save()" class="btn uu-btn">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
-    <div class="row">
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
-        <div class="col-xs-7">
-          <input id="form-birthday" ng-model="user.birthday" class="form-control"/>
-        </div>
-      </div>
-      <div class="form-group form-group-sm col-xs-6">
-        <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
-        <div class="col-xs-7">
-          <input id="form-pay-status" ng-model="user.payStatus" class="form-control"/>
-        </div>
-      </div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>详细地址</legend>
-    <div class="row">
-      <div class="form-group form-group-sm">
-        <label class="control-label label-location"><span>省：山东省</span><span>市：青岛市</span><span>详细: 宁夏路208号</span></label>
-      </div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>订单</legend>
-    <table class="uu-table">
-      <thead>
-        <tr>
-          <th>订单编号</th>
-          <th>客户姓名</th>
-          <th>订单产品</th>
-          <th>下单日期</th>
-          <th>支付方式</th>
-          <th>支付状态</th>
-          <th>出生日期</th>
-          <th>订单状态</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>123071231</td>
-          <td>李四民</td>
-          <td>季度</td>
-          <td>2014-10-15</td>
-          <td>在线支付</td>
-          <td>已支付</td>
-          <td>2010-06-01</td>
-          <td>正常</td>
-          <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </fieldset>
-</form>
+  </div>
+</div>
+<script>
+  $('.modal').on('hidden.bs.modal', function (event) {
+   $(this).removeClass('fv-modal-stack');
+   $('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
+  });
+  
+  
+  $('.modal').on('shown.bs.modal', function (event) {
+  
+   // keep track of the number of open modals
+   if (typeof ($('body').data('fv_open_modals')) == 'undefined') {
+    $('body').data('fv_open_modals', 0);
+   }
+   
+   // if the z-index of this modal has been set, ignore.
+   if ($(this).hasClass('fv-modal-stack')) {
+    return;
+   }
+   
+   $(this).addClass('fv-modal-stack');
+   
+   $('body').data('fv_open_modals', $('body').data('fv_open_modals') + 1);
+   
+   $(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals')));
+   
+   $('.modal-backdrop').not('.fv-modal-stack')
+    .css('z-index', 1039 + (10 * $('body').data('fv_open_modals')));
+    
+   $('.modal-backdrop').not('fv-modal-stack')
+    .addClass('fv-modal-stack');
+  });
+  
+</script>
