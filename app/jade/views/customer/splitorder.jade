@@ -3,22 +3,26 @@ include ../../modules/mixins.jade
 h2 拆分定单
 hr
 
+- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
+
+//- 功能区
 .criteria-bar
 	form.form-inline(role='form')
 		.form-group
 			label(for='customer-scope') 查看范围
 			select#customer-scope.form-control.input-sm(name='customerScope')
-				+option('所有客户', 0)
-				+option('潜在客户', 1)
+				each val in customerOptions
+					+option(val.title, val.value)
 
-		.btn.btn.uu-btn
+		.btn.uu-btn
 			+tooltip('转移', 'top')
-				+glyphicon('send')
-
-		.btn.btn.uu-btn
-			+tooltip('更多操作', 'top')
 				+glyphicon('transfer')
 
+		.btn.uu-btn
+			+tooltip('更多操作', 'top')
+				+glyphicon('send')
+
+//- 订单列表过滤条件
 .filter-bar
 	.btn-group(data-toggle='buttons')
 		label.btn.uu-btn.active
@@ -31,17 +35,17 @@ hr
 			input(name='customer-type', type='radio')
 			| 未付费
 
+//- 订单列表
 table.uu-table
 	+thead
 		each th in ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具']
 			th=th
 	tbody
-		- var i = 3
+		- var i = 4
 		while (--i > 0)
 			tr
 				td 李四民
-				td
-					+jslink() 20141020
+				td 20141020
 				td 15006492314
 				td 山东
 				td 青岛
@@ -50,9 +54,100 @@ table.uu-table
 				td 20141018
 				td 1
 				td
-					+tooltip('修改负责人', 'left')
+					+tooltip('修改', 'left', 'showOrder(i)')
 						+glyphicon('pencil')
 							&nbsp;
 
 					+tooltip('发送消息', 'right')
 						+glyphicon('comment')
+
+
+//- 订单详情Modal
++modal('order-details', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 核实订单
+	.modal-body
+		form.form-horizontal
+			fieldset
+				legend 基本信息
+				.form-group.col-xs-6
+					+input('客户姓名', 'name')(ng-model='user.name')
+				.form-group.col-xs-6
+					+input('订单编号', 'order')(ng-model='user.order')
+				.form-group.col-xs-6
+					+input('客户性别', 'sex')(ng-model='user.gender')
+				.form-group.col-xs-6
+					+input('订购产品', 'good')(ng-model='user.good')
+				.form-group.col-xs-6
+					+input('联系电话', 'telphone')(ng-model='user.telphone')
+				.form-group.col-xs-6
+					+input('起订日期', 'startDate')(ng-model='user.startDate')
+				.form-group.col-xs-6
+					+input('儿童姓名', 'child-name')(ng-model='user.childName')
+				.form-group.col-xs-6
+					+input('结束日期', 'enddate')(ng-model='user.enddate')
+				.form-group.col-xs-6
+					+input('儿童性别', 'child-gender')(ng-model='user.childGender')
+				.form-group.col-xs-6
+					+input('支付方式', 'payway')(ng-model='user.payway')
+				.form-group.col-xs-6
+					+input('出生日期', 'birthday')(ng-model='user.birthday')
+				.form-group.col-xs-6
+					+input('支付状态', 'pay-status')(ng-model='user.payStatus')
+
+			fieldset
+				legend 详细地址
+				.form-group.form-group-sm
+					label.control-label.label-location
+						span 省：山东省
+						span 市：青岛市
+						span 详细: 宁夏路208号
+			fieldset
+				legend 订单
+				table.uu-table
+					+thead
+						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '操作']
+							th=th
+					tbody
+						tr(ng-repeat='order in orders')
+							td(ng-bind='order.orderSN')
+							td(ng-bind='order.name')
+							td(ng-bind='order.products')
+							td(ng-bind='order.payDate')
+							td(ng-bind='order.payWay')
+							td(ng-bind='order.payStatus')
+							td(ng-bind='order.birthday')
+							td(ng-bind='order.orderStatus')
+							td(ng-if='!isSplitOrder')
+								+tooltip('拆分订单', 'left', 'splitOrder()')
+									+glyphicon('pencil')
+										&nbsp;
+
+								+tooltip('共享订单', 'top')
+									+glyphicon('send')
+							td(ng-if="isSplitOrder")
+								+tooltip('添加赠品', 'top', 'selectGift()')
+									+glyphicon('plus')
+
+
+//- 选择赠品Modal
++submodal('select-gift')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 选择赠品
+	.modal-body
+		form.form-horizontal
+			fieldset
+				.form-group
+					+select('选择赠品', 'selectGift')
+						+option('生日礼品', 0)
+						+option('促销赠品', 1)
+	.modal-footer
+		button.btn.uu-btn(ng-click='save()')
+			保存
+		button.btn.uu-btn(data-dismiss='modal')
+			取消
+
+//- to enable bootstrap multi modal
+include ../../modules/modal-fix.jade

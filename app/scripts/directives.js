@@ -523,7 +523,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		restrict: 'A',
 		link: function($scope, elem) {
-			elem.tooltip();
+			elem.tooltip && elem.tooltip();
 		}
 	};
 })

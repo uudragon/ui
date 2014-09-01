@@ -1,47 +1,508 @@
-<div class="info-panel">
-	<ul class="list-inline">
-		<li uu-info-item label="预约总数" value="{{statistics.preorder}}"></li>
-		<li uu-info-item label="成交客户" value="{{statistics.dealed}}"></li>
-	</ul>
+
+<h2>投诉</h2>
+<hr/>
+<div class="criteria-bar">
+  <form role="form" class="form-inline">
+    <div class="form-group">
+      <label for="customer-scope">查看范围</label>
+      <select id="customer-scope" name="customerScope" class="form-control input-sm">
+        <option value="0">所有客户</option>
+        <option value="0">我的客户</option>
+        <option value="0">我共享的客户</option>
+        <option value="0">共享给我的客户</option>
+        <option value="0">下属的客户</option>
+      </select>
+    </div>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="转移"><span class="glyphicon glyphicon-transfer"></span></a>
+    </div>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="更多操作"><span class="glyphicon glyphicon-send"></span></a>
+    </div>
+  </form>
 </div>
-
-<div uu-simple-search placeholder="姓名 / 家长姓名 / 电话进行查询" ng-submit="reloadSearch('customer')" model="searchModel.keyword"></div>
-
-<div ng-if="result.totalPageCount" class="result">
-	<div uu-pagination records="result.totalPageCount" page="page" action="search('customer')" model="searchModel.pagination"></div>
-
-	<table class="table table-hover table-condensed table-bordered">
-		<thead>
-			<tr>
-				<th>姓名</th>
-				<th>性别</th>
-				<th>生日</th>
-				<th>家长姓名</th>
-				<th>家长性别</th>
-				<th>类型</th>
-				<th>地址</th>
-				<th>电话</th>
-				<th>手机</th>
-				<th>传真</th>
-				<th>创建时间</th>
-				<th>Email</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in result.results">
-				<td ng-bind="item.name"></td>
-				<td ng-bind="item.sex | gender"></td>
-				<td ng-bind="item.birthday"></td>
-				<td ng-bind="item.parent"></td>
-				<td ng-bind="item.p_sex | gender"></td>
-				<td ng-bind="item.type | cType"></td>
-				<td ng-bind="item.province + item.city + item.district + address"></td>
-				<td ng-bind="item.phone"></td>
-				<td ng-bind="item.mobile"></td>
-				<td ng-bind="item.fax"></td>
-				<td ng-bind="item.createTime"></td>
-				<td ng-bind="item.email"></td>
-			</tr>
-		</tbody>
-	</table>
+<div class="filter-bar">
+  <div data-toggle="buttons" class="btn-group">
+    <label class="btn uu-btn active">
+      <input checked="checked" name="customer-type" type="radio"/>所有
+    </label>
+    <label class="btn uu-btn">
+      <input name="customer-type" type="radio"/>已付费
+    </label>
+    <label class="btn uu-btn">
+      <input name="customer-type" type="radio"/>未付费
+    </label>
+  </div>
+</div>
+<table class="uu-table">
+  <thead>
+    <tr>
+      <th>客户姓名</th>
+      <th>订单编号</th>
+      <th>客户电话</th>
+      <th>所在省</th>
+      <th>城市</th>
+      <th>订购类型</th>
+      <th>付款状态</th>
+      <th>创建时间</th>
+      <th>联系次数</th>
+      <th>工具</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>李四民</td>
+      <td><a href="" ng-click="showOrder(1)" class="jslink">20141020</a>
+      </td>
+      <td>15006492314</td>
+      <td>山东</td>
+      <td>青岛</td>
+      <td>年度</td>
+      <td>已付费</td>
+      <td>20141018</td>
+      <td>1</td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="order-details" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">核实订单</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>基本信息</legend>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">客户姓名</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="user.name" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-order" class="control-label col-xs-3">订单编号</label>
+              <div class="col-xs-7">
+                <input id="form-order" ng-model="user.order" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-sex" class="control-label col-xs-3">客户性别</label>
+              <div class="col-xs-7">
+                <input id="form-sex" ng-model="user.gender" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good" class="control-label col-xs-3">订购产品</label>
+              <div class="col-xs-7">
+                <input id="form-good" ng-model="user.good" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
+              <div class="col-xs-7">
+                <input id="form-telphone" ng-model="user.telphone" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
+              <div class="col-xs-7">
+                <input id="form-startDate" ng-model="user.startDate" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
+              <div class="col-xs-7">
+                <input id="form-child-name" ng-model="user.childName" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
+              <div class="col-xs-7">
+                <input id="form-enddate" ng-model="user.enddate" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
+              <div class="col-xs-7">
+                <input id="form-child-gender" ng-model="user.childGender" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-payway" class="control-label col-xs-3">支付方式</label>
+              <div class="col-xs-7">
+                <input id="form-payway" ng-model="user.payway" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
+              <div class="col-xs-7">
+                <input id="form-birthday" ng-model="user.birthday" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
+              <div class="col-xs-7">
+                <input id="form-pay-status" ng-model="user.payStatus" class="form-control"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>详细地址</legend>
+            <div class="form-group form-group-sm">
+              <label class="control-label label-location"><span>省：山东省</span><span>市：青岛市</span><span>详细: 宁夏路208号</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>订单</legend>
+            <table class="uu-table">
+              <thead>
+                <tr>
+                  <th>订单编号</th>
+                  <th>客户姓名</th>
+                  <th>订单产品</th>
+                  <th>下单日期</th>
+                  <th>支付方式</th>
+                  <th>支付状态</th>
+                  <th>出生日期</th>
+                  <th>订单状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="order in orders">
+                  <td ng-bind="order.orderSN"></td>
+                  <td ng-bind="order.name"></td>
+                  <td ng-bind="order.products"></td>
+                  <td ng-bind="order.payDate"></td>
+                  <td ng-bind="order.payWay"></td>
+                  <td ng-bind="order.payStatus"></td>
+                  <td ng-bind="order.birthday"></td>
+                  <td ng-bind="order.orderStatus"></td>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="调换" ng-click="exchange()"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="退货" ng-click="return()"><span class="glyphicon glyphicon-export"></span></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </fieldset>
+          <p>
+            <ul class="list-inline">
+              <li>联系记录</li>
+              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
+              </li>
+              <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
+              </li>
+            </ul>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="return-order" class="modal fade sub-modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">调货</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-nowrap">
+          <fieldset>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-goodCode" class="control-label col-xs-3">刊号</label>
+                <div class="col-xs-7">
+                  <input id="form-goodCode" ng-model="goods.code" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-goodNum" class="control-label col-xs-3">刊数</label>
+                <div class="col-xs-7">
+                  <input id="form-goodNum" ng-model="goods.num" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeNum" class="control-label col-xs-3">实际订阅刊数</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeNum" ng-model="good.subscribeNum" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">实际订阅金额</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">合同金额</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">已收金额</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">已发货未收金额</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">刊数</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">办理手续费</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">承担人</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">退款手续费</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">承担人</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">退款金额</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">实际退款金额</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">退款帐号</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-subscribeAmount" class="control-label col-xs-3">开户行</label>
+                <div class="col-xs-7">
+                  <input id="form-subscribeAmount" ng-model="good.subscribeAmount" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-return-reason" class="control-label col-xs-3">退订原因</label>
+                <div class="col-xs-7">
+                  <select id="form-return-reason" ng-model="goods.phoneStatus" class="form-control input-sm">
+                    <option value="1">价格贵,收入低</option>
+                    <option value="2">价格贵,性价比不高</option>
+                    <option value="3">内容简单</option>
+                    <option value="4">内容太难</option>
+                    <option value="5">内容太普通,不感兴趣</option>
+                    <option value="6">学校老师教,发了同类产品</option>
+                    <option value="7">家人说不好</option>
+                    <option value="8">内容量太少</option>
+                    <option value="9">孩子不喜欢</option>
+                    <option value="10">质量不好</option>
+                    <option value="11">物流太慢</option>
+                    <option value="12">客服态度不好</option>
+                    <option value="13">价格贵,收入低</option>
+                    <option value="14">价格贵,性价比不高</option>
+                    <option value="15">内容简单</option>
+                    <option value="16">内容太难</option>
+                    <option value="17">内容太普通,不感兴趣</option>
+                    <option value="18">学校老师教,发了同类产品</option>
+                    <option value="19">家人说不好</option>
+                    <option value="20">内容量太少</option>
+                    <option value="21">孩子不喜欢</option>
+                    <option value="22">质量不好</option>
+                    <option value="23">物流太慢</option>
+                    <option value="24">客服态度不好</option>
+                    <option value="25">书本缺页</option>
+                    <option value="26">赠品缺漏</option>
+                    <option value="27">玩具缺漏</option>
+                    <option value="28">光盘损坏</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-6">
+                <label for="form-urgency" class="control-label col-xs-3">是否到库</label>
+                <div class="col-xs-7">
+                  <select id="form-urgency" ng-model="user.urgency" class="form-control input-sm">
+                    <option value="0">是</option>
+                    <option value="1">否</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="confirmAndShare()" class="btn uu-btn btn-primary">确认并共享</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="recheck-order" class="modal fade sub-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">投诉</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="form-group">
+              <label for="form-topic" class="control-label col-xs-3">主题</label>
+              <div class="col-xs-7">
+                <select id="form-topic" ng-model="return.topic" class="form-control input-sm">
+                  <option value="0">核实订单</option>
+                  <option value="1">投诉</option>
+                  <option value="2">回访</option>
+                  <option value="3">催费</option>
+                  <option value="4">促进销售</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-deal-result" class="control-label col-xs-3">处理结果</label>
+              <div class="col-xs-7">
+                <select id="form-deal-result" ng-model="return.dealResult" class="form-control input-sm">
+                  <option value="0">已完成</option>
+                  <option value="1">处理中</option>
+                  <option value="1">待处理</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-contact-time" class="control-label col-xs-3">联系时间</label>
+              <div class="col-xs-7">
+                <input id="form-contact-time" ng-model="return.contactTime" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-contact-responsor" class="control-label col-xs-3">负责人</label>
+              <div class="col-xs-7">
+                <input id="form-contact-responsor" ng-model="return.responsor" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-phone-status" class="control-label col-xs-3">电话状态</label>
+              <div class="col-xs-7">
+                <select id="form-phone-status" ng-model="return.phoneStatus" class="form-control input-sm">
+                  <option value="0">无人接</option>
+                  <option value="1">占线</option>
+                  <option value="2">接听</option>
+                  <option value="3">停机</option>
+                  <option value="4">空号</option>
+                  <option value="5">错号</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-complain-type" class="control-label col-xs-3">投诉分类</label>
+              <div class="col-xs-7">
+                <select id="form-complain-type" ng-model="return.complainType" class="form-control input-sm">
+                  <option value="1">发票抬头错误</option>
+                  <option value="2">未开发票</option>
+                  <option value="3">开票时间长</option>
+                  <option value="4">发票丢失</option>
+                  <option value="5">客服态度不好</option>
+                  <option value="6">客服不专业</option>
+                  <option value="7">客服电话难打</option>
+                  <option value="8">物流慢</option>
+                  <option value="9">货物丢失</option>
+                  <option value="10">物品破损</option>
+                  <option value="11">快递态度</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-return-next-time" class="control-label col-xs-3">下次回访日期</label>
+              <div class="col-xs-7">
+                <input id="form-return-next-time" ng-model="return.nextTime" class="form-control"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-urgency" class="control-label col-xs-3">投诉分类</label>
+              <div class="col-xs-7">
+                <select id="form-urgency" ng-model="return.urgency" class="form-control input-sm">
+                  <option value="0">一般</option>
+                  <option value="1">优先</option>
+                  <option value="1">紧急</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-content" class="control-label col-xs-3">内容</label>
+              <div class="col-xs-7">
+                <textarea id="form-content" ng-model="content" class="form-control"></textarea>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="share-order" class="modal fade sub-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">共享</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>tree</fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
 </div>

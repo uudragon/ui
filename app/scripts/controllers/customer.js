@@ -34,6 +34,8 @@ angular.module('mainApp')
 			$scope.load('customer_statistics');
 		}
 
+		$scope.orders = [ {orderSN: '123071231', name: '李四民', products: '季度', payDate: '2014-10-15', payWay: '在线支付', payStatus: '已支付', birthday: '2010-06-01', orderStatus: '正常'}];
+
 		$scope.shareOrder = function() {
 			$('#share-order').modal('show');
 		}
@@ -44,6 +46,27 @@ angular.module('mainApp')
 
 		$scope.checkOrder = function() {
 			$('#recheck-order').modal('show');
+		}
+
+		$scope.return = function() {
+			$('#return-order').modal('show');
+		}
+
+		$scope.confirmAndShare = function() {
+			console.log('confirm and share');
+			$('#share-order').modal('show');
+		}
+
+		$scope.splitOrder = function() {
+			$scope.isSplitOrder = true;
+			$scope.orders = [
+				{orderSN: '123071231', name: '李四民', products: '季度', payDate: '2014-10-15', payWay: '在线支付', payStatus: '已支付', birthday: '2010-06-01', orderStatus: '正常'},
+				{orderSN: '143071231', name: '李四民', products: '季度', payDate: '2014-10-15', payWay: '在线支付', payStatus: '已支付', birthday: '2010-06-01', orderStatus: '正常'}
+			];
+		}
+
+		$scope.selectGift = function() {
+			$('#select-gift').modal('show');
 		}
 
 		$controller('CustomerCtrl', {$scope: $scope});

@@ -50,7 +50,7 @@
   <tbody>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(4)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -59,12 +59,12 @@
       <td>已付费</td>
       <td>20141018</td>
       <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改负责人"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(3)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -73,12 +73,12 @@
       <td>已付费</td>
       <td>20141018</td>
       <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改负责人"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(2)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -87,12 +87,12 @@
       <td>已付费</td>
       <td>20141018</td>
       <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改负责人"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
     <tr>
       <td>李四民</td>
-      <td><a href="" ng-click="showOrder(i)" class="jslink">20141020</a>
+      <td><a href="" ng-click="showOrder(1)" class="jslink">20141020</a>
       </td>
       <td>15006492314</td>
       <td>山东</td>
@@ -101,7 +101,7 @@
       <td>已付费</td>
       <td>20141018</td>
       <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改负责人"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -231,7 +231,7 @@
           <p>
             <ul class="list-inline">
               <li>联系记录</li>
-              <li><a href="" ng-click="checkOrder()" class="jslink"><span class="glyphicon glyphicon-plus"></span></a>
+              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
               </li>
               <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
               </li>
@@ -252,7 +252,7 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="form-group">
-            <label for="form-responsor" class="control-label col-xs-3">共享订单</label>
+            <label for="form-responsor" class="control-label col-xs-3">修改负责人</label>
             <div class="col-xs-7">
               <select id="form-responsor" class="form-control input-sm">
                 <option value="0">所有客户</option>
@@ -283,16 +283,24 @@
         <form class="form-horizontal">
           <fieldset>
             <div class="form-group">
-              <label for="form-header" class="control-label col-xs-3">主题</label>
+              <label for="form-topic" class="control-label col-xs-3">主题</label>
               <div class="col-xs-7">
-                <input id="form-header" ng-model="user.header" class="form-control"/>
+                <select id="form-topic" ng-model="user.topic" class="form-control input-sm">
+                  <option value="0">核实订单</option>
+                  <option value="1">投诉</option>
+                  <option value="2">回访</option>
+                  <option value="3">催费</option>
+                  <option value="4">促进销售</option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <label for="form-deal-result" class="control-label col-xs-3">处理结果</label>
               <div class="col-xs-7">
                 <select id="form-deal-result" ng-model="user.dealResult" class="form-control input-sm">
-                  <option value="0">good</option>
+                  <option value="0">已完成</option>
+                  <option value="1">处理中</option>
+                  <option value="1">待处理</option>
                 </select>
               </div>
             </div>
@@ -303,16 +311,21 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="form-responsor" class="control-label col-xs-3">负责人</label>
+              <label for="form-contact-responsor" class="control-label col-xs-3">负责人</label>
               <div class="col-xs-7">
-                <input id="form-responsor" ng-model="user.responsor" class="form-control"/>
+                <input id="form-contact-responsor" ng-model="user.responsor" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
-              <label for="form-deal-result" class="control-label col-xs-3">电话状态</label>
+              <label for="form-phone-status" class="control-label col-xs-3">电话状态</label>
               <div class="col-xs-7">
-                <select id="form-deal-result" ng-model="user.dealResult" class="form-control input-sm">
-                  <option value="0">good</option>
+                <select id="form-phone-status" ng-model="user.phoneStatus" class="form-control input-sm">
+                  <option value="0">无人接</option>
+                  <option value="1">占线</option>
+                  <option value="2">接听</option>
+                  <option value="3">停机</option>
+                  <option value="4">空号</option>
+                  <option value="5">错号</option>
                 </select>
               </div>
             </div>
@@ -342,36 +355,3 @@
     </div>
   </div>
 </div>
-<script>
-  $('.modal').on('hidden.bs.modal', function (event) {
-   $(this).removeClass('fv-modal-stack');
-   $('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
-  });
-  
-  
-  $('.modal').on('shown.bs.modal', function (event) {
-  
-   // keep track of the number of open modals
-   if (typeof ($('body').data('fv_open_modals')) == 'undefined') {
-    $('body').data('fv_open_modals', 0);
-   }
-   
-   // if the z-index of this modal has been set, ignore.
-   if ($(this).hasClass('fv-modal-stack')) {
-    return;
-   }
-   
-   $(this).addClass('fv-modal-stack');
-   
-   $('body').data('fv_open_modals', $('body').data('fv_open_modals') + 1);
-   
-   $(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals')));
-   
-   $('.modal-backdrop').not('.fv-modal-stack')
-    .css('z-index', 1039 + (10 * $('body').data('fv_open_modals')));
-    
-   $('.modal-backdrop').not('fv-modal-stack')
-    .addClass('fv-modal-stack');
-  });
-  
-</script>

@@ -521,6 +521,13 @@ input[type="checkbox"] {
 	}
 }
 
+.form-nowrap {
+	.control-label {
+		white-space: nowrap;
+	}
+
+}
+
 .label-location {
 	padding-left: 76px;
 	> span {

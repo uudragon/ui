@@ -46,7 +46,7 @@ table.uu-table
 			tr
 				td 李四民
 				td
-					+jslink('showOrder(i)') 20141020
+					+jslink('showOrder(' + i + ')') 20141020
 				td 15006492314
 				td 山东
 				td 青岛
@@ -55,7 +55,7 @@ table.uu-table
 				td 20141018
 				td 1
 				td
-					+tooltip('修改负责人', 'left')
+					+tooltip('修改', 'left', 'showOrder(i)')
 						+glyphicon('pencil')
 							&nbsp;
 
@@ -133,7 +133,7 @@ table.uu-table
 					li
 						联系记录
 					li
-						+jslink('checkOrder()')
+						+tooltip('核实订单', 'top', 'checkOrder()')
 							+glyphicon('plus')
 					li
 						+jslink('search()')
@@ -147,7 +147,7 @@ table.uu-table
 	.modal-body
 		form.form-horizontal
 			.form-group
-				+select('共享订单', 'responsor')
+				+select('修改负责人', 'responsor')
 					each val in customerOptions
 						+option(val.title, val.value)
 	.modal-footer
@@ -156,7 +156,7 @@ table.uu-table
 		button.btn.uu-btn(data-dismiss='modal')
 			取消
 
-//- 共享订单Modal
+//- 核实订单Modal
 +submodal('recheck-order')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
@@ -165,17 +165,29 @@ table.uu-table
 		form.form-horizontal
 			fieldset
 				.form-group
-					+input('主题', 'header')(ng-model='user.header')
+					+select('主题', 'topic')(ng-model='user.topic')
+						+option('核实订单', 0)
+						+option('投诉', 1)
+						+option('回访', 2)
+						+option('催费', 3)
+						+option('促进销售', 4)
 				.form-group
 					+select('处理结果', 'deal-result')(ng-model='user.dealResult')
-						+option('good', 0)
+						+option('已完成', 0)
+						+option('处理中', 1)
+						+option('待处理', 1)
 				.form-group
 					+input('联系时间', 'contact-time')(ng-model='user.contactTime')
 				.form-group
-					+input('负责人', 'responsor')(ng-model='user.responsor')
+					+input('负责人', 'contact-responsor')(ng-model='user.responsor')
 				.form-group
-					+select('电话状态', 'deal-result')(ng-model='user.dealResult')
-						+option('good', 0)
+					+select('电话状态', 'phone-status')(ng-model='user.phoneStatus')
+						+option('无人接', 0)
+						+option('占线', 1)
+						+option('接听', 2)
+						+option('停机', 3)
+						+option('空号', 4)
+						+option('错号', 5)
 				.form-group
 					+select('紧急程度', 'urgency')(ng-model='user.urgency')
 						+option('一般', 0)
@@ -188,36 +200,7 @@ table.uu-table
 			保存
 		button.btn.uu-btn(data-dismiss='modal')
 			取消
+
 //- to enable bootstrap multi modal
-script.
-	$('.modal').on('hidden.bs.modal', function (event) {
-		$(this).removeClass('fv-modal-stack');
-		$('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
-	});
-
-
-	$('.modal').on('shown.bs.modal', function (event) {
-
-		// keep track of the number of open modals
-		if (typeof ($('body').data('fv_open_modals')) == 'undefined') {
-			$('body').data('fv_open_modals', 0);
-		}
-
-		// if the z-index of this modal has been set, ignore.
-		if ($(this).hasClass('fv-modal-stack')) {
-			return;
-		}
-
-		$(this).addClass('fv-modal-stack');
-
-		$('body').data('fv_open_modals', $('body').data('fv_open_modals') + 1);
-
-		$(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals')));
-
-		$('.modal-backdrop').not('.fv-modal-stack')
-			.css('z-index', 1039 + (10 * $('body').data('fv_open_modals')));
-
-		$('.modal-backdrop').not('fv-modal-stack')
-			.addClass('fv-modal-stack');
-	});
+//- include ../../modules/modal-fix.jade
 

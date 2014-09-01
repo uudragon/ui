@@ -1329,9 +1329,16 @@
         that.$element[0].offsetWidth // force reflow
       }
 
+      // that.$element
+      //   .addClass('in')
+      //   .attr('aria-hidden', false)
+      that.$backdrop
+         .css( "z-index", (1030 + (10 * $(".modal.in").length)) )
+
       that.$element
-        .addClass('in')
-        .attr('aria-hidden', false)
+         .css( "z-index", (1040 + (10 * $(".modal.in").length)) )
+         .addClass('in')
+         .attr('aria-hidden', false)
 
       that.enforceFocus()
 

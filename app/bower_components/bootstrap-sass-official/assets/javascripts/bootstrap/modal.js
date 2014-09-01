@@ -218,6 +218,8 @@
   }
 
   Modal.prototype.measureScrollbar = function () { // thx walsh
+
+    // why not window.innerWidth - document.body.clientWidth?
     var scrollDiv = document.createElement('div')
     scrollDiv.className = 'modal-scrollbar-measure'
     this.$body.append(scrollDiv)
