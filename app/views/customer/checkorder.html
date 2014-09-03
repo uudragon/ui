@@ -21,13 +21,13 @@
 </div>
 <div class="filter-bar">
   <div data-toggle="buttons" class="btn-group">
-    <label class="btn uu-btn active">
+    <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
       <input checked="checked" name="customer-type" type="radio"/>所有
     </label>
-    <label class="btn uu-btn">
+    <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
       <input name="customer-type" type="radio"/>已付费
     </label>
-    <label class="btn uu-btn">
+    <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
       <input name="customer-type" type="radio"/>未付费
     </label>
   </div>
@@ -48,59 +48,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>李四民</td>
-      <td><a href="" ng-click="showOrder(4)" class="jslink">20141020</a>
+    <tr ng-repeat="order in orders | filter:filterPay">
+      <td ng-bind="order.customerName"></td>
+      <td><a href="" ng-click="showOrder(order.orderSN)" ng-bind="order.orderSN" class="jslink"></a>
       </td>
-      <td>15006492314</td>
-      <td>山东</td>
-      <td>青岛</td>
-      <td>年度</td>
-      <td>已付费</td>
-      <td>20141018</td>
-      <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
-      </td>
-    </tr>
-    <tr>
-      <td>李四民</td>
-      <td><a href="" ng-click="showOrder(3)" class="jslink">20141020</a>
-      </td>
-      <td>15006492314</td>
-      <td>山东</td>
-      <td>青岛</td>
-      <td>年度</td>
-      <td>已付费</td>
-      <td>20141018</td>
-      <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
-      </td>
-    </tr>
-    <tr>
-      <td>李四民</td>
-      <td><a href="" ng-click="showOrder(2)" class="jslink">20141020</a>
-      </td>
-      <td>15006492314</td>
-      <td>山东</td>
-      <td>青岛</td>
-      <td>年度</td>
-      <td>已付费</td>
-      <td>20141018</td>
-      <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
-      </td>
-    </tr>
-    <tr>
-      <td>李四民</td>
-      <td><a href="" ng-click="showOrder(1)" class="jslink">20141020</a>
-      </td>
-      <td>15006492314</td>
-      <td>山东</td>
-      <td>青岛</td>
-      <td>年度</td>
-      <td>已付费</td>
-      <td>20141018</td>
-      <td>1</td>
+      <td ng-bind="order.customerPhone"></td>
+      <td ng-bind="order.province"></td>
+      <td ng-bind="order.city"></td>
+      <td ng-bind="order.orderType"></td>
+      <td ng-bind="order.payStatus | payStatus"></td>
+      <td ng-bind="order.createTime"></td>
+      <td ng-bind="order.contactTimes"></td>
       <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
@@ -349,7 +307,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="save()" class="btn uu-btn">保存</button>
+        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

@@ -34,7 +34,18 @@ angular.module('mainApp')
 			$scope.load('customer_statistics');
 		}
 
-		$scope.orders = [ {orderSN: '123071231', name: '李四民', products: '季度', payDate: '2014-10-15', payWay: '在线支付', payStatus: '已支付', birthday: '2010-06-01', orderStatus: '正常'}];
+		// fake date
+		$scope.orders = [{customerName: '李四民', orderSN: '123071231', customerPhone: '1395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '0', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '张三', orderSN: '12131071231', customerPhone: '123334239543', province: '上海', city: '上海', orderType: '季度', payStatus: '1', createTime: '2014-11-15', contactTimes: '2014-10-15'}, {customerName: '李七', orderSN: '123071231', customerPhone: '1395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '李五民', orderSN: '223071231', customerPhone: '1395334234343', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, ];
+
+		$scope.tmp = {
+			orderSN: '123071231',
+			name: '李四民',
+			products: '季度',
+			payDate: '2014-10-15',
+			payWay: '在线支付',
+			payStatus: '已支付',
+			birthday: '2010-06-01',
+			orderStatus: '正常'}
 
 		$scope.shareOrder = function() {
 			$('#share-order').modal('show');
@@ -53,7 +64,6 @@ angular.module('mainApp')
 		}
 
 		$scope.confirmAndShare = function() {
-			console.log('confirm and share');
 			$('#share-order').modal('show');
 		}
 
@@ -71,4 +81,8 @@ angular.module('mainApp')
 
 		$controller('CustomerCtrl', {$scope: $scope});
 
+	}])
+	.controller('checkOrderCtrl', ['$scope', '$controller', function($scope, $controller) {
+
+		$controller('CustomerManager', {$scope: $scope});
 	}])

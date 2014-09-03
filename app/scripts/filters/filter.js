@@ -25,6 +25,18 @@ angular.module('mainApp')
 		}
 	};
 })
+.filter('payStatus', function() {
+	return function (num) {
+		switch (num) {
+			case '0':
+				return '未付费';
+			case '1':
+				return '已付费';
+			default:
+				break;
+		}
+	};
+})
 .filter('week', function() {
 	return function (num) {
 		switch (num.toString()) {

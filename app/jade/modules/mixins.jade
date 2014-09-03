@@ -79,7 +79,7 @@ mixin option(title, value)
 
 //-
 mixin jslink(action)
-	a.jslink(href='', ng-click=action)
+	a.jslink(href='', ng-click=action, ng-bind=attributes['ng-bind'])
 		if block
 			block
 

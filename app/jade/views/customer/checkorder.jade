@@ -25,13 +25,13 @@ hr
 //- 订单列表过滤条件
 .filter-bar
 	.btn-group(data-toggle='buttons')
-		label.btn.uu-btn.active
+		label.btn.uu-btn.active(ng-click='filterPay.payStatus=""')
 			input(checked, name='customer-type', type='radio')
 			| 所有
-		label.btn.uu-btn
+		label.btn.uu-btn(ng-click='filterPay.payStatus=1')
 			input(name='customer-type', type='radio')
 			| 已付费
-		label.btn.uu-btn
+		label.btn.uu-btn(ng-click='filterPay.payStatus=0')
 			input(name='customer-type', type='radio')
 			| 未付费
 
@@ -41,26 +41,24 @@ table.uu-table
 		each th in ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具']
 			th=th
 	tbody
-		- var i = 5
-		while (--i > 0)
-			tr
-				td 李四民
-				td
-					+jslink('showOrder(' + i + ')') 20141020
-				td 15006492314
-				td 山东
-				td 青岛
-				td 年度
-				td 已付费
-				td 20141018
-				td 1
-				td
-					+tooltip('修改', 'left', 'showOrder(i)')
-						+glyphicon('pencil')
-							&nbsp;
+		tr(ng-repeat='order in orders | filter:filterPay')
+			td(ng-bind='order.customerName')
+			td
+				+jslink('showOrder(order.orderSN)')(ng-bind='order.orderSN')
+			td(ng-bind='order.customerPhone')
+			td(ng-bind='order.province')
+			td(ng-bind='order.city')
+			td(ng-bind='order.orderType')
+			td(ng-bind='order.payStatus | payStatus')
+			td(ng-bind='order.createTime')
+			td(ng-bind='order.contactTimes')
+			td
+				+tooltip('修改', 'left', 'showOrder(i)')
+					+glyphicon('pencil')
+						&nbsp;
 
-					+tooltip('发送消息', 'right')
-						+glyphicon('comment')
+				+tooltip('发送消息', 'right')
+					+glyphicon('comment')
 
 
 //- 订单详情Modal
@@ -196,7 +194,7 @@ table.uu-table
 				.form-group
 					+textarea('内容', 'content')(ng-model="content")
 	.modal-footer
-		button.btn.uu-btn(ng-click='save()')
+		button.btn.uu-btn.btn-primary(ng-click='save()')
 			保存
 		button.btn.uu-btn(data-dismiss='modal')
 			取消
