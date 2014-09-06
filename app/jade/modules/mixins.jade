@@ -1,7 +1,5 @@
-
-//- 注意: 文件末尾必须有回车，否则会造成解析不正确
+//- 注意: 文件末尾必须有换行符，否则会造成解析不正确
 //- -----------------------------------------
-
 
 
 //- Bootstrap helpers
@@ -26,7 +24,7 @@ mixin glyphicon(className)
 mixin input(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		input.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		input.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], ng-disable='true')
 
 //- bootstrap input helper
 mixin textarea(title, id)

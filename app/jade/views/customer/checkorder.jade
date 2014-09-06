@@ -3,13 +3,13 @@ include ../../modules/mixins.jade
 h2 官网核实定单
 hr
 
-- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
 
 //- 功能区
 .criteria-bar
 	form.form-inline(role='form')
 		.form-group
 			label(for='customer-scope') 查看范围
+			- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
 			select#customer-scope.form-control.input-sm(name='customerScope')
 				each val in customerOptions
 					+option(val.title, val.value)
@@ -44,7 +44,7 @@ table.uu-table
 		tr(ng-repeat='order in orders | filter:filterPay')
 			td(ng-bind='order.customerName')
 			td
-				+jslink('showOrder(order.orderSN)')(ng-bind='order.orderSN')
+				+jslink('showOrder(order)')(ng-bind='order.orderSN')
 			td(ng-bind='order.customerPhone')
 			td(ng-bind='order.province')
 			td(ng-bind='order.city')
@@ -53,7 +53,7 @@ table.uu-table
 			td(ng-bind='order.createTime')
 			td(ng-bind='order.contactTimes')
 			td
-				+tooltip('修改', 'left', 'showOrder(i)')
+				+tooltip('修改', 'left', 'showOrder(order)')
 					+glyphicon('pencil')
 						&nbsp;
 
@@ -145,11 +145,12 @@ table.uu-table
 	.modal-body
 		form.form-horizontal
 			.form-group
-				+select('修改负责人', 'responsor')
-					each val in customerOptions
+				- var responsorOptions = [{title: '拆单组', value: 0}, {title: '审单组', value: 1}]
+				+select('修改负责人', 'responsor')(ng-model='order.responsor')
+					each val in responsorOptions
 						+option(val.title, val.value)
 	.modal-footer
-		button.btn.uu-btn(ng-click='save()')
+		button.btn.uu-btn.btn-primary(ng-click='save()')
 			保存
 		button.btn.uu-btn(data-dismiss='modal')
 			取消

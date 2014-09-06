@@ -21,13 +21,13 @@
 </div>
 <div class="filter-bar">
   <div data-toggle="buttons" class="btn-group">
-    <label class="btn uu-btn active">
+    <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
       <input checked="checked" name="customer-type" type="radio"/>所有
     </label>
-    <label class="btn uu-btn">
+    <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
       <input name="customer-type" type="radio"/>已付费
     </label>
-    <label class="btn uu-btn">
+    <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
       <input name="customer-type" type="radio"/>未付费
     </label>
   </div>
@@ -48,43 +48,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>李四民</td>
-      <td>20141020</td>
-      <td>15006492314</td>
-      <td>山东</td>
-      <td>青岛</td>
-      <td>年度</td>
-      <td>已付费</td>
-      <td>20141018</td>
-      <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+    <tr ng-repeat="order in orders | filter:filterPay">
+      <td ng-bind="order.customerName"></td>
+      <td><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
       </td>
-    </tr>
-    <tr>
-      <td>李四民</td>
-      <td>20141020</td>
-      <td>15006492314</td>
-      <td>山东</td>
-      <td>青岛</td>
-      <td>年度</td>
-      <td>已付费</td>
-      <td>20141018</td>
-      <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
-      </td>
-    </tr>
-    <tr>
-      <td>李四民</td>
-      <td>20141020</td>
-      <td>15006492314</td>
-      <td>山东</td>
-      <td>青岛</td>
-      <td>年度</td>
-      <td>已付费</td>
-      <td>20141018</td>
-      <td>1</td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(i)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td ng-bind="order.customerPhone"></td>
+      <td ng-bind="order.province"></td>
+      <td ng-bind="order.city"></td>
+      <td ng-bind="order.orderType"></td>
+      <td ng-bind="order.payStatus | payStatus"></td>
+      <td ng-bind="order.createTime"></td>
+      <td ng-bind="order.contactTimes"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -103,73 +78,73 @@
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">客户姓名</label>
               <div class="col-xs-7">
-                <input id="form-name" ng-model="user.name" class="form-control"/>
+                <input id="form-name" ng-model="user.name" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-order" class="control-label col-xs-3">订单编号</label>
               <div class="col-xs-7">
-                <input id="form-order" ng-model="user.order" class="form-control"/>
+                <input id="form-order" ng-model="user.order" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-sex" class="control-label col-xs-3">客户性别</label>
               <div class="col-xs-7">
-                <input id="form-sex" ng-model="user.gender" class="form-control"/>
+                <input id="form-sex" ng-model="user.gender" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-good" class="control-label col-xs-3">订购产品</label>
               <div class="col-xs-7">
-                <input id="form-good" ng-model="user.good" class="form-control"/>
+                <input id="form-good" ng-model="user.good" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
               <div class="col-xs-7">
-                <input id="form-telphone" ng-model="user.telphone" class="form-control"/>
+                <input id="form-telphone" ng-model="user.telphone" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
               <div class="col-xs-7">
-                <input id="form-startDate" ng-model="user.startDate" class="form-control"/>
+                <input id="form-startDate" ng-model="user.startDate" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
               <div class="col-xs-7">
-                <input id="form-child-name" ng-model="user.childName" class="form-control"/>
+                <input id="form-child-name" ng-model="user.childName" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
               <div class="col-xs-7">
-                <input id="form-enddate" ng-model="user.enddate" class="form-control"/>
+                <input id="form-enddate" ng-model="user.enddate" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
               <div class="col-xs-7">
-                <input id="form-child-gender" ng-model="user.childGender" class="form-control"/>
+                <input id="form-child-gender" ng-model="user.childGender" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-payway" class="control-label col-xs-3">支付方式</label>
               <div class="col-xs-7">
-                <input id="form-payway" ng-model="user.payway" class="form-control"/>
+                <input id="form-payway" ng-model="user.payway" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
               <div class="col-xs-7">
-                <input id="form-birthday" ng-model="user.birthday" class="form-control"/>
+                <input id="form-birthday" ng-model="user.birthday" ng-disable="true" class="form-control"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
               <div class="col-xs-7">
-                <input id="form-pay-status" ng-model="user.payStatus" class="form-control"/>
+                <input id="form-pay-status" ng-model="user.payStatus" ng-disable="true" class="form-control"/>
               </div>
             </div>
           </fieldset>
@@ -196,22 +171,36 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="order in orders">
+                <tr ng-show="!currentOrder.isSplited">
+                  <td ng-bind="currentOrder.orderSN"></td>
+                  <td ng-bind="currentOrder.customerName"></td>
+                  <td ng-bind="currentOrder.orderType"></td>
+                  <td ng-bind="currentOrder.createTime"></td>
+                  <td ng-bind="currentOrder.payWay"></td>
+                  <td ng-bind="currentOrder.payStatus | payStatus"></td>
+                  <td ng-bind="currentOrder.birthday"></td>
+                  <td ng-bind="currentOrder.orderStatus"></td>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="拆分订单" ng-click="splitOrder(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
+                  </td>
+                </tr>
+                <tr ng-repeat="order in currentOrder.splitedOrders">
                   <td ng-bind="order.orderSN"></td>
-                  <td ng-bind="order.name"></td>
-                  <td ng-bind="order.products"></td>
-                  <td ng-bind="order.payDate"></td>
+                  <td ng-bind="order.customerName"></td>
+                  <td ng-bind="order.orderType"></td>
+                  <td ng-bind="order.createTime"></td>
                   <td ng-bind="order.payWay"></td>
-                  <td ng-bind="order.payStatus"></td>
+                  <td ng-bind="order.payStatus | payStatus"></td>
                   <td ng-bind="order.birthday"></td>
                   <td ng-bind="order.orderStatus"></td>
-                  <td ng-if="!isSplitOrder"><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="拆分订单" ng-click="splitOrder()"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
-                  </td>
-                  <td ng-if="isSplitOrder"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="添加赠品" ng-click="selectGift()"><span class="glyphicon glyphicon-plus"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="添加赠品" ng-click="selectGift(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <div ng-show="currentOrder.isSplited" class="modal-footer">
+              <button ng-click="saveOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
+              <button data-dismiss="modal" class="btn uu-btn">取消</button>
+            </div>
           </fieldset>
         </form>
       </div>
@@ -231,7 +220,7 @@
             <div class="form-group">
               <label for="form-selectGift" class="control-label col-xs-3">选择赠品</label>
               <div class="col-xs-7">
-                <select id="form-selectGift" class="form-control input-sm">
+                <select id="form-selectGift" ng-model="order.gift" class="form-control input-sm">
                   <option value="0">生日礼品</option>
                   <option value="1">促销赠品</option>
                 </select>
@@ -241,7 +230,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="save()" class="btn uu-btn">保存</button>
+        <button ng-click="saveOrder(order.orderSN)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
