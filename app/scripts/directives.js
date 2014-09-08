@@ -81,6 +81,30 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+// get week form date
+.directive('toFullWeek', function() {
+
+	function toFullWeek(scope, element, attrs) {
+		scope.$watch(attrs.toFullWeek, function(d) {
+			if (!d) return;
+			d = new Date(+d);
+			d.setHours(0, 0, 0);
+			d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+			console.log('var');
+			var
+				year = d.getFullYear(),
+				month = d.getMonth() + 1,
+				yearStart = new Date(year, 0, 1),
+				week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+
+			element.text(year + '年 ' + month + '月 第' + week + '周');
+		});
+	}
+	return {
+		link: toFullWeek
+	};
+})
+
 // generate clickable tab
 .directive('uuTab', function() {
 	return {

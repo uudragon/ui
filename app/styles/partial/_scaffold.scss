@@ -57,6 +57,11 @@ body {
 	margin: 20px 0px 13px;
 }
 
+.filter-bar + .criteria-bar,
+.criteria-bar + .filter-bar {
+	margin-bottom: 20px;
+}
+
 
 // .uu-subpage {
 // 	display: none;

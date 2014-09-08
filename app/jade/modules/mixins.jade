@@ -24,7 +24,12 @@ mixin glyphicon(className)
 mixin input(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		input.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], ng-disable='true')
+		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], ng-disable='true')
+
+//- bootstrap input helper
+mixin plain-input(title, id)
+	label.control-label(for='form-' + id)=title
+	input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], ng-disable='true')
 
 //- bootstrap input helper
 mixin textarea(title, id)
@@ -37,6 +42,18 @@ mixin select(title, id)
 	.col-xs-7
 		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
 			block
+
+mixin plain-select(title, id, options)
+	label.control-label(for='form-' + id)=title
+	select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+		each val in options
+			+option(val.title, val.value)
+
+//- html option helper
+mixin option(title, value)
+	if value === null
+		- var value = title
+	option(value=value)=title
 
 //- bootstrap modal helper
 mixin modal(id, className)
@@ -69,11 +86,6 @@ mixin hgroup()
 mixin sub-navbar-link(href, name)
 	a(ui-sref=href, ng-class='{active: $state.is("' + href + '")}')=name
 
-//- html option helper
-mixin option(title, value)
-	if value === null
-		- var value = title
-	option(value=value)=title
 
 //-
 mixin jslink(action)

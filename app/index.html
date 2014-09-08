@@ -13,7 +13,6 @@
 	<!-- build:css styles/vendor.css -->
 	<!-- bower:css -->
 	<link rel="stylesheet" href="bower_components/bootstrap-datepicker/css/datepicker3.css" />
-	<link rel="stylesheet" href="bower_components/fancytree/dist/skin-lion/ui.fancytree.css" />
 	<!-- endbower -->
 	<!-- endbuild -->
 	<!-- build:css({.tmp,app}) styles/main.css -->
@@ -35,10 +34,12 @@
 		</div>
 	</div>
 
+	<!-- build:js scripts/ie.js -->
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>
 	<script src="bower_components/json3/lib/json3.min.js"></script>
 	<![endif]-->
+	<!-- endbuild -->
 
 	<!-- build:js scripts/vendor.js -->
 	<!-- bower:js -->
@@ -66,9 +67,9 @@
 	<script src="scripts/controllers/main.js"></script>
 	<script src="scripts/controllers/customer.js"></script>
 	<script src="scripts/controllers/service.js"></script>
-	<!-- <script src="scripts/controllers/financial.js"></script> -->
-	<!-- <script src="scripts/controllers/ship.js"></script> -->
-	<!-- <script src="scripts/controllers/agents.js"></script> -->
+	<script src="scripts/controllers/customermanager.js"></script>
+	<script src="scripts/controllers/ship.js"></script>
+	<script src="scripts/controllers/agents.js"></script>
 	<script src="scripts/controllers/auth.js"></script>
 	<!-- services -->
 	<script src="scripts/services/authservice.js"></script>

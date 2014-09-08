@@ -7,7 +7,8 @@
 
 			<ul class="nav navbar-nav">
 				<li class="dropdown" ng-class="{active: $state.includes('root.customer')}" uu-auth-filter="01">
-					<a ui-sref="root.customer.checkorder" class="dropdown-toggle">客户服务</a>
+					<!-- <a ui-sref="root.customer.checkorder" class="dropdown-toggle">客户服务</a> -->
+					<a class="dropdown-toggle">客户服务</a>
 					<ul class="dropdown-menu" role="menu">
 						<li>
 							<a ui-sref="root.customer.checkorder" ng-class="{active: $state.is('root.customer.checkorder')}" class="action-item">官网核实订单</a>
@@ -20,11 +21,27 @@
 						</li>
 					</ul>
 				</li>
-				<li ng-class="{active: $state.includes('root.service')}" uu-auth-filter="02">
-					<a ui-sref="root.service.ordermanager" class="ng-binding">客服管理</a>
+				<li class="dropdown" ng-class="{active: $state.includes('root.customerManager')}" uu-auth-filter="02">
+					<a class="dropdown-toggle">客服管理</a>
+					<ul class="dropdown-menu" role="menu">
+						<li>
+							<a ui-sref="root.customerManager.employee" ng-class="{active: $state.is('root.customerManager.employee')}" class="action-item">员工管理</a>
+						</li>
+						<li>
+							<a ui-sref="root.customerManager.online" ng-class="{active: $state.is('root.customerManager.online')}" class="action-item">在线管理</a>
+						</li>
+						<li>
+							<a ui-sref="root.customerManager.phone" ng-class="{active: $state.is('root.customerManager.phone')}" class="action-item">电话管理</a>
+						</li>
+						<li>
+							<a ui-sref="root.customerManager.info" ng-class="{active: $state.is('root.customerManager.info')}" class="action-item">信息管理</a>
+						</li>
+					</ul>
 				</li>
-				<li ng-class="{active: $state.includes('root.financial')}" uu-auth-filter="03">
-					<a ui-sref="root.financial.deposit" class="ng-binding">数据管理</a>
+				<li class="dropdown" ng-class="{active: $state.includes('root.customerManagr')}" uu-auth-filter="03">
+					<!-- <a ui-sref="root.customerManager.deposit" class="ng-binding">数据管理</a> -->
+					<a class="dropdown-toggle">数据管理</a>
+
 				</li>
 				<li ng-class="{active: $state.includes('root.agents')}" uu-auth-filter="04">
 					<a ui-sref="root.agents.list" class="ng-binding">知识库</a>

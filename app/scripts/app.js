@@ -161,25 +161,30 @@ var uud = angular.module('mainApp', [
 	// Financial Manager //
 	///////////////////////
 
-	.state('root.financial', {
-		url: 'financial',
-		templateUrl: 'views/financial/template.html',
-		controller: 'FinancialCtrl'
+	.state('root.customerManager', {
+		url: 'customer-manager',
+		templateUrl: 'views/customer-manager/layout.html',
+		controller: 'CustomerManagerCtrl'
 	})
-	.state('root.financial.deposit', {
-		url: '/deposit',
-		templateUrl: 'views/financial/deposit.html',
-		controller: 'FinancialManager'
+	.state('root.customerManager.employee', {
+		url: '/employee',
+		templateUrl: 'views/customer-manager/employee.html',
+		controller: 'Employee'
 	})
-	.state('root.financial.rebate', {
-		url: '/rebate',
-		templateUrl: 'views/financial/rebate.html',
-		controller: 'FinancialManager'
+	.state('root.customerManager.online', {
+		url: '/online',
+		templateUrl: 'views/customer-manager/online.html',
+		controller: 'Online'
 	})
-	.state('root.financial.recorded', {
-		url: '/recorded',
-		templateUrl: 'views/financial/recorded.html',
-		controller: 'FinancialManager'
+	.state('root.customerManager.phone', {
+		url: '/phone',
+		templateUrl: 'views/customer-manager/phone.html',
+		controller: 'Phone'
+	})
+	.state('root.customerManager.info', {
+		url: '/info',
+		templateUrl: 'views/customer-manager/info.html',
+		controller: 'Info'
 	})
 
 

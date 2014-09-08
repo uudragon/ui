@@ -1,10 +1,13 @@
 
-<h2>拆分定单</h2>
+<h2>在线管理</h2>
 <hr/>
 <div class="criteria-bar">
   <form role="form" class="form-inline">
     <div class="form-group">
-      <label for="customer-scope">查看范围</label>
+      <label to-full-week="date"></label>
+    </div>
+    <div class="form-group">
+      <label for="customer-scope">检索</label>
       <select id="customer-scope" name="customerScope" class="form-control input-sm">
         <option value="0">所有客户</option>
         <option value="0">我的客户</option>
@@ -12,10 +15,6 @@
         <option value="0">共享给我的客户</option>
         <option value="0">下属的客户</option>
       </select>
-    </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="转移"><span class="glyphicon glyphicon-transfer"></span></a>
-    </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="更多操作"><span class="glyphicon glyphicon-send"></span></a>
     </div>
   </form>
 </div>
@@ -25,41 +24,84 @@
       <input checked="checked" name="customer-type" type="radio"/>所有
     </label>
     <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>已付费
+      <input name="customer-type" type="radio"/>网络分流
     </label>
     <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>未付费
+      <input name="customer-type" type="radio"/>电话分流
     </label>
   </div>
+</div>
+<div class="info-panel">
+  <h3 class="info-panel-title">网络客服</h3>
+  <ul class="list-inline">
+    <li><span class="info">当前在线咨询人数:</span><span ng-bind="" class="val"></span></li>
+    <li><span class="info">已接待人数:</span><span ng-bind="" class="val"></span></li>
+    <li><span class="info">等待人数:</span><span ng-bind="" class="val"></span></li>
+  </ul>
 </div>
 <table class="uu-table">
   <thead>
     <tr>
-      <th>客户姓名</th>
-      <th>订单编号</th>
-      <th>客户电话</th>
-      <th>所在省</th>
-      <th>城市</th>
-      <th>订购类型</th>
-      <th>付款状态</th>
-      <th>创建时间</th>
-      <th>联系次数</th>
-      <th>工具</th>
+      <th>时间</th>
+      <th>出勤人数</th>
+      <th>工号</th>
+      <th>姓名</th>
+      <th>接待量</th>
+      <th>会话时长</th>
+      <th>状态</th>
+      <th>备注</th>
+      <th class="opration">操作</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders | filter:filterPay">
-      <td ng-bind="order.customerName"></td>
-      <td><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
+    <tr ng-repeat="employee in employees | filter:filterPay">
+      <td ng-bind="employee.weekDay"></td>
+      <td ng-bind="employee.onelineNum"></td>
+      <td ng-bind="employee.SN"></td>
+      <td ng-bind="employee.name"></td>
+      <td ng-bind="employee.dealedOrderNum"></td>
+      <td ng-bind="employee.contactPeriod"></td>
+      <td ng-bind="employee.status"></td>
+      <td ng-bind="employee.ps"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="导出" ng-click="export()"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
-      <td ng-bind="order.customerPhone"></td>
-      <td ng-bind="order.province"></td>
-      <td ng-bind="order.city"></td>
-      <td ng-bind="order.orderType"></td>
-      <td ng-bind="order.payStatus | payStatus"></td>
-      <td ng-bind="order.createTime"></td>
-      <td ng-bind="order.contactTimes"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+    </tr>
+  </tbody>
+</table>
+<div class="info-panel">
+  <h3 class="info-panel-title">电话客服</h3>
+  <ul class="list-inline">
+    <li><span class="info">当前进线量:</span><span ng-bind="" class="val"></span></li>
+    <li><span class="info">接起量:</span><span ng-bind="" class="val"></span></li>
+    <li><span class="info">外呼量:</span><span ng-bind="" class="val"></span></li>
+    <li><span class="info">等待量:</span><span ng-bind="" class="val"></span></li>
+  </ul>
+</div>
+<table class="uu-table">
+  <thead>
+    <tr>
+      <th>时间</th>
+      <th>出勤人数</th>
+      <th>工号</th>
+      <th>姓名</th>
+      <th>接待量</th>
+      <th>会话时长</th>
+      <th>状态</th>
+      <th>备注</th>
+      <th class="opration">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="employee in employees | filter:filterPay">
+      <td ng-bind="employee.weekDay"></td>
+      <td ng-bind="employee.onelineNum"></td>
+      <td ng-bind="employee.SN"></td>
+      <td ng-bind="employee.name"></td>
+      <td ng-bind="employee.dealedOrderNum"></td>
+      <td ng-bind="employee.contactPeriod"></td>
+      <td ng-bind="employee.status"></td>
+      <td ng-bind="employee.ps"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="导出" ng-click="export()"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -171,100 +213,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-show="!currentOrder.isSplited">
-                  <td ng-bind="currentOrder.orderSN"></td>
-                  <td ng-bind="currentOrder.customerName"></td>
-                  <td ng-bind="currentOrder.orderType"></td>
-                  <td ng-bind="currentOrder.createTime"></td>
-                  <td ng-bind="currentOrder.payWay"></td>
-                  <td ng-bind="currentOrder.payStatus | payStatus"></td>
-                  <td ng-bind="currentOrder.birthday"></td>
-                  <td ng-bind="currentOrder.orderStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="拆分订单" ng-click="splitOrder(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
-                  </td>
-                </tr>
-                <tr ng-repeat="order in currentOrder.splitedOrders">
-                  <td ng-bind="order.orderSN"></td>
-                  <td ng-bind="order.customerName"></td>
-                  <td ng-bind="order.orderType"></td>
-                  <td ng-bind="order.createTime"></td>
-                  <td ng-bind="order.payWay"></td>
-                  <td ng-bind="order.payStatus | payStatus"></td>
-                  <td ng-bind="order.birthday"></td>
-                  <td ng-bind="order.orderStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="添加赠品" ng-click="selectGift(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
+                <tr>
+                  <td>123071231</td>
+                  <td>李四民</td>
+                  <td>季度</td>
+                  <td>2014-10-15</td>
+                  <td>在线支付</td>
+                  <td>已支付</td>
+                  <td>2010-06-01</td>
+                  <td>正常</td>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-send"></span></a>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div ng-show="currentOrder.isSplited" class="modal-footer">
-              <button ng-click="saveOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
-              <button data-dismiss="modal" class="btn uu-btn">取消</button>
-            </div>
           </fieldset>
+          <p>
+            <ul class="list-inline">
+              <li>联系记录</li>
+              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
+              </li>
+              <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
+              </li>
+            </ul>
+          </p>
         </form>
       </div>
     </div>
   </div>
 </div>
-<div id="select-gift" class="modal fade sub-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">选择赠品</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal">
-          <fieldset>
-            <div class="form-group">
-              <label for="form-selectGift" class="control-label col-xs-3">选择赠品</label>
-              <div class="col-xs-7">
-                <select id="form-selectGift" ng-model="order.gift" class="form-control input-sm">
-                  <option value="0">生日礼品</option>
-                  <option value="1">促销赠品</option>
-                </select>
-              </div>
-            </div>
-          </fieldset>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button ng-click="saveOrder(order.orderSN)" class="btn uu-btn btn-primary">保存</button>
-        <button data-dismiss="modal" class="btn uu-btn">取消</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-  $('.modal').on('hidden.bs.modal', function (event) {
-   $(this).removeClass('fv-modal-stack');
-   $('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
-  });
-  
-  
-  $('.modal').on('shown.bs.modal', function (event) {
-   console.log(event);
-   // keep track of the number of open modals
-   if (typeof ($('body').data('fv_open_modals')) == 'undefined') {
-    $('body').data('fv_open_modals', 0);
-   }
-   
-   // if the z-index of this modal has been set, ignore.
-   if ($(this).hasClass('fv-modal-stack')) {
-    return;
-   }
-   
-   $(this).addClass('fv-modal-stack');
-   
-   $('body').data('fv_open_modals', $('body').data('fv_open_modals') + 1);
-   
-   $(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals')));
-   
-   $('.modal-backdrop').not('.fv-modal-stack')
-    .css('z-index', 1039 + (10 * $('body').data('fv_open_modals')));
-    
-   $('.modal-backdrop').not('fv-modal-stack')
-    .addClass('fv-modal-stack');
-  });
-</script>
