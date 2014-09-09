@@ -1,0 +1,138 @@
+include ../../modules/mixins.jade
+
+h2 工单管理
+hr
+
+//- 功能区
+.criteria-bar
+	form.form-inline(role='form')
+		.form-group
+			- var customerOptions = [{title: '电话号码', value: 0}, {title: '支付状态', value: 0}, {title: '支付方式', value: 0}, {title: '城市', value: 0}]
+			+plain-select('查询', 'customer-scope', customerOptions)
+
+//- 工单列表过滤条件
+.filter-bar
+	.btn-group(data-toggle='buttons')
+		- var filters = [{title: '今天', action: "ilterPay.payStatus=''"}, {title: '昨天', action: "ilterPay.payStatus=''"}, {title: '前天', action: "ilterPay.payStatus=''"}, {title: '近3天', action: "ilterPay.payStatus=''"}, {title: '近7天', action: "ilterPay.payStatus=''"}, {title: '近30天', action: "ilterPay.payStatus=''"}, ]
+		each filter, index in filters
+			if index === 0
+				label.btn.uu-btn.active(ng-click=filter.action)
+					input(checked, name='customer-type', type='radio')
+					span=filter.title
+			else
+				label.btn.uu-btn(ng-click=filter.action)
+					input(name='customer-type', type='radio')
+					span=filter.title
+	form.form-inline(role='form', style="display: inline; margin-left: 20px;")
+		.form-group
+			+plain-input('开始时间', 'form-major-phone')
+		.form-group
+			+plain-input('结束时间', 'form-becalled-phone')
+		.form-group
+			.btn.uu-btn.btn-primary 查询
+			.btn.uu-btn.btn-danger 重置
+//- 员工列表
+table.uu-table
+	+thead
+		each th in ['姓名', '性别', '手机', '工单号', '城市', '工单开始时间', '工单结束时间', '受理人', '工单状态', '工单类型']
+			th=th
+		th.opration 操作
+	tbody
+		tr(ng-repeat='order in orders')
+			td(ng-bind='order.customerName')
+			td(ng-bind='order.gender | gender')
+			td(ng-bind='order.customerPhone')
+			td
+				+jslink('showOrder(order)')(ng-bind='order.orderSN')
+			td(ng-bind='order.city')
+			td(ng-bind='order.workstart')
+			td(ng-bind='order.workend')
+			td(ng-bind='order.responser')
+			td(ng-bind='order.workStatus')
+			td(ng-bind='order.workType')
+			td
+				+tooltip('修改', 'top', 'update(employee)')
+					+glyphicon('pencil')
+						&nbsp;
+
+				+tooltip('导出', 'top', 'export()')
+					+glyphicon('comment')
+
+
+//- 工单详情Modal
++modal('order-details', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 核实工单
+	.modal-body
+		form.form-horizontal
+			fieldset
+				legend 基本信息
+				.form-group.col-xs-6
+					+input('客户姓名', 'name')(ng-model='user.name')
+				.form-group.col-xs-6
+					+input('工单编号', 'order')(ng-model='user.order')
+				.form-group.col-xs-6
+					+input('客户性别', 'sex')(ng-model='user.gender')
+				.form-group.col-xs-6
+					+input('订购产品', 'good')(ng-model='user.good')
+				.form-group.col-xs-6
+					+input('联系电话', 'telphone')(ng-model='user.telphone')
+				.form-group.col-xs-6
+					+input('起订日期', 'startDate')(ng-model='user.startDate')
+				.form-group.col-xs-6
+					+input('儿童姓名', 'child-name')(ng-model='user.childName')
+				.form-group.col-xs-6
+					+input('结束日期', 'enddate')(ng-model='user.enddate')
+				.form-group.col-xs-6
+					+input('儿童性别', 'child-gender')(ng-model='user.childGender')
+				.form-group.col-xs-6
+					+input('支付方式', 'payway')(ng-model='user.payway')
+				.form-group.col-xs-6
+					+input('出生日期', 'birthday')(ng-model='user.birthday')
+				.form-group.col-xs-6
+					+input('支付状态', 'pay-status')(ng-model='user.payStatus')
+
+			fieldset
+				legend 详细地址
+				.form-group.form-group-sm
+					label.control-label.label-location
+						span 省：山东省
+						span 市：青岛市
+						span 详细: 宁夏路208号
+			fieldset
+				legend 工单
+				table.uu-table
+					+thead
+						each th in ['工单编号', '客户姓名', '工单产品', '下单日期', '支付方式', '支付状态', '出生日期', '工单状态', '操作']
+							th=th
+					tbody
+						tr
+							td 123071231
+							td 李四民
+							td 季度
+							td 2014-10-15
+							td 在线支付
+							td 已支付
+							td 2010-06-01
+							td 正常
+							td
+								+tooltip('修改', 'left')
+									+glyphicon('pencil')
+										&nbsp;
+
+								+tooltip('共享工单', 'top', 'shareOrder()')
+									+glyphicon('send')
+
+			p
+				ul.list-inline
+					li
+						联系记录
+					li
+						+tooltip('核实工单', 'top', 'checkOrder()')
+							+glyphicon('plus')
+					li
+						+jslink('search()')
+							+glyphicon('search')
+
+

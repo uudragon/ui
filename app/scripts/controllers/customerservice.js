@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('CustomerCtrl', ['$scope', '$controller',function ($scope, $controller) {
+.controller('CustomerServiceCtrl', ['$scope', '$controller',function ($scope, $controller) {
 
 	// init
 	$scope.searchModel = {
@@ -24,7 +24,7 @@ angular.module('mainApp')
 	 * ---------------------------------------------------------------------------------
 	 */
 
-	.controller('CustomerManager', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('CustomerServiceManager', ['$scope', '$controller', function ($scope, $controller) {
 
 		$scope.searchModel = {};
 
@@ -86,16 +86,16 @@ angular.module('mainApp')
 			$('#select-gift').modal('show');
 		}
 
-		$controller('CustomerCtrl', {$scope: $scope});
+		$controller('CustomerServiceCtrl', {$scope: $scope});
 
 	}])
 	.controller('checkOrderCtrl', ['$scope', '$controller', function($scope, $controller) {
 
-		$controller('CustomerManager', {$scope: $scope});
+		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
 	.controller('splitOrderCtrl', ['$scope', '$controller', function($scope, $controller) {
 
-		$controller('CustomerManager', {$scope: $scope});
+		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
 	.controller('checkComplainOrdersCtrl', ['$scope', '$controller', function($scope, $controller) {
 		var $returnOrder = $('#return-order');
@@ -159,5 +159,5 @@ angular.module('mainApp')
 			console.log(selectedNodes);
 		}
 
-		$controller('CustomerManager', {$scope: $scope});
+		$controller('CustomerServiceManager', {$scope: $scope});
 	}])

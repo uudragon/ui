@@ -1,0 +1,63 @@
+include ../../modules/mixins.jade
+
+h2 库存管理
+hr
+
+
+//- 库存列表
+table.uu-table
+	+thead
+		each th in ['产品类别', '产品名称', '产品内容', '库存数量', '库存下限', '产品编码', '所在仓库']
+			th=th
+		th.opration 操作
+	tbody
+		tr(ng-repeat='product in products')
+			td(ng-bind='product.type')
+			td(ng-bind='product.name')
+			td(ng-bind='product.content')
+			td(ng-bind='product.sku')
+			td(ng-bind='product.minSKU')
+			td(ng-bind='product.SN')
+			td(ng-bind='product.location')
+			td
+				+tooltip('调库', 'top', 'getProducts(product)')
+					+glyphicon('pencil')
+						&nbsp;
+
+				+tooltip('补库', 'top', 'fillProducts()')
+					+glyphicon('comment')
+
+
+//- 工单详情Modal
++modal('order-details', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 调库
+	.modal-body
+		form.form-horizontal
+			fieldset
+				legend 基本信息
+				.form-group.col-xs-6
+					+input('主题', 'name')(ng-model='user.name')
+				.form-group.col-xs-6
+					+input('出货仓库', 'order')(ng-model='user.order')
+				.form-group.col-xs-6
+					+input('入货仓库', 'sex')(ng-model='user.gender')
+				.form-group.col-xs-6
+					+input('调拨日期', 'good')(ng-model='user.good')
+				.form-group.col-xs-6
+					+input('产品名称', 'telphone')(ng-model='user.telphone')
+				.form-group.col-xs-6
+					+input('产品数量', 'startDate')(ng-model='user.startDate')
+				.form-group.col-xs-6
+					+input('创建人', 'child-name')(ng-model='user.childName')
+				.form-group.col-xs-6
+					+input('创建时间', 'enddate')(ng-model='user.enddate')
+				.form-group.col-xs-6
+					+input('修改时间', 'child-gender')(ng-model='user.childGender')
+				.form-group.col-xs-6
+					+input('审批人', 'payway')(ng-model='user.payway')
+				.form-group.col-xs-6
+					+input('状态', 'birthday')(ng-model='user.birthday')
+				.form-group.col-xs-6
+					+input('审批状态', 'pay-status')(ng-model='user.payStatus')

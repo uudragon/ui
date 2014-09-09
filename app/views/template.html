@@ -38,13 +38,22 @@
 						</li>
 					</ul>
 				</li>
-				<li class="dropdown" ng-class="{active: $state.includes('root.customerManagr')}" uu-auth-filter="03">
-					<!-- <a ui-sref="root.customerManager.deposit" class="ng-binding">数据管理</a> -->
+				<li class="dropdown" ng-class="{active: $state.includes('root.data')}" uu-auth-filter="03">
 					<a class="dropdown-toggle">数据管理</a>
-
+					<ul class="dropdown-menu" role="menu">
+						<li>
+							<a ui-sref="root.data.ordermanager" ng-class="{active: $state.is('root.data.ordermanager')}" class="action-item">订单管理</a>
+						</li>
+						<li>
+							<a ui-sref="root.data.work" ng-class="{active: $state.is('root.data.work')}" class="action-item">工单管理</a>
+						</li>
+						<li>
+							<a ui-sref="root.data.inventory" ng-class="{active: $state.is('root.data.inventory')}" class="action-item">库存管理</a>
+						</li>
+					</ul>
 				</li>
-				<li ng-class="{active: $state.includes('root.agents')}" uu-auth-filter="04">
-					<a ui-sref="root.agents.list" class="ng-binding">知识库</a>
+				<li ng-class="{active: $state.includes('root.qa')}" uu-auth-filter="04">
+					<a ui-sref="root.qa.list" class="ng-binding">知识库</a>
 				</li>
 			</ul>
 			<!-- <form class="navbar-form navbar-left" role="search">

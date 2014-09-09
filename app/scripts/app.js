@@ -97,7 +97,7 @@ var uud = angular.module('mainApp', [
 	.state('root.customer', {
 		url: 'customer',
 		templateUrl: 'views/customer/layout.html',
-		controller: 'CustomerCtrl'
+		controller: 'CustomerServiceCtrl'
 	})
 	.state('root.customer.splitorder', {
 		url: '/splitorder',
@@ -119,47 +119,6 @@ var uud = angular.module('mainApp', [
 	//////////////////////
 	// Customer Manager //
 	//////////////////////
-
-	.state('root.service', {
-		url: 'service',
-		templateUrl: 'views/service/template.html',
-		controller: 'ServiceCtrl'
-	})
-	.state('root.service.ordermanager', {
-		url: '/ordermanager',
-		templateUrl: 'views/service/ordermanager.html',
-		controller: 'ServiceManager'
-	})
-	.state('root.service.getorder', {
-		url: '/getorder',
-		templateUrl: 'views/service/getorder.html',
-		controller: 'ServiceManager'
-	})
-	.state('root.service.employee', {
-		url: '/employee',
-		templateUrl: 'views/service/employee.html',
-		controller: 'EmployeeManager'
-	})
-	.state('root.service.online', {
-		url: '/online',
-		templateUrl: 'views/service/online.html',
-		controller: 'ServiceManager'
-	})
-	.state('root.service.phone', {
-		url: '/phone',
-		templateUrl: 'views/service/phone.html',
-		controller: 'ServiceManager'
-	})
-	.state('root.service.data', {
-		url: '/data',
-		templateUrl: 'views/service/data.html',
-		controller: 'ServiceManager'
-	})
-
-
-	///////////////////////
-	// Financial Manager //
-	///////////////////////
 
 	.state('root.customerManager', {
 		url: 'customer-manager',
@@ -192,67 +151,25 @@ var uud = angular.module('mainApp', [
 	// Agents Manager //
 	////////////////////
 
-	.state('root.agents', {
-		url: 'agents',
-		templateUrl: 'views/agents/template.html',
-		controller: 'AgentsCtrl',
-		accessCode: '04'
+	.state('root.data', {
+		url: 'data',
+		templateUrl: 'views/data/layout.html',
+		controller: 'DataCtrl'
 	})
-	.state('root.agents.list', {
-		url: '/list',
-		templateUrl: 'views/agents/list.html',
-		controller: 'AgentsManager',
-		access: 'admin'
+	.state('root.data.ordermanager', {
+		url: '/order-manager',
+		templateUrl: 'views/data/ordermanager.html',
+		controller: 'OrderManager'
 	})
-	.state('root.agents.rank', {
-		url: '/rank',
-		templateUrl: 'views/agents/rank.html',
-		controller: 'AgentsManager'
+	.state('root.data.work', {
+		url: '/work',
+		templateUrl: 'views/data/work.html',
+		controller: 'Work'
 	})
-	.state('root.agents.locationpromo', {
-		url: '/location-promo',
-		templateUrl: 'views/agents/locationpromo.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.selling', {
-		url: '/selling',
-		templateUrl: 'views/agents/selling.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.entryexit', {
-		url: '/entry-exit',
-		templateUrl: 'views/agents/entryexit.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.commissionmanager', {
-		url: '/commissionmanager',
-		templateUrl: 'views/agents/commissionmanager.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.contractmanager', {
-		url: '/contractmanager',
-		templateUrl: 'views/agents/contractmanager.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.financemanager', {
-		url: '/financemanager',
-		templateUrl: 'views/agents/financemanager.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.promocode', {
-		url: '/promocode',
-		templateUrl: 'views/agents/promocode.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.sales', {
-		url: '/sales',
-		templateUrl: 'views/agents/sales.html',
-		controller: 'AgentsManager'
-	})
-	.state('root.agents.assessment', {
-		url: '/assessment',
-		templateUrl: 'views/agents/assessment.html',
-		controller: 'AgentsManager'
+	.state('root.data.inventory', {
+		url: '/inventory',
+		templateUrl: 'views/data/inventory.html',
+		controller: 'Inventory'
 	})
 
 
@@ -260,15 +177,15 @@ var uud = angular.module('mainApp', [
 	// Ship Manager //
 	//////////////////
 
-	.state('root.ship', {
-		url: 'ship',
-		templateUrl: 'views/ship/template.html',
-		controller: 'ShipCtrl'
+	.state('root.qa', {
+		url: 'qa',
+		templateUrl: 'views/qa/layout.html',
+		controller: 'QACtrl'
 	})
-	.state('root.ship.summary', {
-		url: '/summary',
-		templateUrl: 'views/ship/summary.html',
-		controller: 'ShipManager'
+	.state('root.qa.list', {
+		url: '/list',
+		templateUrl: 'views/qa/list.html',
+		controller: 'List'
 	});
 
 }])

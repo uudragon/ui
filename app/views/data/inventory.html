@@ -1,0 +1,119 @@
+
+<h2>库存管理</h2>
+<hr/>
+<table class="uu-table">
+  <thead>
+    <tr>
+      <th>产品类别</th>
+      <th>产品名称</th>
+      <th>产品内容</th>
+      <th>库存数量</th>
+      <th>库存下限</th>
+      <th>产品编码</th>
+      <th>所在仓库</th>
+      <th class="opration">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="product in products">
+      <td ng-bind="product.type"></td>
+      <td ng-bind="product.name"></td>
+      <td ng-bind="product.content"></td>
+      <td ng-bind="product.sku"></td>
+      <td ng-bind="product.minSKU"></td>
+      <td ng-bind="product.SN"></td>
+      <td ng-bind="product.location"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="调库" ng-click="getProducts(product)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="补库" ng-click="fillProducts()"><span class="glyphicon glyphicon-comment"></span></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="order-details" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">调库</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>基本信息</legend>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">主题</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="user.name" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-order" class="control-label col-xs-3">出货仓库</label>
+              <div class="col-xs-7">
+                <input id="form-order" ng-model="user.order" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-sex" class="control-label col-xs-3">入货仓库</label>
+              <div class="col-xs-7">
+                <input id="form-sex" ng-model="user.gender" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good" class="control-label col-xs-3">调拨日期</label>
+              <div class="col-xs-7">
+                <input id="form-good" ng-model="user.good" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-telphone" class="control-label col-xs-3">产品名称</label>
+              <div class="col-xs-7">
+                <input id="form-telphone" ng-model="user.telphone" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-startDate" class="control-label col-xs-3">产品数量</label>
+              <div class="col-xs-7">
+                <input id="form-startDate" ng-model="user.startDate" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-child-name" class="control-label col-xs-3">创建人</label>
+              <div class="col-xs-7">
+                <input id="form-child-name" ng-model="user.childName" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-enddate" class="control-label col-xs-3">创建时间</label>
+              <div class="col-xs-7">
+                <input id="form-enddate" ng-model="user.enddate" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-child-gender" class="control-label col-xs-3">修改时间</label>
+              <div class="col-xs-7">
+                <input id="form-child-gender" ng-model="user.childGender" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-payway" class="control-label col-xs-3">审批人</label>
+              <div class="col-xs-7">
+                <input id="form-payway" ng-model="user.payway" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-birthday" class="control-label col-xs-3">状态</label>
+              <div class="col-xs-7">
+                <input id="form-birthday" ng-model="user.birthday" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-pay-status" class="control-label col-xs-3">审批状态</label>
+              <div class="col-xs-7">
+                <input id="form-pay-status" ng-model="user.payStatus" ng-disable="true" class="form-control input-sm"/>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

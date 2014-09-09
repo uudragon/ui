@@ -90,7 +90,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			d = new Date(+d);
 			d.setHours(0, 0, 0);
 			d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-			console.log('var');
 			var
 				year = d.getFullYear(),
 				month = d.getMonth() + 1,
