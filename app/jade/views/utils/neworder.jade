@@ -1,0 +1,33 @@
+include ../../modules/mixins.jade
+
+h2 新建来电工单
+hr
+
+form.form-horizontal
+	fieldset
+		.form-group.col-xs-6
+			+input('客户姓名', 'name')(ng-model='customer.name')
+		.form-group.col-xs-6
+			+select('工单状态', 'order-status')(ng-model='customer.orderStatus')
+				+option('已完成', 0)
+				+option('处理中', 0)
+				+option('待处理', 0)
+		.form-group.col-xs-6
+			+input('来电时间', 'call-time')(ng-model='customer.callTime')
+		.form-group.col-xs-6
+			+input('负责人', 'responser')(ng-model='customer.responser')
+		.form-group.col-xs-6
+			+select('查询类型', 'query-type')(ng-model='customer.queryType')
+				+option('产品', 0)
+				+option('售后服务', 0)
+				+option('订购', 0)
+				+option('支付', 0)
+				+option('物流', 0)
+		.form-group.col-xs-6
+			+input('联系电话', 'telphone')(ng-model='customer.telphone')
+		.form-group.col-xs-6
+			+textarea('内容', 'content')(ng-model='customer.content')
+
+		.form-group.col-xs-12.group-center-block
+			button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 保存
+			button.btn.uu-btn(data-dismiss='modal') 取消

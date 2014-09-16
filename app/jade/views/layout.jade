@@ -1,0 +1,121 @@
+include ../modules/mixins.jade
+
+.wrapper
+
+	//- Nav
+	//----------------------------------------------------------------
+	nav#header.navbar.navbar-default.navbar-static-top(role='navigation')
+		.container
+			- var navs = []
+			- var subnavs = []
+
+			- subnavs.push({href: 'root.customer.checkorder', label: '官网核实订单'})
+			- subnavs.push({href: 'root.customer.splitorder', label: '拆分订单'})
+			- subnavs.push({href: 'root.customer.complaints', label: '投诉'})
+			- navs.push({href: 'root.customer', label: '客户服务', auth: '01', subnavs: subnavs})
+
+			- subnavs = []
+			- subnavs.push({href: 'root.customerManager.employee', label: '员工管理'})
+			- subnavs.push({href: 'root.customerManager.online', label: '在线管理'})
+			- subnavs.push({href: 'root.customerManager.phone', label: '电话管理'})
+			- subnavs.push({href: 'root.customerManager.info', label: '信息管理'})
+			- navs.push({href: 'root.customerManager', label: '客服管理', auth: '02', subnavs: subnavs})
+
+			- subnavs = []
+			- subnavs.push({href: 'root.data.ordermanager', label: '官网核实订单'})
+			- subnavs.push({href: 'root.data.work', label: '拆分订单'})
+			- subnavs.push({href: 'root.data.inventory', label: '投诉'})
+			- navs.push({href: 'root.data', label: '数据管理', auth: '03', subnavs: subnavs})
+
+			- subnavs = []
+			- navs.push({href: 'root.qa.list', label: '知识库', auth: '02', subnavs: subnavs})
+
+			ul.nav.navbar-nav
+				each nav in navs
+					if (nav.subnavs.length)
+						li.dropdown(ng-class='{active: $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
+							a.dropdown-toggle=nav.label
+							ul.dropdown-menu(role='menu')
+								each subnav in nav.subnavs
+									li
+										a(ui-sref=subnav.href, ng-class='{active: $state.is("' + subnav.href + '")}')=subnav.label
+					else
+						li(ng-class='{active: $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
+							a(ui-sref=nav.href)=nav.label
+
+			ul.nav.navbar-nav.navbar-right
+				li
+					+tooltip('新建来电工单', 'bottom')(ui-sref='root.utils.neworder')
+						+glyphicon('plus')
+				li
+					+tooltip('查找订单', 'bottom')
+						+glyphicon('search')
+				li
+					+tooltip('群发信息', 'bottom')
+						+glyphicon('comment')
+				li
+					+tooltip('群发邮件', 'bottom')
+						+glyphicon('envelope')
+				li
+					+tooltip('修改密码', 'bottom')
+						+glyphicon('wrench')
+				li
+					+tooltip('退出系统', 'bottom')
+						+glyphicon('log-out')
+
+	.container
+		//- Page Info
+		//----------------------------------------------------------------
+
+		.pg-info
+			.row
+				.col-xs-2.leftside
+					a(href='#')
+						img.brand(src='images/logo.png', alt='logo', width='125', height='60')
+						p.des 幼小衔接家庭课程专家
+				.col-xs-10.rightside
+					.row
+						ul.list-inline
+							li
+								+key-val('当前日期', 'date | date : "yyyy-MM-dd"')
+							li
+								+key-val('分机', 'currentUser.phone')
+							li
+								+key-val('坐席', 'currentUser.positions')
+							li
+								+key-val('状态', 'currentUser.isValid')
+							li
+								span.key 计时:
+								span(timing="'h:mm:ss'")
+							li
+								+key-val('工号', 'currentUser.userNo')
+							li
+								+key-val('姓名', 'currentUser.name')
+							li
+								+key-val('所在组', 'currentUser.groupId')
+
+						hr
+
+						table.table
+							tr
+								td
+									+key-val('网络沟通量', 'currentUser.userNo')
+								td
+									+key-val('电话接听量', 'currentUser.name')
+								td
+									+key-val('电话外呼量', 'currentUser.groupId')
+							tr
+								td
+									+key-val('今日工单数量', 'currentUser.userNo')
+								td
+									+key-val('今日订单数量', 'currentUser.name')
+								td
+									+key-val('预约客户数量', 'currentUser.groupId')
+
+		.splitline
+
+		//- Page Content
+		//----------------------------------------------------------------
+		.row
+			.col-xs-12.main
+				div(ui-view='')

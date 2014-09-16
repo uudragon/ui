@@ -14,7 +14,7 @@ angular.module('mainApp')
 	$scope.range = function(n) {
 		return new Array(n);
 	};
-	    
+
 	$scope.$on('auth:invalid', function(e, d) {
 		Auth.logout();
 	})
@@ -23,13 +23,13 @@ angular.module('mainApp')
 		$scope.model = {};
 		form.$setPristine();
 		$scope.submitted = false;
-	}
+	};
 
 	// load records or statistics
 	$scope.load = function(type, keyname, errorCallBack, successCallBack) {
-		Resource.load($scope.model, type) 
+		Resource.load($scope.model, type)
 			.success(function(data, status) {
-				
+
 				if (keyname) {
 					$scope[keyname] = data;
 				} else {
@@ -82,7 +82,7 @@ angular.module('mainApp')
 
 			})
 			.error(function(data, status) {
-				
+
 			})
 		$('#uumodal').modal('hide');
 	}

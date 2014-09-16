@@ -9,7 +9,7 @@
 mixin tooltip(title, placement, action)
 	if placement === null
 		- var placement = 'bottom'
-	a(href='', uu-tooltip, data-placement=placement, data-toggle='tooltip', title=title, class!=attributes.class, ng-click=action)
+	a(href='', ui-sref=attributes['ui-sref'] uu-tooltip, data-placement=placement, data-toggle='tooltip', title=title, class!=attributes.class, ng-click=action)
 		if block
 			block
 
@@ -46,8 +46,9 @@ mixin select(title, id)
 mixin plain-select(title, id, options)
 	label.control-label(for='form-' + id)=title
 	select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
-		each val in options
-			+option(val.title, val.value)
+		if options
+			each val in options
+				+option(val.title, val.value)
 
 //- html option helper
 mixin option(title, value)
@@ -82,6 +83,10 @@ mixin hgroup()
 
 //- Other HTML helpers
 //- ----------------------
+
+mixin key-val(key, val)
+	span.key=key + ': '
+	span.val(ng-bind=val)
 
 mixin sub-navbar-link(href, name)
 	a(ui-sref=href, ng-class='{active: $state.is("' + href + '")}')=name

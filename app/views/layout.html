@@ -1,0 +1,100 @@
+
+<div class="wrapper">
+  <nav id="header" role="navigation" class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li ng-class="{active: $state.includes(&quot;root.customer&quot;)}" uu-auth-filter="01" class="dropdown"><a class="dropdown-toggle">客户服务</a>
+          <ul role="menu" class="dropdown-menu">
+            <li><a ui-sref="root.customer.checkorder" ng-class="{active: $state.is(&quot;root.customer.checkorder&quot;)}">官网核实订单</a></li>
+            <li><a ui-sref="root.customer.splitorder" ng-class="{active: $state.is(&quot;root.customer.splitorder&quot;)}">拆分订单</a></li>
+            <li><a ui-sref="root.customer.complaints" ng-class="{active: $state.is(&quot;root.customer.complaints&quot;)}">投诉</a></li>
+          </ul>
+        </li>
+        <li ng-class="{active: $state.includes(&quot;root.customerManager&quot;)}" uu-auth-filter="02" class="dropdown"><a class="dropdown-toggle">客服管理</a>
+          <ul role="menu" class="dropdown-menu">
+            <li><a ui-sref="root.customerManager.employee" ng-class="{active: $state.is(&quot;root.customerManager.employee&quot;)}">员工管理</a></li>
+            <li><a ui-sref="root.customerManager.online" ng-class="{active: $state.is(&quot;root.customerManager.online&quot;)}">在线管理</a></li>
+            <li><a ui-sref="root.customerManager.phone" ng-class="{active: $state.is(&quot;root.customerManager.phone&quot;)}">电话管理</a></li>
+            <li><a ui-sref="root.customerManager.info" ng-class="{active: $state.is(&quot;root.customerManager.info&quot;)}">信息管理</a></li>
+          </ul>
+        </li>
+        <li ng-class="{active: $state.includes(&quot;root.data&quot;)}" uu-auth-filter="03" class="dropdown"><a class="dropdown-toggle">数据管理</a>
+          <ul role="menu" class="dropdown-menu">
+            <li><a ui-sref="root.data.ordermanager" ng-class="{active: $state.is(&quot;root.data.ordermanager&quot;)}">官网核实订单</a></li>
+            <li><a ui-sref="root.data.work" ng-class="{active: $state.is(&quot;root.data.work&quot;)}">拆分订单</a></li>
+            <li><a ui-sref="root.data.inventory" ng-class="{active: $state.is(&quot;root.data.inventory&quot;)}">投诉</a></li>
+          </ul>
+        </li>
+        <li ng-class="{active: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02"><a ui-sref="root.qa.list">知识库</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="" ui-sref="root.utils.neworder" uu-tooltip="uu-tooltip" data-placement="bottom" data-toggle="tooltip" title="新建来电工单"><span class="glyphicon glyphicon-plus"></span></a>
+        </li>
+        <li><a href="" uu-tooltip="uu-tooltip" data-placement="bottom" data-toggle="tooltip" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
+        </li>
+        <li><a href="" uu-tooltip="uu-tooltip" data-placement="bottom" data-toggle="tooltip" title="群发信息"><span class="glyphicon glyphicon-comment"></span></a>
+        </li>
+        <li><a href="" uu-tooltip="uu-tooltip" data-placement="bottom" data-toggle="tooltip" title="群发邮件"><span class="glyphicon glyphicon-envelope"></span></a>
+        </li>
+        <li><a href="" uu-tooltip="uu-tooltip" data-placement="bottom" data-toggle="tooltip" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
+        </li>
+        <li><a href="" uu-tooltip="uu-tooltip" data-placement="bottom" data-toggle="tooltip" title="退出系统"><span class="glyphicon glyphicon-log-out"></span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="pg-info">
+      <div class="row">
+        <div class="col-xs-2 leftside"><a href="#"><img src="images/logo.png" alt="logo" width="125" height="60" class="brand"/>
+            <p class="des">幼小衔接家庭课程专家</p></a></div>
+        <div class="col-xs-10 rightside">
+          <div class="row">
+            <ul class="list-inline">
+              <li><span class="key">当前日期: </span><span ng-bind="date | date : &quot;yyyy-MM-dd&quot;" class="val"></span>
+              </li>
+              <li><span class="key">分机: </span><span ng-bind="currentUser.phone" class="val"></span>
+              </li>
+              <li><span class="key">坐席: </span><span ng-bind="currentUser.positions" class="val"></span>
+              </li>
+              <li><span class="key">状态: </span><span ng-bind="currentUser.isValid" class="val"></span>
+              </li>
+              <li><span class="key">计时:</span><span timing="'h:mm:ss'"></span></li>
+              <li><span class="key">工号: </span><span ng-bind="currentUser.userNo" class="val"></span>
+              </li>
+              <li><span class="key">姓名: </span><span ng-bind="currentUser.name" class="val"></span>
+              </li>
+              <li><span class="key">所在组: </span><span ng-bind="currentUser.groupId" class="val"></span>
+              </li>
+            </ul>
+            <hr/>
+            <table class="table">
+              <tr>
+                <td><span class="key">网络沟通量: </span><span ng-bind="currentUser.userNo" class="val"></span>
+                </td>
+                <td><span class="key">电话接听量: </span><span ng-bind="currentUser.name" class="val"></span>
+                </td>
+                <td><span class="key">电话外呼量: </span><span ng-bind="currentUser.groupId" class="val"></span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="key">今日工单数量: </span><span ng-bind="currentUser.userNo" class="val"></span>
+                </td>
+                <td><span class="key">今日订单数量: </span><span ng-bind="currentUser.name" class="val"></span>
+                </td>
+                <td><span class="key">预约客户数量: </span><span ng-bind="currentUser.groupId" class="val"></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="splitline"></div>
+    <div class="row">
+      <div class="col-xs-12 main">
+        <div ui-view=""></div>
+      </div>
+    </div>
+  </div>
+</div>

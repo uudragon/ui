@@ -74,7 +74,7 @@ var uud = angular.module('mainApp', [
 
 	.state('root', {
 		url: '/',
-		templateUrl: 'views/template.html',
+		templateUrl: 'views/layout.html',
 		controller: 'MainCtrl'
 	})
 
@@ -113,6 +113,17 @@ var uud = angular.module('mainApp', [
 		url: '/complaints',
 		templateUrl: 'views/customer/complaints.html',
 		controller: 'checkComplainOrdersCtrl'
+	})
+
+	.state('root.utils', {
+		url: 'utils',
+		templateUrl: 'views/utils/layout.html',
+		controller: 'UtilsCtrl'
+	})
+	.state('root.utils.neworder', {
+		url: '/neworder',
+		templateUrl: 'views/utils/neworder.html',
+		controller: 'NewOrder'
 	})
 
 
