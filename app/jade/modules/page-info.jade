@@ -1,0 +1,44 @@
+.pg-info
+	.row
+		.col-xs-2.leftside
+			a(href='#')
+				img.brand(src='images/logo.png', alt='logo', width='125', height='60')
+				p.des 幼小衔接家庭课程专家
+		.col-xs-10.rightside
+			.row
+				ul.list-inline
+					li
+						+key-val('当前日期', 'date | date : "yyyy-MM-dd"')
+					li
+						+key-val('分机', 'currentUser.phone')
+					li
+						+key-val('坐席', 'currentUser.positions')
+					li
+						+key-val('状态', 'currentUser.isValid')
+					li
+						span.key 计时:
+						span(timing="'h:mm:ss'")
+					li
+						+key-val('工号', 'currentUser.userNo')
+					li
+						+key-val('姓名', 'currentUser.name')
+					li
+						+key-val('所在组', 'currentUser.groupId')
+
+				hr
+
+				table.table
+					tr
+						td
+							+key-val('网络沟通量', 'currentUser.userNo')
+						td
+							+key-val('电话接听量', 'currentUser.name')
+						td
+							+key-val('电话外呼量', 'currentUser.groupId')
+					tr
+						td
+							+key-val('今日工单数量', 'currentUser.userNo')
+						td
+							+key-val('今日订单数量', 'currentUser.name')
+						td
+							+key-val('预约客户数量', 'currentUser.groupId')

@@ -1,0 +1,52 @@
+- var sections = []
+- var navs = []
+- var subnavs = []
+
+- subnavs.push({href: 'root.customer.checkorder', label: '官网核实订单'})
+- subnavs.push({href: 'root.customer.splitorder', label: '拆分订单'})
+- subnavs.push({href: 'root.customer.complaints', label: '投诉'})
+- navs.push({href: 'root.customer', label: '客户服务', auth: '01', subnavs: subnavs})
+
+- subnavs = []
+- subnavs.push({href: 'root.customerManager.employee', label: '员工管理'})
+- subnavs.push({href: 'root.customerManager.online', label: '在线管理'})
+- subnavs.push({href: 'root.customerManager.phone', label: '电话管理'})
+- subnavs.push({href: 'root.customerManager.info', label: '信息管理'})
+- navs.push({href: 'root.customerManager', label: '客服管理', auth: '02', subnavs: subnavs})
+
+- subnavs = []
+- subnavs.push({href: 'root.data.ordermanager', label: '官网核实订单'})
+- subnavs.push({href: 'root.data.work', label: '拆分订单'})
+- subnavs.push({href: 'root.data.inventory', label: '投诉'})
+- navs.push({href: 'root.data', label: '数据管理', auth: '03', subnavs: subnavs})
+
+- subnavs = []
+- navs.push({href: 'root.qa.list', label: '知识库', auth: '02', subnavs: subnavs})
+
+- sections.push({navs: navs, label: '商务客服'})
+
+- navs = []
+- sections.push({navs: navs, label: '库存管理'})
+
+- navs = []
+- sections.push({navs: navs, label: '经销商管理'})
+
+- navs = []
+- sections.push({navs: navs, label: '财务管理'})
+
+ul.nav.nav-sections(uu-sidebar='')
+	each section in sections
+		li.section-item
+			a=section.label
+			ul.nav.nav-navs
+				each nav in section.navs
+					if (nav.subnavs.length)
+						li(ng-class='{"active open": $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
+							a.nav-menu-label=nav.label
+							ul.nav.nav-menu(role='menu')
+								each subnav in nav.subnavs
+									li
+										a(ui-sref=subnav.href, ng-class='{active: $state.is("' + subnav.href + '")}')=subnav.label
+					else
+						li(ng-class='{active: $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
+							a(ui-sref=nav.href)=nav.label
