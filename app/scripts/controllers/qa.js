@@ -15,7 +15,7 @@ angular.module('mainApp')
 
 
 		// inherit functions from parent
-		$controller('ShipCtrl', {$scope: $scope});
+		$controller('QACtrl', {$scope: $scope});
 
 	}])
 	.controller('List', ['$scope', '$controller', function ($scope, $controller) {

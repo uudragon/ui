@@ -1,0 +1,19 @@
+ul.nav.navbar-nav.navbar-right
+	li
+		+tooltip('新建来电工单', 'top')(ui-sref='root.utils.neworder')
+			+glyphicon('plus')
+	li
+		+tooltip('查找订单', 'top')
+			+glyphicon('search')
+	li
+		+tooltip('群发信息', 'top')
+			+glyphicon('comment')
+	li
+		+tooltip('群发邮件', 'top')
+			+glyphicon('envelope')
+	li
+		+tooltip('修改密码', 'top')
+			+glyphicon('wrench')
+	li
+		+tooltip('退出系统', 'top')
+			+glyphicon('log-out')

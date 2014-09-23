@@ -6,9 +6,13 @@
  */
 
 .pg-info {
-	// padding: 14px 0;
-	// background: url('../images/body-bg.png');
+	background: url('../images/body-bg.png');
 	border: none;
+
+	> .container {
+		margin: 0 auto;
+		padding: 10px 0 8px 0;
+	}
 
 	hr {
 		margin: 0 14px 3px 8px;
@@ -29,10 +33,11 @@
 		}
 	}
 
-	/* left side start */
+	/* left side */
 
 	.leftside {
 		margin-top: 10px;
+		padding-left: 0;
 	}
 
 	.brand {

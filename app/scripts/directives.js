@@ -557,14 +557,18 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		link: function($scope, elem) {
 			var
 				menus = elem.find('.nav-menu-label')
+				setions = elem.find('.nav-sections-label'),
+				toggleFn = function() {
+					$(this).next().slideToggle('fast', function() {
+						$(this).parents('li').toggleClass('open');
+					}).parents('li').siblings().find('.nav.nav-menu').slideUp('fast', function() {
+						$(this).parents('li').removeClass('open');
+					});
+				};
+			console.log(setions);
+			menus.on('click', toggleFn);
+			setions.on('click', toggleFn);
 
-			menus.on('click', function() {
-				$(this).next().slideToggle('fast', function() {
-					$(this).parents('li').toggleClass('open');
-				}).parents('li').siblings().find('.nav.nav-menu').slideUp('fast', function() {
-					$(this).parents('li').removeClass('open');
-				});
-			})
 		}
 	}
 })

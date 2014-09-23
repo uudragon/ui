@@ -167,6 +167,14 @@ table {
 	@extend .table-bordered;
 	@extend .table-hover;
 	@extend .table-center;
+
+	.checkbox {
+		margin: 0;
+
+		input[type="checkbox"] {
+			top: -1px;
+		}
+	}
 }
 
 .result {

@@ -37,7 +37,7 @@
 ul.nav.nav-sections(uu-sidebar='')
 	each section in sections
 		li.section-item
-			a=section.label
+			a.nav-sections-label=section.label
 			ul.nav.nav-navs
 				each nav in section.navs
 					if (nav.subnavs.length)

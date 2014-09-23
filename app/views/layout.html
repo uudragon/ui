@@ -1,57 +1,57 @@
 
 <div class="wrapper">
-  <div class="container">
-    <div class="pg-info">
-      <div class="row">
-        <div class="col-xs-2 leftside"><a href="#"><img src="images/logo.png" alt="logo" width="125" height="60" class="brand"/>
-            <p class="des">幼小衔接家庭课程专家</p></a></div>
-        <div class="col-xs-10 rightside">
-          <div class="row">
-            <ul class="list-inline">
-              <li><span class="key">当前日期: </span><span ng-bind="date | date : &quot;yyyy-MM-dd&quot;" class="val"></span>
-              </li>
-              <li><span class="key">分机: </span><span ng-bind="currentUser.phone" class="val"></span>
-              </li>
-              <li><span class="key">坐席: </span><span ng-bind="currentUser.positions" class="val"></span>
-              </li>
-              <li><span class="key">状态: </span><span ng-bind="currentUser.isValid" class="val"></span>
-              </li>
-              <li><span class="key">计时:</span><span timing="'h:mm:ss'"></span></li>
-              <li><span class="key">工号: </span><span ng-bind="currentUser.userNo" class="val"></span>
-              </li>
-              <li><span class="key">姓名: </span><span ng-bind="currentUser.name" class="val"></span>
-              </li>
-              <li><span class="key">所在组: </span><span ng-bind="currentUser.groupId" class="val"></span>
-              </li>
-            </ul>
-            <hr/>
-            <table class="table">
-              <tr>
-                <td><span class="key">网络沟通量: </span><span ng-bind="currentUser.userNo" class="val"></span>
-                </td>
-                <td><span class="key">电话接听量: </span><span ng-bind="currentUser.name" class="val"></span>
-                </td>
-                <td><span class="key">电话外呼量: </span><span ng-bind="currentUser.groupId" class="val"></span>
-                </td>
-              </tr>
-              <tr>
-                <td><span class="key">今日工单数量: </span><span ng-bind="currentUser.userNo" class="val"></span>
-                </td>
-                <td><span class="key">今日订单数量: </span><span ng-bind="currentUser.name" class="val"></span>
-                </td>
-                <td><span class="key">预约客户数量: </span><span ng-bind="currentUser.groupId" class="val"></span>
-                </td>
-              </tr>
-            </table>
-          </div>
+  <div class="pg-info">
+    <div class="container">
+      <div class="col-xs-2 leftside"><a href="#"><img src="images/logo.png" alt="logo" width="125" height="60" class="brand"/>
+          <p class="des">幼小衔接家庭课程专家</p></a></div>
+      <div class="col-xs-10 rightside">
+        <div class="row">
+          <ul class="list-inline">
+            <li><span class="key">当前日期: </span><span ng-bind="date | date : &quot;yyyy-MM-dd&quot;" class="val"></span>
+            </li>
+            <li><span class="key">分机: </span><span ng-bind="currentUser.phone" class="val"></span>
+            </li>
+            <li><span class="key">坐席: </span><span ng-bind="currentUser.positions" class="val"></span>
+            </li>
+            <li><span class="key">状态: </span><span ng-bind="currentUser.isValid" class="val"></span>
+            </li>
+            <li><span class="key">计时:</span><span timing="'h:mm:ss'"></span></li>
+            <li><span class="key">工号: </span><span ng-bind="currentUser.userNo" class="val"></span>
+            </li>
+            <li><span class="key">姓名: </span><span ng-bind="currentUser.name" class="val"></span>
+            </li>
+            <li><span class="key">所在组: </span><span ng-bind="currentUser.groupId" class="val"></span>
+            </li>
+          </ul>
+          <hr/>
+          <table class="table">
+            <tr>
+              <td><span class="key">网络沟通量: </span><span ng-bind="currentUser.userNo" class="val"></span>
+              </td>
+              <td><span class="key">电话接听量: </span><span ng-bind="currentUser.name" class="val"></span>
+              </td>
+              <td><span class="key">电话外呼量: </span><span ng-bind="currentUser.groupId" class="val"></span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="key">今日工单数量: </span><span ng-bind="currentUser.userNo" class="val"></span>
+              </td>
+              <td><span class="key">今日订单数量: </span><span ng-bind="currentUser.name" class="val"></span>
+              </td>
+              <td><span class="key">预约客户数量: </span><span ng-bind="currentUser.groupId" class="val"></span>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
-    <div class="splitline"></div>
+  </div>
+  <div class="splitline"></div>
+  <div class="container">
     <div class="row">
       <div class="col-xs-2 left-sidebar">
         <ul uu-sidebar="" class="nav nav-sections">
-          <li class="section-item"><a>商务客服</a>
+          <li class="section-item"><a class="nav-sections-label">商务客服</a>
             <ul class="nav nav-navs">
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.customer&quot;)}" uu-auth-filter="01"><a class="nav-menu-label">客户服务</a>
                 <ul role="menu" class="nav nav-menu">
@@ -78,15 +78,15 @@
               <li ng-class="{active: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02"><a ui-sref="root.qa.list">知识库</a></li>
             </ul>
           </li>
-          <li class="section-item"><a>库存管理</a>
+          <li class="section-item"><a class="nav-sections-label">库存管理</a>
             <ul class="nav nav-navs">
             </ul>
           </li>
-          <li class="section-item"><a>经销商管理</a>
+          <li class="section-item"><a class="nav-sections-label">经销商管理</a>
             <ul class="nav nav-navs">
             </ul>
           </li>
-          <li class="section-item"><a>财务管理</a>
+          <li class="section-item"><a class="nav-sections-label">财务管理</a>
             <ul class="nav nav-navs">
             </ul>
           </li>
