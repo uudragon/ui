@@ -1,0 +1,14 @@
+.action-bar {
+	@extend .nav;
+	@extend .navbar-nav;
+	@extend .navbar-right;
+
+	padding: 15px 0;
+
+	> li > a {
+		padding: 0 15px;
+		&:hover {
+			background: none;
+		}
+	}
+}

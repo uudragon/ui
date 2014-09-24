@@ -1,6 +1,18 @@
 
-<h2>官网核实定单</h2>
-<hr/>
+<ul class="action-bar">
+  <li><a href="" ui-sref="root.utils.neworder" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="新建来电工单"><span class="glyphicon glyphicon-plus"></span></a>
+  </li>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
+  </li>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="群发信息"><span class="glyphicon glyphicon-comment"></span></a>
+  </li>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="群发邮件"><span class="glyphicon glyphicon-envelope"></span></a>
+  </li>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
+  </li>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="退出系统"><span class="glyphicon glyphicon-log-out"></span></a>
+  </li>
+</ul>
 <div class="criteria-bar">
   <form role="form" class="form-inline">
     <div class="form-group">
@@ -13,9 +25,7 @@
         <option value="0">下属的客户</option>
       </select>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="转移"><span class="glyphicon glyphicon-transfer"></span></a>
-    </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="更多操作"><span class="glyphicon glyphicon-send"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -35,6 +45,13 @@
 <table class="uu-table">
   <thead>
     <tr>
+      <th>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll()"/>全选
+          </label>
+        </div>
+      </th>
       <th>客户姓名</th>
       <th>订单编号</th>
       <th>客户电话</th>
@@ -49,6 +66,9 @@
   </thead>
   <tbody>
     <tr ng-repeat="order in orders | filter:filterPay">
+      <td>
+        <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(order)"/>
+      </td>
       <td ng-bind="order.customerName"></td>
       <td><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
       </td>
@@ -59,7 +79,7 @@
       <td ng-bind="order.payStatus | payStatus"></td>
       <td ng-bind="order.createTime"></td>
       <td ng-bind="order.contactTimes"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -180,7 +200,7 @@
                   <td>已支付</td>
                   <td>2010-06-01</td>
                   <td>正常</td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-send"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-share"></span></a>
                   </td>
                 </tr>
               </tbody>

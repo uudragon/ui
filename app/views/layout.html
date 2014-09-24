@@ -2,7 +2,7 @@
 <div class="wrapper">
   <div class="pg-info">
     <div class="container">
-      <div class="col-xs-2 leftside"><a href="#"><img src="images/logo.png" alt="logo" width="125" height="60" class="brand"/>
+      <div class="col-xs-2 leftside"><a ui-sref="root.home"><img src="images/logo.png" alt="logo" width="125" height="60" class="brand"/>
           <p class="des">幼小衔接家庭课程专家</p></a></div>
       <div class="col-xs-10 rightside">
         <div class="row">
@@ -46,21 +46,20 @@
       </div>
     </div>
   </div>
-  <div class="splitline"></div>
   <div class="container">
     <div class="row">
       <div class="col-xs-2 left-sidebar">
         <ul uu-sidebar="" class="nav nav-sections">
           <li class="section-item"><a class="nav-sections-label">商务客服</a>
             <ul class="nav nav-navs">
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.customer&quot;)}" uu-auth-filter="01"><a class="nav-menu-label">客户服务</a>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.customer&quot;)}" uu-auth-filter="01" class="nav-item"><a class="nav-menu-label">客户服务</a>
                 <ul role="menu" class="nav nav-menu">
                   <li><a ui-sref="root.customer.checkorder" ng-class="{active: $state.is(&quot;root.customer.checkorder&quot;)}">官网核实订单</a></li>
                   <li><a ui-sref="root.customer.splitorder" ng-class="{active: $state.is(&quot;root.customer.splitorder&quot;)}">拆分订单</a></li>
                   <li><a ui-sref="root.customer.complaints" ng-class="{active: $state.is(&quot;root.customer.complaints&quot;)}">投诉</a></li>
                 </ul>
               </li>
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.customerManager&quot;)}" uu-auth-filter="02"><a class="nav-menu-label">客服管理</a>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.customerManager&quot;)}" uu-auth-filter="02" class="nav-item"><a class="nav-menu-label">客服管理</a>
                 <ul role="menu" class="nav nav-menu">
                   <li><a ui-sref="root.customerManager.employee" ng-class="{active: $state.is(&quot;root.customerManager.employee&quot;)}">员工管理</a></li>
                   <li><a ui-sref="root.customerManager.online" ng-class="{active: $state.is(&quot;root.customerManager.online&quot;)}">在线管理</a></li>
@@ -68,14 +67,14 @@
                   <li><a ui-sref="root.customerManager.info" ng-class="{active: $state.is(&quot;root.customerManager.info&quot;)}">信息管理</a></li>
                 </ul>
               </li>
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.data&quot;)}" uu-auth-filter="03"><a class="nav-menu-label">数据管理</a>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.data&quot;)}" uu-auth-filter="03" class="nav-item"><a class="nav-menu-label">数据管理</a>
                 <ul role="menu" class="nav nav-menu">
                   <li><a ui-sref="root.data.ordermanager" ng-class="{active: $state.is(&quot;root.data.ordermanager&quot;)}">官网核实订单</a></li>
                   <li><a ui-sref="root.data.work" ng-class="{active: $state.is(&quot;root.data.work&quot;)}">拆分订单</a></li>
                   <li><a ui-sref="root.data.inventory" ng-class="{active: $state.is(&quot;root.data.inventory&quot;)}">投诉</a></li>
                 </ul>
               </li>
-              <li ng-class="{active: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02"><a ui-sref="root.qa.list">知识库</a></li>
+              <li ng-class="{active: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02" class="nav-item"><a ui-sref="root.qa.list">知识库</a></li>
             </ul>
           </li>
           <li class="section-item"><a class="nav-sections-label">库存管理</a>

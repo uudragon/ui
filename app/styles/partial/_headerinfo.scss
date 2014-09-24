@@ -8,6 +8,7 @@
 .pg-info {
 	background: url('../images/body-bg.png');
 	border: none;
+	box-shadow: 0 1px 5px #ccc;
 
 	> .container {
 		margin: 0 auto;
@@ -38,6 +39,12 @@
 	.leftside {
 		margin-top: 10px;
 		padding-left: 0;
+		> a {
+			&:hover {
+				text-decoration: none;
+				color: #111;
+			}
+		}
 	}
 
 	.brand {

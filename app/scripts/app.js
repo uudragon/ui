@@ -86,7 +86,8 @@ var uud = angular.module('mainApp', [
 
 	.state('root.home', {
 		url: 'home',
-		templateUrl: 'views/home.html'
+		templateUrl: 'views/home.html',
+		controller: 'HomeCtrl'
 	})
 
 

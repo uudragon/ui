@@ -560,15 +560,13 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				setions = elem.find('.nav-sections-label'),
 				toggleFn = function() {
 					$(this).next().slideToggle('fast', function() {
-						$(this).parents('li').toggleClass('open');
-					}).parents('li').siblings().find('.nav.nav-menu').slideUp('fast', function() {
-						$(this).parents('li').removeClass('open');
+						$(this).parent('li').toggleClass('open');
+					}).parents('li').siblings().find('ul.nav').slideUp('fast', function() {
+						$(this).parent('li').removeClass('open');
 					});
 				};
-			console.log(setions);
 			menus.on('click', toggleFn);
-			setions.on('click', toggleFn);
-
+			// setions.on('click', toggleFn);
 		}
 	}
 })

@@ -1,8 +1,9 @@
 include ../../modules/mixins.jade
 
-h2 官网核实定单
-hr
+//- h2 官网核实定单
+//- hr
 
+include ../../modules/action-bar.jade
 
 //- 功能区
 .criteria-bar
@@ -15,12 +16,9 @@ hr
 					+option(val.title, val.value)
 
 		.btn.uu-btn
-			+tooltip('转移', 'top')
-				+glyphicon('transfer')
+			+tooltip('查询', 'top')
+				+glyphicon('search')
 
-		.btn.uu-btn
-			+tooltip('更多操作', 'top')
-				+glyphicon('send')
 
 //- 订单列表过滤条件
 .filter-bar
@@ -38,10 +36,17 @@ hr
 //- 订单列表
 table.uu-table
 	+thead
+		th
+			.checkbox
+				label
+					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll()')
+					| 全选
 		each th in ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具']
 			th=th
 	tbody
 		tr(ng-repeat='order in orders | filter:filterPay')
+			td
+				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked(order)')
 			td(ng-bind='order.customerName')
 			td
 				+jslink('showOrder(order)')(ng-bind='order.orderSN')
@@ -53,11 +58,11 @@ table.uu-table
 			td(ng-bind='order.createTime')
 			td(ng-bind='order.contactTimes')
 			td
-				+tooltip('修改', 'left', 'showOrder(order)')
+				+tooltip('修改', 'top', 'showOrder(order)')
 					+glyphicon('pencil')
 						&nbsp;
 
-				+tooltip('发送消息', 'right')
+				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
 
@@ -119,12 +124,12 @@ table.uu-table
 							td 2010-06-01
 							td 正常
 							td
-								+tooltip('修改', 'left')
+								+tooltip('修改', 'top')
 									+glyphicon('pencil')
 										&nbsp;
 
 								+tooltip('共享订单', 'top', 'shareOrder()')
-									+glyphicon('send')
+									+glyphicon('share')
 
 			p
 				ul.list-inline
