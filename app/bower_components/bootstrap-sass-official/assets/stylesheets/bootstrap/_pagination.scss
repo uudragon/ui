@@ -16,7 +16,7 @@
       padding: $padding-base-vertical $padding-base-horizontal;
       line-height: $line-height-base;
       text-decoration: none;
-      color: $pagination-color;
+      // color: $pagination-color;
       background-color: $pagination-bg;
       border: 1px solid $pagination-border;
       margin-left: -1px;
@@ -71,6 +71,16 @@
       border-color: $pagination-disabled-border;
       cursor: not-allowed;
     }
+  }
+  .select {
+    // padding: 6px 12px;
+    // font-size: 14px;
+    // line-height: 1.42857;
+    // color: #555555;
+    // background-color: white;
+    // background-image: none;
+    border: none;
+
   }
 }
 

@@ -350,19 +350,21 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 .directive('uuPagination', function() {
 	return {
+		restrict: 'E',
+		replace: true,
 		scope: {
 			records: '=',
-			perPage: '=',
-			maxPages: '=',
 			action: '&',
 			current: '=page',
 			model: '='
 		},
 		link: function($scope, $element, attrs, model) {
 
-			var maxPages = $scope.maxPages || config.maxPages;
-			var perPage = $scope.perPage || config.perPage;
+			var maxPages = attrs.maxPages || config.maxPages;
+			var perPage = attrs.perPage || config.perPage;
 			var start = 1;
+
+			$scope.perPage = perPage;
 
 			updatePagination();
 
@@ -374,6 +376,13 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				var middlePage = start + Math.floor(pages / 2);
 				var offset = 0;
 
+				$scope.totalPages = totalPages;
+				$scope.aryTotalPage = [];
+
+				for (var i = 1; i <= totalPages; i++) {
+					$scope.aryTotalPage.push( { id: i, label: i } );
+				}
+
 				if ($scope.current > middlePage) {
 					offset = $scope.current - middlePage;
 					start += offset;
@@ -384,6 +393,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					start -= offset;
 				}
 
+				console.log('current is: ' + $scope.current);
 
 				start = betwwen(start, 1, totalPages - pages + 1);
 
@@ -396,44 +406,40 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				$scope.pages = [];
 
 				for (var i = start; i < start + pages; i++) {
-					$scope.pages.push(i);
+					$scope.pages.push( {id: i, label: i} );
 				}
 
-				// hide pagination when there is only one page
-				if (pages <= 1) {
-					$element.css('display', 'none');
-				}
 				return pages;
 			}
 
 			$scope.prev = function() {
-				$scope.current--;
-				if ($scope.current < 1) {
-					$scope.current =1;
-				}
-				updatePagination();
+				$scope.to($scope.current - 1);
 			};
 
 			$scope.to = function(page) {
-				$scope.current = page;
+				var toPage = betwwen(page, 1, $scope.totalPages);
+				$scope.current = toPage;
+				console.log('to', toPage);
 				updatePagination();
 			};
 
 			$scope.next = function() {
-				var totalPages = Math.ceil($scope.records / perPage);
-				$scope.current++;
-				if ($scope.current > totalPages) {
-					$scope.current = totalPages;
-				}
-				updatePagination();
+				// var totalPages = Math.ceil($scope.records / perPage);
+				console.log('next', $scope.current);
+				$scope.to($scope.current + 1);
 			};
 
 			// when current page changed, call function
 			$scope.$watch('current', function(current, prev, scope) {
+				console.log(current, prev);
 				if(current && current !== prev) {
 					scope.action();
 				}
 			});
+
+			$scope.updateCurrent = function() {
+				console.log($scope.current);
+			}
 
 			function betwwen(val, min, max) {
 				if (val < min) return min;
@@ -441,13 +447,21 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				return val;
 			}
 		},
-		template: '<div class="pagination-wraper">' +
-						'<ul class="pagination">' +
+		template: '<div class="pagination-wraper" ng-init="perPage=\'-1\'">' +
+						'<ul class="pagination" ng-if="pages">' +
 							'<li><a href="" ng-click="prev()" class="prev">&laquo;</a></li>' +
-							'<li ng-repeat="page in pages" ng-class="{active : current == page}">' +
-								'<a href="" ng-click="to(page)">{{page}}</a>' +
+							'<li ng-repeat="page in pages" ng-class="{active : current === page.id}">' +
+								'<a href="" ng-click="to(page.id)">{{page.label}}</a>' +
 							'</li>' +
 							'<li><a href="" ng-click="next()" class="next">&raquo;</a></li>' +
+							'<li><a>第 ' +
+								'<select ng-model="current" class="select" ng-change="updateCurrent()">' +
+									'<option value={{page.id}} ng-repeat="page in aryTotalPage">{{page.label}}</option>' +
+								'</select>' +
+							' 页</a></li>' +
+							'<li><a>共{{totalPages}}页 {{records}}条</a></li>' +
+							'<li><a>每页{{perPage}}条</a></li>' +
+							'<li><a>{{current}}页</a></li>' +
 						'</ul>' +
 					'</div>'
 	};
