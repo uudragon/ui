@@ -2,26 +2,27 @@
 
 $icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
-@import 'bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
 
 // Variables
-@import 'variables.scss';
+@import "variables";
 
 // Components
-@import 'scaffold.scss';
-@import 'shared.scss';
-@import 'navbar.scss';
-@import 'headerinfo.scss';
-@import 'action-bar.scss';
-@import 'login.scss';
-@import 'tables.scss';
-@import 'forms.scss';
-@import 'buttons.scss';
-@import 'dropdown.scss';
-@import 'others.scss';
-@import 'print.scss';
-@import 'modals.scss';
-@import 'fancytree.scss';
+@import "scaffold";
+@import "shared";
+@import "navbar";
+@import "headerinfo";
+@import "action-bar";
+@import "login";
+@import "tables";
+@import "forms";
+@import "buttons";
+@import "dropdown";
+@import "pagination";
+@import "others";
+@import "print";
+@import "modals";
+@import "fancytree";
 
-@import 'leftnav.scss';
-// @import 'chart.scss';
+@import "leftnav";
+// @import "chart";
