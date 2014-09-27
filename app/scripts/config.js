@@ -3,8 +3,8 @@
 
 	// global variables
 	exports.baseurl = '/bam/';
-	exports.perPage = 5;
-	exports.maxPages = 5;
+	exports.perPage = 4;
+	exports.maxPages = 6;
 
 	exports.auth = {
 		baseurl: '/at/ws/auth/',

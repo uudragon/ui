@@ -371,8 +371,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				$scope.to($scope.current - 1);
 			};
 
-			$scope.to = function(page) {
-				$scope.current = betwwen(page, 1, $scope.totalPages);
+			$scope.to = function(page, blnNotApply) {
+				if (!blnNotApply) $scope.current = betwwen(page, 1, $scope.totalPages);
 				updatePagination();
 			};
 
@@ -387,6 +387,14 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					scope.action($scope.model);
 				}
 			});
+
+			$scope.noPrev = function() {
+				return $scope.current <= 1;
+			}
+
+			$scope.noNext = function() {
+				return $scope.current >= $scope.totalPages;
+			}
 
 			function betwwen(val, min, max) {
 				if (val < min) return min;
@@ -436,17 +444,19 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		template: '<div class="pagination-wraper" >' +
 						'<ul class="pagination" ng-if="pages">' +
-							'<li><a href="" ng-click="prev()" class="prev">&laquo;</a></li>' +
+							'<li ng-class="{disabled : noPrev()}"><a href="" ng-click="to(1)" class="prev">&laquo;</a></li>' +
+							'<li ng-class="{disabled : noPrev()}"><a href="" ng-click="prev()" class="prev">‹</a></li>' +
 							'<li ng-repeat="page in pages" ng-class="{active : current === page}">' +
 								'<a href="" ng-click="to(page)">{{page}}</a>' +
 							'</li>' +
-							'<li><a href="" ng-click="next()" class="next">&raquo;</a></li>' +
+							'<li ng-class="{disabled : noNext()}"><a href="" ng-click="next()" class="next">›</a></li>' +
+							'<li ng-class="{disabled : noNext()}"><a href="" ng-click="to(totalPages)" class="next">&raquo;</a></li>' +
 							// '<li><a>第 ' +
-							// 	'<select ng-model="current" class="select" ng-options="page for page in aryTotalPage" ng-change="to(current)">' +
+							// 	'<select ng-model="current" class="select" ng-options="page for page in aryTotalPage" ng-change="to(current, true)">' +
 							// 	'</select>' +
 							// ' 页</a></li>' +
-							'<li><a>共{{totalPages}}页 / {{records}}条</a></li>' +
-							'<li><a>每页{{perPage}}条</a></li>' +
+							'<li class="pagination-info"><a>共<span class="pagination-badge" ng-bind="totalPages"></span>页 / <span class="pagination-badge" ng-bind="records"></span>条</a></li>' +
+							'<li class="pagination-info"><a>每页<span class="pagination-badge" ng-bind="perPage"></span>条</a></li>' +
 							// '<li><a>{{current}}页</a></li>' +
 						'</ul>' +
 					'</div>'
