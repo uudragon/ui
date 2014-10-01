@@ -7,7 +7,7 @@ angular.module('mainApp')
 
 	$scope.getOrders = function() {
 		console.log('pagination: ', $scope.searchModel);
-	}
+	};
 
 	$controller('MainCtrl', {$scope: $scope});
 }]);
