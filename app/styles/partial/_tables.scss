@@ -42,6 +42,43 @@ th {
 		&.opration {
 			min-width: 60px;
 		}
+
+		&.sort {
+			position: relative;
+			padding-right: 20px;
+			cursor: pointer;
+
+			&:before,
+			&:after {
+				position: absolute;
+				right: 6px;
+				content: ' ';
+				width: 5px;
+				height: 5px;
+				border: 5px solid transparent;
+			}
+
+			&:before {
+				border-bottom-color: #999;
+				top: 6px;
+			}
+
+			&:after {
+				top: 18px;
+				border-top-color: #999;
+			}
+
+			&.sort-desc {
+				&:before {
+					border-bottom-color: #ddd;
+				}
+			}
+			&.sort-asc {
+				&:after {
+					border-top-color: #ddd;
+				}
+			}
+		}
 	}
 	// Remove top border from thead by default
 	> caption + thead,

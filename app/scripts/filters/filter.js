@@ -37,6 +37,22 @@ angular.module('mainApp')
 		}
 	};
 })
+.filter('checkStatus', function() {
+	return function (num) {
+		switch (num) {
+			case '0':
+				return '待审核';
+			case '1':
+				return '审核中';
+			case '2':
+				return '审核通过';
+			case '3':
+				return '无效';
+			default:
+				break;
+		}
+	};
+})
 .filter('week', function() {
 	return function (num) {
 		switch (num.toString()) {

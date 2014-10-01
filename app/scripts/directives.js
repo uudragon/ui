@@ -561,6 +561,34 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuSort', function() {
+	return {
+		restrict: 'A',
+		priority: -10000,
+		scope: {
+			uuSort: '=',
+			sortName: '=',
+			action: '&'
+		},
+		link: function($scope, elem, attrs) {
+			var
+				isSortable = $scope.uuSort;
+			isSortable && elem.on('click', function() {
+				$scope.action({
+					name: $scope.sortName,
+					type: elem.hasClass('sort-desc') ? 'asc' : 'desc'
+				});
+
+				elem.siblings('.sort').removeClass('sort-desc').removeClass('sort-asc');
+
+				elem.hasClass('sort-desc') ?
+					elem.removeClass('sort-desc').addClass('sort-asc') :
+					elem.addClass('sort-desc').removeClass('sort-asc');
+			});
+		}
+	};
+})
+
 .directive('uuSidebar', function() {
 	return {
 		restrict: 'A',

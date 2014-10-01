@@ -89,15 +89,31 @@ angular.module('mainApp')
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 
 	}])
-	.controller('checkOrderCtrl', ['$scope', '$controller', function($scope, $controller) {
+	.controller('checkOrder', ['$scope', '$controller', function($scope, $controller) {
+		$scope.ths = [
+						{name: 'customerName', label: '客户姓名', isShow: true},
+						{name: 'orderSN', label: '订单编号', isShow: true},
+						{name: 'customerPhone', label: '客户电话', isShow: true},
+						{name: 'province', label: '所在省', isShow: true},
+						{name: 'city', label: '城市', isShow: true},
+						{name: 'orderType', label: '订购类型', isShow: true},
+						{name: 'payStatus', label: '付款状态', isShow: true},
+						{name: 'checkStatus', label: '审单状态', isShow: true, sortable: true},
+						{name: 'createTime', label: '创建时间', isShow: true, sortable: true},
+						{name: 'contactTimes', label: '联系次数', isShow: true}
+					];
+
+		$scope.sortBy = function(name, type) {
+			console.log('sort by:', name, type);
+		}
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
-	.controller('splitOrderCtrl', ['$scope', '$controller', function($scope, $controller) {
+	.controller('splitOrder', ['$scope', '$controller', function($scope, $controller) {
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
-	.controller('checkComplainOrdersCtrl', ['$scope', '$controller', function($scope, $controller) {
+	.controller('checkComplainOrders', ['$scope', '$controller', function($scope, $controller) {
 		var $returnOrder = $('#return-order');
 		var $tree = $('#tree');
 

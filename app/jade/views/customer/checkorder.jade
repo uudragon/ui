@@ -30,28 +30,29 @@ include ../../modules/mixins.jade
 
 //- 订单列表
 table.uu-table
-	+thead
+	+thead(ng-dblclick="chooseTh('table-cols')")
 		th
 			.checkbox
 				label
 					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll()')
 					| 全选
-		each th in ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具']
-			th=th
+		th(ng-repeat='th in ths', ng-show='th.isShow', ng-bind='th.label', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
+		th 工具
 	tbody
 		tr(ng-repeat='order in orders | filter:filterPay')
 			td
 				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked(order)')
-			td(ng-bind='order.customerName')
-			td
+			td(ng-bind='order.customerName', ng-show='ths[0].isShow')
+			td(ng-show='ths[1].isShow')
 				+jslink('showOrder(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.customerPhone')
-			td(ng-bind='order.province')
-			td(ng-bind='order.city')
-			td(ng-bind='order.orderType')
-			td(ng-bind='order.payStatus | payStatus')
-			td(ng-bind='order.createTime')
-			td(ng-bind='order.contactTimes')
+			td(ng-bind='order.customerPhone', ng-show='ths[2].isShow')
+			td(ng-bind='order.province', ng-show='ths[3].isShow')
+			td(ng-bind='order.city', ng-show='ths[4].isShow')
+			td(ng-bind='order.orderType', ng-show='ths[5].isShow')
+			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isShow')
+			td(ng-bind='order.checkStatus | checkStatus', ng-show='ths[7].isShow')
+			td(ng-bind='order.createTime', ng-show='ths[8].isShow')
+			td(ng-bind='order.contactTimes', ng-show='ths[9].isShow')
 			td
 				+tooltip('修改', 'top', 'showOrder(order)')
 					+glyphicon('pencil')
@@ -199,6 +200,18 @@ table.uu-table
 			保存
 		button.btn.uu-btn(data-dismiss='modal')
 			取消
+
+//- 订单详情Modal
++modal('table-cols')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 更新列显示
+	.modal-body
+		ul.list-group
+			li.list-group-item.checkbox(ng-repeat='th in ths')
+				label
+					input(type='checkbox', ng-model='th.isShow')
+					{{th.label}}
 
 //- to enable bootstrap multi modal
 //- include ../../modules/modal-fix.jade
