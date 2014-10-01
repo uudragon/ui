@@ -1,16 +1,24 @@
 
 <ul class="action-bar">
-  <li><a href="" ui-sref="root.utils.neworder" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="新建来电工单"><span class="glyphicon glyphicon-plus"></span></a>
+  <li><a href="" ui-sref="root.utils.neworder" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="新建来电工单"><span class="glyphicon glyphicon-plus"></span></a>
   </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
   </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="群发信息"><span class="glyphicon glyphicon-comment"></span></a>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="filter" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+    <ul role="menu" class="dropdown-menu">
+      <li><a>本月处理订单</a></li>
+      <li><a>当日处理订单</a></li>
+      <li><a>当日未处理订单</a></li>
+      <li><a>当日完结订单</a></li>
+    </ul>
   </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="群发邮件"><span class="glyphicon glyphicon-envelope"></span></a>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="群发信息"><span class="glyphicon glyphicon-comment"></span></a>
   </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="群发邮件"><span class="glyphicon glyphicon-envelope"></span></a>
   </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="退出系统"><span class="glyphicon glyphicon-log-out"></span></a>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
+  </li>
+  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="退出系统"><span class="glyphicon glyphicon-log-out"></span></a>
   </li>
 </ul>
 <div class="criteria-bar">
@@ -25,7 +33,7 @@
         <option value="0">下属的客户</option>
       </select>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -79,7 +87,7 @@
       <td ng-bind="order.payStatus | payStatus"></td>
       <td ng-bind="order.createTime"></td>
       <td ng-bind="order.contactTimes"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -200,7 +208,7 @@
                   <td>已支付</td>
                   <td>2010-06-01</td>
                   <td>正常</td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-share"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-share"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -209,7 +217,7 @@
           <p>
             <ul class="list-inline">
               <li>联系记录</li>
-              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
+              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
               </li>
               <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
               </li>

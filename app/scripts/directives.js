@@ -566,7 +566,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		restrict: 'A',
 		link: function($scope, elem) {
 			var
-				menus = elem.find('.nav-menu-label')
+				menus = elem.find('.nav-menu-label'),
 				setions = elem.find('.nav-sections-label'),
 				toggleFn = function() {
 					$(this).next().slideToggle('fast', function() {
@@ -576,7 +576,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					});
 				};
 			menus.on('click', toggleFn);
-			// setions.on('click', toggleFn);
+			setions.on('click', toggleFn);
 		}
 	}
-})
+});

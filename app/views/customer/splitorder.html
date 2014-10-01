@@ -13,9 +13,9 @@
         <option value="0">下属的客户</option>
       </select>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="转移"><span class="glyphicon glyphicon-transfer"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="转移"><span class="glyphicon glyphicon-transfer"></span></a>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="更多操作"><span class="glyphicon glyphicon-send"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="更多操作"><span class="glyphicon glyphicon-send"></span></a>
     </div>
   </form>
 </div>
@@ -59,7 +59,7 @@
       <td ng-bind="order.payStatus | payStatus"></td>
       <td ng-bind="order.createTime"></td>
       <td ng-bind="order.contactTimes"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="left" data-toggle="tooltip dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="right" data-toggle="tooltip dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -180,7 +180,7 @@
                   <td ng-bind="currentOrder.payStatus | payStatus"></td>
                   <td ng-bind="currentOrder.birthday"></td>
                   <td ng-bind="currentOrder.orderStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="拆分订单" ng-click="splitOrder(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="拆分订单" ng-click="splitOrder(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
                   </td>
                 </tr>
                 <tr ng-repeat="order in currentOrder.splitedOrders">
@@ -192,7 +192,7 @@
                   <td ng-bind="order.payStatus | payStatus"></td>
                   <td ng-bind="order.birthday"></td>
                   <td ng-bind="order.orderStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip" title="添加赠品" ng-click="selectGift(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="添加赠品" ng-click="selectGift(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
                   </td>
                 </tr>
               </tbody>

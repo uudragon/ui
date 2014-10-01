@@ -9,7 +9,7 @@
 mixin tooltip(title, placement, action)
 	if placement === null
 		- var placement = 'bottom'
-	a(href='', ui-sref=attributes['ui-sref'] uu-tooltip, data-placement=placement, data-toggle='tooltip', title=title, class!=attributes.class, ng-click=action)
+	a(href='', ui-sref=attributes['ui-sref'], uu-tooltip, data-placement=placement, data-toggle='tooltip dropdown', title=title, class!=attributes.class, ng-click=action)
 		if block
 			block
 

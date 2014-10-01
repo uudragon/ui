@@ -6,6 +6,14 @@ ul.action-bar
 		+tooltip('查找订单', 'top')
 			+glyphicon('search')
 	li
+		+tooltip('filter', 'top')(class='dropdown-toggle')
+			+glyphicon('filter')
+		ul.dropdown-menu(role="menu")
+			each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单']
+				li
+					a=filter
+
+	li
 		+tooltip('群发信息', 'top')
 			+glyphicon('comment')
 	li
