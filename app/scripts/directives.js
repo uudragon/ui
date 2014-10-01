@@ -576,7 +576,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					});
 				};
 			menus.on('click', toggleFn);
-			setions.on('click', toggleFn);
+			// setions.on('click', toggleFn);
 		}
 	}
 });

@@ -113,4 +113,9 @@ angular.module('mainApp')
 
 	}
 
+	$scope.chooseTh = function(id) {
+		console.log($('#' + id));
+		$('#' + id).modal('show');
+	}
+
 }])

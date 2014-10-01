@@ -1,23 +1,18 @@
 include ../../modules/mixins.jade
 
-//- h2 官网核实定单
-//- hr
-
-include ../../modules/action-bar.jade
-
 //- 功能区
-.criteria-bar
-	form.form-inline(role='form')
-		.form-group
-			label(for='customer-scope') 查看范围
-			- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
-			select#customer-scope.form-control.input-sm(name='customerScope')
-				each val in customerOptions
-					+option(val.title, val.value)
+//- .criteria-bar
+//- 	form.form-inline(role='form')
+//- 		.form-group
+//- 			label(for='customer-scope') 查看范围
+//- 			- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
+//- 			select#customer-scope.form-control.input-sm(name='customerScope')
+//- 				each val in customerOptions
+//- 					+option(val.title, val.value)
 
-		.btn.uu-btn
-			+tooltip('查询', 'top')
-				+glyphicon('search')
+//- 		.btn.uu-btn
+//- 			+tooltip('查询', 'top')
+//- 				+glyphicon('search')
 
 
 //- 订单列表过滤条件

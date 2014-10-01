@@ -101,6 +101,9 @@
 .modal-body {
   position: relative;
   padding: $modal-inner-padding;
+
+  max-height: 700px;
+  overflow-y: scroll;
 }
 
 // Footer (for actions)

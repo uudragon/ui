@@ -1,29 +1,7 @@
 
-<ul class="action-bar">
-  <li><a href="" ui-sref="root.utils.neworder" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="新建来电工单"><span class="glyphicon glyphicon-plus"></span></a>
-  </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
-  </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="filter" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
-    <ul role="menu" class="dropdown-menu">
-      <li><a>本月处理订单</a></li>
-      <li><a>当日处理订单</a></li>
-      <li><a>当日未处理订单</a></li>
-      <li><a>当日完结订单</a></li>
-    </ul>
-  </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="群发信息"><span class="glyphicon glyphicon-comment"></span></a>
-  </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="群发邮件"><span class="glyphicon glyphicon-envelope"></span></a>
-  </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
-  </li>
-  <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="退出系统"><span class="glyphicon glyphicon-log-out"></span></a>
-  </li>
-</ul>
 <table class="uu-table">
   <thead>
-    <tr>
+    <tr ng-dblclick="chooseTh(&quot;table-cols&quot;)">
       <th>
         <div class="checkbox">
           <label>
@@ -31,15 +9,7 @@
           </label>
         </div>
       </th>
-      <th>客户姓名</th>
-      <th>订单编号</th>
-      <th>客户电话</th>
-      <th>所在省</th>
-      <th>城市</th>
-      <th>订购类型</th>
-      <th>付款状态</th>
-      <th>创建时间</th>
-      <th>联系次数</th>
+      <th ng-repeat="th in ths" ng-show="th.isShow" ng-bind="th.label"></th>
       <th>工具</th>
     </tr>
   </thead>
@@ -48,20 +18,39 @@
       <td>
         <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(order)"/>
       </td>
-      <td ng-bind="order.customerName"></td>
-      <td><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
+      <td ng-bind="order.customerName" ng-show="ths[0].isShow"></td>
+      <td ng-show="ths[1].isShow"><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
       </td>
-      <td ng-bind="order.customerPhone"></td>
-      <td ng-bind="order.province"></td>
-      <td ng-bind="order.city"></td>
-      <td ng-bind="order.orderType"></td>
-      <td ng-bind="order.payStatus | payStatus"></td>
-      <td ng-bind="order.createTime"></td>
-      <td ng-bind="order.contactTimes"></td>
+      <td ng-bind="order.customerPhone" ng-show="ths[2].isShow"></td>
+      <td ng-bind="order.province" ng-show="ths[3].isShow"></td>
+      <td ng-bind="order.city" ng-show="ths[4].isShow"></td>
+      <td ng-bind="order.orderType" ng-show="ths[5].isShow"></td>
+      <td ng-bind="order.payStatus | payStatus" ng-show="ths[6].isShow"></td>
+      <td ng-bind="order.createTime" ng-show="ths[7].isShow"></td>
+      <td ng-bind="order.contactTimes" ng-show="ths[8].isShow"></td>
       <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
 <uu-pagination records="102" page="currentPage" model="searchModel" action="getOrders()"></uu-pagination>
+<div id="table-cols" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">更新列显示</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li ng-repeat="th in ths" class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="th.isShow"/>{{th.label}}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 <script>(function() {$('.nav-menu').slideUp('fast'); })();	// no good</script>
