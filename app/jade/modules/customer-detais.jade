@@ -1,0 +1,35 @@
+fieldset
+	legend 基本信息
+	+hgroup
+		+input('客户姓名', 'name')(ng-model='user.name')
+	+hgroup
+		+input('订单编号', 'order')(ng-model='user.order')
+	+hgroup
+		+input('客户性别', 'sex')(ng-model='user.gender')
+	+hgroup
+		+input('订购产品', 'good')(ng-model='user.good')
+	+hgroup
+		+input('联系电话', 'telphone')(ng-model='user.telphone')
+	+hgroup
+		+input('起订日期', 'startDate')(ng-model='user.startDate')
+	+hgroup
+		+input('儿童姓名', 'child-name')(ng-model='user.childName')
+	+hgroup
+		+input('结束日期', 'enddate')(ng-model='user.enddate')
+	+hgroup
+		+input('儿童性别', 'child-gender')(ng-model='user.childGender')
+	+hgroup
+		+input('支付方式', 'payway')(ng-model='user.payway')
+	+hgroup
+		+input('出生日期', 'birthday')(ng-model='user.birthday')
+	+hgroup
+		+input('支付状态', 'pay-status')(ng-model='user.payStatus')
+	.form-group.col-xs-12
+		+input('详细地址', '')
+fieldset
+	legend 详细地址
+	.form-group.form-group-sm
+		label.control-label.label-location
+			span 省：山东省
+			span 市：青岛市
+			span 详细: 宁夏路208号

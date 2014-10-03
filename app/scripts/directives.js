@@ -574,16 +574,17 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			var
 				isSortable = $scope.uuSort;
 			isSortable && elem.on('click', function() {
+
 				$scope.action({
 					name: $scope.sortName,
-					type: elem.hasClass('sort-desc') ? 'asc' : 'desc'
+					type: elem.hasClass('sort-asc') ? 'desc' : 'asc'
 				});
 
 				elem.siblings('.sort').removeClass('sort-desc').removeClass('sort-asc');
 
-				elem.hasClass('sort-desc') ?
-					elem.removeClass('sort-desc').addClass('sort-asc') :
-					elem.addClass('sort-desc').removeClass('sort-asc');
+				elem.hasClass('sort-asc') ?
+					elem.addClass('sort-desc').removeClass('sort-asc') :
+					elem.removeClass('sort-desc').addClass('sort-asc');
 			});
 		}
 	};
@@ -605,6 +606,21 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				};
 			menus.on('click', toggleFn);
 			// setions.on('click', toggleFn);
+		}
+	}
+})
+
+.directive('uuFormField', function() {
+	return {
+		scope: {
+			isFiledEnable: '=uuFormField'
+		},
+		restrict: 'A',
+		link: function($scope, elem) {
+			console.log($scope.isFiledEnable);
+			$scope.$watch('isFiledEnable', function(val) {
+				val ? elem.attr('disabled', false) :  elem.attr('disabled', true);
+			});
 		}
 	}
 });

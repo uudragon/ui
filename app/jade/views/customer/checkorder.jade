@@ -14,6 +14,17 @@ include ../../modules/mixins.jade
 //- 			+tooltip('查询', 'top')
 //- 				+glyphicon('search')
 
+//- 功能区
+.criteria-bar
+	form.form-inline(role='form')
+		.form-group
+			select.form-control.input-sm(ng-model='filter', ng-options='filter.name for filter in filters', ng-change='updateSubFilter()')
+			select.form-control.input-sm(ng-model='subfilter', ng-options='filter.name for filter in filter.subfilters', ng-show='filter.subfilters')
+			input.form-control.input-sm(ng-model='subfilter', ng-show='filter.input')
+			input.form-control.input-sm(ng-model='subfilter', uu-date-picker, ng-show='filter.datetime')
+		.btn.uu-btn
+			+tooltip('查询', 'top')
+				+glyphicon('search')
 
 //- 订单列表过滤条件
 .filter-bar
@@ -76,40 +87,14 @@ table.uu-table
 		h4.modal-title 核实订单
 	.modal-body
 		form.form-horizontal
-			fieldset
-				legend 基本信息
-				.form-group.col-xs-6
-					+input('客户姓名', 'name')(ng-model='user.name')
-				.form-group.col-xs-6
-					+input('订单编号', 'order')(ng-model='user.order')
-				.form-group.col-xs-6
-					+input('客户性别', 'sex')(ng-model='user.gender')
-				.form-group.col-xs-6
-					+input('订购产品', 'good')(ng-model='user.good')
-				.form-group.col-xs-6
-					+input('联系电话', 'telphone')(ng-model='user.telphone')
-				.form-group.col-xs-6
-					+input('起订日期', 'startDate')(ng-model='user.startDate')
-				.form-group.col-xs-6
-					+input('儿童姓名', 'child-name')(ng-model='user.childName')
-				.form-group.col-xs-6
-					+input('结束日期', 'enddate')(ng-model='user.enddate')
-				.form-group.col-xs-6
-					+input('儿童性别', 'child-gender')(ng-model='user.childGender')
-				.form-group.col-xs-6
-					+input('支付方式', 'payway')(ng-model='user.payway')
-				.form-group.col-xs-6
-					+input('出生日期', 'birthday')(ng-model='user.birthday')
-				.form-group.col-xs-6
-					+input('支付状态', 'pay-status')(ng-model='user.payStatus')
-
-			fieldset
-				legend 详细地址
-				.form-group.form-group-sm
-					label.control-label.label-location
-						span 省：山东省
-						span 市：青岛市
-						span 详细: 宁夏路208号
+			//- edit and save button
+			.form-group.modal-action
+				+tooltip('修改', 'top', 'editCustomerInfo()')
+					+glyphicon('pencil')
+				+tooltip('保存', 'top', 'saveCustomerInfo()')
+					+glyphicon('floppy-disk')
+			//- customer details
+			+customer-details
 			fieldset
 				legend 订单
 				table.uu-table
@@ -208,7 +193,5 @@ table.uu-table
 		button.btn.uu-btn(data-dismiss='modal')
 			取消
 
-//- to enable bootstrap multi modal
-//- include ../../modules/modal-fix.jade
 //- 更改显示列
 include ../../modules/table-ths.jade

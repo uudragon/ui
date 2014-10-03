@@ -8,7 +8,7 @@ angular.module('chartApp')
 
         var data = Array.apply(0, Array(31)).map(function(item, i) {
             i++;
-            return {date: '2013-12-' + (i < 10 ? '0' + i : i), pv: parseInt(Math.random() * 100)}
+            return {date: '2013-12-' + (i < 10 ? '0' + i : i), pv: parseInt(Math.random() * 100)};
           });
 
         // 定义circle的半径
@@ -165,10 +165,10 @@ angular.module('chartApp')
         function redrawLine(cx, cy) {
           if(cx < 0) d3.select('.flag').style('display', 'none');
           else
-          d3.select('.flag')
-            .attr('x1', cx)
-            .attr('x2', cx)
-            .style('display', 'block');
+            d3.select('.flag')
+              .attr('x1', cx)
+              .attr('x2', cx)
+              .style('display', 'block');
           showWording(cx);
         }
 

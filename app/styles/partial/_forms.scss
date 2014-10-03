@@ -543,3 +543,35 @@ input[type="checkbox"] {
     padding: 4px 20px;
   }
 }
+
+// 详细地址
+.location  {
+	.control-label {
+		width: 101px;
+		font-weight: bold;
+		float: left;
+		padding: 7px 15px;
+	}
+	.location-wrap {
+		float: left;
+		font-weight: bold;
+		margin-left: 30px;
+		padding: 7px 15px;
+		> span {
+			margin: 0 20px;
+		}
+	}
+}
+
+// edit and save button
+.modal-action {
+	padding-left: 13px;
+	> a {
+		margin: 0 7px;
+		&.active,
+		&:focus {
+			border: none;
+			outline: none;
+		}
+	}
+}
