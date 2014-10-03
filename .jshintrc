@@ -7,7 +7,7 @@
   "curly": false,
   "eqeqeq": true,
   "immed": true,
-  "indent": 2,
+  "indent": false,
   "latedef": true,
   "newcap": true,
   "noarg": true,
@@ -22,6 +22,7 @@
   "globals": {
     "angular": true,
     "config": true,
+    "uud": true,
     "d3": true
   }
 }

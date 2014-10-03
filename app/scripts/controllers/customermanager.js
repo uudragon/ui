@@ -99,4 +99,4 @@ angular.module('mainApp')
 
 		$controller('CustomerManagerManager', {$scope: $scope});
 
-	}])
+	}]);

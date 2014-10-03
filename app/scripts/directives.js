@@ -390,11 +390,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			$scope.noPrev = function() {
 				return $scope.current <= 1;
-			}
+			};
 
 			$scope.noNext = function() {
 				return $scope.current >= $scope.totalPages;
-			}
+			};
 
 			function betwwen(val, min, max) {
 				if (val < min) return min;
@@ -407,11 +407,13 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				$scope.totalPages = Math.ceil($scope.records / $scope.perPage);
 				$scope.aryTotalPage = [];
 
-				var pages = betwwen($scope.totalPages , 0, maxPages);
-				var middlePage = start + Math.floor(pages / 2);
-				var offset = 0;
+				var
+					pages = betwwen($scope.totalPages , 0, maxPages),
+					middlePage = start + Math.floor(pages / 2),
+					offset = 0,
+					i;
 
-				for (var i = 1; i <= $scope.totalPages; i++) {
+				for (i = 1; i <= $scope.totalPages; i++) {
 					$scope.aryTotalPage.push( i );
 				}
 
@@ -435,7 +437,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				$scope.pages = [];
 
-				for (var i = start; i < start + pages; i++) {
+				for (i = start; i < start + pages; i++) {
 					$scope.pages.push(i);
 				}
 
@@ -611,7 +613,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			menus.on('click', toggleFn);
 			// setions.on('click', toggleFn);
 		}
-	}
+	};
 })
 
 .directive('uuFormField', function() {
@@ -625,5 +627,5 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				val ? elem.attr('disabled', false) :  elem.attr('disabled', true);
 			});
 		}
-	}
+	};
 });

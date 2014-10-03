@@ -13,16 +13,16 @@ angular.module('mainApp')
 		var user = {
 			account: $scope.model.account,
 			password: md5.createHash($scope.model.password)
-		}
+		};
 
 		var serialize = function (obj, prefix) {
 			var str = [];
 			for(var p in obj) {
-				var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-				str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
+				var k = prefix ? prefix + '[' + p + ']' : p, v = obj[p];
+				str.push(encodeURIComponent(k) + '=' + encodeURIComponent(v));
 			}
-			return str.join("&");
-		}
+			return str.join('&');
+		};
 
 		var errorHandler = function(errorCode) {
 			switch (errorCode) {
@@ -41,12 +41,12 @@ angular.module('mainApp')
 					delete $scope.inValid;
 					break;
 			}
-		}
+		};
 
 		var criticalErrorHandler = function(msg) {
 			$scope.errorMsg = '错误！' ;
 			delete $scope.inValid;
-		}
+		};
 
 		$http.get(config.auth.baseurl + config.auth.login + '?' + serialize(user))
 			.success(function(res) {
@@ -58,14 +58,14 @@ angular.module('mainApp')
 					var errorCode = res.message.split(':')[0];
 					errorHandler(errorCode);
 					// 未知错误
-				} else { criticalErrorHandler() }
+				} else { criticalErrorHandler(); }
 			})
 			// 网络连接失败
 			.error(criticalErrorHandler);
-	}
+	};
 
 	$scope.logout = function() {
 		$http.get(config.auth.baseurl + config.auth.logout);
 		Auth.logout();
-	}
+	};
 }]);

@@ -105,7 +105,9 @@ module.exports = function (grunt) {
       },
       all: [
         // 'Gruntfile.js',
-        '<%= config.app %>/scripts/{,*/}*.js'
+        '<%= config.app %>/scripts/{,*/}*.js',
+        '!<%= config.app %>/scripts/data/city.js',
+        '!<%= config.app %>/scripts/cityselect.js'
       ],
       test: {
         options: {

@@ -21,7 +21,7 @@ angular.module('mainApp')
 		$scope.showOrder = function(order) {
 			$scope.currentOrder = order;
 			$('#order-details').modal('show');
-		}
+		};
 
 
 		$controller('DataCtrl', {$scope: $scope});
@@ -48,7 +48,7 @@ angular.module('mainApp')
 		$scope.getProducts = function(order) {
 			$scope.currentOrder = order;
 			$('#order-details').modal('show');
-		}
+		};
 
 		$controller('DataManager', {$scope: $scope});
-	}])
+	}]);

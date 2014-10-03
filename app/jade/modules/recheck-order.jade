@@ -4,7 +4,7 @@
 		h4.modal-title 投诉
 	.modal-body
 		form.form-horizontal
-			fieldset
+			fieldset(uu-form-field='isCustometInfoEditable')
 				.form-group
 					+select('主题', 'topic')(ng-model='return.topic')
 						+option('核实订单', 0)
