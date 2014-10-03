@@ -1,0 +1,14 @@
++modal('table-ths')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 更改显示列
+	.modal-body
+		ul.list-group
+			li.list-group-item.checkbox
+				label
+					input(type='checkbox', ng-model='isAllThsShow', ng-click='toggleCheckAll("isAllThsShow", ths)')
+					| 全选
+			li.list-group-item.checkbox(ng-repeat='th in ths')
+				label
+					input(type='checkbox', ng-model='th.isChecked', ng-click='checkIsAllChecked("isAllThsShow", ths, th)')
+					{{th.label}}

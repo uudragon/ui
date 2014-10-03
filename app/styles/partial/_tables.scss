@@ -38,6 +38,18 @@ th {
 	> thead > tr > th {
 		vertical-align: middle;
 		border-bottom: 2px solid $table-border-color;
+		position: relative;
+
+		// th filter
+		> a {
+			color: #999;
+
+			&:focus,
+			&.active {
+				outline: none;
+				border: none;
+			}
+		}
 
 		&.opration {
 			min-width: 60px;

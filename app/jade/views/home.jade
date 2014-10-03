@@ -2,29 +2,29 @@ include ../modules/mixins.jade
 
 table.uu-table
 	thead
-		tr(ng-dblclick='chooseTh("table-cols")')
+		tr(ng-dblclick='chooseTh()')
 			th
 				.checkbox
 					label
-						input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll()')
+						input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
 						| 全选
-			th(ng-repeat='th in ths', ng-show='th.isShow', ng-bind='th.label')
+			th(ng-repeat='th in ths', ng-show='th.isChecked', ng-bind='th.label')
 			th 工具
 
 	tbody
 		tr(ng-repeat='order in orders')
 			td
-				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked(order)')
-			td(ng-bind='order.customerName', ng-show='ths[0].isShow')
-			td(ng-show='ths[1].isShow')
+				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
+			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
+			td(ng-show='ths[1].isChecked')
 				+jslink('showOrder(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.customerPhone', ng-show='ths[2].isShow')
-			td(ng-bind='order.province', ng-show='ths[3].isShow')
-			td(ng-bind='order.city', ng-show='ths[4].isShow')
-			td(ng-bind='order.orderType', ng-show='ths[5].isShow')
-			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isShow')
-			td(ng-bind='order.createTime', ng-show='ths[7].isShow')
-			td(ng-bind='order.contactTimes', ng-show='ths[8].isShow')
+			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
+			td(ng-bind='order.province', ng-show='ths[3].isChecked')
+			td(ng-bind='order.city', ng-show='ths[4].isChecked')
+			td(ng-bind='order.orderType', ng-show='ths[5].isChecked')
+			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isChecked')
+			td(ng-bind='order.createTime', ng-show='ths[7].isChecked')
+			td(ng-bind='order.contactTimes', ng-show='ths[8].isChecked')
 			td
 				+tooltip('修改', 'top', 'showOrder(order)')
 					+glyphicon('pencil')
@@ -35,16 +35,8 @@ table.uu-table
 
 uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
 
-//- 订单详情Modal
-+modal('table-cols')
-	.modal-header
-		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 更新列显示
-	.modal-body
-		ul.list-group
-			li.list-group-item.checkbox(ng-repeat='th in ths')
-				label
-					input(type='checkbox', ng-model='th.isShow')
-					{{th.label}}
+//- 更改显示列
+include ../modules/table-ths.jade
+
 script.
 	(function() {$('.nav-menu').slideUp('fast'); })();	// no good

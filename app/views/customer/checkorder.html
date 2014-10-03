@@ -18,31 +18,38 @@
       <th>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll()"/>全选
+            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, orders)"/>全选
           </label>
         </div>
       </th>
-      <th ng-repeat="th in ths" ng-show="th.isShow" ng-bind="th.label" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)"></th>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
+          <li><a href="">待审核</a></li>
+          <li><a href="">审核中</a></li>
+          <li><a href="">审核通过</a></li>
+          <li><a href="">无效</a></li>
+        </ul>
+      </th>
       <th>工具</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="order in orders | filter:filterPay">
       <td>
-        <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(order)"/>
+        <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, orders, order)"/>
       </td>
-      <td ng-bind="order.customerName" ng-show="ths[0].isShow"></td>
-      <td ng-show="ths[1].isShow"><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
+      <td ng-bind="order.customerName" ng-show="ths[0].isChecked"></td>
+      <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
       </td>
-      <td ng-bind="order.customerPhone" ng-show="ths[2].isShow"></td>
-      <td ng-bind="order.province" ng-show="ths[3].isShow"></td>
-      <td ng-bind="order.city" ng-show="ths[4].isShow"></td>
-      <td ng-bind="order.orderType" ng-show="ths[5].isShow"></td>
-      <td ng-bind="order.payStatus | payStatus" ng-show="ths[6].isShow"></td>
-      <td ng-bind="order.checkStatus | checkStatus" ng-show="ths[7].isShow"></td>
-      <td ng-bind="order.createTime" ng-show="ths[8].isShow"></td>
-      <td ng-bind="order.contactTimes" ng-show="ths[9].isShow"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td ng-bind="order.customerPhone" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="order.province" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="order.city" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="order.orderType" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="order.payStatus | payStatus" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="order.checkStatus | checkStatus" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="order.createTime" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="order.contactTimes" ng-show="ths[9].isChecked"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -163,7 +170,7 @@
                   <td>已支付</td>
                   <td>2010-06-01</td>
                   <td>正常</td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-share"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-share"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -172,7 +179,7 @@
           <p>
             <ul class="list-inline">
               <li>联系记录</li>
-              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="tooltip dropdown" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
+              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
               </li>
               <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
               </li>
@@ -293,18 +300,23 @@
     </div>
   </div>
 </div>
-<div id="table-cols" class="modal fade">
+<div id="table-ths" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">更新列显示</h4>
+        <h4 class="modal-title">更改显示列</h4>
       </div>
       <div class="modal-body">
         <ul class="list-group">
+          <li class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="isAllThsShow" ng-click="toggleCheckAll(&quot;isAllThsShow&quot;, ths)"/>全选
+            </label>
+          </li>
           <li ng-repeat="th in ths" class="list-group-item checkbox">
             <label>
-              <input type="checkbox" ng-model="th.isShow"/>{{th.label}}
+              <input type="checkbox" ng-model="th.isChecked" ng-click="checkIsAllChecked(&quot;isAllThsShow&quot;, ths, th)"/>{{th.label}}
             </label>
           </li>
         </ul>

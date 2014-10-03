@@ -9,7 +9,7 @@
 mixin tooltip(title, placement, action)
 	if placement === null
 		- var placement = 'bottom'
-	a(href='', ui-sref=attributes['ui-sref'], uu-tooltip, data-placement=placement, data-toggle='tooltip dropdown', title=title, class!=attributes.class, ng-click=action)
+	a(href='', ui-sref=attributes['ui-sref'], uu-tooltip, data-placement=placement, data-toggle='dropdown', title=title, class!=attributes.class, ng-click=action)
 		if block
 			block
 
@@ -49,6 +49,12 @@ mixin plain-select(title, id, options)
 		if options
 			each val in options
 				+option(val.title, val.value)
+
+
+mixin th-filter()
+	a(href='', ng-if=attributes['ng-if'], data-toggle='dropdown', class!=attributes.class)
+		if block
+			block
 
 //- html option helper
 mixin option(title, value)

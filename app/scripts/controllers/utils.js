@@ -25,4 +25,4 @@ angular.module('mainApp')
 		// inherit functions from parent
 		$controller('QAManager', {$scope: $scope});
 
-	}])
+	}]);

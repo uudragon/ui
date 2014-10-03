@@ -34,11 +34,6 @@ angular.module('mainApp')
 			$scope.load('customer_statistics');
 		}
 
-		// var orders = $resource('/bam/:userId/card/:cardId',
-		// 	{userId:123, cardId:'@id'}, {
-		// 		charge: {method:'POST', params:{charge:true}}
-		// 	});
-
 		// fake date
 		$scope.orders = [{customerName: '李四民', orderSN: '5223071231', customerPhone: '1395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '0', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '张三', orderSN: '212131071231', customerPhone: '3123334239543', province: '上海', city: '上海', orderType: '季度', payStatus: '1', createTime: '2014-11-15', contactTimes: '2014-10-15'}, {customerName: '李七', orderSN: '123071231', customerPhone: '4395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '李五民', orderSN: '223071231', customerPhone: '5395334234343', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, ];
 
@@ -91,22 +86,22 @@ angular.module('mainApp')
 	}])
 	.controller('checkOrder', ['$scope', '$controller', function($scope, $controller) {
 		$scope.ths = [
-						{name: 'customerName', label: '客户姓名', isShow: true},
-						{name: 'orderSN', label: '订单编号', isShow: true},
-						{name: 'customerPhone', label: '客户电话', isShow: true},
-						{name: 'province', label: '所在省', isShow: true},
-						{name: 'city', label: '城市', isShow: true},
-						{name: 'orderType', label: '订购类型', isShow: true},
-						{name: 'payStatus', label: '付款状态', isShow: true},
-						{name: 'checkStatus', label: '审单状态', isShow: true, sortable: true},
-						{name: 'createTime', label: '创建时间', isShow: true, sortable: true},
-						{name: 'contactTimes', label: '联系次数', isShow: true}
+						{name: 'customerName', label: '客户姓名', isChecked: true},
+						{name: 'orderSN', label: '订单编号', isChecked: true},
+						{name: 'customerPhone', label: '客户电话', isChecked: true},
+						{name: 'province', label: '所在省', isChecked: true, sortable: true},
+						{name: 'city', label: '城市', isChecked: true},
+						{name: 'orderType', label: '订单类型', isChecked: true, sortable: true},
+						{name: 'payStatus', label: '付款状态', isChecked: true, sortable: true},
+						{name: 'checkStatus', label: '审单状态', isChecked: true, filter: true},
+						{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
+						{name: 'contactTimes', label: '联系次数', isChecked: true}
 					];
 
 		$scope.sortBy = function(name, type) {
 			console.log('sort by:', name, type);
 		}
-
+		$scope.isAllThsShow = true;
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
 	.controller('splitOrder', ['$scope', '$controller', function($scope, $controller) {
