@@ -49,6 +49,7 @@
   position: relative;
   width: auto;
   margin: 10px;
+  z-index: inherit;
 }
 
 // Actual modal
@@ -101,7 +102,6 @@
 .modal-body {
   position: relative;
   padding: $modal-inner-padding;
-
   // max-height: 700px;
   // overflow-y: scroll;
 }

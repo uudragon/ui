@@ -1,0 +1,142 @@
+
+<div class="filter-bar">
+  <div data-toggle="buttons" class="btn-group">
+    <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
+      <input checked="checked" name="customer-type" type="radio"/>所有
+    </label>
+    <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
+      <input name="customer-type" type="radio"/>已分配
+    </label>
+    <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
+      <input name="customer-type" type="radio"/>未分配
+    </label>
+  </div>
+</div>
+<div class="criteria-bar">
+  <div ng-click="batchAssign()" class="btn uu-btn btn-primary">批量分配</div>
+  <div ng-click="batchPick()" class="btn uu-btn btn-info">批量领取</div>
+</div>
+<table class="uu-table">
+  <thead>
+    <tr ng-dblclick="chooseTh('table-cols')">
+      <th>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, orders)"/>全选
+          </label>
+        </div>
+      </th>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
+          <li><a href="">待审核</a></li>
+          <li><a href="">审核中</a></li>
+          <li><a href="">审核通过</a></li>
+          <li><a href="">无效</a></li>
+        </ul>
+      </th>
+      <th>工具</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="order in orders | filter:filterPay">
+      <td>
+        <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, orders, order)"/>
+      </td>
+      <td ng-bind="order.customerName" ng-show="ths[0].isChecked"></td>
+      <td ng-show="ths[1].isChecked"><a href="" ng-click="showComplaintOrders(order)" ng-bind="order.orderSN" class="jslink"></a>
+      </td>
+      <td ng-bind="order.customerPhone" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="order.customerPhone" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="order.province" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="order.city" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="order.email" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="order.checkStatus | checkStatus" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="order.createTime" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="order.contactTimes" ng-show="ths[9].isChecked"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintOrders(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<uu-pagination records="102" page="currentPage" model="searchModel" action="getOrders()"></uu-pagination>
+<div id="batch-assgin" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">批量分配</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <div ng-show="getSelectedCustomers().length === 1" class="form-group">
+              <label for="form-responser" class="control-label col-xs-3">将客户:</label>
+              <div class="col-xs-7">
+                <p class="form-static">{{selectedCustomers[0].customerName}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="form-responser" ng-show="getSelectedCustomers().length !== 1" class="control-label col-xs-3">选择负责人</label>
+              <label for="form-responser" ng-show="getSelectedCustomers().length === 1" class="control-label col-xs-3">分配给</label>
+              <div class="col-xs-7">
+                <select id="form-responser" name="responser" ng-model="responser" class="form-control input-sm"></select>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="saveOrder()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="batch-pick" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">批量领取</h4>
+      </div>
+      <div ng-show="getSelectedCustomers().length === 1" class="modal-body">
+        <form class="form-horizontal">
+          <fieldset>
+            <label for="form-responser" class="control-label col-xs-3">领取客户:</label>
+            <div class="col-xs-7">
+              <p class="form-static">{{selectedCustomers[0].customerName}}</p>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="saveOrder()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="table-ths" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">更改显示列</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="isAllThsShow" ng-click="toggleCheckAll(&quot;isAllThsShow&quot;, ths)"/>全选
+            </label>
+          </li>
+          <li ng-repeat="th in ths" class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="th.isChecked" ng-click="checkIsAllChecked(&quot;isAllThsShow&quot;, ths, th)"/>{{th.label}}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

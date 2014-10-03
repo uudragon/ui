@@ -13,7 +13,7 @@ form.form-horizontal
 				+option('处理中', 0)
 				+option('待处理', 0)
 		.form-group.col-xs-6
-			+input('来电时间', 'call-time')(ng-model='customer.callTime')
+			+input('来电时间', 'call-time')(ng-model='customer.callTime', uu-date-picker)
 		.form-group.col-xs-6
 			+input('负责人', 'responser')(ng-model='customer.responser')
 		.form-group.col-xs-6

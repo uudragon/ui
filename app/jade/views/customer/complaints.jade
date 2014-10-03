@@ -1,8 +1,5 @@
 include ../../modules/mixins.jade
 
-h2 投诉
-hr
-
 //- 功能区
 .criteria-bar
 	form.form-inline(role='form')
@@ -37,28 +34,45 @@ hr
 
 //- 订单列表
 table.uu-table
-	+thead
-		each th in ['客户姓名', '订单编号', '客户电话', '所在省', '城市', '订购类型', '付款状态', '创建时间', '联系次数', '工具']
-			th=th
+	+thead(ng-dblclick="chooseTh('table-cols')")
+		th
+			.checkbox
+				label
+					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
+					| 全选
+		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
+			{{th.label}}
+			+th-filter(ng-if='th.filter')
+				+glyphicon('filter')
+			ul.dropdown-menu(ng-if='th.filter')(role="menu")
+				each filter in ['待审核', '审核中', '审核通过', '无效']
+					li
+						a(href='')=filter
+		th 工具
 	tbody
 		tr(ng-repeat='order in orders | filter:filterPay')
-			td(ng-bind='order.customerName')
 			td
+				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
+			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
+			td(ng-show='ths[1].isChecked')
 				+jslink('showComplaintOrders(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.customerPhone')
-			td(ng-bind='order.province')
-			td(ng-bind='order.city')
-			td(ng-bind='order.orderType')
-			td(ng-bind='order.payStatus | payStatus')
-			td(ng-bind='order.createTime')
-			td(ng-bind='order.contactTimes')
+			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
+			td(ng-bind='order.province', ng-show='ths[3].isChecked')
+			td(ng-bind='order.city', ng-show='ths[4].isChecked')
+			td(ng-bind='order.orderType', ng-show='ths[5].isChecked')
+			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isChecked')
+			td(ng-bind='order.checkStatus | checkStatus', ng-show='ths[7].isChecked')
+			td(ng-bind='order.createTime', ng-show='ths[8].isChecked')
+			td(ng-bind='order.contactTimes', ng-show='ths[9].isChecked')
 			td
-				+tooltip('修改', 'left', 'showComplaintOrders(order)')
+				+tooltip('修改', 'top', 'showComplaintOrders(order)')
 					+glyphicon('pencil')
 						&nbsp;
 
-				+tooltip('发送消息', 'right')
+				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
+
+uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
 
 //- 订单详情Modal
 +modal('order-details', 'modal-lg')
@@ -67,40 +81,7 @@ table.uu-table
 		h4.modal-title 核实订单
 	.modal-body
 		form.form-horizontal
-			fieldset
-				legend 基本信息
-				.form-group.col-xs-6
-					+input('客户姓名', 'name')(ng-model='user.name')
-				.form-group.col-xs-6
-					+input('订单编号', 'order')(ng-model='user.order')
-				.form-group.col-xs-6
-					+input('客户性别', 'sex')(ng-model='user.gender')
-				.form-group.col-xs-6
-					+input('订购产品', 'good')(ng-model='user.good')
-				.form-group.col-xs-6
-					+input('联系电话', 'telphone')(ng-model='user.telphone')
-				.form-group.col-xs-6
-					+input('起订日期', 'startDate')(ng-model='user.startDate')
-				.form-group.col-xs-6
-					+input('儿童姓名', 'child-name')(ng-model='user.childName')
-				.form-group.col-xs-6
-					+input('结束日期', 'enddate')(ng-model='user.enddate')
-				.form-group.col-xs-6
-					+input('儿童性别', 'child-gender')(ng-model='user.childGender')
-				.form-group.col-xs-6
-					+input('支付方式', 'payway')(ng-model='user.payway')
-				.form-group.col-xs-6
-					+input('出生日期', 'birthday')(ng-model='user.birthday')
-				.form-group.col-xs-6
-					+input('支付状态', 'pay-status')(ng-model='user.payStatus')
-
-			fieldset
-				legend 详细地址
-				.form-group.form-group-sm
-					label.control-label.label-location
-						span 省：山东省
-						span 市：青岛市
-						span 详细: 宁夏路208号
+			+customer-details
 			fieldset
 				legend 订单
 				table.uu-table
@@ -145,47 +126,47 @@ table.uu-table
 		form.form-horizontal.form-nowrap
 			fieldset
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('刊号', 'goodCode')(ng-model='goods.code')
-					.form-group.col-xs-6
+					+hgroup
 						+input('刊数', 'goodNum')(ng-model='goods.num')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('实际订阅刊数', 'subscribeNum')(ng-model='good.subscribeNum')
-					.form-group.col-xs-6
+					+hgroup
 						+input('实际订阅金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('合同金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					.form-group.col-xs-6
+					+hgroup
 						+input('已收金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('已发货未收金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					.form-group.col-xs-6
+					+hgroup
 						+input('刊数', 'subscribeAmount')(ng-model='good.subscribeAmount')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('办理手续费', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					.form-group.col-xs-6
+					+hgroup
 						+input('承担人', 'subscribeAmount')(ng-model='good.subscribeAmount')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('退款手续费', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					.form-group.col-xs-6
+					+hgroup
 						+input('承担人', 'subscribeAmount')(ng-model='good.subscribeAmount')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('退款金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					.form-group.col-xs-6
+					+hgroup
 						+input('实际退款金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+input('退款帐号', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					.form-group.col-xs-6
+					+hgroup
 						+input('开户行', 'subscribeAmount')(ng-model='good.subscribeAmount')
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+select('退订原因', 'return-reason')(ng-model='goods.phoneStatus')
 							+option('价格贵,收入低', 1)
 							+option('价格贵,性价比不高', 2)
@@ -216,7 +197,7 @@ table.uu-table
 							+option('玩具缺漏', 27)
 							+option('光盘损坏', 28)
 				.row
-					.form-group.col-xs-6
+					+hgroup
 						+select('是否到库', 'urgency')(ng-model='user.urgency')
 							+option('是', 0)
 							+option('否', 1)
@@ -227,64 +208,7 @@ table.uu-table
 			取消
 
 //- 核实订单Modal
-+submodal('recheck-order')
-	.modal-header
-		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 投诉
-	.modal-body
-		form.form-horizontal
-			fieldset
-				.form-group
-					+select('主题', 'topic')(ng-model='return.topic')
-						+option('核实订单', 0)
-						+option('投诉', 1)
-						+option('回访', 2)
-						+option('催费', 3)
-						+option('促进销售', 4)
-				.form-group
-					+select('处理结果', 'deal-result')(ng-model='return.dealResult')
-						+option('已完成', 0)
-						+option('处理中', 1)
-						+option('待处理', 1)
-				.form-group
-					+input('联系时间', 'contact-time')(ng-model='return.contactTime')
-				.form-group
-					+input('负责人', 'contact-responsor')(ng-model='return.responsor')
-				.form-group
-					+select('电话状态', 'phone-status')(ng-model='return.phoneStatus')
-						+option('无人接', 0)
-						+option('占线', 1)
-						+option('接听', 2)
-						+option('停机', 3)
-						+option('空号', 4)
-						+option('错号', 5)
-				.form-group
-					+select('投诉分类', 'complain-type')(ng-model='return.complainType')
-						+option('发票抬头错误', 1)
-						+option('未开发票', 2)
-						+option('开票时间长', 3)
-						+option('发票丢失', 4)
-						+option('客服态度不好', 5)
-						+option('客服不专业', 6)
-						+option('客服电话难打', 7)
-						+option('物流慢', 8)
-						+option('货物丢失', 9)
-						+option('物品破损', 10)
-						+option('快递态度', 11)
-				.form-group
-					+input('下次回访日期', 'return-next-time')(ng-model='return.nextTime')
-				.form-group
-					+select('投诉分类', 'urgency')(ng-model='return.urgency')
-						+option('一般', 0)
-						+option('优先', 1)
-						+option('紧急', 1)
-				.form-group
-					+textarea('内容', 'content')(ng-model="content")
-	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()')
-			保存
-		button.btn.uu-btn(data-dismiss='modal')
-			取消
+include ../../modules/recheck-order.jade
 
 //- 共享Modal
 +submodal('share-order')
@@ -301,3 +225,6 @@ table.uu-table
 			保存
 		button.btn.uu-btn(data-dismiss='modal')
 			取消
+
+//- 更改显示列
+include ../../modules/table-ths.jade

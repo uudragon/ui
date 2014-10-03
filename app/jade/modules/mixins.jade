@@ -24,7 +24,10 @@ mixin glyphicon(className)
 mixin input(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], ng-disable='true')
+		if !attributes['uu-date-picker']
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		else
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
 
 //- bootstrap input helper
 mixin plain-input(title, id)
@@ -135,12 +138,15 @@ mixin customer-details()
 			.control-label(for='location-details')
 				| 详细地址
 			div.location-wrap
-				span
-					|省: 山东
-				span
-					|市: 青岛
-				span
-					|详细: 宁夏路208号
+				.input-group.col-xs-3
+					span.input-group-addon 省
+					input.form-control.input-sm
+				.input-group.col-xs-3
+					span.input-group-addon 市
+					input.form-control.input-sm
+				.input-group.col-xs-4
+					span.input-group-addon 详细
+					input.form-control.input-sm(value='宁夏路208号')
 
 
 //- thead in table

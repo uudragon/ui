@@ -474,15 +474,20 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function($scope, $element, $attrs, ctrl) {
 
-			var settings = {
-				format: $attrs.format || 'yyyy-mm-dd',
-				startView: parseInt($attrs.startView, 10) || 0,
-				minViewMode: parseInt($attrs.minViewMode, 10) || 0,
-				endDate: $attrs.endDate || 0,
-				todayHighlight: true,
-				autoclose: true,
-				language: 'zh-CN'
-			};
+			var
+				startView = parseInt($attrs.startView, 10),
+				minView = parseInt($attrs.minView, 10),
+				settings = {
+					format: $attrs.format || 'yyyy-mm-dd',
+					weekStart: 1,
+					startView: $.isNumeric(startView) ? startView : 2,
+					minView: $.isNumeric(minView) ? minView : 2,
+					endDate: $attrs.endDate || 0,
+					todayHighlight: true,
+					forceParse: true,
+					autoclose: true,
+					language: 'zh-CN'
+				};
 
 			var validate = function(value) {
 				// valid
@@ -496,8 +501,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			};
 			ctrl.$parsers.push(validate);
 			ctrl.$formatters.push(validate);
-
-			$element.datepicker(settings);
+			$element.datetimepicker(settings);
 		}
 	};
 })
@@ -617,7 +621,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		restrict: 'A',
 		link: function($scope, elem) {
-			console.log($scope.isFiledEnable);
 			$scope.$watch('isFiledEnable', function(val) {
 				val ? elem.attr('disabled', false) :  elem.attr('disabled', true);
 			});

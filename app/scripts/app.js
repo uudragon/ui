@@ -103,17 +103,22 @@ var uud = angular.module('mainApp', [
 	.state('root.customer.splitorder', {
 		url: '/splitorder',
 		templateUrl: 'views/customer/splitorder.html',
-		controller: 'splitOrder'
+		controller: 'SplitOrder'
 	})
 	.state('root.customer.checkorder', {
 		url: '/checkorder',
 		templateUrl: 'views/customer/checkorder.html',
-		controller: 'checkOrder'
+		controller: 'CheckOrder'
 	})
 	.state('root.customer.complaints', {
 		url: '/complaints',
 		templateUrl: 'views/customer/complaints.html',
-		controller: 'checkComplainOrders'
+		controller: 'Complains'
+	})
+	.state('root.customer.customers', {
+		url: '/customer-pool',
+		templateUrl: 'views/customer/customerpool.html',
+		controller: 'CustomerPool'
 	})
 
 	.state('root.utils', {

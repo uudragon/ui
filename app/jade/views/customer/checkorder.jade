@@ -1,20 +1,6 @@
 include ../../modules/mixins.jade
 
 //- 功能区
-//- .criteria-bar
-//- 	form.form-inline(role='form')
-//- 		.form-group
-//- 			label(for='customer-scope') 查看范围
-//- 			- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
-//- 			select#customer-scope.form-control.input-sm(name='customerScope')
-//- 				each val in customerOptions
-//- 					+option(val.title, val.value)
-
-//- 		.btn.uu-btn
-//- 			+tooltip('查询', 'top')
-//- 				+glyphicon('search')
-
-//- 功能区
 .criteria-bar
 	form.form-inline(role='form')
 		.form-group
@@ -79,6 +65,7 @@ table.uu-table
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
+uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
 
 //- 订单详情Modal
 +modal('order-details', 'modal-lg')
@@ -149,49 +136,7 @@ table.uu-table
 			取消
 
 //- 核实订单Modal
-+submodal('recheck-order')
-	.modal-header
-		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 核实订单
-	.modal-body
-		form.form-horizontal
-			fieldset
-				.form-group
-					+select('主题', 'topic')(ng-model='user.topic')
-						+option('核实订单', 0)
-						+option('投诉', 1)
-						+option('回访', 2)
-						+option('催费', 3)
-						+option('促进销售', 4)
-				.form-group
-					+select('处理结果', 'deal-result')(ng-model='user.dealResult')
-						+option('已完成', 0)
-						+option('处理中', 1)
-						+option('待处理', 1)
-				.form-group
-					+input('联系时间', 'contact-time')(ng-model='user.contactTime')
-				.form-group
-					+input('负责人', 'contact-responsor')(ng-model='user.responsor')
-				.form-group
-					+select('电话状态', 'phone-status')(ng-model='user.phoneStatus')
-						+option('无人接', 0)
-						+option('占线', 1)
-						+option('接听', 2)
-						+option('停机', 3)
-						+option('空号', 4)
-						+option('错号', 5)
-				.form-group
-					+select('紧急程度', 'urgency')(ng-model='user.urgency')
-						+option('一般', 0)
-						+option('优先', 1)
-						+option('紧急', 1)
-				.form-group
-					+textarea('内容', 'content')(ng-model="content")
-	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()')
-			保存
-		button.btn.uu-btn(data-dismiss='modal')
-			取消
+include ../../modules/recheck-order.jade
 
 //- 更改显示列
 include ../../modules/table-ths.jade
