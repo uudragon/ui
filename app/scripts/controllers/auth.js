@@ -24,7 +24,7 @@ angular.module('mainApp')
 			return str.join('&');
 		};
 
-		var errorHandler = function(errorCode) {
+		var errorHandler = function(errorCode, message) {
 			switch (errorCode) {
 				case 'E_00101':
 					$scope.errorMsg = '用户不存在！';

@@ -1,8 +1,5 @@
 include ../../modules/mixins.jade
 
-h2 电话管理
-hr
-
 //- 功能区
 .criteria-bar
 	form.form-inline(role='form')
@@ -60,8 +57,7 @@ table.uu-table
 			td(ng-bind='employee.useRate')
 			td
 				+tooltip('修改', 'top', 'update(employee)')
-					+glyphicon('pencil')
-						&nbsp;
+					+glyphicon('pencil') &nbsp;
 
 				+tooltip('导出', 'top', 'export()')
 					+glyphicon('comment')
@@ -74,40 +70,8 @@ table.uu-table
 		h4.modal-title 核实订单
 	.modal-body
 		form.form-horizontal
-			fieldset
-				legend 基本信息
-				.form-group.col-xs-6
-					+input('客户姓名', 'name')(ng-model='user.name')
-				.form-group.col-xs-6
-					+input('订单编号', 'order')(ng-model='user.order')
-				.form-group.col-xs-6
-					+input('客户性别', 'sex')(ng-model='user.gender')
-				.form-group.col-xs-6
-					+input('订购产品', 'good')(ng-model='user.good')
-				.form-group.col-xs-6
-					+input('联系电话', 'telphone')(ng-model='user.telphone')
-				.form-group.col-xs-6
-					+input('起订日期', 'startDate')(ng-model='user.startDate')
-				.form-group.col-xs-6
-					+input('儿童姓名', 'child-name')(ng-model='user.childName')
-				.form-group.col-xs-6
-					+input('结束日期', 'enddate')(ng-model='user.enddate')
-				.form-group.col-xs-6
-					+input('儿童性别', 'child-gender')(ng-model='user.childGender')
-				.form-group.col-xs-6
-					+input('支付方式', 'payway')(ng-model='user.payway')
-				.form-group.col-xs-6
-					+input('出生日期', 'birthday')(ng-model='user.birthday')
-				.form-group.col-xs-6
-					+input('支付状态', 'pay-status')(ng-model='user.payStatus')
+			+customer-details
 
-			fieldset
-				legend 详细地址
-				.form-group.form-group-sm
-					label.control-label.label-location
-						span 省：山东省
-						span 市：青岛市
-						span 详细: 宁夏路208号
 			fieldset
 				legend 订单
 				table.uu-table
@@ -126,16 +90,13 @@ table.uu-table
 							td 正常
 							td
 								+tooltip('修改', 'left')
-									+glyphicon('pencil')
-										&nbsp;
-
+									+glyphicon('pencil') &nbsp;
 								+tooltip('共享订单', 'top', 'shareOrder()')
 									+glyphicon('send')
 
 			p
 				ul.list-inline
-					li
-						联系记录
+					li 联系记录
 					li
 						+tooltip('核实订单', 'top', 'checkOrder()')
 							+glyphicon('plus')
@@ -156,10 +117,8 @@ table.uu-table
 					each val in responsorOptions
 						+option(val.title, val.value)
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()')
-			保存
-		button.btn.uu-btn(data-dismiss='modal')
-			取消
+		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 核实订单Modal
 +submodal('recheck-order')
@@ -201,11 +160,9 @@ table.uu-table
 				.form-group
 					+textarea('内容', 'content')(ng-model="content")
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()')
-			保存
-		button.btn.uu-btn(data-dismiss='modal')
-			取消
+		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- to enable bootstrap multi modal
-//- include ../../modules/modal-fix.jade
+
 

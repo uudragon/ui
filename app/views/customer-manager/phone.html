@@ -1,6 +1,4 @@
 
-<h2>电话管理</h2>
-<hr/>
 <div class="criteria-bar">
   <form role="form" class="form-inline">
     <div class="form-group">
@@ -111,7 +109,7 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
-          <fieldset>
+          <fieldset uu-form-field="isCustometInfoEditable">
             <legend>基本信息</legend>
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">客户姓名</label>
@@ -185,11 +183,19 @@
                 <input id="form-pay-status" ng-model="user.payStatus" class="form-control input-sm"/>
               </div>
             </div>
-          </fieldset>
-          <fieldset>
-            <legend>详细地址</legend>
-            <div class="form-group form-group-sm">
-              <label class="control-label label-location"><span>省：山东省</span><span>市：青岛市</span><span>详细: 宁夏路208号</span></label>
+            <div class="form-group col-xs-12 location">
+              <div for="location-details" class="control-label">详细地址</div>
+              <div class="location-wrap">
+                <div class="input-group col-xs-3"><span class="input-group-addon">省</span>
+                  <input class="form-control input-sm"/>
+                </div>
+                <div class="input-group col-xs-3"><span class="input-group-addon">市</span>
+                  <input class="form-control input-sm"/>
+                </div>
+                <div class="input-group col-xs-4"><span class="input-group-addon">详细</span>
+                  <input value="宁夏路208号" class="form-control input-sm"/>
+                </div>
+              </div>
             </div>
           </fieldset>
           <fieldset>

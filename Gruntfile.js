@@ -268,6 +268,12 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }]
       },
+      scripts: {
+          expand: true,
+          cwd: '.tmp/concat/scripts',
+          dest: '<%= config.dist %>/scripts',
+          src: ['generated/*']
+      },
       styles: {
         expand: true,
         cwd: '<%= config.app %>/styles',

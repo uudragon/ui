@@ -43,4 +43,4 @@
 		console.log('requrest url is: ' + url);
 	};
 
-})(typeof exports === 'undefined' ? this['config'] = {} : exports);
+})(typeof exports === 'undefined' ? window.config = {} : exports);

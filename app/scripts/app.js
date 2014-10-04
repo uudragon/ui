@@ -146,7 +146,7 @@ var uud = angular.module('mainApp', [
 		controller: 'Message'
 	})
 	.state('root.utils.batchmsg', {
-		url: '/batch-msg',
+		url: '/batchmsg',
 		templateUrl: 'views/utils/batchmsg.html',
 		controller: 'Batchmsg'
 	})
@@ -193,7 +193,7 @@ var uud = angular.module('mainApp', [
 		controller: 'DataCtrl'
 	})
 	.state('root.data.ordermanager', {
-		url: '/order-manager',
+		url: '/ordermanager',
 		templateUrl: 'views/data/ordermanager.html',
 		controller: 'OrderManager'
 	})

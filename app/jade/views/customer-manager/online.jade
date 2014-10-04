@@ -1,8 +1,5 @@
 include ../../modules/mixins.jade
 
-h2 在线管理
-hr
-
 //- 功能区
 .criteria-bar
 	form.form-inline(role='form')
@@ -57,8 +54,7 @@ table.uu-table
 			td(ng-bind='employee.ps')
 			td
 				+tooltip('修改', 'top', 'update(employee)')
-					+glyphicon('pencil')
-						&nbsp;
+					+glyphicon('pencil') &nbsp;
 
 				+tooltip('导出', 'top', 'export()')
 					+glyphicon('comment')
@@ -92,8 +88,7 @@ table.uu-table
 			td(ng-bind='employee.ps')
 			td
 				+tooltip('修改', 'top', 'update(employee)')
-					+glyphicon('pencil')
-						&nbsp;
+					+glyphicon('pencil') &nbsp;
 
 				+tooltip('导出', 'top', 'export()')
 					+glyphicon('comment')
@@ -158,21 +153,19 @@ table.uu-table
 							td 正常
 							td
 								+tooltip('修改', 'left')
-									+glyphicon('pencil')
-										&nbsp;
+									+glyphicon('pencil') &nbsp;
 
 								+tooltip('共享订单', 'top', 'shareOrder()')
 									+glyphicon('send')
 
 			p
 				ul.list-inline
-					li
-						联系记录
+					li 联系记录
 					li
 						+tooltip('核实订单', 'top', 'checkOrder()')
 							+glyphicon('plus')
 					li
 						+jslink('search()')
 							+glyphicon('search')
-//- include ../../modules/modal-fix.jade
+
 

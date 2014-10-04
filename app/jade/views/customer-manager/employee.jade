@@ -56,8 +56,7 @@ table.uu-table
 			td(ng-bind='employee.useRate')
 			td
 				+tooltip('修改', 'top', 'update(employee)')
-					+glyphicon('pencil')
-						&nbsp;
+					+glyphicon('pencil') &nbsp;
 
 				+tooltip('导出', 'top', 'export()')
 					+glyphicon('comment')
@@ -122,16 +121,14 @@ table.uu-table
 							td 正常
 							td
 								+tooltip('修改', 'left')
-									+glyphicon('pencil')
-										&nbsp;
+									+glyphicon('pencil') &nbsp;
 
 								+tooltip('共享订单', 'top', 'shareOrder()')
 									+glyphicon('send')
 
 			p
 				ul.list-inline
-					li
-						联系记录
+					li 联系记录
 					li
 						+tooltip('核实订单', 'top', 'checkOrder()')
 							+glyphicon('plus')
@@ -152,10 +149,8 @@ table.uu-table
 					each val in responsorOptions
 						+option(val.title, val.value)
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()')
-			保存
-		button.btn.uu-btn(data-dismiss='modal')
-			取消
+		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 核实订单Modal
 +submodal('recheck-order')
@@ -197,10 +192,8 @@ table.uu-table
 				.form-group
 					+textarea('内容', 'content')(ng-model="content")
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()')
-			保存
-		button.btn.uu-btn(data-dismiss='modal')
-			取消
+		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- to enable bootstrap multi modal
 //- include ../../modules/modal-fix.jade
