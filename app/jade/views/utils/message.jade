@@ -1,0 +1,71 @@
+include ../../modules/mixins.jade
+
+.criteria-bar
+	form.form-inline(role='form')
+
+		.btn-group(data-toggle='buttons')
+			label.btn.uu-btn.active(ng-click='filterPay.payStatus=""')
+				input(checked, name='customer-type', type='radio')
+				| 所有
+			label.btn.uu-btn(ng-click='filterPay.payStatus=1')
+				input(name='customer-type', type='radio')
+				| 收件箱
+			label.btn.uu-btn(ng-click='filterPay.payStatus=0')
+				input(name='customer-type', type='radio')
+				| 发件箱
+		.form-group
+			input.form-control.input-sm(ng-model='subfilter')
+		.btn.uu-btn
+			+tooltip('查询', 'top')
+				+glyphicon('search')
+
+p
+	btn.btn.uu-btn.btn-success 未读
+	btn.btn.uu-btn.btn-primary(ng-click='sendMessage()') 发送短消息
+	btn.btn.uu-btn.btn-warning 删除
+	btn.btn.uu-btn.btn-danger 一键清零
+
+
+
+//- 订单列表
+table.uu-table
+	+thead
+		th
+			.checkbox
+				label
+					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", messages)')
+					| 全选
+		each th in ['内容', '收件人', '发送时间']
+			th=th
+	tbody
+		tr(ng-repeat='msg in messages')
+			td
+				input(type='checkbox', ng-model="msg.isChecked", ng-click='checkIsAllChecked("isAllChecked", messages, msg)')
+			td(ng-bind='msg.content')
+			td(ng-bind='msg.reciever')
+			td(ng-bind='msg.sendTime')
+
+
+uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+
+//- 发送短消息Modal
++modal('send-message')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 修改负责人
+	.modal-body
+		form.form-horizontal
+			.form-group
+				label.control-label.col-xs-3(for='form-reciever') 接收人
+				.col-xs-7.message-multi
+					input.form-control.input-sm(id='form-reciever', ng-model='msg.reciever')
+					button.btn.uu-btn 查找
+
+				//- +input('接收人', 'responsor')(ng-model='msg.reciever')
+			.form-group
+				+textarea('内容', 'responsor')(ng-model='msg.reciever')
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn.btn-success(ng-click='save()') 发送
+		button.btn.uu-btn(data-dismiss='modal') 关闭

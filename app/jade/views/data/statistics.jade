@@ -1,0 +1,50 @@
+include ../../modules/mixins.jade
+
+.criteria-bar
+	form.form-inline(role='form', style="display: inline; margin-left: 20px;")
+		.form-group
+			+plain-input('开始时间', 'form-major-phone')(ng-model='startTime', uu-date-picker)
+		.form-group
+			+plain-input('结束时间', 'form-becalled-phone')(ng-model='startTime', uu-date-picker)
+		.btn.uu-btn
+			+tooltip('查询', 'top')
+				+glyphicon('search')
+
+table.uu-table
+	+thead
+		each th in ['订单类型', '在线支付', '货到付款', '已付款', '未付款', '退款中', '已审核', '未审核', '审核中', '已拆单', '未拆单']
+			th=th
+	tbody
+		tr
+			td 数量
+			td(ng-bind='statistics.online')
+			td(ng-bind='statistics.payWhenReached')
+			td(ng-bind='statistics.alreadyPaid')
+			td(ng-bind='statistics.haventPaid')
+			td(ng-bind='statistics.returning')
+			td(ng-bind='statistics.checked')
+			td(ng-bind='statistics.haventCheck')
+			td(ng-bind='statistics.checking')
+			td(ng-bind='statistics.splited')
+			td(ng-bind='statistics.haventSplited')
+		tr
+			td 占比
+			td(ng-bind='statistics.onlineRate')
+			td(ng-bind='statistics.payWhenReachedRate')
+			td(ng-bind='statistics.alreadyPaidRate')
+			td(ng-bind='statistics.haventPaidRate')
+			td(ng-bind='statistics.returningRate')
+			td(ng-bind='statistics.checkedRate')
+			td(ng-bind='statistics.haventCheckRate')
+			td(ng-bind='statistics.checkingRate')
+			td(ng-bind='statistics.splitedRate')
+			td(ng-bind='statistics.haventSplitedRate')
+
+h2 占比统计图
+hr
+
+.row
+	.col-xs-6
+		div(uu-pie-chart, header='全国各区域销量比值', data="[{value: 5332, name: '华北'}, {value: 3465, name: '华南'}, {value: 7485, name: '华东'}, {value: 4488, name: '华中'}, {value: 6684, name: '华西'}]")
+	.col-xs-6
+		div(uu-pie-chart, data="[3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 7]")

@@ -1,0 +1,86 @@
+
+<div class="criteria-bar">
+  <form role="form" class="form-inline">
+    <div data-toggle="buttons" class="btn-group">
+      <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
+        <input checked="checked" name="customer-type" type="radio"/>所有
+      </label>
+      <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
+        <input name="customer-type" type="radio"/>收件箱
+      </label>
+      <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
+        <input name="customer-type" type="radio"/>发件箱
+      </label>
+    </div>
+    <div class="form-group">
+      <input ng-model="subfilter" class="form-control input-sm"/>
+    </div>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    </div>
+  </form>
+</div>
+<p>
+  <btn class="btn uu-btn btn-success">未读</btn>
+  <btn ng-click="sendMessage()" class="btn uu-btn btn-primary">发送短消息</btn>
+  <btn class="btn uu-btn btn-warning">删除</btn>
+  <btn class="btn uu-btn btn-danger">一键清零</btn>
+</p>
+<table class="uu-table">
+  <thead>
+    <tr>
+      <th>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, messages)"/>全选
+          </label>
+        </div>
+      </th>
+      <th>内容</th>
+      <th>收件人</th>
+      <th>发送时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="msg in messages">
+      <td>
+        <input type="checkbox" ng-model="msg.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, messages, msg)"/>
+      </td>
+      <td ng-bind="msg.content"></td>
+      <td ng-bind="msg.reciever"></td>
+      <td ng-bind="msg.sendTime"></td>
+    </tr>
+  </tbody>
+</table>
+<uu-pagination records="102" page="currentPage" model="searchModel" action="getOrders()"></uu-pagination>
+<div id="send-message" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">修改负责人</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="form-reciever" class="control-label col-xs-3">接收人</label>
+            <div class="col-xs-7 message-multi">
+              <input id="form-reciever" ng-model="msg.reciever" class="form-control input-sm"/>
+              <button class="btn uu-btn">查找</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="form-responsor" class="control-label col-xs-3">内容</label>
+            <div class="col-xs-7">
+              <textarea id="form-responsor" ng-model="msg.reciever" class="form-control"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="save()" class="btn uu-btn btn-success">发送</button>
+        <button data-dismiss="modal" class="btn uu-btn">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>

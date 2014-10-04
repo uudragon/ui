@@ -1,29 +1,28 @@
 
-<h2>库存管理</h2>
-<hr/>
 <table class="uu-table">
   <thead>
-    <tr>
-      <th>产品类别</th>
-      <th>产品名称</th>
-      <th>产品内容</th>
-      <th>库存数量</th>
-      <th>库存下限</th>
-      <th>产品编码</th>
-      <th>所在仓库</th>
+    <tr ng-dblclick="chooseTh('table-cols')">
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
+          <li><a href="">待审核</a></li>
+          <li><a href="">审核中</a></li>
+          <li><a href="">审核通过</a></li>
+          <li><a href="">无效</a></li>
+        </ul>
+      </th>
       <th class="opration">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="product in products">
-      <td ng-bind="product.type"></td>
-      <td ng-bind="product.name"></td>
-      <td ng-bind="product.content"></td>
-      <td ng-bind="product.sku"></td>
-      <td ng-bind="product.minSKU"></td>
-      <td ng-bind="product.SN"></td>
-      <td ng-bind="product.location"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="调库" ng-click="getProducts(product)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="补库" ng-click="fillProducts()"><span class="glyphicon glyphicon-comment"></span></a>
+      <td ng-bind="product.type" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="product.name" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="product.content" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="product.sku" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="product.minSKU" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="product.SN" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="product.location" ng-show="ths[6].isChecked"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="调库" ng-click="getProducts(product)"><span class="glyphicon glyphicon-earphone">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="补库" ng-click="fillProducts(product)"><span class="glyphicon glyphicon-compressed"></span></a>
       </td>
     </tr>
   </tbody>
@@ -33,7 +32,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">调库</h4>
+        <h4 ng-bind="modalTitle" class="modal-title"></h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
@@ -113,6 +112,10 @@
             </div>
           </fieldset>
         </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
   </div>

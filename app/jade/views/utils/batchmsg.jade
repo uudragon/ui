@@ -1,0 +1,37 @@
+include ../../modules/mixins.jade
+
+div(uu-tab)
+	div(uu-pane, title='发短信')
+		form.form-horizontal.col-xs-7
+			.form-group
+				+short-input('收件人手机号码', 'reciever')(ng-model='msg.reciever')
+					button.btn.uu-btn 查找
+
+			.form-group
+				+textarea('信息内容', 'responsor')(ng-model='msg.reciever')
+
+			.form-group
+				+short-input('发送时间', 'responsor')(ng-model='msg.reciever', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+
+			.form-group
+				+submit
+					button.btn.uu-btn.btn-primary(ng-click='send()') 发送
+					button.btn.uu-btn 取消
+
+	div(uu-pane, title='发邮件')
+		form.form-horizontal.col-xs-7
+			.form-group
+				+short-input('收件人邮箱地址', 'reciever')(ng-model='msg.reciever')
+					button.btn.uu-btn 查找
+
+				//- +input('接收人', 'responsor')(ng-model='msg.reciever')
+			.form-group
+				+textarea('邮件内容', 'responsor')(ng-model='msg.reciever')
+
+			.form-group
+				+short-input('发送时间', 'responsor')(ng-model='msg.reciever', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+
+			.form-group
+				+submit
+					button.btn.uu-btn.btn-primary(ng-click='send()') 发送
+					button.btn.uu-btn 取消

@@ -249,7 +249,9 @@ angular.module('mainApp')
 		$scope.getSelectedCustomers = function() {
 			$scope.selectedCustomers = [];
 			angular.forEach($scope.orders, function(customer) {
-				customer.isChecked && $scope.selectedCustomers.push(customer);
+				if (customer.isChecked) {
+					$scope.selectedCustomers.push(customer);
+				}
 			});
 			return $scope.selectedCustomers;
 		};

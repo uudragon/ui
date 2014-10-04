@@ -153,82 +153,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
-// generate input field in form
-.directive('uuInput', function() {
-	return {
-		scope: {
-			label: '@',
-			name: '@',
-			model: '=?'
-		},
-		link: function(scope, elem, attrs) {
-			scope.labelCol = 'col-xs-' + (attrs.lCol || 4);
-			scope.labelOffset = attrs.lOffset ? ('col-xs-offset-' + attrs.lOffset) : '';
-			scope.inputCol = 'col-xs-' + (attrs.rCol || 4);
-			scope.inputOffset = attrs.rOffset ? ('col-xs-offset-' + attrs.rOffset) : '';
-			scope.type = attrs.type || 'text';
-			scope.prefix = attrs.prefix || '';
-		},
-		template: '<div class="form-group">' +
-						'<label class="control-label {{ labelCol }} {{ labelOffset }}" for="{{name}}">{{label}}:</label>' +
-						'<div class="{{ inputCol }} {{ inputOffset }}">' +
-							'<input type="{{ type }}" class="input-sm form-control" ng-model="model" name="{{name}}" id="{{name}}">' +
-						'</div>' +
-					'</div>'
-	};
-})
-
-// generate raido field in form
-.directive('uuTimeInicator', function() {
-	return {
-		scope: {
-			label: '@',
-			datetime: '@'
-		},
-		template: '<span class="key" ng-if="label">{{label}}:</span>' +
-					'<span class="val">{{datetime}}</span>' +
-					'<span class="time-indicator"></span>'
-	};
-})
-
-// generate statistics field
-.directive('uuInfoPanel', function() {
-	return {
-		transclude: true,
-		template: '<div class="info-panel" ng-transclude></div>'
-	};
-})
-
-// generate statistics field
-.directive('uuInfoTab', function() {
-	return {
-		transclude: true,
-		scope: {
-			title: '@'
-		},
-		template: '<h3 class="info-panel-title" ng-if="title">{{title}}</h3>' +
-					'<ul class="list-inline info-panel-content" ng-transclude></ul>'
-	};
-})
-
-// generate statistics field
-.directive('uuInfoItem', function() {
-	return {
-		scope: {
-			label: '@',
-			value: '@',
-			indicator: '@',
-			unit: '@'
-		},
-		link: function(scope, elem, attrs) {
-			scope.classname = attrs.classname || 'val';
-		},
-		template: '<span class="key" ng-if="label">{{label}}:</span>' +
-				  '<span class="{{ classname }}">{{value}} <span class="unit" ng-if="unit">{{unit}}</span></span>' +
-				  '<span class="time-indicator" ng-if="indicator"></span>'
-	};
-})
-
 // confirm dialog, require plugin jquery.confirm
 .directive('uuConfirm', function() {
 	return {
@@ -254,68 +178,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			});
 		},
 		template: '<a href="">{{label}}</a>'
-	};
-})
-
-// generate raido field in form
-.directive('uuSwitcher', function() {
-	return {
-		scope: {
-			label: '@',
-			ngChange: '&',
-			modify: '&',
-			export: '&',
-			model: '=',
-			options: '='
-		},
-		templateUrl: 'views/partial/directives/uuswitcher.html'
-	};
-})
-
-// generate raido field in form
-.directive('uuFieldWrap', function() {
-	return {
-		transclude: true,
-		scope: {
-			label: '@',
-			form: '=',
-			name: '@'
-		},
-		require: '^form',
-		replace: true,
-		link: function($scope, $elem, $attrs, ctrl) {
-			$scope.labelCol = 'col-xs-' + ($attrs.lCol || 4);
-			$scope.inputCol = 'col-xs-' + ($attrs.rCol || 4);
-			$scope.searchBtn = $attrs.searchBtn ? true : false;
-			$scope.labelOffset = $attrs.lOffset ? ('col-xs-offset-' + $attrs.lOffset) : '';
-			$scope.inputOffset = $attrs.rOffset ? ('col-xs-offset-' + $attrs.rOffset) : '';
-		},
-		template: '<div class="form-group" > ' +
-					'<label ng-if="label" for="{{name}}" class="control-label {{ labelCol }} {{ labelOffset }}">{{label}}: </label>' +
-					'<div class="{{ inputOffset }} {{ inputCol }}" ng-transclude></div>' +
-					'<div class="col-xs-1" ng-if="searchBtn"><button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button></div>' +
-				'</div>'
-	};
-})
-
-// generate static field in form
-.directive('uuStatic', function() {
-	return {
-		scope: {
-			label: '@',
-			text: '='
-		},
-		replace: true,
-		link: function($scope, $elem, $attrs) {
-			$scope.labelCol = 'col-xs-' + ($attrs.lCol || 4);
-			$scope.inputCol = 'col-xs-' + ($attrs.rCol || 4);
-		},
-		template: '<div class="form-group">' +
-					'<label class="control-label" ng-class="labelCol">{{label}}:</label>' +
-					'<div ng-class="inputCol">' +
-						'<p class="form-control-static">{{text}}</p>' +
-					'</div>' +
-				'</div>'
 	};
 })
 
@@ -562,7 +424,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		restrict: 'A',
 		link: function($scope, elem) {
-			elem.tooltip && elem.tooltip();
+			if (elem.tooltip) elem.tooltip();
 		}
 	};
 })

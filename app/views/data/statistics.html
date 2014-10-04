@@ -1,0 +1,70 @@
+
+<div class="criteria-bar">
+  <form role="form" style="display: inline; margin-left: 20px;" class="form-inline">
+    <div class="form-group">
+      <label for="form-form-major-phone" class="control-label">开始时间</label>
+      <input id="form-form-major-phone" ng-model="startTime" uu-date-picker="" class="form-control input-sm"/>
+    </div>
+    <div class="form-group">
+      <label for="form-form-becalled-phone" class="control-label">结束时间</label>
+      <input id="form-form-becalled-phone" ng-model="startTime" uu-date-picker="" class="form-control input-sm"/>
+    </div>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    </div>
+  </form>
+</div>
+<table class="uu-table">
+  <thead>
+    <tr>
+      <th>订单类型</th>
+      <th>在线支付</th>
+      <th>货到付款</th>
+      <th>已付款</th>
+      <th>未付款</th>
+      <th>退款中</th>
+      <th>已审核</th>
+      <th>未审核</th>
+      <th>审核中</th>
+      <th>已拆单</th>
+      <th>未拆单</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>数量</td>
+      <td ng-bind="statistics.online"></td>
+      <td ng-bind="statistics.payWhenReached"></td>
+      <td ng-bind="statistics.alreadyPaid"></td>
+      <td ng-bind="statistics.haventPaid"></td>
+      <td ng-bind="statistics.returning"></td>
+      <td ng-bind="statistics.checked"></td>
+      <td ng-bind="statistics.haventCheck"></td>
+      <td ng-bind="statistics.checking"></td>
+      <td ng-bind="statistics.splited"></td>
+      <td ng-bind="statistics.haventSplited"></td>
+    </tr>
+    <tr>
+      <td>占比</td>
+      <td ng-bind="statistics.onlineRate"></td>
+      <td ng-bind="statistics.payWhenReachedRate"></td>
+      <td ng-bind="statistics.alreadyPaidRate"></td>
+      <td ng-bind="statistics.haventPaidRate"></td>
+      <td ng-bind="statistics.returningRate"></td>
+      <td ng-bind="statistics.checkedRate"></td>
+      <td ng-bind="statistics.haventCheckRate"></td>
+      <td ng-bind="statistics.checkingRate"></td>
+      <td ng-bind="statistics.splitedRate"></td>
+      <td ng-bind="statistics.haventSplitedRate"></td>
+    </tr>
+  </tbody>
+</table>
+<h2>占比统计图</h2>
+<hr/>
+<div class="row">
+  <div class="col-xs-6">
+    <div uu-pie-chart="uu-pie-chart" header="全国各区域销量比值" data="[{value: 5332, name: '华北'}, {value: 3465, name: '华南'}, {value: 7485, name: '华东'}, {value: 4488, name: '华中'}, {value: 6684, name: '华西'}]"></div>
+  </div>
+  <div class="col-xs-6">
+    <div uu-pie-chart="uu-pie-chart" data="[3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 7]"></div>
+  </div>
+</div>

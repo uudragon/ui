@@ -23,7 +23,7 @@ angular.module('mainApp')
 
 
 		// inherit functions from parent
-		$controller('QAManager', {$scope: $scope});
+		$controller('UtilsManager', {$scope: $scope});
 
 	}])
 	.controller('Search', ['$scope', '$controller', function ($scope, $controller) {
@@ -105,6 +105,38 @@ angular.module('mainApp')
 		];
 
 		// inherit functions from parent
-		$controller('QAManager', {$scope: $scope});
+		$controller('UtilsManager', {$scope: $scope});
+
+	}])
+	.controller('Message', ['$scope', '$controller', function ($scope, $controller) {
+
+		// 联系记录
+		$scope.messages = [
+			{
+				content: 'Lorem.',
+				reciever: 'Lorem ipsum.',
+				sendTime: '2013-10-1'
+			},
+			{
+				content: 'ipsum.',
+				reciever: 'ab ipsum.',
+				sendTime: '2013-11-1'
+			}
+		];
+
+		$scope.sendMessage = function() {
+			$('#send-message').modal('show');
+		};
+
+		// inherit functions from parent
+		$controller('UtilsManager', {$scope: $scope});
+
+	}])
+	.controller('Batchmsg', ['$scope', '$controller', function ($scope, $controller) {
+
+
+
+		// inherit functions from parent
+		$controller('UtilsManager', {$scope: $scope});
 
 	}]);

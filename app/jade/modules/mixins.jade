@@ -29,10 +29,30 @@ mixin input(title, id)
 		else
 			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
 
+//- bootstrap short input helper
+mixin short-input(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7.message-multi
+		if !attributes['uu-date-picker']
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		else
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+		if block
+			block
+
+//- bootstrap short input helper
+mixin submit(title, id)
+	.col-xs-7.col-xs-offset-3
+		if block
+			block
+
 //- bootstrap input helper
 mixin plain-input(title, id)
 	label.control-label(for='form-' + id)=title
-	input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], ng-disable='true')
+	if !attributes['uu-date-picker']
+		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+	else
+		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
 
 //- bootstrap input helper
 mixin textarea(title, id)

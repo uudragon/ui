@@ -1,8 +1,5 @@
 include ../../modules/mixins.jade
 
-h2 工单管理
-hr
-
 //- 功能区
 .criteria-bar
 	form.form-inline(role='form')
@@ -10,7 +7,7 @@ hr
 			- var customerOptions = [{title: '电话号码', value: 0}, {title: '支付状态', value: 0}, {title: '支付方式', value: 0}, {title: '城市', value: 0}]
 			+plain-select('查询', 'customer-scope', customerOptions)
 
-//- 工单列表过滤条件
+//- 订单列表过滤条件
 .filter-bar
 	.btn-group(data-toggle='buttons')
 		- var filters = [{title: '今天', action: "ilterPay.payStatus=''"}, {title: '昨天', action: "ilterPay.payStatus=''"}, {title: '前天', action: "ilterPay.payStatus=''"}, {title: '近3天', action: "ilterPay.payStatus=''"}, {title: '近7天', action: "ilterPay.payStatus=''"}, {title: '近30天', action: "ilterPay.payStatus=''"}, ]
@@ -25,35 +22,49 @@ hr
 					span=filter.title
 	form.form-inline(role='form', style="display: inline; margin-left: 20px;")
 		.form-group
-			+plain-input('开始时间', 'form-major-phone')
+			+plain-input('开始时间', 'form-major-phone')(ng-model='startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 		.form-group
-			+plain-input('结束时间', 'form-becalled-phone')
+			+plain-input('结束时间', 'form-becalled-phone')(ng-model='startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 		.form-group
 			.btn.uu-btn.btn-primary 查询
 			.btn.uu-btn.btn-danger 重置
-//- 员工列表
+
+
+//- 工单列表
 table.uu-table
-	+thead
-		each th in ['姓名', '性别', '手机', '工单号', '城市', '工单开始时间', '工单结束时间', '受理人', '工单状态', '工单类型']
-			th=th
+	+thead(ng-dblclick="chooseTh('table-cols')")
+		th
+			.checkbox
+				label
+					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
+					| 全选
+		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
+			| {{th.label}}
+			+th-filter(ng-if='th.filter')
+				+glyphicon('filter')
+			ul.dropdown-menu(ng-if='th.filter')(role="menu")
+				each filter in ['待审核', '审核中', '审核通过', '无效']
+					li
+						a(href='')=filter
 		th.opration 操作
 	tbody
 		tr(ng-repeat='order in orders')
-			td(ng-bind='order.customerName')
-			td(ng-bind='order.gender | gender')
-			td(ng-bind='order.customerPhone')
 			td
+				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
+			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
+			td(ng-bind='order.gender | gender', ng-show='ths[1].isChecked')
+			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
+			td(ng-show='ths[3].isChecked')
 				+jslink('showOrder(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.city')
-			td(ng-bind='order.workstart')
-			td(ng-bind='order.workend')
-			td(ng-bind='order.responser')
-			td(ng-bind='order.workStatus')
-			td(ng-bind='order.workType')
+			td(ng-bind='order.city', ng-show='ths[4].isChecked')
+			td(ng-bind='order.workstart', ng-show='ths[5].isChecked')
+			td(ng-bind='order.workend', ng-show='ths[6].isChecked')
+			td(ng-bind='order.responser', ng-show='ths[7].isChecked')
+			td(ng-bind='order.workStatus', ng-show='ths[8].isChecked')
+			td(ng-bind='order.workType', ng-show='ths[9].isChecked')
 			td
 				+tooltip('修改', 'top', 'update(employee)')
-					+glyphicon('pencil')
-						&nbsp;
+					+glyphicon('pencil') &nbsp;
 
 				+tooltip('导出', 'top', 'export()')
 					+glyphicon('comment')
@@ -66,40 +77,7 @@ table.uu-table
 		h4.modal-title 核实工单
 	.modal-body
 		form.form-horizontal
-			fieldset
-				legend 基本信息
-				.form-group.col-xs-6
-					+input('客户姓名', 'name')(ng-model='user.name')
-				.form-group.col-xs-6
-					+input('工单编号', 'order')(ng-model='user.order')
-				.form-group.col-xs-6
-					+input('客户性别', 'sex')(ng-model='user.gender')
-				.form-group.col-xs-6
-					+input('订购产品', 'good')(ng-model='user.good')
-				.form-group.col-xs-6
-					+input('联系电话', 'telphone')(ng-model='user.telphone')
-				.form-group.col-xs-6
-					+input('起订日期', 'startDate')(ng-model='user.startDate')
-				.form-group.col-xs-6
-					+input('儿童姓名', 'child-name')(ng-model='user.childName')
-				.form-group.col-xs-6
-					+input('结束日期', 'enddate')(ng-model='user.enddate')
-				.form-group.col-xs-6
-					+input('儿童性别', 'child-gender')(ng-model='user.childGender')
-				.form-group.col-xs-6
-					+input('支付方式', 'payway')(ng-model='user.payway')
-				.form-group.col-xs-6
-					+input('出生日期', 'birthday')(ng-model='user.birthday')
-				.form-group.col-xs-6
-					+input('支付状态', 'pay-status')(ng-model='user.payStatus')
-
-			fieldset
-				legend 详细地址
-				.form-group.form-group-sm
-					label.control-label.label-location
-						span 省：山东省
-						span 市：青岛市
-						span 详细: 宁夏路208号
+			+customer-details
 			fieldset
 				legend 工单
 				table.uu-table
@@ -118,16 +96,14 @@ table.uu-table
 							td 正常
 							td
 								+tooltip('修改', 'left')
-									+glyphicon('pencil')
-										&nbsp;
+									+glyphicon('pencil') &nbsp;
 
 								+tooltip('共享工单', 'top', 'shareOrder()')
 									+glyphicon('send')
 
 			p
 				ul.list-inline
-					li
-						联系记录
+					li 联系记录
 					li
 						+tooltip('核实工单', 'top', 'checkOrder()')
 							+glyphicon('plus')
@@ -135,4 +111,5 @@ table.uu-table
 						+jslink('search()')
 							+glyphicon('search')
 
-
+//- 更改显示列
+include ../../modules/table-ths.jade

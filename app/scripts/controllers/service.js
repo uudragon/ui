@@ -20,7 +20,7 @@ angular.module('mainApp')
 			$scope.load('order_statistics');
 		} else if ( $scope.$state.is('root.service.getorder') ) {
 			// 领取工单
-			$scope.searchModel = {userNo: '1'}
+			$scope.searchModel = {userNo: '1'};
 			$scope.search('task');
 
 		} else if ( $scope.$state.is('root.service.online') ) {
@@ -28,11 +28,11 @@ angular.module('mainApp')
 		} else if ( $scope.$state.is('root.service.phone') ) {
 			$scope.load('phone_report', 'report');
 
-			$scope.report = {1: [{phone: '023423', status: '接听，并完整沟通', duration: '10', cs: '张三', info: '管理员'}, {phone: '312423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}], 2: [{phone: '723423', status: '接听，但忙碌', duration: '10', cs: '张三', info: '管理员'}, {phone: '612423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}] }
+			$scope.report = {1: [{phone: '023423', status: '接听，并完整沟通', duration: '10', cs: '张三', info: '管理员'}, {phone: '312423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}], 2: [{phone: '723423', status: '接听，但忙碌', duration: '10', cs: '张三', info: '管理员'}, {phone: '612423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}] };
 		} else if ( $scope.$state.is('root.service.data') ) {
 			$scope.load('phone_report', 'report');
 
-			$scope.report = {1: [{phone: '023423', status: '接听，并完整沟通', duration: '10', cs: '张三', info: '管理员'}, {phone: '312423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}], 2: [{phone: '723423', status: '接听，但忙碌', duration: '10', cs: '张三', info: '管理员'}, {phone: '612423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}] }
+			$scope.report = {1: [{phone: '023423', status: '接听，并完整沟通', duration: '10', cs: '张三', info: '管理员'}, {phone: '312423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}], 2: [{phone: '723423', status: '接听，但忙碌', duration: '10', cs: '张三', info: '管理员'}, {phone: '612423', status: '接听，并完整沟通', duration: '10', cs: '李四', info: '不详'}] };
 		}
 
 		$controller('ServiceCtrl', {$scope: $scope});
@@ -60,7 +60,7 @@ angular.module('mainApp')
 				{userNo: 823123, name: 'A'},
 				{userNo: 732123, name: 'B'}
 			],
-		}
+		};
 
 		$scope.tasks = $scope.allTasks[0];
 		$scope.model = {};
@@ -82,7 +82,7 @@ angular.module('mainApp')
 		};
 
 		$scope.updateWeek = function(index) {
-			if ($scope.week != index) {
+			if ($scope.week !== index) {
 				$scope.week = index;
 				$scope.tasks = $scope.allTasks[index];
 			}
@@ -97,4 +97,4 @@ angular.module('mainApp')
 		};
 
 		$controller('ServiceCtrl', {$scope: $scope});
-	}])
+	}]);

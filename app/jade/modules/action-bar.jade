@@ -14,10 +14,10 @@ ul.action-bar
 					a(href='')=filter
 
 	li
-		+tooltip('群发信息', 'top')
+		+tooltip('发送短信息', 'top')(ui-sref='root.utils.message')
 			+glyphicon('comment')
 	li
-		+tooltip('群发邮件', 'top')
+		+tooltip('群发信息', 'top')(ui-sref='root.utils.batchmsg')
 			+glyphicon('envelope')
 	li
 		+tooltip('修改密码', 'top')

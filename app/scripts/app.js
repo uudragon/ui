@@ -121,6 +121,10 @@ var uud = angular.module('mainApp', [
 		controller: 'CustomerPool'
 	})
 
+	///////////
+	// Utils //
+	///////////
+
 	.state('root.utils', {
 		url: 'utils',
 		templateUrl: 'views/utils/layout.html',
@@ -135,6 +139,16 @@ var uud = angular.module('mainApp', [
 		url: '/search',
 		templateUrl: 'views/utils/search.html',
 		controller: 'Search'
+	})
+	.state('root.utils.message', {
+		url: '/message',
+		templateUrl: 'views/utils/message.html',
+		controller: 'Message'
+	})
+	.state('root.utils.batchmsg', {
+		url: '/batch-msg',
+		templateUrl: 'views/utils/batchmsg.html',
+		controller: 'Batchmsg'
 	})
 
 
@@ -192,6 +206,11 @@ var uud = angular.module('mainApp', [
 		url: '/inventory',
 		templateUrl: 'views/data/inventory.html',
 		controller: 'Inventory'
+	})
+	.state('root.data.statistics', {
+		url: '/statistics',
+		templateUrl: 'views/data/statistics.html',
+		controller: 'Statistics'
 	})
 
 

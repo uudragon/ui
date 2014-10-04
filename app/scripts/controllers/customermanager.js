@@ -94,7 +94,9 @@ angular.module('mainApp')
 
 	}])
 	.controller('Info', ['$scope', '$controller', function ($scope, $controller) {
-
+		$scope.newMsgTemplet = function() {
+			$('#new-msg-templet').modal('show');
+		};
 
 
 		$controller('CustomerManagerManager', {$scope: $scope});

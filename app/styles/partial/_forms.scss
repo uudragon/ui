@@ -163,6 +163,7 @@ output {
 // Reset height for `textarea`s
 textarea.form-control {
 	height: auto;
+	min-height: 80px;
 }
 
 

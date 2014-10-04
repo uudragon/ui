@@ -62,6 +62,18 @@ body {
 	margin-bottom: 20px;
 }
 
+// use for send message page only
+.col-xs-7.message-multi{
+	.form-control {
+		width: 200px;
+		display: inline;
+	}
+	button {
+	    display: inline;
+	}
+}
+
+
 
 // .uu-subpage {
 // 	display: none;

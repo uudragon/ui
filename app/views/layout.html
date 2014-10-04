@@ -60,9 +60,9 @@
           <li><a href="">当日完结订单</a></li>
         </ul>
       </li>
-      <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-comment"></span></a>
+      <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送短信息"><span class="glyphicon glyphicon-comment"></span></a>
       </li>
-      <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发邮件"><span class="glyphicon glyphicon-envelope"></span></a>
+      <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
       </li>
       <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
       </li>
@@ -92,9 +92,10 @@
               </li>
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.data&quot;)}" uu-auth-filter="03" class="nav-item"><a class="nav-menu-label">数据管理</a>
                 <ul role="menu" class="nav nav-menu">
-                  <li><a ui-sref="root.data.ordermanager" ng-class="{active: $state.is(&quot;root.data.ordermanager&quot;)}">官网核实订单</a></li>
-                  <li><a ui-sref="root.data.work" ng-class="{active: $state.is(&quot;root.data.work&quot;)}">拆分订单</a></li>
-                  <li><a ui-sref="root.data.inventory" ng-class="{active: $state.is(&quot;root.data.inventory&quot;)}">投诉</a></li>
+                  <li><a ui-sref="root.data.ordermanager" ng-class="{active: $state.is(&quot;root.data.ordermanager&quot;)}">订单管理</a></li>
+                  <li><a ui-sref="root.data.work" ng-class="{active: $state.is(&quot;root.data.work&quot;)}">工单管理</a></li>
+                  <li><a ui-sref="root.data.inventory" ng-class="{active: $state.is(&quot;root.data.inventory&quot;)}">库存管理</a></li>
+                  <li><a ui-sref="root.data.statistics" ng-class="{active: $state.is(&quot;root.data.statistics&quot;)}">统计</a></li>
                 </ul>
               </li>
               <li ng-class="{active: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02" class="nav-item"><a ui-sref="root.qa.list">知识库</a></li>

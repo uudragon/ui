@@ -34,7 +34,7 @@ table.uu-table
 					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
 					| 全选
 		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
-			{{th.label}}
+			| {{th.label}}
 			+th-filter(ng-if='th.filter')
 				+glyphicon('filter')
 			ul.dropdown-menu(ng-if='th.filter')(role="menu")
@@ -59,8 +59,7 @@ table.uu-table
 			td(ng-bind='order.contactTimes', ng-show='ths[9].isChecked')
 			td
 				+tooltip('修改', 'top', 'showOrder(order)')
-					+glyphicon('pencil')
-						&nbsp;
+					+glyphicon('pencil') &nbsp;
 
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
@@ -100,16 +99,14 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 							td 正常
 							td
 								+tooltip('修改', 'top')
-									+glyphicon('pencil')
-										&nbsp;
+									+glyphicon('pencil') &nbsp;
 
 								+tooltip('共享订单', 'top', 'shareOrder()')
 									+glyphicon('share')
 
 			p
 				ul.list-inline
-					li
-						联系记录
+					li 联系记录
 					li
 						+tooltip('核实订单', 'top', 'checkOrder()')
 							+glyphicon('plus')
@@ -130,10 +127,8 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 					each val in responsorOptions
 						+option(val.title, val.value)
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()')
-			保存
-		button.btn.uu-btn(data-dismiss='modal')
-			取消
+		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 核实订单Modal
 include ../../modules/recheck-order.jade
