@@ -40,6 +40,10 @@ mixin textarea(title, id)
 	.col-xs-7
 		textarea.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
 
+mixin plain-textarea(title, id)
+	label.control-label(for='form-' + id)=title
+	textarea.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+
 mixin select(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
@@ -88,6 +92,11 @@ mixin submodal(id, className)
 //- 50% width form group
 mixin hgroup()
 	.form-group.col-xs-6
+		block
+
+//- 33% width form group
+mixin tgroup()
+	.form-group.tgroup.fixwidth
 		block
 
 //- Other HTML helpers

@@ -25,4 +25,86 @@ angular.module('mainApp')
 		// inherit functions from parent
 		$controller('QAManager', {$scope: $scope});
 
+	}])
+	.controller('Search', ['$scope', '$controller', function ($scope, $controller) {
+
+		// 联系记录
+		$scope.isOrderInfoEditable = true;
+
+		$scope.records = [
+			{
+				topic: '回访',
+				dealResult: '处理中',
+				urgency: '紧急',
+				content: '联系内容',
+				phoneStatus: '接听',
+				contactTime: '2010-03-01',
+				nextContactTime: '2010-03-01',
+				complianType: '投诉分类',
+				responser: '李四民'
+			},
+			{
+				topic: '催费',
+				dealResult: '已完成',
+				urgency: '紧急',
+				content: '联系内容',
+				phoneStatus: '无人接',
+				contactTime: '2010-04-01',
+				nextContactTime: '2010-06-01',
+				complianType: '投诉分类',
+				responser: '比尔盖茨'
+			}
+		];
+
+		$scope.showRecord = function(record) {
+			$('#recheck-order').modal('show');
+		};
+
+		$scope.newRecord = function(record) {
+			$('#recheck-order').modal('show');
+		};
+
+		// 订单管理
+		$scope.allOrders = [
+			{
+				orderSN: '123123123',
+				startIssues: '2010-04-01',
+				endIssues: '2010-08-01',
+				deliverTurns: '3',
+				amount: '42323.12',
+				remainTurns: '2',
+				birtchDay: '1999-04-01',
+				orderStatus: 'good',
+				giftStatus: 'good',
+				invoicesStatus: 'good'
+			}
+		];
+
+		// 发货记录
+		$scope.deliverRecords = [
+			{
+				orderSN: '234234131',
+				deliverTime: '2010-04-01',
+				deliverStatus: 'good',
+				goodName: '年度',
+				deliverFeedback: 'good',
+				deliverSN: '12335231351'
+			}
+		];
+
+		// 补开发票
+		$scope.goods = [
+			{
+				name: '季度',
+				size: '大号',
+				cost: '100万',
+				num: '10',
+				amount: '1000万',
+
+			}
+		];
+
+		// inherit functions from parent
+		$controller('QAManager', {$scope: $scope});
+
 	}]);

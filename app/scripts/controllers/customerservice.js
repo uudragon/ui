@@ -112,7 +112,6 @@ angular.module('mainApp')
 		];
 
 		$scope.editCustomerInfo = function() {
-			console.log(true);
 			$scope.isCustometInfoEditable = true;
 		};
 

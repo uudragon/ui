@@ -4,7 +4,7 @@
 		h4.modal-title 投诉
 	.modal-body
 		form.form-horizontal
-			fieldset(uu-form-field='isCustometInfoEditable')
+			fieldset(uu-form-field='isOrderInfoEditable')
 				.form-group
 					+select('主题', 'topic')(ng-model='return.topic')
 						+option('核实订单', 0)
@@ -45,7 +45,7 @@
 				.form-group
 					+input('下次回访日期', 'return-next-time')(ng-model='return.nextTime', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
 				.form-group
-					+select('投诉分类', 'urgency')(ng-model='return.urgency')
+					+select('紧急程度', 'urgency')(ng-model='return.urgency')
 						+option('一般', 0)
 						+option('优先', 1)
 						+option('紧急', 1)

@@ -63,6 +63,12 @@
   background-clip: padding-box;
   // Remove focus outline from opened modal
   outline: 0;
+
+  .location  {
+    .control-label {
+      width: 101px;
+    }
+  }
 }
 
 // Modal background

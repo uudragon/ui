@@ -131,6 +131,11 @@ var uud = angular.module('mainApp', [
 		templateUrl: 'views/utils/neworder.html',
 		controller: 'NewOrder'
 	})
+	.state('root.utils.search', {
+		url: '/search',
+		templateUrl: 'views/utils/search.html',
+		controller: 'Search'
+	})
 
 
 	//////////////////////

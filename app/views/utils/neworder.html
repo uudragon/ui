@@ -1,6 +1,4 @@
 
-<h2>新建来电工单</h2>
-<hr/>
 <form class="form-horizontal">
   <fieldset>
     <div class="form-group col-xs-6">
@@ -49,11 +47,9 @@
         <input id="form-telphone" ng-model="customer.telphone" class="form-control input-sm"/>
       </div>
     </div>
-    <div class="form-group col-xs-6">
-      <label for="form-content" class="control-label col-xs-3">内容</label>
-      <div class="col-xs-7">
-        <textarea id="form-content" ng-model="customer.content" class="form-control"></textarea>
-      </div>
+    <div class="form-group col-xs-12 order-content">
+      <label for="form-content" class="control-label">内容</label>
+      <textarea id="form-content" ng-model="customer.content" class="form-control"></textarea>
     </div>
     <div class="form-group col-xs-12 group-center-block">
       <button ng-click="confirmAndShare()" class="btn uu-btn btn-primary">保存</button>

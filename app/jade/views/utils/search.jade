@@ -1,0 +1,209 @@
+include ../../modules/mixins.jade
+
+form.form-horizontal.form-nowrap
+	//- customer details
+	+customer-details
+	fieldset
+		legend 订单信息
+		table.uu-table
+			+thead
+				each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '操作']
+					th=th
+			tbody
+				tr
+					td 123071231
+					td 李四民
+					td 季度
+					td 2014-10-15
+					td 在线支付
+					td 已支付
+					td 2010-06-01
+					td 正常
+					td
+						+tooltip('修改', 'top')
+							+glyphicon('pencil')
+								&nbsp;
+
+						+tooltip('共享订单', 'top', 'shareOrder()')
+							+glyphicon('share')
+
+	div(uu-tab)
+		div(uu-pane, title='联系记录')
+
+			div(ng-show='!records.length')
+				+tooltip('新建联系记录', 'top', 'newRecord()')
+					+glyphicon('plus')
+
+			table.uu-table(ng-show='records')
+				+thead
+					each th in ['主题', '处理结果', '紧急程度', '联系内容', '电话状态', '联系时间', '下次回访日期', '投诉分类', '负责人']
+						th=th
+				tbody
+					tr(ng-repeat='record in records')
+						td
+							+jslink('showRecord(record)')(ng-bind='record.topic')
+						td(ng-bind='record.dealResult')
+						td(ng-bind='record.urgency')
+						td(ng-bind='record.content')
+						td(ng-bind='record.phoneStatus')
+						td(ng-bind='record.invoicestime')
+						td(ng-bind='record.nextContactTime')
+						td(ng-bind='record.complianType')
+						td(ng-bind='record.responser')
+
+		div(uu-pane, title='订单管理')
+			table.uu-table
+				+thead
+					each th in ['订单编号', '开始刊号', '截止刊号', '已发货期数', '订单金额', '剩余发货期数', '出生日期', '订单状态', '赠品情况', '发票情况']
+						th=th
+				tbody
+					tr(ng-repeat='order in allOrders')
+						td(ng-bind='order.orderSN')
+						td(ng-bind='order.startIssues')
+						td(ng-bind='order.endIssues')
+						td(ng-bind='order.deliverTurns')
+						td(ng-bind='order.amount')
+						td(ng-bind='order.remainTurns')
+						td(ng-bind='order.birtchDay')
+						td(ng-bind='order.orderStatus')
+						td(ng-bind='order.giftStatus')
+						td(ng-bind='order.invoicesStatus')
+			fieldset
+				legend 退货信息
+				+hgroup
+					+input('刊号', 'orderSN')(ng-model='invoices.orderSN')
+				+hgroup
+					+input('刊数', 'invoices-content')(ng-model='invoices.content')
+				+hgroup
+					+input('合同金额', 'invoices-amount')(ng-model='invoices.invoicesamount')
+				+hgroup
+					+input('已收金额', 'invoices-creatTime')(ng-model='invoices.creatTime', uu-date-picker)
+				+hgroup
+					+input('已发货未收金额', 'invoices-head')(ng-model='invoices.head')
+				+hgroup
+					+input('刊数', 'invoices-sn')(ng-model='invoices.sn')
+				+hgroup
+					+input('办理手续费', 'invoices-head')(ng-model='invoices.head')
+				+hgroup
+					+input('承担人', 'invoices-sn')(ng-model='invoices.sn')
+				+hgroup
+					+input('退款办理手续费', 'invoices-head')(ng-model='invoices.head')
+				+hgroup
+					+input('承担人', 'invoices-sn')(ng-model='invoices.sn')
+				+hgroup
+					+input('退款金额', 'invoices-head')(ng-model='invoices.head')
+				+hgroup
+					+input('实际退款金额', 'invoices-sn')(ng-model='invoices.sn')
+				+hgroup
+					+input('退款账号', 'invoices-head')(ng-model='invoices.head')
+				+hgroup
+					+input('开户行', 'invoices-sn')(ng-model='invoices.sn')
+				+hgroup
+					+select('退订原因', 'deal-result')(ng-model='return.dealResult')
+						+option('发票抬头错误', 1)
+						+option('未开发票', 2)
+						+option('开票时间长', 3)
+						+option('发票丢失', 4)
+						+option('客服态度不好', 5)
+				+hgroup
+					+select('是否到库', 'deal-result')(ng-model='return.dealResult')
+						+option('是', 1)
+						+option('否', 0)
+
+			fieldset.fixlabel
+				legend 产品信息
+				.form-group.fixwidth
+					+select('换货原因', 'deal-result')(ng-model='return.dealResult')
+						+option('发票抬头错误', 1)
+						+option('未开发票', 2)
+
+				+tgroup
+					+select('换货到库状态', 'deal-result')(ng-model='return.dealResult')
+						+option('已入库', 1)
+						+option('未入库', 2)
+
+				+tgroup
+					+input('库房', 'deal-result')(ng-model='return.dealResult')
+						+option('已入库', 1)
+						+option('未入库', 2)
+
+				+tgroup
+					+input('入库时间', 'deal-result')(ng-model='return.dealResult')
+
+				+tgroup
+					+select('换货发货状态', 'deal-result')(ng-model='return.dealResult')
+						+option('已入库', 1)
+						+option('未入库', 2)
+
+				+tgroup
+					+input('库房', 'deal-result')(ng-model='return.dealResult')
+						+option('已入库', 1)
+						+option('未入库', 2)
+
+				+tgroup
+					+input('入库时间', 'deal-result')(ng-model='return.dealResult')
+
+				+tgroup
+					+input('发货单号', 'deal-result')(ng-model='return.dealResult')
+
+				+tgroup
+					+input('物流名称', 'deal-result')(ng-model='return.dealResult')
+						+option('已入库', 1)
+						+option('未入库', 2)
+
+				+tgroup
+					+input('物流单号', 'deal-result')(ng-model='return.dealResult')
+
+				.form-group.fixwidth
+					+select('收货状态', 'deal-result')(ng-model='return.dealResult')
+						+option('已收货', 1)
+						+option('未收货', 2)
+
+		div(uu-pane, title='发货记录')
+			table.uu-table
+				+thead
+					each th in ['订单编号', '发货日期', '发货状态', '产品名称', '快递反馈状态', '物流单号']
+						th=th
+				tbody
+					tr(ng-repeat='record in deliverRecords')
+						td(ng-bind='record.orderSN')
+						td(ng-bind='record.deliverTime')
+						td(ng-bind='record.deliverStatus')
+						td(ng-bind='record.goodName')
+						td(ng-bind='record.deliverFeedback')
+						td(ng-bind='record.deliverSN')
+
+		div(uu-pane, title='补开发票')
+			fieldset
+				legend 发票信息
+				+hgroup
+					+input('订单号', 'orderSN')(ng-model='invoices.orderSN')
+				+hgroup
+					+input('发票内容', 'invoices-content')(ng-model='invoices.content')
+				+hgroup
+					+input('订单金额', 'invoices-amount')(ng-model='invoices.invoicesamount')
+				+hgroup
+					+input('开票日期', 'invoices-creatTime')(ng-model='invoices.creatTime', uu-date-picker)
+				+hgroup
+					+input('发票抬头', 'invoices-head')(ng-model='invoices.head')
+				+hgroup
+					+input('发票号', 'invoices-sn')(ng-model='invoices.sn')
+			fieldset
+				legend 产品信息
+				table.uu-table
+					+thead
+						each th in ['商品名称', '规格', '单价', '数量', '金额']
+							th=th
+					tbody
+						tr(ng-repeat='good in goods')
+							td(ng-bind='good.name')
+							td(ng-bind='good.size')
+							td(ng-bind='good.cost')
+							td(ng-bind='good.num')
+							td(ng-bind='good.amount')
+			div
+				button.pull-right.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 保存并共享财物部
+
+include ../../modules/recheck-order.jade
+
+

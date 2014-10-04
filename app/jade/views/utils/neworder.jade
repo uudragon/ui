@@ -1,8 +1,5 @@
 include ../../modules/mixins.jade
 
-h2 新建来电工单
-hr
-
 form.form-horizontal
 	fieldset
 		.form-group.col-xs-6
@@ -25,8 +22,8 @@ form.form-horizontal
 				+option('物流', 0)
 		.form-group.col-xs-6
 			+input('联系电话', 'telphone')(ng-model='customer.telphone')
-		.form-group.col-xs-6
-			+textarea('内容', 'content')(ng-model='customer.content')
+		.form-group.col-xs-12.order-content
+			+plain-textarea('内容', 'content')(ng-model='customer.content')
 
 		.form-group.col-xs-12.group-center-block
 			button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 保存

@@ -3,10 +3,10 @@ ul.action-bar
 		+tooltip('新建来电工单', 'top')(ui-sref='root.utils.neworder')
 			+glyphicon('plus')
 	li
-		+tooltip('查找订单', 'top')
+		+tooltip('查找订单', 'top')(ui-sref='root.utils.search')
 			+glyphicon('search')
 	li
-		+tooltip('filter', 'top')(class='dropdown-toggle')
+		+tooltip('过滤条件', 'top')(class='dropdown-toggle')
 			+glyphicon('filter')
 		ul.dropdown-menu(role="menu")
 			each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单']
