@@ -43,7 +43,7 @@ angular.module('mainApp')
 
 		$scope.newKnowledge = function() {
 			$('#new-knowlege').modal('show');
-		}
+		};
 
 		// inherit functions from parent
 		$controller('KnowledgeManager', {$scope: $scope});

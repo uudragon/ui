@@ -127,5 +127,9 @@ angular.module('mainApp')
 			$('#order-details').modal('show');
 		};
 
+		$scope.printCharts = function() {
+			$scope.print();
+		};
+
 		$controller('DataManager', {$scope: $scope});
 	}]);

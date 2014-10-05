@@ -15,6 +15,10 @@ angular.module('mainApp')
 		keyword: ''
 	};
 
+	$scope.print = function() {
+		window.print();
+	};
+
 	$scope.range = function(n) {
 		return new Array(n);
 	};
