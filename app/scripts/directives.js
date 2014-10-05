@@ -292,11 +292,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				start = betwwen(start, 1, $scope.totalPages - pages + 1);
 
 				// update the model passed in
-				$scope.model = {
-					'toPage': $scope.current,
-					'perPage': $scope.perPage
-				};
-
+				$scope.model.toPage = $scope.current;
+				$scope.model.perPage = $scope.perPage;
 				$scope.pages = [];
 
 				for (i = start; i < start + pages; i++) {

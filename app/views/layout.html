@@ -98,7 +98,13 @@
                   <li><a ui-sref="root.data.statistics" ng-class="{active: $state.is(&quot;root.data.statistics&quot;)}">统计</a></li>
                 </ul>
               </li>
-              <li ng-class="{active: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02" class="nav-item"><a ui-sref="root.qa.list">知识库</a></li>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02" class="nav-item"><a class="nav-menu-label">知识库</a>
+                <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.knowledge.presale" ng-class="{active: $state.is(&quot;root.knowledge.presale&quot;)}">售前服务</a></li>
+                  <li><a ui-sref="root.knowledge.aftersale" ng-class="{active: $state.is(&quot;root.knowledge.aftersale&quot;)}">售后服务</a></li>
+                  <li><a ui-sref="root.knowledge.qa" ng-class="{active: $state.is(&quot;root.knowledge.qa&quot;)}">常见问题</a></li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li class="section-item"><a class="nav-sections-label">库存管理</a>

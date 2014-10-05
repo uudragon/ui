@@ -1,0 +1,115 @@
+
+<div class="article-header-search">
+  <form role="form" class="form-inline">
+    <div class="form-group">
+      <select ng-model="searchModel.filter" ng-options="filter.value as filter.name for filter in majorFilters" class="form-control input-sm"></select>
+      <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in subfilters" class="form-control input-sm"></select>
+      <input ng-model="searchModel.keyword" class="form-control input-sm"/>
+    </div>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    </div>
+  </form>
+</div>
+<div class="article-header-operate">
+  <ul class="list-inline">
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除"><span class="glyphicon glyphicon-trash"></span></a>
+    </li>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加知识" ng-click="newKnowledge()"><span class="glyphicon glyphicon-file"></span></a>
+    </li>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="知识工具"><span class="glyphicon glyphicon-wrench"></span></a>
+    </li>
+  </ul>
+</div>
+<table class="uu-table">
+  <thead>
+    <tr ng-dblclick="chooseTh('table-cols')">
+      <th>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, knowledges)"/>全选
+          </label>
+        </div>
+      </th>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
+          <li><a href="">待审核</a></li>
+          <li><a href="">审核中</a></li>
+          <li><a href="">审核通过</a></li>
+          <li><a href="">无效</a></li>
+        </ul>
+      </th>
+      <th>工具</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="knowledge in knowledges">
+      <td>
+        <input type="checkbox" ng-model="knowledge.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, knowledges, knowledge)"/>
+      </td>
+      <td ng-bind="knowledge.subject" ng-show="ths[0].isChecked"></td>
+      <td ng-show="ths[1].isChecked"><a href="" ng-click="showknowledge(knowledge)" ng-bind="knowledge.content" class="jslink"></a>
+      </td>
+      <td ng-bind="knowledge.author" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="knowledge.category" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="knowledge.pv" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="knowledge.updateTime" ng-show="ths[5].isChecked"></td>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="编辑" ng-click="showknowledge(knowledge)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看"><span class="glyphicon glyphicon-search"></span></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<uu-pagination records="102" page="currentPage" model="searchModel" action="getknowledges()"></uu-pagination>
+<div id="new-knowlege" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">添加知识</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="form-subject" class="control-label col-xs-3">主题</label>
+            <div class="col-xs-7">
+              <input id="form-subject" ng-model="newknowledge.subject" class="form-control input-sm"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="form-responsor" class="control-label col-xs-3">内容</label>
+            <div class="col-xs-7">
+              <textarea id="form-responsor" ng-model="order.responsor" class="form-control"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="table-ths" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">更改显示列</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="isAllThsShow" ng-click="toggleCheckAll(&quot;isAllThsShow&quot;, ths)"/>全选
+            </label>
+          </li>
+          <li ng-repeat="th in ths" class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="th.isChecked" ng-click="checkIsAllChecked(&quot;isAllThsShow&quot;, ths, th)"/>{{th.label}}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

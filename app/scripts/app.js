@@ -218,15 +218,25 @@ var uud = angular.module('mainApp', [
 	// Ship Manager //
 	//////////////////
 
-	.state('root.qa', {
-		url: 'qa',
-		templateUrl: 'views/qa/layout.html',
-		controller: 'QACtrl'
+	.state('root.knowledge', {
+		url: 'knowledge',
+		templateUrl: 'views/knowledge/layout.html',
+		controller: 'KnowledgeCtrl'
 	})
-	.state('root.qa.list', {
-		url: '/list',
-		templateUrl: 'views/qa/list.html',
-		controller: 'List'
+	.state('root.knowledge.presale', {
+		url: '/presale',
+		templateUrl: 'views/knowledge/presale.html',
+		controller: 'Presale'
+	})
+	.state('root.knowledge.aftersale', {
+		url: '/aftersale',
+		templateUrl: 'views/knowledge/aftersale.html',
+		controller: 'Aftersale'
+	})
+	.state('root.knowledge.qa', {
+		url: '/qa',
+		templateUrl: 'views/knowledge/qa.html',
+		controller: 'QA'
 	});
 
 }])
