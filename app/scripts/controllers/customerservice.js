@@ -102,8 +102,6 @@ angular.module('mainApp')
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
 
-		$scope.isOrderInfoEditable = true;
-
 		// 共享订单
 		$scope.shareOrder = function() {
 			$('#share-order').modal('show');
@@ -153,8 +151,6 @@ angular.module('mainApp')
 	.controller('Complains', ['$scope', '$controller', function($scope, $controller) {
 		var $returnOrder = $('#return-order');
 		var $tree = $('#tree');
-
-		$scope.isOrderInfoEditable = true;
 
 		// 搜索下拉
 		$scope.filters = [{name: '所有投诉', value: 0}, {name: '我的投诉', value: 1}, {name: '下属的投诉', value: 1}, {name: '未处理的投诉', value: 1}, {name: '处理中的投诉', value: 1}];

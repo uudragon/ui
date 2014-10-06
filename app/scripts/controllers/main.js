@@ -140,6 +140,7 @@ angular.module('mainApp')
 	// 表格排序
 	$scope.sortBy = function(name, type) {
 		console.log('sort by:', name, type);
+		console.log($scope.searchModel);
 	};
 
 }]);

@@ -67,6 +67,16 @@ angular.module('mainApp')
 			{name: 'details', label: '详细', isChecked: true, sortable: true}
 		];
 
+		$('#order-details').modal('show');
+
+		$scope.newContact = function(record) {
+			$('#contact-history').modal('show');
+		};
+
+		$scope.showContact = function(record) {
+			$('#contact-history').modal('show');
+		};
+
 		$controller('DataManager', {$scope: $scope});
 	}])
 	.controller('Work', ['$scope', '$controller', function ($scope, $controller) {

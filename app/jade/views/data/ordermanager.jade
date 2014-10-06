@@ -18,10 +18,9 @@ include ../../modules/mixins.jade
 
 //- 员工列表
 table.uu-table
-	+theadplus('orders')(operation='操作', ng-dblclick="chooseTh('table-cols')")
+	+theadplus()(operation='操作', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders')
-			+tdchecker('orders', 'order')(ng-model='order.isChecked')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
 			td(ng-bind='order.gender | gender', ng-show='ths[1].isChecked')
 			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
@@ -78,151 +77,150 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 								+tooltip('共享订单', 'top', 'shareOrder()')
 									+glyphicon('send')
 
-		div(uu-tab)
-			div(uu-pane, title='联系记录')
+			div(uu-tab)
+				div(uu-pane, title='联系记录')
 
-				div(ng-show='!records.length')
-					+tooltip('新建联系记录', 'top', 'newRecord()')
-						+glyphicon('plus')
+					div(ng-show='!records.length')
+						+tooltip('新建联系记录', 'top', 'newContact()')
+							+glyphicon('plus')
 
-				table.uu-table(ng-show='records')
-					+thead
-						each th in ['主题', '处理结果', '紧急程度', '联系内容', '电话状态', '联系时间', '下次回访日期', '投诉分类', '负责人']
-							th=th
-					tbody
-						tr(ng-repeat='record in records')
-							td
-								+jslink('showRecord(record)')(ng-bind='record.topic')
-							td(ng-bind='record.dealResult')
-							td(ng-bind='record.urgency')
-							td(ng-bind='record.content')
-							td(ng-bind='record.phoneStatus')
-							td(ng-bind='record.invoicestime')
-							td(ng-bind='record.nextContactTime')
-							td(ng-bind='record.complianType')
-							td(ng-bind='record.responser')
+					table.uu-table(ng-show='records')
+						+thead
+							each th in ['主题', '处理结果', '紧急程度', '联系内容', '电话状态', '联系时间', '下次回访日期', '投诉分类', '负责人']
+								th=th
+						tbody
+							tr(ng-repeat='contact in contacts')
+								td
+									+jslink('showContact(contact)')(ng-bind='contact.topic')
+								td(ng-bind='contact.dealResult')
+								td(ng-bind='contact.urgency')
+								td(ng-bind='contact.content')
+								td(ng-bind='contact.phoneStatus')
+								td(ng-bind='contact.invoicestime')
+								td(ng-bind='contact.nextContactTime')
+								td(ng-bind='contact.complianType')
+				//- 				td(ng-bind='contact.responser')
 
-			div(uu-pane, title='订单管理')
-				table.uu-table
-					+thead
-						each th in ['订单编号', '开始刊号', '截止刊号', '已发货期数', '订单金额', '剩余发货期数', '出生日期', '订单状态', '赠品情况', '发票情况']
-							th=th
-					tbody
-						tr(ng-repeat='order in allOrders')
-							td(ng-bind='order.orderSN')
-							td(ng-bind='order.startIssues')
-							td(ng-bind='order.endIssues')
-							td(ng-bind='order.deliverTurns')
-							td(ng-bind='order.amount')
-							td(ng-bind='order.remainTurns')
-							td(ng-bind='order.birtchDay')
-							td(ng-bind='order.orderStatus')
-							td(ng-bind='order.giftStatus')
-							td(ng-bind='order.invoicesStatus')
-				fieldset
-					legend 退货信息
-					+hgroup
-						+input('刊号', 'orderSN')(ng-model='invoices.orderSN')
-					+hgroup
-						+input('刊数', 'invoices-content')(ng-model='invoices.content')
-					+hgroup
-						+input('合同金额', 'invoices-amount')(ng-model='invoices.invoicesamount')
-					+hgroup
-						+input('已收金额', 'invoices-creatTime')(ng-model='invoices.creatTime', uu-date-picker)
-					+hgroup
-						+input('已发货未收金额', 'invoices-head')(ng-model='invoices.head')
-					+hgroup
-						+input('刊数', 'invoices-sn')(ng-model='invoices.sn')
-					+hgroup
-						+input('办理手续费', 'invoices-head')(ng-model='invoices.head')
-					+hgroup
-						+input('承担人', 'invoices-sn')(ng-model='invoices.sn')
-					+hgroup
-						+input('退款办理手续费', 'invoices-head')(ng-model='invoices.head')
-					+hgroup
-						+input('承担人', 'invoices-sn')(ng-model='invoices.sn')
-					+hgroup
-						+input('退款金额', 'invoices-head')(ng-model='invoices.head')
-					+hgroup
-						+input('实际退款金额', 'invoices-sn')(ng-model='invoices.sn')
-					+hgroup
-						+input('退款账号', 'invoices-head')(ng-model='invoices.head')
-					+hgroup
-						+input('开户行', 'invoices-sn')(ng-model='invoices.sn')
-					+hgroup
-						+select('退订原因', 'deal-result')(ng-model='return.dealResult')
-							+option('发票抬头错误', 1)
-							+option('未开发票', 2)
-							+option('开票时间长', 3)
-							+option('发票丢失', 4)
-							+option('客服态度不好', 5)
-					+hgroup
-						+select('是否到库', 'deal-result')(ng-model='return.dealResult')
-							+option('是', 1)
-							+option('否', 0)
+				div(uu-pane, title='订单管理')
+					table.uu-table
+						+thead
+							each th in ['订单编号', '开始刊号', '截止刊号', '已发货期数', '订单金额', '剩余发货期数', '出生日期', '订单状态', '赠品情况', '发票情况']
+								th=th
+						tbody
+							tr(ng-repeat='order in allOrders')
+								td(ng-bind='order.orderSN')
+								td(ng-bind='order.startIssues')
+								td(ng-bind='order.endIssues')
+								td(ng-bind='order.deliverTurns')
+								td(ng-bind='order.amount')
+								td(ng-bind='order.remainTurns')
+								td(ng-bind='order.birtchDay')
+								td(ng-bind='order.orderStatus')
+								td(ng-bind='order.giftStatus')
+								td(ng-bind='order.invoicesStatus')
+					fieldset
+						legend 退货信息
+						+hgroup
+							+input-tweak('刊号', 'orderSN')(ng-model='invoices.orderSN')
+						+hgroup
+							+input-tweak('刊数', 'invoices-content')(ng-model='invoices.content')
+						+hgroup
+							+input-tweak('合同金额', 'invoices-amount')(ng-model='invoices.invoicesamount')
+						+hgroup
+							+input-tweak('已收金额', 'invoices-creatTime')(ng-model='invoices.creatTime', uu-date-picker)
+						+hgroup
+							+input-tweak('已发货未收金额', 'invoices-head')(ng-model='invoices.head')
+						+hgroup
+							+input-tweak('刊数', 'invoices-sn')(ng-model='invoices.sn')
+						+hgroup
+							+input-tweak('办理手续费', 'invoices-head')(ng-model='invoices.head')
+						+hgroup
+							+input-tweak('承担人', 'invoices-sn')(ng-model='invoices.sn')
+						+hgroup
+							+input-tweak('退款办理手续费', 'invoices-head')(ng-model='invoices.head')
+						+hgroup
+							+input-tweak('承担人', 'invoices-sn')(ng-model='invoices.sn')
+						+hgroup
+							+input-tweak('退款金额', 'invoices-head')(ng-model='invoices.head')
+						+hgroup
+							+input-tweak('实际退款金额', 'invoices-sn')(ng-model='invoices.sn')
+						+hgroup
+							+input-tweak('退款账号', 'invoices-head')(ng-model='invoices.head')
+						+hgroup
+							+input-tweak('开户行', 'invoices-sn')(ng-model='invoices.sn')
+						+hgroup
+							+select-tweak('退订原因', 'deal-result')(ng-model='return.dealResult')
+								+option('发票抬头错误', 1)
+								+option('未开发票', 2)
+								+option('开票时间长', 3)
+								+option('发票丢失', 4)
+								+option('客服态度不好', 5)
+						+hgroup
+							+select-tweak('是否到库', 'deal-result')(ng-model='return.dealResult')
+								+option('是', 1)
+								+option('否', 0)
 
-				fieldset.fixlabel
-					legend 产品信息
-					.form-group.fixwidth
-						+select('换货原因', 'deal-result')(ng-model='return.dealResult')
-							+option('发票抬头错误', 1)
-							+option('未开发票', 2)
+					fieldset
+						legend 产品信息
+						.twrap
+							.form-group.tgroup
+								+select-tweak('换货原因', 'deal-result')(ng-model='return.dealResult')
+									+option('发票抬头错误', 1)
+									+option('未开发票', 2)
+						.twrap
+							.form-group.tgroup
+								+select-tweak('换货到库状态', 'deal-result')(ng-model='return.dealResult')
+									+option('已入库', 1)
+									+option('未入库', 2)
 
-					+tgroup
-						+select('换货到库状态', 'deal-result')(ng-model='return.dealResult')
-							+option('已入库', 1)
-							+option('未入库', 2)
+							.form-group.tgroup
+								+input-tweak('库房', 'deal-result')(ng-model='return.dealResult')
 
-					+tgroup
-						+input('库房', 'deal-result')(ng-model='return.dealResult')
-							+option('已入库', 1)
-							+option('未入库', 2)
+							.form-group.tgroup
+								+input-tweak('入库时间', 'deal-result')(ng-model='return.dealResult', uu-date-picker)
 
-					+tgroup
-						+input('入库时间', 'deal-result')(ng-model='return.dealResult')
+						.twrap
+							.form-group.tgroup
+								+select-tweak('换货发货状态', 'deal-result')(ng-model='return.dealResult')
+									+option('已入库', 1)
+									+option('未入库', 2)
+							.form-group.tgroup
+								+input-tweak('库房', 'deal-result')(ng-model='return.dealResult')
 
-					+tgroup
-						+select('换货发货状态', 'deal-result')(ng-model='return.dealResult')
-							+option('已入库', 1)
-							+option('未入库', 2)
+							.form-group.tgroup
+								+input-tweak('入库时间', 'deal-result')(ng-model='return.dealResult', uu-date-picker)
 
-					+tgroup
-						+input('库房', 'deal-result')(ng-model='return.dealResult')
-							+option('已入库', 1)
-							+option('未入库', 2)
+						.twrap
+							.form-group.tgroup
+								+input-tweak('发货单号', 'deal-result')(ng-model='return.billNo')
 
-					+tgroup
-						+input('入库时间', 'deal-result')(ng-model='return.dealResult')
+							.form-group.tgroup
+								+input-tweak('物流名称', 'deal-result')(ng-model='return.deliverBrand')
 
-					+tgroup
-						+input('发货单号', 'deal-result')(ng-model='return.dealResult')
+							.form-group.tgroup
+								+input-tweak('物流单号', 'deal-result')(ng-model='return.deliverSN')
 
-					+tgroup
-						+input('物流名称', 'deal-result')(ng-model='return.dealResult')
-							+option('已入库', 1)
-							+option('未入库', 2)
+						.twrap
+							.form-group.tgroup
+								+select-tweak('收货状态', 'deal-result')(ng-model='return.recivedStatus')
+									+option('已收货', 1)
+									+option('未收货', 2)
 
-					+tgroup
-						+input('物流单号', 'deal-result')(ng-model='return.dealResult')
+				div(uu-pane, title='发货记录')
+					table.uu-table
+						+thead
+							each th in ['订单编号', '发货日期', '发货状态', '产品名称', '快递反馈状态', '物流单号']
+								th=th
+						tbody
+							tr(ng-repeat='record in deliverRecords')
+								td(ng-bind='record.orderSN')
+								td(ng-bind='record.deliverTime')
+								td(ng-bind='record.deliverStatus')
+								td(ng-bind='record.goodName')
+								td(ng-bind='record.deliverFeedback')
+								td(ng-bind='record.deliverSN')
 
-					.form-group.fixwidth
-						+select('收货状态', 'deal-result')(ng-model='return.dealResult')
-							+option('已收货', 1)
-							+option('未收货', 2)
-
-			div(uu-pane, title='发货记录')
-				table.uu-table
-					+thead
-						each th in ['订单编号', '发货日期', '发货状态', '产品名称', '快递反馈状态', '物流单号']
-							th=th
-					tbody
-						tr(ng-repeat='record in deliverRecords')
-							td(ng-bind='record.orderSN')
-							td(ng-bind='record.deliverTime')
-							td(ng-bind='record.deliverStatus')
-							td(ng-bind='record.goodName')
-							td(ng-bind='record.deliverFeedback')
-							td(ng-bind='record.deliverSN')
+include ../../modules/contact-history.jade
 
 //- 更改显示列
 include ../../modules/table-ths.jade

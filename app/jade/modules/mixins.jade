@@ -32,6 +32,15 @@ mixin input(title, id)
 		else
 			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
 
+//- long label, short input
+mixin input-tweak(title, id)
+	label.control-label.col-xs-4(for='form-' + id)=title
+	.col-xs-6
+		if !attributes['uu-date-picker']
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		else
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+
 //- bootstrap short input helper
 mixin short-input(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
@@ -79,6 +88,13 @@ mixin plain-textarea(title, id)
 mixin select(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
+		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+			block
+
+//- long label, short select
+mixin select-tweak(title, id)
+	label.control-label.col-xs-4(for='form-' + id)=title
+	.col-xs-6
 		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
 			block
 
