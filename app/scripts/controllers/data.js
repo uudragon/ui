@@ -67,8 +67,6 @@ angular.module('mainApp')
 			{name: 'details', label: '详细', isChecked: true, sortable: true}
 		];
 
-		$('#order-details').modal('show');
-
 		$scope.newContact = function(record) {
 			$('#contact-history').modal('show');
 		};
