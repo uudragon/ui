@@ -2,7 +2,7 @@
 <div class="article-header-search">
   <form role="form" class="form-inline">
     <div class="form-group">
-      <select ng-model="searchModel.filter" ng-options="filter.value as filter.name for filter in majorFilters" class="form-control input-sm"></select>
+      <select ng-model="searchModel.filter" ng-options="filter.value as filter.name for filter in filters" class="form-control input-sm"></select>
       <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in subfilters" class="form-control input-sm"></select>
       <input ng-model="searchModel.keyword" class="form-control input-sm"/>
     </div>
@@ -30,12 +30,9 @@
           </label>
         </div>
       </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
-          <li><a href="">待审核</a></li>
-          <li><a href="">审核中</a></li>
-          <li><a href="">审核通过</a></li>
-          <li><a href="">无效</a></li>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
       </th>
       <th>工具</th>

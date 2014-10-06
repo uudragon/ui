@@ -1,28 +1,27 @@
 
-<div class="criteria-bar">
+<div class="article-header-search">
   <form role="form" class="form-inline">
     <div class="form-group">
-      <select ng-model="filter" ng-options="filter.name for filter in filters" ng-change="updateSubFilter()" class="form-control input-sm"></select>
-      <select ng-model="subfilter" ng-options="filter.name for filter in filter.subfilters" ng-show="filter.subfilters" class="form-control input-sm"></select>
-      <input ng-model="subfilter" ng-show="filter.input" class="form-control input-sm"/>
-      <input ng-model="subfilter" uu-date-picker="uu-date-picker" ng-show="filter.datetime" class="form-control input-sm"/>
+      <input ng-model="searchModel.keyword" placeholder="请输入关键词" class="form-control input-sm"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
-<div class="filter-bar">
-  <div data-toggle="buttons" class="btn-group">
-    <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
-      <input checked="checked" name="customer-type" type="radio"/>所有
-    </label>
-    <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>已付费
-    </label>
-    <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>未付费
-    </label>
-  </div>
+<div class="article-header-filter">
+  <form role="form" class="form-inline">
+    <div data-toggle="buttons" class="btn-group">
+      <label ng-click="filterBy.payStatus=&quot;&quot;" class="btn uu-btn active">
+        <input checked="checked" type="radio"/>所有
+      </label>
+      <label ng-click="filterBy.payStatus=0" class="btn uu-btn">
+        <input type="radio"/>已付费
+      </label>
+      <label ng-click="filterBy.payStatus=1" class="btn uu-btn">
+        <input type="radio"/>未付费
+      </label>
+    </div>
+  </form>
 </div>
 <table class="uu-table">
   <thead>
@@ -34,19 +33,16 @@
           </label>
         </div>
       </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
-          <li><a href="">待审核</a></li>
-          <li><a href="">审核中</a></li>
-          <li><a href="">审核通过</a></li>
-          <li><a href="">无效</a></li>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
       </th>
       <th>工具</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders | filter:filterPay">
+    <tr ng-repeat="order in orders | filter:filterBy">
       <td>
         <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, orders, order)"/>
       </td>
@@ -72,7 +68,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">核实订单</h4>
+        <h4 class="modal-title">查看订单</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
@@ -163,12 +159,6 @@
                   <input value="宁夏路208号" class="form-control input-sm"/>
                 </div>
               </div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>详细地址</legend>
-            <div class="form-group form-group-sm">
-              <label class="control-label label-location"><span>省：山东省</span><span>市：青岛市</span><span>详细: 宁夏路208号</span></label>
             </div>
           </fieldset>
           <fieldset>

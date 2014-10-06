@@ -28,40 +28,21 @@ angular.module('mainApp')
 	}])
 	.controller('Search', ['$scope', '$controller', function ($scope, $controller) {
 
+		// 搜索下拉
+		$scope.filters = [{name: '客户姓名', value: 0}, {name: '客户电话', value: 1}];
+		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
+
 		// 联系记录
 		$scope.isOrderInfoEditable = true;
 
-		$scope.records = [
-			{
-				topic: '回访',
-				dealResult: '处理中',
-				urgency: '紧急',
-				content: '联系内容',
-				phoneStatus: '接听',
-				contactTime: '2010-03-01',
-				nextContactTime: '2010-03-01',
-				complianType: '投诉分类',
-				responser: '李四民'
-			},
-			{
-				topic: '催费',
-				dealResult: '已完成',
-				urgency: '紧急',
-				content: '联系内容',
-				phoneStatus: '无人接',
-				contactTime: '2010-04-01',
-				nextContactTime: '2010-06-01',
-				complianType: '投诉分类',
-				responser: '比尔盖茨'
-			}
-		];
+		$scope.records = [{topic: '回访', dealResult: '处理中', urgency: '紧急', content: '联系内容', phoneStatus: '接听', contactTime: '2010-03-01', nextContactTime: '2010-03-01', complianType: '投诉分类', responser: '李四民'}, {topic: '催费', dealResult: '已完成', urgency: '紧急', content: '联系内容', phoneStatus: '无人接', contactTime: '2010-04-01', nextContactTime: '2010-06-01', complianType: '投诉分类', responser: '比尔盖茨'} ];
 
-		$scope.showRecord = function(record) {
-			$('#recheck-order').modal('show');
+		$scope.showContact = function(record) {
+			$('#contact-history').modal('show');
 		};
 
-		$scope.newRecord = function(record) {
-			$('#recheck-order').modal('show');
+		$scope.newContact = function(record) {
+			$('#contact-history').modal('show');
 		};
 
 		// 订单管理
@@ -109,6 +90,13 @@ angular.module('mainApp')
 
 	}])
 	.controller('Message', ['$scope', '$controller', function ($scope, $controller) {
+
+		// ths
+		$scope.ths = [
+			{name: 'content', label: '内容', isChecked: true},
+			{name: 'reciever', label: '收件人', isChecked: true},
+			{name: 'sendTime', label: '发送时间', isChecked: true}
+		];
 
 		// 联系记录
 		$scope.messages = [

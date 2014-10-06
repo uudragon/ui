@@ -1,0 +1,10 @@
+.article-header-search
+	form.form-inline(role='form')
+		.form-group
+			select.form-control.input-sm(ng-model='searchModel.filter', ng-options='filter.value as filter.name for filter in filters')
+			input.form-control.input-sm(ng-model='searchModel.keyword')
+		if block
+			block
+		.btn.uu-btn
+			+tooltip('查询', 'top')
+				+glyphicon('search')

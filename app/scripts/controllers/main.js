@@ -10,7 +10,7 @@ angular.module('mainApp')
 	$scope.currentUser = Auth.getUser();
 
 	$scope.searchModel = {
-		filter: 1,
+		filter: 0,
 		subfilter: 0,
 		keyword: ''
 	};
@@ -19,10 +19,7 @@ angular.module('mainApp')
 		window.print();
 	};
 
-	$scope.range = function(n) {
-		return new Array(n);
-	};
-
+	// check is login
 	$scope.$on('auth:invalid', function(e, d) {
 		Auth.logout();
 	});
@@ -97,9 +94,8 @@ angular.module('mainApp')
 
 	// fake date
 	$scope.orders = [{customerName: '李四民', orderSN: '5223071231', customerPhone: '1395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '0', checkStatus: '0', createTime: '2014-10-15', contactTimes: '15'}, {customerName: '张三', orderSN: '212131071231', customerPhone: '3123334239543', province: '上海', city: '上海', orderType: '季度', payStatus: '1', checkStatus: '1', createTime: '2014-11-15', contactTimes: '5'}, {customerName: '李七', orderSN: '123071231', customerPhone: '4395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', checkStatus: '2', createTime: '2014-10-15', contactTimes: '4'}, {customerName: '李五民', orderSN: '223071231', customerPhone: '5395334234343', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', checkStatus: '3', createTime: '2014-10-15', contactTimes: '11'}, ];
-	$scope.majorFilters = [{name: '任意字段', value: 1}, {name: '标题', value: 2}];
-	$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
 
+	// 所有的全选逻辑
 	$scope.toggleCheckAll = function(isAllCheckedFlag, allItems) {
 		$scope[isAllCheckedFlag] = !$scope[isAllCheckedFlag];
 
@@ -108,6 +104,7 @@ angular.module('mainApp')
 		});
 	};
 
+	// 所有的全选逻辑 - 检查全选checkbox是否应该选上
 	$scope.checkIsAllChecked = function(isAllCheckedFlag, allItems, currentItem) {
 		currentItem.isChecked = !currentItem.isChecked;
 
@@ -124,8 +121,25 @@ angular.module('mainApp')
 
 	};
 
+	// 更新表头显示内容
 	$scope.chooseTh = function() {
 		$('#table-ths').modal('show');
+	};
+
+	// 二级下拉选框，当第一次下拉选框变化时，第二次下拉选框默认选择第一项
+	$scope.resetSubFilter = function() {
+		if ($scope.searchModel && $scope.searchModel.filter) {
+			if ($scope.searchModel.filter.input || $scope.searchModel.filter.datetime) {
+				$scope.searchModel.subfilter = '';
+			} else if ($scope.searchModel.filter.subfilters && $scope.searchModel.filter.subfilters.length){
+				$scope.searchModel.subfilter = $scope.searchModel.filter.subfilters[0].value;
+			}
+		}
+	};
+
+	// 表格排序
+	$scope.sortBy = function(name, type) {
+		console.log('sort by:', name, type);
 	};
 
 }]);

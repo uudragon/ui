@@ -1,15 +1,17 @@
 
-<div class="criteria-bar">
+<h3>站内提醒</h3>
+<hr/>
+<div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" class="btn-group">
-      <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
-        <input checked="checked" name="customer-type" type="radio"/>所有
+      <label ng-click="filterBy.isAssigned=&quot;&quot;" class="btn uu-btn active">
+        <input checked="checked" type="radio"/>所有
       </label>
-      <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
-        <input name="customer-type" type="radio"/>收件箱
+      <label ng-click="filterBy.isAssigned=0" class="btn uu-btn">
+        <input type="radio"/>收件箱
       </label>
-      <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
-        <input name="customer-type" type="radio"/>发件箱
+      <label ng-click="filterBy.isAssigned=1" class="btn uu-btn">
+        <input type="radio"/>发件箱
       </label>
     </div>
     <div class="form-group">
@@ -19,12 +21,12 @@
     </div>
   </form>
 </div>
-<p>
+<div class="article-header-operate">
   <btn class="btn uu-btn btn-success">未读</btn>
   <btn ng-click="sendMessage()" class="btn uu-btn btn-primary">发送短消息</btn>
   <btn class="btn uu-btn btn-warning">删除</btn>
   <btn class="btn uu-btn btn-danger">一键清零</btn>
-</p>
+</div>
 <table class="uu-table">
   <thead>
     <tr>
@@ -35,9 +37,11 @@
           </label>
         </div>
       </th>
-      <th>内容</th>
-      <th>收件人</th>
-      <th>发送时间</th>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+        </ul>
+      </th>
     </tr>
   </thead>
   <tbody>

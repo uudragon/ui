@@ -47,15 +47,6 @@ angular.module('mainApp')
 			birthday: '2010-06-01',
 			orderStatus: '正常'};
 
-		$scope.shareOrder = function() {
-			$('#share-order').modal('show');
-		};
-
-		$scope.showOrder = function(order) {
-			$scope.currentOrder = order;
-			$('#order-details').modal('show');
-		};
-
 		$scope.getOrderBySN = function(orderSN) {
 			for (var i = 0; i < $scope.orders.length; i++) {
 				if ($scope.orders[i] && $scope.orders[i].orderSN === orderSN) {
@@ -65,10 +56,22 @@ angular.module('mainApp')
 			return {};
 		};
 
-		$scope.checkOrder = function() {
-			$('#recheck-order').modal('show');
+		// 查看订单
+		$scope.showOrder = function(order) {
+			$scope.currentOrder = order;
+			$('#order-details').modal('show');
 		};
 
+		$scope.checkOrder = function() {
+			$('#contact-history').modal('show');
+		};
+
+		$controller('CustomerServiceCtrl', {$scope: $scope});
+
+	}])
+	.controller('CheckOrder', ['$scope', '$controller', function($scope, $controller) {
+
+		// 搜索下拉
 		$scope.filters = [
 			{name: '所在省份', value: 1, subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
 			{name: '城市', value: 2, input: true},
@@ -77,26 +80,14 @@ angular.module('mainApp')
 			{name: '支付方式', value: 5, subfilters: [{name: '货到付款', value: 1}, {name: '在线付款', value: 2}]},
 			{name: '审单状态', value: 6, subfilters: [{name: '待审核', value: 1}, {name: '审核中', value: 2}, {name: '审核通过', value: 3}, {name: '无效', value: 4}]},
 			{name: '创建时间', value: 7, datetime: true},
-			{name: '联系次数', value: 8, subfilters: []},
+			{name: '联系次数', value: 8, input: true},
 			{name: '订单状态', value: 9, subfilters: [{name: '正常', value: 1}, {name: '取消', value: 2}]},
 			{name: '发货状态', value: 10, subfilters: [{name: '已发货', value: 1}, {name: '未发货', value: 2}]},
 			{name: '发票状态', value: 11, subfilters: [{name: '已开', value: 1}, {name: '未开', value: 2}]},
-			{name: '退换货单号', value: 12, subfilters: []}
+			{name: '退换货单号', value: 12, input: true}
 		];
 
-		$scope.updateSubFilter = function() {
-			$scope.subfilter = '';
-		};
-
-		$scope.sortBy = function(name, type) {
-			console.log('sort by:', name, type);
-		};
-
-		$controller('CustomerServiceCtrl', {$scope: $scope});
-
-	}])
-	.controller('CheckOrder', ['$scope', '$controller', function($scope, $controller) {
-
+		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
 			{name: 'customerName', label: '客户姓名', isChecked: true},
@@ -106,10 +97,17 @@ angular.module('mainApp')
 			{name: 'city', label: '城市', isChecked: true},
 			{name: 'orderType', label: '订单类型', isChecked: true, sortable: true},
 			{name: 'payStatus', label: '付款状态', isChecked: true, sortable: true},
-			{name: 'checkStatus', label: '审单状态', isChecked: true, filter: true},
+			{name: 'checkStatus', label: '审单状态', isChecked: true, filters: ['待审核', '审核中', '审核通过', '无效']},
 			{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
+
+		$scope.isOrderInfoEditable = true;
+
+		// 共享订单
+		$scope.shareOrder = function() {
+			$('#share-order').modal('show');
+		};
 
 		$scope.editCustomerInfo = function() {
 			$scope.isCustometInfoEditable = true;
@@ -123,6 +121,7 @@ angular.module('mainApp')
 	}])
 	.controller('SplitOrder', ['$scope', '$controller', function($scope, $controller) {
 
+		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
 			{name: 'customerName', label: '客户姓名', isChecked: true},
@@ -144,6 +143,7 @@ angular.module('mainApp')
 			];
 		};
 
+
 		$scope.selectGift = function() {
 			$('#select-gift').modal('show');
 		};
@@ -154,6 +154,13 @@ angular.module('mainApp')
 		var $returnOrder = $('#return-order');
 		var $tree = $('#tree');
 
+		$scope.isOrderInfoEditable = true;
+
+		// 搜索下拉
+		$scope.filters = [{name: '所有投诉', value: 0}, {name: '我的投诉', value: 1}, {name: '下属的投诉', value: 1}, {name: '未处理的投诉', value: 1}, {name: '处理中的投诉', value: 1}];
+		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
+
+		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
 			{name: 'customerName', label: '客户姓名', isChecked: true},

@@ -1,58 +1,14 @@
 include ../../modules/mixins.jade
 
-//- 功能区
-.criteria-bar
-	form.form-inline(role='form')
-		.form-group
-			label(for='customer-scope') 查看范围
-
-			- var customerOptions = [{title: '所有客户', value: 0}, {title: '我的客户', value: 0}, {title: '我共享的客户', value: 0}, {title: '共享给我的客户', value: 0}, {title: '下属的客户', value: 0}]
-			select#customer-scope.form-control.input-sm(name='customerScope')
-				each val in customerOptions
-					+option(val.title, val.value)
-
-		.btn.uu-btn
-			+tooltip('转移', 'top')
-				+glyphicon('transfer')
-
-		.btn.uu-btn
-			+tooltip('更多操作', 'top')
-				+glyphicon('send')
-
-//- 订单列表过滤条件
-.filter-bar
-	.btn-group(data-toggle='buttons')
-		label.btn.uu-btn.active(ng-click='filterPay.payStatus=""')
-			input(checked, name='customer-type', type='radio')
-			| 所有
-		label.btn.uu-btn(ng-click='filterPay.payStatus=1')
-			input(name='customer-type', type='radio')
-			| 已付费
-		label.btn.uu-btn(ng-click='filterPay.payStatus=0')
-			input(name='customer-type', type='radio')
-			| 未付费
+//- 搜索
+include ../../modules/tri-search.jade
 
 //- 订单列表
 table.uu-table
-	+thead(ng-dblclick="chooseTh('table-cols')")
-		th
-			.checkbox
-				label
-					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
-					| 全选
-		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
-			| {{th.label}}
-			+th-filter(ng-if='th.filter')
-				+glyphicon('filter')
-			ul.dropdown-menu(ng-if='th.filter')(role="menu")
-				each filter in ['待审核', '审核中', '审核通过', '无效']
-					li
-						a(href='')=filter
-		th 工具
+	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders | filter:filterPay')
-			td
-				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
+			+tdchecker('orders', 'order')(ng-model='order.isChecked')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showComplaintOrders(order)')(ng-bind='order.orderSN')
@@ -80,7 +36,7 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 		h4.modal-title 核实订单
 	.modal-body
 		form.form-horizontal
-			+customer-details
+			+order-details
 			fieldset
 				legend 订单
 				table.uu-table
@@ -203,7 +159,7 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 核实订单Modal
-include ../../modules/recheck-order.jade
+include ../../modules/contact-history.jade
 
 //- 共享Modal
 +submodal('share-order')

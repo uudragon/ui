@@ -1,8 +1,12 @@
 include ../../modules/mixins.jade
 
+//- 搜索
+include ../../modules/tri-search.jade
+hr
+
 form.form-horizontal.form-nowrap
 	//- customer details
-	+customer-details
+	+order-details
 	fieldset
 		legend 订单信息
 		table.uu-table
@@ -28,9 +32,8 @@ form.form-horizontal.form-nowrap
 
 	div(uu-tab)
 		div(uu-pane, title='联系记录')
-
 			div(ng-show='!records.length')
-				+tooltip('新建联系记录', 'top', 'newRecord()')
+				+tooltip('新建联系记录', 'top', 'newContact()')
 					+glyphicon('plus')
 
 			table.uu-table(ng-show='records')
@@ -40,7 +43,7 @@ form.form-horizontal.form-nowrap
 				tbody
 					tr(ng-repeat='record in records')
 						td
-							+jslink('showRecord(record)')(ng-bind='record.topic')
+							+jslink('showContact(record)')(ng-bind='record.topic')
 						td(ng-bind='record.dealResult')
 						td(ng-bind='record.urgency')
 						td(ng-bind='record.content')
@@ -110,7 +113,7 @@ form.form-horizontal.form-nowrap
 						+option('否', 0)
 
 			fieldset.fixlabel
-				legend 产品信息
+				legend 换货信息
 				.form-group.fixwidth
 					+select('换货原因', 'deal-result')(ng-model='return.dealResult')
 						+option('发票抬头错误', 1)
@@ -203,6 +206,6 @@ form.form-horizontal.form-nowrap
 			div
 				button.pull-right.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 保存并共享财物部
 
-include ../../modules/recheck-order.jade
+include ../../modules/contact-history.jade
 
 

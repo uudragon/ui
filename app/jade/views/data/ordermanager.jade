@@ -1,56 +1,27 @@
 include ../../modules/mixins.jade
 
-//- 功能区
-.criteria-bar
-	form.form-inline(role='form')
-		.form-group
-			- var customerOptions = [{title: '电话号码', value: 0}, {title: '支付状态', value: 0}, {title: '支付方式', value: 0}, {title: '城市', value: 0}]
-			+plain-select('查询', 'customer-scope', customerOptions)
+//- 搜索
++linkage-search()
+	+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
-//- 订单列表过滤条件
-.filter-bar
-	.btn-group(data-toggle='buttons')
-		- var filters = [{title: '今天', action: "ilterPay.payStatus=''"}, {title: '昨天', action: "ilterPay.payStatus=''"}, {title: '前天', action: "ilterPay.payStatus=''"}, {title: '近3天', action: "ilterPay.payStatus=''"}, {title: '近7天', action: "ilterPay.payStatus=''"}, {title: '近30天', action: "ilterPay.payStatus=''"}, ]
-		each filter, index in filters
-			if index === 0
-				label.btn.uu-btn.active(ng-click=filter.action)
-					input(checked, name='customer-type', type='radio')
-					span=filter.title
-			else
-				label.btn.uu-btn(ng-click=filter.action)
-					input(name='customer-type', type='radio')
-					span=filter.title
-	form.form-inline(role='form', style="display: inline; margin-left: 20px;")
-		.form-group
-			+plain-input('开始时间', 'form-major-phone')(ng-model='startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-		.form-group
-			+plain-input('结束时间', 'form-becalled-phone')(ng-model='startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-		.form-group
-			.btn.uu-btn.btn-primary 查询
-			.btn.uu-btn.btn-danger 重置
+//- 过滤条件
+- var filterBy = {key: 'payStatus', filter: []}
+- filterBy.filter.push({label: '今天', value: '""'})
+- filterBy.filter.push({label: '昨天', value: 0})
+- filterBy.filter.push({label: '前天', value: 1})
+- filterBy.filter.push({label: '近3天', value: 1})
+- filterBy.filter.push({label: '近7天', value: 1})
+- filterBy.filter.push({label: '近30天', value: 1})
++article-header-filter('payStatus', filterBy)
+
 
 //- 员工列表
 table.uu-table
-	+thead(ng-dblclick="chooseTh('table-cols')")
-		th
-			.checkbox
-				label
-					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
-					| 全选
-		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
-			| {{th.label}}
-			+th-filter(ng-if='th.filter')
-				+glyphicon('filter')
-			ul.dropdown-menu(ng-if='th.filter')(role="menu")
-				each filter in ['待审核', '审核中', '审核通过', '无效']
-					li
-						a(href='')=filter
-		th.opration 操作
-
+	+theadplus('orders')(operation='操作', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders')
-			td
-				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
+			+tdchecker('orders', 'order')(ng-model='order.isChecked')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
 			td(ng-bind='order.gender | gender', ng-show='ths[1].isChecked')
 			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
@@ -77,13 +48,13 @@ table.uu-table
 uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
 
 //- 订单详情Modal
-+modal('order-details', 'modal-lg')
++modal('order-details', 'modal-xg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 核实订单
 	.modal-body
 		form.form-horizontal
-			+customer-details
+			+order-details
 			fieldset
 				legend 订单
 				table.uu-table

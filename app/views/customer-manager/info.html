@@ -1,57 +1,50 @@
 
-<div class="criteria-bar">
+<div class="article-header-search">
   <form role="form" class="form-inline">
-    <div class="from-group"></div>
     <div class="form-group">
-      <button ng-click="newMsgTemplet()" class="btn uu-btn btn-primary">新增模板</button>
-      <label for="form-customer-scope" class="control-label">发送状态</label>
-      <select id="form-customer-scope" class="form-control input-sm">
-        <option value="0">未发送</option>
-        <option value="1">已发送</option>
-        <option value="0">已送达</option>
-      </select>
+      <select ng-model="searchModel.filter" ng-options="filter.name for filter in filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
+      <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
+      <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
+      <input ng-model="searchModel.subfilter" uu-date-picker="uu-date-picker" ng-show="searchModel.filter.datetime" class="form-control input-sm"/>
     </div>
-    <div class="form-group">
-      <label for="form-form-phone" class="control-label">电话号码</label>
-      <input id="form-form-phone" class="form-control input-sm"/>
+    <div class="input-group">
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" ng-model="searchModel.startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
+    </div>
+    <div class="input-group">
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" ng-model="searchModel.startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
+    </div>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
-<div class="filter-bar">
-  <div data-toggle="buttons" class="btn-group">
-    <label ng-click="ilterPay.payStatus=''" class="btn uu-btn active">
-      <input checked="checked" name="customer-type" type="radio"/><span>今天</span>
-    </label>
-    <label ng-click="ilterPay.payStatus=''" class="btn uu-btn">
-      <input name="customer-type" type="radio"/><span>昨天</span>
-    </label>
-    <label ng-click="ilterPay.payStatus=''" class="btn uu-btn">
-      <input name="customer-type" type="radio"/><span>前天</span>
-    </label>
-    <label ng-click="ilterPay.payStatus=''" class="btn uu-btn">
-      <input name="customer-type" type="radio"/><span>近3天</span>
-    </label>
-    <label ng-click="ilterPay.payStatus=''" class="btn uu-btn">
-      <input name="customer-type" type="radio"/><span>近7天</span>
-    </label>
-    <label ng-click="ilterPay.payStatus=''" class="btn uu-btn">
-      <input name="customer-type" type="radio"/><span>近30天</span>
-    </label>
-  </div>
-  <form role="form" style="display: inline; margin-left: 20px;" class="form-inline">
-    <div class="form-group">
-      <label for="form-form-major-phone" class="control-label">开始时间</label>
-      <input id="form-form-major-phone" ng-model="startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
-    </div>
-    <div class="form-group">
-      <label for="form-form-becalled-phone" class="control-label">结束时间</label>
-      <input id="form-form-becalled-phone" ng-model="startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
-    </div>
-    <div class="form-group">
-      <div class="btn uu-btn btn-primary">查询</div>
-      <div class="btn uu-btn btn-danger">重置</div>
+<div class="article-header-filter">
+  <form role="form" class="form-inline">
+    <div data-toggle="buttons" class="btn-group">
+      <label ng-click="filterBy.sendTime=&quot;&quot;" class="btn uu-btn active">
+        <input checked="checked" type="radio"/>今天
+      </label>
+      <label ng-click="filterBy.sendTime=0" class="btn uu-btn">
+        <input type="radio"/>昨天
+      </label>
+      <label ng-click="filterBy.sendTime=1" class="btn uu-btn">
+        <input type="radio"/>前天
+      </label>
+      <label ng-click="filterBy.sendTime=1" class="btn uu-btn">
+        <input type="radio"/>近3天
+      </label>
+      <label ng-click="filterBy.sendTime=1" class="btn uu-btn">
+        <input type="radio"/>近7天
+      </label>
+      <label ng-click="filterBy.sendTime=1" class="btn uu-btn">
+        <input type="radio"/>近30天
+      </label>
     </div>
   </form>
+</div>
+<div class="article-header-operate">
+  <btn ng-click="newMsgTemplet()" class="btn uu-btn btn-success">新增模板</btn>
 </div>
 <table class="uu-table">
   <thead>
@@ -61,26 +54,15 @@
       <th>短信内容</th>
       <th>发送状态</th>
       <th>操作人</th>
-      <th class="opration">操作</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="msg in msgs | filter:filterPay">
+    <tr ng-repeat="msg in msgs | filter:filterBy">
       <td ng-bind="msg.phone"></td>
       <td ng-bind="msg.sendTime"></td>
       <td ng-bind="msg.content"></td>
-      <td ng-bind="msg.contactPeriod"></td>
-      <td ng-bind="msg.avgContactPeriod"></td>
-      <td ng-bind="msg.totalOnlineTime"></td>
-      <td ng-bind="msg.outPhoneNum"></td>
-      <td ng-bind="msg.succRate"></td>
-      <td ng-bind="msg.inPhoneNum"></td>
-      <td ng-bind="msg.avgDealTime"></td>
-      <td ng-bind="msg.avgContactTime"></td>
-      <td ng-bind="msg.avgQueueTime"></td>
-      <td ng-bind="msg.onelineRate"></td>
-      <td ng-bind="msg.phoneExchangeRate"></td>
-      <td ng-bind="msg.useRate"></td>
+      <td ng-bind="msg.sendStatus"></td>
+      <td ng-bind="msg.operator"></td>
     </tr>
   </tbody>
 </table>

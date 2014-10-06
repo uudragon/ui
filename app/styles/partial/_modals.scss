@@ -160,4 +160,5 @@
 
 @media (min-width: $screen-md-min) {
   .modal-lg { width: $modal-lg; }
+  .modal-xg { width: $modal-lg + 50px; }
 }

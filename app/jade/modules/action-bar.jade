@@ -1,27 +1,28 @@
-ul.action-bar
-	li
-		+tooltip('新建来电工单', 'top')(ui-sref='root.utils.neworder')
-			+glyphicon('plus')
-	li
-		+tooltip('查找订单', 'top')(ui-sref='root.utils.search')
-			+glyphicon('search')
-	li
-		+tooltip('过滤条件', 'top')(class='dropdown-toggle')
-			+glyphicon('filter')
-		ul.dropdown-menu(role="menu")
-			each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单']
-				li
-					a(href='')=filter
-
-	li
-		+tooltip('发送短信息', 'top')(ui-sref='root.utils.message')
-			+glyphicon('comment')
-	li
-		+tooltip('群发信息', 'top')(ui-sref='root.utils.batchmsg')
-			+glyphicon('envelope')
-	li
-		+tooltip('修改密码', 'top')
-			+glyphicon('wrench')
-	li
-		+tooltip('退出系统', 'top')
-			+glyphicon('log-out')
+div.clearfix
+	ul.action-bar
+		li
+			+tooltip('新建来电工单', 'top')(ui-sref='root.utils.neworder')
+				+glyphicon('plus')
+		li
+			+tooltip('查找订单', 'top')(ui-sref='root.utils.search')
+				+glyphicon('search')
+		li
+			+tooltip('过滤条件', 'top')(class='dropdown-toggle')
+				+glyphicon('filter')
+			ul.dropdown-menu(role="menu")
+				each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单']
+					li
+						a(href='')=filter
+	ul.action-bar.pull-right
+		li
+			+tooltip('发送短信息', 'top')(ui-sref='root.utils.message')
+				+glyphicon('comment')
+		li
+			+tooltip('群发信息', 'top')(ui-sref='root.utils.batchmsg')
+				+glyphicon('envelope')
+		li
+			+tooltip('修改密码', 'top')
+				+glyphicon('wrench')
+		li
+			+tooltip('退出系统', 'top')
+				+glyphicon('log-out')

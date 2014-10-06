@@ -1,4 +1,16 @@
 
+<div class="article-header-search">
+  <form role="form" class="form-inline">
+    <div class="form-group">
+      <select ng-model="searchModel.filter" ng-options="filter.value as filter.name for filter in filters" class="form-control input-sm"></select>
+      <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in subfilters" class="form-control input-sm"></select>
+      <input ng-model="searchModel.keyword" class="form-control input-sm"/>
+    </div>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    </div>
+  </form>
+</div>
+<hr/>
 <form class="form-horizontal form-nowrap">
   <fieldset uu-form-field="isCustometInfoEditable">
     <legend>基本信息</legend>
@@ -123,7 +135,7 @@
   </fieldset>
   <div uu-tab="uu-tab">
     <div uu-pane="uu-pane" title="联系记录">
-      <div ng-show="!records.length"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建联系记录" ng-click="newRecord()"><span class="glyphicon glyphicon-plus"></span></a>
+      <div ng-show="!records.length"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建联系记录" ng-click="newContact()"><span class="glyphicon glyphicon-plus"></span></a>
       </div>
       <table ng-show="records" class="uu-table">
         <thead>
@@ -141,7 +153,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="record in records">
-            <td><a href="" ng-click="showRecord(record)" ng-bind="record.topic" class="jslink"></a>
+            <td><a href="" ng-click="showContact(record)" ng-bind="record.topic" class="jslink"></a>
             </td>
             <td ng-bind="record.dealResult"></td>
             <td ng-bind="record.urgency"></td>
@@ -295,7 +307,7 @@
         </div>
       </fieldset>
       <fieldset class="fixlabel">
-        <legend>产品信息</legend>
+        <legend>换货信息</legend>
         <div class="form-group fixwidth">
           <label for="form-deal-result" class="control-label col-xs-3">换货原因</label>
           <div class="col-xs-7">
@@ -469,12 +481,12 @@
     </div>
   </div>
 </form>
-<div id="recheck-order" class="modal fade sub-modal">
+<div id="contact-history" class="modal fade sub-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">投诉</h4>
+        <h4 class="modal-title">联系记录</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">

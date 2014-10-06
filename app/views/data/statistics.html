@@ -1,13 +1,13 @@
 
-<div class="criteria-bar">
+<div class="article-header-search">
   <form role="form" class="form-inline">
-    <div class="form-group">
-      <label for="form-form-major-phone" class="control-label">开始时间</label>
-      <input id="form-form-major-phone" ng-model="startTime" uu-date-picker="" class="form-control input-sm"/>
+    <div class="input-group">
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" ng-model="searchModel.startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
     </div>
-    <div class="form-group">
-      <label for="form-form-becalled-phone" class="control-label">结束时间</label>
-      <input id="form-form-becalled-phone" ng-model="startTime" uu-date-picker="" class="form-control input-sm"/>
+    <div class="input-group">
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" ng-model="searchModel.startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>

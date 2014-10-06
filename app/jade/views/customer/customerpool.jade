@@ -1,44 +1,23 @@
 include ../../modules/mixins.jade
 
 //- 订单列表过滤条件
-.filter-bar
-	.btn-group(data-toggle='buttons')
-		label.btn.uu-btn.active(ng-click='filterPay.payStatus=""')
-			input(checked, name='customer-type', type='radio')
-			| 所有
-		label.btn.uu-btn(ng-click='filterPay.payStatus=1')
-			input(name='customer-type', type='radio')
-			| 已分配
-		label.btn.uu-btn(ng-click='filterPay.payStatus=0')
-			input(name='customer-type', type='radio')
-			| 未分配
+- var filterBy = {key: 'isAssigned', filter: []}
+- filterBy.filter.push({label: '所有', value: '""'})
+- filterBy.filter.push({label: '已分配', value: 0})
+- filterBy.filter.push({label: '未分配', value: 1})
++article-header-filter('isAssigned', filterBy)
 
 //- 功能区
-.criteria-bar
+.article-header-operate
 	button.btn.uu-btn.btn-primary(ng-click='batchAssign()') 批量分配
-	button.btn.uu-btn.btn-info(ng-click='batchPick()') 批量领取
+	button.btn.uu-btn.btn-success(ng-click='batchPick()') 批量领取
 
-//- 订单列表
+//- 客户列表
 table.uu-table
-	+thead(ng-dblclick="chooseTh('table-cols')")
-		th
-			.checkbox
-				label
-					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
-					| 全选
-		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
-			| {{th.label}}
-			+th-filter(ng-if='th.filter')
-				+glyphicon('filter')
-			ul.dropdown-menu(ng-if='th.filter')(role="menu")
-				each filter in ['待审核', '审核中', '审核通过', '无效']
-					li
-						a(href='')=filter
-		th 工具
+	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders | filter:filterPay')
-			td
-				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
+			+tdchecker('orders', 'order')(ng-model='order.isChecked')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showComplaintOrders(order)')(ng-bind='order.orderSN')

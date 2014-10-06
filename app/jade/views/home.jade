@@ -1,20 +1,10 @@
 include ../modules/mixins.jade
 
 table.uu-table
-	thead
-		tr(ng-dblclick='chooseTh()')
-			th
-				.checkbox
-					label
-						input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
-						| 全选
-			th(ng-repeat='th in ths', ng-show='th.isChecked', ng-bind='th.label')
-			th 工具
-
+	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders')
-			td
-				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
+			+tdchecker('orders', 'order')(ng-model='order.isChecked')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showOrder(order)')(ng-bind='order.orderSN')

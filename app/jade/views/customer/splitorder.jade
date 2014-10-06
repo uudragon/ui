@@ -1,49 +1,20 @@
 include ../../modules/mixins.jade
 
-//- 功能区
-.criteria-bar
-	form.form-inline(role='form')
-		.form-group
-			select.form-control.input-sm(ng-model='filter', ng-options='filter.name for filter in filters', ng-change='updateSubFilter()')
-			select.form-control.input-sm(ng-model='subfilter', ng-options='filter.name for filter in filter.subfilters', ng-show='filter.subfilters')
-			input.form-control.input-sm(ng-model='subfilter', ng-show='filter.input')
-			input.form-control.input-sm(ng-model='subfilter', uu-date-picker, ng-show='filter.datetime')
-		.btn.uu-btn
-			+tooltip('查询', 'top')
-				+glyphicon('search')
+//- 搜索
+include ../../modules/single-search.jade
 
 //- 订单列表过滤条件
-.filter-bar
-	.btn-group(data-toggle='buttons')
-		label.btn.uu-btn.active(ng-click='filterPay.payStatus=""')
-			input(checked, name='customer-type', type='radio')
-			| 所有
-		label.btn.uu-btn(ng-click='filterPay.payStatus=1')
-			input(name='customer-type', type='radio')
-			| 已付费
-		label.btn.uu-btn(ng-click='filterPay.payStatus=0')
-			input(name='customer-type', type='radio')
-			| 未付费
+- var filterBy = {key: 'payStatus', filter: []}
+- filterBy.filter.push({label: '所有', value: '""'})
+- filterBy.filter.push({label: '已付费', value: 0})
+- filterBy.filter.push({label: '未付费', value: 1})
++article-header-filter('payStatus', filterBy)
 
 //- 订单列表
 table.uu-table
-	+thead(ng-dblclick="chooseTh('table-cols')")
-		th
-			.checkbox
-				label
-					input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", orders)')
-					| 全选
-		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
-			| {{th.label}}
-			+th-filter(ng-if='th.filter')
-				+glyphicon('filter')
-			ul.dropdown-menu(ng-if='th.filter')(role="menu")
-				each filter in ['待审核', '审核中', '审核通过', '无效']
-					li
-						a(href='')=filter
-		th 工具
+	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders | filter:filterPay')
+		tr(ng-repeat='order in orders | filter:filterBy')
 			td
 				input(type='checkbox', ng-model="order.isChecked", ng-click='checkIsAllChecked("isAllChecked", orders, order)')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
@@ -70,17 +41,10 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 +modal('order-details', 'modal-lg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 核实订单
+		h4.modal-title 查看订单
 	.modal-body
 		form.form-horizontal
-			+customer-details
-			fieldset
-				legend 详细地址
-				.form-group.form-group-sm
-					label.control-label.label-location
-						span 省：山东省
-						span 市：青岛市
-						span 详细: 宁夏路208号
+			+order-details
 			fieldset
 				legend 订单
 				table.uu-table

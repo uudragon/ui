@@ -47,28 +47,6 @@
     </div>
   </div>
   <div class="container">
-    <ul class="action-bar">
-      <li><a href="" ui-sref="root.utils.neworder" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建来电工单"><span class="glyphicon glyphicon-plus"></span></a>
-      </li>
-      <li><a href="" ui-sref="root.utils.search" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
-      </li>
-      <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul role="menu" class="dropdown-menu">
-          <li><a href="">本月处理订单</a></li>
-          <li><a href="">当日处理订单</a></li>
-          <li><a href="">当日未处理订单</a></li>
-          <li><a href="">当日完结订单</a></li>
-        </ul>
-      </li>
-      <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送短信息"><span class="glyphicon glyphicon-comment"></span></a>
-      </li>
-      <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
-      </li>
-      <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
-      </li>
-      <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="退出系统"><span class="glyphicon glyphicon-log-out"></span></a>
-      </li>
-    </ul>
     <div class="row">
       <div class="col-xs-2 left-sidebar">
         <ul uu-sidebar="" class="nav nav-sections">
@@ -122,6 +100,32 @@
         </ul>
       </div>
       <div class="col-xs-10 main">
+        <div class="clearfix">
+          <ul class="action-bar">
+            <li><a href="" ui-sref="root.utils.neworder" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建来电工单"><span class="glyphicon glyphicon-plus"></span></a>
+            </li>
+            <li><a href="" ui-sref="root.utils.search" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
+            </li>
+            <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+              <ul role="menu" class="dropdown-menu">
+                <li><a href="">本月处理订单</a></li>
+                <li><a href="">当日处理订单</a></li>
+                <li><a href="">当日未处理订单</a></li>
+                <li><a href="">当日完结订单</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="action-bar pull-right">
+            <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送短信息"><span class="glyphicon glyphicon-comment"></span></a>
+            </li>
+            <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+            </li>
+            <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改密码"><span class="glyphicon glyphicon-wrench"></span></a>
+            </li>
+            <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="退出系统"><span class="glyphicon glyphicon-log-out"></span></a>
+            </li>
+          </ul>
+        </div>
         <div ui-view=""></div>
       </div>
     </div>

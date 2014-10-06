@@ -1,0 +1,7 @@
+.article-header-search
+	form.form-inline(role='form')
+		.form-group
+			input.form-control.input-sm(ng-model='searchModel.keyword', placeholder='请输入关键词')
+		.btn.uu-btn
+			+tooltip('查询', 'top')
+				+glyphicon('search')

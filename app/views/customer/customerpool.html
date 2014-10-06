@@ -1,20 +1,22 @@
 
-<div class="filter-bar">
-  <div data-toggle="buttons" class="btn-group">
-    <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
-      <input checked="checked" name="customer-type" type="radio"/>所有
-    </label>
-    <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>已分配
-    </label>
-    <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>未分配
-    </label>
-  </div>
+<div class="article-header-filter">
+  <form role="form" class="form-inline">
+    <div data-toggle="buttons" class="btn-group">
+      <label ng-click="filterBy.isAssigned=&quot;&quot;" class="btn uu-btn active">
+        <input checked="checked" type="radio"/>所有
+      </label>
+      <label ng-click="filterBy.isAssigned=0" class="btn uu-btn">
+        <input type="radio"/>已分配
+      </label>
+      <label ng-click="filterBy.isAssigned=1" class="btn uu-btn">
+        <input type="radio"/>未分配
+      </label>
+    </div>
+  </form>
 </div>
-<div class="criteria-bar">
+<div class="article-header-operate">
   <button ng-click="batchAssign()" class="btn uu-btn btn-primary">批量分配</button>
-  <button ng-click="batchPick()" class="btn uu-btn btn-info">批量领取</button>
+  <button ng-click="batchPick()" class="btn uu-btn btn-success">批量领取</button>
 </div>
 <table class="uu-table">
   <thead>
@@ -26,12 +28,9 @@
           </label>
         </div>
       </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
-          <li><a href="">待审核</a></li>
-          <li><a href="">审核中</a></li>
-          <li><a href="">审核通过</a></li>
-          <li><a href="">无效</a></li>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
       </th>
       <th>工具</th>

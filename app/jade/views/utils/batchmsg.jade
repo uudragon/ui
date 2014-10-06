@@ -1,11 +1,13 @@
 include ../../modules/mixins.jade
 
++pagetitle('群发信息')
+
 div(uu-tab)
 	div(uu-pane, title='发短信')
 		form.form-horizontal.col-xs-7
 			.form-group
 				+short-input('收件人手机号码', 'reciever')(ng-model='msg.reciever')
-					button.btn.uu-btn 查找
+					button.btn.uu-btn 选择用户
 
 			.form-group
 				+textarea('信息内容', 'responsor')(ng-model='msg.reciever')
@@ -22,7 +24,7 @@ div(uu-tab)
 		form.form-horizontal.col-xs-7
 			.form-group
 				+short-input('收件人邮箱地址', 'reciever')(ng-model='msg.reciever')
-					button.btn.uu-btn 查找
+					button.btn.uu-btn 选择用户
 
 				//- +input('接收人', 'responsor')(ng-model='msg.reciever')
 			.form-group

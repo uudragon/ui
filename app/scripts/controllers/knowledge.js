@@ -20,6 +20,10 @@ angular.module('mainApp')
 	}])
 	.controller('Presale', ['$scope', '$controller', function ($scope, $controller) {
 
+		// 搜索下拉
+		$scope.filters = [{name: '任意字段', value: 0}, {name: '标题', value: 1}];
+		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
+
 		$scope.isAllThsShow = true;
 		$scope.ths = [
 			{name: 'subject', label: '标题', isChecked: true},

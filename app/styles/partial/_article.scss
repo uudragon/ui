@@ -3,9 +3,32 @@
 }
 
 .article-header-search {
-	margin-bottom: 10px;
+	margin: 10px 0;
+
+	.btn-group,
+	.btn-group,
+	.form-control {
+		margin-right: 10px;
+	}
+
+	select {
+		min-width: 100px;
+	}
+
+	// hidden left border radius
+	.input-group {
+		> select {
+			min-width: inherit;
+		}
+	}
 }
 
+.article-header-filter,
 .article-header-operate {
+
+	.form-control {
+		margin-right: 10px;
+	}
+
 	margin-bottom: 10px;
 }

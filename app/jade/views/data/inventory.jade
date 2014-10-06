@@ -2,16 +2,7 @@ include ../../modules/mixins.jade
 
 //- 库存列表
 table.uu-table
-	+thead(ng-dblclick="chooseTh('table-cols')")
-		th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
-			| {{th.label}}
-			+th-filter(ng-if='th.filter')
-				+glyphicon('filter')
-			ul.dropdown-menu(ng-if='th.filter')(role="menu")
-				each filter in ['待审核', '审核中', '审核通过', '无效']
-					li
-						a(href='')=filter
-		th.opration 操作
+	+theadplus()(operation='操作', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='product in products')
 			td(ng-bind='product.type', ng-show='ths[0].isChecked')

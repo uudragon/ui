@@ -1,34 +1,14 @@
 
-<div class="criteria-bar">
+<div class="article-header-search">
   <form role="form" class="form-inline">
     <div class="form-group">
-      <label for="customer-scope">查看范围</label>
-      <select id="customer-scope" name="customerScope" class="form-control input-sm">
-        <option value="0">所有客户</option>
-        <option value="0">我的客户</option>
-        <option value="0">我共享的客户</option>
-        <option value="0">共享给我的客户</option>
-        <option value="0">下属的客户</option>
-      </select>
+      <select ng-model="searchModel.filter" ng-options="filter.value as filter.name for filter in filters" class="form-control input-sm"></select>
+      <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in subfilters" class="form-control input-sm"></select>
+      <input ng-model="searchModel.keyword" class="form-control input-sm"/>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="转移"><span class="glyphicon glyphicon-transfer"></span></a>
-    </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="更多操作"><span class="glyphicon glyphicon-send"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
-</div>
-<div class="filter-bar">
-  <div data-toggle="buttons" class="btn-group">
-    <label ng-click="filterPay.payStatus=&quot;&quot;" class="btn uu-btn active">
-      <input checked="checked" name="customer-type" type="radio"/>所有
-    </label>
-    <label ng-click="filterPay.payStatus=1" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>已付费
-    </label>
-    <label ng-click="filterPay.payStatus=0" class="btn uu-btn">
-      <input name="customer-type" type="radio"/>未付费
-    </label>
-  </div>
 </div>
 <table class="uu-table">
   <thead>
@@ -40,12 +20,9 @@
           </label>
         </div>
       </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filter" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filter" role="menu" class="dropdown-menu">
-          <li><a href="">待审核</a></li>
-          <li><a href="">审核中</a></li>
-          <li><a href="">审核通过</a></li>
-          <li><a href="">无效</a></li>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
       </th>
       <th>工具</th>
@@ -397,12 +374,12 @@
     </div>
   </div>
 </div>
-<div id="recheck-order" class="modal fade sub-modal">
+<div id="contact-history" class="modal fade sub-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">投诉</h4>
+        <h4 class="modal-title">联系记录</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
