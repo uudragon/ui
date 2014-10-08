@@ -2,7 +2,7 @@
 
 var uud = angular.module('mainApp', [
 	'ivpusic.cookie',
-	'ngResource',
+	'restangular',
 	'ui.router',
 	'angular-md5'
 ])

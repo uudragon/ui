@@ -54,6 +54,6 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 				+textarea('内容', 'responsor')(ng-model='msg.reciever')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
-		button.btn.uu-btn.btn-success(ng-click='save()') 发送
+		button.btn.uu-btn.btn-primary(ng-click='saveMsg()') 保存
+		button.btn.uu-btn.btn-success(ng-click='sendMsg()') 发送
 		button.btn.uu-btn(data-dismiss='modal') 关闭

@@ -86,7 +86,7 @@ angular.module('mainApp')
 		$controller('UtilsManager', {$scope: $scope});
 
 	}])
-	.controller('Message', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Message', ['$scope', '$controller', 'Restangular', function ($scope, $controller, Restangular) {
 
 		// ths
 		$scope.ths = [
@@ -109,8 +109,24 @@ angular.module('mainApp')
 			}
 		];
 
+		var Message =  Restangular.allUrl('messages', 'http://localhost:8088/atnew/');
+
 		$scope.sendMessage = function() {
+			var msgs = Message.getList({method: 'listByPage', target: 0, status: 1, startTime: '2010-1-1', endTime: '2010-1-2', pageSize: 4, pageNo: 1});
+			console.log(msgs);
 			$('#send-message').modal('show');
+		};
+
+		$scope.saveMsg = function() {
+			var msgs = Message.getList();
+			console.log(msgs);
+			var a = Restangular.allUrl('searches', 'http://google.com/');
+			console.log(a);
+			// Restangular.one('message').save();
+		};
+		$scope.sendMsg = function() {
+			Restangular.allUrl('searches', 'http://google.com/');
+			// Restangular.one('message').save();
 		};
 
 		// inherit functions from parent
