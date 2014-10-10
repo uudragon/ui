@@ -206,11 +206,11 @@ mixin article-header-filter(key, filterBy)
 				if filterBy.filter
 					each filter, index in filterBy.filter
 						if index === 0
-							label.btn.uu-btn.active(ng-click='filterBy.#{key}=#{filter.value}')
+							label.btn.uu-btn.active(ng-click="filterBy.#{key}='#{filter.value}'", ng-init="filterBy.#{key}='#{filter.value}'")
 								input(checked, type='radio')
 								| #{filter.label}
 						else
-							label.btn.uu-btn(ng-click='filterBy.#{key}=#{filter.value}')
+							label.btn.uu-btn(ng-click="filterBy.#{key}='#{filter.value}'")
 								input(type='radio')
 								| #{filter.label}
 			if block

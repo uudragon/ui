@@ -3,23 +3,22 @@ include ../../modules/mixins.jade
 +pagetitle('站内提醒')
 
 //- 订单列表过滤条件
-- var filterBy = {key: 'isAssigned', filter: []}
-- filterBy.filter.push({label: '所有', value: '""'})
-- filterBy.filter.push({label: '收件箱', value: 0})
-- filterBy.filter.push({label: '发件箱', value: 1})
+- var filterBy = {key: 'mailbox', filter: []}
+- filterBy.filter.push({label: '收件箱', value: 'inBox'})
+- filterBy.filter.push({label: '发件箱', value: 'outBox'})
 
-+article-header-filter('isAssigned', filterBy)
++article-header-filter('mailbox', filterBy)
 	.form-group
 		input.form-control.input-sm(ng-model='subfilter')
-	.btn.uu-btn
+	.btn.uu-btn(ng-click='keywordSearch()')
 		+tooltip('查询', 'top')
 			+glyphicon('search')
 
 .article-header-operate
 	btn.btn.uu-btn.btn-success 未读
-	btn.btn.uu-btn.btn-primary(ng-click='sendMessage()') 发送短消息
+	btn.btn.uu-btn.btn-primary(ng-click='openMessageBox()') 发送短消息
 	btn.btn.uu-btn.btn-warning 删除
-	btn.btn.uu-btn.btn-danger 一键清零
+	btn.btn.uu-btn.btn-danger(ng-click='clearAllMessage()') 一键清零
 
 
 //- 订单列表
@@ -30,11 +29,11 @@ table.uu-table
 			td
 				input(type='checkbox', ng-model="msg.isChecked", ng-click='checkIsAllChecked("isAllChecked", messages, msg)')
 			td(ng-bind='msg.content')
-			td(ng-bind='msg.reciever')
+			td(ng-bind='msg.receiver')
 			td(ng-bind='msg.sendTime')
 
 
-uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+uu-pagination(records='200', page='messages.pageNo', model='searchModel', action='paginationFn()')
 
 //- 发送短消息Modal
 +modal('send-message')

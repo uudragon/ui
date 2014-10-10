@@ -4,28 +4,25 @@
 <div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" class="btn-group">
-      <label ng-click="filterBy.isAssigned=&quot;&quot;" class="btn uu-btn active">
-        <input checked="checked" type="radio"/>所有
+      <label ng-click="filterBy.mailbox='inBox'" ng-init="filterBy.mailbox='inBox'" class="btn uu-btn active">
+        <input checked="checked" type="radio"/>收件箱
       </label>
-      <label ng-click="filterBy.isAssigned=0" class="btn uu-btn">
-        <input type="radio"/>收件箱
-      </label>
-      <label ng-click="filterBy.isAssigned=1" class="btn uu-btn">
+      <label ng-click="filterBy.mailbox='outBox'" class="btn uu-btn">
         <input type="radio"/>发件箱
       </label>
     </div>
     <div class="form-group">
       <input ng-model="subfilter" class="form-control input-sm"/>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="keywordSearch()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
 <div class="article-header-operate">
   <btn class="btn uu-btn btn-success">未读</btn>
-  <btn ng-click="sendMessage()" class="btn uu-btn btn-primary">发送短消息</btn>
+  <btn ng-click="openMessageBox()" class="btn uu-btn btn-primary">发送短消息</btn>
   <btn class="btn uu-btn btn-warning">删除</btn>
-  <btn class="btn uu-btn btn-danger">一键清零</btn>
+  <btn ng-click="clearAllMessage()" class="btn uu-btn btn-danger">一键清零</btn>
 </div>
 <table class="uu-table">
   <thead>
@@ -50,12 +47,12 @@
         <input type="checkbox" ng-model="msg.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, messages, msg)"/>
       </td>
       <td ng-bind="msg.content"></td>
-      <td ng-bind="msg.reciever"></td>
+      <td ng-bind="msg.receiver"></td>
       <td ng-bind="msg.sendTime"></td>
     </tr>
   </tbody>
 </table>
-<uu-pagination records="102" page="currentPage" model="searchModel" action="getOrders()"></uu-pagination>
+<uu-pagination records="200" page="messages.pageNo" model="searchModel" action="paginationFn()"></uu-pagination>
 <div id="send-message" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">

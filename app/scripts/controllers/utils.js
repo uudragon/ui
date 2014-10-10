@@ -95,25 +95,40 @@ angular.module('mainApp')
 			{name: 'sendTime', label: '发送时间', isChecked: true}
 		];
 
-		// 联系记录
-		$scope.messages = [
-			{
-				content: 'Lorem.',
-				reciever: 'Lorem ipsum.',
-				sendTime: '2013-10-1'
-			},
-			{
-				content: 'ipsum.',
-				reciever: 'ab ipsum.',
-				sendTime: '2013-11-1'
-			}
-		];
+		var Message =  Restangular.allUrl('messages', '/atnew/ws/notes');
+		var searcher = {};
 
-		var Message =  Restangular.allUrl('messages', 'http://localhost:8088/atnew/');
+		$scope.$watch('filterBy.mailbox', function() {
+			$scope.reloadSearch();
+		});
 
-		$scope.sendMessage = function() {
-			var msgs = Message.getList({method: 'listByPage', target: 0, status: 1, startTime: '2010-1-1', endTime: '2010-1-2', pageSize: 4, pageNo: 1});
-			console.log(msgs);
+		$scope.reloadSearch = function() {
+			Message.get($scope.filterBy.mailbox, searcher).then(function(result) {
+				$scope.messages = result.records;
+			});
+		};
+
+		$scope.keywordSearch = function() {
+			searcher.content = $scope.subfilter;
+			searcher.pageNo = 1;
+			searcher.pageSize = config.perPage;
+			console.log('keywordSearch');
+			$scope.reloadSearch();
+		};
+
+		$scope.paginationFn = function() {
+			console.log('paginationFn');
+			searcher.pageNo = $scope.searchModel.toPage;
+			searcher.pageSize = config.perPage;
+			$scope.reloadSearch();
+		};
+
+		// 一键清零
+		$scope.clearAllMessage = function() {
+			Message.one($scope.filterBy.mailbox).remove();
+		};
+
+		$scope.openMessageBox = function() {
 			$('#send-message').modal('show');
 		};
 

@@ -22,22 +22,22 @@
 <div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" class="btn-group">
-      <label ng-click="filterBy.payStatus=&quot;&quot;" class="btn uu-btn active">
+      <label ng-click="filterBy.payStatus='&quot;&quot;'" ng-init="filterBy.payStatus='&quot;&quot;'" class="btn uu-btn active">
         <input checked="checked" type="radio"/>今天
       </label>
-      <label ng-click="filterBy.payStatus=0" class="btn uu-btn">
+      <label ng-click="filterBy.payStatus='0'" class="btn uu-btn">
         <input type="radio"/>昨天
       </label>
-      <label ng-click="filterBy.payStatus=1" class="btn uu-btn">
+      <label ng-click="filterBy.payStatus='1'" class="btn uu-btn">
         <input type="radio"/>前天
       </label>
-      <label ng-click="filterBy.payStatus=1" class="btn uu-btn">
+      <label ng-click="filterBy.payStatus='1'" class="btn uu-btn">
         <input type="radio"/>近3天
       </label>
-      <label ng-click="filterBy.payStatus=1" class="btn uu-btn">
+      <label ng-click="filterBy.payStatus='1'" class="btn uu-btn">
         <input type="radio"/>近7天
       </label>
-      <label ng-click="filterBy.payStatus=1" class="btn uu-btn">
+      <label ng-click="filterBy.payStatus='1'" class="btn uu-btn">
         <input type="radio"/>近30天
       </label>
     </div>

@@ -2,13 +2,13 @@
 <div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" class="btn-group">
-      <label ng-click="filterBy.isAssigned=&quot;&quot;" class="btn uu-btn active">
+      <label ng-click="filterBy.isAssigned='&quot;&quot;'" ng-init="filterBy.isAssigned='&quot;&quot;'" class="btn uu-btn active">
         <input checked="checked" type="radio"/>所有
       </label>
-      <label ng-click="filterBy.isAssigned=0" class="btn uu-btn">
+      <label ng-click="filterBy.isAssigned='0'" class="btn uu-btn">
         <input type="radio"/>已分配
       </label>
-      <label ng-click="filterBy.isAssigned=1" class="btn uu-btn">
+      <label ng-click="filterBy.isAssigned='1'" class="btn uu-btn">
         <input type="radio"/>未分配
       </label>
     </div>
