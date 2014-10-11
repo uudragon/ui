@@ -292,8 +292,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				start = betwwen(start, 1, $scope.totalPages - pages + 1);
 
 				// update the model passed in
-				$scope.model.toPage = $scope.current;
-				$scope.model.perPage = $scope.perPage;
+				$scope.model.pageNo = $scope.current;
+				$scope.model.pageSize = $scope.perPage;
 				$scope.pages = [];
 
 				for (i = start; i < start + pages; i++) {
@@ -352,7 +352,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			var validate = function(value) {
 				// valid
-				if (!value || /^\s*\d{4}-\d{1,2}(?:-\d{1,2})?\s*$/.test(value)) {
+				if (!value || /^\s*\d{4}-\d{1,2}(?:-\d{1,2})?(?:\s\d{2}\:\d{2})?\s*$/.test(value)) {
 					ctrl.$setValidity('date', true);
 					return value;
 				} else {
@@ -362,10 +362,14 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			};
 			ctrl.$parsers.push(validate);
 			ctrl.$formatters.push(validate);
-			$element.datetimepicker(settings);
+			$element.datetimepicker(settings)
+				.on('changeDate', function(e) {
+					$scope.ngModel = $element.val();
+				});
 		}
 	};
 })
+
 
 .directive('uuAuthFilter', ['Auth', function(Auth) {
 	return {

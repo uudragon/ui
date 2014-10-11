@@ -21,7 +21,7 @@
 <div class="article-header-operate">
   <btn class="btn uu-btn btn-success">未读</btn>
   <btn ng-click="openMessageBox()" class="btn uu-btn btn-primary">发送短消息</btn>
-  <btn class="btn uu-btn btn-warning">删除</btn>
+  <btn ng-click="deleteMessage()" class="btn uu-btn btn-warning">删除</btn>
   <btn ng-click="clearAllMessage()" class="btn uu-btn btn-danger">一键清零</btn>
 </div>
 <table class="uu-table">
@@ -52,7 +52,7 @@
     </tr>
   </tbody>
 </table>
-<uu-pagination records="200" page="messages.pageNo" model="searchModel" action="paginationFn()"></uu-pagination>
+<uu-pagination records="recordsCount" page="currentPage" model="searchModel" action="paginationFn()"></uu-pagination>
 <div id="send-message" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">

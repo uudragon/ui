@@ -93,7 +93,7 @@ angular.module('mainApp')
 		$controller('CustomerManagerManager', {$scope: $scope});
 
 	}])
-	.controller('Info', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Info', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 		// 搜索下拉
 		$scope.filters = [
@@ -111,18 +111,27 @@ angular.module('mainApp')
 			{name: '退换货单号', value: 12, input: true}
 		];
 
-		$scope.msgs = [
-			{
-				phone: '120383648204',
-				sendTime: '2014-10-8',
-				content: 'Lorem ipsum dolor sit amet.',
-				sendStatus: '正常',
-				operator: '张三'
-			}
-		];
+		$scope.msg = {};
 
-		$scope.newMsgTemplet = function() {
+		$scope.newMsgTemplate = function() {
 			$('#new-msg-templet').modal('show');
+		};
+
+		// 保存短信模板
+		$scope.saveMsgTemplate = function() {
+			$http.post('/atnew/ws/message/template', $scope.msg)
+				.success(function(data, status) {
+					$('#new-msg-templet').modal('hide');
+				});
+		};
+
+		// 查询
+		$scope.listByPage = function() {
+			$http.get('/atnew/ws/message', $scope.searchModel)
+				.success(function(data, status) {
+					$scope.msgs = data.records;
+					$scope.recordsCount = data.recordsCount;
+				});
 		};
 
 		$controller('CustomerManagerManager', {$scope: $scope});

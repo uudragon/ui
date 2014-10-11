@@ -25,10 +25,15 @@
 
 .article-header-filter,
 .article-header-operate {
-
 	.form-control {
 		margin-right: 10px;
 	}
 
 	margin-bottom: 10px;
+}
+
+.article-header-operate {
+	.btn + .btn {
+		margin-left: 4px;
+	}
 }

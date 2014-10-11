@@ -13,9 +13,9 @@
     </div>
     <div class="input-group">
       <label for="form-end-time" class="input-group-addon">结束时间</label>
-      <input id="form-end-time" ng-model="searchModel.startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
+      <input id="form-end-time" ng-model="searchModel.endTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="listByPage()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -44,9 +44,9 @@
   </form>
 </div>
 <div class="article-header-operate">
-  <btn ng-click="newMsgTemplet()" class="btn uu-btn btn-success">新增模板</btn>
+  <btn ng-click="newMsgTemplate()" class="btn uu-btn btn-success">新增模板</btn>
 </div>
-<table class="uu-table">
+<table ng-show="msgs" class="uu-table">
   <thead>
     <tr>
       <th>号码</th>
@@ -57,16 +57,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="msg in msgs | filter:filterBy">
-      <td ng-bind="msg.phone"></td>
+    <tr ng-repeat="msg in msgs">
+      <td ng-bind="msg.id"></td>
       <td ng-bind="msg.sendTime"></td>
       <td ng-bind="msg.content"></td>
-      <td ng-bind="msg.sendStatus"></td>
-      <td ng-bind="msg.operator"></td>
+      <td ng-bind="msg.status"></td>
+      <td ng-bind="msg.opUser"></td>
     </tr>
   </tbody>
 </table>
-<uu-pagination records="102" page="currentPage" model="searchModel" action="getOrders()"></uu-pagination>
+<uu-pagination records="recordsCount" page="currentPage" model="searchModel" action="listByPage()"></uu-pagination>
 <div id="new-msg-templet" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -78,9 +78,9 @@
         <form class="form-horizontal">
           <fieldset>
             <div class="form-group">
-              <label for="form-topic" class="control-label col-xs-3">主题</label>
+              <label for="form-subject" class="control-label col-xs-3">主题</label>
               <div class="col-xs-7">
-                <select id="form-topic" ng-model="user.topic" class="form-control input-sm">
+                <select id="form-subject" ng-model="msg.subject" class="form-control input-sm">
                   <option value="0">核实订单</option>
                   <option value="1">投诉</option>
                   <option value="2">回访</option>
@@ -92,14 +92,14 @@
             <div class="form-group">
               <label for="form-content" class="control-label col-xs-3">内容</label>
               <div class="col-xs-7">
-                <textarea id="form-content" ng-model="content" class="form-control"></textarea>
+                <textarea id="form-content" ng-model="msg.content" class="form-control"></textarea>
               </div>
             </div>
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveMsgTemplate()" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

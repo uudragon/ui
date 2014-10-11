@@ -1,9 +1,9 @@
 include ../../modules/mixins.jade
 
 //- 搜索
-+linkage-search()
++linkage-search('listByPage()')
 	+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
 //- 过滤条件
 - var filterBy = {key: 'sendTime', filter: []}
@@ -16,21 +16,21 @@ include ../../modules/mixins.jade
 +article-header-filter('sendTime', filterBy)
 
 .article-header-operate
-	btn.btn.uu-btn.btn-success(ng-click='newMsgTemplet()') 新增模板
+	btn.btn.uu-btn.btn-success(ng-click='newMsgTemplate()') 新增模板
 
-table.uu-table
+table.uu-table(ng-show='msgs')
 	+thead
 		each th in ['号码', '发送时间', '短信内容', '发送状态', '操作人']
 			th=th
 	tbody
-		tr(ng-repeat='msg in msgs | filter:filterBy')
-			td(ng-bind='msg.phone')
+		tr(ng-repeat='msg in msgs')
+			td(ng-bind='msg.id')
 			td(ng-bind='msg.sendTime')
 			td(ng-bind='msg.content')
-			td(ng-bind='msg.sendStatus')
-			td(ng-bind='msg.operator')
+			td(ng-bind='msg.status')
+			td(ng-bind='msg.opUser')
 
-uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+uu-pagination(records='recordsCount', page='currentPage', model='searchModel', action='listByPage()')
 
 //- 新增短信模板
 +modal('new-msg-templet')
@@ -41,15 +41,15 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 		form.form-horizontal
 			fieldset
 				.form-group
-					+select('主题', 'topic')(ng-model='user.topic')
+					+select('主题', 'subject')(ng-model='msg.subject')
 						+option('核实订单', 0)
 						+option('投诉', 1)
 						+option('回访', 2)
 						+option('催费', 3)
 						+option('促进销售', 4)
 				.form-group
-					+textarea('内容', 'content')(ng-model="content")
+					+textarea('内容', 'content')(ng-model="msg.content")
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveMsgTemplate()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 

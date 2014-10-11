@@ -105,6 +105,8 @@ angular.module('mainApp')
 		$scope.reloadSearch = function() {
 			Message.get($scope.filterBy.mailbox, searcher).then(function(result) {
 				$scope.messages = result.records;
+				$scope.recordsCount = result.recordsCount;
+				$scope.currentPage = 1;
 			});
 		};
 
@@ -112,18 +114,37 @@ angular.module('mainApp')
 			searcher.content = $scope.subfilter;
 			searcher.pageNo = 1;
 			searcher.pageSize = config.perPage;
-			console.log('keywordSearch');
 			$scope.reloadSearch();
+		};
+
+		// 删除发件箱/收件箱内容
+		$scope.deleteMessage = function() {
+			var toBeDeleted = [];
+			angular.forEach($scope.messages, function(message) {
+				if (message.isChecked) {
+					toBeDeleted.push(message.id);
+				}
+			});
+			if (toBeDeleted.length) {
+				Message.one($scope.filterBy.mailbox, toBeDeleted).remove();
+			}
+		};
+
+		// 查看邮件内容
+		$scope.readMessage = function(id) {
+			if (id) {
+				Message.one($scope.filterBy.mailbox, id).get();
+			}
 		};
 
 		$scope.paginationFn = function() {
 			console.log('paginationFn');
-			searcher.pageNo = $scope.searchModel.toPage;
-			searcher.pageSize = config.perPage;
+			searcher.pageNo = $scope.searchModel.pageNo;
+			searcher.pageSize = $scope.searchModel.pageSize;
 			$scope.reloadSearch();
 		};
 
-		// 一键清零
+		// 一键清零 (清空收件箱/发件箱)
 		$scope.clearAllMessage = function() {
 			Message.one($scope.filterBy.mailbox).remove();
 		};
@@ -135,12 +156,9 @@ angular.module('mainApp')
 		$scope.saveMsg = function() {
 			var msgs = Message.getList();
 			console.log(msgs);
-			var a = Restangular.allUrl('searches', 'http://google.com/');
-			console.log(a);
 			// Restangular.one('message').save();
 		};
 		$scope.sendMsg = function() {
-			Restangular.allUrl('searches', 'http://google.com/');
 			// Restangular.one('message').save();
 		};
 
@@ -148,9 +166,14 @@ angular.module('mainApp')
 		$controller('UtilsManager', {$scope: $scope});
 
 	}])
-	.controller('Batchmsg', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Batchmsg', ['$scope', '$controller', 'Restangular', function ($scope, $controller, Restangular) {
+		var Msg =  Restangular.allUrl('messages', '/atnew/ws/message');
+		$scope.msg = {sendType: 1, opUser: 12};
 
-
+		$scope.sendMsg = function() {
+			console.log($scope.msg);
+			Msg.post();
+		};
 
 		// inherit functions from parent
 		$controller('UtilsManager', {$scope: $scope});

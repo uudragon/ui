@@ -262,7 +262,7 @@ mixin order-details()
 //- Searches
 //- ----------------------
 
-mixin linkage-search()
+mixin linkage-search(action)
 	.article-header-search
 		form.form-inline(role='form')
 			.form-group
@@ -272,7 +272,7 @@ mixin linkage-search()
 				input.form-control.input-sm(ng-model='searchModel.subfilter', uu-date-picker, ng-show='searchModel.filter.datetime')
 			if block
 				block
-			.btn.uu-btn
+			.btn.uu-btn(ng-click=action)
 				+tooltip('查询', 'top')
 					+glyphicon('search')
 
