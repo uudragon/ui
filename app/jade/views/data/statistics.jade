@@ -4,7 +4,7 @@ include ../../modules/mixins.jade
 .article-header-search
 	form.form-inline(role='form')
 		+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-		+grouped-input('结束时间', 'end-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+		+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 		.btn.uu-btn
 			+tooltip('查询', 'top')
 				+glyphicon('search')

@@ -151,6 +151,8 @@ angular.module('mainApp')
 
 		$scope.openMessageBox = function() {
 			$('#send-message').modal('show');
+			// 获取信息模板
+			$scope.msgTemplate = [];
 		};
 
 		$scope.saveMsg = function() {
@@ -171,8 +173,8 @@ angular.module('mainApp')
 		$scope.msg = {sendType: 1, opUser: 12};
 
 		$scope.sendMsg = function() {
-			console.log($scope.msg);
-			Msg.post();
+			// console.log($scope.msg);
+			Msg.post($scope.msg);
 		};
 
 		// inherit functions from parent
