@@ -49,7 +49,9 @@ uu-pagination(records='recordsCount', page='currentPage', model='searchModel', a
 
 				//- +input('接收人', 'responsor')(ng-model='msg.reciever')
 			.form-group
-				+textarea('内容', 'responsor')(ng-model='msg.reciever')
+				+multi-select('内容', 'template')
+					+option('Lorem ipsum dolor sit amet.', 1)
+					+option('consectetur adipisicing elit. Quam, at.', 2)
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveMsg()') 保存

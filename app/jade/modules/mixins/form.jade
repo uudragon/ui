@@ -1,0 +1,111 @@
+
+//- Inputs
+//- ----------------------
+
+//- 3 label, 7 input
+mixin input(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7
+		if !attributes['uu-date-picker']
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		else
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+
+//- 4 label, 6 input
+mixin input-tweak(title, id)
+	label.control-label.col-xs-4(for='form-' + id)=title
+	.col-xs-6
+		if !attributes['uu-date-picker']
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		else
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+
+
+//- free label, free input
+mixin plain-input(title, id)
+	label.control-label(for='form-' + id)=title
+	if !attributes['uu-date-picker']
+		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+	else
+		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+
+//- 3 label, 7 input, message-multi
+mixin short-input(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7.message-multi
+		if !attributes['uu-date-picker']
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		else
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+		if block
+			block
+
+//- input addon
+mixin grouped-input(title, id)
+	.input-group
+		label.input-group-addon(for='form-' + id)=title
+		if !attributes['uu-date-picker']
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		else
+			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+
+
+//- Textarea
+//- ----------------------
+
+//- 3 label, 7 from-control
+mixin textarea(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7
+		textarea.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+
+mixin plain-textarea(title, id)
+	label.control-label(for='form-' + id)=title
+	textarea.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+
+
+
+//- Select
+//- ----------------------
+
+//- 3 label, 7 from-control
+mixin select(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7
+		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+			block
+
+//- 3 label, 7 from-control, multi-row
+mixin multi-select(title, id)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-7
+		select.form-control(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'], size='5')
+			block
+
+//- 4 label, 6 from-control
+mixin select-tweak(title, id)
+	label.control-label.col-xs-4(for='form-' + id)=title
+	.col-xs-6
+		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+			block
+
+//- free label, free from-control
+mixin plain-select(title, id, options)
+	if title
+		label.control-label(for='form-' + id)=title
+	select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+		if options
+			each val in options
+				+option(val.title, val.value)
+
+mixin option(title, value)
+	if value === null
+		- var value = title
+	option(value=value)=title
+
+
+//- bootstrap short input helper
+mixin submit(title, id)
+	.col-xs-7.col-xs-offset-3
+		if block
+			block
