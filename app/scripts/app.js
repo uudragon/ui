@@ -141,9 +141,9 @@ var uud = angular.module('mainApp', [
 		controller: 'Search'
 	})
 	.state('root.utils.message', {
-		url: '/message',
-		templateUrl: 'views/utils/message.html',
-		controller: 'Message'
+		url: '/notes',
+		templateUrl: 'views/utils/notes.html',
+		controller: 'Notes'
 	})
 	.state('root.utils.batchmsg', {
 		url: '/batchmsg',

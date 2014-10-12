@@ -79,7 +79,7 @@ mixin select(title, id)
 mixin multi-select(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		select.form-control(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'], size='5')
+		select.form-control(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'], size='5', ng-options=attributes['ng-options'])
 			block
 
 //- 4 label, 6 from-control

@@ -86,7 +86,7 @@ angular.module('mainApp')
 		$controller('UtilsManager', {$scope: $scope});
 
 	}])
-	.controller('Message', ['$scope', '$controller', 'Restangular', function ($scope, $controller, Restangular) {
+	.controller('Notes', ['$scope', '$controller', 'Restangular', '$http', function ($scope, $controller, Restangular, $http) {
 
 		// ths
 		$scope.ths = [
@@ -95,15 +95,16 @@ angular.module('mainApp')
 			{name: 'sendTime', label: '发送时间', isChecked: true}
 		];
 
-		var Message =  Restangular.allUrl('messages', '/atnew/ws/notes');
+		var Note =  Restangular.allUrl('messages', '/atnew/ws/notes');
 		var searcher = {};
+		$scope.msg = {};
 
 		$scope.$watch('filterBy.mailbox', function() {
 			$scope.reloadSearch();
 		});
 
 		$scope.reloadSearch = function() {
-			Message.get($scope.filterBy.mailbox, searcher).then(function(result) {
+			Note.get($scope.filterBy.mailbox, searcher).then(function(result) {
 				$scope.messages = result.records;
 				$scope.recordsCount = result.recordsCount;
 				$scope.currentPage = 1;
@@ -126,14 +127,14 @@ angular.module('mainApp')
 				}
 			});
 			if (toBeDeleted.length) {
-				Message.one($scope.filterBy.mailbox, toBeDeleted).remove();
+				Note.one($scope.filterBy.mailbox, toBeDeleted).remove();
 			}
 		};
 
 		// 查看邮件内容
 		$scope.readMessage = function(id) {
 			if (id) {
-				Message.one($scope.filterBy.mailbox, id).get();
+				Note.one($scope.filterBy.mailbox, id).get();
 			}
 		};
 
@@ -146,22 +147,27 @@ angular.module('mainApp')
 
 		// 一键清零 (清空收件箱/发件箱)
 		$scope.clearAllMessage = function() {
-			Message.one($scope.filterBy.mailbox).remove();
+			console.log(Note);
+			Note.one($scope.filterBy.mailbox).remove();
 		};
 
 		$scope.openMessageBox = function() {
 			$('#send-message').modal('show');
-			// 获取信息模板
-			$scope.msgTemplate = [];
 		};
 
-		$scope.saveMsg = function() {
-			var msgs = Message.getList();
-			console.log(msgs);
-			// Restangular.one('message').save();
+		$scope.saveNote = function() {
+			$scope.msg.send = 'sender';
+			Note.post($scope.msg)
+				.then(function(data, status) {
+					$('#send-message').modal('hide');
+				});
 		};
-		$scope.sendMsg = function() {
-			// Restangular.one('message').save();
+
+		$scope.sendNote = function() {
+			Note.doPUT($scope.msg)
+				.then(function(data, status) {
+					$('#send-message').modal('hide');
+				});
 		};
 
 		// inherit functions from parent

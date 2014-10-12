@@ -72,15 +72,14 @@
           <div class="form-group">
             <label for="form-template" class="control-label col-xs-3">内容</label>
             <div class="col-xs-7">
-              <select id="form-template" ng-model="msg.tepmlate" size="5" ng-options="template.id as template.content for template in msgTemplates" class="form-control">
-              </select>
+              <textarea id="form-template" ng-model="msg.content" class="form-control"></textarea>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveMsg()" class="btn uu-btn btn-primary">保存</button>
-        <button ng-click="sendMsg()" class="btn uu-btn btn-success">发送</button>
+        <button ng-click="saveNote()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="sendNote()" class="btn uu-btn btn-success">发送</button>
         <button data-dismiss="modal" class="btn uu-btn">关闭</button>
       </div>
     </div>
