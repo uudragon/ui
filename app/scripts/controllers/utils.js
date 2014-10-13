@@ -86,7 +86,7 @@ angular.module('mainApp')
 		$controller('UtilsManager', {$scope: $scope});
 
 	}])
-	.controller('Notes', ['$scope', '$controller', 'Restangular', '$http', function ($scope, $controller, Restangular, $http) {
+	.controller('Notes', ['$scope', '$controller', 'Restangular', function ($scope, $controller, Restangular) {
 
 		// ths
 		$scope.ths = [
