@@ -25,6 +25,15 @@
 		line-height: 2;
 	}
 
+	ul.gb-actions {
+		@extend .list-inline;
+	    position: absolute;
+	    right: 0;
+	    > li {
+	    	width: auto;
+	    }
+	}
+
 	.table {
 		margin: 0;
 		> tbody {

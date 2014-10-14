@@ -62,7 +62,7 @@ angular.module('mainApp')
 			$('#order-details').modal('show');
 		};
 
-		$scope.checkOrder = function() {
+		$scope.addContact = function() {
 			$('#contact-history').modal('show');
 		};
 
@@ -101,6 +101,11 @@ angular.module('mainApp')
 			{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
+
+		// 修改订单
+		$scope.modifyOrder = function() {
+			$('#modify-order').modal('show');
+		};
 
 		// 共享订单
 		$scope.shareOrder = function() {
@@ -153,7 +158,25 @@ angular.module('mainApp')
 		var $tree = $('#tree');
 
 		// 搜索下拉
-		$scope.filters = [{name: '所有投诉', value: 0}, {name: '我的投诉', value: 1}, {name: '下属的投诉', value: 1}, {name: '未处理的投诉', value: 1}, {name: '处理中的投诉', value: 1}];
+		$scope.filters = [
+			{name: '所有投诉', value: 0},
+			{name: '我的投诉', value: 1},
+			{name: '下属的投诉', value: 1},
+			{name: '未处理的投诉', value: 1},
+			{name: '处理中的投诉', value: 1},
+			{name: '客户姓名', value: 1},
+			{name: '电话', value: 1},
+			{name: '城市', value: 1},
+			{name: '创建时间', value: 1},
+			{name: '联系次数', value: 1},
+			{name: '订单编号', value: 1},
+			{name: '订单状态', value: 1},
+			{name: '付款类别', value: 1},
+			{name: '付款状态', value: 1},
+			{name: '工单状态', value: 1},
+			{name: '投诉类型', value: 1},
+		];
+
 		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
 
 		// ths

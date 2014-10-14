@@ -5,7 +5,14 @@
       <select ng-model="searchModel.filter" ng-options="filter.name for filter in filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
       <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
-      <input ng-model="searchModel.subfilter" uu-date-picker="uu-date-picker" ng-show="searchModel.filter.datetime" class="form-control input-sm"/>
+    </div>
+    <div ng-show="searchModel.filter.datetime" class="input-group">
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd" class="form-control input-sm"/>
+    </div>
+    <div ng-show="searchModel.filter.datetime" class="input-group">
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" ng-model="searchModel.subfilter.endTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd" class="form-control input-sm"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -45,7 +52,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders | filter:filterBy">
+    <tr ng-repeat="order in orders ">
       <td>
         <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, orders, order)"/>
       </td>
@@ -112,7 +119,7 @@
             <div class="form-group col-xs-6">
               <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
               <div class="col-xs-7">
-                <input id="form-startDate" ng-model="user.startDate" class="form-control input-sm"/>
+                <input id="form-startDate" ng-model="user.startDate" uu-date-picker="" class="form-control input-sm"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
@@ -124,7 +131,7 @@
             <div class="form-group col-xs-6">
               <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
               <div class="col-xs-7">
-                <input id="form-enddate" ng-model="user.enddate" class="form-control input-sm"/>
+                <input id="form-enddate" ng-model="user.enddate" uu-date-picker="" class="form-control input-sm"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
@@ -142,7 +149,7 @@
             <div class="form-group col-xs-6">
               <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
               <div class="col-xs-7">
-                <input id="form-birthday" ng-model="user.birthday" class="form-control input-sm"/>
+                <input id="form-birthday" ng-model="user.birthday" uu-date-picker="" class="form-control input-sm"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
@@ -179,6 +186,7 @@
                   <th>支付状态</th>
                   <th>出生日期</th>
                   <th>订单状态</th>
+                  <th>审核状态</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -192,7 +200,8 @@
                   <td>已支付</td>
                   <td>2010-06-01</td>
                   <td>正常</td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-share"></span></a>
+                  <td>已审核</td>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="modifyOrder()"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单" ng-click="shareOrder()"><span class="glyphicon glyphicon-share"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -201,7 +210,7 @@
           <p>
             <ul class="list-inline">
               <li>联系记录</li>
-              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="核实订单" ng-click="checkOrder()"><span class="glyphicon glyphicon-plus"></span></a>
+              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加联系记录" ng-click="addContact()"><span class="glyphicon glyphicon-plus"></span></a>
               </li>
               <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
               </li>
@@ -227,6 +236,36 @@
               <select id="form-responsor" ng-model="order.responsor" class="form-control input-sm">
                 <option value="0">拆单组</option>
                 <option value="1">审单组</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modify-order" class="modal fade sub-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">修改订单</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="form-responsor" class="control-label col-xs-3">修改订单状态</label>
+            <div class="col-xs-7">
+              <select id="form-responsor" ng-model="order.responsor" class="form-control input-sm">
+                <option value="0">待审核</option>
+                <option value="1">审核中</option>
+                <option value="1">核实中</option>
+                <option value="1">审核通过</option>
+                <option value="1">无效</option>
               </select>
             </div>
           </div>

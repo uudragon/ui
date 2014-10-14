@@ -2,10 +2,7 @@
 <div class="article-header-search">
   <form role="form" class="form-inline">
     <div class="form-group">
-      <select ng-model="searchModel.filter" ng-options="filter.name for filter in filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
-      <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
-      <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
-      <input ng-model="searchModel.subfilter" uu-date-picker="uu-date-picker" ng-show="searchModel.filter.datetime" class="form-control input-sm"/>
+      <input ng-model="searchModel.keyword" class="form-control input-sm"/>
     </div>
     <div class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
@@ -15,7 +12,7 @@
       <label for="form-end-time" class="input-group-addon">结束时间</label>
       <input id="form-end-time" ng-model="searchModel.endTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
     </div>
-    <div ng-click="listByPage()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>

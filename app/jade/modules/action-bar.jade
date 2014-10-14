@@ -1,7 +1,7 @@
 div.clearfix
 	ul.action-bar
 		li
-			+tooltip('新建来电工单', 'top')(ui-sref='root.utils.neworder')
+			+tooltip('新建来电工单', 'top', 'globalNewOrder()')
 				+glyphicon('plus')
 		li
 			+tooltip('查找订单', 'top')(ui-sref='root.utils.search')
@@ -15,14 +15,9 @@ div.clearfix
 						a(href='')=filter
 	ul.action-bar.pull-right
 		li
-			+tooltip('发送短信息', 'top')(ui-sref='root.utils.message')
+			+tooltip('站内提醒', 'top')(ui-sref='root.utils.message')
 				+glyphicon('comment')
 		li
 			+tooltip('群发信息', 'top')(ui-sref='root.utils.batchmsg')
 				+glyphicon('envelope')
-		li
-			+tooltip('修改密码', 'top')
-				+glyphicon('wrench')
-		li
-			+tooltip('退出系统', 'top')
-				+glyphicon('log-out')
+

@@ -6,6 +6,14 @@
 				p.des 幼小衔接家庭课程专家
 		.col-xs-10.rightside
 			.row
+				ul.gb-actions
+					li
+						+tooltip('修改密码', 'bottom')
+							+glyphicon('wrench')
+					li
+						+tooltip('退出系统', 'bottom')
+							+glyphicon('log-out')
+
 				ul.list-inline
 					li
 						+key-val('当前日期', 'date | date : "yyyy-MM-dd"')

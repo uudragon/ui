@@ -35,17 +35,17 @@ mixin order-details()
 		+hgroup
 			+input('联系电话', 'telphone')(ng-model='user.telphone')
 		+hgroup
-			+input('起订日期', 'startDate')(ng-model='user.startDate')
+			+input('起订日期', 'startDate')(ng-model='user.startDate', uu-date-picker)
 		+hgroup
 			+input('儿童姓名', 'child-name')(ng-model='user.childName')
 		+hgroup
-			+input('结束日期', 'enddate')(ng-model='user.enddate')
+			+input('结束日期', 'enddate')(ng-model='user.enddate', uu-date-picker)
 		+hgroup
 			+input('儿童性别', 'child-gender')(ng-model='user.childGender')
 		+hgroup
 			+input('支付方式', 'payway')(ng-model='user.payway')
 		+hgroup
-			+input('出生日期', 'birthday')(ng-model='user.birthday')
+			+input('出生日期', 'birthday')(ng-model='user.birthday', uu-date-picker)
 		+hgroup
 			+input('支付状态', 'pay-status')(ng-model='user.payStatus')
 		.form-group.col-xs-12.location
@@ -73,7 +73,8 @@ mixin linkage-search(action)
 				select.form-control.input-sm(ng-model='searchModel.filter', ng-options='filter.name for filter in filters', ng-change='resetSubFilter()')
 				select.form-control.input-sm(ng-model='searchModel.subfilter', ng-options='filter.value as filter.name for filter in searchModel.filter.subfilters', ng-show='searchModel.filter.subfilters')
 				input.form-control.input-sm(ng-model='searchModel.subfilter', ng-show='searchModel.filter.input')
-				input.form-control.input-sm(ng-model='searchModel.subfilter', uu-date-picker, ng-show='searchModel.filter.datetime')
+			+grouped-input('开始时间', 'start-time')(ng-show='searchModel.filter.datetime', ng-model='searchModel.subfilter.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd')
+			+grouped-input('结束时间', 'end-time')(ng-show='searchModel.filter.datetime', ng-model='searchModel.subfilter.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd')
 			if block
 				block
 			.btn.uu-btn(ng-click=action)

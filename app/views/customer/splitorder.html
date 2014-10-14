@@ -8,21 +8,6 @@
     </div>
   </form>
 </div>
-<div class="article-header-filter">
-  <form role="form" class="form-inline">
-    <div data-toggle="buttons" class="btn-group">
-      <label ng-click="filterBy.payStatus='&quot;&quot;'" ng-init="filterBy.payStatus='&quot;&quot;'" class="btn uu-btn active">
-        <input checked="checked" type="radio"/>所有
-      </label>
-      <label ng-click="filterBy.payStatus='0'" class="btn uu-btn">
-        <input type="radio"/>已付费
-      </label>
-      <label ng-click="filterBy.payStatus='1'" class="btn uu-btn">
-        <input type="radio"/>未付费
-      </label>
-    </div>
-  </form>
-</div>
 <table class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
@@ -107,7 +92,7 @@
             <div class="form-group col-xs-6">
               <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
               <div class="col-xs-7">
-                <input id="form-startDate" ng-model="user.startDate" class="form-control input-sm"/>
+                <input id="form-startDate" ng-model="user.startDate" uu-date-picker="" class="form-control input-sm"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
@@ -119,7 +104,7 @@
             <div class="form-group col-xs-6">
               <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
               <div class="col-xs-7">
-                <input id="form-enddate" ng-model="user.enddate" class="form-control input-sm"/>
+                <input id="form-enddate" ng-model="user.enddate" uu-date-picker="" class="form-control input-sm"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
@@ -137,7 +122,7 @@
             <div class="form-group col-xs-6">
               <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
               <div class="col-xs-7">
-                <input id="form-birthday" ng-model="user.birthday" class="form-control input-sm"/>
+                <input id="form-birthday" ng-model="user.birthday" uu-date-picker="" class="form-control input-sm"/>
               </div>
             </div>
             <div class="form-group col-xs-6">

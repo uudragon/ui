@@ -1,7 +1,7 @@
 include ../../modules/mixins.jade
 
 //- 搜索
-include ../../modules/linkage-search.jade
++linkage-search
 
 //- 订单列表过滤条件
 - var filterBy = {key: 'payStatus', filter: []}
@@ -14,7 +14,7 @@ include ../../modules/linkage-search.jade
 table.uu-table
 	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders | filter:filterBy')
+		tr(ng-repeat='order in orders ')
 			+tdchecker('orders', 'order')(ng-model='order.isChecked')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
@@ -55,7 +55,7 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 				legend 订单
 				table.uu-table
 					+thead
-						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '操作']
+						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '审核状态', '操作']
 							th=th
 					tbody
 						tr
@@ -67,8 +67,9 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 							td 已支付
 							td 2010-06-01
 							td 正常
+							td 已审核
 							td
-								+tooltip('修改', 'top')
+								+tooltip('修改', 'top', 'modifyOrder()')
 									+glyphicon('pencil') &nbsp;
 
 								+tooltip('共享订单', 'top', 'shareOrder()')
@@ -78,7 +79,7 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 				ul.list-inline
 					li 联系记录
 					li
-						+tooltip('核实订单', 'top', 'checkOrder()')
+						+tooltip('添加联系记录', 'top', 'addContact()')
 							+glyphicon('plus')
 					li
 						+jslink('search()')
@@ -95,6 +96,22 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 				- var responsorOptions = [{title: '拆单组', value: 0}, {title: '审单组', value: 1}]
 				+select('修改负责人', 'responsor')(ng-model='order.responsor')
 					each val in responsorOptions
+						+option(val.title, val.value)
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//- 修改订单Modal
++submodal('modify-order')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 修改订单
+	.modal-body
+		form.form-horizontal
+			.form-group
+				- var options = [{title: '待审核', value: 0}, {title: '审核中', value: 1}, {title: '核实中', value: 1}, {title: '审核通过', value: 1}, {title: '无效', value: 1} ]
+				+select('修改订单状态', 'responsor')(ng-model='order.responsor')
+					each val in options
 						+option(val.title, val.value)
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='save()') 保存

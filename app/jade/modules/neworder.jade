@@ -1,0 +1,34 @@
+//- 新建定单
++modal('global-new-order')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 新建来电工单
+	.modal-body
+		form.form-horizontal
+			fieldset
+				.form-group
+					+input('客户姓名', 'name')(ng-model='globalNewOrder.name')
+				.form-group
+					+select('工单状态', 'order-status')(ng-model='globalNewOrder.orderStatus')
+						+option('已完成', 0)
+						+option('处理中', 0)
+						+option('待处理', 0)
+				.form-group
+					+static-input('来电时间')(ng-bind='globalNewOrder.callTime')
+				.form-group
+					+static-input('负责人')(ng-bind='globalNewOrder.responser')
+				.form-group
+					+select('查询类型', 'query-type')(ng-model='globalNewOrder.queryType')
+						+option('产品', 0)
+						+option('售后服务', 0)
+						+option('订购', 0)
+						+option('支付', 0)
+						+option('物流', 0)
+				.form-group
+					+input('联系电话', 'telphone')(ng-model='globalNewOrder.telphone')
+				.form-group
+					+textarea('内容', 'content')(ng-model='globalNewOrder.content')
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveNewOrder()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消

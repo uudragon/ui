@@ -3,13 +3,6 @@ include ../../modules/mixins.jade
 //- 搜索
 include ../../modules/single-search.jade
 
-//- 订单列表过滤条件
-- var filterBy = {key: 'payStatus', filter: []}
-- filterBy.filter.push({label: '所有', value: '""'})
-- filterBy.filter.push({label: '已付费', value: 0})
-- filterBy.filter.push({label: '未付费', value: 1})
-+article-header-filter('payStatus', filterBy)
-
 //- 订单列表
 table.uu-table
 	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")

@@ -11,6 +11,11 @@ mixin input(title, id)
 		else
 			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
 
+mixin static-input(title)
+	label.control-label.col-xs-3=title
+	.col-xs-7
+		p.form-control-static(ng-bind=attributes['ng-bind'])
+
 //- 4 label, 6 input
 mixin input-tweak(title, id)
 	label.control-label.col-xs-4(for='form-' + id)=title
@@ -42,7 +47,7 @@ mixin short-input(title, id)
 
 //- input addon
 mixin grouped-input(title, id)
-	.input-group
+	.input-group(ng-show=attributes['ng-show'])
 		label.input-group-addon(for='form-' + id)=title
 		if !attributes['uu-date-picker']
 			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])

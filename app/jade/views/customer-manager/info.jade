@@ -1,10 +1,16 @@
 include ../../modules/mixins.jade
 
 //- 搜索
-+linkage-search('listByPage()')
-	+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+.article-header-search
+	form.form-inline(role='form')
+		.form-group
+			input.form-control.input-sm(ng-model='searchModel.keyword')
+		+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+		+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
+		.btn.uu-btn(ng-click=action)
+			+tooltip('查询', 'top')
+				+glyphicon('search')
 //- 过滤条件
 - var filterBy = {key: 'sendTime', filter: []}
 - filterBy.filter.push({label: '今天', value: '""'})

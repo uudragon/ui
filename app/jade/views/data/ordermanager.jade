@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search()
 	+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
 //- 过滤条件
 - var filterBy = {key: 'payStatus', filter: []}
