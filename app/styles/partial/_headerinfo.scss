@@ -6,8 +6,9 @@
  */
 
 .pg-info {
-	background: url('../images/body-bg.png');
+	background: #00bcd4;
 	border: none;
+	color: #fff;
 	box-shadow: 0 1px 5px #ccc;
 
 	> .container {
@@ -67,6 +68,11 @@
 		text-align: center;
 		padding-top: 6px;
 		font-weight: bold;
+		color: #fff;
+	}
+
+	.glyphicon {
+		color: #fff;
 	}
 
 
