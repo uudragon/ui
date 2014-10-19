@@ -5,10 +5,9 @@ include ../../modules/tri-search.jade
 
 //- 订单列表
 table.uu-table
-	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders | filter:filterPay')
-			+tdchecker('orders', 'order')(ng-model='order.isChecked')
 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showComplaintOrders(order)')(ng-bind='order.orderSN')

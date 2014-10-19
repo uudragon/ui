@@ -2,15 +2,17 @@
 <div class="article-header-search">
   <form role="form" class="form-inline">
     <div class="form-group">
-      <input ng-model="searchModel.keyword" class="form-control input-sm"/>
+      <select ng-model="searchModel.filter" ng-options="filter.name for filter in filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
+      <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
+      <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
-    <div class="input-group">
+    <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
-      <input id="form-start-time" ng-model="searchModel.startTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
+      <input id="form-start-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
     </div>
-    <div class="input-group">
+    <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-end-time" class="input-group-addon">结束时间</label>
-      <input id="form-end-time" ng-model="searchModel.endTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
+      <input id="form-end-time" ng-model="searchModel.subfilter.endTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -43,7 +45,7 @@
 <div class="article-header-operate">
   <btn ng-click="newMsgTemplate()" class="btn uu-btn btn-success">新增模板</btn>
 </div>
-<table ng-show="msgs" class="uu-table">
+<table class="uu-table">
   <thead>
     <tr>
       <th>号码</th>

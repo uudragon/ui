@@ -106,7 +106,7 @@ mixin plain-select(title, id, options)
 mixin option(title, value)
 	if value === null
 		- var value = title
-	option(value=value)=title
+	option(value=value, ng-show=attributes['ng-show'], ng-if=attributes['ng-if'])=title
 
 
 //- bootstrap short input helper

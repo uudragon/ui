@@ -24,35 +24,47 @@ table.uu-table
 +modal('order-details', 'modal-lg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title(ng-bind='modalTitle')
+		h4.modal-title(ng-bind='order.topic')
 	.modal-body
 		form.form-horizontal
 			fieldset
 				legend 基本信息
 				.form-group.col-xs-6
-					+input('主题', 'name')(ng-model='user.name')
+					+static-input('主题', 'topic')(ng-bind='order.topic')
 				.form-group.col-xs-6
-					+input('出货仓库', 'order')(ng-model='user.order')
+					+input('出货仓库', 'order')(ng-model='order.order')
+						+option('仓库1', '0')
+						+option('仓库2', '1')
+						+option('仓库3', '2')
 				.form-group.col-xs-6
-					+input('入货仓库', 'sex')(ng-model='user.gender')
+					+select('入货仓库', 'sex')(ng-model='order.gender')
 				.form-group.col-xs-6
-					+input('调拨日期', 'good')(ng-model='user.good')
+					+input('调拨日期', 'good')(ng-model='order.good', uu-date-picker)
 				.form-group.col-xs-6
-					+input('产品名称', 'telphone')(ng-model='user.telphone')
+					+select('产品名称', 'telphone')(ng-model='order.telphone')
+						+option('产品1', '0')
+						+option('产品2', '1')
+						+option('产品3', '2')
 				.form-group.col-xs-6
-					+input('产品数量', 'startDate')(ng-model='user.startDate')
+					+input('产品数量', 'startDate')(ng-model='order.startDate')
 				.form-group.col-xs-6
-					+input('创建人', 'child-name')(ng-model='user.childName')
+					+static-input('创建人', 'child-name')(ng-bind='order.childName')
 				.form-group.col-xs-6
-					+input('创建时间', 'enddate')(ng-model='user.enddate')
+					+static-input('创建时间', 'enddate')(ng-bind='order.createTime')
 				.form-group.col-xs-6
-					+input('修改时间', 'child-gender')(ng-model='user.childGender')
+					+static-input('修改时间', 'child-gender')(ng-bind='order.updatedTime')
 				.form-group.col-xs-6
-					+input('审批人', 'payway')(ng-model='user.payway')
+					+input('审批人', 'payway')(ng-model='order.payway')
 				.form-group.col-xs-6
-					+input('状态', 'birthday')(ng-model='user.birthday')
+					+select('状态', 'status')(ng-model='order.status')
+						+option('未调拨', '0')(ng-if="order.topic==='调库'")
+						+option('已调拨', '1')(ng-if="order.topic==='调库'")
+						+option('未补仓', '2')(ng-if="order.topic==='补库'")
+						+option('已补仓', '3')(ng-if="order.topic==='补库'")
 				.form-group.col-xs-6
-					+input('审批状态', 'pay-status')(ng-model='user.payStatus')
+					+select('审批状态', 'pay-status')(ng-model='order.payStatus')
+						+option('待审批', '0')
+						+option('审批通过', '1')
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

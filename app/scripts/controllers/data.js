@@ -115,6 +115,7 @@ angular.module('mainApp')
 	.controller('Inventory', ['$scope', '$controller', function ($scope, $controller) {
 
 		$scope.products = [{type: 'lorem', name: '李四民', content: 'lorem', sku: '3213', minSKU: '123', SN: '1231231123', location: '山东'}, {type: 'lorem', name: '张三', content: 'lorem', sku: '1231', minSKU: '123', SN: '123124121', location: '青岛'} ]; $scope.isAllThsShow = true;
+		$scope.order = {};
 
 		$scope.ths = [
 				{name: 'type', label: '产品类别', isChecked: true, sortable:true},
@@ -128,13 +129,19 @@ angular.module('mainApp')
 
 		$scope.getProducts = function(order) {
 			$scope.currentOrder = order;
-			$scope.modalTitle = '调库';
+			$scope.order.topic = '调库';
+			$scope.order.createTime = (new Date()).toLocaleString();
+			$scope.order.updatedTime = $scope.order.createTime;
+			$scope.order.status = '';
 			$('#order-details').modal('show');
 		};
 
 		$scope.fillProducts = function(order) {
 			$scope.currentOrder = order;
-			$scope.modalTitle = '补库';
+			$scope.order.topic = '补库';
+			$scope.order.createTime = (new Date()).toLocaleString();
+			$scope.order.updatedTime = $scope.order.createTime;
+			$scope.order.status = '';
 			$('#order-details').modal('show');
 		};
 

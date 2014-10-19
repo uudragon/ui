@@ -1,16 +1,8 @@
 include ../../modules/mixins.jade
 
 //- 搜索
-.article-header-search
-	form.form-inline(role='form')
-		.form-group
-			input.form-control.input-sm(ng-model='searchModel.keyword')
-		+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-		+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
++linkage-search()
 
-		.btn.uu-btn(ng-click=action)
-			+tooltip('查询', 'top')
-				+glyphicon('search')
 //- 过滤条件
 - var filterBy = {key: 'sendTime', filter: []}
 - filterBy.filter.push({label: '今天', value: '""'})
@@ -24,7 +16,7 @@ include ../../modules/mixins.jade
 .article-header-operate
 	btn.btn.uu-btn.btn-success(ng-click='newMsgTemplate()') 新增模板
 
-table.uu-table(ng-show='msgs')
+table.uu-table
 	+thead
 		each th in ['号码', '发送时间', '短信内容', '发送状态', '操作人']
 			th=th

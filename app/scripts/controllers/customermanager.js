@@ -97,8 +97,13 @@ angular.module('mainApp')
 
 		// 搜索下拉
 		$scope.filters = [
-			{name: '', value: 2, input: true},
+			{name: '客户电话', value: 1, input: true},
+			{name: '时间段', value: 2, datetime: true},
+			{name: '发送状态', value: 3, subfilters: [{name: '已发送', value: 1}, {name: '未发送', value: 2}]},
+			{name: '主题', value: 4, subfilters: [{name: '主题1', value: 1}, {name: '主题2', value: 2}] },
+			{name: '内容', value: 5, input: true}
 		];
+
 
 		$scope.msg = {};
 

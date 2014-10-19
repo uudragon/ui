@@ -11,13 +11,6 @@
 <table class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, orders)"/>全选
-          </label>
-        </div>
-      </th>
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
@@ -27,10 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders | filter:filterBy">
-      <td>
-        <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, orders, order)"/>
-      </td>
+    <tr ng-repeat="order in orders">
       <td ng-bind="order.customerName" ng-show="ths[0].isChecked"></td>
       <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
       </td>
