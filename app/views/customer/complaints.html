@@ -31,9 +31,8 @@
       <td ng-bind="order.city" ng-show="ths[4].isChecked"></td>
       <td ng-bind="order.orderType" ng-show="ths[5].isChecked"></td>
       <td ng-bind="order.payStatus | payStatus" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="order.checkStatus | checkStatus" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="order.createTime" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="order.contactTimes" ng-show="ths[9].isChecked"></td>
+      <td ng-bind="order.createTime" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="order.contactTimes" ng-show="ths[8].isChecked"></td>
       <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintOrders(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
@@ -173,7 +172,7 @@
           <p>
             <ul class="list-inline">
               <li>联系记录</li>
-              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="核实订单" ng-click="addContact()"><span class="glyphicon glyphicon-plus"></span></a>
+              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建联系记录" ng-click="addContact()"><span class="glyphicon glyphicon-plus"></span></a>
               </li>
               <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
               </li>
@@ -323,22 +322,10 @@
                     <option value="10">质量不好</option>
                     <option value="11">物流太慢</option>
                     <option value="12">客服态度不好</option>
-                    <option value="13">价格贵,收入低</option>
-                    <option value="14">价格贵,性价比不高</option>
-                    <option value="15">内容简单</option>
-                    <option value="16">内容太难</option>
-                    <option value="17">内容太普通,不感兴趣</option>
-                    <option value="18">学校老师教,发了同类产品</option>
-                    <option value="19">家人说不好</option>
-                    <option value="20">内容量太少</option>
-                    <option value="21">孩子不喜欢</option>
-                    <option value="22">质量不好</option>
-                    <option value="23">物流太慢</option>
-                    <option value="24">客服态度不好</option>
-                    <option value="25">书本缺页</option>
-                    <option value="26">赠品缺漏</option>
-                    <option value="27">玩具缺漏</option>
-                    <option value="28">光盘损坏</option>
+                    <option value="13">书本缺页</option>
+                    <option value="14">赠品缺漏</option>
+                    <option value="15">玩具缺漏</option>
+                    <option value="16">光盘损坏</option>
                   </select>
                 </div>
               </div>

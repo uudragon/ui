@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Resource',function ($scope, $state, $stateParams, Auth, Resource) {
+.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Resource', '$filter', function ($scope, $state, $stateParams, Auth, Resource, $filter) {
 
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
@@ -31,7 +31,7 @@ angular.module('mainApp')
 	};
 
 	$scope.globalNewOrder = function() {
-		$scope.globalNewOrder.callTime = new Date().toLocaleString();
+		$scope.globalNewOrder.callTime = $filter('now')();
 		$scope.globalNewOrder.responser = $scope.currentUser;
 		$('#global-new-order').modal('show');
 	};

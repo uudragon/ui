@@ -1,8 +1,7 @@
 
-<div class="criteria-bar">
+<div class="article-header-search">
   <form role="form" class="form-inline">
     <div class="form-group">
-      <label for="form-customer-scope" class="control-label">来电状态</label>
       <select id="form-customer-scope" class="form-control input-sm">
         <option value="0">全部来电</option>
         <option value="0">近3天</option>
@@ -12,16 +11,20 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="form-form-major-phone" class="control-label">主叫号码</label>
-      <input id="form-form-major-phone" class="form-control input-sm"/>
+      <div class="input-group">
+        <label for="form-form-major-phone" class="input-group-addon">主叫号码</label>
+        <input id="form-form-major-phone" class="form-control input-sm"/>
+      </div>
     </div>
     <div class="form-group">
-      <label for="form-form-becalled-phone" class="control-label">被叫号码</label>
-      <input id="form-form-becalled-phone" class="form-control input-sm"/>
+      <div class="input-group">
+        <label for="form-form-becalled-phone" class="input-group-addon">被叫号码</label>
+        <input id="form-form-becalled-phone" class="form-control input-sm"/>
+      </div>
     </div>
   </form>
 </div>
-<div class="filter-bar">
+<div class="article-header-filter">
   <div data-toggle="buttons" class="btn-group">
     <label ng-click="ilterPay.payStatus=''" class="btn uu-btn active">
       <input checked="checked" name="customer-type" type="radio"/><span>今天</span>
@@ -44,15 +47,21 @@
   </div>
   <form role="form" style="display: inline; margin-left: 20px;" class="form-inline">
     <div class="form-group">
-      <label for="form-form-major-phone" class="control-label">开始时间</label>
-      <input id="form-form-major-phone" class="form-control input-sm"/>
+      <div class="input-group">
+        <label for="form-start-time" class="input-group-addon">开始时间</label>
+        <input id="form-start-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      </div>
     </div>
     <div class="form-group">
-      <label for="form-form-becalled-phone" class="control-label">结束时间</label>
-      <input id="form-form-becalled-phone" class="form-control input-sm"/>
+      <div class="input-group">
+        <label for="form-end-time" class="input-group-addon">结束时间</label>
+        <input id="form-end-time" ng-model="searchModel.subfilter.endTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      </div>
     </div>
     <div class="form-group">
       <div class="btn uu-btn btn-primary">查询</div>
+    </div>
+    <div class="form-group">
       <div class="btn uu-btn btn-danger">重置</div>
     </div>
   </form>

@@ -1,18 +1,18 @@
 include ../../modules/mixins.jade
 
 //- 功能区
-.criteria-bar
+.article-header-search
 	form.form-inline(role='form')
 		.form-group
 			- var customerOptions = [{title: '全部来电', value: 0}, {title: '近3天', value: 0}, {title: '近5天', value: 0}, {title: '近一周', value: 0}, {title: '近一月', value: 0}]
-			+plain-select('来电状态', 'customer-scope', customerOptions)
+			+plain-select('', 'customer-scope', customerOptions)
 		.form-group
-			+plain-input('主叫号码', 'form-major-phone')
+			+grouped-input('主叫号码', 'form-major-phone')
 		.form-group
-			+plain-input('被叫号码', 'form-becalled-phone')
+			+grouped-input('被叫号码', 'form-becalled-phone')
 
 //- 订单列表过滤条件
-.filter-bar
+.article-header-filter
 	.btn-group(data-toggle='buttons')
 		- var filters = [{title: '今天', action: "ilterPay.payStatus=''"}, {title: '昨天', action: "ilterPay.payStatus=''"}, {title: '前天', action: "ilterPay.payStatus=''"}, {title: '近3天', action: "ilterPay.payStatus=''"}, {title: '近7天', action: "ilterPay.payStatus=''"}, {title: '近30天', action: "ilterPay.payStatus=''"}, ]
 		each filter, index in filters
@@ -26,11 +26,12 @@ include ../../modules/mixins.jade
 					span=filter.title
 	form.form-inline(role='form', style="display: inline; margin-left: 20px;")
 		.form-group
-			+plain-input('开始时间', 'form-major-phone')
+			+grouped-input('开始时间', 'start-time')(ng-model='searchModel.subfilter.startTime', uu-date-picker, min-view='1', format='yyyy-mm-dd hh:00')
 		.form-group
-			+plain-input('结束时间', 'form-becalled-phone')
+			+grouped-input('结束时间', 'end-time')(ng-model='searchModel.subfilter.endTime', uu-date-picker, min-view='1', format='yyyy-mm-dd hh:00')
 		.form-group
 			.btn.uu-btn.btn-primary 查询
+		.form-group
 			.btn.uu-btn.btn-danger 重置
 //- 员工列表
 table.uu-table
