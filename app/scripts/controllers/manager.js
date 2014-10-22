@@ -74,7 +74,25 @@ angular.module('mainApp')
 	}])
 	.controller('Employee', ['$scope', '$controller', function ($scope, $controller) {
 
-
+		// ths
+		$scope.isAllThsShow = false;
+		$scope.ths = [
+			{name: 'SN', label: '工号', isChecked: true},
+			{name: 'name', label: '姓名', isChecked: true},
+			{name: 'dealedOrderNum', label: '处理订单量', isChecked: true},
+			{name: 'contactPeriod', label: '总通话时间', isChecked: true},
+			{name: 'avgContactPeriod', label: '平均通话时长', isChecked: false},
+			{name: 'totalOnlineTime', label: '总在线时间', isChecked: true},
+			{name: 'outPhoneNum', label: '外呼量', isChecked: true},
+			{name: 'succRate', label: '成单率', isChecked: true},
+			{name: 'inPhoneNum', label: '呼入量', isChecked: true},
+			{name: 'avgDealTime', label: '平均后处理时间', isChecked: false},
+			{name: 'avgContactTime', label: '平均通话时长', isChecked: false},
+			{name: 'avgQueueTime', label: '平均排队时间', isChecked: true},
+			{name: 'onelineRate', label: '出勤率', isChecked: true},
+			{name: 'phoneExchangeRate', label: '呼叫转接率', isChecked: false},
+			{name: 'useRate', label: '利用率', isChecked: true}
+		];
 
 		$controller('CustomerManagerManager', {$scope: $scope});
 
@@ -88,7 +106,25 @@ angular.module('mainApp')
 	}])
 	.controller('Phone', ['$scope', '$controller', function ($scope, $controller) {
 
-
+		// ths
+		$scope.isAllThsShow = false;
+		$scope.ths = [
+			{name: 'SN', label: '工号', isChecked: true},
+			{name: 'name', label: '姓名', isChecked: true},
+			{name: 'dealedOrderNum', label: '处理订单量', isChecked: true},
+			{name: 'contactPeriod', label: '总通话时间', isChecked: true},
+			{name: 'avgContactPeriod', label: '平均通话时长', isChecked: false},
+			{name: 'totalOnlineTime', label: '总在线时间', isChecked: true},
+			{name: 'outPhoneNum', label: '外呼量', isChecked: true},
+			{name: 'succRate', label: '成单率', isChecked: true},
+			{name: 'inPhoneNum', label: '呼入量', isChecked: true},
+			{name: 'avgDealTime', label: '平均后处理时间', isChecked: false},
+			{name: 'avgContactTime', label: '平均通话时长', isChecked: false},
+			{name: 'avgQueueTime', label: '平均排队时间', isChecked: true},
+			{name: 'onelineRate', label: '出勤率', isChecked: true},
+			{name: 'phoneExchangeRate', label: '呼叫转接率', isChecked: false},
+			{name: 'useRate', label: '利用率', isChecked: true}
+		];
 
 		$controller('CustomerManagerManager', {$scope: $scope});
 
