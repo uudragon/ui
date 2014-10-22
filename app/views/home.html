@@ -1,65 +1,6 @@
 
-<table class="uu-table">
-  <thead>
-    <tr ng-dblclick="chooseTh('table-cols')">
-      <th>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, orders)"/>全选
-          </label>
-        </div>
-      </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
-          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
-        </ul>
-      </th>
-      <th>工具</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="order in orders">
-      <td>
-        <input type="checkbox" ng-model="order.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, orders, order)"/>
-      </td>
-      <td ng-bind="order.customerName" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
-      </td>
-      <td ng-bind="order.customerPhone" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="order.province" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="order.city" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="order.orderType" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="order.payStatus | payStatus" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="order.createTime" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="order.contactTimes" ng-show="ths[8].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<uu-pagination records="102" page="currentPage" model="searchModel" action="getOrders()"></uu-pagination>
-<div id="table-ths" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">更改显示列</h4>
-      </div>
-      <div class="modal-body">
-        <ul class="list-group">
-          <li class="list-group-item checkbox">
-            <label>
-              <input type="checkbox" ng-model="isAllThsShow" ng-click="toggleCheckAll(&quot;isAllThsShow&quot;, ths)"/>全选
-            </label>
-          </li>
-          <li ng-repeat="th in ths" class="list-group-item checkbox">
-            <label>
-              <input type="checkbox" ng-model="th.isChecked" ng-click="checkIsAllChecked(&quot;isAllThsShow&quot;, ths, th)"/>{{th.label}}
-            </label>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<ul class="list-group">
+  <li class="list-group-item"><a ui-sref="root.customer.checkorder">待处理工单</a></li>
+  <li class="list-group-item"><a ui-sref="root.data.ordermanager">待处理订单</a></li>
+</ul>
 <script>(function() {$('.nav-menu').slideUp('fast'); })();	// no good</script>

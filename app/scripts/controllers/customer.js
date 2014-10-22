@@ -24,7 +24,7 @@ angular.module('mainApp')
 	 * ---------------------------------------------------------------------------------
 	 */
 
-	.controller('CustomerServiceManager', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('CustomerServiceManager', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
 
 		$scope.searchModel = {};
 
@@ -63,6 +63,8 @@ angular.module('mainApp')
 		};
 
 		$scope.addContact = function() {
+			$scope.order = $scope.order || {};
+			$scope.order.contactTime = $filter('now')();
 			$('#contact-history').modal('show');
 		};
 

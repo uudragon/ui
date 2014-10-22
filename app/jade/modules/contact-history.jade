@@ -18,9 +18,9 @@
 						+option('处理中', 1)
 						+option('待处理', 1)
 				.form-group
-					+input('联系时间', 'contact-time')(ng-model='return.contactTime', uu-date-picker)
+					+static-input('联系时间', 'contact-time')(ng-bind='order.contactTime')
 				.form-group
-					+input('负责人', 'contact-responsor')(ng-model='return.responsor')
+					+static-input('负责人', 'contact-responsor')(ng-bind='order.responsor')
 				.form-group
 					+select('电话状态', 'phone-status')(ng-model='return.phoneStatus')
 						+option('无人接', 0)

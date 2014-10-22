@@ -1,31 +1,38 @@
 include ../modules/mixins.jade
 
-table.uu-table
-	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
-	tbody
-		tr(ng-repeat='order in orders')
-			+tdchecker('orders', 'order')(ng-model='order.isChecked')
-			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.province', ng-show='ths[3].isChecked')
-			td(ng-bind='order.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.orderType', ng-show='ths[5].isChecked')
-			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.createTime', ng-show='ths[7].isChecked')
-			td(ng-bind='order.contactTimes', ng-show='ths[8].isChecked')
-			td
-				+tooltip('修改', 'top', 'showOrder(order)')
-					+glyphicon('pencil') &nbsp;
+ul.list-group
+	li.list-group-item
+		a(ui-sref='root.customer.checkorder') 待处理工单
+	li.list-group-item
+		a(ui-sref='root.data.ordermanager') 待处理订单
 
-				+tooltip('发送消息', 'top')
-					+glyphicon('comment')
 
-uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+//- table.uu-table
+//- 	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
+//- 	tbody
+//- 		tr(ng-repeat='order in orders')
+//- 			+tdchecker('orders', 'order')(ng-model='order.isChecked')
+//- 			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
+//- 			td(ng-show='ths[1].isChecked')
+//- 				+jslink('showOrder(order)')(ng-bind='order.orderSN')
+//- 			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
+//- 			td(ng-bind='order.province', ng-show='ths[3].isChecked')
+//- 			td(ng-bind='order.city', ng-show='ths[4].isChecked')
+//- 			td(ng-bind='order.orderType', ng-show='ths[5].isChecked')
+//- 			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isChecked')
+//- 			td(ng-bind='order.createTime', ng-show='ths[7].isChecked')
+//- 			td(ng-bind='order.contactTimes', ng-show='ths[8].isChecked')
+//- 			td
+//- 				+tooltip('修改', 'top', 'showOrder(order)')
+//- 					+glyphicon('pencil') &nbsp;
 
-//- 更改显示列
-include ../modules/table-ths.jade
+//- 				+tooltip('发送消息', 'top')
+//- 					+glyphicon('comment')
+
+//- uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+
+//- //- 更改显示列
+//- include ../modules/table-ths.jade
 
 script.
 	(function() {$('.nav-menu').slideUp('fast'); })();	// no good
