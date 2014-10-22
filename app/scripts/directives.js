@@ -354,7 +354,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
-
 .directive('uuAuthFilter', ['Auth', function(Auth) {
 	return {
 		restrict: 'A',
