@@ -112,7 +112,7 @@ angular.module('mainApp')
 
 		$controller('DataManager', {$scope: $scope});
 	}])
-	.controller('Inventory', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Inventory', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
 
 		$scope.products = [{type: 'lorem', name: '李四民', content: 'lorem', sku: '3213', minSKU: '123', SN: '1231231123', location: '山东'}, {type: 'lorem', name: '张三', content: 'lorem', sku: '1231', minSKU: '123', SN: '123124121', location: '青岛'} ]; $scope.isAllThsShow = true;
 		$scope.order = {};
@@ -130,7 +130,7 @@ angular.module('mainApp')
 		$scope.getProducts = function(order) {
 			$scope.currentOrder = order;
 			$scope.order.topic = '调库';
-			$scope.order.createTime = (new Date()).toLocaleString();
+			$scope.order.createTime = $filter('now')();
 			$scope.order.updatedTime = $scope.order.createTime;
 			$scope.order.status = '';
 			$('#order-details').modal('show');

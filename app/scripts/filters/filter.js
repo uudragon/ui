@@ -16,6 +16,12 @@ angular.module('mainApp')
 		return valid >= 1 ? '已购买' : '潜在';
 	};
 })
+.filter('now', ['dateFilter', function (dateFilter) {
+	return function () {
+		var date = new Date();
+		return dateFilter(date, 'yyyy-MM-dd HH:mm');
+	};
+}])
 .filter('age', function() {
 	return function (birthday) {
 		if (birthday) {
