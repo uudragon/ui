@@ -121,64 +121,34 @@ var uud = angular.module('mainApp', [
 		controller: 'CustomerPool'
 	})
 
-	///////////
-	// Utils //
-	///////////
-
-	.state('root.utils', {
-		url: 'utils',
-		templateUrl: 'views/utils/layout.html',
-		controller: 'UtilsCtrl'
-	})
-	.state('root.utils.neworder', {
-		url: '/neworder',
-		templateUrl: 'views/utils/neworder.html',
-		controller: 'NewOrder'
-	})
-	.state('root.utils.search', {
-		url: '/search',
-		templateUrl: 'views/utils/search.html',
-		controller: 'Search'
-	})
-	.state('root.utils.message', {
-		url: '/notes',
-		templateUrl: 'views/utils/notes.html',
-		controller: 'Notes'
-	})
-	.state('root.utils.batchmsg', {
-		url: '/batchmsg',
-		templateUrl: 'views/utils/batchmsg.html',
-		controller: 'Batchmsg'
-	})
-
 
 	//////////////////////
 	// Customer Manager //
 	//////////////////////
 
 	.state('root.customerManager', {
-		url: 'customer-manager',
-		templateUrl: 'views/customer-manager/layout.html',
+		url: 'manager',
+		templateUrl: 'views/manager/layout.html',
 		controller: 'CustomerManagerCtrl'
 	})
 	.state('root.customerManager.employee', {
 		url: '/employee',
-		templateUrl: 'views/customer-manager/employee.html',
+		templateUrl: 'views/manager/employee.html',
 		controller: 'Employee'
 	})
 	.state('root.customerManager.online', {
 		url: '/online',
-		templateUrl: 'views/customer-manager/online.html',
+		templateUrl: 'views/manager/online.html',
 		controller: 'Online'
 	})
 	.state('root.customerManager.phone', {
 		url: '/phone',
-		templateUrl: 'views/customer-manager/phone.html',
+		templateUrl: 'views/manager/phone.html',
 		controller: 'Phone'
 	})
 	.state('root.customerManager.info', {
 		url: '/info',
-		templateUrl: 'views/customer-manager/info.html',
+		templateUrl: 'views/manager/info.html',
 		controller: 'Info'
 	})
 
@@ -237,6 +207,36 @@ var uud = angular.module('mainApp', [
 		url: '/qa',
 		templateUrl: 'views/knowledge/qa.html',
 		controller: 'QA'
+	})
+
+	///////////
+	// Utils //
+	///////////
+
+	.state('root.utils', {
+		url: 'utils',
+		templateUrl: 'views/utils/layout.html',
+		controller: 'UtilsCtrl'
+	})
+	.state('root.utils.neworder', {
+		url: '/neworder',
+		templateUrl: 'views/utils/neworder.html',
+		controller: 'NewOrder'
+	})
+	.state('root.utils.search', {
+		url: '/search',
+		templateUrl: 'views/utils/search.html',
+		controller: 'Search'
+	})
+	.state('root.utils.message', {
+		url: '/notes',
+		templateUrl: 'views/utils/notes.html',
+		controller: 'Notes'
+	})
+	.state('root.utils.batchmsg', {
+		url: '/batchmsg',
+		templateUrl: 'views/utils/batchmsg.html',
+		controller: 'Batchmsg'
 	});
 
 }])
