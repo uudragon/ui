@@ -32,7 +32,8 @@ form.form-horizontal.form-nowrap
 
 	div(uu-tab)
 		div(uu-pane, title='联系记录')
-			div(ng-show='!records.length')
+			//- div(ng-show='!records.length')(style='margin-bottom: 10px;')
+			div(style='margin-bottom: 10px;')
 				+tooltip('新建联系记录', 'top', 'newContact()')
 					+glyphicon('plus')
 

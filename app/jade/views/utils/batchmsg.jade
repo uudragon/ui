@@ -6,14 +6,16 @@ div(uu-tab)
 	div(uu-pane, title='发短信', action='msg.sendType=1;')
 		form.form-horizontal.col-xs-7
 			.form-group
-				+short-input('收件人手机号码', 'target')(ng-model='msg.target')
+				+short-input('收件人手机号码', 'target-1')(ng-model='msg.target')
 					button.btn.uu-btn 选择用户
 
 			.form-group
-				+textarea('信息内容', 'responsor')(ng-model='msg.template')
+				+textarea('信息内容', 'content-1')(ng-model='msg.template')
 
 			.form-group
-				+short-input('发送时间', 'responsor')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+				//- label 发送时间
+				//- uu-plain-datetime(ng-model='msg')
+				+short-input('发送时间', 'send-time-1')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
 			.form-group
 				+submit
@@ -23,14 +25,14 @@ div(uu-tab)
 	div(uu-pane, title='发邮件', action='msg.sendType=2;')
 		form.form-horizontal.col-xs-7
 			.form-group
-				+short-input('收件人邮箱地址', 'target')(ng-model='msg.target')
+				+short-input('收件人邮箱地址', 'target-2')(ng-model='msg.target')
 					button.btn.uu-btn 选择用户
 
 			.form-group
-				+textarea('邮件内容', 'responsor')(ng-model='msg.template')
+				+textarea('邮件内容', 'content-2')(ng-model='msg.template')
 
 			.form-group
-				+short-input('发送时间', 'responsor')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+				+short-input('发送时间', 'send-time-2')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
 			.form-group
 				+submit

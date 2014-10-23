@@ -504,6 +504,32 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuPlainDatetime', function() {
+	return {
+		scope: {
+			ngModel: '='
+		},
+		restrict: 'E',
+		// replace: true,
+		link: function($scope, elem) {
+			var
+				d = new Date(),
+				thisYear = d.getFullYear(),
+				years = [thisYear, thisYear + 1],
+				month = [],
+				dates = [];
+
+			console.log('here');
+			console.log(years);
+
+		},
+		template: '<select ng-options="year for year in years"></select>' +
+				  '<label>年</label>' +
+				  '<select>' +
+				  '</select>'
+	};
+})
+
 .directive('uuPieChart', function() {
 	return {
 		scope: {
