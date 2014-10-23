@@ -4,10 +4,11 @@ var uud = angular.module('mainApp', [
 	'ivpusic.cookie',
 	'restangular',
 	'ui.router',
+	'angular-loading-bar',
 	'angular-md5'
 ])
 
-.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'cfpLoadingBarProvider', function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider) {
 
 
 	/////////////////////////////
@@ -241,17 +242,22 @@ var uud = angular.module('mainApp', [
 
 }])
 
-.run(['$rootScope', '$state', 'Auth', '$location', '$q', function ($rootScope, $state, Auth, $location, $q) {
+.run(['$rootScope', '$state', 'Auth', '$location', '$q', 'cfpLoadingBar', function ($rootScope, $state, Auth, $location, $q, cfpLoadingBar) {
 
 	Auth.setHeader();
 
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+		cfpLoadingBar.start();
 
 		if (!Auth.isLoggedIn()) {
 			// $location.path('/' + config.auth.login);
 		} else {
 			Auth.loadAccessLevels();
 		}
+	});
+
+	$rootScope.$on('$viewContentLoaded', function() {
+		cfpLoadingBar.complete();
 	});
 }]);
 
