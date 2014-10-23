@@ -16,9 +16,8 @@ table.uu-table
 			td(ng-bind='order.city', ng-show='ths[4].isChecked')
 			td(ng-bind='order.orderType', ng-show='ths[5].isChecked')
 			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.checkStatus | checkStatus', ng-show='ths[7].isChecked')
-			td(ng-bind='order.createTime', ng-show='ths[8].isChecked')
-			td(ng-bind='order.contactTimes', ng-show='ths[9].isChecked')
+			td(ng-bind='order.createTime', ng-show='ths[7].isChecked')
+			td(ng-bind='order.contactTimes', ng-show='ths[8].isChecked')
 			td
 				+tooltip('修改', 'top', 'showComplaintOrders(order)')
 					+glyphicon('pencil') &nbsp;
@@ -63,7 +62,7 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 				ul.list-inline
 					li 联系记录
 					li
-						+tooltip('核实订单', 'top', 'addContact()')
+						+tooltip('新建联系记录', 'top', 'addContact()')
 							+glyphicon('plus')
 					li
 						+jslink('search()')
@@ -132,22 +131,10 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 							+option('质量不好', 10)
 							+option('物流太慢', 11)
 							+option('客服态度不好', 12)
-							+option('价格贵,收入低', 13)
-							+option('价格贵,性价比不高', 14)
-							+option('内容简单', 15)
-							+option('内容太难', 16)
-							+option('内容太普通,不感兴趣', 17)
-							+option('学校老师教,发了同类产品', 18)
-							+option('家人说不好', 19)
-							+option('内容量太少', 20)
-							+option('孩子不喜欢', 21)
-							+option('质量不好', 22)
-							+option('物流太慢', 23)
-							+option('客服态度不好', 24)
-							+option('书本缺页', 25)
-							+option('赠品缺漏', 26)
-							+option('玩具缺漏', 27)
-							+option('光盘损坏', 28)
+							+option('书本缺页', 13)
+							+option('赠品缺漏', 14)
+							+option('玩具缺漏', 15)
+							+option('光盘损坏', 16)
 				.row
 					+hgroup
 						+select('是否到库', 'urgency')(ng-model='user.urgency')

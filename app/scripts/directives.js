@@ -181,22 +181,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
-// generate simple search field
-.directive('uuSimpleSearch', function() {
-	return {
-		scope: {
-			model: '=?'
-		},
-		replace: true,
-		link: function($scope, element, attrs) {
-			$scope.required =  attrs.required ? 'required' : 'false';
-			$scope.placeholder = attrs.placeholder ? attrs.placeholder : '请输入搜索关键字';
-		},
-		templateUrl: 'views/partial/directives/uusimplesearch.html'
-	};
-})
-
-
 /**
  * generate pagination
  *
@@ -369,7 +353,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		}
 	};
 })
-
 
 .directive('uuAuthFilter', ['Auth', function(Auth) {
 	return {

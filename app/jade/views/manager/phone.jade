@@ -1,18 +1,18 @@
 include ../../modules/mixins.jade
 
 //- 功能区
-.criteria-bar
+.article-header-search
 	form.form-inline(role='form')
 		.form-group
 			- var customerOptions = [{title: '全部来电', value: 0}, {title: '近3天', value: 0}, {title: '近5天', value: 0}, {title: '近一周', value: 0}, {title: '近一月', value: 0}]
-			+plain-select('来电状态', 'customer-scope', customerOptions)
+			+plain-select('', 'customer-scope', customerOptions)
 		.form-group
-			+plain-input('主叫号码', 'form-major-phone')
+			+grouped-input('主叫号码', 'form-major-phone')
 		.form-group
-			+plain-input('被叫号码', 'form-becalled-phone')
+			+grouped-input('被叫号码', 'form-becalled-phone')
 
 //- 订单列表过滤条件
-.filter-bar
+.article-header-filter
 	.btn-group(data-toggle='buttons')
 		- var filters = [{title: '今天', action: "ilterPay.payStatus=''"}, {title: '昨天', action: "ilterPay.payStatus=''"}, {title: '前天', action: "ilterPay.payStatus=''"}, {title: '近3天', action: "ilterPay.payStatus=''"}, {title: '近7天', action: "ilterPay.payStatus=''"}, {title: '近30天', action: "ilterPay.payStatus=''"}, ]
 		each filter, index in filters
@@ -26,41 +26,40 @@ include ../../modules/mixins.jade
 					span=filter.title
 	form.form-inline(role='form', style="display: inline; margin-left: 20px;")
 		.form-group
-			+plain-input('开始时间', 'form-major-phone')
+			+grouped-input('开始时间', 'start-time')(ng-model='searchModel.subfilter.startTime', uu-date-picker, min-view='1', format='yyyy-mm-dd hh:00')
 		.form-group
-			+plain-input('结束时间', 'form-becalled-phone')
+			+grouped-input('结束时间', 'end-time')(ng-model='searchModel.subfilter.endTime', uu-date-picker, min-view='1', format='yyyy-mm-dd hh:00')
 		.form-group
 			.btn.uu-btn.btn-primary 查询
+		.form-group
 			.btn.uu-btn.btn-danger 重置
+
 //- 员工列表
 table.uu-table
-	+thead
-		each th in ['工号', '姓名', '处理订单量', '总通话时间', '平均通话时长', '总在线时间', '外呼量', '成单率', '呼入量', '平均后处理时间', '平均通话时长', '平均排队时间', '出勤率', '呼叫转接率', '利用率']
-			th=th
-		th.opration 操作
+	+theadplus()(operation='操作', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='employee in employees')
-			td(ng-bind='employee.SN')
-			td(ng-bind='employee.name')
-			td(ng-bind='employee.dealedOrderNum')
-			td(ng-bind='employee.contactPeriod')
-			td(ng-bind='employee.avgContactPeriod')
-			td(ng-bind='employee.totalOnlineTime')
-			td(ng-bind='employee.outPhoneNum')
-			td(ng-bind='employee.succRate')
-			td(ng-bind='employee.inPhoneNum')
-			td(ng-bind='employee.avgDealTime')
-			td(ng-bind='employee.avgContactTime')
-			td(ng-bind='employee.avgQueueTime')
-			td(ng-bind='employee.onelineRate')
-			td(ng-bind='employee.phoneExchangeRate')
-			td(ng-bind='employee.useRate')
+			td(ng-bind='employee.SN')(ng-show='ths[0].isChecked')
+			td(ng-bind='employee.name')(ng-show='ths[1].isChecked')
+			td(ng-bind='employee.dealedOrderNum')(ng-show='ths[2].isChecked')
+			td(ng-bind='employee.contactPeriod')(ng-show='ths[3].isChecked')
+			td(ng-bind='employee.avgContactPeriod')(ng-show='ths[4].isChecked')
+			td(ng-bind='employee.totalOnlineTime')(ng-show='ths[5].isChecked')
+			td(ng-bind='employee.outPhoneNum')(ng-show='ths[6].isChecked')
+			td(ng-bind='employee.succRate')(ng-show='ths[7].isChecked')
+			td(ng-bind='employee.inPhoneNum')(ng-show='ths[8].isChecked')
+			td(ng-bind='employee.avgDealTime')(ng-show='ths[9].isChecked')
+			td(ng-bind='employee.avgContactTime')(ng-show='ths[10].isChecked')
+			td(ng-bind='employee.avgQueueTime')(ng-show='ths[11].isChecked')
+			td(ng-bind='employee.onelineRate')(ng-show='ths[12].isChecked')
+			td(ng-bind='employee.phoneExchangeRate')(ng-show='ths[13].isChecked')
+			td(ng-bind='employee.useRate')(ng-show='ths[14].isChecked')
 			td
 				+tooltip('修改', 'top', 'update(employee)')
 					+glyphicon('pencil') &nbsp;
 
 				+tooltip('导出', 'top', 'export()')
-					+glyphicon('comment')
+					+glyphicon('export')
 
 
 //- 订单详情Modal
@@ -163,6 +162,5 @@ table.uu-table
 		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
-//- to enable bootstrap multi modal
-
-
+//- 更改显示列
+include ../../modules/table-ths.jade
