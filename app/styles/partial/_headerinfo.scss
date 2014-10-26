@@ -74,6 +74,9 @@
 
 	.glyphicon {
 		color: #fff;
+		&:hover {
+			color: #a65c95;
+		}
 	}
 
 
