@@ -8,13 +8,11 @@
 			.row
 				ul.gb-actions
 					li
-						+tooltip('', 'top')(class='dropdown-toggle')
-							+glyphicon('cog')
-						ul.dropdown-menu(role="menu")
-							li
-								+jslink('', '修改密码')
-							li
-								+jslink('', '退出系统')
+						+tooltip('修改密码', 'bottom')
+							+glyphicon('wrench')
+					li
+						+tooltip('退出系统', 'bottom')
+							+glyphicon('log-out')
 
 				ul.list-inline
 					li
