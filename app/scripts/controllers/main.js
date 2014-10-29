@@ -30,10 +30,18 @@ angular.module('mainApp')
 		$scope.submitted = false;
 	};
 
+	// 新建工单
 	$scope.globalNewOrder = function() {
 		$scope.globalNewOrder.callTime = $filter('now')();
 		$scope.globalNewOrder.responser = $scope.currentUser;
 		$('#global-new-order').modal('show');
+	};
+
+	// 新建订单
+	$scope.globalNewTicket = function() {
+		$scope.globalNewOrder.callTime = $filter('now')();
+		$scope.globalNewOrder.responser = $scope.currentUser;
+		$('#global-new-ticket').modal('show');
 	};
 
 
