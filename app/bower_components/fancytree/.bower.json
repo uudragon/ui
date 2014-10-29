@@ -55,6 +55,5 @@
   },
   "_source": "git://github.com/mar10/fancytree.git",
   "_target": "~2.4.1",
-  "_originalSource": "fancytree",
-  "_direct": true
+  "_originalSource": "fancytree"
 }
