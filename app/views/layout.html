@@ -153,13 +153,13 @@
               <div class="form-group">
                 <label for="form-name" class="control-label col-xs-3">客户姓名</label>
                 <div class="col-xs-7">
-                  <input id="form-name" ng-model="globalNewOrder.name" class="form-control input-sm"/>
+                  <input id="form-name" ng-model="gbOrder.name" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group">
                 <label for="form-order-status" class="control-label col-xs-3">工单状态</label>
                 <div class="col-xs-7">
-                  <select id="form-order-status" ng-model="globalNewOrder.orderStatus" class="form-control input-sm">
+                  <select id="form-order-status" ng-model="gbOrder.orderStatus" class="form-control input-sm">
                     <option value="0">已完成</option>
                     <option value="0">处理中</option>
                     <option value="0">待处理</option>
@@ -169,19 +169,19 @@
               <div class="form-group">
                 <label class="control-label col-xs-3">来电时间</label>
                 <div class="col-xs-7">
-                  <p ng-bind="globalNewOrder.callTime" class="form-control-static"></p>
+                  <p ng-bind="gbOrder.callTime" class="form-control-static"></p>
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-xs-3">负责人</label>
                 <div class="col-xs-7">
-                  <p ng-bind="globalNewOrder.responser" class="form-control-static"></p>
+                  <p ng-bind="gbOrder.responser" class="form-control-static"></p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="form-query-type" class="control-label col-xs-3">查询类型</label>
                 <div class="col-xs-7">
-                  <select id="form-query-type" ng-model="globalNewOrder.queryType" class="form-control input-sm">
+                  <select id="form-query-type" ng-model="gbOrder.queryType" class="form-control input-sm">
                     <option value="0">产品</option>
                     <option value="0">售后服务</option>
                     <option value="0">订购</option>
@@ -193,20 +193,20 @@
               <div class="form-group">
                 <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
                 <div class="col-xs-7">
-                  <input id="form-telphone" ng-model="globalNewOrder.telphone" class="form-control input-sm"/>
+                  <input id="form-telphone" ng-model="gbOrder.telphone" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group">
                 <label for="form-content" class="control-label col-xs-3">内容</label>
                 <div class="col-xs-7">
-                  <textarea id="form-content" ng-model="globalNewOrder.content" class="form-control"></textarea>
+                  <textarea id="form-content" ng-model="gbOrder.content" class="form-control"></textarea>
                 </div>
               </div>
             </fieldset>
           </form>
         </div>
         <div class="modal-footer">
-          <button ng-click="saveNewOrder()" class="btn uu-btn btn-primary">保存</button>
+          <button ng-click="saveGlobalOrder()" class="btn uu-btn btn-primary">保存</button>
           <button data-dismiss="modal" class="btn uu-btn">取消</button>
         </div>
       </div>
@@ -224,96 +224,175 @@
             <fieldset>
               <legend>基本信息</legend>
               <div class="form-group col-xs-6">
-                <label for="form-name" class="control-label col-xs-3">客户姓名</label>
+                <label for="form-order-status" class="control-label col-xs-3">订单类型</label>
                 <div class="col-xs-7">
-                  <input id="form-name" ng-model="user.name" class="form-control input-sm"/>
+                  <select id="form-order-status" ng-model="gbTicket.order_type" class="form-control input-sm">
+                    <option value="0">单品订单</option>
+                    <option value="1">多品订单</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-order" class="control-label col-xs-3">订单编号</label>
+                <label for="form-effective" class="control-label col-xs-3">生效日期</label>
                 <div class="col-xs-7">
-                  <input id="form-order" ng-model="user.order" class="form-control input-sm"/>
+                  <input id="form-effective" ng-model="gbTicket.effective" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-sex" class="control-label col-xs-3">客户性别</label>
+                <label for="form-deadline" class="control-label col-xs-3">截止日期</label>
                 <div class="col-xs-7">
-                  <input id="form-sex" ng-model="user.gender" class="form-control input-sm"/>
+                  <input id="form-deadline" ng-model="gbTicket.deadline" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-good" class="control-label col-xs-3">订购产品</label>
+                <label for="form-customer-code" class="control-label col-xs-3">客户编号</label>
                 <div class="col-xs-7">
-                  <input id="form-good" ng-model="user.good" class="form-control input-sm"/>
+                  <input id="form-customer-code" ng-model="gbTicket.customer_code" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
+                <label for="form-customer-name" class="control-label col-xs-3">客户手机</label>
                 <div class="col-xs-7">
-                  <input id="form-telphone" ng-model="user.telphone" class="form-control input-sm"/>
+                  <input id="form-customer-name" ng-model="gbTicket.customer_name" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
+                <label for="form-customer_-hone" class="control-label col-xs-3">客户姓名</label>
                 <div class="col-xs-7">
-                  <input id="form-startDate" ng-model="user.startDate" uu-date-picker="" class="form-control input-sm"/>
+                  <input id="form-customer_-hone" ng-model="gbTicket.customer_phone" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
+                <label for="form-customer-addr" class="control-label col-xs-3">客户地址</label>
                 <div class="col-xs-7">
-                  <input id="form-child-name" ng-model="user.childName" class="form-control input-sm"/>
+                  <input id="form-customer-addr" ng-model="gbTicket.customer_addr" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
+                <label for="form-has-invoice" class="control-label col-xs-3">是否有发票</label>
                 <div class="col-xs-7">
-                  <input id="form-enddate" ng-model="user.enddate" uu-date-picker="" class="form-control input-sm"/>
+                  <select id="form-has-invoice" ng-model="gbTicket.has_invoice" class="form-control input-sm">
+                    <option value="0">无</option>
+                    <option value="1">有</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
+                <label for="form-source" class="control-label col-xs-3">订单来源</label>
                 <div class="col-xs-7">
-                  <input id="form-child-gender" ng-model="user.childGender" class="form-control input-sm"/>
+                  <select id="form-source" ng-model="gbTicket.source" class="form-control input-sm">
+                    <option value="0">网站</option>
+                    <option value="1">电话</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-payway" class="control-label col-xs-3">支付方式</label>
+                <label for="form-agent-code" class="control-label col-xs-3">代理商编号</label>
                 <div class="col-xs-7">
-                  <input id="form-payway" ng-model="user.payway" class="form-control input-sm"/>
+                  <input id="form-agent-code" ng-model="gbTicket.agent_code" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
+                <label for="form-coupon-code" class="control-label col-xs-3">优惠码</label>
                 <div class="col-xs-7">
-                  <input id="form-birthday" ng-model="user.birthday" uu-date-picker="" class="form-control input-sm"/>
+                  <input id="form-coupon-code" ng-model="gbTicket.coupon_code" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
+                <label for="form-discount-amount" class="control-label col-xs-3">折扣金额</label>
                 <div class="col-xs-7">
-                  <input id="form-pay-status" ng-model="user.payStatus" class="form-control input-sm"/>
+                  <input id="form-discount-amount" ng-model="gbTicket.discount_amount" class="form-control input-sm"/>
                 </div>
               </div>
-              <div class="form-group col-xs-12 location">
-                <div for="location-details" class="control-label">详细地址</div>
-                <div class="location-wrap">
-                  <div class="input-group col-xs-3"><span class="input-group-addon">省</span>
-                    <input class="form-control input-sm"/>
-                  </div>
-                  <div class="input-group col-xs-3"><span class="input-group-addon">市</span>
-                    <input class="form-control input-sm"/>
-                  </div>
-                  <div class="input-group col-xs-4"><span class="input-group-addon">详细</span>
-                    <input value="宁夏路208号" class="form-control input-sm"/>
-                  </div>
+              <div class="form-group col-xs-6">
+                <label for="form-amount" class="control-label col-xs-3">付款金额</label>
+                <div class="col-xs-7">
+                  <input id="form-amount" ng-model="gbTicket.amount" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-paid" class="control-label col-xs-3">是否付款</label>
+                <div class="col-xs-7">
+                  <select id="form-paid" ng-model="gbTicket.paid" class="form-control input-sm">
+                    <option value="0">网站</option>
+                    <option value="1">电话</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-payment" class="control-label col-xs-3">付款方式</label>
+                <div class="col-xs-7">
+                  <select id="form-payment" ng-model="gbTicket.payment" class="form-control input-sm">
+                    <option value="0">网站</option>
+                    <option value="1">电话</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-status" class="control-label col-xs-3">订单状态</label>
+                <div class="col-xs-7">
+                  <select id="form-status" ng-model="gbTicket.status" class="form-control input-sm">
+                    <option value="0">网站</option>
+                    <option value="1">电话</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-validity" class="control-label col-xs-3">订单有效期</label>
+                <div class="col-xs-7">
+                  <input id="form-validity" ng-model="gbTicket.validity" uu-date-picker="" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-order-time" class="control-label col-xs-3">下单时间</label>
+                <div class="col-xs-7">
+                  <input id="form-order-time" ng-model="gbTicket.order_time" uu-date-picker="" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-creator" class="control-label col-xs-3">受理人</label>
+                <div class="col-xs-7">
+                  <input id="form-creator" ng-model="gbTicket.creator" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-create-time" class="control-label col-xs-3">创建时间</label>
+                <div class="col-xs-7">
+                  <input id="form-create-time" ng-model="gbTicket.create_time" uu-date-picker="" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-updater" class="control-label col-xs-3">更新人</label>
+                <div class="col-xs-7">
+                  <input id="form-updater" ng-model="gbTicket.updater" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-update-time" class="control-label col-xs-3">更新时间</label>
+                <div class="col-xs-7">
+                  <input id="form-update-time" ng-model="gbTicket.update_time" uu-date-picker="" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-contact-count" class="control-label col-xs-3">联系次数</label>
+                <div class="col-xs-7">
+                  <input id="form-contact-count" ng-model="gbTicket.contact_count" class="form-control input-sm"/>
+                </div>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="form-yn" class="control-label col-xs-3">失效标识</label>
+                <div class="col-xs-7">
+                  <select id="form-yn" ng-model="gbTicket.yn" class="form-control input-sm">
+                    <option value="0">有效</option>
+                    <option value="1">无效</option>
+                  </select>
                 </div>
               </div>
             </fieldset>
           </form>
         </div>
         <div class="modal-footer">
-          <button ng-click="saveNewOrder()" class="btn uu-btn btn-primary">保存</button>
+          <button ng-click="saveGlobalTicket()" class="btn uu-btn btn-primary">保存</button>
           <button data-dismiss="modal" class="btn uu-btn">取消</button>
         </div>
       </div>

@@ -8,43 +8,70 @@
 			fieldset
 				legend 基本信息
 				+hgroup
-					+input('客户姓名', 'name')(ng-model='user.name')
+					+select('订单类型', 'order-status')(ng-model='gbTicket.order_type')
+						+option('单品订单', 0)
+						+option('多品订单', 1)
 				+hgroup
-					+input('订单编号', 'order')(ng-model='user.order')
+					+input('生效日期', 'effective')(ng-model='gbTicket.effective')
 				+hgroup
-					+input('客户性别', 'sex')(ng-model='user.gender')
+					+input('截止日期', 'deadline')(ng-model='gbTicket.deadline')
+
 				+hgroup
-					+input('订购产品', 'good')(ng-model='user.good')
+					+input('客户编号', 'customer-code')(ng-model='gbTicket.customer_code')
 				+hgroup
-					+input('联系电话', 'telphone')(ng-model='user.telphone')
+					+input('客户手机', 'customer-name')(ng-model='gbTicket.customer_name')
 				+hgroup
-					+input('起订日期', 'startDate')(ng-model='user.startDate', uu-date-picker)
+					+input('客户姓名', 'customer_-hone')(ng-model='gbTicket.customer_phone')
 				+hgroup
-					+input('儿童姓名', 'child-name')(ng-model='user.childName')
+					+input('客户地址', 'customer-addr')(ng-model='gbTicket.customer_addr')
+
 				+hgroup
-					+input('结束日期', 'enddate')(ng-model='user.enddate', uu-date-picker)
+					+select('是否有发票', 'has-invoice')(ng-model='gbTicket.has_invoice')
+						+option('无', 0)
+						+option('有', 1)
 				+hgroup
-					+input('儿童性别', 'child-gender')(ng-model='user.childGender')
+					+select('订单来源', 'source')(ng-model='gbTicket.source')
+						+option('网站', 0)
+						+option('电话', 1)
 				+hgroup
-					+input('支付方式', 'payway')(ng-model='user.payway')
+					+input('代理商编号', 'agent-code')(ng-model='gbTicket.agent_code')
 				+hgroup
-					+input('出生日期', 'birthday')(ng-model='user.birthday', uu-date-picker)
+					+input('优惠码', 'coupon-code')(ng-model='gbTicket.coupon_code')
 				+hgroup
-					+input('支付状态', 'pay-status')(ng-model='user.payStatus')
-				.form-group.col-xs-12.location
-					.control-label(for='location-details')
-						| 详细地址
-					div.location-wrap
-						.input-group.col-xs-3
-							span.input-group-addon 省
-							input.form-control.input-sm
-						.input-group.col-xs-3
-							span.input-group-addon 市
-							input.form-control.input-sm
-						.input-group.col-xs-4
-							span.input-group-addon 详细
-							input.form-control.input-sm(value='宁夏路208号')
+					+input('折扣金额', 'discount-amount')(ng-model='gbTicket.discount_amount')
+				+hgroup
+					+input('付款金额', 'amount')(ng-model='gbTicket.amount')
+				+hgroup
+					+select('是否付款', 'paid')(ng-model='gbTicket.paid')
+						+option('网站', 0)
+						+option('电话', 1)
+				+hgroup
+					+select('付款方式', 'payment')(ng-model='gbTicket.payment')
+						+option('网站', 0)
+						+option('电话', 1)
+				+hgroup
+					+select('订单状态', 'status')(ng-model='gbTicket.status')
+						+option('网站', 0)
+						+option('电话', 1)
+				+hgroup
+					+input('订单有效期', 'validity')(ng-model='gbTicket.validity', uu-date-picker)
+				+hgroup
+					+input('下单时间', 'order-time')(ng-model='gbTicket.order_time', uu-date-picker)
+				+hgroup
+					+input('受理人', 'creator')(ng-model='gbTicket.creator')
+				+hgroup
+					+input('创建时间', 'create-time')(ng-model='gbTicket.create_time', uu-date-picker)
+				+hgroup
+					+input('更新人', 'updater')(ng-model='gbTicket.updater')
+				+hgroup
+					+input('更新时间', 'update-time')(ng-model='gbTicket.update_time', uu-date-picker)
+				+hgroup
+					+input('联系次数', 'contact-count')(ng-model='gbTicket.contact_count')
+				+hgroup
+					+select('失效标识', 'yn')(ng-model='gbTicket.yn')
+						+option('有效', 0)
+						+option('无效', 1)
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveNewOrder()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveGlobalTicket()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

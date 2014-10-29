@@ -7,28 +7,28 @@
 		form.form-horizontal
 			fieldset
 				.form-group
-					+input('客户姓名', 'name')(ng-model='globalNewOrder.name')
+					+input('客户姓名', 'name')(ng-model='gbOrder.name')
 				.form-group
-					+select('工单状态', 'order-status')(ng-model='globalNewOrder.orderStatus')
+					+select('工单状态', 'order-status')(ng-model='gbOrder.orderStatus')
 						+option('已完成', 0)
 						+option('处理中', 0)
 						+option('待处理', 0)
 				.form-group
-					+static-input('来电时间')(ng-bind='globalNewOrder.callTime')
+					+static-input('来电时间')(ng-bind='gbOrder.callTime')
 				.form-group
-					+static-input('负责人')(ng-bind='globalNewOrder.responser')
+					+static-input('负责人')(ng-bind='gbOrder.responser')
 				.form-group
-					+select('查询类型', 'query-type')(ng-model='globalNewOrder.queryType')
+					+select('查询类型', 'query-type')(ng-model='gbOrder.queryType')
 						+option('产品', 0)
 						+option('售后服务', 0)
 						+option('订购', 0)
 						+option('支付', 0)
 						+option('物流', 0)
 				.form-group
-					+input('联系电话', 'telphone')(ng-model='globalNewOrder.telphone')
+					+input('联系电话', 'telphone')(ng-model='gbOrder.telphone')
 				.form-group
-					+textarea('内容', 'content')(ng-model='globalNewOrder.content')
+					+textarea('内容', 'content')(ng-model='gbOrder.content')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveNewOrder()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

@@ -32,16 +32,27 @@ angular.module('mainApp')
 
 	// 新建工单
 	$scope.globalNewOrder = function() {
-		$scope.globalNewOrder.callTime = $filter('now')();
-		$scope.globalNewOrder.responser = $scope.currentUser;
+		$scope.gbOrder = $scope.gbOrder || {};
+		$scope.gbOrder.callTime = $filter('now')();
+		$scope.gbOrder.responser = $scope.currentUser;
 		$('#global-new-order').modal('show');
+	};
+
+	// 保存工单
+	$scope.saveGlobalOrder = function() {
+		console.log($scope.gbOrder);
+		$('#global-new-order').modal('hide');
 	};
 
 	// 新建订单
 	$scope.globalNewTicket = function() {
-		$scope.globalNewOrder.callTime = $filter('now')();
-		$scope.globalNewOrder.responser = $scope.currentUser;
 		$('#global-new-ticket').modal('show');
+	};
+
+	// 保存订单
+	$scope.saveGlobalTicket = function() {
+		console.log($scope.gbTicket);
+		$('#global-new-ticket').modal('hide');
 	};
 
 
