@@ -107,10 +107,6 @@ angular.module('mainApp')
 		var Order =  Restangular.allUrl('order', config.baseurl + 'order');
 		$scope.orders = Order.getList().$object;
 
-		Order.getList().then(function(data) {
-			console.log(data.meta);
-		});
-
 		// 修改订单
 		$scope.modifyOrder = function() {
 			$('#modify-order').modal('show');
