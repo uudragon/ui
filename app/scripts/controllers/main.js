@@ -46,6 +46,9 @@ angular.module('mainApp')
 
 	// 新建订单
 	$scope.globalNewTicket = function() {
+		$scope.gbTicket = $scope.gbTicket || {};
+		$scope.gbTicket.create_time = $filter('now')();
+		$scope.gbTicket.update_time = $scope.gbTicket.create_time;
 		$('#global-new-ticket').modal('show');
 	};
 
@@ -53,8 +56,8 @@ angular.module('mainApp')
 	$scope.saveGlobalTicket = function() {
 		console.log($scope.gbTicket);
 		$('#global-new-ticket').modal('hide');
+		$scope.gbTicket = {};
 	};
-
 
 	// fake date
 	$scope.orders = [{customerName: '李四民', orderSN: '5223071231', customerPhone: '1395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '0', checkStatus: '0', createTime: '2014-10-15', contactTimes: '15'}, {customerName: '张三', orderSN: '212131071231', customerPhone: '3123334239543', province: '上海', city: '上海', orderType: '季度', payStatus: '1', checkStatus: '1', createTime: '2014-11-15', contactTimes: '5'}, {customerName: '李七', orderSN: '123071231', customerPhone: '4395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', checkStatus: '2', createTime: '2014-10-15', contactTimes: '4'}, {customerName: '李五民', orderSN: '223071231', customerPhone: '5395334234343', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', checkStatus: '3', createTime: '2014-10-15', contactTimes: '11'}, ];

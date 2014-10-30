@@ -12,9 +12,9 @@
 						+option('单品订单', 0)
 						+option('多品订单', 1)
 				+hgroup
-					+input('生效日期', 'effective')(ng-model='gbTicket.effective')
+					+input('生效日期', 'effective')(ng-model='gbTicket.effective', uu-date-picker)
 				+hgroup
-					+input('截止日期', 'deadline')(ng-model='gbTicket.deadline')
+					+input('截止日期', 'deadline')(ng-model='gbTicket.deadline', uu-date-picker)
 
 				+hgroup
 					+input('客户编号', 'customer-code')(ng-model='gbTicket.customer_code')
@@ -60,11 +60,11 @@
 				+hgroup
 					+input('受理人', 'creator')(ng-model='gbTicket.creator')
 				+hgroup
-					+input('创建时间', 'create-time')(ng-model='gbTicket.create_time', uu-date-picker)
+					+static-input('创建时间', 'create-time')(ng-bind='gbTicket.create_time')
 				+hgroup
 					+input('更新人', 'updater')(ng-model='gbTicket.updater')
 				+hgroup
-					+input('更新时间', 'update-time')(ng-model='gbTicket.update_time', uu-date-picker)
+					+static-input('更新时间', 'update-time')(ng-bind='gbTicket.update_time')
 				+hgroup
 					+input('联系次数', 'contact-count')(ng-model='gbTicket.contact_count')
 				+hgroup

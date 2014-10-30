@@ -235,13 +235,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-effective" class="control-label col-xs-3">生效日期</label>
                 <div class="col-xs-7">
-                  <input id="form-effective" ng-model="gbTicket.effective" class="form-control input-sm"/>
+                  <input id="form-effective" ng-model="gbTicket.effective" uu-date-picker="" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-deadline" class="control-label col-xs-3">截止日期</label>
                 <div class="col-xs-7">
-                  <input id="form-deadline" ng-model="gbTicket.deadline" class="form-control input-sm"/>
+                  <input id="form-deadline" ng-model="gbTicket.deadline" uu-date-picker="" class="form-control input-sm"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
@@ -356,9 +356,9 @@
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-create-time" class="control-label col-xs-3">创建时间</label>
+                <label class="control-label col-xs-3">创建时间</label>
                 <div class="col-xs-7">
-                  <input id="form-create-time" ng-model="gbTicket.create_time" uu-date-picker="" class="form-control input-sm"/>
+                  <p ng-bind="gbTicket.create_time" class="form-control-static"></p>
                 </div>
               </div>
               <div class="form-group col-xs-6">
@@ -368,9 +368,9 @@
                 </div>
               </div>
               <div class="form-group col-xs-6">
-                <label for="form-update-time" class="control-label col-xs-3">更新时间</label>
+                <label class="control-label col-xs-3">更新时间</label>
                 <div class="col-xs-7">
-                  <input id="form-update-time" ng-model="gbTicket.update_time" uu-date-picker="" class="form-control input-sm"/>
+                  <p ng-bind="gbTicket.update_time" class="form-control-static"></p>
                 </div>
               </div>
               <div class="form-group col-xs-6">
