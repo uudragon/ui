@@ -8,8 +8,13 @@ var uud = angular.module('mainApp', [
 	'angular-md5'
 ])
 
-.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'cfpLoadingBarProvider', function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider) {
-
+.config([
+	'$stateProvider',
+	'$urlRouterProvider',
+	'$httpProvider',
+	'cfpLoadingBarProvider',
+	'RestangularProvider',
+function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, RestangularProvider) {
 
 	/////////////////////////////
 	// Redirects and Otherwise //
@@ -32,40 +37,64 @@ var uud = angular.module('mainApp', [
 
 	// 拦截器
 	$httpProvider.interceptors.push(['$q', '$location', '$rootScope', '$injector', '$timeout', function($q, $location, $rootScope, $injector, $timeout) {
-			return {
-				'request': function(config) {
-					return config;
-				},
-				'response': function(resp) {
-					// try {
-					// 	var errorCode = resp.data.split(':')[0];
-					// 	if (errorCode == 'E_00201') {
-					// 		$rootScope.$broadcast('auth:invalid', res);
-					// 		return $q.reject(res);
-					// 	}
-					// } catch(e) {}
+		return {
+			'request': function(config) {
+				return config;
+			},
+			'response': function(resp) {
+				// try {
+				// 	var errorCode = resp.data.split(':')[0];
+				// 	if (errorCode == 'E_00201') {
+				// 		$rootScope.$broadcast('auth:invalid', res);
+				// 		return $q.reject(res);
+				// 	}
+				// } catch(e) {}
 
-					// token过期信息
-					if (resp.config.url === (config.auth.baseurl + config.auth.resource) && resp.status === 204) {
-						$timeout(function(){
-							$rootScope.$broadcast('auth:invalid', resp);
-						}, 100);
-						return $q.reject(resp);
-					} else {
-						return resp;
-					}
-
-				},
-				'responseError': function(response) {
-
-					if(response.status === 401 || response.status === 403) {
-						// token is outdate or request for resource beyond the privilege of current user.
-						$rootScope.$broadcast('auth:invalid', response);
-					}
-					return $q.reject(response);
+				// token过期信息
+				if (resp.config.url === (config.auth.baseurl + config.auth.resource) && resp.status === 204) {
+					$timeout(function(){
+						$rootScope.$broadcast('auth:invalid', resp);
+					}, 100);
+					return $q.reject(resp);
+				} else {
+					return resp;
 				}
+
+			},
+			'responseError': function(response) {
+
+				if(response.status === 401 || response.status === 403) {
+					// token is outdate or request for resource beyond the privilege of current user.
+					$rootScope.$broadcast('auth:invalid', response);
+				}
+				return $q.reject(response);
+			}
+		};
+	}]);
+
+
+	////////////////////////////////
+	// Restangular Configurations //
+	////////////////////////////////
+
+	RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+		var extractedData;
+		// to look for getList operations
+		if (operation === 'getList' && !angular.isArray(data)) {
+			// handle the data and meta data
+			extractedData = data.records;
+			extractedData.meta = {
+				pageSize: data.pageSize,
+				pageNo: data.pageNo,
+				recordsCount: data.recordsCount,
+				pageNumber: data.pageNumber
 			};
-		}]);
+		} else {
+			extractedData = data;
+		}
+		return extractedData;
+	});
+
 
 	//////////////////////////
 	// State Configurations //

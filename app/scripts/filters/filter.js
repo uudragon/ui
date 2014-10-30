@@ -22,6 +22,12 @@ angular.module('mainApp')
 		return dateFilter(date, 'yyyy-MM-dd HH:mm');
 	};
 }])
+.filter('timeFormat', ['dateFilter', function (dateFilter) {
+	return function (datetime) {
+		var date = new Date(datetime);
+		return dateFilter(date, 'yyyy-MM-dd HH:mm');
+	};
+}])
 .filter('age', function() {
 	return function (birthday) {
 		if (birthday) {
@@ -31,12 +37,26 @@ angular.module('mainApp')
 		}
 	};
 })
+.filter('orderType', function() {
+	return function (num) {
+
+		switch (num) {
+			case 0:
+				return '单品订单';
+			case 1:
+				return '多品订单';
+			default:
+				break;
+		}
+	};
+})
 .filter('payStatus', function() {
 	return function (num) {
+
 		switch (num) {
-			case '0':
+			case 0:
 				return '未付费';
-			case '1':
+			case 1:
 				return '已付费';
 			default:
 				break;
@@ -46,13 +66,13 @@ angular.module('mainApp')
 .filter('checkStatus', function() {
 	return function (num) {
 		switch (num) {
-			case '0':
+			case 1:
 				return '待审核';
-			case '1':
+			case 2:
 				return '审核中';
-			case '2':
+			case 3:
 				return '审核通过';
-			case '3':
+			case 4:
 				return '无效';
 			default:
 				break;

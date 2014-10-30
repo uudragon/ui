@@ -2,12 +2,12 @@
 	'use strict';
 
 	// global variables
-	exports.baseurl = '/bam/';
+	exports.baseurl = '/atnew/ws/';
 	exports.perPage = 4;
 	exports.maxPages = 6;
 
 	exports.auth = {
-		baseurl: '/at/ws/auth/',
+		baseurl: '/atnew/ws/auth/',
 		resource: 'resourceListByCode',
 		login: 'login',
 		logout: 'logout'

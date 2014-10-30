@@ -15,17 +15,17 @@ table.uu-table
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders ')
-			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
+			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.province', ng-show='ths[3].isChecked')
-			td(ng-bind='order.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.orderType', ng-show='ths[5].isChecked')
-			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.checkStatus | checkStatus', ng-show='ths[7].isChecked')
-			td(ng-bind='order.createTime', ng-show='ths[8].isChecked')
-			td(ng-bind='order.contactTimes', ng-show='ths[9].isChecked')
+				+jslink('showOrder(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
+			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
+			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
+			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
+			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
+			td(ng-bind='order.status | checkStatus', ng-show='ths[7].isChecked')
+			td(ng-bind='order.create_time | timeFormat', ng-show='ths[8].isChecked')
+			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
 			td
 				+tooltip('修改', 'top', 'showOrder(order)')
 					+glyphicon('pencil') &nbsp;
@@ -33,7 +33,7 @@ table.uu-table
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+uu-pagination(records='orders.meta.recordsCount', page='orders.meta.pageNo', model='searchModel', action='getOrders()')
 
 //- 订单详情Modal
 +modal('order-details', 'modal-lg')

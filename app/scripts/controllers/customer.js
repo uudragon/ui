@@ -35,7 +35,7 @@ angular.module('mainApp')
 		}
 
 		// fake date
-		$scope.orders = [{customerName: '李四民', orderSN: '5223071231', customerPhone: '1395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '0', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '张三', orderSN: '212131071231', customerPhone: '3123334239543', province: '上海', city: '上海', orderType: '季度', payStatus: '1', createTime: '2014-11-15', contactTimes: '2014-10-15'}, {customerName: '李七', orderSN: '123071231', customerPhone: '4395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '李五民', orderSN: '223071231', customerPhone: '5395334234343', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, ];
+		// $scope.orders = [{customerName: '李四民', orderSN: '5223071231', customerPhone: '1395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '0', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '张三', orderSN: '212131071231', customerPhone: '3123334239543', province: '上海', city: '上海', orderType: '季度', payStatus: '1', createTime: '2014-11-15', contactTimes: '2014-10-15'}, {customerName: '李七', orderSN: '123071231', customerPhone: '4395334239543', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, {customerName: '李五民', orderSN: '223071231', customerPhone: '5395334234343', province: '山东', city: '青岛', orderType: '季度', payStatus: '1', createTime: '2014-10-15', contactTimes: '2014-10-15'}, ];
 
 		$scope.tmp = {
 			orderSN: '123071231',
@@ -71,7 +71,7 @@ angular.module('mainApp')
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 
 	}])
-	.controller('CheckOrder', ['$scope', '$controller', function($scope, $controller) {
+	.controller('CheckOrder', ['$scope', '$controller', 'Restangular', function($scope, $controller, Restangular) {
 
 		// 搜索下拉
 		$scope.filters = [
@@ -103,6 +103,13 @@ angular.module('mainApp')
 			{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
+
+		var Order =  Restangular.allUrl('order', config.baseurl + 'order');
+		$scope.orders = Order.getList().$object;
+
+		Order.getList().then(function(data) {
+			console.log(data.meta);
+		});
 
 		// 修改订单
 		$scope.modifyOrder = function() {
