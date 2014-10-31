@@ -206,7 +206,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function($scope, $element, $attrs, model) {
 			$scope.perPage = $attrs.perPage || config.perPage;
-			// $scope.current = $scope.page || 1;
 
 			var maxPages = $attrs.maxPages || config.maxPages;
 			var start = 1;
@@ -215,9 +214,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				$scope.to($scope.current - 1);
 			};
 
-			$scope.to = function(page) {
-				if ($scope.current !== page) {
-					$scope.current = betwwen(page, 1, $scope.totalPages);
+			$scope.to = function(pageNo) {
+				var lastPageNo = $scope.current;
+				$scope.current = betwwen(pageNo, 1, $scope.totalPages);
+
+				if ($scope.current !== lastPageNo) {
 					updatePagination();
 					$scope.action($scope.model);
 				}
