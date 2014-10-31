@@ -114,3 +114,16 @@ mixin submit(title, id)
 	.col-xs-7.col-xs-offset-3
 		if block
 			block
+
+
+mixin gender(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('女', 0)
+		+option('男', 1)
+
+mixin order-status(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('待审核', 1)
+		+option('审核中', 2)
+		+option('无效', 3)
+		+option('审核通过', 4)

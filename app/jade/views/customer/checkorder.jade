@@ -4,17 +4,17 @@ include ../../modules/mixins.jade
 +linkage-search
 
 //- 订单列表过滤条件
-- var filterBy = {key: 'payStatus', filter: []}
-- filterBy.filter.push({label: '所有', value: '""'})
-- filterBy.filter.push({label: '已付费', value: 0})
-- filterBy.filter.push({label: '未付费', value: 1})
-+article-header-filter('payStatus', filterBy)
+- var filters = []
+- filters.push({label: '所有', value: '""'})
+- filters.push({label: '已付费', value: 1})
+- filters.push({label: '未付费', value: 0})
++article-header-filter('searchModel.paid', filters)
 
 //- 订单列表
-table.uu-table
+table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders ')
+		tr(ng-repeat='order in orders')
 			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showOrder(order)')(ng-bind='order.order_no')
@@ -23,7 +23,7 @@ table.uu-table
 			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
 			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
 			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.status | checkStatus', ng-show='ths[7].isChecked')
+			td(ng-bind='order.status | orderStatus', ng-show='ths[7].isChecked')
 			td(ng-bind='order.create_time | timeFormat', ng-show='ths[8].isChecked')
 			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
 			td
@@ -33,7 +33,7 @@ table.uu-table
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='orders.meta.recordsCount', page='orders.meta.pageNo', model='searchModel', action='getOrders()')
+uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 订单详情Modal
 +modal('order-details', 'modal-lg')
@@ -46,8 +46,9 @@ uu-pagination(records='orders.meta.recordsCount', page='orders.meta.pageNo', mod
 			.form-group.modal-action
 				+tooltip('修改', 'top', 'editCustomerInfo()')
 					+glyphicon('pencil')
-				+tooltip('保存', 'top', 'saveCustomerInfo()')
+				+tooltip('保存', 'top', 'saveCustomerInfo(currentOrder)')
 					+glyphicon('floppy-disk')
+
 			//- customer details
 			+order-details
 			fieldset
@@ -58,20 +59,20 @@ uu-pagination(records='orders.meta.recordsCount', page='orders.meta.pageNo', mod
 							th=th
 					tbody
 						tr
-							td 123071231
-							td 李四民
-							td 季度
-							td 2014-10-15
-							td 在线支付
-							td 已支付
-							td 2010-06-01
-							td 正常
-							td 已审核
+							td(ng-bind='currentOrder.order_no')
+							td(ng-bind='currentOrder.customer.name')
+							td(ng-bind='currentOrder.customer.name')
+							td(ng-bind='currentOrder.order_time | timeFormat')
+							td(ng-bind='currentOrder.payment | payment')
+							td(ng-bind='currentOrder.paid | payStatus')
+							td(ng-bind='currentOrder.customer.birthday')
+							td(ng-bind='currentOrder.status | orderStatus')
+							td(ng-bind='currentOrder.status | orderStatus')
 							td
-								+tooltip('修改', 'top', 'modifyOrder()')
+								+tooltip('修改', 'top', 'editOrderStatus(currentOrder)')
 									+glyphicon('pencil') &nbsp;
 
-								+tooltip('共享订单', 'top', 'shareOrder()')
+								+tooltip('共享订单', 'top', 'shareOrder(currentOrder)')
 									+glyphicon('share')
 
 			p
@@ -101,19 +102,16 @@ uu-pagination(records='orders.meta.recordsCount', page='orders.meta.pageNo', mod
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 修改订单Modal
-+submodal('modify-order')
++submodal('edit-order-status')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 修改订单
 	.modal-body
 		form.form-horizontal
 			.form-group
-				- var options = [{title: '待审核', value: 0}, {title: '审核中', value: 1}, {title: '核实中', value: 1}, {title: '审核通过', value: 1}, {title: '无效', value: 1} ]
-				+select('修改订单状态', 'responsor')(ng-model='order.responsor')
-					each val in options
-						+option(val.title, val.value)
+				+order-status('修改订单状态', 'order-status')(ng-model='currentOrder.status')
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='updateOrderStatus(currentOrder)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 核实订单Modal

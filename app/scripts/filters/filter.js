@@ -40,7 +40,7 @@ angular.module('mainApp')
 .filter('orderType', function() {
 	return function (num) {
 
-		switch (num) {
+		switch (parseInt(num, 10)) {
 			case 0:
 				return '单品订单';
 			case 1:
@@ -53,7 +53,7 @@ angular.module('mainApp')
 .filter('payStatus', function() {
 	return function (num) {
 
-		switch (num) {
+		switch (parseInt(num, 10)) {
 			case 0:
 				return '未付费';
 			case 1:
@@ -63,17 +63,34 @@ angular.module('mainApp')
 		}
 	};
 })
-.filter('checkStatus', function() {
+// 付款方式
+.filter('payment', function() {
 	return function (num) {
-		switch (num) {
+
+		switch (parseInt(num, 10)) {
+			case 0:
+				return '银行';
+			case 1:
+				return '支付宝';
+			case 1:
+				return '货到付款';
+			default:
+				break;
+		}
+	};
+})
+.filter('orderStatus', function() {
+	return function (num) {
+
+		switch (parseInt(num, 10)) {
 			case 1:
 				return '待审核';
 			case 2:
 				return '审核中';
 			case 3:
-				return '审核通过';
-			case 4:
 				return '无效';
+			case 4:
+				return '审核通过';
 			default:
 				break;
 		}

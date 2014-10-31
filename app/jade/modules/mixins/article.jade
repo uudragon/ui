@@ -3,18 +3,18 @@
 //- thead in table
 
 //- article filter
-mixin article-header-filter(key, filterBy)
+mixin article-header-filter(key, filters)
 	.article-header-filter
 		form.form-inline(role='form')
 			.btn-group(data-toggle='buttons')
-				if filterBy.filter
-					each filter, index in filterBy.filter
+				if filters
+					each filter, index in filters
 						if index === 0
-							label.btn.uu-btn.active(ng-click="filterBy.#{key}='#{filter.value}'", ng-init="filterBy.#{key}='#{filter.value}'")
+							label.btn.uu-btn.active(ng-click="#{key}='#{filter.value}'", ng-init="#{key}='#{filter.value}'")
 								input(checked, type='radio')
 								| #{filter.label}
 						else
-							label.btn.uu-btn(ng-click="filterBy.#{key}='#{filter.value}'")
+							label.btn.uu-btn(ng-click="#{key}='#{filter.value}'")
 								input(type='radio')
 								| #{filter.label}
 			if block
@@ -25,42 +25,44 @@ mixin order-details()
 	fieldset(uu-form-field='isCustometInfoEditable')
 		legend 基本信息
 		+hgroup
-			+input('客户姓名', 'name')(ng-model='user.name')
+			+input('客户姓名', 'name')(ng-model='currentOrder.customer.name')
 		+hgroup
-			+input('订单编号', 'order')(ng-model='user.order')
+			+input('订单编号', 'order')(ng-model='currentOrder.orders_no')
 		+hgroup
-			+input('客户性别', 'sex')(ng-model='user.gender')
+			+gender('客户性别', 'customer-gender')(ng-model='currentOrder.customer.sex')
 		+hgroup
-			+input('订购产品', 'good')(ng-model='user.good')
+			+input('订购产品', 'good')(ng-model='currentOrder.good')
 		+hgroup
-			+input('联系电话', 'telphone')(ng-model='user.telphone')
+			+input('联系电话', 'telphone')(ng-model='currentOrder.customer.phone')
 		+hgroup
-			+input('起订日期', 'startDate')(ng-model='user.startDate', uu-date-picker)
+			+input('起订日期', 'startDate')(ng-model='currentOrder.effective', uu-date-picker)
 		+hgroup
-			+input('儿童姓名', 'child-name')(ng-model='user.childName')
+			+input('儿童姓名', 'child-name')(ng-model='currentOrder.customer.child')
 		+hgroup
-			+input('结束日期', 'enddate')(ng-model='user.enddate', uu-date-picker)
+			+input('结束日期', 'enddate')(ng-model='currentOrder.deadline', uu-date-picker)
 		+hgroup
-			+input('儿童性别', 'child-gender')(ng-model='user.childGender')
+			+gender('儿童性别', 'child-gender')(ng-model='currentOrder.customer.c_sex')
 		+hgroup
-			+input('支付方式', 'payway')(ng-model='user.payway')
+			+input('支付方式', 'payway')(ng-model='currentOrder.payway')
 		+hgroup
-			+input('出生日期', 'birthday')(ng-model='user.birthday', uu-date-picker)
+			+input('出生日期', 'birthday')(ng-model='currentOrder.birthday', uu-date-picker)
 		+hgroup
-			+input('支付状态', 'pay-status')(ng-model='user.payStatus')
+			+select('支付状态', 'pay-status')(ng-model='currentOrder.paid')
+				+option('未付费', 0)
+				+option('已付费', 1)
 		.form-group.col-xs-12.location
 			.control-label(for='location-details')
 				| 详细地址
 			div.location-wrap
 				.input-group.col-xs-3
 					span.input-group-addon 省
-					input.form-control.input-sm
+					input.form-control.input-sm(ng-model='currentOrder.customer.province')
 				.input-group.col-xs-3
 					span.input-group-addon 市
-					input.form-control.input-sm
+					input.form-control.input-sm(ng-model='currentOrder.customer.city')
 				.input-group.col-xs-4
 					span.input-group-addon 详细
-					input.form-control.input-sm(value='宁夏路208号')
+					input.form-control.input-sm(ng-model='currentOrder.customer.address')
 
 
 //- Searches

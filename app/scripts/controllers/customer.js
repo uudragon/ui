@@ -56,12 +56,6 @@ angular.module('mainApp')
 			return {};
 		};
 
-		// 查看订单
-		$scope.showOrder = function(order) {
-			$scope.currentOrder = order;
-			$('#order-details').modal('show');
-		};
-
 		$scope.addContact = function() {
 			$scope.order = $scope.order || {};
 			$scope.order.contactTime = $filter('now')();
@@ -105,11 +99,39 @@ angular.module('mainApp')
 		];
 
 		var Order =  Restangular.allUrl('order', config.baseurl + 'order');
-		$scope.orders = Order.getList().$object;
 
-		// 修改订单
-		$scope.modifyOrder = function() {
-			$('#modify-order').modal('show');
+		$scope.getOrderList = function() {
+			$scope.orders = Order.getList({
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo,
+				paid: $scope.searchModel.paid
+			}).$object;
+		};
+
+		$scope.$watch('searchModel.paid', function(current, prev) {
+			if (current !== prev) {
+				$scope.searchModel.pageNo = 1;
+				$scope.getOrderList();
+			}
+		});
+
+		// 查看订单
+		$scope.showOrder = function(order) {
+			$scope.currentOrder = order;
+			$('#order-details').modal('show');
+		};
+
+		// 修改订单状态
+		$scope.editOrderStatus = function(currentOrder) {
+			$scope.currentOrder = currentOrder;
+			$('#edit-order-status').modal('show');
+		};
+
+		// 保存订单状态
+		$scope.updateOrderStatus = function(currentOrder) {
+			currentOrder.put().then(function() {
+				$('#edit-order-status').modal('hide');
+			});
 		};
 
 		// 共享订单
@@ -117,13 +139,20 @@ angular.module('mainApp')
 			$('#share-order').modal('show');
 		};
 
+		// 修改客户信息
 		$scope.editCustomerInfo = function() {
 			$scope.isCustometInfoEditable = true;
 		};
 
-		$scope.saveCustomerInfo = function() {
-			$scope.isCustometInfoEditable = false;
+		// 保存客户信息
+		$scope.saveCustomerInfo = function(currentOrder) {
+			currentOrder.put().then(function() {
+				$scope.isCustometInfoEditable = false;
+			});
 		};
+
+		// 首次加载定单列表
+		$scope.getOrderList();
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])

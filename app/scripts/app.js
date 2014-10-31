@@ -85,13 +85,14 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 			extractedData = data.records;
 			extractedData.meta = {
 				pageSize: data.pageSize,
-				pageNo: data.pageNo,
+				pageNo: data.pageNo ? data.pageNo : 1,
 				recordsCount: data.recordsCount,
 				pageNumber: data.pageNumber
 			};
 		} else {
 			extractedData = data;
 		}
+		// console.log(extractedData);
 		return extractedData;
 	});
 

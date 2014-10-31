@@ -3,7 +3,7 @@
 
 	// global variables
 	exports.baseurl = '/atnew/ws/';
-	exports.perPage = 4;
+	exports.perPage = 8;
 	exports.maxPages = 6;
 
 	exports.auth = {

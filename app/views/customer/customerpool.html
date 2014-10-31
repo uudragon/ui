@@ -2,14 +2,11 @@
 <div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" class="btn-group">
-      <label ng-click="filterBy.isAssigned='&quot;&quot;'" ng-init="filterBy.isAssigned='&quot;&quot;'" class="btn uu-btn active">
-        <input checked="checked" type="radio"/>所有
+      <label ng-click="isAssigned='undefined'" class="btn uu-btn">
+        <input type="radio"/>
       </label>
-      <label ng-click="filterBy.isAssigned='0'" class="btn uu-btn">
-        <input type="radio"/>已分配
-      </label>
-      <label ng-click="filterBy.isAssigned='1'" class="btn uu-btn">
-        <input type="radio"/>未分配
+      <label ng-click="isAssigned='undefined'" class="btn uu-btn">
+        <input type="radio"/>
       </label>
     </div>
   </form>
@@ -49,7 +46,7 @@
       <td ng-bind="order.province" ng-show="ths[3].isChecked"></td>
       <td ng-bind="order.city" ng-show="ths[4].isChecked"></td>
       <td ng-bind="order.email" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="order.checkStatus | checkStatus" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="order.checkStatus | orderStatus" ng-show="ths[6].isChecked"></td>
       <td ng-bind="order.createTime" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.contactTimes" ng-show="ths[8].isChecked"></td>
       <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintOrders(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>

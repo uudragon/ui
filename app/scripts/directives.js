@@ -201,12 +201,12 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		scope: {
 			records: '=',
 			action: '&',
-			page: '=',
+			current: '=page',
 			model: '='
 		},
 		link: function($scope, $element, $attrs, model) {
 			$scope.perPage = $attrs.perPage || config.perPage;
-			$scope.current = $scope.page || 1;
+			// $scope.current = $scope.page || 1;
 
 			var maxPages = $attrs.maxPages || config.maxPages;
 			var start = 1;
@@ -215,9 +215,12 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				$scope.to($scope.current - 1);
 			};
 
-			$scope.to = function(page, blnNotApply) {
-				if (!blnNotApply) $scope.current = betwwen(page, 1, $scope.totalPages);
-				updatePagination();
+			$scope.to = function(page) {
+				if ($scope.current !== page) {
+					$scope.current = betwwen(page, 1, $scope.totalPages);
+					updatePagination();
+					$scope.action($scope.model);
+				}
 			};
 
 			$scope.next = function() {
@@ -228,7 +231,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			// when current page changed, call function
 			$scope.$watch('current', function(current, prev, scope) {
 				if(current && current !== prev) {
-					scope.action($scope.model);
 					updatePagination();
 				}
 			});
