@@ -98,8 +98,9 @@ angular.module('mainApp')
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
 
-		var Order =  Restangular.allUrl('order', config.baseurl + 'order');
+		var Order =  Restangular.allUrl('order');
 
+		// 修改订单列表
 		$scope.getOrderList = function() {
 			$scope.orders = Order.getList({
 				pageSize: $scope.searchModel.pageSize || config.perPage,

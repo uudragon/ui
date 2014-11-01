@@ -77,6 +77,8 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	// Restangular Configurations //
 	////////////////////////////////
 
+	RestangularProvider.setBaseUrl(config.baseurl);
+
 	RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
 		var extractedData;
 		// to look for getList operations
