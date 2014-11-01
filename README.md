@@ -32,7 +32,7 @@ cd 到根目录
 . deploy.sh
 ```
 
-### 相关grunt命令
+### grunt相关命令
 
 - 运行: `grunt serve`
 - 编译: `grunt build`

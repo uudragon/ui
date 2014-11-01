@@ -3,6 +3,7 @@
 *.jar
 *.war
 *.ear
+*.log
 node_modules
 .tmp
 .sass-cache

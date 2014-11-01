@@ -109,6 +109,7 @@ angular.module('mainApp')
 			}).$object;
 		};
 
+		// 所有, 已付费, 未付费快速查询按钮
 		$scope.$watch('searchModel.paid', function(current, prev) {
 			if (current !== prev) {
 				$scope.searchModel.pageNo = 1;
