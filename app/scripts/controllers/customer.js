@@ -134,11 +134,8 @@ angular.module('mainApp')
 			currentOrder.put().then(function() {
 				$('#edit-order-status').modal('hide');
 			});
-			// $http.put({
-			// 	url: config.baseurl + 'order/' + currentOrder.id,
-			// 	data: {
-			// 		status: currentOrder.status
-			// 	}
+			// $http.put(config.baseurl + 'order/' + currentOrder.id, {
+			// 	status: currentOrder.status
 			// });
 		};
 

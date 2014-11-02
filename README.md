@@ -9,7 +9,7 @@
 
 ### 安装NodeJs和Ruby组件
 
-- 安装Grunt: `npm install -g grunt-cli`
+- 安装Grunt: `npm install -g grunt-cli && npm install -g bower`
 - 安装Compass: `gem install compass`
 - 安装Sass: `gem install sass`
 
