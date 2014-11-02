@@ -10,4 +10,4 @@ node_modules
 .tmp
 .sass-cache
 uud/
-dist/
+/dist/
