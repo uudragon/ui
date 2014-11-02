@@ -14,7 +14,7 @@
 - 安装Sass: `gem install sass`
 
 ### 安装App依赖包
-
+cd 到根目录
 ```
 npm install && bower install
 ```
