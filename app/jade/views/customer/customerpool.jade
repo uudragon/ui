@@ -1,11 +1,11 @@
 include ../../modules/mixins.jade
 
 //- 订单列表过滤条件
-- var filterBy = {key: 'isAssigned', filter: []}
-- filterBy.filter.push({label: '所有', value: '""'})
-- filterBy.filter.push({label: '已分配', value: 0})
-- filterBy.filter.push({label: '未分配', value: 1})
-+article-header-filter('isAssigned', filterBy)
+- var filters = []
+- filters.push({label: '所有', value: '""'})
+- filters.push({label: '已分配', value: 0})
+- filters.push({label: '未分配', value: 1})
++article-header-filter('isAssigned', filters)
 
 //- 功能区
 .article-header-operate

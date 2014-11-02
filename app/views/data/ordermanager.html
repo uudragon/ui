@@ -519,78 +519,78 @@
             <div class="form-group">
               <label for="form-topic" class="control-label col-xs-3">主题</label>
               <div class="col-xs-7">
-                <select id="form-topic" ng-model="return.topic" class="form-control input-sm">
-                  <option value="0">核实订单</option>
-                  <option value="1">投诉</option>
-                  <option value="2">回访</option>
-                  <option value="3">催费</option>
-                  <option value="4">促进销售</option>
+                <select id="form-topic" ng-model="contact.theme" class="form-control input-sm">
+                  <option value="1">核实订单</option>
+                  <option value="2">投诉</option>
+                  <option value="3">回访</option>
+                  <option value="4">催费</option>
+                  <option value="5">促进销售</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
               <label for="form-deal-result" class="control-label col-xs-3">处理结果</label>
               <div class="col-xs-7">
-                <select id="form-deal-result" ng-model="return.dealResult" class="form-control input-sm">
-                  <option value="0">已完成</option>
-                  <option value="1">处理中</option>
+                <select id="form-deal-result" ng-model="contact.status" class="form-control input-sm">
                   <option value="1">待处理</option>
+                  <option value="2">处理中</option>
+                  <option value="3">已完成</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-xs-3">联系时间</label>
               <div class="col-xs-7">
-                <p ng-bind="order.contactTime" class="form-control-static"></p>
+                <p ng-bind="contact.contactTime" class="form-control-static"></p>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-xs-3">负责人</label>
               <div class="col-xs-7">
-                <p ng-bind="order.responsor" class="form-control-static"></p>
+                <p ng-bind="currentUser.name" class="form-control-static"></p>
               </div>
             </div>
             <div class="form-group">
               <label for="form-phone-status" class="control-label col-xs-3">电话状态</label>
               <div class="col-xs-7">
-                <select id="form-phone-status" ng-model="return.phoneStatus" class="form-control input-sm">
-                  <option value="0">无人接</option>
-                  <option value="1">占线</option>
-                  <option value="2">接听</option>
-                  <option value="3">停机</option>
-                  <option value="4">空号</option>
-                  <option value="5">错号</option>
+                <select id="form-phone-status" ng-model="contact.phoneStatus" class="form-control input-sm">
+                  <option value="1">无人接</option>
+                  <option value="2">占线</option>
+                  <option value="3">接听</option>
+                  <option value="4">停机</option>
+                  <option value="5">空号</option>
+                  <option value="6">错号</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
               <label for="form-complain-type" class="control-label col-xs-3">投诉分类</label>
               <div class="col-xs-7">
-                <select id="form-complain-type" ng-model="return.complainType" class="form-control input-sm">
-                  <option value="1">发票抬头错误</option>
-                  <option value="2">未开发票</option>
-                  <option value="3">开票时间长</option>
-                  <option value="4">发票丢失</option>
-                  <option value="5">客服态度不好</option>
-                  <option value="6">客服不专业</option>
-                  <option value="7">客服电话难打</option>
-                  <option value="8">物流慢</option>
-                  <option value="9">货物丢失</option>
-                  <option value="10">物品破损</option>
-                  <option value="11">快递态度</option>
+                <select id="form-complain-type" ng-model="contact.complainType" class="form-control input-sm">
+                  <option value="31">发票抬头错误</option>
+                  <option value="32">未开发票</option>
+                  <option value="33">开票时间长</option>
+                  <option value="34">发票丢失</option>
+                  <option value="35">客服态度不好</option>
+                  <option value="36">客服不专业</option>
+                  <option value="37">客服电话难打</option>
+                  <option value="38">物流慢</option>
+                  <option value="39">货物丢失</option>
+                  <option value="310">物品破损</option>
+                  <option value="311">快递态度</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="form-return-next-time" class="control-label col-xs-3">下次回访日期</label>
+              <label for="form-contact-next-time" class="control-label col-xs-3">下次回访日期</label>
               <div class="col-xs-7">
-                <input id="form-return-next-time" ng-model="return.nextTime" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
+                <input id="form-contact-next-time" ng-model="contact.next_time" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
               </div>
             </div>
             <div class="form-group">
               <label for="form-urgency" class="control-label col-xs-3">紧急程度</label>
               <div class="col-xs-7">
-                <select id="form-urgency" ng-model="return.urgency" class="form-control input-sm">
+                <select id="form-urgency" ng-model="contact.level" class="form-control input-sm">
                   <option value="0">一般</option>
                   <option value="1">优先</option>
                   <option value="1">紧急</option>
@@ -600,14 +600,14 @@
             <div class="form-group">
               <label for="form-content" class="control-label col-xs-3">内容</label>
               <div class="col-xs-7">
-                <textarea id="form-content" ng-model="content" class="form-control"></textarea>
+                <textarea id="form-content" ng-model="contact.content" class="form-control"></textarea>
               </div>
             </div>
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveContact(contact)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

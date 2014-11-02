@@ -192,7 +192,7 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
-	.controller('Complains', ['$scope', '$controller', function($scope, $controller) {
+	.controller('Complains', ['$scope', '$controller', '$http', '$filter', function($scope, $controller, $http, $filter) {
 		var $returnOrder = $('#return-order');
 		var $tree = $('#tree');
 
@@ -232,6 +232,26 @@ angular.module('mainApp')
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
 
+
+		// 获取投诉列表
+		$scope.getOrderList = function() {
+			$http.get(config.baseurl + 'workform/consulation', {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo
+			}).success(function(data){
+				$scope.complaints = data.records;
+				$scope.meta = {
+					pageSize: data.pageSize,
+					pageNo: data.pageNo ? data.pageNo : 1,
+					recordsCount: data.recordsCount,
+					pageNumber: data.pageNumber
+				};
+			});
+		};
+
+		$scope.getOrderList();
+
+		// 订单详情
 		$scope.showComplaintOrders = function(order) {
 			$scope.currentOrder = order;
 			$('#order-details').modal('show');
@@ -240,6 +260,28 @@ angular.module('mainApp')
 				{orderSN: '143071231', customerName: order.customerName, customerPhone: order.customerPhone, orderType: '季度', createTime: '2014-10-15', payWay: '在线支付', payStatus: '1', birthday: '2010-06-01', orderStatus: '正常'}
 			];
 		};
+
+		// 新建投诉
+		$scope.addNewComplains = function(order) {
+			console.log(order);
+			$scope.contact = {
+				contactTime: $filter('now')(),
+				order_no: order.order_no,
+				phone: order.main_phone,
+				type: 3,
+				user: $scope.currentUser.userNo || 1 // for test
+			};
+			$('#contact-history').modal('show');
+		};
+
+		// 保存投诉 (共用的jade, 就用这个名称了)
+		$scope.saveContact = function(contact) {
+			$http.post(config.baseurl + 'workform', contact)
+				.success(function() {
+					$('#contact-history').modal('hide');
+				});
+		};
+
 
 		// 退换货
 		$scope.exchange = function() {

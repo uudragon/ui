@@ -7,7 +7,7 @@ angular.module('mainApp')
 	$scope.$stateParams = $stateParams;
 
 	$scope.date = new Date();
-	$scope.currentUser = Auth.getUser();
+	$scope.currentUser = Auth.getUser() || {};
 
 	$scope.searchModel = {
 		filter: 0,
@@ -20,9 +20,13 @@ angular.module('mainApp')
 	};
 
 	// check is login
-	$scope.$on('auth:invalid', function(e, d) {
+	// $scope.$on('auth:invalid', function(e, d) {
+	// 	Auth.logout();
+	// });
+
+	$scope.logout = function() {
 		Auth.logout();
-	});
+	};
 
 	var resetForm = function(form) {
 		$scope.model = {};
@@ -34,7 +38,8 @@ angular.module('mainApp')
 	$scope.globalNewOrder = function() {
 		$scope.gbOrder = $scope.gbOrder || {};
 		$scope.gbOrder.callTime = $filter('now')();
-		$scope.gbOrder.responser = $scope.currentUser;
+		$scope.gbOrder.responser = $scope.currentUser.name;
+		$scope.gbOrder.responserNo = $scope.currentUser.userNo;
 		$('#global-new-order').modal('show');
 	};
 

@@ -50,6 +50,23 @@ angular.module('mainApp')
 		}
 	};
 })
+.filter('complainType', function() {
+	return function (num) {
+
+		switch (parseInt(num, 10)) {
+			case 0:
+				return '咨询';
+			case 1:
+				return '查询';
+			case 2:
+				return '投诉';
+			case 3:
+				return '建议';
+			default:
+				break;
+		}
+	};
+})
 .filter('payStatus', function() {
 	return function (num) {
 
