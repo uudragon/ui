@@ -4,6 +4,7 @@
 *.war
 *.ear
 *.log
+*.log.1
 node_modules
 .tmp
 .sass-cache

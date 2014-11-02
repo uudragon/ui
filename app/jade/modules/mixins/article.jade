@@ -45,7 +45,7 @@ mixin order-details()
 		+hgroup
 			+input('支付方式', 'payway')(ng-model='currentOrder.payway')
 		+hgroup
-			+input('出生日期', 'birthday')(ng-model='currentOrder.birthday', uu-date-picker)
+			+input('出生日期', 'birthday')(ng-model='currentOrder.customer.birthday', uu-date-picker)
 		+hgroup
 			+select('支付状态', 'pay-status')(ng-model='currentOrder.paid')
 				+option('未付费', 0)

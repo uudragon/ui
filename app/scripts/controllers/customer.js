@@ -65,7 +65,7 @@ angular.module('mainApp')
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 
 	}])
-	.controller('CheckOrder', ['$scope', '$controller', 'Restangular', function($scope, $controller, Restangular) {
+	.controller('CheckOrder', ['$scope', '$controller', 'Restangular', '$http', function($scope, $controller, Restangular, $http) {
 
 		// 搜索下拉
 		$scope.filters = [
@@ -134,6 +134,12 @@ angular.module('mainApp')
 			currentOrder.put().then(function() {
 				$('#edit-order-status').modal('hide');
 			});
+			// $http.put({
+			// 	url: config.baseurl + 'order/' + currentOrder.id,
+			// 	data: {
+			// 		status: currentOrder.status
+			// 	}
+			// });
 		};
 
 		// 共享订单
