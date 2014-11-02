@@ -3,11 +3,11 @@ include ../../modules/mixins.jade
 +pagetitle('站内提醒')
 
 //- 订单列表过滤条件
-- var filterBy = {key: 'mailbox', filter: []}
-- filterBy.filter.push({label: '收件箱', value: 'inBox'})
-- filterBy.filter.push({label: '发件箱', value: 'outBox'})
+- var filters = []
+- filters.push({label: '收件箱', value: 'inBox'})
+- filters.push({label: '发件箱', value: 'outBox'})
 
-+article-header-filter('mailbox', filterBy)
++article-header-filter('searchModel.mailbox', filters)
 	.form-group
 		input.form-control.input-sm(ng-model='subfilter')
 	.btn.uu-btn(ng-click='keywordSearch()')

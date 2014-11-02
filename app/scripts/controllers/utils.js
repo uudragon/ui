@@ -106,16 +106,19 @@ angular.module('mainApp')
 			{name: 'sendTime', label: '发送时间', isChecked: true}
 		];
 
-		var Note =  Restangular.allUrl('messages', '/atnew/ws/notes');
+		var Note =  Restangular.allUrl('notes');
 		var searcher = {};
 		$scope.msg = {};
 
-		$scope.$watch('filterBy.mailbox', function() {
-			$scope.reloadSearch();
+		$scope.$watch('searchModel.mailbox', function(current, prev) {
+			if (current !== prev) {
+				$scope.searchModel.pageNo = 1;
+				$scope.reloadSearch();
+			}
 		});
 
 		$scope.reloadSearch = function() {
-			Note.get($scope.filterBy.mailbox, searcher).then(function(result) {
+			Note.get($scope.searchModel.mailbox, searcher).then(function(result) {
 				$scope.messages = result.records;
 				$scope.recordsCount = result.recordsCount;
 				$scope.currentPage = 1;
@@ -138,14 +141,14 @@ angular.module('mainApp')
 				}
 			});
 			if (toBeDeleted.length) {
-				Note.one($scope.filterBy.mailbox, toBeDeleted).remove();
+				Note.one($scope.searchModel.mailbox, toBeDeleted).remove();
 			}
 		};
 
 		// 查看邮件内容
 		$scope.readMessage = function(id) {
 			if (id) {
-				Note.one($scope.filterBy.mailbox, id).get();
+				Note.one($scope.searchModel.mailbox, id).get();
 			}
 		};
 
@@ -159,7 +162,7 @@ angular.module('mainApp')
 		// 一键清零 (清空收件箱/发件箱)
 		$scope.clearAllMessage = function() {
 			console.log(Note);
-			Note.one($scope.filterBy.mailbox).remove();
+			Note.one($scope.searchModel.mailbox).remove();
 		};
 
 		$scope.openMessageBox = function() {
