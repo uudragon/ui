@@ -28,8 +28,7 @@ grunt serve
 ### 发布到服务器端
 cd 到根目录
 ```bash
-. uud.sh # 输入两次密码, 自动登陆服务器端
-. deploy.sh
+. uud.sh # 输入两次密码
 ```
 
 ### grunt相关命令

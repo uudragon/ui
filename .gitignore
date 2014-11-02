@@ -5,6 +5,7 @@
 *.ear
 *.log
 *.log.1
+*.bak
 node_modules
 .tmp
 .sass-cache
