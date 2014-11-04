@@ -1,6 +1,15 @@
 
-
-//- thead in table
+mixin action-bar()
+	div.clearfix
+		ul.action-bar
+			block
+		ul.action-bar.pull-right
+			li
+				+tooltip('站内提醒', 'top')(ui-sref='root.utils.message')
+					+glyphicon('comment')
+			li
+				+tooltip('群发信息', 'top')(ui-sref='root.utils.batchmsg')
+					+glyphicon('envelope')
 
 //- article filter
 mixin article-header-filter(key, filters)
@@ -95,3 +104,5 @@ mixin bi-search(options)
 			.btn.uu-btn
 				+tooltip('查询', 'top')
 					+glyphicon('search')
+
+

@@ -1,1 +1,22 @@
 include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('新建', 'top')
+			+glyphicon('plus')
+		ul.dropdown-menu(role="menu")
+			li
+				+jslink('globalNewOrder()', '新建订单')
+			li
+				+jslink('globalNewTicket()', '新建工单')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+	li
+		+tooltip('过滤条件', 'top')(class='dropdown-toggle')
+			+glyphicon('filter')
+		ul.dropdown-menu(role="menu")
+			each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单', '预约客户订单']
+				li
+					a(href='')=filter

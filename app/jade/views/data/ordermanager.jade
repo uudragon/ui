@@ -1,19 +1,40 @@
 include ../../modules/mixins.jade
 
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('新建', 'top')
+			+glyphicon('plus')
+		ul.dropdown-menu(role="menu")
+			li
+				+jslink('globalNewOrder()', '新建订单')
+			li
+				+jslink('globalNewTicket()', '新建工单')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+	li
+		+tooltip('过滤条件', 'top')(class='dropdown-toggle')
+			+glyphicon('filter')
+		ul.dropdown-menu(role="menu")
+			each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单', '预约客户订单']
+				li
+					a(href='')=filter
+
 //- 搜索
 +linkage-search()
 	+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
 //- 过滤条件
-- var filterBy = {key: 'payStatus', filter: []}
-- filterBy.filter.push({label: '今天', value: '""'})
-- filterBy.filter.push({label: '昨天', value: 0})
-- filterBy.filter.push({label: '前天', value: 1})
-- filterBy.filter.push({label: '近3天', value: 1})
-- filterBy.filter.push({label: '近7天', value: 1})
-- filterBy.filter.push({label: '近30天', value: 1})
-+article-header-filter('payStatus', filterBy)
+- var filters = []
+- filters.push({label: '今天', value: '""'})
+- filters.push({label: '昨天', value: 0})
+- filters.push({label: '前天', value: 1})
+- filters.push({label: '近3天', value: 1})
+- filters.push({label: '近7天', value: 1})
+- filters.push({label: '近30天', value: 1})
++article-header-filter('searchModal.payStatus', filters)
 
 
 //- 员工列表

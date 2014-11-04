@@ -1,4 +1,30 @@
 
+<div class="clearfix">
+  <ul class="action-bar">
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建"><span class="glyphicon glyphicon-plus"></span></a>
+      <ul role="menu" class="dropdown-menu">
+        <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
+        </li>
+      </ul>
+    </li>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    </li>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+      <ul role="menu" class="dropdown-menu">
+        <li><a href="">本月处理订单</a></li>
+        <li><a href="">当日处理订单</a></li>
+        <li><a href="">当日未处理订单</a></li>
+        <li><a href="">当日完结订单</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="action-bar pull-right">
+    <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+    </li>
+    <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+    </li>
+  </ul>
+</div>
 <div class="article-header-search">
   <form role="form" class="form-inline">
     <div class="form-group">
