@@ -66,7 +66,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 							td(ng-bind='currentOrder.payment | payment')
 							td(ng-bind='currentOrder.paid | payStatus')
 							td(ng-bind='currentOrder.customer.birthday')
-							td(ng-bind='currentOrder.status | orderStatus')
+							td(ng-bind='currentOrder.order_status | orderStatus')
 							td(ng-bind='currentOrder.status | orderStatus')
 							td
 								+tooltip('修改', 'top', 'editOrderStatus(currentOrder)')
@@ -81,9 +81,6 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 					li
 						+tooltip('添加联系记录', 'top', 'addContact()')
 							+glyphicon('plus')
-					li
-						+jslink('search()')
-							+glyphicon('search')
 
 //- 共享订单Modal
 +submodal('share-order')

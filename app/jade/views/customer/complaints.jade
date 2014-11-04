@@ -64,10 +64,6 @@ uu-pagination(records='meta.recordsCount', per-page='{{meta.pageSize}}' page='me
 					li
 						+tooltip('新建联系记录', 'top', 'addNewComplains(currentOrder)')
 							+glyphicon('plus')
-					li
-						+jslink('search()')
-							+glyphicon('search')
-
 //- 调货Modal
 +submodal('return-order', 'modal-lg')
 	.modal-header

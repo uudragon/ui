@@ -4,6 +4,7 @@
 
 .article-header-search {
 	margin: 10px 0;
+	display: none;
 
 	.btn-group,
 	.input-group,
@@ -20,6 +21,12 @@
 		> select {
 			min-width: inherit;
 		}
+	}
+}
+
+.action-bar {
+	a:focus {
+		outline: none;
 	}
 }
 

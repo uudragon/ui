@@ -198,7 +198,7 @@
                   <td ng-bind="currentOrder.payment | payment"></td>
                   <td ng-bind="currentOrder.paid | payStatus"></td>
                   <td ng-bind="currentOrder.customer.birthday"></td>
-                  <td ng-bind="currentOrder.status | orderStatus"></td>
+                  <td ng-bind="currentOrder.order_status | orderStatus"></td>
                   <td ng-bind="currentOrder.status | orderStatus"></td>
                   <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editOrderStatus(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单" ng-click="shareOrder(currentOrder)"><span class="glyphicon glyphicon-share"></span></a>
                   </td>
@@ -210,8 +210,6 @@
             <ul class="list-inline">
               <li>联系记录</li>
               <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加联系记录" ng-click="addContact()"><span class="glyphicon glyphicon-plus"></span></a>
-              </li>
-              <li><a href="" ng-click="search()" class="jslink"><span class="glyphicon glyphicon-search"></span></a>
               </li>
             </ul>
           </p>
