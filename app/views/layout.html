@@ -110,15 +110,17 @@
       <div class="col-xs-10 main">
         <div class="clearfix">
           <ul class="action-bar">
-            <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建工单 / 订单"><span class="glyphicon glyphicon-plus"></span></a>
+            <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建"><span class="glyphicon glyphicon-plus"></span></a>
               <ul role="menu" class="dropdown-menu">
-                <li><a href="" ng-click="globalNewOrder()" class="jslink">新建工单</a>
+                <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
                 </li>
-                <li><a href="" ng-click="globalNewTicket()" class="jslink">新建订单</a>
+                <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
+                </li>
+                <li><a href="" ng-click="newComplaint()" class="jslink">新建投诉</a>
                 </li>
               </ul>
             </li>
-            <li><a href="" ui-sref="root.utils.search" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查找订单"><span class="glyphicon glyphicon-search"></span></a>
+            <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
             </li>
             <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
               <ul role="menu" class="dropdown-menu">
