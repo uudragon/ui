@@ -16,6 +16,14 @@ include ../../modules/mixins.jade
 				li
 					a(href='')=filter
 
+//- 订单列表过滤条件
+- var filters = []
+- filters.push({label: '所有', value: ''})
+- filters.push({label: '未处理', value: 1})
+- filters.push({label: '处理中', value: 2})
+- filters.push({label: '关闭', value: 3})
++article-header-filter('searchModel.status', filters)
+
 //- 搜索
 include ../../modules/tri-search.jade
 
@@ -23,7 +31,7 @@ include ../../modules/tri-search.jade
 table.uu-table
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='complaint in complaints | filter:filterPay')
+		tr(ng-repeat='complaint in complaintsOrders | filter:filterPay')
 			td(ng-bind='complaint.customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showComplaint(complaint)')(ng-bind='complaint.order_no')

@@ -30,6 +30,13 @@
 	}
 }
 
+.article-header-filter {
+	display: inline-block;
+	+ & {
+		margin-left: 10px;
+	}
+}
+
 .article-header-filter,
 .article-header-operate {
 	.btn-group,
