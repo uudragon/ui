@@ -127,3 +127,8 @@ mixin order-status(title, id)
 		+option('审核中', 2)
 		+option('无效', 3)
 		+option('审核通过', 4)
+
+mixin workflow-group(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('审单组', 1)
+		+option('拆单组', 2)

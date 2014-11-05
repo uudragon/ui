@@ -125,23 +125,37 @@ angular.module('mainApp')
 
 		// 修改订单状态
 		$scope.editOrderStatus = function(currentOrder) {
+			currentOrder.auditStatus = currentOrder.audit;
 			$scope.currentOrder = currentOrder;
 			$('#edit-order-status').modal('show');
 		};
 
 		// 保存订单状态
 		$scope.updateOrderStatus = function(currentOrder) {
-			currentOrder.put().then(function() {
+			// currentOrder.one('audit', {audit: currentOrder.auditStatus}).put().then(function() {
+			// 	$('#edit-order-status').modal('hide');
+			// });
+			$http.put(config.baseurl + 'order/' + currentOrder.id + '/audit', {
+				audit: currentOrder.auditStatus
+			}).success(function(d) {
+				currentOrder.audit = currentOrder.auditStatus;
 				$('#edit-order-status').modal('hide');
 			});
-			// $http.put(config.baseurl + 'order/' + currentOrder.id, {
-			// 	status: currentOrder.status
-			// });
 		};
 
 		// 共享订单
-		$scope.shareOrder = function() {
+		$scope.shareOrder = function(currentOrder) {
+			$scope.currentOrder = currentOrder;
 			$('#share-order').modal('show');
+		};
+
+		// 共享订单 - 发送请求
+		$scope.saveSharedOrder = function(currentOrder) {
+			$http.put(config.baseurl + 'order/' + currentOrder.id + '/workflow', {
+				workflow: currentOrder.workflow
+			}).success(function(d) {
+				$('#share-order').modal('hide');
+			});
 		};
 
 		// 修改客户信息
@@ -176,6 +190,17 @@ angular.module('mainApp')
 			{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
+
+		// 修改订单列表
+		$scope.getOrderList = function() {
+			$scope.orders = Order.getList({
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo,
+				paid: $scope.searchModel.paid
+			}).$object;
+		};
+
+		$scope.getOrderList();
 
 		$scope.splitOrder = function(order) {
 			order.isSplited = true;

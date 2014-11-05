@@ -96,7 +96,7 @@ angular.module('mainApp')
 		}
 	};
 })
-.filter('orderStatus', function() {
+.filter('auditStatus', function() {
 	return function (num) {
 
 		switch (parseInt(num, 10)) {
