@@ -108,13 +108,13 @@
       <td ng-bind="order.customer.city" ng-show="ths[5].isChecked"></td>
       <td ng-bind="order.customer.address" ng-show="ths[6].isChecked"></td>
       <td ng-bind="order.alipay" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="order.orderStatus" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="order.payType" ng-show="ths[9].isChecked"></td>
-      <td ng-bind="order.payway" ng-show="ths[10].isChecked"></td>
-      <td ng-bind="order.payStatus | payStatus" ng-show="ths[11].isChecked"></td>
-      <td ng-bind="order.sumAmount" ng-show="ths[12].isChecked"></td>
+      <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="order.status | orderStatus" ng-show="ths[9].isChecked"></td>
+      <td ng-bind="order.order_type | orderType" ng-show="ths[10].isChecked"></td>
+      <td ng-bind="order.payment | payment" ng-show="ths[11].isChecked"></td>
+      <td ng-bind="order.paid | payStatus" ng-show="ths[12].isChecked"></td>
       <td ng-bind="order.sumAmount" ng-show="ths[13].isChecked"></td>
-      <td ng-bind="order.details" ng-show="ths[14].isChecked"></td>
+      <td ng-bind="order.order_details" ng-show="ths[14].isChecked"></td>
       <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="导出" ng-click="export()"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>

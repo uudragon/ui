@@ -94,7 +94,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		} else {
 			extractedData = data;
 		}
-		console.log(extractedData);
+		// console.log(extractedData);
 		return extractedData;
 	});
 
