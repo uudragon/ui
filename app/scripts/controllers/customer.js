@@ -263,7 +263,7 @@ angular.module('mainApp')
 			$http.get(config.baseurl + 'workform/consulation', {
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo
-			}).success(function(data){
+			}).success(function(data) {
 				$scope.complaints = data.records;
 				$scope.meta = {
 					pageSize: data.pageSize,
