@@ -46,7 +46,7 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
 			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
 			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.status | orderStatus', ng-show='ths[7].isChecked')
+			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
 			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
 			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
 			td
@@ -89,8 +89,8 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 							td(ng-bind='currentOrder.payment | payment')
 							td(ng-bind='currentOrder.paid | payStatus')
 							td(ng-bind='currentOrder.customer.birthday')
-							td(ng-bind='currentOrder.order_status | orderStatus')
-							td(ng-bind='currentOrder.status | orderStatus')
+							td(ng-bind='currentOrder.order_status | auditStatus')
+							td(ng-bind='currentOrder.audit | auditStatus')
 							td
 								+tooltip('修改', 'top', 'editOrderStatus(currentOrder)')
 									+glyphicon('pencil') &nbsp;
@@ -113,12 +113,10 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 	.modal-body
 		form.form-horizontal
 			.form-group
-				- var responsorOptions = [{title: '拆单组', value: 0}, {title: '审单组', value: 1}]
-				+select('修改负责人', 'responsor')(ng-model='order.responsor')
-					each val in responsorOptions
-						+option(val.title, val.value)
+				+workflow-group('修改负责人', 'workflow')(ng-model='currentOrder.workflow')
+
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='save()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(currentOrder)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 修改订单Modal
@@ -129,7 +127,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 	.modal-body
 		form.form-horizontal
 			.form-group
-				+order-status('修改订单状态', 'order-status')(ng-model='currentOrder.status')
+				+order-status('修改订单状态', 'order-status')(ng-model='currentOrder.auditStatus')
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='updateOrderStatus(currentOrder)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

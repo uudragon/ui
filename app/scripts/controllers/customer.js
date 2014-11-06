@@ -65,7 +65,7 @@ angular.module('mainApp')
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 
 	}])
-	.controller('CheckOrder', ['$scope', '$controller', 'Restangular', '$http', function($scope, $controller, Restangular, $http) {
+	.controller('CheckOrder', ['$scope', '$controller', 'Order', '$http', function($scope, $controller, Order, $http) {
 
 		// 搜索下拉
 		$scope.filters = [
@@ -86,25 +86,24 @@ angular.module('mainApp')
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'customerName', label: '客户姓名', isChecked: true},
-			{name: 'orderSN', label: '订单编号', isChecked: true},
-			{name: 'customerPhone', label: '客户电话', isChecked: true},
+			{name: 'customer_name', label: '客户姓名', isChecked: true},
+			{name: 'order_no', label: '订单编号', isChecked: true},
+			{name: 'phone', label: '客户电话', isChecked: true},
 			{name: 'province', label: '所在省', isChecked: true, sortable: true},
 			{name: 'city', label: '城市', isChecked: true},
-			{name: 'orderType', label: '订单类型', isChecked: true, sortable: true},
-			{name: 'payStatus', label: '付款状态', isChecked: true, sortable: true},
-			{name: 'checkStatus', label: '审单状态', isChecked: true, filters: ['待审核', '审核中', '审核通过', '无效']},
-			{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
-			{name: 'contactTimes', label: '联系次数', isChecked: true}
+			{name: 'order_type', label: '订单类型', isChecked: true, sortable: true},
+			{name: 'paid', label: '付款状态', isChecked: true, sortable: true},
+			{name: 'audit', label: '审单状态', isChecked: true, filters: ['待审核', '审核中', '审核通过', '无效']},
+			{name: 'create_time', label: '创建时间', isChecked: true, sortable: true},
+			{name: 'contact_count', label: '联系次数', isChecked: true}
 		];
-
-		var Order =  Restangular.allUrl('order');
 
 		// 修改订单列表
 		$scope.getOrderList = function() {
 			$scope.orders = Order.getList({
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo,
+				// workflow: 1,
 				paid: $scope.searchModel.paid
 			}).$object;
 		};
@@ -125,23 +124,37 @@ angular.module('mainApp')
 
 		// 修改订单状态
 		$scope.editOrderStatus = function(currentOrder) {
+			currentOrder.auditStatus = currentOrder.audit;
 			$scope.currentOrder = currentOrder;
 			$('#edit-order-status').modal('show');
 		};
 
 		// 保存订单状态
 		$scope.updateOrderStatus = function(currentOrder) {
-			currentOrder.put().then(function() {
+			// currentOrder.one('audit', {audit: currentOrder.auditStatus}).put().then(function() {
+			// 	$('#edit-order-status').modal('hide');
+			// });
+			$http.put(config.baseurl + 'order/' + currentOrder.id + '/audit', {
+				audit: currentOrder.auditStatus
+			}).success(function(d) {
+				currentOrder.audit = currentOrder.auditStatus;
 				$('#edit-order-status').modal('hide');
 			});
-			// $http.put(config.baseurl + 'order/' + currentOrder.id, {
-			// 	status: currentOrder.status
-			// });
 		};
 
 		// 共享订单
-		$scope.shareOrder = function() {
+		$scope.shareOrder = function(currentOrder) {
+			$scope.currentOrder = currentOrder;
 			$('#share-order').modal('show');
+		};
+
+		// 共享订单 - 发送请求
+		$scope.saveSharedOrder = function(currentOrder) {
+			$http.put(config.baseurl + 'order/' + currentOrder.id + '/workflow', {
+				workflow: currentOrder.workflow
+			}).success(function(d) {
+				$('#share-order').modal('hide');
+			});
 		};
 
 		// 修改客户信息
@@ -161,21 +174,34 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
-	.controller('SplitOrder', ['$scope', '$controller', function($scope, $controller) {
+	.controller('SplitOrder', ['$scope', '$controller', 'Order', function($scope, $controller, Order) {
 
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'customerName', label: '客户姓名', isChecked: true},
-			{name: 'orderSN', label: '订单编号', isChecked: true},
-			{name: 'customerPhone', label: '客户电话', isChecked: true},
+			{name: 'customer_name', label: '客户姓名', isChecked: true},
+			{name: 'order_no', label: '订单编号', isChecked: true},
+			{name: 'phone', label: '客户电话', isChecked: true},
 			{name: 'province', label: '所在省', isChecked: true, sortable: true},
 			{name: 'city', label: '城市', isChecked: true},
-			{name: 'orderType', label: '订单类型', isChecked: true, sortable: true},
-			{name: 'payStatus', label: '付款状态', isChecked: true, sortable: true},
-			{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
-			{name: 'contactTimes', label: '联系次数', isChecked: true}
+			{name: 'order_type', label: '订单类型', isChecked: true, sortable: true},
+			{name: 'paid', label: '付款状态', isChecked: true, sortable: true},
+			{name: 'audit', label: '审单状态', isChecked: true, filters: ['待审核', '审核中', '审核通过', '无效']},
+			{name: 'create_time', label: '创建时间', isChecked: true, sortable: true},
+			{name: 'contact_count', label: '联系次数', isChecked: true}
 		];
+
+		// 修改订单列表
+		$scope.getOrderList = function() {
+			$scope.orders = Order.getList({
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo,
+				workflow: 2,
+				paid: $scope.searchModel.paid
+			}).$object;
+		};
+
+		$scope.getOrderList();
 
 		$scope.splitOrder = function(order) {
 			order.isSplited = true;
@@ -192,7 +218,7 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
-	.controller('Complains', ['$scope', '$controller', '$http', '$filter', function($scope, $controller, $http, $filter) {
+	.controller('Complains', ['$scope', '$controller', '$http', '$filter', 'Restangular', function($scope, $controller, $http, $filter, Restangular) {
 		var $returnOrder = $('#return-order');
 		var $tree = $('#tree');
 
@@ -221,33 +247,35 @@ angular.module('mainApp')
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'customerName', label: '客户姓名', isChecked: true},
-			{name: 'orderSN', label: '订单编号', isChecked: true},
-			{name: 'customerPhone', label: '客户电话', isChecked: true},
+			{name: 'customer_name', label: '客户姓名', isChecked: true},
+			{name: 'odrer_no', label: '订单编号', isChecked: true},
+			{name: 'phone', label: '客户电话', isChecked: true},
 			{name: 'province', label: '所在省', isChecked: true, sortable: true},
 			{name: 'city', label: '城市', isChecked: true},
-			{name: 'orderType', label: '订单类型', isChecked: true, sortable: true},
-			{name: 'payStatus', label: '付款状态', isChecked: true, sortable: true},
-			{name: 'createTime', label: '创建时间', isChecked: true, sortable: true},
-			{name: 'contactTimes', label: '联系次数', isChecked: true}
+			{name: 'order_type', label: '订单类型', isChecked: true, sortable: true},
+			{name: 'paid', label: '付款状态', isChecked: true, sortable: true},
+			{name: 'create_time', label: '创建时间', isChecked: true, sortable: true},
+			{name: 'contact_times', label: '联系次数', isChecked: true}
 		];
 
+		var Workform = Restangular.all('workform');
 
 		// 获取投诉列表
 		$scope.getOrderList = function() {
-			$http.get(config.baseurl + 'workform/consulation', {
+			$scope.complaintsOrders = Workform.all('consulation').getList({
 				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo
-			}).success(function(data) {
-				$scope.complaints = data.records;
-				$scope.meta = {
-					pageSize: data.pageSize,
-					pageNo: data.pageNo ? data.pageNo : 1,
-					recordsCount: data.recordsCount,
-					pageNumber: data.pageNumber
-				};
-			});
+				pageNo: $scope.searchModel.pageNo,
+				status: $scope.searchModel.status
+			}).$object;
 		};
+
+		// 状态快速查询按钮
+		$scope.$watch('searchModel.status', function(current, prev) {
+			if (current !== prev) {
+				$scope.searchModel.pageNo = 1;
+				$scope.getOrderList();
+			}
+		});
 
 		$scope.getOrderList();
 

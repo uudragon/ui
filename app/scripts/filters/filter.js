@@ -98,6 +98,18 @@ angular.module('mainApp')
 })
 .filter('orderStatus', function() {
 	return function (num) {
+		switch (parseInt(num, 10)) {
+			case 1:
+				return '正常';
+			case 2:
+				return '取消';
+			default:
+				break;
+		}
+	};
+})
+.filter('auditStatus', function() {
+	return function (num) {
 
 		switch (parseInt(num, 10)) {
 			case 1:

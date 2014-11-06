@@ -84,7 +84,7 @@
       <td ng-bind="order.customer.city" ng-show="ths[4].isChecked"></td>
       <td ng-bind="order.order_type | orderType" ng-show="ths[5].isChecked"></td>
       <td ng-bind="order.paid | payStatus" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="order.status | orderStatus" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
       <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
@@ -228,8 +228,8 @@
                   <td ng-bind="currentOrder.payment | payment"></td>
                   <td ng-bind="currentOrder.paid | payStatus"></td>
                   <td ng-bind="currentOrder.customer.birthday"></td>
-                  <td ng-bind="currentOrder.order_status | orderStatus"></td>
-                  <td ng-bind="currentOrder.status | orderStatus"></td>
+                  <td ng-bind="currentOrder.order_status | auditStatus"></td>
+                  <td ng-bind="currentOrder.audit | auditStatus"></td>
                   <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editOrderStatus(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单" ng-click="shareOrder(currentOrder)"><span class="glyphicon glyphicon-share"></span></a>
                   </td>
                 </tr>
@@ -258,18 +258,18 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="form-group">
-            <label for="form-responsor" class="control-label col-xs-3">修改负责人</label>
+            <label for="form-workflow" class="control-label col-xs-3">修改负责人</label>
             <div class="col-xs-7">
-              <select id="form-responsor" ng-model="order.responsor" class="form-control input-sm">
-                <option value="0">拆单组</option>
+              <select id="form-workflow" ng-model="currentOrder.workflow" class="form-control input-sm">
                 <option value="1">审单组</option>
+                <option value="2">拆单组</option>
               </select>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
@@ -287,7 +287,7 @@
           <div class="form-group">
             <label for="form-order-status" class="control-label col-xs-3">修改订单状态</label>
             <div class="col-xs-7">
-              <select id="form-order-status" ng-model="currentOrder.status" class="form-control input-sm">
+              <select id="form-order-status" ng-model="currentOrder.auditStatus" class="form-control input-sm">
                 <option value="1">待审核</option>
                 <option value="2">审核中</option>
                 <option value="3">无效</option>

@@ -23,8 +23,16 @@ include ../../modules/mixins.jade
 
 //- 搜索
 +linkage-search()
-	+grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-	+grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+	//- +grouped-input('开始时间', 'start-time')(ng-model='searchModel.startTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+	//- +grouped-input('结束时间', 'end-time')(ng-model='searchModel.endTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
+
+//- 订单列表过滤条件
+- var filters = []
+- filters.push({label: '所有', value: '""'})
+- filters.push({label: '已付费', value: 1})
+- filters.push({label: '未付费', value: 0})
++article-header-filter('searchModel.paid', filters)
+
 
 //- 过滤条件
 - var filters = []
@@ -38,26 +46,26 @@ include ../../modules/mixins.jade
 
 
 //- 员工列表
-table.uu-table
+table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='操作', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders')
-			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
-			td(ng-bind='order.gender | gender', ng-show='ths[1].isChecked')
-			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
+			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
+			td(ng-bind='order.customer.sex | gender', ng-show='ths[1].isChecked')
+			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
 			td(ng-show='ths[3].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.orderType', ng-show='ths[4].isChecked')
-			td(ng-bind='order.city', ng-show='ths[5].isChecked')
-			td(ng-bind='order.area', ng-show='ths[6].isChecked')
+				+jslink('showOrder(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.order_name', ng-show='ths[4].isChecked')
+			td(ng-bind='order.customer.city', ng-show='ths[5].isChecked')
+			td(ng-bind='order.customer.address', ng-show='ths[6].isChecked')
 			td(ng-bind='order.alipay', ng-show='ths[7].isChecked')
-			td(ng-bind='order.orderStatus', ng-show='ths[8].isChecked')
-			td(ng-bind='order.payType', ng-show='ths[9].isChecked')
-			td(ng-bind='order.payway', ng-show='ths[10].isChecked')
-			td(ng-bind='order.payStatus | payStatus', ng-show='ths[11].isChecked')
-			td(ng-bind='order.sumAmount', ng-show='ths[12].isChecked')
+			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
+			td(ng-bind='order.status | orderStatus', ng-show='ths[9].isChecked')
+			td(ng-bind='order.order_type | orderType', ng-show='ths[10].isChecked')
+			td(ng-bind='order.payment | payment', ng-show='ths[11].isChecked')
+			td(ng-bind='order.paid | payStatus', ng-show='ths[12].isChecked')
 			td(ng-bind='order.sumAmount', ng-show='ths[13].isChecked')
-			td(ng-bind='order.details', ng-show='ths[14].isChecked')
+			td(ng-bind='order.order_details', ng-show='ths[14].isChecked')
 			td
 				+tooltip('修改', 'top', 'update(employee)')
 					+glyphicon('pencil') &nbsp;
@@ -65,7 +73,7 @@ table.uu-table
 				+tooltip('导出', 'top', 'export()')
 					+glyphicon('comment')
 
-uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 订单详情Modal
 +modal('order-details', 'modal-xg')
