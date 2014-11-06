@@ -2,16 +2,15 @@
 
 ## 准备
 
-### 安装NodeJs和Ruby
+### 安装nodejs和ruby
 
-- 安装[NodeJS](http://www.nodejs.org/)
-- 安装[Ruby](http://rubyinstaller.org/)
+- 安装[nodejs](http://www.nodejs.org/)
+- 安装[ruby](http://rubyinstaller.org/)
 
-### 安装NodeJs和Ruby组件
+### 安装nodejs和ruby组件
 
-- 安装Grunt: `npm install -g grunt-cli && npm install -g bower`
-- 安装Compass: `gem install compass`
-- 安装Sass: `gem install sass`
+- 安装grunt和bower: `npm i -g grunt-cli bower`
+- 安装compass和sass: `gem install compass sass`
 
 ### 安装App依赖包
 cd 到根目录
@@ -19,19 +18,19 @@ cd 到根目录
 npm install && bower install
 ```
 
-### 运行
+## 运行
 cd 到根目录
 ```
 grunt serve
 ```
 
-### 发布到服务器端
+## 发布到服务器端
 cd 到根目录
 ```bash
 . uud.sh # 输入两次密码
 ```
 
-### grunt相关命令
+## grunt相关命令
 
 - 运行: `grunt serve`
 - 编译: `grunt build`
