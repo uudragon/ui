@@ -12,7 +12,7 @@
 - 安装grunt和bower: `npm i -g grunt-cli bower`
 - 安装compass和sass: `gem install compass sass`
 
-### 安装App依赖包
+### 安装app依赖包
 cd 到根目录
 ```
 npm install && bower install
