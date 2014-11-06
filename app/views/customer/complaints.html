@@ -50,7 +50,7 @@
     </div>
   </form>
 </div>
-<table class="uu-table">
+<table ng-show="complaintsOrders.length" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
@@ -62,7 +62,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="complaint in complaintsOrders | filter:filterPay">
+    <tr ng-repeat="complaint in complaintsOrders">
       <td ng-bind="complaint.customer.name" ng-show="ths[0].isChecked"></td>
       <td ng-show="ths[1].isChecked"><a href="" ng-click="showComplaint(complaint)" ng-bind="complaint.order_no" class="jslink"></a>
       </td>
@@ -78,7 +78,7 @@
     </tr>
   </tbody>
 </table>
-<uu-pagination records="meta.recordsCount" per-page="{{meta.pageSize}}" page="meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
+<uu-pagination records="complaintsOrders.meta.recordsCount" per-page="{{complaintsOrders.meta.pageSize}}" page="complaintsOrders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
 <div id="order-details" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

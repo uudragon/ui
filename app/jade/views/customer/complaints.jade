@@ -28,10 +28,10 @@ include ../../modules/mixins.jade
 include ../../modules/tri-search.jade
 
 //- 订单列表
-table.uu-table
+table.uu-table(ng-show='complaintsOrders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='complaint in complaintsOrders | filter:filterPay')
+		tr(ng-repeat='complaint in complaintsOrders')
 			td(ng-bind='complaint.customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showComplaint(complaint)')(ng-bind='complaint.order_no')
@@ -49,7 +49,7 @@ table.uu-table
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='meta.recordsCount', per-page='{{meta.pageSize}}' page='meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='{{complaintsOrders.meta.pageSize}}' page='complaintsOrders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 订单详情Modal
 +modal('order-details', 'modal-lg')
