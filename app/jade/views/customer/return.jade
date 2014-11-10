@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建投诉', 'top', 'addNewComplains()')
+		+tooltip('新建退货单', 'top', 'addNewReturnOrder()')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -28,34 +28,37 @@ include ../../modules/mixins.jade
 +linkage-search
 
 //- 订单列表
-table.uu-table(ng-show='complaintsOrders.length')
+table.uu-table
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='complaint in complaintsOrders')
-			td(ng-bind='complaint.customer.name', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-				+jslink('showComplaint(complaint)')(ng-bind='complaint.order_no')
-			td(ng-bind='complaint.customer.phone', ng-show='ths[2].isChecked')
-			td(ng-bind='complaint.customer.province', ng-show='ths[3].isChecked')
-			td(ng-bind='complaint.customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='complaint.order_type | complainType', ng-show='ths[5].isChecked')
-			td(ng-bind='complaint.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='complaint.create_time', ng-show='ths[7].isChecked')
-			td(ng-bind='complaint.contact_count', ng-show='ths[8].isChecked')
+		tr(ng-repeat='order in returnOrders')
+			td(ng-bind='order.customerName' ng-show='ths[0].isChecked')
+			td(ng-bind='order.orderSN' ng-show='ths[1].isChecked'): +jslink('showReturnOrder(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.customerPhone' ng-show='ths[2].isChecked')
+			td(ng-bind='order.customerPhone' ng-show='ths[3].isChecked')
+			td(ng-bind='order.province' ng-show='ths[4].isChecked')
+			td(ng-bind='order.city' ng-show='ths[5].isChecked')
+			td(ng-bind='order.email' ng-show='ths[6].isChecked')
+			td(ng-bind='order.payStatus' ng-show='ths[7].isChecked')
+			td(ng-bind='order.createTime' ng-show='ths[8].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[9].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[10].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[11].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[12].isChecked')
 			td
-				+tooltip('修改', 'top', 'showComplaintOrders(complaint)')
+				+tooltip('修改', 'top', 'editReturnOrder(order)')
 					+glyphicon('pencil') &nbsp;
 
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='{{complaintsOrders.meta.pageSize}}' page='complaintsOrders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='returnOrders.meta.recordsCount', per-page='{{returnOrders.meta.pageSize}}' page='returnOrders.meta.pageNo', model='searchModel', action='getOrderList()')
 
-//- 新建投诉Modal
+//- 新建退货单Modal
 +modal('complaint-details')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 新建投诉
+		h4.modal-title 新建退货单
 	.modal-body
 		form.form-horizontal.form-nowrap
 			fieldset
