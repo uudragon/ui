@@ -69,7 +69,7 @@ angular.module('mainApp')
 
 		// 搜索下拉
 		$scope.filters = [
-			{name: '所在省份', value: 1, subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
+			{name: '省份', value: 1, subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
 			{name: '城市', value: 2, input: true},
 			{name: '订单类型', value: 3, subfilters: [{name: '季度', value: 0}, {name: '半年度', value: 1}, {name: '年度', value: 2}, {name: '一次性周边', value: 3}]},
 			{name: '付款状态', value: 4, subfilters: [{name: '已付款', value: 1}, {name: '未付款', value: 2}]},
@@ -224,22 +224,18 @@ angular.module('mainApp')
 
 		// 搜索下拉
 		$scope.filters = [
-			{name: '所有投诉', value: 0},
-			{name: '我的投诉', value: 1},
-			{name: '下属的投诉', value: 2},
-			{name: '未处理的投诉', value: 3},
-			{name: '处理中的投诉', value: 4},
-			{name: '客户姓名', value: 5},
-			{name: '电话', value: 6},
-			{name: '城市', value: 7},
-			{name: '创建时间', value: 8},
-			{name: '联系次数', value: 9},
-			{name: '订单编号', value: 10},
-			{name: '订单状态', value: 11},
-			{name: '付款类别', value: 12},
-			{name: '付款状态', value: 13},
-			{name: '工单状态', value: 14},
-			{name: '投诉类型', value: 15},
+			{name: '所有投诉', value: 0, input: true},
+			{name: '投诉日期', value: 8, datetime: true},
+			{name: '客户姓名', value: 5, input: true},
+			{name: '联系电话', value: 1, input: true},
+			{name: '订单编号', value: 2, input: true},
+			{name: '省份', value: 1, subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
+			{name: '城市', value: 2, input: true},
+			{name: '投诉分类', value: 1, subfilters: [{name: '发票抬头错误', value: 31}, {name: '未开发票', value: 32}, {name: '开票时间长', value: 33}, {name: '发票丢失', value: 34}, {name: '客服态度不好', value: 35}, {name: '客服不专业', value: 36}, {name: '客服电话难打', value: 37}, {name: '物流慢', value: 38}, {name: '货物丢失', value: 39}, {name: '物品破损', value: 310}, {name: '快递态度', value: 311}]},
+            {name: '紧急程度', value: 1, subfilters: [{name: '一般', value: 1 }, {name: '优先', value: 2 }, {name: '紧急', value: 3 }]},
+			{name: '待处理', value: 9},
+			{name: '处理中', value: 10},
+			{name: '已完成', value: 11},
 		];
 
 		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
@@ -290,26 +286,23 @@ angular.module('mainApp')
 		};
 
 		// 新建投诉
-		$scope.addNewComplains = function(order) {
-			console.log(order);
-			$scope.contact = {
-				contactTime: $filter('now')(),
-				order_no: order.order_no,
-				phone: order.main_phone,
+		$scope.addNewComplains = function() {
+			$scope.complaint = {
+				contact_time: $filter('now')(),
 				type: 3,
+				theme: 2,
 				user: $scope.currentUser.userNo || 1 // for test
 			};
-			$('#contact-history').modal('show');
+			$('#complaint-details').modal('show');
 		};
 
-		// 保存投诉 (共用的jade, 就用这个名称了)
-		$scope.saveContact = function(contact) {
-			$http.post(config.baseurl + 'workform', contact)
+		// 保存投诉
+		$scope.saveComplaint = function(complaint) {
+			$http.post(config.baseurl + 'workform', complaint)
 				.success(function() {
-					$('#contact-history').modal('hide');
+					$('#complaint-history').modal('hide');
 				});
 		};
-
 
 		// 退换货
 		$scope.exchange = function() {
@@ -360,6 +353,27 @@ angular.module('mainApp')
 
 			console.log(selectedNodes);
 		};
+
+		$controller('CustomerServiceManager', {$scope: $scope});
+	}])
+	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
+
+		$scope.isAllThsShow = false;
+		$scope.ths = [
+			{name: 'customerName', label: '退货单号', isChecked: true},
+			{name: 'orderSN', label: '客户姓名', isChecked: true},
+			{name: 'customerPhone', label: '联系方式', isChecked: false},
+			{name: 'customerPhone', label: '家庭住址', isChecked: true},
+			{name: 'province', label: '订单编号', isChecked: false, sortable: true},
+			{name: 'city', label: '订购类型', isChecked: true},
+			{name: 'email', label: '退货原因', isChecked: true},
+			{name: 'payStatus', label: '退货日期', isChecked: false, sortable: true},
+			{name: 'createTime', label: '退货刊号', isChecked: true, sortable: true},
+			{name: 'contactTimes', label: '退货金额', isChecked: true},
+			{name: 'contactTimes', label: '到库状态', isChecked: true},
+			{name: 'contactTimes', label: '退货结果', isChecked: true},
+			{name: 'contactTimes', label: '退货类别', isChecked: true},
+		];
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])

@@ -148,6 +148,11 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		templateUrl: 'views/customer/complaints.html',
 		controller: 'Complains'
 	})
+	.state('root.customer.return', {
+		url: '/return',
+		templateUrl: 'views/customer/return.html',
+		controller: 'Return'
+	})
 	.state('root.customer.customers', {
 		url: '/customer-pool',
 		templateUrl: 'views/customer/customerpool.html',
