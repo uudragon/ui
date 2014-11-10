@@ -125,6 +125,19 @@ angular.module('mainApp')
 		}
 	};
 })
+.filter('customerStatus', function() {
+	return function (num) {
+
+		switch (parseInt(num, 10)) {
+			case 1:
+				return '潜在客户';
+			case 2:
+				return '普通客户';
+			default:
+				break;
+		}
+	};
+})
 .filter('week', function() {
 	return function (num) {
 		switch (num.toString()) {

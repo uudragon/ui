@@ -77,7 +77,7 @@ mixin plain-textarea(title, id)
 mixin select(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'], ng-options=attributes[ng-options])
 			block
 
 //- 3 label, 7 from-control, multi-row

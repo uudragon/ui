@@ -23,10 +23,10 @@ include ../../modules/mixins.jade
 
 //- 订单列表过滤条件
 - var filters = []
-- filters.push({label: '所有', value: '""'})
-- filters.push({label: '已分配', value: 0})
-- filters.push({label: '未分配', value: 1})
-+article-header-filter('isAssigned', filters)
+- filters.push({label: '所有', value: ''})
+- filters.push({label: '已分配', value: 1})
+- filters.push({label: '未分配', value: 2})
++article-header-filter('searchModel.isAllot', filters)
 
 //- 功能区
 .article-header-operate
@@ -35,29 +35,29 @@ include ../../modules/mixins.jade
 
 //- 客户列表
 table.uu-table
-	+theadplus('orders')(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	+theadplus('customers')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders | filter:filterPay')
-			+tdchecker('orders', 'order')(ng-model='order.isChecked')
-			td(ng-bind='order.customerName', ng-show='ths[0].isChecked')
+		tr(ng-repeat='customer in customers')
+			+tdchecker('customers', 'customer')(ng-model='customer.isChecked')
+			td(ng-bind='customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
-				+jslink('showComplaintOrders(order)')(ng-bind='order.orderSN')
-			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.customerPhone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.province', ng-show='ths[3].isChecked')
-			td(ng-bind='order.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.email', ng-show='ths[5].isChecked')
-			td(ng-bind='order.checkStatus | orderStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.createTime', ng-show='ths[7].isChecked')
-			td(ng-bind='order.contactTimes', ng-show='ths[8].isChecked')
+				+jslink('showOrder(customer)')(ng-bind='customer.code')
+			td(ng-bind='customer.phone', ng-show='ths[2].isChecked')
+			td(ng-bind='customer.main_phone', ng-show='ths[2].isChecked')
+			td(ng-bind='customer.province', ng-show='ths[3].isChecked')
+			td(ng-bind='customer.city', ng-show='ths[4].isChecked')
+			td(ng-bind='customer.email', ng-show='ths[5].isChecked')
+			td(ng-bind='customer.type | customerStatus', ng-show='ths[6].isChecked')
+			td(ng-bind='customer.create_time', ng-show='ths[7].isChecked')
+			td(ng-bind='customer.contact_times', ng-show='ths[8].isChecked')
 			td
-				+tooltip('修改', 'top', 'showComplaintOrders(order)')
+				+tooltip('修改', 'top', 'showComplaintcustomers(customer)')
 					+glyphicon('pencil') &nbsp;
 
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='102', page='currentPage', model='searchModel', action='getOrders()')
+uu-pagination(records='customers.meta.recordsCount', per-page='{{customers.meta.pageSize}}' page='customers.meta.pageNo', model='searchModel', action='getCustomerList()')
 
 //- 批量分配
 +modal('batch-assgin')
@@ -70,18 +70,18 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 				.form-group(ng-show='getSelectedCustomers().length === 1')
 					label.control-label.col-xs-3(for='form-responser') 将客户:
 					.col-xs-7
-						p.form-static {{selectedCustomers[0].customerName}}
+						p.form-static {{selectedCustomers[0].name}}
 				.form-group
 					label.control-label.col-xs-3(for='form-responser', ng-show='getSelectedCustomers().length !== 1') 选择负责人
 					label.control-label.col-xs-3(for='form-responser', ng-show='getSelectedCustomers().length === 1') 分配给
 					.col-xs-7
-						select.form-control.input-sm(id='form-responser', name='responser', ng-model='responser')
+						select.form-control.input-sm(id='form-responser', name='responser', ng-model='batchResponser', ng-options='user.userNo as user.name for user in resUsers')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveOrder()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveBatchAssign()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
-//- 批量分配
+//- 批量领取
 +modal('batch-pick')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
@@ -91,10 +91,10 @@ uu-pagination(records='102', page='currentPage', model='searchModel', action='ge
 			fieldset
 				label.control-label.col-xs-3(for='form-responser') 领取客户:
 				.col-xs-7
-					p.form-static {{selectedCustomers[0].customerName}}
+					p.form-static {{selectedCustomers[0].name}}
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveOrder()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveBatchPick()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

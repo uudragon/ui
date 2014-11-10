@@ -377,9 +377,9 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
-	.controller('CustomerPool', ['$scope', '$controller', function($scope, $controller) {
-		var $returnOrder = $('#return-order');
-		var $tree = $('#tree');
+	.controller('CustomerPool', ['$scope', '$controller', 'Restangular', function($scope, $controller, Restangular) {
+		var Customer = Restangular.all('customer');
+		var User = Restangular.all('user');
 
 		$scope.isAllThsShow = true;
 		$scope.ths = [
@@ -395,9 +395,28 @@ angular.module('mainApp')
 			{name: 'contactTimes', label: '联系次数', isChecked: true}
 		];
 
+		// 获取投诉列表
+		$scope.getCustomerList = function() {
+			$scope.isAllChecked = false;
+			$scope.customers = Customer.getList({
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo,
+				is_allot: $scope.searchModel.isAllot
+			}).$object;
+		};
+
+		// 状态快速查询按钮
+		$scope.$watch('searchModel.isAllot', function(current, prev) {
+			if (current !== prev) {
+				$scope.searchModel.pageNo = 1;
+				$scope.getCustomerList();
+			}
+		});
+
+		// 获取选中的客户
 		$scope.getSelectedCustomers = function() {
 			$scope.selectedCustomers = [];
-			angular.forEach($scope.orders, function(customer) {
+			angular.forEach($scope.customers, function(customer) {
 				if (customer.isChecked) {
 					$scope.selectedCustomers.push(customer);
 				}
@@ -405,13 +424,54 @@ angular.module('mainApp')
 			return $scope.selectedCustomers;
 		};
 
-		$scope.batchAssign = function(order) {
-			$('#batch-assgin').modal('show');
+		// 批量分配
+		$scope.batchAssign = function() {
+			$scope.getSelectedCustomers();
+			if ($scope.selectedCustomers.length) {
+				User.getList().then(function(users) {
+					$scope.resUsers = users;
+					$('#batch-assgin').modal('show');
+				});
+			}
 		};
 
-		$scope.batchPick = function(order) {
-			$('#batch-pick').modal('show');
+		$scope.saveBatchAssign = function() {
+			var userIds = [];
+			angular.forEach($scope.selectedCustomers, function(customer) {
+				userIds.push(customer.id);
+			});
+
+			Customer.doPUT({
+				manager: $scope.batchResponser,
+				ids: userIds.join(',')
+			}).then(function() {
+				$('#batch-assgin').modal('hide');
+			});
 		};
+
+		// 批量领取
+		$scope.batchPick = function() {
+			$scope.getSelectedCustomers();
+			if ($scope.selectedCustomers.length) {
+				$('#batch-pick').modal('show');
+			}
+		};
+
+		$scope.saveBatchPick = function() {
+			var userIds = [];
+			angular.forEach($scope.selectedCustomers, function(customer) {
+				userIds.push(customer.id);
+			});
+
+			Customer.doPUT({
+				manager: $scope.currentUser.userNo,
+				ids: userIds.join(',')
+			}).then(function() {
+				$('#batch-assgin').modal('hide');
+			});
+		};
+
+		$scope.getCustomerList();
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}]);
