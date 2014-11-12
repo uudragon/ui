@@ -1,0 +1,200 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('新建调货单', 'top', 'addNewExchangeOrder()')
+			+glyphicon('plus')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+	li
+		+tooltip('过滤条件', 'top')(class='dropdown-toggle')
+			+glyphicon('filter')
+		ul.dropdown-menu(role="menu")
+			each filter in ['当日投诉', '本月投诉', '处理中的投诉', '紧急投诉']
+				li
+					a(href='')=filter
+
+
+//- 搜索
+include ../../modules/tri-search.jade
+
+//- 订单列表过滤条件
+- var filters = []
+- filters.push({label: '所有', value: ''})
+- filters.push({label: '申请中', value: 1})
+- filters.push({label: '已调换', value: 2})
+- filters.push({label: '未调换', value: 3})
++article-header-filter('searchModel.status', filters)
+
+//- 订单列表
+table.uu-table
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='order in returnOrders')
+			td(ng-bind='order.customerName' ng-show='ths[0].isChecked')
+			td(ng-bind='order.orderSN' ng-show='ths[1].isChecked'): +jslink('showReturnOrder(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.customerPhone' ng-show='ths[2].isChecked')
+			td(ng-bind='order.customerPhone' ng-show='ths[3].isChecked')
+			td(ng-bind='order.province' ng-show='ths[4].isChecked')
+			td(ng-bind='order.city' ng-show='ths[5].isChecked')
+			td(ng-bind='order.email' ng-show='ths[6].isChecked')
+			td(ng-bind='order.payStatus' ng-show='ths[7].isChecked')
+			td(ng-bind='order.createTime' ng-show='ths[8].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[9].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[10].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[11].isChecked')
+			td(ng-bind='order.contactTimes' ng-show='ths[12].isChecked')
+			td
+				+tooltip('修改', 'top', 'editReturnOrder(order)')
+					+glyphicon('pencil') &nbsp;
+
+				+tooltip('发送消息', 'top')
+					+glyphicon('comment')
+
+uu-pagination(records='returnOrders.meta.recordsCount', per-page='{{returnOrders.meta.pageSize}}' page='returnOrders.meta.pageNo', model='searchModel', action='getOrderList()')
+
+
+//- 订单详情Modal
++modal('order-details', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 核实订单
+	.modal-body
+		form.form-horizontal
+			+order-details
+			fieldset
+				legend 订单
+				table.uu-table
+					+thead
+						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '操作']
+							th=th
+					tbody
+						tr(ng-repeat='order in currentOrder.complaintOrders')
+							td(ng-bind='order.orderSN')
+							td(ng-bind='order.customerName')
+							td(ng-bind='order.orderType')
+							td(ng-bind='order.createTime')
+							td(ng-bind='order.payWay')
+							td(ng-bind='order.payStatus')
+							td(ng-bind='order.birthday')
+							td(ng-bind='order.payStatus | payStatus')
+							td
+								+tooltip('调换', 'top', 'exchange(order)')
+									+glyphicon('gift') &nbsp;
+
+								+tooltip('退货', 'top', 'return(order)')
+									+glyphicon('export')
+
+			p
+				ul.list-inline
+					li 联系记录
+					li
+						+tooltip('新建联系记录', 'top', 'addNewComplains(currentOrder)')
+							+glyphicon('plus')
+
+//- 调货Modal
++modal('form-exchange', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 调货
+	.modal-body
+		form.form-horizontal.form-nowrap
+			fieldset
+				.row
+					+hgroup
+						+input('客户姓名', 'goodCode')(ng-model='exchange.code')
+					+hgroup
+						+input('联系方式', 'goodNum')(ng-model='exchange.num')
+				.row
+					+hgroup
+						+input('收货地址', 'goodCode')(ng-model='exchange.code')
+					+hgroup
+						+input('订单编号', 'goodNum')(ng-model='exchange.num')
+				.row
+					+hgroup
+						+input('订单刊号', 'goodCode')(ng-model='exchange.code')
+					+hgroup
+						+input('订单刊数', 'goodNum')(ng-model='exchange.num')
+				.row
+					+hgroup
+						+input('已收货刊号', 'goodCode')(ng-model='exchange.code')
+					+hgroup
+						+input('未收货刊号', 'goodCode')(ng-model='exchange.code')
+				.row
+					+hgroup
+						+input('申请调换刊', 'subscribeNum')(ng-model='exchange.subscribeNum')
+					+hgroup
+						+select('调换类别', 'subscribeAmount')(ng-model='exchange.sdfasdfadsf')
+							+option('绘本', 11)
+							+option('玩具', 12)
+				.row
+					+hgroup
+						+select('申请调换科目', 'subscribeAmount')(ng-model='exchange.sdd')
+							+option('汉语小镇', 11)
+							+option('数理摩天轮', 12)
+							+option('入学准备书', 12)
+							+option('科学探索营', 12)
+							+option('DVD', 12)
+					+hgroup
+						+input('调换数量', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+
+				.row
+					+hgroup
+						+select('调换原因', 'return-reason')(ng-model='exchange.phoneStatus')
+							+option('破损', 1)
+							+option('缺漏', 2)
+					+hgroup
+						+select('调换进度', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+							+option('申请中', 0)
+							+option('发货中', 1)
+							+option('已完成', 1)
+				.row
+					+hgroup
+						+select('调换结果', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+							+option('已调换', 0)
+							+option('未调换', 1)
+					+hgroup
+						+select('是否已入库', 'urgency')(ng-model='user.urgency')
+							+option('是', 0)
+							+option('否', 1)
+				.row
+					+hgroup
+						+input('发货状态', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+					+hgroup
+						+select('是否单独发货', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+							+option('是', 0)
+							+option('否', 1)
+				.row
+					+hgroup
+						+input('运费金额', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+					+hgroup
+						+select('运费承担人', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+							+option('客户', 1)
+							+option('公司', 2)
+							+option('快递公司', 3)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 确认并共享
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//- 核实订单Modal
+include ../../modules/contact-history.jade
+
+//- 共享Modal
++submodal('share-order')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 共享
+	.modal-body
+		form.form-horizontal
+			fieldset
+				#tree
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveOrder()') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//- 更改显示列
+include ../../modules/table-ths.jade

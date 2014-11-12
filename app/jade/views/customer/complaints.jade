@@ -19,9 +19,11 @@ include ../../modules/mixins.jade
 //- 订单列表过滤条件
 - var filters = []
 - filters.push({label: '所有', value: ''})
-- filters.push({label: '未处理', value: 1})
-- filters.push({label: '处理中', value: 2})
-- filters.push({label: '关闭', value: 3})
+- filters.push({label: '今日新增', value: 1})
+- filters.push({label: '未处理', value: 2})
+- filters.push({label: '处理中', value: 3})
+- filters.push({label: '已完成', value: 4})
+- filters.push({label: '非常紧急', value: 5})
 +article-header-filter('searchModel.status', filters)
 
 //- 搜索
@@ -124,81 +126,6 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='{{complain
 						+tooltip('新建联系记录', 'top', 'addNewComplains(currentOrder)')
 							+glyphicon('plus')
 
-//- 调货Modal
-+submodal('return-order', 'modal-lg')
-	.modal-header
-		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 调货
-	.modal-body
-		form.form-horizontal.form-nowrap
-			fieldset
-				.row
-					+hgroup
-						+input('刊号', 'goodCode')(ng-model='goods.code')
-					+hgroup
-						+input('刊数', 'goodNum')(ng-model='goods.num')
-				.row
-					+hgroup
-						+input('实际订阅刊数', 'subscribeNum')(ng-model='good.subscribeNum')
-					+hgroup
-						+input('实际订阅金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
-						+input('合同金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
-						+input('已收金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
-						+input('已发货未收金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
-						+input('刊数', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
-						+input('办理手续费', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
-						+input('承担人', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
-						+input('退款手续费', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
-						+input('承担人', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
-						+input('退款金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
-						+input('实际退款金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
-						+input('退款帐号', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
-						+input('开户行', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
-						+select('退订原因', 'return-reason')(ng-model='goods.phoneStatus')
-							+option('价格贵,收入低', 1)
-							+option('价格贵,性价比不高', 2)
-							+option('内容简单', 3)
-							+option('内容太难', 4)
-							+option('内容太普通,不感兴趣', 5)
-							+option('学校老师教,发了同类产品', 6)
-							+option('家人说不好', 7)
-							+option('内容量太少', 8)
-							+option('孩子不喜欢', 9)
-							+option('质量不好', 10)
-							+option('物流太慢', 11)
-							+option('客服态度不好', 12)
-							+option('书本缺页', 13)
-							+option('赠品缺漏', 14)
-							+option('玩具缺漏', 15)
-							+option('光盘损坏', 16)
-				.row
-					+hgroup
-						+select('是否到库', 'urgency')(ng-model='user.urgency')
-							+option('是', 0)
-							+option('否', 1)
-	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 确认并共享
-		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 核实订单Modal
 include ../../modules/contact-history.jade

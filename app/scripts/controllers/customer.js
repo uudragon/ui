@@ -314,6 +314,43 @@ angular.module('mainApp')
 			$returnOrder.modal('show');
 		};
 
+		$scope.saveOrder = function(order) {
+			var
+				tree = $tree.fancytree('getTree'),
+				selectedNodes = tree.getSelectedNodes();
+
+			console.log(selectedNodes);
+		};
+
+		$controller('CustomerServiceManager', {$scope: $scope});
+	}])
+	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
+
+		var $tree = $('#tree');
+
+		// ths
+		$scope.isAllThsShow = false;
+		$scope.ths = [
+			{name: 'customerName', label: '退货单号', isChecked: true},
+			{name: 'orderSN', label: '客户姓名', isChecked: true},
+			{name: 'customerPhone', label: '联系方式', isChecked: false},
+			{name: 'customerPhone', label: '家庭住址', isChecked: true},
+			{name: 'province', label: '订单编号', isChecked: false, sortable: true},
+			{name: 'city', label: '订购类型', isChecked: true},
+			{name: 'email', label: '退货原因', isChecked: true},
+			{name: 'payStatus', label: '退货日期', isChecked: false, sortable: true},
+			{name: 'createTime', label: '退货刊号', isChecked: true, sortable: true},
+			{name: 'contactTimes', label: '退货金额', isChecked: true},
+			{name: 'contactTimes', label: '到库状态', isChecked: true},
+			{name: 'contactTimes', label: '退货结果', isChecked: true},
+			{name: 'contactTimes', label: '退货类别', isChecked: true},
+		];
+
+		// 新建退货单
+		$scope.addNewReturnOrder = function() {
+			$('#form-return').modal('show');
+		};
+
 		$scope.confirmAndShare =function() {
 			$('#share-order').modal('show');
 
@@ -346,34 +383,70 @@ angular.module('mainApp')
 			});
 		};
 
-		$scope.saveOrder = function(order) {
-			var
-				tree = $tree.fancytree('getTree'),
-				selectedNodes = tree.getSelectedNodes();
-
-			console.log(selectedNodes);
-		};
-
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])
-	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
+	.controller('Exchange', ['$scope', '$controller', function($scope, $controller) {
 
+		var $tree = $('#tree');
+
+		// 搜索下拉
+		$scope.filters = [{name: '所有换货', value: 0}, {name: '当日换货', value: 1}, {name: '申请中', value: 1}, {name: '当日换货', value: 1}, {name: '发货中', value: 1}, {name: '未调换', value: 1}, {name: '已调换', value: 1} ];
+		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
+
+		// ths
 		$scope.isAllThsShow = false;
 		$scope.ths = [
-			{name: 'customerName', label: '退货单号', isChecked: true},
+			{name: 'customerName', label: '调货单号', isChecked: true},
 			{name: 'orderSN', label: '客户姓名', isChecked: true},
 			{name: 'customerPhone', label: '联系方式', isChecked: false},
 			{name: 'customerPhone', label: '家庭住址', isChecked: true},
 			{name: 'province', label: '订单编号', isChecked: false, sortable: true},
 			{name: 'city', label: '订购类型', isChecked: true},
-			{name: 'email', label: '退货原因', isChecked: true},
-			{name: 'payStatus', label: '退货日期', isChecked: false, sortable: true},
-			{name: 'createTime', label: '退货刊号', isChecked: true, sortable: true},
-			{name: 'contactTimes', label: '退货金额', isChecked: true},
+			{name: 'city', label: '调换类型', isChecked: true},
+			{name: 'city', label: '调换科目', isChecked: true},
+			{name: 'email', label: '调换刊号', isChecked: true},
+			{name: 'email', label: '调换数量', isChecked: true},
 			{name: 'contactTimes', label: '到库状态', isChecked: true},
-			{name: 'contactTimes', label: '退货结果', isChecked: true},
-			{name: 'contactTimes', label: '退货类别', isChecked: true},
+			{name: 'contactTimes', label: '发货状态', isChecked: true},
+			{name: 'contactTimes', label: '调换进度', isChecked: true},
+			{name: 'contactTimes', label: '调换结果', isChecked: true}
 		];
+
+		$scope.addNewExchangeOrder = function() {
+			$('#form-exchange').modal('show');
+		};
+
+		$scope.confirmAndShare =function() {
+			$('#share-order').modal('show');
+
+			var treeSourece = [
+				{
+					'title': '财务部', 'key': '1', 'fold': true, 'children': [
+						{'title': 'test1', 'key': '3'},
+						{'title': 'test2', 'key': '4'}
+					]
+				},
+				{
+					'title': '库房部', 'key': '2', 'fold': true, 'children': [
+						{'title': 'test1', 'key': '3'},
+						{'title': 'test2', 'key': '4'}
+					]
+				},
+				{
+					'title': '投诉组', 'key': '3', 'fold': true, 'children': [
+						{'title': 'test1', 'key': '3'},
+						{'title': 'test2', 'key': '4'}
+					]
+				}
+			];
+			$tree.fancytree({
+				source: treeSourece,
+				selectMode: 3,
+				clickFolderMode: 2,
+				icons: false,
+				checkbox: true
+			});
+		};
 
 		$controller('CustomerServiceManager', {$scope: $scope});
 	}])

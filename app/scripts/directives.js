@@ -905,12 +905,18 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			svg.selectAll('.bar')
 				.data(data)
 				.enter().append('rect')
-				.attr('class', 'bar')
-				.attr('x', function(d) { return x(d.name); })
-				.attr('width', x.rangeBand())
-				.attr('y', function(d) { return y(d.value); })
-				.attr('height', function(d) { return height - y(d.value); });
-
+				.attr({
+					y: height,
+					height: 0
+				})
+				.transition()
+				.attr({
+					class: 'bar',
+					x: function(d) { return x(d.name); },
+					y: function(d) { return y(d.value); },
+					width: x.rangeBand(),
+					height: function(d) { return height - y(d.value); }
+				});
 
 			function type(d) {
 			  d.value = +d.value;
