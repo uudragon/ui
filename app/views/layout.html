@@ -58,7 +58,7 @@
     <div class="row">
       <div class="col-xs-2 left-sidebar">
         <ul uu-sidebar="" class="nav nav-sections">
-          <li class="section-item"><a class="nav-sections-label">商务客服</a>
+          <li class="section-item open"><a class="nav-sections-label">商务客服</a>
             <ul class="nav nav-navs">
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.customer&quot;)}" uu-auth-filter="01" class="nav-item"><a class="nav-menu-label">客户服务</a>
                 <ul role="menu" class="nav nav-menu">
@@ -86,7 +86,7 @@
                   <li><a ui-sref="root.data.statistics" ng-class="{active: $state.is(&quot;root.data.statistics&quot;)}">统计</a></li>
                 </ul>
               </li>
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.qa.list&quot;)}" uu-auth-filter="02" class="nav-item"><a class="nav-menu-label">知识库</a>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.qa&quot;)}" uu-auth-filter="02" class="nav-item"><a class="nav-menu-label">知识库</a>
                 <ul role="menu" class="nav nav-menu">
                   <li><a ui-sref="root.knowledge.presale" ng-class="{active: $state.is(&quot;root.knowledge.presale&quot;)}">售前服务</a></li>
                   <li><a ui-sref="root.knowledge.aftersale" ng-class="{active: $state.is(&quot;root.knowledge.aftersale&quot;)}">售后服务</a></li>
@@ -97,6 +97,32 @@
           </li>
           <li class="section-item"><a class="nav-sections-label">库存管理</a>
             <ul class="nav nav-navs">
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.product&quot;)}" uu-auth-filter="03" class="nav-item"><a class="nav-menu-label">产品管理</a>
+                <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.product.commodity" ng-class="{active: $state.is(&quot;root.product.commodity&quot;)}">商品定义</a></li>
+                  <li><a ui-sref="root.product.goods" ng-class="{active: $state.is(&quot;root.product.goods&quot;)}">产品定义</a></li>
+                </ul>
+              </li>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.commodity&quot;)}" uu-auth-filter="04" class="nav-item"><a class="nav-menu-label">入库管理</a>
+                <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.commodity.storage" ng-class="{active: $state.is(&quot;root.commodity.storage&quot;)}">商品入库</a></li>
+                </ul>
+              </li>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.warehouse&quot;)}" uu-auth-filter="04" class="nav-item"><a class="nav-menu-label">出库管理</a>
+                <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.order.distrib" ng-class="{active: $state.is(&quot;root.order.distrib&quot;)}">订单配货</a></li>
+                  <li><a ui-sref="root.order.adjust" ng-class="{active: $state.is(&quot;root.order.adjust&quot;)}">换货调整</a></li>
+                  <li><a ui-sref="root.order.print" ng-class="{active: $state.is(&quot;root.order.print&quot;)}">打印出库单</a></li>
+                  <li><a ui-sref="root.order.port" ng-class="{active: $state.is(&quot;root.order.port&quot;)}">调货出库</a></li>
+                </ul>
+              </li>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.storehouse&quot;)}" uu-auth-filter="04" class="nav-item"><a class="nav-menu-label">库房管理</a>
+                <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.storehouse.define" ng-class="{active: $state.is(&quot;root.storehouse.define&quot;)}">库房定义</a></li>
+                  <li><a ui-sref="root.storehouse.audit" ng-class="{active: $state.is(&quot;root.storehouse.audit&quot;)}">出入库记录</a></li>
+                  <li><a ui-sref="root.storehouse.remain" ng-class="{active: $state.is(&quot;root.storehouse.remain&quot;)}">剩余数量</a></li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li class="section-item"><a class="nav-sections-label">经销商管理</a>

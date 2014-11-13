@@ -42,6 +42,16 @@
 	.section-item {
 		margin-top: -1px;
 
+		ul {
+			display: none;
+		}
+
+		&.open {
+			> ul {
+				display: block;
+			}
+		}
+
 		> a {
 			font-weight: bold;
 			font-size: 1.2em;

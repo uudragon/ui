@@ -28,11 +28,38 @@
 - subnavs.push({href: 'root.knowledge.presale', label: '售前服务'})
 - subnavs.push({href: 'root.knowledge.aftersale', label: '售后服务'})
 - subnavs.push({href: 'root.knowledge.qa', label: '常见问题'})
-- navs.push({href: 'root.qa.list', label: '知识库', auth: '02', subnavs: subnavs})
+- navs.push({href: 'root.qa', label: '知识库', auth: '02', subnavs: subnavs})
 
 - sections.push({navs: navs, label: '商务客服'})
 
+//- 产品管理
 - navs = []
+- subnavs = []
+- subnavs.push({href: 'root.product.commodity', label: '商品定义'})
+- subnavs.push({href: 'root.product.goods', label: '产品定义'})
+- navs.push({href: 'root.product', label: '产品管理', auth: '03', subnavs: subnavs})
+
+//- 入库
+- subnavs = []
+- subnavs.push({href: 'root.commodity.storage', label: '商品入库'})
+- navs.push({href: 'root.commodity', label: '入库管理', auth: '04', subnavs: subnavs})
+
+//- 出库管理
+- subnavs = []
+- subnavs.push({href: 'root.order.distrib', label: '订单配货'})
+- subnavs.push({href: 'root.order.adjust', label: '换货调整'})
+- subnavs.push({href: 'root.order.print', label: '打印出库单'})
+- subnavs.push({href: 'root.order.port', label: '调货出库'})
+- navs.push({href: 'root.warehouse', label: '出库管理', auth: '04', subnavs: subnavs})
+
+//- 出库管理
+- subnavs = []
+- subnavs.push({href: 'root.storehouse.define', label: '库房定义'})
+- subnavs.push({href: 'root.storehouse.audit', label: '出入库记录'})
+- subnavs.push({href: 'root.storehouse.remain', label: '剩余数量'})
+- navs.push({href: 'root.storehouse', label: '库房管理', auth: '04', subnavs: subnavs})
+
+
 - sections.push({navs: navs, label: '库存管理'})
 
 - navs = []
@@ -42,8 +69,11 @@
 - sections.push({navs: navs, label: '财务管理'})
 
 ul.nav.nav-sections(uu-sidebar='')
-	each section in sections
-		li.section-item
+	each section, index in sections
+		- var openClass = ''
+		if index === 0
+			- openClass = 'open'
+		li.section-item(class!=openClass)
 			a.nav-sections-label=section.label
 			ul.nav.nav-navs
 				each nav in section.navs
