@@ -1,0 +1,90 @@
+
+<div class="clearfix">
+  <ul class="action-bar">
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建"><span class="glyphicon glyphicon-plus"></span></a>
+      <ul role="menu" class="dropdown-menu">
+        <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
+        </li>
+        <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
+        </li>
+      </ul>
+    </li>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    </li>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+      <ul role="menu" class="dropdown-menu">
+        <li><a href="">本月处理订单</a></li>
+        <li><a href="">当日处理订单</a></li>
+        <li><a href="">当日未处理订单</a></li>
+        <li><a href="">当日完结订单</a></li>
+        <li><a href="">预约客户订单</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="action-bar pull-right">
+    <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+    </li>
+    <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+    </li>
+  </ul>
+</div>
+<h3>新建来电工单</h3>
+<hr/>
+<form class="form-horizontal">
+  <fieldset>
+    <div class="form-group col-xs-6">
+      <label for="form-name" class="control-label col-xs-3">客户姓名</label>
+      <div class="col-xs-7">
+        <input id="form-name" ng-model="globalNewOrder.name" class="form-control input-sm"/>
+      </div>
+    </div>
+    <div class="form-group col-xs-6">
+      <label for="form-order-status" class="control-label col-xs-3">工单状态</label>
+      <div class="col-xs-7">
+        <select id="form-order-status" ng-model="globalNewOrder.orderStatus" class="form-control input-sm">
+          <option value="0">已完成</option>
+          <option value="0">处理中</option>
+          <option value="0">待处理</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group col-xs-6">
+      <label class="control-label col-xs-3">来电时间</label>
+      <div class="col-xs-7">
+        <p ng-bind="globalNewOrder.callTime" class="form-control-static"></p>
+      </div>
+    </div>
+    <div class="form-group col-xs-6">
+      <label for="form-responser" class="control-label col-xs-3">负责人</label>
+      <div class="col-xs-7">
+        <input id="form-responser" ng-model="globalNewOrder.responser" class="form-control input-sm"/>
+      </div>
+    </div>
+    <div class="form-group col-xs-6">
+      <label for="form-query-type" class="control-label col-xs-3">查询类型</label>
+      <div class="col-xs-7">
+        <select id="form-query-type" ng-model="globalNewOrder.queryType" class="form-control input-sm">
+          <option value="0">产品</option>
+          <option value="0">售后服务</option>
+          <option value="0">订购</option>
+          <option value="0">支付</option>
+          <option value="0">物流</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group col-xs-6">
+      <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
+      <div class="col-xs-7">
+        <input id="form-telphone" ng-model="globalNewOrder.telphone" class="form-control input-sm"/>
+      </div>
+    </div>
+    <div class="form-group col-xs-12 order-content">
+      <label for="form-content" class="control-label">内容</label>
+      <textarea id="form-content" ng-model="globalNewOrder.content" class="form-control"></textarea>
+    </div>
+    <div class="form-group col-xs-12 group-center-block">
+      <button ng-click="confirmAndShare()" class="btn uu-btn btn-primary">保存</button>
+      <button data-dismiss="modal" class="btn uu-btn">取消</button>
+    </div>
+  </fieldset>
+</form>

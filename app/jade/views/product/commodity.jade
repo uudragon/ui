@@ -1,0 +1,53 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('新建', 'top')
+			+glyphicon('plus')
+		ul.dropdown-menu(role="menu")
+			li
+				+jslink('globalNewOrder()', '新建订单')
+			li
+				+jslink('globalNewTicket()', '新建工单')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+	li
+		+tooltip('过滤条件', 'top')(class='dropdown-toggle')
+			+glyphicon('filter')
+		ul.dropdown-menu(role="menu")
+			each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单', '预约客户订单']
+				li
+					a(href='')=filter
+
++pagetitle('新建来电工单')
+
+form.form-horizontal
+	fieldset
+		.form-group.col-xs-6
+			+input('客户姓名', 'name')(ng-model='globalNewOrder.name')
+		.form-group.col-xs-6
+			+select('工单状态', 'order-status')(ng-model='globalNewOrder.orderStatus')
+				+option('已完成', 0)
+				+option('处理中', 0)
+				+option('待处理', 0)
+		.form-group.col-xs-6
+			+static-input('来电时间')(ng-bind='globalNewOrder.callTime')
+		.form-group.col-xs-6
+			+input('负责人', 'responser')(ng-model='globalNewOrder.responser')
+		.form-group.col-xs-6
+			+select('查询类型', 'query-type')(ng-model='globalNewOrder.queryType')
+				+option('产品', 0)
+				+option('售后服务', 0)
+				+option('订购', 0)
+				+option('支付', 0)
+				+option('物流', 0)
+		.form-group.col-xs-6
+			+input('联系电话', 'telphone')(ng-model='globalNewOrder.telphone')
+		.form-group.col-xs-12.order-content
+			+plain-textarea('内容', 'content')(ng-model='globalNewOrder.content')
+
+		.form-group.col-xs-12.group-center-block
+			button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 保存
+			button.btn.uu-btn(data-dismiss='modal') 取消

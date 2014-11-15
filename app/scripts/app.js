@@ -281,6 +281,96 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		url: '/batchmsg',
 		templateUrl: 'views/utils/batchmsg.html',
 		controller: 'Batchmsg'
+	})
+
+	/////////////
+	// Product //
+	/////////////
+
+	.state('root.product', {
+		url: 'product',
+		templateUrl: 'views/product/layout.html',
+		controller: 'ProductCtrl'
+	})
+	.state('root.product.commodity', {
+		url: '/commodity',
+		templateUrl: 'views/product/commodity.html',
+		controller: 'Commodity'
+	})
+	.state('root.product.goods', {
+		url: '/goods',
+		templateUrl: 'views/product/goods.html',
+		controller: 'Goods'
+	})
+
+	///////////////
+	// Commodity //
+	///////////////
+
+	.state('root.commodity', {
+		url: 'commodity',
+		templateUrl: 'views/commodity/layout.html',
+		controller: 'CommodityCtrl'
+	})
+	.state('root.commodity.storage', {
+		url: '/storage',
+		templateUrl: 'views/commodity/storage.html',
+		controller: 'Storage'
+	})
+
+	///////////
+	// Order //
+	///////////
+
+	.state('root.order', {
+		url: 'order',
+		templateUrl: 'views/order/layout.html',
+		controller: 'OrderCtrl'
+	})
+	.state('root.order.distrib', {
+		url: '/distrib',
+		templateUrl: 'views/order/distrib.html',
+		controller: 'Distrib'
+	})
+	.state('root.order.adjust', {
+		url: '/adjust',
+		templateUrl: 'views/order/adjust.html',
+		controller: 'Adjust'
+	})
+	.state('root.order.print', {
+		url: '/print',
+		templateUrl: 'views/order/print.html',
+		controller: 'Print'
+	})
+	.state('root.order.port', {
+		url: '/port',
+		templateUrl: 'views/order/port.html',
+		controller: 'Port'
+	})
+
+	////////////////
+	// Storehouse //
+	////////////////
+
+	.state('root.storehouse', {
+		url: 'storehouse',
+		templateUrl: 'views/storehouse/layout.html',
+		controller: 'StorehouseCtrl'
+	})
+	.state('root.storehouse.define', {
+		url: '/define',
+		templateUrl: 'views/storehouse/define.html',
+		controller: 'Define'
+	})
+	.state('root.storehouse.audit', {
+		url: '/audit',
+		templateUrl: 'views/storehouse/audit.html',
+		controller: 'Audit'
+	})
+	.state('root.storehouse.remain', {
+		url: '/remain',
+		templateUrl: 'views/storehouse/remain.html',
+		controller: 'Remain'
 	});
 
 }])
