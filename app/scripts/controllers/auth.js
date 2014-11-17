@@ -53,6 +53,7 @@ angular.module('mainApp')
 				if (res.legal) {
 					// 登录成功
 					Auth.login(res);
+					console.log(res);
 				} else if (angular.isString(res.message)){
 					// 用户名或密码错误
 					var errorCode = res.message.split(':')[0];

@@ -7,7 +7,24 @@ angular.module('mainApp')
 	$scope.$stateParams = $stateParams;
 
 	$scope.date = new Date();
-	$scope.currentUser = Auth.getUser() || {};
+	// for debug
+	$scope.currentUser = Auth.getUser() || {
+		account: 'admin',
+		birthday: '2014-04-02 00:00',
+		email: '1',
+		extension: null,
+		gender: 1,
+		groupId: null,
+		id: 1,
+		isRemoved: false,
+		isValid: true,
+		name: 'admin',
+		phone: '1',
+		positions: '1',
+		roleId: null,
+		seat: null,
+		userNo: '000010'
+	};
 
 	$scope.searchModel = {
 		filter: 0,

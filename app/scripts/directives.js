@@ -463,6 +463,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			var
 				menus = elem.find('.nav-menu-label'),
 				setions = elem.find('.nav-sections-label'),
+				navItems = elem.find('.nav-item'),
 				toggleFn = function() {
 					$(this).next().slideToggle('fast', function() {
 						$(this).parent('li').toggleClass('open');
@@ -470,6 +471,16 @@ uud.directive('timing', ['$interval', 'dateFilter',
 						$(this).parent('li').removeClass('open');
 					});
 				};
+
+			// so bad... (高亮左侧导航)
+			setTimeout(function(){
+				navItems.each(function(index, item) {
+					if ($(item).hasClass('active')) {
+						$(item).parents('.section-item').addClass('open');
+					}
+				});
+			}, 500);
+
 			menus.on('click', toggleFn);
 			setions.on('click', toggleFn);
 		}

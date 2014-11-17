@@ -291,7 +291,7 @@ angular.module('mainApp')
 				contact_time: $filter('now')(),
 				type: 3,
 				theme: 2,
-				user: $scope.currentUser.userNo || 1 // for test
+				user: $scope.currentUser.userNo
 			};
 			$('#complaint-details').modal('show');
 		};
@@ -474,7 +474,8 @@ angular.module('mainApp')
 			$scope.customers = Customer.getList({
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo,
-				is_allot: $scope.searchModel.isAllot
+				is_allot: $scope.searchModel.isAllot,
+				manager: $scope.currentUser.userNo
 			}).$object;
 		};
 
@@ -515,10 +516,12 @@ angular.module('mainApp')
 			});
 
 			Customer.doPUT({
-				manager: $scope.batchResponser,
+				// manager: $scope.batchResponser,
+				manager: $scope.currentUser.userNo,
 				ids: userIds.join(',')
 			}).then(function() {
 				$('#batch-assgin').modal('hide');
+				$scope.getCustomerList();
 			});
 		};
 
@@ -540,7 +543,8 @@ angular.module('mainApp')
 				manager: $scope.currentUser.userNo,
 				ids: userIds.join(',')
 			}).then(function() {
-				$('#batch-assgin').modal('hide');
+				$('#batch-pick').modal('hide');
+				$scope.getCustomerList();
 			});
 		};
 

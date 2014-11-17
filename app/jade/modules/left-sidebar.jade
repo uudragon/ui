@@ -69,11 +69,8 @@
 - sections.push({navs: navs, label: '财务管理'})
 
 ul.nav.nav-sections(uu-sidebar='')
-	each section, index in sections
-		- var openClass = ''
-		if index === 0
-			- openClass = 'open'
-		li.section-item(class!=openClass)
+	each section in sections
+		li.section-item
 			a.nav-sections-label=section.label
 			ul.nav.nav-navs
 				each nav in section.navs
