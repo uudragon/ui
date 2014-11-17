@@ -472,15 +472,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					});
 				};
 
-			// so bad... (高亮左侧导航)
-			setTimeout(function(){
-				navItems.each(function(index, item) {
-					if ($(item).hasClass('active')) {
-						$(item).parents('.section-item').addClass('open');
-					}
-				});
-			}, 500);
-
 			menus.on('click', toggleFn);
 			setions.on('click', toggleFn);
 		}

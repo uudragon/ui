@@ -3,51 +3,39 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建', 'top')
+		+tooltip('新建商品', 'top')
 			+glyphicon('plus')
-		ul.dropdown-menu(role="menu")
-			li
-				+jslink('globalNewOrder()', '新建订单')
-			li
-				+jslink('globalNewTicket()', '新建工单')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
 			+glyphicon('search')
-	li
-		+tooltip('过滤条件', 'top')(class='dropdown-toggle')
-			+glyphicon('filter')
-		ul.dropdown-menu(role="menu")
-			each filter in ['本月处理订单', '当日处理订单', '当日未处理订单', '当日完结订单', '预约客户订单']
-				li
-					a(href='')=filter
 
-+pagetitle('新建来电工单')
+//- 搜索
++linkage-search
 
-form.form-horizontal
-	fieldset
-		.form-group.col-xs-6
-			+input('客户姓名', 'name')(ng-model='globalNewOrder.name')
-		.form-group.col-xs-6
-			+select('工单状态', 'order-status')(ng-model='globalNewOrder.orderStatus')
-				+option('已完成', 0)
-				+option('处理中', 0)
-				+option('待处理', 0)
-		.form-group.col-xs-6
-			+static-input('来电时间')(ng-bind='globalNewOrder.callTime')
-		.form-group.col-xs-6
-			+input('负责人', 'responser')(ng-model='globalNewOrder.responser')
-		.form-group.col-xs-6
-			+select('查询类型', 'query-type')(ng-model='globalNewOrder.queryType')
-				+option('产品', 0)
-				+option('售后服务', 0)
-				+option('订购', 0)
-				+option('支付', 0)
-				+option('物流', 0)
-		.form-group.col-xs-6
-			+input('联系电话', 'telphone')(ng-model='globalNewOrder.telphone')
-		.form-group.col-xs-12.order-content
-			+plain-textarea('内容', 'content')(ng-model='globalNewOrder.content')
+//- 订单列表
+table.uu-table
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='order in orders')
+			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
+			td(ng-show='ths[1].isChecked')
+				+jslink('showOrder(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
+			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
+			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
+			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
+			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
+			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
+			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
+			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
+			td
+				+tooltip('修改', 'top', 'showOrder(order)')
+					+glyphicon('pencil') &nbsp;
 
-		.form-group.col-xs-12.group-center-block
-			button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 保存
-			button.btn.uu-btn(data-dismiss='modal') 取消
+				+tooltip('发送消息', 'top')
+					+glyphicon('comment')
+
+uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+
+//- 更改显示列
+include ../../modules/table-ths.jade

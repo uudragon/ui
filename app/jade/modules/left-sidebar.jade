@@ -1,86 +1,100 @@
-- var sections = []
 - var navs = []
 - var subnavs = []
 
-- subnavs.push({href: 'root.customer.checkorder', label: '官网核实订单'})
-- subnavs.push({href: 'root.customer.splitorder', label: '拆分订单'})
-- subnavs.push({href: 'root.customer.complaints', label: '投诉'})
-- subnavs.push({href: 'root.customer.return', label: '退货'})
-- subnavs.push({href: 'root.customer.exchange', label: '换货'})
-- subnavs.push({href: 'root.customer.customers', label: '客户池'})
-- navs.push({href: 'root.customer', label: '客户服务', auth: '01', subnavs: subnavs})
-
-- subnavs = []
-- subnavs.push({href: 'root.customerManager.employee', label: '员工管理'})
-- subnavs.push({href: 'root.customerManager.online', label: '在线管理'})
-- subnavs.push({href: 'root.customerManager.phone', label: '电话管理'})
-- subnavs.push({href: 'root.customerManager.info', label: '信息管理'})
-- navs.push({href: 'root.customerManager', label: '客服管理', auth: '02', subnavs: subnavs})
-
-- subnavs = []
-- subnavs.push({href: 'root.data.ordermanager', label: '订单管理'})
-- subnavs.push({href: 'root.data.work', label: '工单管理'})
-- subnavs.push({href: 'root.data.inventory', label: '库存管理'})
-- subnavs.push({href: 'root.data.statistics', label: '统计'})
-- navs.push({href: 'root.data', label: '数据管理', auth: '03', subnavs: subnavs})
-
-- subnavs = []
-- subnavs.push({href: 'root.knowledge.presale', label: '售前服务'})
-- subnavs.push({href: 'root.knowledge.aftersale', label: '售后服务'})
-- subnavs.push({href: 'root.knowledge.qa', label: '常见问题'})
-- navs.push({href: 'root.qa', label: '知识库', auth: '02', subnavs: subnavs})
-
-- sections.push({navs: navs, label: '商务客服'})
-
-//- 产品管理
-- navs = []
-- subnavs = []
-- subnavs.push({href: 'root.product.commodity', label: '商品定义'})
-- subnavs.push({href: 'root.product.goods', label: '产品定义'})
-- navs.push({href: 'root.product', label: '产品管理', auth: '03', subnavs: subnavs})
-
-//- 入库
-- subnavs = []
-- subnavs.push({href: 'root.commodity.storage', label: '商品入库'})
-- navs.push({href: 'root.commodity', label: '入库管理', auth: '04', subnavs: subnavs})
-
-//- 出库管理
-- subnavs = []
-- subnavs.push({href: 'root.order.distrib', label: '订单配货'})
-- subnavs.push({href: 'root.order.adjust', label: '换货调整'})
-- subnavs.push({href: 'root.order.print', label: '打印出库单'})
-- subnavs.push({href: 'root.order.port', label: '调货出库'})
-- navs.push({href: 'root.warehouse', label: '出库管理', auth: '04', subnavs: subnavs})
-
-//- 出库管理
-- subnavs = []
-- subnavs.push({href: 'root.storehouse.define', label: '库房定义'})
-- subnavs.push({href: 'root.storehouse.audit', label: '出入库记录'})
-- subnavs.push({href: 'root.storehouse.remain', label: '剩余数量'})
-- navs.push({href: 'root.storehouse', label: '库房管理', auth: '04', subnavs: subnavs})
-
-
-- sections.push({navs: navs, label: '库存管理'})
-
-- navs = []
-- sections.push({navs: navs, label: '经销商管理'})
-
-- navs = []
-- sections.push({navs: navs, label: '财务管理'})
-
 ul.nav.nav-sections(uu-sidebar='')
-	each section in sections
-		li.section-item
-			a.nav-sections-label=section.label
-			ul.nav.nav-navs
-				each nav in section.navs
-					if (nav.subnavs.length)
-						li.nav-item(ng-class='{"active open": $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
-							a.nav-menu-label=nav.label
-							ul.nav.nav-menu(role='menu')
-								each subnav in nav.subnavs
-									li
-										a(ui-sref=subnav.href, ng-class='{active: $state.is("' + subnav.href + '")}')=subnav.label
-					else
-						li.nav-item(ng-class='{active: $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
-							a(ui-sref=nav.href)=nav.label
+
+	//- 商务客服
+	//------------------------------------------------------
+
+	- subnavs.push({href: 'root.customer.checkorder', label: '官网核实订单'})
+	- subnavs.push({href: 'root.customer.splitorder', label: '拆分订单'})
+	- subnavs.push({href: 'root.customer.complaints', label: '投诉'})
+	- subnavs.push({href: 'root.customer.return', label: '退货'})
+	- subnavs.push({href: 'root.customer.exchange', label: '换货'})
+	- subnavs.push({href: 'root.customer.customers', label: '客户池'})
+	- navs.push({href: 'root.customer', label: '客户服务', auth: '01', subnavs: subnavs})
+
+	- subnavs = []
+	- subnavs.push({href: 'root.customerManager.employee', label: '员工管理'})
+	- subnavs.push({href: 'root.customerManager.online', label: '在线管理'})
+	- subnavs.push({href: 'root.customerManager.phone', label: '电话管理'})
+	- subnavs.push({href: 'root.customerManager.info', label: '信息管理'})
+	- navs.push({href: 'root.customerManager', label: '客服管理', auth: '02', subnavs: subnavs})
+
+	- subnavs = []
+	- subnavs.push({href: 'root.data.ordermanager', label: '订单管理'})
+	- subnavs.push({href: 'root.data.work', label: '工单管理'})
+	- subnavs.push({href: 'root.data.inventory', label: '库存管理'})
+	- subnavs.push({href: 'root.data.statistics', label: '统计'})
+	- navs.push({href: 'root.data', label: '数据管理', auth: '03', subnavs: subnavs})
+
+	- subnavs = []
+	- subnavs.push({href: 'root.knowledge.presale', label: '售前服务'})
+	- subnavs.push({href: 'root.knowledge.aftersale', label: '售后服务'})
+	- subnavs.push({href: 'root.knowledge.qa', label: '常见问题'})
+	- navs.push({href: 'root.knowledge', label: '知识库', auth: '02', subnavs: subnavs})
+
+	li.section-item(ng-class='{"open": $state.includes("root.customer") || $state.includes("root.customerManager") || $state.includes("root.data") || $state.includes("root.knowledge")}')
+		a.nav-sections-label 商务客服
+		ul.nav.nav-navs
+			each nav in navs
+				+nav(nav)
+
+
+	//- 库存管理
+	//------------------------------------------------------
+
+	- navs = []
+	- subnavs = []
+
+	//- 产品管理
+	- subnavs.push({href: 'root.product.commodity', label: '商品定义'})
+	- subnavs.push({href: 'root.product.goods', label: '产品定义'})
+	- navs.push({href: 'root.product', label: '产品管理', auth: '03', subnavs: subnavs})
+
+	//- 入库
+	- subnavs = []
+	- subnavs.push({href: 'root.commodity.storage', label: '商品入库'})
+	- navs.push({href: 'root.commodity', label: '入库管理', auth: '04', subnavs: subnavs})
+
+	//- 出库管理
+	- subnavs = []
+	- subnavs.push({href: 'root.order.distrib', label: '订单配货'})
+	- subnavs.push({href: 'root.order.adjust', label: '换货调整'})
+	- subnavs.push({href: 'root.order.print', label: '打印出库单'})
+	- subnavs.push({href: 'root.order.port', label: '调货出库'})
+	- navs.push({href: 'root.warehouse', label: '出库管理', auth: '04', subnavs: subnavs})
+
+	//- 出库管理
+	- subnavs = []
+	- subnavs.push({href: 'root.storehouse.define', label: '库房定义'})
+	- subnavs.push({href: 'root.storehouse.audit', label: '出入库记录'})
+	- subnavs.push({href: 'root.storehouse.remain', label: '剩余数量'})
+	- navs.push({href: 'root.storehouse', label: '库房管理', auth: '04', subnavs: subnavs})
+	li.section-item(ng-class='{"open": $state.includes("root.product") || $state.includes("root.commodity") || $state.includes("root.order") || $state.includes("root.storehouse")}')
+		a.nav-sections-label 库存管理
+		ul.nav.nav-navs
+			each nav in navs
+				+nav(nav)
+
+
+	//- 经销商管理
+	//------------------------------------------------------
+
+	li.section-item
+		a.nav-sections-label 经销商管理
+		ul.nav.nav-navs
+			each nav in navs
+				+nav(nav)
+
+
+
+	//- 财务管理
+	//------------------------------------------------------
+
+	li.section-item
+		a.nav-sections-label 财务管理
+		ul.nav.nav-navs
+			each nav in navs
+				+nav(nav)
+

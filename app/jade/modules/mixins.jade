@@ -67,7 +67,6 @@ mixin sub-navbar-link(href, name)
 	a(ui-sref=href, ng-class='{active: $state.is("' + href + '")}')=name
 
 
-//-
 mixin jslink(action, title)
 	a.jslink(href='', ng-click=action, ng-bind=attributes['ng-bind'])=title
 		if block
@@ -75,4 +74,16 @@ mixin jslink(action, title)
 
 //- Bootstrap helpers
 //- ----------------------
+
+mixin nav(nav)
+	if (nav.subnavs.length)
+		li.nav-item(ng-class='{"active open": $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
+			a.nav-menu-label=nav.label
+			ul.nav.nav-menu(role='menu')
+				each subnav in nav.subnavs
+					li
+						a(ui-sref=subnav.href, ng-class='{active: $state.is("' + subnav.href + '")}')=subnav.label
+	else
+		li.nav-item(ng-class='{active: $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
+			a(ui-sref=nav.href)=nav.label
 
