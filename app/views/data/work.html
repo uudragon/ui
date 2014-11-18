@@ -35,6 +35,10 @@
       <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
+    <div ng-show="searchModel.filter.date" class="input-group">
+      <label for="form-date-time" class="input-group-addon">时间</label>
+      <input id="form-date-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+    </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
       <input id="form-start-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>

@@ -18,7 +18,7 @@ angular.module('mainApp')
 		$controller('ProductCtrl', {$scope: $scope});
 
 	}])
-	.controller('Commodity', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Commodity', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
 
 		// 搜索下拉
 		$scope.filters = [
@@ -45,11 +45,18 @@ angular.module('mainApp')
 			{name: '', label: '操作员', isChecked: true}
 		];
 
+		$scope.newCommdity = function() {
+			$('#new-commidy').modal('show');
+			$scope.commodity = {};
+			$scope.commodity.create_time = $filter('now')();
+			$scope.commodity.update_time = $scope.commodity.create_time;
+		}
+
 		// inherit functions from parent
 		$controller('ProductManager', {$scope: $scope});
 
 	}])
-	.controller('Goods', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Goods', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
 
 		// 搜索下拉
 		$scope.filters = [
@@ -71,7 +78,12 @@ angular.module('mainApp')
 			{name: '', label: '是否有效', isChecked: true}
 		];
 
-		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
+		$scope.newGood = function() {
+			$('#new-good').modal('show');
+			$scope.good = {};
+			$scope.good.create_time = $filter('now')();
+			$scope.good.update_time = $scope.good.create_time;
+		}
 
 		// inherit functions from parent
 		$controller('ProductManager', {$scope: $scope});

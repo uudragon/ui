@@ -138,6 +138,27 @@ angular.module('mainApp')
 		}
 	};
 })
+
+// 商品入库
+.filter('storageType', function() {
+	return function (num) {
+
+		switch (parseInt(num, 10)) {
+			case 1:
+				return '一般入库';
+			case 2:
+				return '退货入库';
+			case 2:
+				return '调货入库';
+			case 2:
+				return '调货出库(在途)';
+			case 2:
+				return '一般出库';
+			default:
+				break;
+		}
+	};
+})
 .filter('week', function() {
 	return function (num) {
 		switch (num.toString()) {

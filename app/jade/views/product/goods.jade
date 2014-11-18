@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建产品', 'top')
+		+tooltip('新建产品', 'top', 'newGood()')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -36,6 +36,65 @@ table.uu-table
 					+glyphicon('comment')
 
 uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+
+//- 新建商品
++modal('new-good', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 核实订单
+	.modal-body
+		div(uu-tab)
+			div(uu-pane, title='新建产品')
+				form.form-horizontal
+					fieldset
+						+hgroup
+							+input('产品名称', 'name')(ng-model='good.good_name')
+						+hgroup
+							+yesno('是否有效', 'is-valid')(ng-model='good.is_valid')
+						+hgroup
+							+input('产品说明', 'good-des')(ng-model='good.good_des')
+						+hgroup
+							+static-input('创建时间')(ng-bind='good.create_time')
+						+hgroup
+							+input('创建人', 'creator')(ng-model='good.creator')
+						+hgroup
+							+static-input('更新时间')(ng-bind='good.update_time')
+						+hgroup
+							+input('更新人', 'updator')(ng-model='good.updator')
+				table.uu-table
+					+thead
+						each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
+							th=th
+					tbody
+						tr(ng-repeat='good in goods')
+							td(ng-bind='good.good_code')
+							td(ng-bind='good.good_name')
+							td(ng-bind='good.good_num')
+							td(ng-bind='good.is_free')
+							td
+								+tooltip('修改', 'top', 'editOrderStatus(good)')
+									+glyphicon('pencil') &nbsp;
+
+								+tooltip('删除', 'top', 'shareOrder(good)')
+									+glyphicon('delete')
+
+			div(uu-pane, title='添加商品')
+				table.uu-table
+					+thead
+						each th in ['商品编号', '商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+							th=th
+					tbody
+						tr(ng-repeat='good in goods')
+							td(ng-bind='good.good_code')
+							td(ng-bind='good.good_name')
+							td(ng-bind='good.good_num')
+							td(ng-bind='good.is_free')
+							td
+								+tooltip('修改', 'top', 'editOrderStatus(good)')
+									+glyphicon('plus') &nbsp;
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(currentOrder)') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列
 include ../../modules/table-ths.jade

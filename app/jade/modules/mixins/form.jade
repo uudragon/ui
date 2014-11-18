@@ -116,6 +116,12 @@ mixin submit(title, id)
 			block
 
 
+mixin yesno(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('是', 0)
+		+option('否', 1)
+
+
 mixin gender(title, id)
 	+select(title, id)(ng-model=attributes['ng-model'])
 		+option('女', 0)
@@ -132,6 +138,13 @@ mixin workflow-group(title, id)
 	+select(title, id)(ng-model=attributes['ng-model'])
 		+option('审单组', 1)
 		+option('拆单组', 2)
+
+mixin commdity-type(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('教材', 1)
+		+option('音像制品(DVD/CD)', 2)
+		+option('玩具', 3)
+		+option('其它', 4)
 
 mixin complain-type(title, id)
 	+select(title, id)(ng-model=attributes['ng-model'])
@@ -158,3 +171,11 @@ mixin deal-result(title, id)
 		+option('待处理', 1)
 		+option('处理中', 2)
 		+option('已完成', 3)
+
+mixin storage-type(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('一般入库', 1)
+		+option('退货入库', 2)
+		+option('调货入库', 3)
+		+option('调货出库(在途)', 4)
+		+option('一般出库', 5)

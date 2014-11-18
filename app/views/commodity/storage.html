@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建产品" ng-click="newGood()"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建商品" ng-click="newCommdity()"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -60,13 +60,13 @@
       <td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
 <uu-pagination records="orders.meta.recordsCount" per-page="{{orders.meta.pageSize}}" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
-<div id="new-good" class="modal fade">
+<div id="new-commidy" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -74,108 +74,70 @@
         <h4 class="modal-title">核实订单</h4>
       </div>
       <div class="modal-body">
-        <div uu-tab="uu-tab">
-          <div uu-pane="uu-pane" title="新建产品">
-            <form class="form-horizontal">
-              <fieldset>
-                <div class="form-group col-xs-6">
-                  <label for="form-name" class="control-label col-xs-3">产品名称</label>
-                  <div class="col-xs-7">
-                    <input id="form-name" ng-model="good.good_name" class="form-control input-sm"/>
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <label for="form-is-valid" class="control-label col-xs-3">是否有效</label>
-                  <div class="col-xs-7">
-                    <select id="form-is-valid" ng-model="good.is_valid" class="form-control input-sm">
-                      <option value="0">是</option>
-                      <option value="1">否</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <label for="form-good-des" class="control-label col-xs-3">产品说明</label>
-                  <div class="col-xs-7">
-                    <input id="form-good-des" ng-model="good.good_des" class="form-control input-sm"/>
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <label class="control-label col-xs-3">创建时间</label>
-                  <div class="col-xs-7">
-                    <p ng-bind="good.create_time" class="form-control-static"></p>
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <label for="form-creator" class="control-label col-xs-3">创建人</label>
-                  <div class="col-xs-7">
-                    <input id="form-creator" ng-model="good.creator" class="form-control input-sm"/>
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <label class="control-label col-xs-3">更新时间</label>
-                  <div class="col-xs-7">
-                    <p ng-bind="good.update_time" class="form-control-static"></p>
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <label for="form-updator" class="control-label col-xs-3">更新人</label>
-                  <div class="col-xs-7">
-                    <input id="form-updator" ng-model="good.updator" class="form-control input-sm"/>
-                  </div>
-                </div>
-              </fieldset>
-            </form>
-            <table class="uu-table">
-              <thead>
-                <tr>
-                  <th>商品编号</th>
-                  <th>商品名称</th>
-                  <th>商品数量</th>
-                  <th>是否赠品</th>
-                  <th>工具</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="good in goods">
-                  <td ng-bind="good.good_code"></td>
-                  <td ng-bind="good.good_name"></td>
-                  <td ng-bind="good.good_num"></td>
-                  <td ng-bind="good.is_free"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editOrderStatus(good)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="shareOrder(good)"><span class="glyphicon glyphicon-delete"></span></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div uu-pane="uu-pane" title="添加商品">
-            <table class="uu-table">
-              <thead>
-                <tr>
-                  <th>商品编号</th>
-                  <th>商品名称</th>
-                  <th>商品类型</th>
-                  <th>商品价格</th>
-                  <th>商品规格</th>
-                  <th>生产日期</th>
-                  <th>商品描述</th>
-                  <th>是否有效</th>
-                  <th>操作员</th>
-                  <th>工具</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="good in goods">
-                  <td ng-bind="good.good_code"></td>
-                  <td ng-bind="good.good_name"></td>
-                  <td ng-bind="good.good_num"></td>
-                  <td ng-bind="good.is_free"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editOrderStatus(good)"><span class="glyphicon glyphicon-plus">&nbsp;</span></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <form class="form-horizontal form-nowrap">
+          <fieldset>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">商品编号</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">商品名称</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">所在库房</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">商品数量</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-storage-type" class="control-label col-xs-3">入库类型</label>
+              <div class="col-xs-7">
+                <select id="form-storage-type" ng-model="storage.storage_type" class="form-control input-sm">
+                  <option value="1">一般入库</option>
+                  <option value="2">退货入库</option>
+                  <option value="3">调货入库</option>
+                  <option value="4">调货出库(在途)</option>
+                  <option value="5">一般出库</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-undefined" class="control-label col-xs-3">入库时间</label>
+              <div class="col-xs-7">
+                <input id="form-undefined" ng-model="storage.income_time" uu-date-picker="" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-creator" class="control-label col-xs-3">入库人</label>
+              <div class="col-xs-7">
+                <input id="form-creator" ng-model="storage.creator" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label class="control-label col-xs-3">更新时间</label>
+              <div class="col-xs-7">
+                <p ng-bind="storage.update_time" class="form-control-static"></p>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-updator" class="control-label col-xs-3">更新人</label>
+              <div class="col-xs-7">
+                <input id="form-updator" ng-model="storage.updator" class="form-control input-sm"/>
+              </div>
+            </div>
+          </fieldset>
+        </form>
       </div>
       <div class="modal-footer">
         <button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>

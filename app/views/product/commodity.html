@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建商品"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建商品" ng-click="newCommdity()"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -19,6 +19,10 @@
       <select ng-model="searchModel.filter" ng-options="filter.name for filter in filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
       <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
+    </div>
+    <div ng-show="searchModel.filter.date" class="input-group">
+      <label for="form-date-time" class="input-group-addon">时间</label>
+      <input id="form-date-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
@@ -56,12 +60,118 @@
       <td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
 <uu-pagination records="orders.meta.recordsCount" per-page="{{orders.meta.pageSize}}" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
+<div id="new-commidy" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">核实订单</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-nowrap">
+          <fieldset>
+            <div class="form-group col-xs-6">
+              <label for="form-name" class="control-label col-xs-3">商品名称</label>
+              <div class="col-xs-7">
+                <input id="form-name" ng-model="commodity.good_name" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-commdity-type" class="control-label col-xs-3">商品类型</label>
+              <div class="col-xs-7">
+                <select id="form-commdity-type" ng-model="commodity.is_valid" class="form-control input-sm">
+                  <option value="1">教材</option>
+                  <option value="2">音像制品(DVD/CD)</option>
+                  <option value="3">玩具</option>
+                  <option value="4">其它</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good-des" class="control-label col-xs-3">商品价格</label>
+              <div class="col-xs-7">
+                <input id="form-good-des" ng-model="commodity.good_des" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good-des" class="control-label col-xs-3">商品规格</label>
+              <div class="col-xs-7">
+                <input id="form-good-des" ng-model="commodity.good_des" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good-des" class="control-label col-xs-3">商品条码</label>
+              <div class="col-xs-7">
+                <input id="form-good-des" ng-model="commodity.good_des" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good-des" class="control-label col-xs-3">ISBN号</label>
+              <div class="col-xs-7">
+                <input id="form-good-des" ng-model="commodity.good_des" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-undefined" class="control-label col-xs-3">生产日期</label>
+              <div class="col-xs-7">
+                <input id="form-undefined" ng-model="commodity.make_time" uu-date-picker="" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-is-valid" class="control-label col-xs-3">是否有效</label>
+              <div class="col-xs-7">
+                <select id="form-is-valid" ng-model="commodity.is_valid" class="form-control input-sm">
+                  <option value="0">是</option>
+                  <option value="1">否</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label class="control-label col-xs-3">创建时间</label>
+              <div class="col-xs-7">
+                <p ng-bind="commodity.create_time" class="form-control-static"></p>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-creator" class="control-label col-xs-3">创建人</label>
+              <div class="col-xs-7">
+                <input id="form-creator" ng-model="commodity.creator" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label class="control-label col-xs-3">更新时间</label>
+              <div class="col-xs-7">
+                <p ng-bind="commodity.update_time" class="form-control-static"></p>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-updator" class="control-label col-xs-3">更新人</label>
+              <div class="col-xs-7">
+                <input id="form-updator" ng-model="commodity.updator" class="form-control input-sm"/>
+              </div>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="form-good-des" class="control-label col-xs-3">商品描述</label>
+              <div class="col-xs-7">
+                <input id="form-good-des" ng-model="commodity.good_des" class="form-control input-sm"/>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="table-ths" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">

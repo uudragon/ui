@@ -466,9 +466,9 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				navItems = elem.find('.nav-item'),
 				toggleFn = function() {
 					$(this).next().slideToggle('fast', function() {
-						$(this).parent('li').toggleClass('open');
+						$(this).removeAttr('style').parent('li').toggleClass('open');
 					}).parents('li').siblings().find('ul.nav').slideUp('fast', function() {
-						$(this).parent('li').removeClass('open');
+						$(this).removeAttr('style').parent('li').removeClass('open');
 					});
 				};
 

@@ -46,31 +46,23 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 		form.form-horizontal.form-nowrap
 			fieldset
 				+hgroup
-					+input('商品名称', 'name')(ng-model='commodity.good_name')
+					+input('商品编号', 'name')(ng-model='storage.good_name')
 				+hgroup
-					+commdity-type('商品类型', 'commdity-type')(ng-model='commodity.is_valid')
+					+input('商品名称', 'name')(ng-model='storage.good_name')
 				+hgroup
-					+input('商品价格', 'good-des')(ng-model='commodity.good_des')
+					+input('所在库房', 'name')(ng-model='storage.good_name')
 				+hgroup
-					+input('商品规格', 'good-des')(ng-model='commodity.good_des')
+					+input('商品数量', 'name')(ng-model='storage.good_name')
 				+hgroup
-					+input('商品条码', 'good-des')(ng-model='commodity.good_des')
+					+storage-type('入库类型', 'storage-type')(ng-model='storage.storage_type')
 				+hgroup
-					+input('ISBN号', 'good-des')(ng-model='commodity.good_des')
+					+input('入库时间')(ng-model='storage.income_time', uu-date-picker)
 				+hgroup
-					+input('生产日期')(ng-model='commodity.make_time', uu-date-picker)
+					+input('入库人', 'creator')(ng-model='storage.creator')
 				+hgroup
-					+yesno('是否有效', 'is-valid')(ng-model='commodity.is_valid')
+					+static-input('更新时间')(ng-bind='storage.update_time')
 				+hgroup
-					+static-input('创建时间')(ng-bind='commodity.create_time')
-				+hgroup
-					+input('创建人', 'creator')(ng-model='commodity.creator')
-				+hgroup
-					+static-input('更新时间')(ng-bind='commodity.update_time')
-				+hgroup
-					+input('更新人', 'updator')(ng-model='commodity.updator')
-				+hgroup
-					+input('商品描述', 'good-des')(ng-model='commodity.good_des')
+					+input('更新人', 'updator')(ng-model='storage.updator')
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(currentOrder)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
