@@ -6,6 +6,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	//- 商务客服
 	//------------------------------------------------------
 
+	//- 客户服务
 	- subnavs.push({href: 'root.customer.checkorder', label: '官网核实订单'})
 	- subnavs.push({href: 'root.customer.splitorder', label: '拆分订单'})
 	- subnavs.push({href: 'root.customer.complaints', label: '投诉'})
@@ -14,6 +15,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	- subnavs.push({href: 'root.customer.customers', label: '客户池'})
 	- navs.push({href: 'root.customer', label: '客户服务', auth: '01', subnavs: subnavs})
 
+	//- 客服管理
 	- subnavs = []
 	- subnavs.push({href: 'root.customerManager.employee', label: '员工管理'})
 	- subnavs.push({href: 'root.customerManager.online', label: '在线管理'})
@@ -21,6 +23,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	- subnavs.push({href: 'root.customerManager.info', label: '信息管理'})
 	- navs.push({href: 'root.customerManager', label: '客服管理', auth: '02', subnavs: subnavs})
 
+	//- 数据管理
 	- subnavs = []
 	- subnavs.push({href: 'root.data.ordermanager', label: '订单管理'})
 	- subnavs.push({href: 'root.data.work', label: '工单管理'})
@@ -28,6 +31,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	- subnavs.push({href: 'root.data.statistics', label: '统计'})
 	- navs.push({href: 'root.data', label: '数据管理', auth: '03', subnavs: subnavs})
 
+	//- 知识库
 	- subnavs = []
 	- subnavs.push({href: 'root.knowledge.presale', label: '售前服务'})
 	- subnavs.push({href: 'root.knowledge.aftersale', label: '售后服务'})
