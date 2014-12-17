@@ -98,12 +98,12 @@ angular.module('mainApp')
 			{name: 'contact_count', label: '联系次数', isChecked: true}
 		];
 
-		// 修改订单列表
+		// 获取订单列表
 		$scope.getOrderList = function() {
 			$scope.orders = Order.getList({
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo,
-				// workflow: 1,
+				workflow: 1,
 				paid: $scope.searchModel.paid
 			}).$object;
 		};
