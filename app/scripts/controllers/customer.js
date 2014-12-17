@@ -203,6 +203,15 @@ angular.module('mainApp')
 
 		$scope.getOrderList();
 
+		$scope.showSplitModal = function(order) {
+			$scope.currentOrder = order;
+			$('#split-modal').modal('show');
+		};
+
+		$scope.saveSplitResult = function() {
+			$('#split-modal').modal('hide');
+		};
+
 		$scope.splitOrder = function(order) {
 			order.isSplited = true;
 			order.splitedOrders = [

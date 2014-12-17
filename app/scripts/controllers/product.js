@@ -50,7 +50,7 @@ angular.module('mainApp')
 			$scope.commodity = {};
 			$scope.commodity.create_time = $filter('now')();
 			$scope.commodity.update_time = $scope.commodity.create_time;
-		}
+		};
 
 		// inherit functions from parent
 		$controller('ProductManager', {$scope: $scope});
@@ -83,7 +83,7 @@ angular.module('mainApp')
 			$scope.good = {};
 			$scope.good.create_time = $filter('now')();
 			$scope.good.update_time = $scope.good.create_time;
-		}
+		};
 
 		// inherit functions from parent
 		$controller('ProductManager', {$scope: $scope});

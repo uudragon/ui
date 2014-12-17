@@ -48,7 +48,7 @@
   <tbody>
     <tr ng-repeat="order in orders">
       <td ng-bind="order.customer.name" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.order_no" class="jslink"></a>
+      <td ng-show="ths[1].isChecked"><a href="" ng-click="showSplitModal(order)" ng-bind="order.order_no" class="jslink"></a>
       </td>
       <td ng-bind="order.customer.phone" ng-show="ths[2].isChecked"></td>
       <td ng-bind="order.customer.province" ng-show="ths[3].isChecked"></td>
@@ -58,13 +58,13 @@
       <td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showSplitModal(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
 <uu-pagination records="orders.meta.recordsCount" per-page="{{orders.meta.pageSize}}" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
-<div id="order-details" class="modal fade">
+<div id="split-modal" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -189,12 +189,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <td ng-bind="currentOrder.orderSN"></td>
-                  <td ng-bind="currentOrder.customerName"></td>
-                  <td ng-bind="currentOrder.orderType"></td>
-                  <td ng-bind="currentOrder.createTime"></td>
+                  <td ng-bind="currentOrder.id"></td>
+                  <td ng-bind="currentOrder.customer.name"></td>
+                  <td ng-bind="currentOrder.order_type | orderType"></td>
+                  <td ng-bind="currentOrder.create_time"></td>
                   <td ng-bind="currentOrder.payWay"></td>
-                  <td ng-bind="currentOrder.payStatus | payStatus"></td>
+                  <td ng-bind="currentOrder.paid | payStatus"></td>
                   <td ng-bind="currentOrder.birthday"></td>
                   <td ng-bind="currentOrder.orderStatus"></td>
                   <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拆分订单" ng-click="splitOrder(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
@@ -229,8 +229,8 @@
                   <td ng-bind="index + 1"></td>
                   <td ng-bind="order.orderSN"></td>
                   <td ng-bind="order.customerName"></td>
-                  <td ng-bind="order.province + order.city"></td>
-                  <td ng-bind="order.orderType"></td>
+                  <td ng-bind="order.customer.province + order.customer.city"></td>
+                  <td ng-bind="order.order_type | orderType"></td>
                   <td ng-bind="order.createTime"></td>
                   <td ng-bind="order.payWay"></td>
                   <td ng-bind="order.payStatus | payStatus"></td>
@@ -246,7 +246,7 @@
             </table>
           </fieldset>
           <div ng-show="currentOrder.isSplited" class="modal-footer">
-            <button ng-click="saveOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
+            <button ng-click="saveSplitResult(currentOrder)" class="btn uu-btn btn-primary">保存</button>
             <button data-dismiss="modal" class="btn uu-btn">取消</button>
           </div>
         </form>

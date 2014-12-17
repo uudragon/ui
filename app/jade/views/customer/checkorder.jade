@@ -89,7 +89,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 							td(ng-bind='currentOrder.payment | payment')
 							td(ng-bind='currentOrder.paid | payStatus')
 							td(ng-bind='currentOrder.customer.birthday')
-							td(ng-bind='currentOrder.order_status | auditStatus')
+							td(ng-bind='currentOrder.order_status | orderStatus')
 							td(ng-bind='currentOrder.audit | auditStatus')
 							td
 								+tooltip('修改', 'top', 'editOrderStatus(currentOrder)')

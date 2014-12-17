@@ -48,7 +48,7 @@ angular.module('mainApp')
 			$scope.commodity = {};
 			$scope.commodity.create_time = $filter('now')();
 			$scope.commodity.update_time = $scope.commodity.create_time;
-		}
+		};
 
 		// inherit functions from parent
 		$controller('CommodityManager', {$scope: $scope});

@@ -29,7 +29,7 @@ table.uu-table(ng-show='orders.length')
 		tr(ng-repeat='order in orders')
 			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.order_no')
+				+jslink('showSplitModal(order)')(ng-bind='order.order_no')
 			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
 			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
 			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
@@ -39,7 +39,7 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
 			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
 			td
-				+tooltip('修改', 'top', 'showOrder(order)')
+				+tooltip('修改', 'top', 'showSplitModal(order)')
 					+glyphicon('pencil') &nbsp;
 
 				+tooltip('发送消息', 'top')
@@ -48,7 +48,7 @@ table.uu-table(ng-show='orders.length')
 uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 核实订单Modal
-+modal('order-details', 'modal-lg')
++modal('split-modal', 'modal-lg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 查看订单
@@ -63,14 +63,14 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 							th=th
 					tbody
 						tr
-							td(ng-bind='currentOrder.orderSN')
-							td(ng-bind='currentOrder.customerName')
-							td(ng-bind='currentOrder.orderType')
-							td(ng-bind='currentOrder.createTime')
-							td(ng-bind='currentOrder.payWay')
-							td(ng-bind='currentOrder.payStatus | payStatus')
-							td(ng-bind='currentOrder.birthday')
-							td(ng-bind='currentOrder.orderStatus')
+							td(ng-bind='currentOrder.id')
+							td(ng-bind='currentOrder.customer.name')
+							td(ng-bind='currentOrder.order_type | orderType')
+							td(ng-bind='currentOrder.create_time')
+							td(ng-bind='currentOrder.payment | payment')
+							td(ng-bind='currentOrder.paid | payStatus')
+							td(ng-bind='currentOrder.customer.birthday')
+							td(ng-bind='currentOrder.order_status | orderStatus')
 							td
 								+tooltip('拆分订单', 'top', 'splitOrder(currentOrder)')
 									+glyphicon('pencil') &nbsp;
@@ -89,8 +89,8 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 							td(ng-bind='index + 1')
 							td(ng-bind='order.orderSN')
 							td(ng-bind='order.customerName')
-							td(ng-bind='order.province + order.city')
-							td(ng-bind='order.orderType')
+							td(ng-bind='order.customer.province + order.customer.city')
+							td(ng-bind='order.order_type | orderType')
 							td(ng-bind='order.createTime')
 							td(ng-bind='order.payWay')
 							td(ng-bind='order.payStatus | payStatus')
@@ -104,7 +104,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 									+glyphicon('plus')
 
 			.modal-footer(ng-show='currentOrder.isSplited')
-				button.btn.uu-btn.btn-primary(ng-click='saveOrder(currentOrder)') 保存
+				button.btn.uu-btn.btn-primary(ng-click='saveSplitResult(currentOrder)') 保存
 				button.btn.uu-btn(data-dismiss='modal') 取消
 
 
