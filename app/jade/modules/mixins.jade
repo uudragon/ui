@@ -12,7 +12,7 @@ include ./mixins/article.jade
 mixin tooltip(title, placement, action)
 	if placement === null
 		- var placement = 'bottom'
-	a(href='', ui-sref=attributes['ui-sref'], uu-tooltip, data-placement=placement, data-toggle='dropdown', title=title, class!=attributes.class, ng-click=action)
+	a(href='', ui-sref=attributes['ui-sref'], uu-tooltip, data-placement=placement, data-toggle='dropdown', title=title, class!=attributes.class, ng-click=action, ng-show=attributes['ng-show'])
 		if block
 			block
 
@@ -55,6 +55,12 @@ mixin hgroup()
 mixin tgroup()
 	.form-group.tgroup.fixwidth
 		block
+
+mixin td-addon(title, position, glyphicon, action)
+	span(ng-bind=attributes['ng-bind'] style='padding-right: 8px;')
+	+tooltip('播放', 'top', action)(ng-show=attributes['ng-bind'])
+		+glyphicon(glyphicon)
+
 
 //- Other HTML helpers
 //- ----------------------

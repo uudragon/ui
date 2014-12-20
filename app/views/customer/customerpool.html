@@ -73,7 +73,8 @@
       <td ng-bind="customer.name" ng-show="ths[0].isChecked"></td>
       <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(customer)" ng-bind="customer.code" class="jslink"></a>
       </td>
-      <td ng-bind="customer.phone" ng-show="ths[2].isChecked"></td>
+      <td ng-show="ths[2].isChecked"><span ng-bind="customer.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="播放" ng-click="makePhone(customer.phone)" ng-show="customer.phone"><span class="glyphicon glyphicon-earphone"></span></a>
+      </td>
       <td ng-bind="customer.main_phone" ng-show="ths[2].isChecked"></td>
       <td ng-bind="customer.province" ng-show="ths[3].isChecked"></td>
       <td ng-bind="customer.city" ng-show="ths[4].isChecked"></td>

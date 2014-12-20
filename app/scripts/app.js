@@ -209,7 +209,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	.state('root.data.ordermanager', {
 		url: '/ordermanager',
 		templateUrl: 'views/data/ordermanager.html',
-		controller: 'OrderManager'
+		controller: 'OrderManag'
 	})
 	.state('root.data.work', {
 		url: '/work',
