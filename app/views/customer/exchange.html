@@ -124,7 +124,11 @@
             <div class="form-group col-xs-6">
               <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
               <div class="col-xs-7">
-                <input id="form-telphone" ng-model="currentOrder.customer.phone" class="form-control input-sm"/>
+                <div class="input-group">
+                  <input id="form-telphone" ng-model="currentOrder.customer.phone" class="form-control input-sm"/>
+                  <div class="input-group-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group col-xs-6">

@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Resource', '$filter', function ($scope, $state, $stateParams, Auth, Resource, $filter) {
+.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Resource', '$filter',
+function ($scope, $state, $stateParams, Auth, Resource, $filter) {
 
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
@@ -53,7 +54,7 @@ angular.module('mainApp')
 
 	// 显示隐藏搜索框
 	$scope.globalToggleSearch = function() {
-		$('.article-header-search').toggle('fast');
+		$('.article-header-search').stop().toggle('fast');
 	};
 
 	// 新建工单

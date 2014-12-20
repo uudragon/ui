@@ -42,7 +42,14 @@ mixin order-details()
 		+hgroup
 			+input('订购产品', 'good')(ng-model='currentOrder.good')
 		+hgroup
-			+input('联系电话', 'telphone')(ng-model='currentOrder.customer.phone')
+			label.control-label.col-xs-3(for='form-telphone') 联系电话
+			.col-xs-7
+				.input-group
+					input.form-control.input-sm(id='form-telphone' ng-model='currentOrder.customer.phone')
+					.input-group-addon
+						+tooltip('外呼', 'top')
+							+glyphicon('earphone')
+			//- +input('联系电话', 'telphone')(ng-model='currentOrder.customer.phone')
 		+hgroup
 			+input('起订日期', 'startDate')(ng-model='currentOrder.effective', uu-date-picker)
 		+hgroup
