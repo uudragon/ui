@@ -297,7 +297,7 @@ angular.module('mainApp')
 		// 新建投诉
 		$scope.addNewComplains = function() {
 			$scope.complaint = {
-				contact_time: $filter('now')(),
+				// contact_time: $filter('now')(),
 				type: 3,
 				theme: 2,
 				user: $scope.currentUser.userNo
@@ -308,8 +308,8 @@ angular.module('mainApp')
 		// 保存投诉
 		$scope.saveComplaint = function(complaint) {
 			$http.post(config.baseurl + 'workform', complaint)
-				.success(function() {
-					$('#complaint-history').modal('hide');
+				.success(function(status) {
+					status === 'true' && $('#complaint-details').modal('hide');
 				});
 		};
 

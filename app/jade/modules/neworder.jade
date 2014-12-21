@@ -8,70 +8,58 @@
 			fieldset
 				legend 基本信息
 				+hgroup
-					+select('订单类型', 'order-status')(ng-model='gbTicket.order_type')
-						+option('单品订单', 0)
-						+option('多品订单', 1)
+					+input('订单号', 'effective')(ng-model='gbOrder.order_no')
 				+hgroup
-					+input('生效日期', 'effective')(ng-model='gbTicket.effective', uu-date-picker)
+					+order-type('订单类型', 'order-type')(ng-model='gbOrder.order_type')
 				+hgroup
-					+input('截止日期', 'deadline')(ng-model='gbTicket.deadline', uu-date-picker)
-
+					+input('生效日期', 'effective')(ng-model='gbOrder.effective', uu-date-picker, start-view=1)
 				+hgroup
-					+input('客户编号', 'customer-code')(ng-model='gbTicket.customer_code')
+					+input('截止日期', 'deadline')(ng-model='gbOrder.deadline', uu-date-picker)
 				+hgroup
-					+input('客户手机', 'customer-name')(ng-model='gbTicket.customer_name')
+					+input('客户编号', 'customer-code')(ng-model='gbOrder.customer_code')
 				+hgroup
-					+input('客户姓名', 'customer_-hone')(ng-model='gbTicket.customer_phone')
+					+yesno('是否有发票', 'has-invoice', '有', '无')(ng-model='gbOrder.has_invoice')
 				+hgroup
-					+input('客户地址', 'customer-addr')(ng-model='gbTicket.customer_addr')
-
+					+order-source('订单来源', 'source')(ng-model='gbOrder.source')
 				+hgroup
-					+select('是否有发票', 'has-invoice')(ng-model='gbTicket.has_invoice')
-						+option('无', 0)
-						+option('有', 1)
+					+input('代理商编号', 'agent-code')(ng-model='gbOrder.agent_code')
 				+hgroup
-					+select('订单来源', 'source')(ng-model='gbTicket.source')
-						+option('网站', 0)
-						+option('电话', 1)
+					+input('优惠码', 'coupon-code')(ng-model='gbOrder.coupon_code')
 				+hgroup
-					+input('代理商编号', 'agent-code')(ng-model='gbTicket.agent_code')
+					+input('折扣金额', 'discount-amount')(ng-model='gbOrder.discount_amount')
 				+hgroup
-					+input('优惠码', 'coupon-code')(ng-model='gbTicket.coupon_code')
+					+input('付款金额', 'amount')(ng-model='gbOrder.amount')
 				+hgroup
-					+input('折扣金额', 'discount-amount')(ng-model='gbTicket.discount_amount')
+					+input('客户姓名', 'customer-name')(ng-model='gbOrder.customer_name')
 				+hgroup
-					+input('付款金额', 'amount')(ng-model='gbTicket.amount')
+					+input('客户手机', 'customer-phone')(ng-model='gbOrder.customer_phone')
 				+hgroup
-					+select('是否付款', 'paid')(ng-model='gbTicket.paid')
-						+option('网站', 0)
-						+option('电话', 1)
+					+input('客户地址', 'customer-addr')(ng-model='gbOrder.customer_addr')
 				+hgroup
-					+select('付款方式', 'payment')(ng-model='gbTicket.payment')
-						+option('网站', 0)
-						+option('电话', 1)
+					+isPaid('是否付款', 'paid')(ng-model='gbOrder.paid')
 				+hgroup
-					+select('订单状态', 'status')(ng-model='gbTicket.status')
-						+option('网站', 0)
-						+option('电话', 1)
+					+payment('付款方式', 'payment')(ng-model='gbOrder.payment')
 				+hgroup
-					+input('订单有效期', 'validity')(ng-model='gbTicket.validity', uu-date-picker)
+					+order-status('订单状态', 'status')(ng-model='gbOrder.status')
 				+hgroup
-					+input('下单时间', 'order-time')(ng-model='gbTicket.order_time', uu-date-picker)
+					+input('订单有效期', 'validity')(ng-model='gbOrder.validity')
 				+hgroup
-					+input('受理人', 'creator')(ng-model='gbTicket.creator')
+					+input('下单时间', 'order-time')(ng-model='gbOrder.order_time', uu-date-picker)
 				+hgroup
-					+static-input('创建时间', 'create-time')(ng-bind='gbTicket.create_time')
+					+input('受理人', 'creator')(ng-model='gbOrder.creator')
+				//- +hgroup
+				//- 	+static-input('创建时间', 'create-time')(ng-bind='gbOrder.create_time')
 				+hgroup
-					+input('更新人', 'updater')(ng-model='gbTicket.updater')
+					+input('更新人', 'updater')(ng-model='gbOrder.updater')
+				//- +hgroup
+				//- 	+static-input('更新时间', 'update-time')(ng-bind='gbOrder.update_time')
 				+hgroup
-					+static-input('更新时间', 'update-time')(ng-bind='gbTicket.update_time')
+					+input('联系次数', 'contact-count')(ng-model='gbOrder.contact_count')
+				//- +hgroup
+				//- 	+input('客户', 'customer')(ng-model='gbOrder.customer')
 				+hgroup
-					+input('联系次数', 'contact-count')(ng-model='gbTicket.contact_count')
-				+hgroup
-					+select('失效标识', 'yn')(ng-model='gbTicket.yn')
-						+option('有效', 0)
-						+option('无效', 1)
+					+isValid('失效标识', 'yn')(ng-model='gbOrder.yn')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbOrder)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

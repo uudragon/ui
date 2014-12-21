@@ -67,8 +67,8 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='{{complain
 						+input('联系电话', 'goodNum')(ng-model='complaint.customer_phone')
 				.form-group
 						+input('订单编号', 'goodCode')(ng-model='complaint.order_no')
-				.form-group
-						+static-input('投诉日期', 'goodNum')(ng-bind='complaint.contact_time')
+				//- .form-group
+				//- 		+static-input('投诉日期', 'goodNum')(ng-bind='complaint.contact_time')
 				.form-group
 						+static-input('处理人', 'contact-responsor')(ng-bind='currentUser.name')
 				.form-group

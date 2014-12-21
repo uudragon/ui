@@ -115,12 +115,12 @@ mixin submit(title, id)
 		if block
 			block
 
-
-mixin yesno(title, id)
+mixin yesno(title, id, yesVal, noVal)
+	- yesVal = yesVal ? yesVal : '是'
+	- noVal = noVal ? noVal : '否'
 	+select(title, id)(ng-model=attributes['ng-model'])
-		+option('是', 0)
-		+option('否', 1)
-
+		+option(yesVal, 1)
+		+option(noVal, 0)
 
 mixin gender(title, id)
 	+select(title, id)(ng-model=attributes['ng-model'])
@@ -133,6 +133,37 @@ mixin order-status(title, id)
 		+option('审核中', 2)
 		+option('无效', 3)
 		+option('审核通过', 4)
+
+//- 订单类型
+mixin order-type(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('单品订单', 0)
+		+option('多品订单', 1)
+
+//- 付款方式
+mixin payment(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('银行', 1)
+		+option('支付宝', 2)
+		+option('货到付款', 3)
+
+//- 是否付款
+mixin isPaid(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('付款', 0)
+		+option('未付款', 1)
+
+//- 失效标识
+mixin isValid(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('有效', 0)
+		+option('无效', 1)
+
+//- 订单来源
+mixin order-source(title, id)
+	+select(title, id)(ng-model=attributes['ng-model'])
+		+option('网站', 0)
+		+option('电话', 1)
 
 mixin workflow-group(title, id)
 	+select(title, id)(ng-model=attributes['ng-model'])
@@ -167,7 +198,7 @@ mixin urgency-level(title, id)
 		+option('紧急', 3)
 
 mixin deal-result(title, id)
-	+select('处理结果', 'deal-result')(ng-model='contact.status')
+	+select('处理结果', 'deal-result')(ng-model=attributes['ng-model'])
 		+option('待处理', 1)
 		+option('处理中', 2)
 		+option('已完成', 3)

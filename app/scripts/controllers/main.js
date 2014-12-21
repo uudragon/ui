@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Resource', '$filter',
-function ($scope, $state, $stateParams, Auth, Resource, $filter) {
+.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Resource', '$filter', '$http',
+function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
@@ -59,17 +59,54 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter) {
 
 	// 新建工单
 	$scope.globalNewOrder = function() {
-		$scope.gbOrder = $scope.gbOrder || {};
-		$scope.gbOrder.callTime = $filter('now')();
-		$scope.gbOrder.responser = $scope.currentUser.name;
-		$scope.gbOrder.responserNo = $scope.currentUser.userNo;
+		$scope.gbOrder = {};
 		$('#global-new-order').modal('show');
 	};
 
 	// 保存工单
-	$scope.saveGlobalOrder = function() {
-		console.log($scope.gbOrder);
-		$('#global-new-order').modal('hide');
+	$scope.saveGlobalOrder = function(gbOrder) {
+		var staticOrderDetails = {
+			orders_no: '112312',
+			product_no: '313213',
+			effective: '2014-12-25',
+			qty: '2',
+			bulk: '123',
+			weight: '12321',
+			status: '1',
+			yn: '1'
+		};
+		var staticCustomer = {
+			code: '123123',
+			type: '1',
+			name: '客户姓名',
+			sex: '1',
+			birthday: '2014-12-25',
+			child: '孩子姓名',
+			c_sex: '1',
+			email: '12321@sadfa.com',
+			province: '山东',
+			city: '青岛',
+			district: '12321',
+			street: '街道',
+			address: '详细地址',
+			post: '123123',
+			phone: '123123',
+			main_phone: '123123123',
+			fax: '123123123',
+			status: '1',
+			creator: '1',
+			updater: '1',
+			yn: '1'
+		};
+		gbOrder.customer = staticCustomer;
+		gbOrder.details = [staticOrderDetails];
+
+		$http.post(config.baseurl + 'order', gbOrder)
+			.success(function(status) {
+				console.log(status);
+				console.log(gbOrder);
+				status === 'true' && $('#global-new-order').modal('hide');
+			});
 	};
 
 	// 新建订单
