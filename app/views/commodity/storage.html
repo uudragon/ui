@@ -21,16 +21,16 @@
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
-      <label for="form-date-time" class="input-group-addon">时间</label>
-      <input id="form-date-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-date-time" class="input-group-addon">时间
+        <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-start-time" class="input-group-addon">开始时间</label>
-      <input id="form-start-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-start-time" class="input-group-addon">开始时间
+        <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-end-time" class="input-group-addon">结束时间</label>
-      <input id="form-end-time" ng-model="searchModel.subfilter.endTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-end-time" class="input-group-addon">结束时间
+        <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -79,31 +79,31 @@
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">商品编号</label>
               <div class="col-xs-7">
-                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">商品名称</label>
               <div class="col-xs-7">
-                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">所在库房</label>
               <div class="col-xs-7">
-                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">商品数量</label>
               <div class="col-xs-7">
-                <input id="form-name" ng-model="storage.good_name" class="form-control input-sm"/>
+                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-storage-type" class="control-label col-xs-3">入库类型</label>
               <div class="col-xs-7">
-                <select id="form-storage-type" ng-model="storage.storage_type" class="form-control input-sm">
+                <select id="form-storage-type" class="form-control input-sm" ng-model="storage.storage_type">
                   <option value="1">一般入库</option>
                   <option value="2">退货入库</option>
                   <option value="3">调货入库</option>
@@ -115,25 +115,25 @@
             <div class="form-group col-xs-6">
               <label for="form-undefined" class="control-label col-xs-3">入库时间</label>
               <div class="col-xs-7">
-                <input id="form-undefined" ng-model="storage.income_time" uu-date-picker="" class="form-control input-sm"/>
+                <input id="form-undefined" class="form-control input-sm" ng-model="storage.income_time" uu-date-picker="uu-date-picker"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-creator" class="control-label col-xs-3">入库人</label>
               <div class="col-xs-7">
-                <input id="form-creator" ng-model="storage.creator" class="form-control input-sm"/>
+                <input id="form-creator" class="form-control input-sm" ng-model="storage.creator"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label class="control-label col-xs-3">更新时间</label>
               <div class="col-xs-7">
-                <p ng-bind="storage.update_time" class="form-control-static"></p>
+                <p class="form-control-static" ng-bind="storage.update_time"></p>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-updator" class="control-label col-xs-3">更新人</label>
               <div class="col-xs-7">
-                <input id="form-updator" ng-model="storage.updator" class="form-control input-sm"/>
+                <input id="form-updator" class="form-control input-sm" ng-model="storage.updator"/>
               </div>
             </div>
           </fieldset>

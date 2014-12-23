@@ -78,19 +78,19 @@
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">客户姓名</label>
               <div class="col-xs-7">
-                <input id="form-name" ng-model="currentOrder.customer.name" class="form-control input-sm"/>
+                <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-order" class="control-label col-xs-3">订单编号</label>
               <div class="col-xs-7">
-                <input id="form-order" ng-model="currentOrder.orders_no" class="form-control input-sm"/>
+                <input id="form-order" class="form-control input-sm" ng-model="currentOrder.orders_no"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-customer-gender" class="control-label col-xs-3">客户性别</label>
               <div class="col-xs-7">
-                <select id="form-customer-gender" ng-model="currentOrder.customer.sex" class="form-control input-sm">
+                <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
@@ -99,7 +99,7 @@
             <div class="form-group col-xs-6">
               <label for="form-good" class="control-label col-xs-3">订购产品</label>
               <div class="col-xs-7">
-                <input id="form-good" ng-model="currentOrder.good" class="form-control input-sm"/>
+                <input id="form-good" class="form-control input-sm" ng-model="currentOrder.good"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
@@ -115,25 +115,25 @@
             <div class="form-group col-xs-6">
               <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
               <div class="col-xs-7">
-                <input id="form-startDate" ng-model="currentOrder.effective" uu-date-picker="" class="form-control input-sm"/>
+                <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
               <div class="col-xs-7">
-                <input id="form-child-name" ng-model="currentOrder.customer.child" class="form-control input-sm"/>
+                <input id="form-child-name" class="form-control input-sm" ng-model="currentOrder.customer.child"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
               <div class="col-xs-7">
-                <input id="form-enddate" ng-model="currentOrder.deadline" uu-date-picker="" class="form-control input-sm"/>
+                <input id="form-enddate" class="form-control input-sm" ng-model="currentOrder.deadline" uu-date-picker="uu-date-picker"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
               <div class="col-xs-7">
-                <select id="form-child-gender" ng-model="currentOrder.customer.c_sex" class="form-control input-sm">
+                <select id="form-child-gender" class="form-control input-sm" ng-model="currentOrder.customer.c_sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
@@ -142,19 +142,19 @@
             <div class="form-group col-xs-6">
               <label for="form-payway" class="control-label col-xs-3">支付方式</label>
               <div class="col-xs-7">
-                <input id="form-payway" ng-model="currentOrder.payway" class="form-control input-sm"/>
+                <input id="form-payway" class="form-control input-sm" ng-model="currentOrder.payway"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
               <div class="col-xs-7">
-                <input id="form-birthday" ng-model="currentOrder.customer.birthday" uu-date-picker="" class="form-control input-sm"/>
+                <input id="form-birthday" class="form-control input-sm" ng-model="currentOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
               <div class="col-xs-7">
-                <select id="form-pay-status" ng-model="currentOrder.paid" class="form-control input-sm">
+                <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
                   <option value="0">未付费</option>
                   <option value="1">已付费</option>
                 </select>
@@ -271,7 +271,7 @@
             <div class="form-group">
               <label for="form-selectGift" class="control-label col-xs-3">选择赠品</label>
               <div class="col-xs-7">
-                <select id="form-selectGift" ng-model="order.gift" class="form-control input-sm">
+                <select id="form-selectGift" class="form-control input-sm" ng-model="order.gift">
                   <option value="0">生日礼品</option>
                   <option value="1">促销赠品</option>
                 </select>

@@ -330,7 +330,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				settings = {
 					format: $attrs.format || 'yyyy-mm-dd',
 					weekStart: 1,
-					startView: $.isNumeric(startView) ? startView : 2,
+					startView: $.isNumeric(startView) ? startView : 3,
 					minView: $.isNumeric(minView) ? minView : 2,
 					endDate: $attrs.endDate || 0,
 					todayHighlight: true,

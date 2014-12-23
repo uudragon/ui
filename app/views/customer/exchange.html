@@ -97,19 +97,19 @@
             <div class="form-group col-xs-6">
               <label for="form-name" class="control-label col-xs-3">客户姓名</label>
               <div class="col-xs-7">
-                <input id="form-name" ng-model="currentOrder.customer.name" class="form-control input-sm"/>
+                <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-order" class="control-label col-xs-3">订单编号</label>
               <div class="col-xs-7">
-                <input id="form-order" ng-model="currentOrder.orders_no" class="form-control input-sm"/>
+                <input id="form-order" class="form-control input-sm" ng-model="currentOrder.orders_no"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-customer-gender" class="control-label col-xs-3">客户性别</label>
               <div class="col-xs-7">
-                <select id="form-customer-gender" ng-model="currentOrder.customer.sex" class="form-control input-sm">
+                <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
@@ -118,7 +118,7 @@
             <div class="form-group col-xs-6">
               <label for="form-good" class="control-label col-xs-3">订购产品</label>
               <div class="col-xs-7">
-                <input id="form-good" ng-model="currentOrder.good" class="form-control input-sm"/>
+                <input id="form-good" class="form-control input-sm" ng-model="currentOrder.good"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
@@ -134,25 +134,25 @@
             <div class="form-group col-xs-6">
               <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
               <div class="col-xs-7">
-                <input id="form-startDate" ng-model="currentOrder.effective" uu-date-picker="" class="form-control input-sm"/>
+                <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
               <div class="col-xs-7">
-                <input id="form-child-name" ng-model="currentOrder.customer.child" class="form-control input-sm"/>
+                <input id="form-child-name" class="form-control input-sm" ng-model="currentOrder.customer.child"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
               <div class="col-xs-7">
-                <input id="form-enddate" ng-model="currentOrder.deadline" uu-date-picker="" class="form-control input-sm"/>
+                <input id="form-enddate" class="form-control input-sm" ng-model="currentOrder.deadline" uu-date-picker="uu-date-picker"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
               <div class="col-xs-7">
-                <select id="form-child-gender" ng-model="currentOrder.customer.c_sex" class="form-control input-sm">
+                <select id="form-child-gender" class="form-control input-sm" ng-model="currentOrder.customer.c_sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
@@ -161,19 +161,19 @@
             <div class="form-group col-xs-6">
               <label for="form-payway" class="control-label col-xs-3">支付方式</label>
               <div class="col-xs-7">
-                <input id="form-payway" ng-model="currentOrder.payway" class="form-control input-sm"/>
+                <input id="form-payway" class="form-control input-sm" ng-model="currentOrder.payway"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
               <div class="col-xs-7">
-                <input id="form-birthday" ng-model="currentOrder.customer.birthday" uu-date-picker="" class="form-control input-sm"/>
+                <input id="form-birthday" class="form-control input-sm" ng-model="currentOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
               </div>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
               <div class="col-xs-7">
-                <select id="form-pay-status" ng-model="currentOrder.paid" class="form-control input-sm">
+                <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
                   <option value="0">未付费</option>
                   <option value="1">已付费</option>
                 </select>
@@ -252,13 +252,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-goodCode" class="control-label col-xs-3">客户姓名</label>
                 <div class="col-xs-7">
-                  <input id="form-goodCode" ng-model="exchange.code" class="form-control input-sm"/>
+                  <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-goodNum" class="control-label col-xs-3">联系方式</label>
                 <div class="col-xs-7">
-                  <input id="form-goodNum" ng-model="exchange.num" class="form-control input-sm"/>
+                  <input id="form-goodNum" class="form-control input-sm" ng-model="exchange.num"/>
                 </div>
               </div>
             </div>
@@ -266,13 +266,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-goodCode" class="control-label col-xs-3">收货地址</label>
                 <div class="col-xs-7">
-                  <input id="form-goodCode" ng-model="exchange.code" class="form-control input-sm"/>
+                  <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-goodNum" class="control-label col-xs-3">订单编号</label>
                 <div class="col-xs-7">
-                  <input id="form-goodNum" ng-model="exchange.num" class="form-control input-sm"/>
+                  <input id="form-goodNum" class="form-control input-sm" ng-model="exchange.num"/>
                 </div>
               </div>
             </div>
@@ -280,13 +280,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-goodCode" class="control-label col-xs-3">订单刊号</label>
                 <div class="col-xs-7">
-                  <input id="form-goodCode" ng-model="exchange.code" class="form-control input-sm"/>
+                  <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-goodNum" class="control-label col-xs-3">订单刊数</label>
                 <div class="col-xs-7">
-                  <input id="form-goodNum" ng-model="exchange.num" class="form-control input-sm"/>
+                  <input id="form-goodNum" class="form-control input-sm" ng-model="exchange.num"/>
                 </div>
               </div>
             </div>
@@ -294,13 +294,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-goodCode" class="control-label col-xs-3">已收货刊号</label>
                 <div class="col-xs-7">
-                  <input id="form-goodCode" ng-model="exchange.code" class="form-control input-sm"/>
+                  <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-goodCode" class="control-label col-xs-3">未收货刊号</label>
                 <div class="col-xs-7">
-                  <input id="form-goodCode" ng-model="exchange.code" class="form-control input-sm"/>
+                  <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
                 </div>
               </div>
             </div>
@@ -308,13 +308,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-subscribeNum" class="control-label col-xs-3">申请调换刊</label>
                 <div class="col-xs-7">
-                  <input id="form-subscribeNum" ng-model="exchange.subscribeNum" class="form-control input-sm"/>
+                  <input id="form-subscribeNum" class="form-control input-sm" ng-model="exchange.subscribeNum"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">调换类别</label>
                 <div class="col-xs-7">
-                  <select id="form-subscribeAmount" ng-model="exchange.sdfasdfadsf" class="form-control input-sm">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.sdfasdfadsf">
                     <option value="11">绘本</option>
                     <option value="12">玩具</option>
                   </select>
@@ -325,7 +325,7 @@
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">申请调换科目</label>
                 <div class="col-xs-7">
-                  <select id="form-subscribeAmount" ng-model="exchange.sdd" class="form-control input-sm">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.sdd">
                     <option value="11">汉语小镇</option>
                     <option value="12">数理摩天轮</option>
                     <option value="12">入学准备书</option>
@@ -337,7 +337,7 @@
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">调换数量</label>
                 <div class="col-xs-7">
-                  <input id="form-subscribeAmount" ng-model="exchange.subscribeAmount" class="form-control input-sm"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.subscribeAmount"/>
                 </div>
               </div>
             </div>
@@ -345,7 +345,7 @@
               <div class="form-group col-xs-6">
                 <label for="form-return-reason" class="control-label col-xs-3">调换原因</label>
                 <div class="col-xs-7">
-                  <select id="form-return-reason" ng-model="exchange.phoneStatus" class="form-control input-sm">
+                  <select id="form-return-reason" class="form-control input-sm" ng-model="exchange.phoneStatus">
                     <option value="1">破损</option>
                     <option value="2">缺漏</option>
                   </select>
@@ -354,7 +354,7 @@
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">调换进度</label>
                 <div class="col-xs-7">
-                  <select id="form-subscribeAmount" ng-model="exchange.subscribeAmount" class="form-control input-sm">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.subscribeAmount">
                     <option value="0">申请中</option>
                     <option value="1">发货中</option>
                     <option value="1">已完成</option>
@@ -366,7 +366,7 @@
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">调换结果</label>
                 <div class="col-xs-7">
-                  <select id="form-subscribeAmount" ng-model="exchange.subscribeAmount" class="form-control input-sm">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.subscribeAmount">
                     <option value="0">已调换</option>
                     <option value="1">未调换</option>
                   </select>
@@ -375,7 +375,7 @@
               <div class="form-group col-xs-6">
                 <label for="form-urgency" class="control-label col-xs-3">是否已入库</label>
                 <div class="col-xs-7">
-                  <select id="form-urgency" ng-model="user.urgency" class="form-control input-sm">
+                  <select id="form-urgency" class="form-control input-sm" ng-model="user.urgency">
                     <option value="0">是</option>
                     <option value="1">否</option>
                   </select>
@@ -386,13 +386,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">发货状态</label>
                 <div class="col-xs-7">
-                  <input id="form-subscribeAmount" ng-model="exchange.subscribeAmount" class="form-control input-sm"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.subscribeAmount"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">是否单独发货</label>
                 <div class="col-xs-7">
-                  <select id="form-subscribeAmount" ng-model="exchange.subscribeAmount" class="form-control input-sm">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.subscribeAmount">
                     <option value="0">是</option>
                     <option value="1">否</option>
                   </select>
@@ -403,13 +403,13 @@
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">运费金额</label>
                 <div class="col-xs-7">
-                  <input id="form-subscribeAmount" ng-model="exchange.subscribeAmount" class="form-control input-sm"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.subscribeAmount"/>
                 </div>
               </div>
               <div class="form-group col-xs-6">
                 <label for="form-subscribeAmount" class="control-label col-xs-3">运费承担人</label>
                 <div class="col-xs-7">
-                  <select id="form-subscribeAmount" ng-model="exchange.subscribeAmount" class="form-control input-sm">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="exchange.subscribeAmount">
                     <option value="1">客户</option>
                     <option value="2">公司</option>
                     <option value="3">快递公司</option>
@@ -440,7 +440,7 @@
             <div class="form-group">
               <label for="form-topic" class="control-label col-xs-3">主题</label>
               <div class="col-xs-7">
-                <select id="form-topic" ng-model="contact.theme" class="form-control input-sm">
+                <select id="form-topic" class="form-control input-sm" ng-model="contact.theme">
                   <option value="1">核实订单</option>
                   <option value="2">投诉</option>
                   <option value="3">回访</option>
@@ -452,7 +452,7 @@
             <div class="form-group">
               <label for="form-deal-result" class="control-label col-xs-3">处理结果</label>
               <div class="col-xs-7">
-                <select id="form-deal-result" ng-model="contact.status" class="form-control input-sm">
+                <select id="form-deal-result" class="form-control input-sm" ng-model="contact.status">
                   <option value="1">待处理</option>
                   <option value="2">处理中</option>
                   <option value="3">已完成</option>
@@ -462,19 +462,19 @@
             <div class="form-group">
               <label class="control-label col-xs-3">联系时间</label>
               <div class="col-xs-7">
-                <p ng-bind="contact.contactTime" class="form-control-static"></p>
+                <p class="form-control-static" ng-bind="contact.contactTime"></p>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-xs-3">负责人</label>
               <div class="col-xs-7">
-                <p ng-bind="currentUser.name" class="form-control-static"></p>
+                <p class="form-control-static" ng-bind="currentUser.name"></p>
               </div>
             </div>
             <div class="form-group">
               <label for="form-phone-status" class="control-label col-xs-3">电话状态</label>
               <div class="col-xs-7">
-                <select id="form-phone-status" ng-model="contact.phoneStatus" class="form-control input-sm">
+                <select id="form-phone-status" class="form-control input-sm" ng-model="contact.phoneStatus">
                   <option value="1">无人接</option>
                   <option value="2">占线</option>
                   <option value="3">接听</option>
@@ -487,7 +487,7 @@
             <div class="form-group">
               <label for="form-complain-type" class="control-label col-xs-3">投诉分类</label>
               <div class="col-xs-7">
-                <select id="form-complain-type" ng-model="contact.complainType" class="form-control input-sm">
+                <select id="form-complain-type" class="form-control input-sm" ng-model="contact.complainType">
                   <option value="31">发票抬头错误</option>
                   <option value="32">未开发票</option>
                   <option value="33">开票时间长</option>
@@ -505,13 +505,13 @@
             <div class="form-group">
               <label for="form-contact-next-time" class="control-label col-xs-3">下次回访日期</label>
               <div class="col-xs-7">
-                <input id="form-contact-next-time" ng-model="contact.next_time" uu-date-picker="" min-view="0" format="yyyy-mm-dd hh:ii" class="form-control input-sm"/>
+                <input id="form-contact-next-time" class="form-control input-sm" ng-model="contact.next_time" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0"/>
               </div>
             </div>
             <div class="form-group">
               <label for="form-urgency" class="control-label col-xs-3">紧急程度</label>
               <div class="col-xs-7">
-                <select id="form-urgency" ng-model="contact.level" class="form-control input-sm">
+                <select id="form-urgency" class="form-control input-sm" ng-model="contact.level">
                   <option value="0">一般</option>
                   <option value="1">优先</option>
                   <option value="1">紧急</option>
@@ -521,7 +521,7 @@
             <div class="form-group">
               <label for="form-content" class="control-label col-xs-3">内容</label>
               <div class="col-xs-7">
-                <textarea id="form-content" ng-model="contact.content" class="form-control"></textarea>
+                <textarea id="form-content" class="form-control" ng-model="contact.content"></textarea>
               </div>
             </div>
           </fieldset>

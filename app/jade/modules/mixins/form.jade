@@ -1,4 +1,3 @@
-
 //- Inputs
 //- ----------------------
 
@@ -6,42 +5,30 @@
 mixin input(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		if !attributes['uu-date-picker']
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
-		else
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 mixin static-input(title)
 	label.control-label.col-xs-3=title
 	.col-xs-7
-		p.form-control-static(ng-bind=attributes['ng-bind'])
+		p.form-control-static&attributes(attributes)
 
 //- 4 label, 6 input
 mixin input-tweak(title, id)
 	label.control-label.col-xs-4(for='form-' + id)=title
 	.col-xs-6
-		if !attributes['uu-date-picker']
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
-		else
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 
 //- free label, free input
 mixin plain-input(title, id)
 	label.control-label(for='form-' + id)=title
-	if !attributes['uu-date-picker']
-		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
-	else
-		input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 //- 3 label, 7 input, message-multi
 mixin short-input(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7.message-multi
-		if !attributes['uu-date-picker']
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
-		else
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 		if block
 			block
 
@@ -49,10 +36,7 @@ mixin short-input(title, id)
 mixin grouped-input(title, id)
 	.input-group(ng-show=attributes['ng-show'])
 		label.input-group-addon(for='form-' + id)=title
-		if !attributes['uu-date-picker']
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
-		else
-			input.form-control.input-sm(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'], uu-date-picker='', min-view=attributes['min-view'], format=attributes['format'])
+			input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 
 //- Textarea
@@ -62,11 +46,11 @@ mixin grouped-input(title, id)
 mixin textarea(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		textarea.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+		textarea.form-control(id='form-' + id)&attributes(attributes)
 
 mixin plain-textarea(title, id)
 	label.control-label(for='form-' + id)=title
-	textarea.form-control(id='form-' + id, ng-click=attributes['ng-click'], ng-model=attributes['ng-model'])
+	textarea.form-control(id='form-' + id)&attributes(attributes)
 
 
 
@@ -77,28 +61,28 @@ mixin plain-textarea(title, id)
 mixin select(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'], ng-options=attributes[ng-options])
+		select.form-control.input-sm(id='form-' + id)&attributes(attributes)
 			block
 
 //- 3 label, 7 from-control, multi-row
 mixin multi-select(title, id)
 	label.control-label.col-xs-3(for='form-' + id)=title
 	.col-xs-7
-		select.form-control(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'], size='5', ng-options=attributes['ng-options'])
+		select.form-control(id='form-' + id)&attributes(attributes)
 			block
 
 //- 4 label, 6 from-control
 mixin select-tweak(title, id)
 	label.control-label.col-xs-4(for='form-' + id)=title
 	.col-xs-6
-		select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+		select.form-control.input-sm(id='form-' + id)&attributes(attributes)
 			block
 
 //- free label, free from-control
 mixin plain-select(title, id, options)
 	if title
 		label.control-label(for='form-' + id)=title
-	select.form-control.input-sm(id='form-' + id, name=attributes['name'], ng-model=attributes['ng-model'])
+	select.form-control.input-sm(id='form-' + id)&attributes(attributes)
 		if options
 			each val in options
 				+option(val.title, val.value)
@@ -106,7 +90,7 @@ mixin plain-select(title, id, options)
 mixin option(title, value)
 	if value === null
 		- var value = title
-	option(value=value, ng-show=attributes['ng-show'], ng-if=attributes['ng-if'])=title
+	option(value=value)&attributes(attributes)=title
 
 
 //- bootstrap short input helper
@@ -118,17 +102,17 @@ mixin submit(title, id)
 mixin yesno(title, id, yesVal, noVal)
 	- yesVal = yesVal ? yesVal : '是'
 	- noVal = noVal ? noVal : '否'
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option(yesVal, 1)
 		+option(noVal, 0)
 
 mixin gender(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('女', 0)
 		+option('男', 1)
 
 mixin order-status(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('待审核', 1)
 		+option('审核中', 2)
 		+option('无效', 3)
@@ -136,49 +120,49 @@ mixin order-status(title, id)
 
 //- 订单类型
 mixin order-type(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('单品订单', 0)
 		+option('多品订单', 1)
 
 //- 付款方式
 mixin payment(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('银行', 1)
 		+option('支付宝', 2)
 		+option('货到付款', 3)
 
 //- 是否付款
 mixin isPaid(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('付款', 0)
 		+option('未付款', 1)
 
 //- 失效标识
 mixin isValid(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('有效', 0)
 		+option('无效', 1)
 
 //- 订单来源
 mixin order-source(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('网站', 0)
 		+option('电话', 1)
 
 mixin workflow-group(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('审单组', 1)
 		+option('拆单组', 2)
 
 mixin commdity-type(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('教材', 1)
 		+option('音像制品(DVD/CD)', 2)
 		+option('玩具', 3)
 		+option('其它', 4)
 
 mixin complain-type(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('发票抬头错误', 31)
 		+option('未开发票', 32)
 		+option('开票时间长', 33)
@@ -192,19 +176,19 @@ mixin complain-type(title, id)
 		+option('快递态度', 311)
 
 mixin urgency-level(title, id)
-	+select('紧急程度', 'urgency')(ng-model='contact.level')
+	+select('紧急程度', 'urgency')&attributes(attributes)
 		+option('一般', 1)
 		+option('优先', 2)
 		+option('紧急', 3)
 
 mixin deal-result(title, id)
-	+select('处理结果', 'deal-result')(ng-model=attributes['ng-model'])
+	+select('处理结果', 'deal-result')&attributes(attributes)
 		+option('待处理', 1)
 		+option('处理中', 2)
 		+option('已完成', 3)
 
 mixin storage-type(title, id)
-	+select(title, id)(ng-model=attributes['ng-model'])
+	+select(title, id)&attributes(attributes)
 		+option('一般入库', 1)
 		+option('退货入库', 2)
 		+option('调货入库', 3)

@@ -63,8 +63,13 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		$('#global-new-order').modal('show');
 	};
 
+	// $scope.globalNewOrder();
+
 	// 保存工单
-	$scope.saveGlobalOrder = function(gbOrder) {
+	$scope.saveGlobalOrder = function(gbOrder, form) {
+		form.$setDirty(true);
+		if (!form.$valid) return;
+
 		var staticOrderDetails = {
 			orders_no: '112312',
 			product_no: '313213',
@@ -100,11 +105,9 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		};
 		gbOrder.customer = staticCustomer;
 		gbOrder.details = [staticOrderDetails];
-
 		$http.post(config.baseurl + 'order', gbOrder)
 			.success(function(status) {
-				console.log(status);
-				console.log(gbOrder);
+				form.$setPristine();
 				status === 'true' && $('#global-new-order').modal('hide');
 			});
 	};

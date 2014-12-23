@@ -36,16 +36,16 @@
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
-      <label for="form-date-time" class="input-group-addon">时间</label>
-      <input id="form-date-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-date-time" class="input-group-addon">时间
+        <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-start-time" class="input-group-addon">开始时间</label>
-      <input id="form-start-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-start-time" class="input-group-addon">开始时间
+        <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-end-time" class="input-group-addon">结束时间</label>
-      <input id="form-end-time" ng-model="searchModel.subfilter.endTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-end-time" class="input-group-addon">结束时间
+        <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -112,7 +112,7 @@
             <div class="form-group">
               <label for="form-subject" class="control-label col-xs-3">主题</label>
               <div class="col-xs-7">
-                <select id="form-subject" ng-model="msg.subject" class="form-control input-sm">
+                <select id="form-subject" class="form-control input-sm" ng-model="msg.subject">
                   <option value="0">核实订单</option>
                   <option value="1">投诉</option>
                   <option value="2">回访</option>
@@ -124,7 +124,7 @@
             <div class="form-group">
               <label for="form-content" class="control-label col-xs-3">内容</label>
               <div class="col-xs-7">
-                <textarea id="form-content" ng-model="msg.content" class="form-control"></textarea>
+                <textarea id="form-content" class="form-control" ng-model="msg.content"></textarea>
               </div>
             </div>
           </fieldset>

@@ -35,13 +35,13 @@
     <div class="form-group col-xs-6">
       <label for="form-name" class="control-label col-xs-3">客户姓名</label>
       <div class="col-xs-7">
-        <input id="form-name" ng-model="globalNewOrder.name" class="form-control input-sm"/>
+        <input id="form-name" class="form-control input-sm" ng-model="globalNewOrder.name"/>
       </div>
     </div>
     <div class="form-group col-xs-6">
       <label for="form-order-status" class="control-label col-xs-3">工单状态</label>
       <div class="col-xs-7">
-        <select id="form-order-status" ng-model="globalNewOrder.orderStatus" class="form-control input-sm">
+        <select id="form-order-status" class="form-control input-sm" ng-model="globalNewOrder.orderStatus">
           <option value="0">已完成</option>
           <option value="0">处理中</option>
           <option value="0">待处理</option>
@@ -51,19 +51,19 @@
     <div class="form-group col-xs-6">
       <label class="control-label col-xs-3">来电时间</label>
       <div class="col-xs-7">
-        <p ng-bind="globalNewOrder.callTime" class="form-control-static"></p>
+        <p class="form-control-static" ng-bind="globalNewOrder.callTime"></p>
       </div>
     </div>
     <div class="form-group col-xs-6">
       <label for="form-responser" class="control-label col-xs-3">负责人</label>
       <div class="col-xs-7">
-        <input id="form-responser" ng-model="globalNewOrder.responser" class="form-control input-sm"/>
+        <input id="form-responser" class="form-control input-sm" ng-model="globalNewOrder.responser"/>
       </div>
     </div>
     <div class="form-group col-xs-6">
       <label for="form-query-type" class="control-label col-xs-3">查询类型</label>
       <div class="col-xs-7">
-        <select id="form-query-type" ng-model="globalNewOrder.queryType" class="form-control input-sm">
+        <select id="form-query-type" class="form-control input-sm" ng-model="globalNewOrder.queryType">
           <option value="0">产品</option>
           <option value="0">售后服务</option>
           <option value="0">订购</option>
@@ -75,12 +75,12 @@
     <div class="form-group col-xs-6">
       <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
       <div class="col-xs-7">
-        <input id="form-telphone" ng-model="globalNewOrder.telphone" class="form-control input-sm"/>
+        <input id="form-telphone" class="form-control input-sm" ng-model="globalNewOrder.telphone"/>
       </div>
     </div>
     <div class="form-group col-xs-12 order-content">
       <label for="form-content" class="control-label">内容</label>
-      <textarea id="form-content" ng-model="globalNewOrder.content" class="form-control"></textarea>
+      <textarea id="form-content" class="form-control" ng-model="globalNewOrder.content"></textarea>
     </div>
     <div class="form-group col-xs-12 group-center-block">
       <button ng-click="confirmAndShare()" class="btn uu-btn btn-primary">保存</button>

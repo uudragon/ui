@@ -21,16 +21,16 @@
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
-      <label for="form-date-time" class="input-group-addon">时间</label>
-      <input id="form-date-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-date-time" class="input-group-addon">时间
+        <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-start-time" class="input-group-addon">开始时间</label>
-      <input id="form-start-time" ng-model="searchModel.subfilter.startTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-start-time" class="input-group-addon">开始时间
+        <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-end-time" class="input-group-addon">结束时间</label>
-      <input id="form-end-time" ng-model="searchModel.subfilter.endTime" uu-date-picker="" min-view="1" format="yyyy-mm-dd hh:00" class="form-control input-sm"/>
+      <label for="form-end-time" class="input-group-addon">结束时间
+        <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -81,13 +81,13 @@
                 <div class="form-group col-xs-6">
                   <label for="form-name" class="control-label col-xs-3">产品名称</label>
                   <div class="col-xs-7">
-                    <input id="form-name" ng-model="good.good_name" class="form-control input-sm"/>
+                    <input id="form-name" class="form-control input-sm" ng-model="good.good_name"/>
                   </div>
                 </div>
                 <div class="form-group col-xs-6">
                   <label for="form-is-valid" class="control-label col-xs-3">是否有效</label>
                   <div class="col-xs-7">
-                    <select id="form-is-valid" ng-model="good.is_valid" class="form-control input-sm">
+                    <select id="form-is-valid" class="form-control input-sm" ng-model="good.is_valid">
                       <option value="1">是</option>
                       <option value="0">否</option>
                     </select>
@@ -96,31 +96,31 @@
                 <div class="form-group col-xs-6">
                   <label for="form-good-des" class="control-label col-xs-3">产品说明</label>
                   <div class="col-xs-7">
-                    <input id="form-good-des" ng-model="good.good_des" class="form-control input-sm"/>
+                    <input id="form-good-des" class="form-control input-sm" ng-model="good.good_des"/>
                   </div>
                 </div>
                 <div class="form-group col-xs-6">
                   <label class="control-label col-xs-3">创建时间</label>
                   <div class="col-xs-7">
-                    <p ng-bind="good.create_time" class="form-control-static"></p>
+                    <p class="form-control-static" ng-bind="good.create_time"></p>
                   </div>
                 </div>
                 <div class="form-group col-xs-6">
                   <label for="form-creator" class="control-label col-xs-3">创建人</label>
                   <div class="col-xs-7">
-                    <input id="form-creator" ng-model="good.creator" class="form-control input-sm"/>
+                    <input id="form-creator" class="form-control input-sm" ng-model="good.creator"/>
                   </div>
                 </div>
                 <div class="form-group col-xs-6">
                   <label class="control-label col-xs-3">更新时间</label>
                   <div class="col-xs-7">
-                    <p ng-bind="good.update_time" class="form-control-static"></p>
+                    <p class="form-control-static" ng-bind="good.update_time"></p>
                   </div>
                 </div>
                 <div class="form-group col-xs-6">
                   <label for="form-updator" class="control-label col-xs-3">更新人</label>
                   <div class="col-xs-7">
-                    <input id="form-updator" ng-model="good.updator" class="form-control input-sm"/>
+                    <input id="form-updator" class="form-control input-sm" ng-model="good.updator"/>
                   </div>
                 </div>
               </fieldset>
