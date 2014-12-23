@@ -1382,6 +1382,8 @@
         .one('bsTransitionEnd', $.proxy(this.hideModal, this))
         .emulateTransitionEnd(300) :
       this.hideModal()
+
+    this.$element.find('.modal-msgcontent').hide()
   }
 
   Modal.prototype.info = function(msg, className, blnHideMsgBox) {
@@ -1392,10 +1394,23 @@
       $msg = $msgbox.find('.modal-msgcontent')
       this.$element.find('.modal-content').prepend($msgbox)
     }
-    $msg.removeClass('alert-info alert-danger alert-success')
+    $msg.removeClass('alert-info alert-danger alert-success modal-msg-spinner')
     className ? $msg.addClass(className) : $msg.addClass('alert-info')
     $msg.html(msg)
     this.showMsg($msg, blnHideMsgBox)
+  }
+
+  Modal.prototype.spinner = function() {
+    var $msg = this.$element.find('.modal-msgcontent')
+
+    if (!$msg.length) {
+      var $msgbox = $('<div class="modal-msgbox"><div class="modal-msgcontent"></div></div>')
+      $msg = $msgbox.find('.modal-msgcontent')
+      this.$element.find('.modal-content').prepend($msgbox)
+    }
+    $msg.removeClass('alert-info alert-danger alert-success')
+    $msg.addClass('modal-msg-spinner')
+    $msg.html('').stop().fadeIn()
   }
 
   Modal.prototype.fail = function(msg) {
@@ -1410,7 +1425,7 @@
 
   Modal.prototype.showMsg = function($msg, blnHideMsgBox) {
     var self = this;
-    $msg.fadeIn('slow', function() {
+    $msg.stop().fadeIn('slow', function() {
       setTimeout(function() {
         $msg.fadeOut(function() {
           blnHideMsgBox && self.hide()

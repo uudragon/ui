@@ -78,21 +78,24 @@
   &.alert-danger {
     @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
   }
+
+  &.modal-msg-spinner {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: solid 2px rgba(0, 0, 0, 0);
+    border-top-color: #29D;
+    border-left-color: #29D;
+    border-radius: 10px;
+    -webkit-animation: loading-bar-spinner 400ms linear infinite;
+    -moz-animation: loading-bar-spinner 400ms linear infinite;
+    -ms-animation: loading-bar-spinner 400ms linear infinite;
+    -o-animation: loading-bar-spinner 400ms linear infinite;
+    animation: loading-bar-spinner 400ms linear infinite;
+  }
 }
 
-.modal-msg-spinner {
-  width: 14px;
-  height: 14px;
-  border: solid 2px rgba(0, 0, 0, 0);
-  border-top-color: #29D;
-  border-left-color: #29D;
-  border-radius: 10px;
-  -webkit-animation: loading-bar-spinner 400ms linear infinite;
-  -moz-animation: loading-bar-spinner 400ms linear infinite;
-  -ms-animation: loading-bar-spinner 400ms linear infinite;
-  -o-animation: loading-bar-spinner 400ms linear infinite;
-  animation: loading-bar-spinner 400ms linear infinite;
-}
+
 
 
 // Actual modal
