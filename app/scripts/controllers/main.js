@@ -67,7 +67,9 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 保存工单
 	$scope.saveGlobalOrder = function(gbOrder, form) {
-		form.$setDirty(true);
+		// form.$setDirty(true);
+		// form.$setPristine();
+		// console.log(form);
 		if (!form.$valid) return;
 
 		var staticOrderDetails = {
@@ -107,7 +109,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		gbOrder.details = [staticOrderDetails];
 		$http.post(config.baseurl + 'order', gbOrder)
 			.success(function(status) {
-				form.$setPristine();
 				status === 'true' && $('#global-new-order').modal('hide');
 			});
 	};

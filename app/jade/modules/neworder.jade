@@ -24,11 +24,11 @@
 				+hgroup
 					+input('代理商编号', 'agent-code')(ng-model='gbOrder.agent_code' type='number' required)
 				+hgroup
-					+input('优惠码', 'coupon-code')(ng-model='gbOrder.coupon_code' type='number' )
+					+input('优惠码', 'coupon-code')(ng-model='gbOrder.coupon_code' type='number')
 				+hgroup
-					+input('折扣金额', 'discount-amount')(ng-model='gbOrder.discount_amount' required)
+					+input('折扣金额', 'discount-amount')(ng-model='gbOrder.discount_amount' type='number' required)
 				+hgroup
-					+input('付款金额', 'amount')(ng-model='gbOrder.amount' required)
+					+input('付款金额', 'amount')(ng-model='gbOrder.amount' type='number' required)
 				+hgroup
 					+input('客户姓名', 'customer-name')(ng-model='gbOrder.customer_name' required)
 				+hgroup
@@ -42,7 +42,7 @@
 				+hgroup
 					+order-status('订单状态', 'status')(ng-model='gbOrder.status' required)
 				+hgroup
-					+input('订单有效期', 'validity')(ng-model='gbOrder.validity' required)
+					+input('订单有效期', 'validity')(ng-model='gbOrder.validity' type='number' required)
 				+hgroup
 					+input('下单时间', 'order-time')(ng-model='gbOrder.order_time' uu-date-picker required)
 				+hgroup
