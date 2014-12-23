@@ -58,19 +58,22 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	};
 
 	// 新建工单
-	$scope.globalNewOrder = function() {
-		$scope.gbOrder = {};
+	$scope.globalNewOrder = function(form) {
+		// $scope.gbOrder = {};
+		form.$sumitted = false;
+		form.$setPristine();
 		$('#global-new-order').modal('show');
 	};
 
-	// $scope.globalNewOrder();
-
 	// 保存工单
-	$scope.saveGlobalOrder = function(gbOrder, form) {
-		// form.$setDirty(true);
-		// form.$setPristine();
-		// console.log(form);
-		if (!form.$valid) return;
+	$scope.saveGlobalOrder = function(form) {
+		// 触发表单验证
+		form.$sumitted = true;
+
+		if (!form.$valid) {
+			$('#global-new-order').modal('fail', '表单填写有误');
+			return;
+		}
 
 		var staticOrderDetails = {
 			orders_no: '112312',
@@ -105,11 +108,21 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			updater: '1',
 			yn: '1'
 		};
-		gbOrder.customer = staticCustomer;
-		gbOrder.details = [staticOrderDetails];
-		$http.post(config.baseurl + 'order', gbOrder)
+		$scope.gbOrder.customer = staticCustomer;
+		$scope.gbOrder.details = [staticOrderDetails];
+		$http.post(config.baseurl + 'order', $scope.gbOrder)
 			.success(function(status) {
-				status === 'true' && $('#global-new-order').modal('hide');
+				// 保存成功后清空表单内容
+				$scope.gbOrder = {};
+				form.$setPristine();
+				if (status === 'true') {
+					$('#global-new-order').modal('success');
+				} else {
+					$('#global-new-order').modal('fail');
+				}
+			})
+			.error(function() {
+				$('#global-new-order').modal('fail');
 			});
 	};
 
@@ -123,7 +136,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 保存订单
 	$scope.saveGlobalTicket = function() {
-		console.log($scope.gbTicket);
 		$('#global-new-ticket').modal('hide');
 		$scope.gbTicket = {};
 	};

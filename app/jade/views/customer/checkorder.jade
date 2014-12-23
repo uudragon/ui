@@ -7,7 +7,7 @@ include ../../modules/mixins.jade
 			+glyphicon('plus')
 		ul.dropdown-menu(role="menu")
 			li
-				+jslink('globalNewOrder()', '新建订单')
+				+jslink('globalNewOrder(gbNeworderForm)', '新建订单')
 			li
 				+jslink('globalNewTicket()', '新建工单')
 			li
@@ -131,6 +131,8 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='updateOrderStatus(currentOrder)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
+
+include ../../modules/neworder.jade
 
 //- 核实订单Modal
 include ../../modules/contact-history.jade

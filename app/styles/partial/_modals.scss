@@ -52,6 +52,49 @@
   z-index: inherit;
 }
 
+.modal-msgbox {
+  position: absolute;
+  left: 50%;
+  top: 0;
+}
+
+.modal-msgcontent {
+  display: none;
+  padding: 11px 15px;
+  position: relative;
+  left: -50%;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  border-radius: 0 0 5px 5px;
+
+  &.alert-success {
+    @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+  }
+
+  &.alert-info {
+    @include alert-variant($alert-info-bg, $alert-info-border, $alert-info-text);
+  }
+
+  &.alert-danger {
+    @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+  }
+}
+
+.modal-msg-spinner {
+  width: 14px;
+  height: 14px;
+  border: solid 2px rgba(0, 0, 0, 0);
+  border-top-color: #29D;
+  border-left-color: #29D;
+  border-radius: 10px;
+  -webkit-animation: loading-bar-spinner 400ms linear infinite;
+  -moz-animation: loading-bar-spinner 400ms linear infinite;
+  -ms-animation: loading-bar-spinner 400ms linear infinite;
+  -o-animation: loading-bar-spinner 400ms linear infinite;
+  animation: loading-bar-spinner 400ms linear infinite;
+}
+
+
 // Actual modal
 .modal-content {
   position: relative;

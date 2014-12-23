@@ -1384,6 +1384,41 @@
       this.hideModal()
   }
 
+  Modal.prototype.info = function(msg, className, blnHideMsgBox) {
+    var $msg = this.$element.find('.modal-msgcontent')
+
+    if (!$msg.length) {
+      var $msgbox = $('<div class="modal-msgbox"><div class="modal-msgcontent"></div></div>')
+      $msg = $msgbox.find('.modal-msgcontent')
+      this.$element.find('.modal-content').prepend($msgbox)
+    }
+    $msg.removeClass('alert-info alert-danger alert-success')
+    className ? $msg.addClass(className) : $msg.addClass('alert-info')
+    $msg.html(msg)
+    this.showMsg($msg, blnHideMsgBox)
+  }
+
+  Modal.prototype.fail = function(msg) {
+    msg = msg || '保存失败';
+    this.info(msg, 'alert-danger')
+  }
+
+  Modal.prototype.success = function(msg) {
+    msg = msg || '保存成功';
+    this.info(msg, 'alert-success', true)
+  }
+
+  Modal.prototype.showMsg = function($msg, blnHideMsgBox) {
+    var self = this;
+    $msg.fadeIn('slow', function() {
+      setTimeout(function() {
+        $msg.fadeOut(function() {
+          blnHideMsgBox && self.hide()
+        })
+      }, 1000)
+    })
+  }
+
   Modal.prototype.enforceFocus = function () {
     $(document)
       .off('focusin.bs.modal') // guard against infinite focus loop
