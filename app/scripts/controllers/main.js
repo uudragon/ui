@@ -60,11 +60,10 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	// 新建工单
 	$scope.globalNewOrder = function(form) {
 		// $scope.gbOrder = {};
-		// form.$sumitted = false;
-		// form.$setPristine();
+		form.$sumitted = false;
+		form.$setPristine();
 		$('#global-new-order').modal('show');
 	};
-	$scope.globalNewOrder();
 
 	// 保存工单
 	$scope.saveGlobalOrder = function(form) {
