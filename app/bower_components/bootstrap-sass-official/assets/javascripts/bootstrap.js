@@ -1386,7 +1386,7 @@
     this.$element.find('.modal-msgcontent').hide()
   }
 
-  Modal.prototype.info = function(msg, className, blnHideMsgBox, callback) {
+  Modal.prototype.info = function(msg, className, blnHideMsgBox) {
     var $msg = this.$element.find('.modal-msgcontent')
 
     if (!$msg.length) {
@@ -1398,8 +1398,6 @@
     className ? $msg.addClass(className) : $msg.addClass('alert-info')
     $msg.html(msg)
     this.showMsg($msg, blnHideMsgBox)
-    console.log(callback);
-    $.isFunction(callback) && this.$element.once('hide.bs.modal', callback)
   }
 
   Modal.prototype.spinner = function() {
@@ -1415,15 +1413,14 @@
     $msg.html('').stop().fadeIn()
   }
 
-  Modal.prototype.fail = function(msg, callback) {
+  Modal.prototype.fail = function(msg) {
     msg = msg || '保存失败';
-    console.log('callback', arguments);
-    this.info(msg, 'alert-danger', false, callback)
+    this.info(msg, 'alert-danger')
   }
 
-  Modal.prototype.success = function(msg, callback) {
+  Modal.prototype.success = function(msg) {
     msg = msg || '保存成功';
-    this.info(msg, 'alert-success', true, callback)
+    this.info(msg, 'alert-success', true)
   }
 
   Modal.prototype.showMsg = function($msg, blnHideMsgBox) {

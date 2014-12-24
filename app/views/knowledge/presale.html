@@ -1,13 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建"><span class="glyphicon glyphicon-plus"></span></a>
-      <ul role="menu" class="dropdown-menu">
-        <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
-        </li>
-        <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
-        </li>
-      </ul>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加知识" ng-click="newKnowledge(knowlegeForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -43,13 +37,13 @@
   <ul class="list-inline">
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除"><span class="glyphicon glyphicon-trash"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加知识" ng-click="newKnowledge()"><span class="glyphicon glyphicon-file"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加知识" ng-click="newKnowledge(knowlegeForm)"><span class="glyphicon glyphicon-file"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="知识工具"><span class="glyphicon glyphicon-wrench"></span></a>
     </li>
   </ul>
 </div>
-<table class="uu-table">
+<table ng-show="knowledges" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
       <th>
@@ -84,8 +78,8 @@
     </tr>
   </tbody>
 </table>
-<uu-pagination records="102" page="currentPage" model="searchModel" action="getknowledges()"></uu-pagination>
-<div id="new-knowlege" class="modal fade">
+<uu-pagination records="knowledges.meta.recordsCount" per-page="{{knowledges.meta.pageSize}}" page="knowledges.meta.pageNo" model="searchModel" action="getKnowlegeList()"></uu-pagination>
+<div id="knowlege-form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -93,23 +87,23 @@
         <h4 class="modal-title">添加知识</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form name="knowlegeForm" ovalidate="ovalidate" ng-class="{sumitted: knowlegeForm.$sumitted}" class="form-horizontal">
           <div class="form-group">
             <label for="form-subject" class="control-label col-xs-3">主题</label>
             <div class="col-xs-7">
-              <input id="form-subject" class="form-control input-sm" ng-model="newknowledge.subject"/>
+              <input id="form-subject" class="form-control input-sm" ng-model="knowlege.subject" required="required"/>
             </div>
           </div>
           <div class="form-group">
             <label for="form-responsor" class="control-label col-xs-3">内容</label>
             <div class="col-xs-7">
-              <textarea id="form-responsor" class="form-control" ng-model="order.responsor"></textarea>
+              <textarea id="form-responsor" class="form-control" ng-model="knowlege.content" required="required"></textarea>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="save()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveKnowledge(knowlegeForm)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

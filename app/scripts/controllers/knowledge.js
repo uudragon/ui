@@ -11,6 +11,7 @@ angular.module('mainApp')
 	 * ---------------------------------------------------------------------------------
 	 */
 
+
 	.controller('KnowledgeManager', ['$scope', '$controller', function ($scope, $controller) {
 
 
@@ -18,7 +19,9 @@ angular.module('mainApp')
 		$controller('KnowledgeCtrl', {$scope: $scope});
 
 	}])
-	.controller('Presale', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Presale', ['$scope', '$controller', 'Restangular', '$http', function ($scope, $controller, Restangular, $http) {
+
+		var $knowlegeForm = $('#knowlege-form');
 
 		// 搜索下拉
 		$scope.filters = [{name: '任意字段', value: 0}, {name: '标题', value: 1}];
@@ -34,19 +37,50 @@ angular.module('mainApp')
 			{name: 'updateTime', label: '更新时间', isChecked: true, sortable: true}
 		];
 
-		$scope.knowledges = [
-			{
-				subject: '12312',
-				content: '12312',
-				author: '12312',
-				category: '12312',
-				pv: '12312',
-				updateTime: '12312'
-			}
-		];
+		var Knowledge = Restangular.all('knowledgeBase');
 
-		$scope.newKnowledge = function() {
-			$('#new-knowlege').modal('show');
+		// 获取知识库列表
+		$scope.getKnowlegeList = function() {
+			$scope.knowledges = Knowledge.getList({
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo
+			}).$object;
+		};
+
+		$scope.getKnowlegeList();
+
+		$scope.newKnowledge = function(form) {
+			form.$setPristine();
+			form.$sumitted = false;
+			$scope.knowlege = {};
+			$knowlegeForm.modal('show');
+		};
+
+		$scope.saveKnowledge = function(form) {
+			// 触发表单验证
+			form.$sumitted = true;
+
+			if (!form.$valid) {
+				$knowlegeForm.modal('fail', '表单填写有误');
+				return;
+			}
+
+			$scope.knowlege.type = 1;
+			$scope.knowlege.creater = $scope.currentUser.userNo;
+
+			$http.post(config.baseurl + 'knowledgeBase', $scope.knowlege)
+				.success(function(status) {
+					if (status === 'true') {
+						$knowlegeForm.modal('success');
+						$scope.getKnowlegeList();
+					} else {
+						$knowlegeForm.modal('fail');
+					}
+				})
+				.error(function() {
+					$knowlegeForm.modal('fail');
+				});
+			$knowlegeForm.modal('show');
 		};
 
 		// inherit functions from parent
