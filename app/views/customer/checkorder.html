@@ -55,7 +55,7 @@
 <div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" class="btn-group">
-      <label ng-click="searchModel.paid='&quot;&quot;'" ng-init="searchModel.paid='&quot;&quot;'" class="btn uu-btn active">
+      <label ng-click="searchModel.paid=''" ng-init="searchModel.paid=''" class="btn uu-btn active">
         <input checked="checked" type="radio"/>所有
       </label>
       <label ng-click="searchModel.paid='1'" class="btn uu-btn">
@@ -473,7 +473,7 @@
             <div class="form-group col-xs-6">
               <label for="form-contact-count" class="control-label col-xs-3">联系次数</label>
               <div class="col-xs-7">
-                <input id="form-contact-count" class="form-control input-sm" ng-model="gbOrder.contact_count" required="required"/>
+                <input id="form-contact-count" class="form-control input-sm" ng-model="gbOrder.contact_count" type="number" required="required"/>
               </div>
             </div>
             <div class="form-group col-xs-6">

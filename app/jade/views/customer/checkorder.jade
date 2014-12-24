@@ -28,7 +28,7 @@ include ../../modules/mixins.jade
 
 //- 订单列表过滤条件
 - var filters = []
-- filters.push({label: '所有', value: '""'})
+- filters.push({label: '所有', value: ''})
 - filters.push({label: '已付费', value: 1})
 - filters.push({label: '未付费', value: 0})
 +article-header-filter('searchModel.paid', filters)

@@ -59,9 +59,9 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 新建工单
 	$scope.globalNewOrder = function(form) {
-		// $scope.gbOrder = {};
-		form.$sumitted = false;
 		form.$setPristine();
+		form.$sumitted = false;
+		$scope.gbOrder = {};
 		$('#global-new-order').modal('show');
 	};
 
@@ -115,11 +115,9 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 		$http.post(config.baseurl + 'order', $scope.gbOrder)
 			.success(function(status) {
-				// 保存成功后清空表单内容
-				$scope.gbOrder = {};
-				form.$setPristine();
 				if (status === 'true') {
 					$('#global-new-order').modal('success');
+					$scope.getOrderList();
 				} else {
 					$('#global-new-order').modal('fail');
 				}
