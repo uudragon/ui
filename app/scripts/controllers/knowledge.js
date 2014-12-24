@@ -53,6 +53,52 @@ angular.module('mainApp')
 			form.$setPristine();
 			form.$sumitted = false;
 			$scope.knowlege = {};
+			$scope.formStatus = 'new';
+			$knowlegeForm.modal('show');
+		};
+
+		$scope.editKnowledge = function(knowledge) {
+			$scope.knowlege = angular.copy(knowledge);
+			$scope.formStatus = 'update';
+			$knowlegeForm.modal('show');
+		};
+
+		$scope.deleteKnowledge = function(knowledge) {
+			knowledge.doDELETE().then(function(status) {
+				status === 'true' && $scope.getKnowlegeList();
+			});
+		};
+
+		$scope.viewKnowledge = function(knowlege) {
+			Knowledge.get(knowlege.id).then(function(knowlege) {
+				$scope.formStatus = 'view';
+				$scope.knowlege = knowlege;
+				$knowlegeForm.modal('show');
+			});
+		};
+
+		$scope.updateKnowledge = function(form) {
+			// 触发表单验证
+			form.$sumitted = true;
+
+			if (!form.$valid) {
+				$knowlegeForm.modal('fail', '表单填写有误');
+				return;
+			}
+
+			$knowlegeForm.modal('spinner');
+			$http.put(config.baseurl + 'knowledgeBase', $scope.knowlege)
+				.success(function(status) {
+					if (status === 'true') {
+						$knowlegeForm.modal('success');
+						$scope.getKnowlegeList();
+					} else {
+						$knowlegeForm.modal('fail');
+					}
+				})
+				.error(function() {
+					$knowlegeForm.modal('fail');
+				});
 			$knowlegeForm.modal('show');
 		};
 
@@ -68,6 +114,7 @@ angular.module('mainApp')
 			$scope.knowlege.type = 1;
 			$scope.knowlege.creater = $scope.currentUser.userNo;
 
+			$knowlegeForm.modal('spinner');
 			$http.post(config.baseurl + 'knowledgeBase', $scope.knowlege)
 				.success(function(status) {
 					if (status === 'true') {
@@ -80,7 +127,6 @@ angular.module('mainApp')
 				.error(function() {
 					$knowlegeForm.modal('fail');
 				});
-			$knowlegeForm.modal('show');
 		};
 
 		// inherit functions from parent

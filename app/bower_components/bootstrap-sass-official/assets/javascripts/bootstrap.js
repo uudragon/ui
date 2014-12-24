@@ -1410,7 +1410,7 @@
     }
     $msg.removeClass('alert-info alert-danger alert-success')
     $msg.addClass('modal-msg-spinner')
-    $msg.html('').stop().fadeIn()
+    $msg.html('').stop().show()
   }
 
   Modal.prototype.fail = function(msg) {

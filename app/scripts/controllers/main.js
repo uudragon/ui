@@ -22,7 +22,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		name: 'admin',
 		phone: '1',
 		positions: '1',
-		roleId: null,
+		roleId: 234234,
 		seat: null,
 		userNo: '000010'
 	};

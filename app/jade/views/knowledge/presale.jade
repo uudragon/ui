@@ -36,24 +36,27 @@ include ../../modules/tri-search.jade
 			+tooltip('知识工具', 'top')
 				+glyphicon('wrench')
 
-table.uu-table(ng-show='knowledges')
+table.uu-table(ng-show='knowledges.length')
 	+theadplus('knowledges')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='knowledge in knowledges')
 			+tdchecker('knowledges', 'knowledge')(ng-model='knowledge.isChecked')
-			td(ng-bind='knowledge.subject', ng-show='ths[0].isChecked')
+			td(ng-bind='knowledge.title', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showknowledge(knowledge)')(ng-bind='knowledge.content')
-			td(ng-bind='knowledge.author', ng-show='ths[2].isChecked')
-			td(ng-bind='knowledge.category', ng-show='ths[3].isChecked')
-			td(ng-bind='knowledge.pv', ng-show='ths[4].isChecked')
-			td(ng-bind='knowledge.updateTime', ng-show='ths[5].isChecked')
+			td(ng-bind='knowledge.creater', ng-show='ths[2].isChecked')
+			td(ng-bind='knowledge.type', ng-show='ths[3].isChecked')
+			td(ng-bind='knowledge.browse_number', ng-show='ths[4].isChecked')
+			td(ng-bind='knowledge.update_time', ng-show='ths[5].isChecked')
 			td
-				+tooltip('编辑', 'top', 'showknowledge(knowledge)')
+				+tooltip('查看', 'top', 'viewKnowledge(knowledge)')
+					+glyphicon('eye-open') &nbsp;
+
+				+tooltip('编辑', 'top', 'editKnowledge(knowledge)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('查看', 'top')
-					+glyphicon('search')
+				+tooltip('删除', 'top', 'deleteKnowledge(knowledge)')
+					+glyphicon('trash')
 
 uu-pagination(records='knowledges.meta.recordsCount', per-page='{{knowledges.meta.pageSize}}' page='knowledges.meta.pageNo', model='searchModel', action='getKnowlegeList()')
 
@@ -64,12 +67,14 @@ uu-pagination(records='knowledges.meta.recordsCount', per-page='{{knowledges.met
 		h4.modal-title 添加知识
 	.modal-body
 		form.form-horizontal(name='knowlegeForm' ovalidate ng-class='{sumitted: knowlegeForm.$sumitted}')
-			.form-group
-				+input('主题', 'subject')(ng-model='knowlege.subject' required)
-			.form-group
-				+textarea('内容', 'responsor')(ng-model='knowlege.content' required)
-	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveKnowledge(knowlegeForm)') 保存
+			fieldset(ng-disabled='formStatus==="view"')
+				.form-group
+					+input('主题', 'subject')(ng-model='knowlege.title' required)
+				.form-group
+					+textarea('内容', 'responsor')(ng-model='knowlege.content' required)
+	.modal-footer(ng-show='formStatus!=="view"')
+		button.btn.uu-btn.btn-primary(ng-show='formStatus==="new"' ng-click='saveKnowledge(knowlegeForm)') 保存
+		button.btn.uu-btn.btn-primary(ng-show='formStatus==="update"' ng-click='updateKnowledge(knowlegeForm)') 更新
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列
