@@ -1,0 +1,93 @@
+.form-horizontal {
+
+	.form-group {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.control-label {
+		padding-right: 15px;
+		float: left;
+	}
+
+	.form-label-half {
+		width: 100px;
+	}
+
+	.form-control-half {
+		float: left;
+		width: 165px;
+	}
+
+	.form-label-normal {
+		width: 110px;
+	}
+
+	.form-control-normal {
+		float: left;
+		width: 200px;
+	}
+
+	@for $i from 0 through 12 {
+		.col-xs-#{$i} {
+			padding-left: 0;
+		}
+	}
+}
+
+.form-table {
+	margin: 0 auto;
+	width: 100%;
+
+	th, td {
+		// border: solid #ccc 1px;
+		border: solid #5e5e5e 1px;
+	}
+
+	.form-control {
+		border: none;
+		border-radius: 0;
+	}
+}
+
+.form-table-single {
+	width: 520px;
+}
+
+.form-th {
+	// background: #F0F8FF;
+	background: #9ec8ed;
+	text-align: center;
+}
+
+.form-th-label {
+	.form-table & {
+		min-width: 80px;
+	}
+	.form-table-lg & {
+		min-width: 100px;
+	}
+	margin: 0;
+}
+
+.form-control {
+
+	.form-table & {
+		min-width: 178px;
+	}
+
+	.form-table-lg & {
+		min-width: 200px;
+	}
+}
+
+textarea.form-control {
+	resize: none;
+}
+
+.form-control-static {
+	height: 30px;
+	padding-left: 15px;
+}
+
+

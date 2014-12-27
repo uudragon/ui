@@ -17,7 +17,7 @@ mixin theadplus(records)
 				| {{th.label}}
 				+th-filter(ng-if='th.filters')
 					+glyphicon('filter')
-				ul.dropdown-menu(ng-if='th.filters')(role="menu")
+				ul.dropdown-menu(ng-if='th.filters' role='menu')
 					li(ng-repeat='filter in th.filters')
 						a(href='', ng-bind='filter')
 			if (attributes.operation)

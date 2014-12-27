@@ -68,10 +68,11 @@ uu-pagination(records='knowledges.meta.recordsCount', per-page='{{knowledges.met
 	.modal-body
 		form.form-horizontal(name='knowlegeForm' ovalidate ng-class='{sumitted: knowlegeForm.$sumitted}')
 			fieldset(ng-disabled='formStatus==="view"')
-				.form-group
-					+input('主题', 'subject')(ng-model='knowlege.title' required)
-				.form-group
-					+textarea('内容', 'responsor')(ng-model='knowlege.content' required)
+				table.form-table.form-table-single
+					tr
+						+input('主题', 'subject')(ng-model='knowlege.title' required)
+					tr
+						+textarea('内容', 'responsor')(ng-model='knowlege.content' required)
 	.modal-footer(ng-show='formStatus!=="view"')
 		button.btn.uu-btn.btn-primary(ng-show='formStatus==="new"' ng-click='saveKnowledge(knowlegeForm)') 保存
 		button.btn.uu-btn.btn-primary(ng-show='formStatus==="update"' ng-click='updateKnowledge(knowlegeForm)') 更新

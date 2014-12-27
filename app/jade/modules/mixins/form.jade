@@ -3,13 +3,15 @@
 
 //- 3 label, 7 input
 mixin input(title, id)
-	label.control-label.col-xs-3(for='form-' + id)=title
-	.col-xs-7
+	th.form-th
+		label.form-th-label(for='form-' + id)=title
+	td.form-td
 		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 mixin static-input(title)
-	label.control-label.col-xs-3=title
-	.col-xs-7
+	th.form-th
+		label.form-th-label=title
+	td.form-td
 		p.form-control-static&attributes(attributes)
 
 //- 4 label, 6 input
@@ -26,11 +28,10 @@ mixin plain-input(title, id)
 
 //- 3 label, 7 input, message-multi
 mixin short-input(title, id)
-	label.control-label.col-xs-3(for='form-' + id)=title
-	.col-xs-7.message-multi
-		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
-		if block
-			block
+	label.control-label(for='form-' + id)=title
+	input.form-control.input-sm(id='form-' + id)&attributes(attributes)
+	if block
+		block
 
 //- input addon
 mixin grouped-input(title, id)
@@ -43,9 +44,10 @@ mixin grouped-input(title, id)
 //- ----------------------
 
 //- 3 label, 7 from-control
-mixin textarea(title, id)
-	label.control-label.col-xs-3(for='form-' + id)=title
-	.col-xs-7
+mixin textarea(title, id, colspan)
+	th.form-th
+		label.form-th-label(for='form-' + id)=title
+	td.form-td(colspan=colspan)
 		textarea.form-control(id='form-' + id)&attributes(attributes)
 
 mixin plain-textarea(title, id)
@@ -59,10 +61,16 @@ mixin plain-textarea(title, id)
 
 //- 3 label, 7 from-control
 mixin select(title, id)
-	label.control-label.col-xs-3(for='form-' + id)=title
-	.col-xs-7
+	th.form-th
+		label.form-th-label(for='form-' + id)=title
+	td.form-td
 		select.form-control.input-sm(id='form-' + id)&attributes(attributes)
 			block
+
+mixin select-sm(title, id)
+	label.control-label.form-label-normal(for='form-' + id)=title
+	select.form-control-normal.form-control.input-sm(id='form-' + id)&attributes(attributes)
+		block
 
 //- 3 label, 7 from-control, multi-row
 mixin multi-select(title, id)
@@ -194,3 +202,65 @@ mixin storage-type(title, id)
 		+option('调货入库', 3)
 		+option('调货出库(在途)', 4)
 		+option('一般出库', 5)
+
+//- 退订原因
+mixin return-reason(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('价格贵,收入低', 1)
+		+option('价格贵,性价比不高', 2)
+		+option('内容简单', 3)
+		+option('内容太难', 4)
+		+option('内容太普通,不感兴趣', 5)
+		+option('学校老师教,发了同类产品', 6)
+		+option('家人说不好', 7)
+		+option('内容量太少', 8)
+		+option('孩子不喜欢', 9)
+		+option('质量不好', 10)
+		+option('物流太慢', 11)
+		+option('客服态度不好', 12)
+		+option('书本缺页', 13)
+		+option('赠品缺漏', 14)
+		+option('玩具缺漏', 15)
+		+option('光盘损坏', 16)
+
+//- 退货类别
+mixin return-type(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('全部', 0)
+		+option('部分', 1)
+
+//- 调换类别
+mixin exchange-type(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('绘本', 11)
+		+option('玩具', 12)
+
+//- 申请调换科目
+mixin exchange-content(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('汉语小镇', 11)
+		+option('数理摩天轮', 12)
+		+option('入学准备书', 12)
+		+option('科学探索营', 12)
+		+option('DVD', 12)
+
+//- 调换原因
+mixin exchange-reason(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('破损', 1)
+		+option('缺漏', 2)
+
+//- 调换进度
+mixin exchange-progress(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('申请中', 0)
+		+option('发货中', 1)
+		+option('已完成', 1)
+
+//- 调换结果
+mixin freight-payer(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('客户', 1)
+		+option('公司', 2)
+		+option('快递公司', 3)
+

@@ -96,7 +96,7 @@
 </table>
 <uu-pagination records="returnOrders.meta.recordsCount" per-page="{{returnOrders.meta.pageSize}}" page="returnOrders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
 <div id="form-return" class="modal fade">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
@@ -105,97 +105,99 @@
       <div class="modal-body">
         <form class="form-horizontal form-nowrap">
           <fieldset>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-goodCode" class="control-label col-xs-3">客户姓名</label>
-                <div class="col-xs-7">
+            <table class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label for="form-goodCode" class="form-th-label">客户姓名</label>
+                </th>
+                <td class="form-td">
                   <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-goodCode" class="control-label col-xs-3">订单编号</label>
-                <div class="col-xs-7">
+                </td>
+                <th class="form-th">
+                  <label for="form-goodCode" class="form-th-label">订单编号</label>
+                </th>
+                <td class="form-td">
                   <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeNum" class="control-label col-xs-3">实际订阅刊数</label>
-                <div class="col-xs-7">
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-subscribeNum" class="form-th-label">实际订阅刊数</label>
+                </th>
+                <td class="form-td">
                   <input id="form-subscribeNum" class="form-control input-sm" ng-model="good.subscribeNum"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">实际订阅金额</label>
-                <div class="col-xs-7">
+                </td>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">实际订阅金额</label>
+                </th>
+                <td class="form-td">
                   <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">合同金额</label>
-                <div class="col-xs-7">
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">合同金额</label>
+                </th>
+                <td class="form-td">
                   <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">已收金额</label>
-                <div class="col-xs-7">
+                </td>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">已收金额</label>
+                </th>
+                <td class="form-td">
                   <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-goodCode" class="control-label col-xs-3">订购刊号</label>
-                <div class="col-xs-7">
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-goodCode" class="form-th-label">订购刊号</label>
+                </th>
+                <td class="form-td">
                   <input id="form-goodCode" class="form-control input-sm" ng-model="goods.code"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-goodNum" class="control-label col-xs-3">订购刊数</label>
-                <div class="col-xs-7">
+                </td>
+                <th class="form-th">
+                  <label for="form-goodNum" class="form-th-label">订购刊数</label>
+                </th>
+                <td class="form-td">
                   <input id="form-goodNum" class="form-control input-sm" ng-model="goods.num"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-goodCode" class="control-label col-xs-3">已收货刊号</label>
-                <div class="col-xs-7">
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-goodCode" class="form-th-label">已收货刊号</label>
+                </th>
+                <td class="form-td">
                   <input id="form-goodCode" class="form-control input-sm" ng-model="goods.code"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-goodNum" class="control-label col-xs-3">未收货刊号</label>
-                <div class="col-xs-7">
+                </td>
+                <th class="form-th">
+                  <label for="form-goodNum" class="form-th-label">未收货刊号</label>
+                </th>
+                <td class="form-td">
                   <input id="form-goodNum" class="form-control input-sm" ng-model="goods.num"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-goodCode" class="control-label col-xs-3">申请退货刊</label>
-                <div class="col-xs-7">
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-goodCode" class="form-th-label">申请退货刊</label>
+                </th>
+                <td class="form-td">
                   <input id="form-goodCode" class="form-control input-sm" ng-model="goods.code"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-goodNum" class="control-label col-xs-3">退货类别</label>
-                <div class="col-xs-7">
+                </td>
+                <th class="form-th">
+                  <label for="form-goodNum" class="form-th-label">退货类别</label>
+                </th>
+                <td class="form-td">
                   <select id="form-goodNum" class="form-control input-sm" ng-model="goods.num">
                     <option value="0">全部</option>
                     <option value="1">部分</option>
                   </select>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-return-reason" class="control-label col-xs-3">退订原因</label>
-                <div class="col-xs-7">
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-return-reason" class="form-th-label">退订原因</label>
+                </th>
+                <td class="form-td">
                   <select id="form-return-reason" class="form-control input-sm" ng-model="goods.phoneStatus">
                     <option value="1">价格贵,收入低</option>
                     <option value="2">价格贵,性价比不高</option>
@@ -214,81 +216,85 @@
                     <option value="15">玩具缺漏</option>
                     <option value="16">光盘损坏</option>
                   </select>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">退货数量</label>
-                <div class="col-xs-7">
+                </td>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">退货数量</label>
+                </th>
+                <td class="form-td">
                   <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">退货进度</label>
-                <div class="col-xs-7">
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">退货进度</label>
+                </th>
+                <td class="form-td">
                   <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">是否已入库</label>
-                <div class="col-xs-7">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">退款手续费</label>
-                <div class="col-xs-7">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">承担人</label>
-                <div class="col-xs-7">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">实际退款金额</label>
-                <div class="col-xs-7">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">收款人姓名</label>
-                <div class="col-xs-7">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">退款帐户</label>
-                <div class="col-xs-7">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-              <div class="form-group col-xs-6">
-                <label for="form-subscribeAmount" class="control-label col-xs-3">开户行</label>
-                <div class="col-xs-7">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
-                </div>
-              </div>
-            </div>
-            <div class="row"></div>
-            <div class="row">
-              <div class="form-group col-xs-6">
-                <label for="form-urgency" class="control-label col-xs-3">是否到库</label>
-                <div class="col-xs-7">
-                  <select id="form-urgency" class="form-control input-sm" ng-model="user.urgency">
+                </td>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">是否已入库</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
                   </select>
-                </div>
-              </div>
-            </div>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">退款手续费</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">承担人</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">实际退款金额</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">收款人姓名</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">退款帐户</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-subscribeAmount" class="form-th-label">开户行</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-urgency" class="form-th-label">是否到库</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-urgency" class="form-control input-sm" ng-model="user.urgency">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
           </fieldset>
         </form>
       </div>
@@ -311,31 +317,39 @@
           <fieldset uu-form-field="isCustometInfoEditable">
             <legend>基本信息</legend>
             <div class="form-group col-xs-6">
-              <label for="form-name" class="control-label col-xs-3">客户姓名</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-name" class="form-th-label">客户姓名</label>
+              </th>
+              <td class="form-td">
                 <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-order" class="control-label col-xs-3">订单编号</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-order" class="form-th-label">订单编号</label>
+              </th>
+              <td class="form-td">
                 <input id="form-order" class="form-control input-sm" ng-model="currentOrder.orders_no"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-customer-gender" class="control-label col-xs-3">客户性别</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-customer-gender" class="form-th-label">客户性别</label>
+              </th>
+              <td class="form-td">
                 <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-good" class="control-label col-xs-3">订购产品</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-good" class="form-th-label">订购产品</label>
+              </th>
+              <td class="form-td">
                 <input id="form-good" class="form-control input-sm" ng-model="currentOrder.good"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
@@ -348,52 +362,66 @@
               </div>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-startDate" class="form-th-label">起订日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-child-name" class="form-th-label">儿童姓名</label>
+              </th>
+              <td class="form-td">
                 <input id="form-child-name" class="form-control input-sm" ng-model="currentOrder.customer.child"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-enddate" class="form-th-label">结束日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-enddate" class="form-control input-sm" ng-model="currentOrder.deadline" uu-date-picker="uu-date-picker"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-child-gender" class="form-th-label">儿童性别</label>
+              </th>
+              <td class="form-td">
                 <select id="form-child-gender" class="form-control input-sm" ng-model="currentOrder.customer.c_sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-payway" class="control-label col-xs-3">支付方式</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-payway" class="form-th-label">支付方式</label>
+              </th>
+              <td class="form-td">
                 <input id="form-payway" class="form-control input-sm" ng-model="currentOrder.payway"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-birthday" class="form-th-label">出生日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-birthday" class="form-control input-sm" ng-model="currentOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-pay-status" class="form-th-label">支付状态</label>
+              </th>
+              <td class="form-td">
                 <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
                   <option value="0">未付费</option>
                   <option value="1">已付费</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-12 location">
               <div for="location-details" class="control-label">详细地址</div>
@@ -465,8 +493,10 @@
         <form class="form-horizontal">
           <fieldset>
             <div class="form-group">
-              <label for="form-topic" class="control-label col-xs-3">主题</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-topic" class="form-th-label">主题</label>
+              </th>
+              <td class="form-td">
                 <select id="form-topic" class="form-control input-sm" ng-model="contact.theme">
                   <option value="1">核实订单</option>
                   <option value="2">投诉</option>
@@ -474,33 +504,41 @@
                   <option value="4">催费</option>
                   <option value="5">促进销售</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label for="form-deal-result" class="control-label col-xs-3">处理结果</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-deal-result" class="form-th-label">处理结果</label>
+              </th>
+              <td class="form-td">
                 <select id="form-deal-result" class="form-control input-sm" ng-model="contact.status">
                   <option value="1">待处理</option>
                   <option value="2">处理中</option>
                   <option value="3">已完成</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label class="control-label col-xs-3">联系时间</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label class="form-th-label">联系时间</label>
+              </th>
+              <td class="form-td">
                 <p class="form-control-static" ng-bind="contact.contactTime"></p>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label class="control-label col-xs-3">负责人</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label class="form-th-label">负责人</label>
+              </th>
+              <td class="form-td">
                 <p class="form-control-static" ng-bind="currentUser.name"></p>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label for="form-phone-status" class="control-label col-xs-3">电话状态</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-phone-status" class="form-th-label">电话状态</label>
+              </th>
+              <td class="form-td">
                 <select id="form-phone-status" class="form-control input-sm" ng-model="contact.phoneStatus">
                   <option value="1">无人接</option>
                   <option value="2">占线</option>
@@ -509,11 +547,13 @@
                   <option value="5">空号</option>
                   <option value="6">错号</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label for="form-complain-type" class="control-label col-xs-3">投诉分类</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-complain-type" class="form-th-label">投诉分类</label>
+              </th>
+              <td class="form-td">
                 <select id="form-complain-type" class="form-control input-sm" ng-model="contact.complainType">
                   <option value="31">发票抬头错误</option>
                   <option value="32">未开发票</option>
@@ -527,29 +567,35 @@
                   <option value="310">物品破损</option>
                   <option value="311">快递态度</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label for="form-contact-next-time" class="control-label col-xs-3">下次回访日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-contact-next-time" class="form-th-label">下次回访日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-contact-next-time" class="form-control input-sm" ng-model="contact.next_time" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0"/>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label for="form-urgency" class="control-label col-xs-3">紧急程度</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-urgency" class="form-th-label">紧急程度</label>
+              </th>
+              <td class="form-td">
                 <select id="form-urgency" class="form-control input-sm" ng-model="contact.level">
                   <option value="0">一般</option>
                   <option value="1">优先</option>
                   <option value="1">紧急</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group">
-              <label for="form-content" class="control-label col-xs-3">内容</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-content" class="form-th-label">内容</label>
+              </th>
+              <td class="form-td">
                 <textarea id="form-content" class="form-control" ng-model="contact.content"></textarea>
-              </div>
+              </td>
             </div>
           </fieldset>
         </form>

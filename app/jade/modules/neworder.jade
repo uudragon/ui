@@ -1,5 +1,5 @@
 //- 新建来电订单
-+modal('global-new-order', 'modal-lg')
++modal('global-new-order')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建来电订单
@@ -7,58 +7,42 @@
 		form.form-horizontal(name='gbNeworderForm' ovalidate ng-class='{sumitted: gbNeworderForm.$sumitted}')
 			fieldset
 				legend 基本信息
-				+hgroup
-					+input('订单号', 'effective')(ng-model='gbOrder.order_no' type='number' required)
-				+hgroup
-					+order-type('订单类型', 'order-type')(ng-model='gbOrder.order_type' required)
-				+hgroup
-					+input('生效日期', 'effective')(ng-model='gbOrder.effective' uu-date-picker start-view=3 required)
-				+hgroup
-					+input('截止日期', 'deadline')(ng-model='gbOrder.deadline' uu-date-picker required)
-				+hgroup
-					+input('客户编号', 'customer-code')(ng-model='gbOrder.customer_code' type='number' required)
-				+hgroup
-					+yesno('是否有发票', 'has-invoice', '有', '无')(ng-model='gbOrder.has_invoice' required)
-				+hgroup
-					+order-source('订单来源', 'source')(ng-model='gbOrder.source' required)
-				+hgroup
-					+input('代理商编号', 'agent-code')(ng-model='gbOrder.agent_code' type='number' required)
-				+hgroup
-					+input('优惠码', 'coupon-code')(ng-model='gbOrder.coupon_code' type='number')
-				+hgroup
-					+input('折扣金额', 'discount-amount')(ng-model='gbOrder.discount_amount' type='number' required)
-				+hgroup
-					+input('付款金额', 'amount')(ng-model='gbOrder.amount' type='number' required)
-				+hgroup
-					+input('客户姓名', 'customer-name')(ng-model='gbOrder.customer_name' required)
-				+hgroup
-					+input('客户手机', 'customer-phone')(ng-model='gbOrder.customer_phone')
-				+hgroup
-					+input('客户地址', 'customer-addr')(ng-model='gbOrder.customer_addr')
-				+hgroup
-					+isPaid('是否付款', 'paid')(ng-model='gbOrder.paid' required)
-				+hgroup
-					+payment('付款方式', 'payment')(ng-model='gbOrder.payment' required)
-				+hgroup
-					+order-status('订单状态', 'status')(ng-model='gbOrder.status' required)
-				+hgroup
-					+input('订单有效期', 'validity')(ng-model='gbOrder.validity' type='number' required)
-				+hgroup
-					+input('下单时间', 'order-time')(ng-model='gbOrder.order_time' uu-date-picker required)
-				+hgroup
-					+input('受理人', 'creator')(ng-model='gbOrder.creator' required)
-				//- +hgroup
-				//- 	+static-input('创建时间', 'create-time')(ng-bind='gbOrder.create_time')
-				+hgroup
-					+input('更新人', 'updater')(ng-model='gbOrder.updater' required)
-				//- +hgroup
-				//- 	+static-input('更新时间', 'update-time')(ng-bind='gbOrder.update_time')
-				+hgroup
-					+input('联系次数', 'contact-count')(ng-model='gbOrder.contact_count' type='number' required)
-				//- +hgroup
-				//- 	+input('客户', 'customer')(ng-model='gbOrder.customer')
-				+hgroup
-					+isValid('失效标识', 'yn')(ng-model='gbOrder.yn' required)
+				table.form-table
+					tr
+						+input('订单号', 'effective')(ng-model='gbOrder.order_no' type='number' required)
+						+order-type('订单类型', 'order-type')(ng-model='gbOrder.order_type' required)
+					tr
+						+input('生效日期', 'effective')(ng-model='gbOrder.effective' uu-date-picker start-view=3 required)
+						+input('截止日期', 'deadline')(ng-model='gbOrder.deadline' uu-date-picker required)
+					tr
+						+input('客户编号', 'customer-code')(ng-model='gbOrder.customer_code' type='number' required)
+						+yesno('是否有发票', 'has-invoice', '有', '无')(ng-model='gbOrder.has_invoice' required)
+					tr
+						+order-source('订单来源', 'source')(ng-model='gbOrder.source' required)
+						+input('代理商编号', 'agent-code')(ng-model='gbOrder.agent_code' type='number' required)
+					tr
+						+input('优惠码', 'coupon-code')(ng-model='gbOrder.coupon_code' type='number')
+						+input('折扣金额', 'discount-amount')(ng-model='gbOrder.discount_amount' type='number' required)
+					tr
+						+input('付款金额', 'amount')(ng-model='gbOrder.amount' type='number' required)
+						+input('客户姓名', 'customer-name')(ng-model='gbOrder.customer_name' required)
+					tr
+						+input('客户手机', 'customer-phone')(ng-model='gbOrder.customer_phone')
+						+input('客户地址', 'customer-addr')(ng-model='gbOrder.customer_addr')
+					tr
+						+isPaid('是否付款', 'paid')(ng-model='gbOrder.paid' required)
+						+payment('付款方式', 'payment')(ng-model='gbOrder.payment' required)
+					tr
+						+order-status('订单状态', 'status')(ng-model='gbOrder.status' required)
+						+input('订单有效期', 'validity')(ng-model='gbOrder.validity' type='number' required)
+					tr
+						+input('下单时间', 'order-time')(ng-model='gbOrder.order_time' uu-date-picker required)
+						+input('受理人', 'creator')(ng-model='gbOrder.creator' required)
+					tr
+						+input('更新人', 'updater')(ng-model='gbOrder.updater' required)
+						+input('联系次数', 'contact-count')(ng-model='gbOrder.contact_count' type='number' required)
+					tr
+						+isValid('失效标识', 'yn')(ng-model='gbOrder.yn' required)
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbNeworderForm)') 保存

@@ -125,31 +125,39 @@
           <fieldset uu-form-field="isCustometInfoEditable">
             <legend>基本信息</legend>
             <div class="form-group col-xs-6">
-              <label for="form-name" class="control-label col-xs-3">客户姓名</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-name" class="form-th-label">客户姓名</label>
+              </th>
+              <td class="form-td">
                 <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-order" class="control-label col-xs-3">订单编号</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-order" class="form-th-label">订单编号</label>
+              </th>
+              <td class="form-td">
                 <input id="form-order" class="form-control input-sm" ng-model="currentOrder.orders_no"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-customer-gender" class="control-label col-xs-3">客户性别</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-customer-gender" class="form-th-label">客户性别</label>
+              </th>
+              <td class="form-td">
                 <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-good" class="control-label col-xs-3">订购产品</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-good" class="form-th-label">订购产品</label>
+              </th>
+              <td class="form-td">
                 <input id="form-good" class="form-control input-sm" ng-model="currentOrder.good"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
               <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
@@ -162,52 +170,66 @@
               </div>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-startDate" class="form-th-label">起订日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-child-name" class="form-th-label">儿童姓名</label>
+              </th>
+              <td class="form-td">
                 <input id="form-child-name" class="form-control input-sm" ng-model="currentOrder.customer.child"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-enddate" class="form-th-label">结束日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-enddate" class="form-control input-sm" ng-model="currentOrder.deadline" uu-date-picker="uu-date-picker"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-child-gender" class="form-th-label">儿童性别</label>
+              </th>
+              <td class="form-td">
                 <select id="form-child-gender" class="form-control input-sm" ng-model="currentOrder.customer.c_sex">
                   <option value="0">女</option>
                   <option value="1">男</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-payway" class="control-label col-xs-3">支付方式</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-payway" class="form-th-label">支付方式</label>
+              </th>
+              <td class="form-td">
                 <input id="form-payway" class="form-control input-sm" ng-model="currentOrder.payway"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-birthday" class="form-th-label">出生日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-birthday" class="form-control input-sm" ng-model="currentOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-pay-status" class="form-th-label">支付状态</label>
+              </th>
+              <td class="form-td">
                 <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
                   <option value="0">未付费</option>
                   <option value="1">已付费</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-12 location">
               <div for="location-details" class="control-label">详细地址</div>

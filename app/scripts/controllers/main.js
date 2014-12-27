@@ -57,13 +57,16 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		$('.article-header-search').stop().toggle('fast');
 	};
 
+	var $gbNewOrder = $('#global-new-order');
+
 	// 新建工单
 	$scope.globalNewOrder = function(form) {
 		form.$setPristine();
 		form.$sumitted = false;
 		$scope.gbOrder = {};
-		$('#global-new-order').modal('show');
+		$gbNewOrder.modal('show');
 	};
+
 
 	// 保存工单
 	$scope.saveGlobalOrder = function(form) {
@@ -71,7 +74,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		form.$sumitted = true;
 
 		if (!form.$valid) {
-			$('#global-new-order').modal('fail', '表单填写有误');
+			$gbNewOrder.modal('fail', '表单填写有误');
 			return;
 		}
 
@@ -111,19 +114,19 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		$scope.gbOrder.customer = staticCustomer;
 		$scope.gbOrder.details = [staticOrderDetails];
 
-		$('#global-new-order').modal('spinner');
+		$gbNewOrder.modal('spinner');
 
 		$http.post(config.baseurl + 'order', $scope.gbOrder)
 			.success(function(status) {
 				if (status === 'true') {
-					$('#global-new-order').modal('success');
+					$gbNewOrder.modal('success');
 					$scope.getOrderList();
 				} else {
-					$('#global-new-order').modal('fail');
+					$gbNewOrder.modal('fail');
 				}
 			})
 			.error(function() {
-				$('#global-new-order').modal('fail');
+				$gbNewOrder.modal('fail');
 			});
 	};
 
