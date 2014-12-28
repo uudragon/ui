@@ -298,27 +298,44 @@
             <table class="form-table">
               <tr>
                 <th class="form-th">
-                  <label for="form-order-no" class="form-th-label">订单编号</label>
+                  <label class="form-th-label">订单编号</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-order-no" class="form-control input-sm" ng-model="gbOrder.order_no" type="number" required="required"/>
+                  <p class="form-control-static" ng-bind="gbOrder.order_no"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">订单来源</label>
                 </th>
                 <td class="form-td">
-                  <p class="form-control-static"></p>
+                  <p class="form-control-static" ng-bind="gbOrder.order_from"></p>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-effective" class="form-th-label">生效日期</label>
+                  <label for="form-order-type" class="form-th-label">订购类型</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-effective" class="form-control input-sm" ng-model="gbOrder.effective" uu-date-picker="uu-date-picker" start-view="3" required="required"/>
+                  <select id="form-order-type" class="form-control input-sm" ng-model="gbOrder.order_type" required="required">
+                    <option value="0">网站套餐</option>
+                    <option value="1">电话</option>
+                  </select>
                 </td>
                 <th class="form-th">
-                  <label for="form-deadline" class="form-th-label">截止日期</label>
+                  <label for="form-order-amount" class="form-th-label">订单金额</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-order-amount" class="form-control input-sm" ng-model="gbOrder.order_amount" required="required" uu-num="uu-num"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">下单时间</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="gbOrder.create_time"></p>
+                </td>
+                <th class="form-th">
+                  <label for="form-deadline" class="form-th-label">结束日期</label>
                 </th>
                 <td class="form-td">
                   <input id="form-deadline" class="form-control input-sm" ng-model="gbOrder.deadline" uu-date-picker="uu-date-picker" required="required"/>
@@ -326,92 +343,13 @@
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-customer-code" class="form-th-label">客户编号</label>
+                  <label for="form-creator" class="form-th-label">下单人</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-customer-code" class="form-control input-sm" ng-model="gbOrder.customer_code" type="number" required="required"/>
+                  <input id="form-creator" class="form-control input-sm" ng-model="gbOrder.creator" required="required"/>
                 </td>
                 <th class="form-th">
-                  <label for="form-has-invoice" class="form-th-label">是否有发票</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-has-invoice" class="form-control input-sm" ng-model="gbOrder.has_invoice" required="required">
-                    <option value="1">有</option>
-                    <option value="0">无</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-source" class="form-th-label">订单来源</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-source" class="form-control input-sm" ng-model="gbOrder.source" required="required">
-                    <option value="0">网站</option>
-                    <option value="1">电话</option>
-                  </select>
-                </td>
-                <th class="form-th">
-                  <label for="form-agent-code" class="form-th-label">代理商编号</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-agent-code" class="form-control input-sm" ng-model="gbOrder.agent_code" type="number" required="required"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-coupon-code" class="form-th-label">优惠码</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-coupon-code" class="form-control input-sm" ng-model="gbOrder.coupon_code" type="number"/>
-                </td>
-                <th class="form-th">
-                  <label for="form-discount-amount" class="form-th-label">折扣金额</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-discount-amount" class="form-control input-sm" ng-model="gbOrder.discount_amount" type="number" required="required"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-amount" class="form-th-label">付款金额</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-amount" class="form-control input-sm" ng-model="gbOrder.amount" type="number" required="required"/>
-                </td>
-                <th class="form-th">
-                  <label for="form-customer-name" class="form-th-label">客户姓名</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-customer-name" class="form-control input-sm" ng-model="gbOrder.customer_name" required="required"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-customer-phone" class="form-th-label">客户手机</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-customer-phone" class="form-control input-sm" ng-model="gbOrder.customer_phone"/>
-                </td>
-                <th class="form-th">
-                  <label for="form-customer-addr" class="form-th-label">客户地址</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-customer-addr" class="form-control input-sm" ng-model="gbOrder.customer_addr"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-paid" class="form-th-label">是否付款</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-paid" class="form-control input-sm" ng-model="gbOrder.paid" required="required">
-                    <option value="0">付款</option>
-                    <option value="1">未付款</option>
-                  </select>
-                </td>
-                <th class="form-th">
-                  <label for="form-payment" class="form-th-label">付款方式</label>
+                  <label for="form-payment" class="form-th-label">支付方式</label>
                 </th>
                 <td class="form-td">
                   <select id="form-payment" class="form-control input-sm" ng-model="gbOrder.payment" required="required">
@@ -423,65 +361,89 @@
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-status" class="form-th-label">订单状态</label>
+                  <label for="form-order-status" class="form-th-label">订单状态</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-status" class="form-control input-sm" ng-model="gbOrder.status" required="required">
-                    <option value="1">待审核</option>
-                    <option value="2">审核中</option>
-                    <option value="3">无效</option>
-                    <option value="4">审核通过</option>
+                  <select id="form-order-status" class="form-control input-sm" ng-model="gbOrder.status" required="required">
+                    <option value="1">正常</option>
+                    <option value="0">取消</option>
                   </select>
                 </td>
                 <th class="form-th">
-                  <label for="form-validity" class="form-th-label">订单有效期</label>
+                  <label for="form-pay-status" class="form-th-label">支付状态</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-validity" class="form-control input-sm" ng-model="gbOrder.validity" type="number" required="required"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-order-time" class="form-th-label">下单时间</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-order-time" class="form-control input-sm" ng-model="gbOrder.order_time" uu-date-picker="uu-date-picker" required="required"/>
-                </td>
-                <th class="form-th">
-                  <label for="form-creator" class="form-th-label">受理人</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-creator" class="form-control input-sm" ng-model="gbOrder.creator" required="required"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-updater" class="form-th-label">更新人</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-updater" class="form-control input-sm" ng-model="gbOrder.updater" required="required"/>
-                </td>
-                <th class="form-th">
-                  <label for="form-contact-count" class="form-th-label">联系次数</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-contact-count" class="form-control input-sm" ng-model="gbOrder.contact_count" type="number" required="required"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-yn" class="form-th-label">失效标识</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-yn" class="form-control input-sm" ng-model="gbOrder.yn" required="required">
-                    <option value="0">有效</option>
-                    <option value="1">无效</option>
+                  <select id="form-pay-status" class="form-control input-sm" ng-model="gbOrder.pay_status" required="required">
+                    <option value="1">已支付</option>
+                    <option value="0">未支付</option>
                   </select>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-address" class="form-th-label">地址</label>
+                  <label for="form-customer-name" class="form-th-label">客户姓名</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-customer-name" class="form-control input-sm" ng-model="gbOrder.customer_name" required="required"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-customer-gender" class="form-th-label">客户性别</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer_gender">
+                    <option value="0">女</option>
+                    <option value="1">男</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-customer-phone" class="form-th-label">联系电话</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-customer-phone" class="form-control input-sm" uu-num="uu-num" ng-model="gbOrder.customer_phone"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-child-name" class="form-th-label">儿童姓名</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-child-name" class="form-control input-sm" ng-model="gbOrder.customer.child.name"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-child-gender" class="form-th-label">儿童性别</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-child-gender" class="form-control input-sm" ng-model="gbOrder.customer.child.gender"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-customer-birthday" class="form-th-label">出生日期</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-customer-birthday" class="form-control input-sm" ng-model="gbOrder.birthday" uu-date-picker="uu-date-picker" required="required"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-child-invoice" class="form-th-label">是否开发票</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-child-invoice" class="form-control input-sm" ng-model="gbOrder.invoice" required="required">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                  </select>
+                </td>
+                <th ng-show="gbOrder.invoice" class="form-th">
+                  <label for="form-invoice-owner" class="form-th-label">发票抬头</label>
+                </th>
+                <td ng-show="gbOrder.invoice" class="form-td">
+                  <input id="form-invoice-owner" class="form-control input-sm" ng-model="gbOrder.invoice_owner" ng-jade-show="gbOrder.invoice"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
                 <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.province" ng-required="true" ng-city-model="gbOrder.city" ng-addr-model="gbOrder.detail"></td>
               </tr>

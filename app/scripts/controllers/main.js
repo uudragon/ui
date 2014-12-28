@@ -63,7 +63,17 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	$scope.globalNewOrder = function(form) {
 		form.$setPristine();
 		form.$sumitted = false;
-		$scope.gbOrder = {};
+
+		$scope.gbOrder = {
+			create_time: $filter('now')(),
+			order_no: $scope.guid(),
+			creator: $scope.currentUser.account,
+			order_from: '客服系统',
+			order_type: '0',
+			order_amount: '2380',
+			pay_status: '0'
+		};
+
 		$gbNewOrder.modal('show');
 	};
 
@@ -135,7 +145,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			});
 	};
 
-	$gbNewOrder.modal('show');
 
 	// 新建订单
 	$scope.globalNewTicket = function() {
@@ -199,4 +208,11 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		console.log($scope.searchModel);
 	};
 
+
+	$scope.guid = function() {
+		return 'xxxxxxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+			return v.toString(16);
+		});
+	};
 }]);

@@ -18,12 +18,9 @@
 }
 
 .form-th {
-	// background: #F0F8FF;
 	background: #9ec8ed;
 	text-align: center;
-}
 
-.form-th {
 	.form-table & {
 		width: 80px;
 	}
@@ -31,6 +28,10 @@
 		width: 100px;
 	}
 	margin: 0;
+}
+
+.form-th-label {
+	margin-bottom: 0;
 }
 
 .form-td {
@@ -50,7 +51,8 @@ textarea.form-control {
 
 .form-control-static {
 	height: 30px;
-	padding-left: 15px;
+	padding-left: 9px;
+	color: #666;
 }
 
 // city seletor

@@ -3,9 +3,9 @@
 
 //- 3 label, 7 input
 mixin input(title, id)
-	th.form-th
+	th.form-th(ng-show=attributes['ng-jade-show'])
 		label.form-th-label(for='form-' + id)=title
-	td.form-td
+	td.form-td(ng-show=attributes['ng-jade-show'])
 		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 mixin input-phone(title, id)
@@ -22,7 +22,6 @@ mixin input-address(title, id, colspan)
 	th.form-th
 		label.form-th-label(for='form-' + id)=title
 	td.uu-city-select.form-td(colspan=colspan)&attributes(attributes)
-
 
 mixin static-input(title)
 	th.form-th
@@ -157,6 +156,13 @@ mixin payment(title, id)
 		+option('支付宝', 2)
 		+option('货到付款', 3)
 
+//- 付款方式
+mixin pay-status(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('银行', 1)
+		+option('支付宝', 2)
+		+option('货到付款', 3)
+
 //- 是否付款
 mixin isPaid(title, id)
 	+select(title, id)&attributes(attributes)
@@ -172,7 +178,7 @@ mixin isValid(title, id)
 //- 订单来源
 mixin order-source(title, id)
 	+select(title, id)&attributes(attributes)
-		+option('网站', 0)
+		+option('网站套餐', 0)
 		+option('电话', 1)
 
 mixin workflow-group(title, id)
