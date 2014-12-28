@@ -53,4 +53,22 @@ textarea.form-control {
 	padding-left: 15px;
 }
 
+// city seletor
+.uu-city-select {
+	label {
+		width: auto;
+		float: left;
+		padding: 7px 15px 0 15px;
+	}
+
+	select {
+		width: 80px;
+		float: left;
+	}
+
+	input {
+		width: 170px;
+		float: left;
+	}
+}
 

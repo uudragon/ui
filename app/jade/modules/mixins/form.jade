@@ -18,6 +18,12 @@ mixin input-phone(title, id)
 				+tooltip('外呼', 'top')
 					+glyphicon('earphone')
 
+mixin input-address(title, id, colspan)
+	th.form-th
+		label.form-th-label(for='form-' + id)=title
+	td.uu-city-select.form-td(colspan=colspan)&attributes(attributes)
+
+
 mixin static-input(title)
 	th.form-th
 		label.form-th-label=title
@@ -124,11 +130,13 @@ mixin yesno(title, id, yesVal, noVal)
 		+option(yesVal, 1)
 		+option(noVal, 0)
 
+//- 性别
 mixin gender(title, id)
 	+select(title, id)&attributes(attributes)
 		+option('女', 0)
 		+option('男', 1)
 
+//- 审核状态
 mixin order-status(title, id)
 	+select(title, id)&attributes(attributes)
 		+option('待审核', 1)

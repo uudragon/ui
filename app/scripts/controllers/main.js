@@ -135,6 +135,8 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			});
 	};
 
+	$gbNewOrder.modal('show');
+
 	// 新建订单
 	$scope.globalNewTicket = function() {
 		$scope.gbTicket = $scope.gbTicket || {};

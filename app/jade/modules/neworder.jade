@@ -9,8 +9,9 @@
 				legend 订单信息
 				table.form-table
 					tr
-						+input('订单号', 'effective')(ng-model='gbOrder.order_no' type='number' required)
-						+order-type('订单类型', 'order-type')(ng-model='gbOrder.order_type' required)
+						+input('订单编号', 'order-no')(ng-model='gbOrder.order_no' type='number' required)
+						+static-input('订单来源', 'order-type') 客服系统
+						//- +order-type('订单类型', 'order-type')(ng-model='gbOrder.order_type' required)
 					tr
 						+input('生效日期', 'effective')(ng-model='gbOrder.effective' uu-date-picker start-view=3 required)
 						+input('截止日期', 'deadline')(ng-model='gbOrder.deadline' uu-date-picker required)
@@ -43,6 +44,8 @@
 						+input('联系次数', 'contact-count')(ng-model='gbOrder.contact_count' type='number' required)
 					tr
 						+isValid('失效标识', 'yn')(ng-model='gbOrder.yn' required)
+					tr
+						+input-address('地址', 'address', 3)(ng-province-model='gbOrder.province' ng-required='true' ng-city-model='gbOrder.city' ng-addr-model='gbOrder.detail')
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbNeworderForm)' ng-disabled='gbNeworderForm.processing') 保存

@@ -33,17 +33,6 @@ include ../../modules/mixins.jade
 - filters.push({label: '未付费', value: 0})
 +article-header-filter('searchModel.paid', filters)
 
-form
-	table.form-table
-		tr
-			th.form-th 地址
-			td.uu-city-select.form-td(ng-model='asdfasf')
-				label 省
-				select.prov.input-sm
-				label 市
-				select.city.input-sm
-				label 区
-				select.dist.input-sm
 //- 订单列表
 table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")

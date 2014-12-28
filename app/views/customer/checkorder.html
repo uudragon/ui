@@ -67,21 +67,6 @@
     </div>
   </form>
 </div>
-<form>
-  <table class="form-table">
-    <tr>
-      <th class="form-th">地址</th>
-      <td ng-model="asdfasf" class="uu-city-select form-td">
-        <label>省</label>
-        <select class="prov input-sm"></select>
-        <label>市</label>
-        <select class="city input-sm"></select>
-        <label>区</label>
-        <select class="dist input-sm"></select>
-      </td>
-    </tr>
-  </table>
-</form>
 <table ng-show="orders.length" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
@@ -313,19 +298,16 @@
             <table class="form-table">
               <tr>
                 <th class="form-th">
-                  <label for="form-effective" class="form-th-label">订单号</label>
+                  <label for="form-order-no" class="form-th-label">订单编号</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-effective" class="form-control input-sm" ng-model="gbOrder.order_no" type="number" required="required"/>
+                  <input id="form-order-no" class="form-control input-sm" ng-model="gbOrder.order_no" type="number" required="required"/>
                 </td>
                 <th class="form-th">
-                  <label for="form-order-type" class="form-th-label">订单类型</label>
+                  <label class="form-th-label">订单来源</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-order-type" class="form-control input-sm" ng-model="gbOrder.order_type" required="required">
-                    <option value="0">单品订单</option>
-                    <option value="1">多品订单</option>
-                  </select>
+                  <p class="form-control-static"></p>
                 </td>
               </tr>
               <tr>
@@ -496,6 +478,12 @@
                     <option value="1">无效</option>
                   </select>
                 </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-address" class="form-th-label">地址</label>
+                </th>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.province" ng-required="true" ng-city-model="gbOrder.city" ng-addr-model="gbOrder.detail"></td>
               </tr>
             </table>
           </fieldset>
