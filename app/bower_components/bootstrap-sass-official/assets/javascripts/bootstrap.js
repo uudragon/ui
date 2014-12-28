@@ -1410,7 +1410,7 @@
     }
     $msg.removeClass('alert-info alert-danger alert-success')
     $msg.addClass('modal-msg-spinner')
-    $msg.html('').stop().show()
+    $msg.html('').finish().show()
   }
 
   Modal.prototype.fail = function(msg) {
@@ -1425,7 +1425,7 @@
 
   Modal.prototype.showMsg = function($msg, blnHideMsgBox) {
     var self = this;
-    $msg.stop().fadeIn('slow', function() {
+    $msg.finish().fadeIn('slow', function() {
       setTimeout(function() {
         $msg.fadeOut(function() {
           blnHideMsgBox && self.hide()

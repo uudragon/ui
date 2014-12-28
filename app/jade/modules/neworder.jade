@@ -6,7 +6,7 @@
 	.modal-body
 		form.form-horizontal(name='gbNeworderForm' ovalidate ng-class='{sumitted: gbNeworderForm.$sumitted}')
 			fieldset
-				legend 基本信息
+				legend 订单信息
 				table.form-table
 					tr
 						+input('订单号', 'effective')(ng-model='gbOrder.order_no' type='number' required)
@@ -45,5 +45,5 @@
 						+isValid('失效标识', 'yn')(ng-model='gbOrder.yn' required)
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbNeworderForm)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbNeworderForm)' ng-disabled='gbNeworderForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

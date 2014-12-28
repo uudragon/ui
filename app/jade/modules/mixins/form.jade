@@ -8,6 +8,16 @@ mixin input(title, id)
 	td.form-td
 		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
+mixin input-phone(title, id)
+	th.form-th
+		label.form-th-label(for='form-' + id)=title
+	td.form-td
+		.input-group
+			input.form-control.input-sm(id='form-telphone')&attributes(attributes)
+			.input-group-addon
+				+tooltip('外呼', 'top')
+					+glyphicon('earphone')
+
 mixin static-input(title)
 	th.form-th
 		label.form-th-label=title
@@ -169,6 +179,7 @@ mixin commdity-type(title, id)
 		+option('玩具', 3)
 		+option('其它', 4)
 
+//- 投诉分类
 mixin complain-type(title, id)
 	+select(title, id)&attributes(attributes)
 		+option('发票抬头错误', 31)
@@ -183,14 +194,35 @@ mixin complain-type(title, id)
 		+option('物品破损', 310)
 		+option('快递态度', 311)
 
+//- 电话状态
+mixin phone-status(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('无人接', 1)
+		+option('占线', 2)
+		+option('接听', 3)
+		+option('停机', 4)
+		+option('空号', 5)
+		+option('错号', 6)
+
+//- 紧急程度
 mixin urgency-level(title, id)
-	+select('紧急程度', 'urgency')&attributes(attributes)
+	+select(title, id)&attributes(attributes)
 		+option('一般', 1)
 		+option('优先', 2)
 		+option('紧急', 3)
 
+//- 主题
+mixin contact-topic(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('核实订单', 1)
+		+option('投诉', 2)
+		+option('回访', 3)
+		+option('催费', 4)
+		+option('促进销售', 5)
+
+//- 处理结果
 mixin deal-result(title, id)
-	+select('处理结果', 'deal-result')&attributes(attributes)
+	+select(title, id)&attributes(attributes)
 		+option('待处理', 1)
 		+option('处理中', 2)
 		+option('已完成', 3)

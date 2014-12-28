@@ -33,6 +33,17 @@ include ../../modules/mixins.jade
 - filters.push({label: '未付费', value: 0})
 +article-header-filter('searchModel.paid', filters)
 
+form
+	table.form-table
+		tr
+			th.form-th 地址
+			td.uu-city-select.form-td(ng-model='asdfasf')
+				label 省
+				select.prov.input-sm
+				label 市
+				select.city.input-sm
+				label 区
+				select.dist.input-sm
 //- 订单列表
 table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
@@ -58,7 +69,7 @@ table.uu-table(ng-show='orders.length')
 uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 订单详情Modal
-+modal('order-details', 'modal-lg')
++modal('order-details')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 核实订单
@@ -73,29 +84,29 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 
 			//- customer details
 			+order-details
-			fieldset
-				legend 订单
-				table.uu-table
-					+thead
-						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '审核状态', '操作']
-							th=th
-					tbody
-						tr
-							td(ng-bind='currentOrder.order_no')
-							td(ng-bind='currentOrder.customer.name')
-							td(ng-bind='currentOrder.customer.name')
-							td(ng-bind='currentOrder.order_time')
-							td(ng-bind='currentOrder.payment | payment')
-							td(ng-bind='currentOrder.paid | payStatus')
-							td(ng-bind='currentOrder.customer.birthday')
-							td(ng-bind='currentOrder.order_status | orderStatus')
-							td(ng-bind='currentOrder.audit | auditStatus')
-							td
-								+tooltip('修改', 'top', 'editOrderStatus(currentOrder)')
-									+glyphicon('pencil') &nbsp;
+			//- fieldset
+			//- 	legend 订单
+			//- 	table.uu-table
+			//- 		+thead
+			//- 			each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '审核状态', '操作']
+			//- 				th=th
+			//- 		tbody
+			//- 			tr
+			//- 				td(ng-bind='currentOrder.order_no')
+			//- 				td(ng-bind='currentOrder.customer.name')
+			//- 				td(ng-bind='currentOrder.customer.name')
+			//- 				td(ng-bind='currentOrder.order_time')
+			//- 				td(ng-bind='currentOrder.payment | payment')
+			//- 				td(ng-bind='currentOrder.paid | payStatus')
+			//- 				td(ng-bind='currentOrder.customer.birthday')
+			//- 				td(ng-bind='currentOrder.order_status | orderStatus')
+			//- 				td(ng-bind='currentOrder.audit | auditStatus')
+			//- 				td
+			//- 					+tooltip('修改', 'top', 'editOrderStatus(currentOrder)')
+			//- 						+glyphicon('pencil') &nbsp;
 
-								+tooltip('共享订单', 'top', 'shareOrder(currentOrder)')
-									+glyphicon('share')
+			//- 					+tooltip('共享订单', 'top', 'shareOrder(currentOrder)')
+			//- 						+glyphicon('share')
 
 			p
 				ul.list-inline

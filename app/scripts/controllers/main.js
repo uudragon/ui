@@ -78,6 +78,8 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			return;
 		}
 
+		form.processing = true;
+
 		var staticOrderDetails = {
 			orders_no: '112312',
 			product_no: '313213',
@@ -123,9 +125,12 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 					$scope.getOrderList();
 				} else {
 					$gbNewOrder.modal('fail');
+					form.processing = false;
 				}
+
 			})
 			.error(function() {
+				form.processing = false;
 				$gbNewOrder.modal('fail');
 			});
 	};

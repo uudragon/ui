@@ -1,40 +1,3 @@
-.form-horizontal {
-
-	.form-group {
-		margin-left: 0;
-		margin-right: 0;
-	}
-
-	.control-label {
-		padding-right: 15px;
-		float: left;
-	}
-
-	.form-label-half {
-		width: 100px;
-	}
-
-	.form-control-half {
-		float: left;
-		width: 165px;
-	}
-
-	.form-label-normal {
-		width: 110px;
-	}
-
-	.form-control-normal {
-		float: left;
-		width: 200px;
-	}
-
-	@for $i from 0 through 12 {
-		.col-xs-#{$i} {
-			padding-left: 0;
-		}
-	}
-}
-
 .form-table {
 	margin: 0 auto;
 	width: 100%;
@@ -60,24 +23,24 @@
 	text-align: center;
 }
 
-.form-th-label {
+.form-th {
 	.form-table & {
-		min-width: 80px;
+		width: 80px;
 	}
 	.form-table-lg & {
-		min-width: 100px;
+		width: 100px;
 	}
 	margin: 0;
 }
 
-.form-control {
+.form-td {
 
 	.form-table & {
-		min-width: 178px;
+		width: 178px;
 	}
 
 	.form-table-lg & {
-		min-width: 200px;
+		width: 200px;
 	}
 }
 

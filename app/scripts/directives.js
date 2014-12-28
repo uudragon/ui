@@ -414,6 +414,16 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuCitySelect', function() {
+	return {
+		restrict: 'C',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			elem.citySelect();
+		}
+	};
+})
+
 .directive('uuTooltip', function() {
 	return {
 		restrict: 'A',
