@@ -108,12 +108,12 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 		$http.post(config.baseurl + 'order', $scope.gbOrder)
 			.success(function(status) {
+				form.processing = false;
 				if (status === 'true') {
 					$gbNewOrder.modal('success');
 					$scope.getOrderList();
 				} else {
 					$gbNewOrder.modal('fail');
-					form.processing = false;
 				}
 			})
 			.error(function() {
