@@ -26,7 +26,7 @@ include ../../modules/single-search.jade
 table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders')
+		tr(ng-repeat='order in orders' ng-dblclick='showSplitModal(order)')
 			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
 				+jslink('showSplitModal(order)')(ng-bind='order.order_no')
@@ -48,7 +48,7 @@ table.uu-table(ng-show='orders.length')
 uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 核实订单Modal
-+modal('split-modal', 'modal-lg')
++modal('split-modal')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 查看订单
@@ -71,7 +71,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 							td(ng-bind='currentOrder.paid | payStatus')
 							td(ng-bind='currentOrder.customer.birthday')
 							td(ng-bind='currentOrder.order_status | orderStatus')
-							td
+							td.nowrap
 								+tooltip('拆分订单', 'top', 'splitOrder(currentOrder)')
 									+glyphicon('pencil') &nbsp;
 

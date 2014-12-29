@@ -46,7 +46,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders">
+    <tr ng-repeat="order in orders" ng-dblclick="showSplitModal(order)">
       <td ng-bind="order.customer.name" ng-show="ths[0].isChecked"></td>
       <td ng-show="ths[1].isChecked"><a href="" ng-click="showSplitModal(order)" ng-bind="order.order_no" class="jslink"></a>
       </td>
@@ -65,7 +65,7 @@
 </table>
 <uu-pagination records="orders.meta.recordsCount" per-page="{{orders.meta.pageSize}}" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
 <div id="split-modal" class="modal fade">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
@@ -204,7 +204,7 @@
                   <td ng-bind="currentOrder.paid | payStatus"></td>
                   <td ng-bind="currentOrder.customer.birthday"></td>
                   <td ng-bind="currentOrder.order_status | orderStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拆分订单" ng-click="splitOrder(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
+                  <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拆分订单" ng-click="splitOrder(currentOrder)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="共享订单"><span class="glyphicon glyphicon-send"></span></a>
                   </td>
                 </tr>
               </tbody>

@@ -15,7 +15,7 @@
 					tr
 						+phone-status('电话状态', 'phone-status')(ng-model='contact.phoneStatus')
 						+input('下次回访日期', 'contact-next-time')(ng-model='contact.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
-					tr(ng-show='contact.topic===2')
+					tr(ng-show='contact.topic==="2"')
 						+complain-type('投诉分类', 'complain-type')(ng-model='contact.complainType')
 						+urgency-level('紧急程度', 'urgency')(ng-model='contact.level')
 					tr
