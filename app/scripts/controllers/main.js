@@ -65,13 +65,14 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		form.$sumitted = false;
 
 		$scope.gbOrder = {
-			create_time: $filter('now')(),
+			effective: $filter('now')(),
 			order_no: $scope.guid(),
 			creator: $scope.currentUser.account,
-			order_from: '客服系统',
+			sourceName: '客服系统',
+			source: '1',
 			order_type: '0',
-			order_amount: '2380',
-			pay_status: '0'
+			amount: '2380',
+			paid: '0'
 		};
 
 		$gbNewOrder.modal('show');
@@ -93,37 +94,14 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		var staticOrderDetails = {
 			orders_no: '112312',
 			product_no: '313213',
-			effective: '2014-12-25',
 			qty: '2',
 			bulk: '123',
 			weight: '12321',
 			status: '1',
 			yn: '1'
 		};
-		var staticCustomer = {
-			code: '123123',
-			type: '1',
-			name: '客户姓名',
-			sex: '1',
-			birthday: '2014-12-25',
-			child: '孩子姓名',
-			c_sex: '1',
-			email: '12321@sadfa.com',
-			province: '山东',
-			city: '青岛',
-			district: '12321',
-			street: '街道',
-			address: '详细地址',
-			post: '123123',
-			phone: '123123',
-			main_phone: '123123123',
-			fax: '123123123',
-			status: '1',
-			creator: '1',
-			updater: '1',
-			yn: '1'
-		};
-		$scope.gbOrder.customer = staticCustomer;
+
+		$scope.gbOrder.customer.creator = $scope.currentUser.account;
 		$scope.gbOrder.details = [staticOrderDetails];
 
 		$gbNewOrder.modal('spinner');
@@ -137,7 +115,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 					$gbNewOrder.modal('fail');
 					form.processing = false;
 				}
-
 			})
 			.error(function() {
 				form.processing = false;
@@ -211,7 +188,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	$scope.guid = function() {
 		return 'xxxxxxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
-			var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8 );
 			return v.toString(16);
 		});
 	};
