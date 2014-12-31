@@ -79,49 +79,63 @@
             <form class="form-horizontal">
               <fieldset>
                 <div class="form-group col-xs-6">
-                  <label for="form-name" class="control-label col-xs-3">产品名称</label>
-                  <div class="col-xs-7">
+                  <th class="form-th">
+                    <label for="form-name" class="form-th-label">产品名称</label>
+                  </th>
+                  <td class="form-td">
                     <input id="form-name" class="form-control input-sm" ng-model="good.good_name"/>
-                  </div>
+                  </td>
                 </div>
                 <div class="form-group col-xs-6">
-                  <label for="form-is-valid" class="control-label col-xs-3">是否有效</label>
-                  <div class="col-xs-7">
+                  <th class="form-th">
+                    <label for="form-is-valid" class="form-th-label">是否有效</label>
+                  </th>
+                  <td class="form-td">
                     <select id="form-is-valid" class="form-control input-sm" ng-model="good.is_valid">
                       <option value="1">是</option>
                       <option value="0">否</option>
                     </select>
-                  </div>
+                  </td>
                 </div>
                 <div class="form-group col-xs-6">
-                  <label for="form-good-des" class="control-label col-xs-3">产品说明</label>
-                  <div class="col-xs-7">
+                  <th class="form-th">
+                    <label for="form-good-des" class="form-th-label">产品说明</label>
+                  </th>
+                  <td class="form-td">
                     <input id="form-good-des" class="form-control input-sm" ng-model="good.good_des"/>
-                  </div>
+                  </td>
                 </div>
                 <div class="form-group col-xs-6">
-                  <label class="control-label col-xs-3">创建时间</label>
-                  <div class="col-xs-7">
+                  <th class="form-th">
+                    <label class="form-th-label">创建时间</label>
+                  </th>
+                  <td class="form-td">
                     <p class="form-control-static" ng-bind="good.create_time"></p>
-                  </div>
+                  </td>
                 </div>
                 <div class="form-group col-xs-6">
-                  <label for="form-creator" class="control-label col-xs-3">创建人</label>
-                  <div class="col-xs-7">
+                  <th class="form-th">
+                    <label for="form-creator" class="form-th-label">创建人</label>
+                  </th>
+                  <td class="form-td">
                     <input id="form-creator" class="form-control input-sm" ng-model="good.creator"/>
-                  </div>
+                  </td>
                 </div>
                 <div class="form-group col-xs-6">
-                  <label class="control-label col-xs-3">更新时间</label>
-                  <div class="col-xs-7">
+                  <th class="form-th">
+                    <label class="form-th-label">更新时间</label>
+                  </th>
+                  <td class="form-td">
                     <p class="form-control-static" ng-bind="good.update_time"></p>
-                  </div>
+                  </td>
                 </div>
                 <div class="form-group col-xs-6">
-                  <label for="form-updator" class="control-label col-xs-3">更新人</label>
-                  <div class="col-xs-7">
+                  <th class="form-th">
+                    <label for="form-updator" class="form-th-label">更新人</label>
+                  </th>
+                  <td class="form-td">
                     <input id="form-updator" class="form-control input-sm" ng-model="good.updator"/>
-                  </div>
+                  </td>
                 </div>
               </fieldset>
             </form>

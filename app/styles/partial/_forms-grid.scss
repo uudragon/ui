@@ -1,0 +1,76 @@
+.form-table {
+	margin: 0 auto;
+	width: 100%;
+
+	th, td {
+		// border: solid #ccc 1px;
+		border: solid #5e5e5e 1px;
+	}
+
+	.form-control {
+		border: none;
+		border-radius: 0;
+	}
+}
+
+.form-table-single {
+	width: 520px;
+}
+
+.form-th {
+	background: #9ec8ed;
+	text-align: center;
+
+	.form-table & {
+		width: 80px;
+	}
+	.form-table-lg & {
+		width: 100px;
+	}
+	margin: 0;
+}
+
+.form-th-label {
+	margin-bottom: 0;
+}
+
+.form-td {
+
+	.form-table & {
+		width: 178px;
+	}
+
+	.form-table-lg & {
+		width: 200px;
+	}
+}
+
+textarea.form-control {
+	resize: none;
+}
+
+.form-control-static {
+	height: 30px;
+	padding-left: 9px;
+	color: #666;
+}
+
+// city seletor
+.uu-city-select {
+	label {
+		width: auto;
+		float: left;
+		padding: 7px 15px 0 15px;
+	}
+
+	select {
+		width: 80px;
+		float: left;
+	}
+
+	input {
+		width: 170px;
+		float: left;
+	}
+}
+

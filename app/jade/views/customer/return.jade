@@ -55,93 +55,49 @@ table.uu-table
 uu-pagination(records='returnOrders.meta.recordsCount', per-page='{{returnOrders.meta.pageSize}}' page='returnOrders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建退货单Modal
-+modal('form-return', 'modal-lg')
++modal('form-return')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 退货
 	.modal-body
 		form.form-horizontal.form-nowrap
 			fieldset
-				.row
-					+hgroup
+				table.form-table
+					tr
 						+input('客户姓名', 'goodCode')(ng-model='exchange.code')
-					+hgroup
 						+input('订单编号', 'goodCode')(ng-model='exchange.code')
-				.row
-					+hgroup
+					tr
 						+input('实际订阅刊数', 'subscribeNum')(ng-model='good.subscribeNum')
-					+hgroup
 						+input('实际订阅金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
+					tr
 						+input('合同金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
 						+input('已收金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
+					tr
 						+input('订购刊号', 'goodCode')(ng-model='goods.code')
-					+hgroup
 						+input('订购刊数', 'goodNum')(ng-model='goods.num')
-				.row
-					+hgroup
+					tr
 						+input('已收货刊号', 'goodCode')(ng-model='goods.code')
-					+hgroup
 						+input('未收货刊号', 'goodNum')(ng-model='goods.num')
-				.row
-					+hgroup
+					tr
 						+input('申请退货刊', 'goodCode')(ng-model='goods.code')
-					+hgroup
-						+select('退货类别', 'goodNum')(ng-model='goods.num')
-							+option('全部', 0)
-							+option('部分', 1)
-				.row
-					+hgroup
-						+select('退订原因', 'return-reason')(ng-model='goods.phoneStatus')
-							+option('价格贵,收入低', 1)
-							+option('价格贵,性价比不高', 2)
-							+option('内容简单', 3)
-							+option('内容太难', 4)
-							+option('内容太普通,不感兴趣', 5)
-							+option('学校老师教,发了同类产品', 6)
-							+option('家人说不好', 7)
-							+option('内容量太少', 8)
-							+option('孩子不喜欢', 9)
-							+option('质量不好', 10)
-							+option('物流太慢', 11)
-							+option('客服态度不好', 12)
-							+option('书本缺页', 13)
-							+option('赠品缺漏', 14)
-							+option('玩具缺漏', 15)
-							+option('光盘损坏', 16)
-					+hgroup
+						+return-type('退货类别', 'goodNum')(ng-model='goods.num')
+					tr
+						+return-reason('退订原因', 'return-reason')(ng-model='goods.phoneStatus')
 						+input('退货数量', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
+					tr
 						+input('退货进度', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
-						+input('是否已入库', 'subscribeAmount')(ng-model='good.subscribeAmount')
-							+option('是', 0)
-							+option('否', 1)
-				.row
-					+hgroup
+						+yesno('是否已入库', 'subscribeAmount')(ng-model='good.subscribeAmount')
+					tr
 						+input('退款手续费', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
 						+input('承担人', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
+					tr
 						+input('实际退款金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
 						+input('收款人姓名', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-					+hgroup
+					tr
 						+input('退款帐户', 'subscribeAmount')(ng-model='good.subscribeAmount')
-					+hgroup
 						+input('开户行', 'subscribeAmount')(ng-model='good.subscribeAmount')
-				.row
-
-				.row
-					+hgroup
-						+select('是否到库', 'urgency')(ng-model='user.urgency')
+					tr
+						+yesno('是否到库', 'urgency')(ng-model='user.urgency')
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 确认并共享

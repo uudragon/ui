@@ -66,6 +66,9 @@ angular.module('mainApp')
 
 	}])
 	.controller('CheckOrder', ['$scope', '$controller', 'Order', '$http', function($scope, $controller, Order, $http) {
+		var
+			$orderShareForm = $('#share-order'),
+			$orderUpdateForm = $('#edit-order-status');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -126,34 +129,55 @@ angular.module('mainApp')
 		$scope.editOrderStatus = function(currentOrder) {
 			currentOrder.auditStatus = currentOrder.audit;
 			$scope.currentOrder = currentOrder;
-			$('#edit-order-status').modal('show');
+			$orderUpdateForm.modal('show');
 		};
 
 		// 保存订单状态
-		$scope.updateOrderStatus = function(currentOrder) {
-			// currentOrder.one('audit', {audit: currentOrder.auditStatus}).put().then(function() {
-			// 	$('#edit-order-status').modal('hide');
-			// });
-			$http.put(config.baseurl + 'order/' + currentOrder.id + '/audit', {
-				audit: currentOrder.auditStatus
-			}).success(function(d) {
-				currentOrder.audit = currentOrder.auditStatus;
-				$('#edit-order-status').modal('hide');
+		$scope.updateOrderStatus = function(form) {
+			$orderUpdateForm.modal('spinner');
+			form.processing = true;
+
+			$http.put(config.baseurl + 'order/' + $scope.currentOrder.id + '/audit', {
+				audit: $scope.currentOrder.auditStatus
+			}).success(function(status) {
+				form.processing = false;
+
+				if (status) {
+					$scope.currentOrder.audit = $scope.currentOrder.auditStatus;
+					$orderUpdateForm.modal('success');
+					$scope.getOrderList();
+				} else {
+					$orderUpdateForm.modal('fail');
+				}
+			})
+			.error(function() {
+				form.processing = false;
+				$orderUpdateForm.modal('fail');
 			});
 		};
 
 		// 共享订单
 		$scope.shareOrder = function(currentOrder) {
 			$scope.currentOrder = currentOrder;
-			$('#share-order').modal('show');
+			$orderShareForm.modal('show');
 		};
 
 		// 共享订单 - 发送请求
-		$scope.saveSharedOrder = function(currentOrder) {
-			$http.put(config.baseurl + 'order/' + currentOrder.id + '/workflow', {
-				workflow: currentOrder.workflow
-			}).success(function(d) {
-				$('#share-order').modal('hide');
+		$scope.saveSharedOrder = function(form) {
+			$orderShareForm.modal('spinner');
+			form.processing = true;
+			$http.put(config.baseurl + 'order/' + $scope.currentOrder.id + '/workflow', {
+				workflow: $scope.currentOrder.workflow
+			}).success(function(status) {
+				form.processing = false;
+				if (status) {
+					$orderShareForm.modal('success');
+					$scope.getOrderList();
+				} else {
+					$orderShareForm.modal('fail');
+				}
+			}).error(function() {
+				$orderShareForm.modal('fail');
 			});
 		};
 

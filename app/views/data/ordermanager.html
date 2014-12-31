@@ -137,105 +137,108 @@
         <form class="form-horizontal">
           <fieldset uu-form-field="isCustometInfoEditable">
             <legend>基本信息</legend>
-            <div class="form-group col-xs-6">
-              <label for="form-name" class="control-label col-xs-3">客户姓名</label>
-              <div class="col-xs-7">
-                <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-order" class="control-label col-xs-3">订单编号</label>
-              <div class="col-xs-7">
-                <input id="form-order" class="form-control input-sm" ng-model="currentOrder.orders_no"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-customer-gender" class="control-label col-xs-3">客户性别</label>
-              <div class="col-xs-7">
-                <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex">
-                  <option value="0">女</option>
-                  <option value="1">男</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-good" class="control-label col-xs-3">订购产品</label>
-              <div class="col-xs-7">
-                <input id="form-good" class="form-control input-sm" ng-model="currentOrder.good"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-telphone" class="control-label col-xs-3">联系电话</label>
-              <div class="col-xs-7">
-                <div class="input-group">
-                  <input id="form-telphone" ng-model="currentOrder.customer.phone" class="form-control input-sm"/>
-                  <div class="input-group-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
+            <table class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label for="form-name" class="form-th-label">客户姓名</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-order" class="form-th-label">订单编号</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-order" class="form-control input-sm" ng-model="currentOrder.orders_no"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-customer-gender" class="form-th-label">客户性别</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex">
+                    <option value="0">女</option>
+                    <option value="1">男</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-good" class="form-th-label">订购产品</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-good" class="form-control input-sm" ng-model="currentOrder.good"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-form-telphone" class="form-th-label">联系电话</label>
+                </th>
+                <td class="form-td">
+                  <div class="input-group">
+                    <input id="form-telphone" class="form-control input-sm"/>
+                    <div class="input-group-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-startDate" class="control-label col-xs-3">起订日期</label>
-              <div class="col-xs-7">
-                <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-child-name" class="control-label col-xs-3">儿童姓名</label>
-              <div class="col-xs-7">
-                <input id="form-child-name" class="form-control input-sm" ng-model="currentOrder.customer.child"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-enddate" class="control-label col-xs-3">结束日期</label>
-              <div class="col-xs-7">
-                <input id="form-enddate" class="form-control input-sm" ng-model="currentOrder.deadline" uu-date-picker="uu-date-picker"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-child-gender" class="control-label col-xs-3">儿童性别</label>
-              <div class="col-xs-7">
-                <select id="form-child-gender" class="form-control input-sm" ng-model="currentOrder.customer.c_sex">
-                  <option value="0">女</option>
-                  <option value="1">男</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-payway" class="control-label col-xs-3">支付方式</label>
-              <div class="col-xs-7">
-                <input id="form-payway" class="form-control input-sm" ng-model="currentOrder.payway"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-birthday" class="control-label col-xs-3">出生日期</label>
-              <div class="col-xs-7">
-                <input id="form-birthday" class="form-control input-sm" ng-model="currentOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
-              </div>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="form-pay-status" class="control-label col-xs-3">支付状态</label>
-              <div class="col-xs-7">
-                <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
-                  <option value="0">未付费</option>
-                  <option value="1">已付费</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group col-xs-12 location">
-              <div for="location-details" class="control-label">详细地址</div>
-              <div class="location-wrap">
-                <div class="input-group col-xs-3"><span class="input-group-addon">省</span>
-                  <input ng-model="currentOrder.customer.province" class="form-control input-sm"/>
-                </div>
-                <div class="input-group col-xs-3"><span class="input-group-addon">市</span>
-                  <input ng-model="currentOrder.customer.city" class="form-control input-sm"/>
-                </div>
-                <div class="input-group col-xs-4"><span class="input-group-addon">详细</span>
-                  <input ng-model="currentOrder.customer.address" class="form-control input-sm"/>
-                </div>
-              </div>
-            </div>
+                </td>
+                <th class="form-th">
+                  <label for="form-startDate" class="form-th-label">起订日期</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-child-name" class="form-th-label">儿童姓名</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-child-name" class="form-control input-sm" ng-model="currentOrder.customer.child"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-enddate" class="form-th-label">结束日期</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-enddate" class="form-control input-sm" ng-model="currentOrder.deadline" uu-date-picker="uu-date-picker"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-child-gender" class="form-th-label">儿童性别</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-child-gender" class="form-control input-sm" ng-model="currentOrder.customer.c_sex">
+                    <option value="0">女</option>
+                    <option value="1">男</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-payway" class="form-th-label">支付方式</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-payway" class="form-control input-sm" ng-model="currentOrder.payway"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-birthday" class="form-th-label">出生日期</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-birthday" class="form-control input-sm" ng-model="currentOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-pay-status" class="form-th-label">支付状态</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
+                    <option value="0">未付费</option>
+                    <option value="1">已付费</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                
+              </tr>
+            </table>
           </fieldset>
           <fieldset>
             <legend>订单</legend>
@@ -573,93 +576,105 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <fieldset>
-            <div class="form-group">
-              <label for="form-topic" class="control-label col-xs-3">主题</label>
-              <div class="col-xs-7">
-                <select id="form-topic" class="form-control input-sm" ng-model="contact.theme">
-                  <option value="1">核实订单</option>
-                  <option value="2">投诉</option>
-                  <option value="3">回访</option>
-                  <option value="4">催费</option>
-                  <option value="5">促进销售</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="form-deal-result" class="control-label col-xs-3">处理结果</label>
-              <div class="col-xs-7">
-                <select id="form-deal-result" class="form-control input-sm" ng-model="contact.status">
-                  <option value="1">待处理</option>
-                  <option value="2">处理中</option>
-                  <option value="3">已完成</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-xs-3">联系时间</label>
-              <div class="col-xs-7">
-                <p class="form-control-static" ng-bind="contact.contactTime"></p>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-xs-3">负责人</label>
-              <div class="col-xs-7">
-                <p class="form-control-static" ng-bind="currentUser.name"></p>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="form-phone-status" class="control-label col-xs-3">电话状态</label>
-              <div class="col-xs-7">
-                <select id="form-phone-status" class="form-control input-sm" ng-model="contact.phoneStatus">
-                  <option value="1">无人接</option>
-                  <option value="2">占线</option>
-                  <option value="3">接听</option>
-                  <option value="4">停机</option>
-                  <option value="5">空号</option>
-                  <option value="6">错号</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="form-complain-type" class="control-label col-xs-3">投诉分类</label>
-              <div class="col-xs-7">
-                <select id="form-complain-type" class="form-control input-sm" ng-model="contact.complainType">
-                  <option value="31">发票抬头错误</option>
-                  <option value="32">未开发票</option>
-                  <option value="33">开票时间长</option>
-                  <option value="34">发票丢失</option>
-                  <option value="35">客服态度不好</option>
-                  <option value="36">客服不专业</option>
-                  <option value="37">客服电话难打</option>
-                  <option value="38">物流慢</option>
-                  <option value="39">货物丢失</option>
-                  <option value="310">物品破损</option>
-                  <option value="311">快递态度</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="form-contact-next-time" class="control-label col-xs-3">下次回访日期</label>
-              <div class="col-xs-7">
-                <input id="form-contact-next-time" class="form-control input-sm" ng-model="contact.next_time" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0"/>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="form-urgency" class="control-label col-xs-3">紧急程度</label>
-              <div class="col-xs-7">
-                <select id="form-urgency" class="form-control input-sm" ng-model="contact.level">
-                  <option value="0">一般</option>
-                  <option value="1">优先</option>
-                  <option value="1">紧急</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="form-content" class="control-label col-xs-3">内容</label>
-              <div class="col-xs-7">
-                <textarea id="form-content" class="form-control" ng-model="contact.content"></textarea>
-              </div>
-            </div>
+            <table class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label for="form-topic" class="form-th-label">主题</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-topic" class="form-control input-sm" ng-model="contact.topic">
+                    <option value="1">核实订单</option>
+                    <option value="2">投诉</option>
+                    <option value="3">回访</option>
+                    <option value="4">催费</option>
+                    <option value="5">促进销售</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-deal-result" class="form-th-label">处理结果</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-deal-result" class="form-control input-sm" ng-model="contact.status">
+                    <option value="1">待处理</option>
+                    <option value="2">处理中</option>
+                    <option value="3">已完成</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">联系时间</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="contact.contactTime"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">负责人</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="currentUser.name"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-phone-status" class="form-th-label">电话状态</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-phone-status" class="form-control input-sm" ng-model="contact.phoneStatus">
+                    <option value="1">无人接</option>
+                    <option value="2">占线</option>
+                    <option value="3">接听</option>
+                    <option value="4">停机</option>
+                    <option value="5">空号</option>
+                    <option value="6">错号</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-contact-next-time" class="form-th-label">下次回访日期</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-contact-next-time" class="form-control input-sm" ng-model="contact.next_time" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0"/>
+                </td>
+              </tr>
+              <tr ng-show="contact.topic===&quot;2&quot;">
+                <th class="form-th">
+                  <label for="form-complain-type" class="form-th-label">投诉分类</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-complain-type" class="form-control input-sm" ng-model="contact.complainType">
+                    <option value="31">发票抬头错误</option>
+                    <option value="32">未开发票</option>
+                    <option value="33">开票时间长</option>
+                    <option value="34">发票丢失</option>
+                    <option value="35">客服态度不好</option>
+                    <option value="36">客服不专业</option>
+                    <option value="37">客服电话难打</option>
+                    <option value="38">物流慢</option>
+                    <option value="39">货物丢失</option>
+                    <option value="310">物品破损</option>
+                    <option value="311">快递态度</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-urgency" class="form-th-label">紧急程度</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-urgency" class="form-control input-sm" ng-model="contact.level">
+                    <option value="1">一般</option>
+                    <option value="2">优先</option>
+                    <option value="3">紧急</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-content" class="form-th-label">内容</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <textarea id="form-content" class="form-control" ng-model="contact.content"></textarea>
+                </td>
+              </tr>
+            </table>
           </fieldset>
         </form>
       </div>

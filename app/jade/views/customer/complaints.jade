@@ -61,28 +61,23 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='{{complain
 	.modal-body
 		form.form-horizontal.form-nowrap
 			fieldset
-				.form-group
+				table.form-table
+					tr
 						+input('客户姓名', 'goodCode')(ng-model='complaint.customer_name')
-				.form-group
 						+input('联系电话', 'goodNum')(ng-model='complaint.customer_phone')
-				.form-group
+					tr
 						+input('订单编号', 'goodCode')(ng-model='complaint.order_no')
-				//- .form-group
-				//- 		+static-input('投诉日期', 'goodNum')(ng-bind='complaint.contact_time')
-				.form-group
 						+static-input('处理人', 'contact-responsor')(ng-bind='currentUser.name')
-				.form-group
+					tr
 						+complain-type('投诉分类', 'complain-type')(ng-model='complaint.complainType')
-				.form-group
 						+urgency-level('紧急程度', 'urgency')(ng-model='complaint.level')
-				.form-group
+					tr
 						+deal-result('处理结果', 'deal-result')(ng-model='complaint.status')
-				.form-group
 						+input('下次回访日期', 'complaint-next-time')(ng-model='complaint.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
-				.form-group
-					+textarea('详细说明', 'content-details')(ng-model="complaint.details")
-				.form-group
-					+textarea('处理描述', 'deal-desc')(ng-model="complaint.result_desc")
+					tr
+						+textarea('详细说明', 'content-details', 3)(ng-model="complaint.details")
+					tr
+						+textarea('处理描述', 'deal-desc', 3)(ng-model="complaint.result_desc")
 
 		.modal-footer
 			button.btn.uu-btn.btn-primary(ng-click='saveComplaint(complaint)') 确认并共享

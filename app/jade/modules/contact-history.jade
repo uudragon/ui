@@ -5,52 +5,21 @@
 	.modal-body
 		form.form-horizontal
 			fieldset
-				.form-group
-					+select('主题', 'topic')(ng-model='contact.theme')
-						+option('核实订单', 1)
-						+option('投诉', 2)
-						+option('回访', 3)
-						+option('催费', 4)
-						+option('促进销售', 5)
-				.form-group
-					+select('处理结果', 'deal-result')(ng-model='contact.status')
-						+option('待处理', 1)
-						+option('处理中', 2)
-						+option('已完成', 3)
-				.form-group
-					+static-input('联系时间', 'contact-time')(ng-bind='contact.contactTime')
-				.form-group
-					+static-input('负责人', 'contact-responsor')(ng-bind='currentUser.name')
-				.form-group
-					+select('电话状态', 'phone-status')(ng-model='contact.phoneStatus')
-						+option('无人接', 1)
-						+option('占线', 2)
-						+option('接听', 3)
-						+option('停机', 4)
-						+option('空号', 5)
-						+option('错号', 6)
-				.form-group
-					+select('投诉分类', 'complain-type')(ng-model='contact.complainType')
-						+option('发票抬头错误', 31)
-						+option('未开发票', 32)
-						+option('开票时间长', 33)
-						+option('发票丢失', 34)
-						+option('客服态度不好', 35)
-						+option('客服不专业', 36)
-						+option('客服电话难打', 37)
-						+option('物流慢', 38)
-						+option('货物丢失', 39)
-						+option('物品破损', 310)
-						+option('快递态度', 311)
-				.form-group
-					+input('下次回访日期', 'contact-next-time')(ng-model='contact.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
-				.form-group
-					+select('紧急程度', 'urgency')(ng-model='contact.level')
-						+option('一般', 0)
-						+option('优先', 1)
-						+option('紧急', 1)
-				.form-group
-					+textarea('内容', 'content')(ng-model="contact.content")
+				table.form-table
+					tr
+						+contact-topic('主题', 'topic')(ng-model='contact.topic')
+						+deal-result('处理结果', 'deal-result')(ng-model='contact.status')
+					tr
+						+static-input('联系时间', 'contact-time')(ng-bind='contact.contactTime')
+						+static-input('负责人', 'contact-responsor')(ng-bind='currentUser.name')
+					tr
+						+phone-status('电话状态', 'phone-status')(ng-model='contact.phoneStatus')
+						+input('下次回访日期', 'contact-next-time')(ng-model='contact.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
+					tr(ng-show='contact.topic==="2"')
+						+complain-type('投诉分类', 'complain-type')(ng-model='contact.complainType')
+						+urgency-level('紧急程度', 'urgency')(ng-model='contact.level')
+					tr
+						+textarea('内容', 'content', 3)(ng-model="contact.content")
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveContact(contact)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

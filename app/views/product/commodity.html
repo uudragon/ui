@@ -77,90 +77,116 @@
         <form class="form-horizontal form-nowrap">
           <fieldset>
             <div class="form-group col-xs-6">
-              <label for="form-name" class="control-label col-xs-3">商品名称</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-name" class="form-th-label">商品名称</label>
+              </th>
+              <td class="form-td">
                 <input id="form-name" class="form-control input-sm" ng-model="commodity.good_name"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-commdity-type" class="control-label col-xs-3">商品类型</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-commdity-type" class="form-th-label">商品类型</label>
+              </th>
+              <td class="form-td">
                 <select id="form-commdity-type" class="form-control input-sm" ng-model="commodity.is_valid">
                   <option value="1">教材</option>
                   <option value="2">音像制品(DVD/CD)</option>
                   <option value="3">玩具</option>
                   <option value="4">其它</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-good-des" class="control-label col-xs-3">商品价格</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-good-des" class="form-th-label">商品价格</label>
+              </th>
+              <td class="form-td">
                 <input id="form-good-des" class="form-control input-sm" ng-model="commodity.good_des"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-good-des" class="control-label col-xs-3">商品规格</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-good-des" class="form-th-label">商品规格</label>
+              </th>
+              <td class="form-td">
                 <input id="form-good-des" class="form-control input-sm" ng-model="commodity.good_des"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-good-des" class="control-label col-xs-3">商品条码</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-good-des" class="form-th-label">商品条码</label>
+              </th>
+              <td class="form-td">
                 <input id="form-good-des" class="form-control input-sm" ng-model="commodity.good_des"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-good-des" class="control-label col-xs-3">ISBN号</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-good-des" class="form-th-label">ISBN号</label>
+              </th>
+              <td class="form-td">
                 <input id="form-good-des" class="form-control input-sm" ng-model="commodity.good_des"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-undefined" class="control-label col-xs-3">生产日期</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-undefined" class="form-th-label">生产日期</label>
+              </th>
+              <td class="form-td">
                 <input id="form-undefined" class="form-control input-sm" ng-model="commodity.make_time" uu-date-picker="uu-date-picker"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-is-valid" class="control-label col-xs-3">是否有效</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-is-valid" class="form-th-label">是否有效</label>
+              </th>
+              <td class="form-td">
                 <select id="form-is-valid" class="form-control input-sm" ng-model="commodity.is_valid">
                   <option value="1">是</option>
                   <option value="0">否</option>
                 </select>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label class="control-label col-xs-3">创建时间</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label class="form-th-label">创建时间</label>
+              </th>
+              <td class="form-td">
                 <p class="form-control-static" ng-bind="commodity.create_time"></p>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-creator" class="control-label col-xs-3">创建人</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-creator" class="form-th-label">创建人</label>
+              </th>
+              <td class="form-td">
                 <input id="form-creator" class="form-control input-sm" ng-model="commodity.creator"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label class="control-label col-xs-3">更新时间</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label class="form-th-label">更新时间</label>
+              </th>
+              <td class="form-td">
                 <p class="form-control-static" ng-bind="commodity.update_time"></p>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-updator" class="control-label col-xs-3">更新人</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-updator" class="form-th-label">更新人</label>
+              </th>
+              <td class="form-td">
                 <input id="form-updator" class="form-control input-sm" ng-model="commodity.updator"/>
-              </div>
+              </td>
             </div>
             <div class="form-group col-xs-6">
-              <label for="form-good-des" class="control-label col-xs-3">商品描述</label>
-              <div class="col-xs-7">
+              <th class="form-th">
+                <label for="form-good-des" class="form-th-label">商品描述</label>
+              </th>
+              <td class="form-td">
                 <input id="form-good-des" class="form-control input-sm" ng-model="commodity.good_des"/>
-              </div>
+              </td>
             </div>
           </fieldset>
         </form>

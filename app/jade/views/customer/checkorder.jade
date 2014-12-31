@@ -37,10 +37,9 @@ include ../../modules/mixins.jade
 table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders')
+		tr(ng-repeat='order in orders' ng-dblclick="showOrder(order)")
 			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.order_no' ng-show='ths[1].isChecked')
 			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
 			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
 			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
@@ -59,7 +58,7 @@ table.uu-table(ng-show='orders.length')
 uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 订单详情Modal
-+modal('order-details', 'modal-lg')
++modal('order-details')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 核实订单
@@ -91,7 +90,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 							td(ng-bind='currentOrder.customer.birthday')
 							td(ng-bind='currentOrder.order_status | orderStatus')
 							td(ng-bind='currentOrder.audit | auditStatus')
-							td
+							td.nowrap
 								+tooltip('修改', 'top', 'editOrderStatus(currentOrder)')
 									+glyphicon('pencil') &nbsp;
 
@@ -111,12 +110,13 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 修改负责人
 	.modal-body
-		form.form-horizontal
-			.form-group
-				+workflow-group('修改负责人', 'workflow')(ng-model='currentOrder.workflow')
+		form.form-horizontal(name='orderShareForm')
+			table.form-table.form-table-single
+				tr
+					+workflow-group('修改负责人', 'workflow')(ng-model='currentOrder.workflow')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(currentOrder)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(orderShareForm)' ng-disabled='orderShareForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 修改订单Modal
@@ -125,11 +125,12 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 修改订单
 	.modal-body
-		form.form-horizontal
-			.form-group
-				+order-status('修改订单状态', 'order-status')(ng-model='currentOrder.auditStatus')
+		form.form-horizontal(name='orderUpdateForm')
+			table.form-table.form-table-single
+				tr
+					+order-status('修改订单状态', 'order-status')(ng-model='currentOrder.auditStatus')
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='updateOrderStatus(currentOrder)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='updateOrderStatus(orderUpdateForm)' ng-disabled='orderUpdateForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 include ../../modules/neworder.jade

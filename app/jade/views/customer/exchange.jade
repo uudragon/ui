@@ -95,85 +95,44 @@ uu-pagination(records='returnOrders.meta.recordsCount', per-page='{{returnOrders
 							+glyphicon('plus')
 
 //- 调货Modal
-+modal('form-exchange', 'modal-lg')
++modal('form-exchange')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 调货
 	.modal-body
 		form.form-horizontal.form-nowrap
 			fieldset
-				.row
-					+hgroup
+				table.form-table
+					tr
 						+input('客户姓名', 'goodCode')(ng-model='exchange.code')
-					+hgroup
 						+input('联系方式', 'goodNum')(ng-model='exchange.num')
-				.row
-					+hgroup
+					tr
 						+input('收货地址', 'goodCode')(ng-model='exchange.code')
-					+hgroup
 						+input('订单编号', 'goodNum')(ng-model='exchange.num')
-				.row
-					+hgroup
+					tr
 						+input('订单刊号', 'goodCode')(ng-model='exchange.code')
-					+hgroup
 						+input('订单刊数', 'goodNum')(ng-model='exchange.num')
-				.row
-					+hgroup
+					tr
 						+input('已收货刊号', 'goodCode')(ng-model='exchange.code')
-					+hgroup
 						+input('未收货刊号', 'goodCode')(ng-model='exchange.code')
-				.row
-					+hgroup
+					tr
 						+input('申请调换刊', 'subscribeNum')(ng-model='exchange.subscribeNum')
-					+hgroup
-						+select('调换类别', 'subscribeAmount')(ng-model='exchange.sdfasdfadsf')
-							+option('绘本', 11)
-							+option('玩具', 12)
-				.row
-					+hgroup
-						+select('申请调换科目', 'subscribeAmount')(ng-model='exchange.sdd')
-							+option('汉语小镇', 11)
-							+option('数理摩天轮', 12)
-							+option('入学准备书', 12)
-							+option('科学探索营', 12)
-							+option('DVD', 12)
-					+hgroup
+						+exchange-type('调换类别', 'subscribeAmount')(ng-model='exchange.sdfasdfadsf')
+					tr
+						+exchange-content('申请调换科目', 'subscribeAmount')(ng-model='exchange.sdd')
 						+input('调换数量', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
-
-				.row
-					+hgroup
-						+select('调换原因', 'return-reason')(ng-model='exchange.phoneStatus')
-							+option('破损', 1)
-							+option('缺漏', 2)
-					+hgroup
-						+select('调换进度', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
-							+option('申请中', 0)
-							+option('发货中', 1)
-							+option('已完成', 1)
-				.row
-					+hgroup
-						+select('调换结果', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
-							+option('已调换', 0)
-							+option('未调换', 1)
-					+hgroup
-						+select('是否已入库', 'urgency')(ng-model='user.urgency')
-							+option('是', 0)
-							+option('否', 1)
-				.row
-					+hgroup
+					tr
+						+exchange-reason('调换原因', 'exchange-reason')(ng-model='exchange.phoneStatus')
+						+exchange-progress('调换进度', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+					tr
+						+yesno('调换结果', 'subscribeAmount', '已调换', '未调换')(ng-model='exchange.subscribeAmount')
+						+yesno('是否已入库', 'urgency')(ng-model='user.urgency')
+					tr
 						+input('发货状态', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
-					+hgroup
-						+select('是否单独发货', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
-							+option('是', 0)
-							+option('否', 1)
-				.row
-					+hgroup
+						+yesno('是否单独发货', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
+					tr
 						+input('运费金额', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
-					+hgroup
-						+select('运费承担人', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
-							+option('客户', 1)
-							+option('公司', 2)
-							+option('快递公司', 3)
+						+freight-payer('运费承担人', 'subscribeAmount')(ng-model='exchange.subscribeAmount')
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 确认并共享
