@@ -312,6 +312,11 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		templateUrl: 'views/commodity/layout.html',
 		controller: 'CommodityCtrl'
 	})
+	.state('root.commodity.stockIn', {
+		url: '/stockIn',
+		templateUrl: 'views/commodity/stockIn.html',
+		controller: 'StockIn'
+	})
 	.state('root.commodity.storage', {
 		url: '/storage',
 		templateUrl: 'views/commodity/storage.html',

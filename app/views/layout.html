@@ -105,6 +105,7 @@
               </li>
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.commodity&quot;)}" uu-auth-filter="04" class="nav-item"><a class="nav-menu-label">入库管理</a>
                 <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.commodity.stockIn" ng-class="{active: $state.is(&quot;root.commodity.stockIn&quot;)}">入库单管理</a></li>
                   <li><a ui-sref="root.commodity.storage" ng-class="{active: $state.is(&quot;root.commodity.storage&quot;)}">商品入库</a></li>
                 </ul>
               </li>
