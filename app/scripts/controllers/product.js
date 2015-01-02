@@ -83,6 +83,13 @@ angular.module('mainApp')
 			$scope.good = {};
 			$scope.good.create_time = $filter('now')();
 			$scope.good.update_time = $scope.good.create_time;
+
+
+			$scope.commodity_filters = [
+				{name: '商品编号', value: 0, input: true},
+				{name: '商品名称', value: 1, input: true},
+				{name: '商品类型', value: 1, subfilters: [{name: '教材(书籍)', value: 0}, {name: '音像制品(DVD/CD)', value: 1}, {name: '开具', value: 1}, {name: '其它', value: 1}]}
+			];
 		};
 
 		// inherit functions from parent
