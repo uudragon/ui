@@ -63,7 +63,7 @@
   </tbody>
 </table>
 <uu-pagination records="products.meta.recordsCount" per-page="{{products.meta.pageSize}}" page="products.meta.pageNo" model="searchModel" action="getProductList()"></uu-pagination>
-<div id="new-good" class="modal fade">
+<div id="new-product" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -71,52 +71,50 @@
         <h4 class="modal-title">新建产品</h4>
       </div>
       <div class="modal-body">
-        <div uu-tab="uu-tab">
-          <div uu-pane="uu-pane" title="新建产品">
-            <form name="productNewForm" novalidate="novalidate" ng-class="{sumitted: productNewForm.$sumitted}" class="form-horizontal">
-              <fieldset>
-                <table class="form-table">
-                  <tr>
-                    <th class="form-th">
-                      <label for="form-product_code" class="form-th-label">产品编号</label>
-                    </th>
-                    <td class="form-td">
-                      <input id="form-product_code" class="form-control input-sm" ng-model="product.product_code" required="required"/>
-                    </td>
-                    <th class="form-th">
-                      <label for="form-product_name" class="form-th-label">产品名称</label>
-                    </th>
-                    <td class="form-td">
-                      <input id="form-product_name" class="form-control input-sm" ng-model="product.product_name" required="required"/>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="form-th">
-                      <label class="form-th-label">创建人</label>
-                    </th>
-                    <td class="form-td">
-                      <p class="form-control-static" ng-bind="product.creator"></p>
-                    </td>
-                    <th class="form-th">
-                      <label for="form-is-valid" class="form-th-label">是否有效</label>
-                    </th>
-                    <td class="form-td">
-                      <select id="form-is-valid" class="form-control input-sm" ng-model="product.yn">
-                        <option value="1">是</option>
-                        <option value="0">否</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="form-th">
-                      <label for="form-product-desc" class="form-th-label">产品说明</label>
-                    </th>
-                    <td colspan="3" class="form-td">
-                      <input id="form-product-desc" class="form-control input-sm" ng-model="product.product_desc"/>
-                    </td>
-                  </tr>
-                </table>
-              </fieldset>
+        <form name="productNewForm" novalidate="novalidate" ng-class="{sumitted: productNewForm.$sumitted}" class="form-horizontal">
+          <div uu-tab="uu-tab">
+            <div uu-pane="uu-pane" title="新建产品">
+              <table class="form-table">
+                <tr>
+                  <th class="form-th">
+                    <label for="form-product_code" class="form-th-label">产品编号</label>
+                  </th>
+                  <td class="form-td">
+                    <input id="form-product_code" class="form-control input-sm" ng-model="product.product_code" required="required"/>
+                  </td>
+                  <th class="form-th">
+                    <label for="form-product_name" class="form-th-label">产品名称</label>
+                  </th>
+                  <td class="form-td">
+                    <input id="form-product_name" class="form-control input-sm" ng-model="product.product_name" required="required"/>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="form-th">
+                    <label class="form-th-label">创建人</label>
+                  </th>
+                  <td class="form-td">
+                    <p class="form-control-static" ng-bind="product.creator"></p>
+                  </td>
+                  <th class="form-th">
+                    <label for="form-is-valid" class="form-th-label">是否有效</label>
+                  </th>
+                  <td class="form-td">
+                    <select id="form-is-valid" class="form-control input-sm" ng-model="product.yn">
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="form-th">
+                    <label for="form-product-desc" class="form-th-label">产品说明</label>
+                  </th>
+                  <td colspan="3" class="form-td">
+                    <input id="form-product-desc" class="form-control input-sm" ng-model="product.product_desc"/>
+                  </td>
+                </tr>
+              </table>
               <p style="margin-top: 10px;" ng-show="!product.details.length" class="badge">尚未添加任何商品</p>
               <table style="margin-top: 10px;" ng-show="product.details.length" class="uu-table">
                 <thead>
@@ -143,41 +141,41 @@
                 <button ng-click="saveProduct(productNewForm)" ng-disabled="productNewForm.processing" class="btn uu-btn btn-primary">保存</button>
                 <button data-dismiss="modal" class="btn uu-btn">取消</button>
               </div>
-            </form>
+            </div>
+            <div uu-pane="uu-pane" title="添加商品">
+              <table class="uu-table">
+                <thead>
+                  <tr>
+                    <th>商品名称</th>
+                    <th>商品类型</th>
+                    <th>商品价格</th>
+                    <th>商品规格</th>
+                    <th>生产日期</th>
+                    <th>商品描述</th>
+                    <th>是否有效</th>
+                    <th>操作员</th>
+                    <th>工具</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="good in goods">
+                    <td ng-bind="good.goodsName"></td>
+                    <td ng-bind="good.goodsType | goodsType"></td>
+                    <td ng-bind="good.goodsPrice"></td>
+                    <td ng-bind="good.goodsUnit"></td>
+                    <td ng-bind="good.createTime"></td>
+                    <td ng-bind="good.goodsDesc"></td>
+                    <td ng-bind="good.yn | valid"></td>
+                    <td ng-bind="good.creator"></td>
+                    <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加商品" ng-click="addGoodToProduct(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <uu-pagination records="goods.meta.recordsCount" per-page="{{goods.meta.pageSize}}" page="goods.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
+            </div>
           </div>
-          <div uu-pane="uu-pane" title="添加商品">
-            <table class="uu-table">
-              <thead>
-                <tr>
-                  <th>商品名称</th>
-                  <th>商品类型</th>
-                  <th>商品价格</th>
-                  <th>商品规格</th>
-                  <th>生产日期</th>
-                  <th>商品描述</th>
-                  <th>是否有效</th>
-                  <th>操作员</th>
-                  <th>工具</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="good in goods">
-                  <td ng-bind="good.goodsName"></td>
-                  <td ng-bind="good.goodsType | goodsType"></td>
-                  <td ng-bind="good.goodsPrice"></td>
-                  <td ng-bind="good.goodsUnit"></td>
-                  <td ng-bind="good.createTime"></td>
-                  <td ng-bind="good.goodsDesc"></td>
-                  <td ng-bind="good.yn | valid"></td>
-                  <td ng-bind="good.creator"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加商品" ng-click="addGoodToProduct(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <uu-pagination records="goods.meta.recordsCount" per-page="{{goods.meta.pageSize}}" page="goods.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

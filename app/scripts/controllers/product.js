@@ -108,7 +108,7 @@ angular.module('mainApp')
 	}])
 	.controller('Goods', ['$scope', '$controller', '$filter', '$http', function ($scope, $controller, $filter, $http) {
 		var
-			$newProduct = $('#new-good'),
+			$newProduct = $('#new-product'),
 			$goodsDetails = $('#good-details');
 
 		// 搜索下拉

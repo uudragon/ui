@@ -35,28 +35,28 @@ table.uu-table
 uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pageSize}}' page='products.meta.pageNo', model='searchModel', action='getProductList()')
 
 //- 新建产品
-+modal('new-good')
++modal('new-product')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建产品
 	.modal-body
-		div(uu-tab)
-			div(uu-pane, title='新建产品')
-				form.form-horizontal(name='productNewForm' novalidate ng-class='{sumitted: productNewForm.$sumitted}')
-					fieldset
-						table.form-table
-							tr
-								+input('产品编号', 'product_code')(ng-model='product.product_code' required)
-								+input('产品名称', 'product_name')(ng-model='product.product_name' required)
-							tr
-								+static-input('创建人', 'creator')(ng-bind='product.creator')
-								+yesno('是否有效', 'is-valid')(ng-model='product.yn')
-							tr
-								+input('产品说明', 'product-desc', 3)(ng-model='product.product_desc')
-								//- +static-input('创建时间')(ng-bind='product.create_time')
-								//- +static-input('更新时间')(ng-bind='product.update_time')
-							//- +hgroup
-							//- 	+input('更新人', 'updator')(ng-model='product.updator')
+		//- 将form放在uu-pane层级下会导致newProduct(productNewForm)找不到productNewForm
+		form.form-horizontal(name='productNewForm' novalidate ng-class='{sumitted: productNewForm.$sumitted}')
+			div(uu-tab)
+				div(uu-pane, title='新建产品')
+					table.form-table
+						tr
+							+input('产品编号', 'product_code')(ng-model='product.product_code' required)
+							+input('产品名称', 'product_name')(ng-model='product.product_name' required)
+						tr
+							+static-input('创建人', 'creator')(ng-bind='product.creator')
+							+yesno('是否有效', 'is-valid')(ng-model='product.yn')
+						tr
+							+input('产品说明', 'product-desc', 3)(ng-model='product.product_desc')
+							//- +static-input('创建时间')(ng-bind='product.create_time')
+							//- +static-input('更新时间')(ng-bind='product.update_time')
+						//- +hgroup
+						//- 	+input('更新人', 'updator')(ng-model='product.updator')
 					p.badge(style='margin-top: 10px;' ng-show='!product.details.length') 尚未添加任何商品
 					table.uu-table(style='margin-top: 10px;' ng-show='product.details.length')
 						+thead
@@ -79,26 +79,26 @@ uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pa
 						button.btn.uu-btn.btn-primary(ng-click='saveProduct(productNewForm)' ng-disabled='productNewForm.processing') 保存
 						button.btn.uu-btn(data-dismiss='modal') 取消
 
-			div(uu-pane, title='添加商品')
-				table.uu-table
-					+thead
-						each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
-							th=th
-					tbody
-						tr(ng-repeat='good in goods')
-							//- td(ng-bind='good.goodsCode' ng-show='ths[0].isChecked')
-							td(ng-bind='good.goodsName')
-							td(ng-bind='good.goodsType | goodsType')
-							td(ng-bind='good.goodsPrice')
-							td(ng-bind='good.goodsUnit')
-							td(ng-bind='good.createTime')
-							td(ng-bind='good.goodsDesc')
-							td(ng-bind='good.yn | valid')
-							td(ng-bind='good.creator')
-							td
-								+tooltip('添加商品', 'top', 'addGoodToProduct(good, productDetailsForm)')
-									+glyphicon('plus')
-				uu-pagination(records='goods.meta.recordsCount', per-page='{{goods.meta.pageSize}}' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
+				div(uu-pane, title='添加商品')
+					table.uu-table
+						+thead
+							each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+								th=th
+						tbody
+							tr(ng-repeat='good in goods')
+								//- td(ng-bind='good.goodsCode' ng-show='ths[0].isChecked')
+								td(ng-bind='good.goodsName')
+								td(ng-bind='good.goodsType | goodsType')
+								td(ng-bind='good.goodsPrice')
+								td(ng-bind='good.goodsUnit')
+								td(ng-bind='good.createTime')
+								td(ng-bind='good.goodsDesc')
+								td(ng-bind='good.yn | valid')
+								td(ng-bind='good.creator')
+								td
+									+tooltip('添加商品', 'top', 'addGoodToProduct(good, productDetailsForm)')
+										+glyphicon('plus')
+					uu-pagination(records='goods.meta.recordsCount', per-page='{{goods.meta.pageSize}}' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
 
 //- 商品详情Modal
 +submodal('good-details')
