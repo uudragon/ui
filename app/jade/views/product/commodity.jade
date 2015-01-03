@@ -26,7 +26,7 @@ table.uu-table(ng-show='commodities')
 			td(ng-bind='commodity.goodsDesc' ng-show='ths[7].isChecked')
 			td(ng-bind='commodity.yn | valid' ng-show='ths[8].isChecked')
 			td(ng-bind='commodity.creator' ng-show='ths[9].isChecked')
-			td
+			td.nowrap
 				+tooltip('修改', 'top', 'showCommodity(commodity)')
 					+glyphicon('pencil') &nbsp;
 
@@ -50,13 +50,13 @@ uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.m
 						+input('商品名称', 'goods_name')(ng-model='commodity.goods_name' required)
 					tr
 						+commdity-type('商品类型', 'goods_type')(uu-num ng-model='commodity.goods_type' required)
-						+input('商品价格', 'goods_price')(ng-model='commodity.goods_price' required)
+						+input('商品价格', 'goods_price')(uu-num ng-model='commodity.goods_price' required)
 					tr
 						+input('商品规格', 'goods_unit')(ng-model='commodity.goods_unit')
 						+input('生产日期', 'product_date')(ng-model='commodity.product_date' uu-date-picker)
 					tr
 						+input('商品条码', 'barcode')(ng-model='commodity.barcode' required)
-						+input('ISBN号', 'isbn')(ng-model='commodity.isbn')
+						+input('ISBN号', 'isbn')(ng-model='commodity.isbn' required)
 					//- tr
 					//- 	+static-input('创建人', 'createor')(ng-bind='commodity.createor')
 					//- 	+static-input('修改人', 'updater')(ng-bind='commodity.updater')

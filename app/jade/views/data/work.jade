@@ -54,7 +54,7 @@ table.uu-table
 			td(ng-bind='order.responser', ng-show='ths[7].isChecked')
 			td(ng-bind='order.workStatus', ng-show='ths[8].isChecked')
 			td(ng-bind='order.workType', ng-show='ths[9].isChecked')
-			td
+			td.nowrap
 				+tooltip('修改', 'top', 'update(employee)')
 					+glyphicon('pencil') &nbsp;
 

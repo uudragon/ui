@@ -414,6 +414,46 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuFloat', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^[-+]?[0-9]*\.?[0-9]+$/.test(value)) {
+					ctrl.$setValidity('digit', true);
+					return value;
+				} else {
+					ctrl.$setValidity('digit', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('uuIsbn', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/.test(value)) {
+					ctrl.$setValidity('digit', true);
+					return value;
+				} else {
+					ctrl.$setValidity('digit', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
 .directive('uuCitySelect', function() {
 	return {
 		restrict: 'C',

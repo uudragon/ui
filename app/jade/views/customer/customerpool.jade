@@ -51,7 +51,7 @@ table.uu-table
 			td(ng-bind='customer.type | customerStatus', ng-show='ths[6].isChecked')
 			td(ng-bind='customer.create_time', ng-show='ths[7].isChecked')
 			td(ng-bind='customer.contact_times', ng-show='ths[8].isChecked')
-			td
+			td.nowrap
 				+tooltip('修改', 'top', 'showComplaintcustomers(customer)')
 					+glyphicon('pencil') &nbsp;
 

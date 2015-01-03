@@ -46,7 +46,7 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
 			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
 			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
-			td
+			td.nowrap
 				+tooltip('修改', 'top', 'showOrder(order)')
 					+glyphicon('pencil') &nbsp;
 

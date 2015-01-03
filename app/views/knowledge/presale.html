@@ -46,14 +46,14 @@
 <table ng-show="knowledges.length" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th>
+      <th class="nowrap">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, knowledges)"/>全选
           </label>
         </div>
       </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -73,7 +73,7 @@
       <td ng-bind="knowledge.type" ng-show="ths[3].isChecked"></td>
       <td ng-bind="knowledge.browse_number" ng-show="ths[4].isChecked"></td>
       <td ng-bind="knowledge.update_time" ng-show="ths[5].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="viewKnowledge(knowledge)"><span class="glyphicon glyphicon-eye-open">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="编辑" ng-click="editKnowledge(knowledge)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="deleteKnowledge(knowledge)"><span class="glyphicon glyphicon-trash"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="viewKnowledge(knowledge)"><span class="glyphicon glyphicon-eye-open">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="编辑" ng-click="editKnowledge(knowledge)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="deleteKnowledge(knowledge)"><span class="glyphicon glyphicon-trash"></span></a>
       </td>
     </tr>
   </tbody>

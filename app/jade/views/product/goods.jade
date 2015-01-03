@@ -25,7 +25,7 @@ table.uu-table
 			td(ng-bind='product.update_time' ng-show='ths[5].isChecked')
 			td(ng-bind='product.updater' ng-show='ths[6].isChecked')
 			td(ng-bind='product.yn | valid' ng-show='ths[7].isChecked')
-			td
+			td.nowrap
 				+tooltip('修改', 'top', 'showOrder(order)')
 					+glyphicon('pencil') &nbsp;
 
@@ -68,7 +68,7 @@ uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pa
 								td(ng-bind='good.goods_name')
 								td(ng-bind='good.qty')
 								td(ng-bind='good.is_gift | yesno')
-								td
+								td.nowrap
 									+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
 										+glyphicon('pencil') &nbsp;
 

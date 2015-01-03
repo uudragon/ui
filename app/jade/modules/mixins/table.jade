@@ -8,12 +8,12 @@ mixin theadplus(records)
 	thead
 		tr(ng-dblclick=attributes['ng-dblclick'])
 			if records
-				th
+				th.nowrap
 					.checkbox
 						label
 							input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", #{records})')
 							| 全选
-			th(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
+			th.nowrap(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
 				| {{th.label}}
 				+th-filter(ng-if='th.filters')
 					+glyphicon('filter')

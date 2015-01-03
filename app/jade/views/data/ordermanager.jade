@@ -67,7 +67,7 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.paid | payStatus', ng-show='ths[12].isChecked')
 			td(ng-bind='order.sumAmount', ng-show='ths[13].isChecked')
 			td(ng-bind='order.order_details', ng-show='ths[14].isChecked')
-			td
+			td.nowrap
 				+tooltip('修改', 'top', 'update(employee)')
 					+glyphicon('pencil') &nbsp;
 

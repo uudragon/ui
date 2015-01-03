@@ -33,7 +33,7 @@ table.uu-table
 			td(ng-bind='product.minSKU', ng-show='ths[4].isChecked')
 			td(ng-bind='product.SN', ng-show='ths[5].isChecked')
 			td(ng-bind='product.location', ng-show='ths[6].isChecked')
-			td
+			td.nowrap
 				+tooltip('调库', 'top', 'getProducts(product)')
 					+glyphicon('earphone') &nbsp;
 

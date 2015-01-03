@@ -39,7 +39,7 @@
 <table class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -57,7 +57,7 @@
       <td ng-bind="product.update_time" ng-show="ths[5].isChecked"></td>
       <td ng-bind="product.updater" ng-show="ths[6].isChecked"></td>
       <td ng-bind="product.yn | valid" ng-show="ths[7].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -132,7 +132,7 @@
                     <td ng-bind="good.goods_name"></td>
                     <td ng-bind="good.qty"></td>
                     <td ng-bind="good.is_gift | yesno"></td>
-                    <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                    <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                   </tr>
                 </tbody>

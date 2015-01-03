@@ -39,7 +39,7 @@
 <table ng-show="commodities" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -59,7 +59,7 @@
       <td ng-bind="commodity.goodsDesc" ng-show="ths[7].isChecked"></td>
       <td ng-bind="commodity.yn | valid" ng-show="ths[8].isChecked"></td>
       <td ng-bind="commodity.creator" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -107,7 +107,7 @@
                   <label for="form-goods_price" class="form-th-label">商品价格</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goods_price" class="form-control input-sm" ng-model="commodity.goods_price" required="required"/>
+                  <input id="form-goods_price" class="form-control input-sm" uu-num="uu-num" ng-model="commodity.goods_price" required="required"/>
                 </td>
               </tr>
               <tr>
@@ -135,7 +135,7 @@
                   <label for="form-isbn" class="form-th-label">ISBN号</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-isbn" class="form-control input-sm" ng-model="commodity.isbn"/>
+                  <input id="form-isbn" class="form-control input-sm" ng-model="commodity.isbn" required="required"/>
                 </td>
               </tr>
               <tr>

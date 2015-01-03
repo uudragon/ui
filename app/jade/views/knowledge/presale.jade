@@ -48,7 +48,7 @@ table.uu-table(ng-show='knowledges.length')
 			td(ng-bind='knowledge.type', ng-show='ths[3].isChecked')
 			td(ng-bind='knowledge.browse_number', ng-show='ths[4].isChecked')
 			td(ng-bind='knowledge.update_time', ng-show='ths[5].isChecked')
-			td
+			td.nowrap
 				+tooltip('查看', 'top', 'viewKnowledge(knowledge)')
 					+glyphicon('eye-open') &nbsp;
 
