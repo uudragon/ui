@@ -192,4 +192,23 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			return v.toString(16);
 		});
 	};
+
+	// Form actions
+	$scope.resetForm = function(form) {
+		if (form) {
+			form.$setPristine();
+			form.$sumitted = false;
+		}
+	}
+
+	$scope.validateForm = function(form, $formModal) {
+		form.$sumitted = true;
+
+		if (!form.$valid) {
+			$formModal.modal('fail', '表单填写有误');
+			return false;
+		}
+
+		return true;
+	}
 }]);

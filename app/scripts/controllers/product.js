@@ -19,6 +19,7 @@ angular.module('mainApp')
 
 	}])
 	.controller('Commodity', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
+		var $newCommdity = $('#new-commidy');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -45,11 +46,24 @@ angular.module('mainApp')
 			{name: '', label: '操作员', isChecked: true}
 		];
 
-		$scope.newCommdity = function() {
-			$('#new-commidy').modal('show');
-			$scope.commodity = {};
-			$scope.commodity.create_time = $filter('now')();
-			$scope.commodity.update_time = $scope.commodity.create_time;
+		$scope.newCommdity = function(form) {
+			$scope.resetForm(form);
+
+			$scope.commodity = {
+				goods_code: $scope.guid(),
+				createor: $scope.currentUser.account,
+				updater: $scope.currentUser.account,
+				yn: '1'
+			};
+
+			$newCommdity.modal('show');
+		};
+
+		$scope.newCommdity();
+
+		$scope.saveSharedOrder = function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $newCommdity)) return;
 		};
 
 		// inherit functions from parent
