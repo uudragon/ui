@@ -38,41 +38,35 @@ table.uu-table
 uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建商品
-+modal('new-commidy', 'modal-lg')
++modal('new-commidy')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 核实订单
+		h4.modal-title 新建商品
 	.modal-body
-		form.form-horizontal.form-nowrap
+		form.form-horizontal.form-nowrap(name='commdiyForm' novalidate ng-class='{sumitted: commdiyForm.$sumitted}')
 			fieldset
-				+hgroup
-					+input('商品名称', 'name')(ng-model='commodity.good_name')
-				+hgroup
-					+commdity-type('商品类型', 'commdity-type')(ng-model='commodity.is_valid')
-				+hgroup
-					+input('商品价格', 'good-des')(ng-model='commodity.good_des')
-				+hgroup
-					+input('商品规格', 'good-des')(ng-model='commodity.good_des')
-				+hgroup
-					+input('商品条码', 'good-des')(ng-model='commodity.good_des')
-				+hgroup
-					+input('ISBN号', 'good-des')(ng-model='commodity.good_des')
-				+hgroup
-					+input('生产日期')(ng-model='commodity.make_time', uu-date-picker)
-				+hgroup
-					+yesno('是否有效', 'is-valid')(ng-model='commodity.is_valid')
-				+hgroup
-					+static-input('创建时间')(ng-bind='commodity.create_time')
-				+hgroup
-					+input('创建人', 'creator')(ng-model='commodity.creator')
-				+hgroup
-					+static-input('更新时间')(ng-bind='commodity.update_time')
-				+hgroup
-					+input('更新人', 'updator')(ng-model='commodity.updator')
-				+hgroup
-					+input('商品描述', 'good-des')(ng-model='commodity.good_des')
+				legend 商品信息
+				table.form-table
+					tr
+						+input('商品编码', 'goods_code')(ng-model='commodity.good_code' required)
+						+input('商品名称', 'goods_price')(ng-model='commodity.good_name' required)
+					tr
+						+commdity-type('商品类型', 'goods_type')(uu-num ng-model='commodity.goods_type' required)
+						+input('商品价格', 'goods_price')(ng-model='commodity.goods_price' required)
+					tr
+						+input('商品规格', 'goods_unit')(ng-model='commodity.goods_unit')
+						+input('生产日期', 'product_date')(ng-model='commodity.product_date', uu-date-picker)
+					tr
+						+input('商品条码', 'barcode')(ng-model='commodity.barcode' required)
+						+input('ISBN号', 'isbn')(ng-model='commodity.isbn')
+					//- tr
+					//- 	+static-input('创建人', 'createor')(ng-bind='commodity.createor')
+					//- 	+static-input('修改人', 'updater')(ng-bind='commodity.updater')
+					tr
+						+yesno('是否有效', 'is-valid')(ng-model='commodity.yn')
+						+input('商品描述', 'goods-desc')(ng-model='commodity.good_des')
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(currentOrder)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(commdiyForm)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列
