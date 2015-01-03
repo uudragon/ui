@@ -46,11 +46,25 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		Auth.logout();
 	};
 
-	var resetForm = function(form) {
-		$scope.model = {};
-		form.$setPristine();
-		$scope.submitted = false;
-	};
+
+	// Form Actions　
+	$scope.resetForm = function(form) {
+		if (form) {
+			form.$setPristine();
+			form.$sumitted = false;
+		}
+	}
+
+	$scope.validateForm = function(form, $formModal) {
+		form.$sumitted = true;
+
+		if (!form.$valid) {
+			$formModal.modal('fail', '表单填写有误');
+			return false;
+		}
+
+		return true;
+	}
 
 	// 显示隐藏搜索框
 	$scope.globalToggleSearch = function() {
@@ -61,8 +75,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 新建工单
 	$scope.globalNewOrder = function(form) {
-		form.$setPristine();
-		form.$sumitted = false;
+		$scope.resetForm(form);
 
 		$scope.gbOrder = {
 			effective: $filter('now')(),
@@ -81,13 +94,8 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 保存工单
 	$scope.saveGlobalOrder = function(form) {
-		// 触发表单验证
-		form.$sumitted = true;
-
-		if (!form.$valid) {
-			$gbNewOrder.modal('fail', '表单填写有误');
-			return;
-		}
+		// 表单验证
+		if (!$scope.validateForm(form, $gbNewOrder)) return;
 
 		form.processing = true;
 
@@ -106,7 +114,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 		$gbNewOrder.modal('spinner');
 
-		$http.post(config.baseurl + 'order', $scope.gbOrder)
+		$http.post(config.basews + 'order', $scope.gbOrder)
 			.success(function(status) {
 				form.processing = false;
 				if (status === 'true') {
@@ -193,22 +201,4 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		});
 	};
 
-	// Form actions
-	$scope.resetForm = function(form) {
-		if (form) {
-			form.$setPristine();
-			form.$sumitted = false;
-		}
-	}
-
-	$scope.validateForm = function(form, $formModal) {
-		form.$sumitted = true;
-
-		if (!form.$valid) {
-			$formModal.modal('fail', '表单填写有误');
-			return false;
-		}
-
-		return true;
-	}
 }]);

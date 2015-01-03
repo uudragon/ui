@@ -6,6 +6,11 @@ angular.module('mainApp')
 		return (gender == 1 || gender == 'male') ? '男' : '女';
 	};
 })
+.filter('yesno', function() {
+	return function (valid) {
+		return valid == 1 ? '是' : '否';
+	};
+})
 .filter('valid', function () {
 	return function (valid) {
 		return valid == 1 ? '有效' : '无效';
@@ -37,6 +42,11 @@ angular.module('mainApp')
 		}
 	};
 })
+.filter('mapper', function() {
+	return function() {
+
+	};
+})
 .filter('orderType', function() {
 	return function (num) {
 
@@ -45,6 +55,22 @@ angular.module('mainApp')
 				return '单品订单';
 			case 1:
 				return '多品订单';
+			default:
+				break;
+		}
+	};
+})
+.filter('goodsType', function() {
+	return function (num) {
+		switch (parseInt(num, 10)) {
+			case 1:
+				return '教材';
+			case 2:
+				return '音像制品(DVD/CD)';
+			case 3:
+				return '玩具';
+			case 4:
+				return '其它';
 			default:
 				break;
 		}

@@ -137,7 +137,7 @@ angular.module('mainApp')
 			$orderUpdateForm.modal('spinner');
 			form.processing = true;
 
-			$http.put(config.baseurl + 'order/' + $scope.currentOrder.id + '/audit', {
+			$http.put(config.basews + 'order/' + $scope.currentOrder.id + '/audit', {
 				audit: $scope.currentOrder.auditStatus
 			}).success(function(status) {
 				form.processing = false;
@@ -166,7 +166,7 @@ angular.module('mainApp')
 		$scope.saveSharedOrder = function(form) {
 			$orderShareForm.modal('spinner');
 			form.processing = true;
-			$http.put(config.baseurl + 'order/' + $scope.currentOrder.id + '/workflow', {
+			$http.put(config.basews + 'order/' + $scope.currentOrder.id + '/workflow', {
 				workflow: $scope.currentOrder.workflow
 			}).success(function(status) {
 				form.processing = false;
@@ -331,7 +331,7 @@ angular.module('mainApp')
 
 		// 保存投诉
 		$scope.saveComplaint = function(complaint) {
-			$http.post(config.baseurl + 'workform', complaint)
+			$http.post(config.basews + 'workform', complaint)
 				.success(function(status) {
 					status === 'true' && $('#complaint-details').modal('hide');
 				});

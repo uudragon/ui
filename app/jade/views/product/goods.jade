@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建产品', 'top', 'newGood()')
+		+tooltip('新建产品', 'top', 'newProduct(productNewForm)')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -16,18 +16,15 @@ include ../../modules/mixins.jade
 table.uu-table
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders')
-			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.order_no')
-			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
-			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
-			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
-			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
-			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
+		tr(ng-repeat='product in products' ng-dblclick='showProduct()')
+			td(ng-bind='product.product_code' ng-show='ths[0].isChecked')
+			td(ng-bind='product.product_name' ng-show='ths[1].isChecked')
+			td(ng-bind='product.product_desc' ng-show='ths[2].isChecked')
+			td(ng-bind='product.create_time' ng-show='ths[3].isChecked')
+			td(ng-bind='product.creator' ng-show='ths[4].isChecked')
+			td(ng-bind='product.update_time' ng-show='ths[5].isChecked')
+			td(ng-bind='product.updater' ng-show='ths[6].isChecked')
+			td(ng-bind='product.yn | valid' ng-show='ths[7].isChecked')
 			td
 				+tooltip('修改', 'top', 'showOrder(order)')
 					+glyphicon('pencil') &nbsp;
@@ -35,65 +32,91 @@ table.uu-table
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pageSize}}' page='products.meta.pageNo', model='searchModel', action='getProductList()')
 
-//- 新建商品
-+modal('new-good', 'modal-lg')
+//- 新建产品
++modal('new-good')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 核实订单
+		h4.modal-title 新建产品
 	.modal-body
 		div(uu-tab)
 			div(uu-pane, title='新建产品')
-				form.form-horizontal
+				form.form-horizontal(name='productNewForm' novalidate ng-class='{sumitted: productNewForm.$sumitted}')
 					fieldset
-						+hgroup
-							+input('产品名称', 'name')(ng-model='good.good_name')
-						+hgroup
-							+yesno('是否有效', 'is-valid')(ng-model='good.is_valid')
-						+hgroup
-							+input('产品说明', 'good-des')(ng-model='good.good_des')
-						+hgroup
-							+static-input('创建时间')(ng-bind='good.create_time')
-						+hgroup
-							+input('创建人', 'creator')(ng-model='good.creator')
-						+hgroup
-							+static-input('更新时间')(ng-bind='good.update_time')
-						+hgroup
-							+input('更新人', 'updator')(ng-model='good.updator')
-				table.uu-table
-					+thead
-						each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
-							th=th
-					tbody
-						tr(ng-repeat='good in goods')
-							td(ng-bind='good.good_code')
-							td(ng-bind='good.good_name')
-							td(ng-bind='good.good_num')
-							td(ng-bind='good.is_free')
-							td
-								+tooltip('修改', 'top', 'editOrderStatus(good)')
-									+glyphicon('pencil') &nbsp;
+						table.form-table
+							tr
+								+input('产品编号', 'product_code')(ng-model='product.product_code' required)
+								+input('产品名称', 'product_name')(ng-model='product.product_name' required)
+							tr
+								+static-input('创建人', 'creator')(ng-bind='product.creator')
+								+yesno('是否有效', 'is-valid')(ng-model='product.yn')
+							tr
+								+input('产品说明', 'product-desc', 3)(ng-model='product.product_desc')
+								//- +static-input('创建时间')(ng-bind='product.create_time')
+								//- +static-input('更新时间')(ng-bind='product.update_time')
+							//- +hgroup
+							//- 	+input('更新人', 'updator')(ng-model='product.updator')
+					p.badge(style='margin-top: 10px;' ng-show='!product.details.length') 尚未添加任何商品
+					table.uu-table(style='margin-top: 10px;' ng-show='product.details.length')
+						+thead
+							each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
+								th=th
+						tbody
+							tr(ng-repeat='good in product.details')
+								td(ng-bind='good.goods_code')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.qty')
+								td(ng-bind='good.is_gift | yesno')
+								td
+									+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
+										+glyphicon('pencil') &nbsp;
 
-								+tooltip('删除', 'top', 'shareOrder(good)')
-									+glyphicon('delete')
+									+tooltip('删除', 'top', 'removeGood($index)')
+										+glyphicon('trash')
+
+					.modal-footer
+						button.btn.uu-btn.btn-primary(ng-click='saveProduct(productNewForm)' ng-disabled='productNewForm.processing') 保存
+						button.btn.uu-btn(data-dismiss='modal') 取消
 
 			div(uu-pane, title='添加商品')
 				table.uu-table
 					+thead
-						each th in ['商品编号', '商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+						each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
 							th=th
 					tbody
 						tr(ng-repeat='good in goods')
-							td(ng-bind='good.good_code')
-							td(ng-bind='good.good_name')
-							td(ng-bind='good.good_num')
-							td(ng-bind='good.is_free')
+							//- td(ng-bind='good.goodsCode' ng-show='ths[0].isChecked')
+							td(ng-bind='good.goodsName')
+							td(ng-bind='good.goodsType | goodsType')
+							td(ng-bind='good.goodsPrice')
+							td(ng-bind='good.goodsUnit')
+							td(ng-bind='good.createTime')
+							td(ng-bind='good.goodsDesc')
+							td(ng-bind='good.yn | valid')
+							td(ng-bind='good.creator')
 							td
-								+tooltip('修改', 'top', 'editOrderStatus(good)')
-									+glyphicon('plus') &nbsp;
+								+tooltip('添加商品', 'top', 'addGoodToProduct(good, productDetailsForm)')
+									+glyphicon('plus')
+				uu-pagination(records='goods.meta.recordsCount', per-page='{{goods.meta.pageSize}}' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
+
+//- 商品详情Modal
++submodal('good-details')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 修改商品详情
+	.modal-body
+		form.form-horizontal(name='productDetailsForm' novalidate ng-class='{sumitted: productDetailsForm.$sumitted}')
+			fieldset
+				legend 商品详情
+				table.form-table.form-table-single
+					tr
+						+input('数量', 'qty')(uu-num ng-model='productTmpGood.qty' required)
+					tr
+						+yesno('是否赠品', 'is-gift')(ng-model='productTmpGood.is_gift' required)
+
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(currentOrder)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveGoodToProduct(productDetailsForm)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

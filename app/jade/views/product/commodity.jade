@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建商品', 'top', 'newCommdity()')
+		+tooltip('新建商品', 'top', 'newCommdity(commdityForm)')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -11,31 +11,29 @@ include ../../modules/mixins.jade
 
 //- 搜索
 +linkage-search
-
 //- 商品列表
-table.uu-table
+table.uu-table(ng-show='commodities')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders')
-			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.order_no')
-			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
-			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
-			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
-			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
-			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
+		tr(ng-repeat='commodity in commodities' ng-dblclick='showOrder(commodity)')
+			td(ng-bind='commodity.goodsCode' ng-show='ths[0].isChecked')
+			td(ng-bind='commodity.goodsName' ng-show='ths[1].isChecked')
+			td(ng-bind='commodity.goodsType | goodsType' ng-show='ths[2].isChecked')
+			td(ng-bind='commodity.goodsPrice' ng-show='ths[3].isChecked')
+			td(ng-bind='commodity.goodsUnit' ng-show='ths[4].isChecked')
+			td(ng-bind='commodity.isbn' ng-show='ths[5].isChecked')
+			td(ng-bind='commodity.createTime' ng-show='ths[6].isChecked')
+			td(ng-bind='commodity.goodsDesc' ng-show='ths[7].isChecked')
+			td(ng-bind='commodity.yn | valid' ng-show='ths[8].isChecked')
+			td(ng-bind='commodity.creator' ng-show='ths[9].isChecked')
 			td
-				+tooltip('修改', 'top', 'showOrder(order)')
+				+tooltip('修改', 'top', 'showCommodity(commodity)')
 					+glyphicon('pencil') &nbsp;
 
 				+tooltip('复制新增', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.meta.pageSize}}' page='commodities.meta.pageNo', model='searchModel', action='getCommdityList()')
 
 //- 新建商品
 +modal('new-commidy')
@@ -43,19 +41,19 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建商品
 	.modal-body
-		form.form-horizontal.form-nowrap(name='commdiyForm' novalidate ng-class='{sumitted: commdiyForm.$sumitted}')
+		form.form-horizontal.form-nowrap(name='commdityForm' novalidate ng-class='{sumitted: commdityForm.$sumitted}')
 			fieldset
 				legend 商品信息
 				table.form-table
 					tr
-						+input('商品编码', 'goods_code')(ng-model='commodity.good_code' required)
-						+input('商品名称', 'goods_price')(ng-model='commodity.good_name' required)
+						+input('商品编码', 'goods_code')(ng-model='commodity.goods_code' required)
+						+input('商品名称', 'goods_name')(ng-model='commodity.goods_name' required)
 					tr
 						+commdity-type('商品类型', 'goods_type')(uu-num ng-model='commodity.goods_type' required)
 						+input('商品价格', 'goods_price')(ng-model='commodity.goods_price' required)
 					tr
 						+input('商品规格', 'goods_unit')(ng-model='commodity.goods_unit')
-						+input('生产日期', 'product_date')(ng-model='commodity.product_date', uu-date-picker)
+						+input('生产日期', 'product_date')(ng-model='commodity.product_date' uu-date-picker)
 					tr
 						+input('商品条码', 'barcode')(ng-model='commodity.barcode' required)
 						+input('ISBN号', 'isbn')(ng-model='commodity.isbn')
@@ -64,9 +62,9 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 					//- 	+static-input('修改人', 'updater')(ng-bind='commodity.updater')
 					tr
 						+yesno('是否有效', 'is-valid')(ng-model='commodity.yn')
-						+input('商品描述', 'goods-desc')(ng-model='commodity.good_des')
+						+input('商品描述', 'goods-desc')(ng-model='commodity.goods_desc')
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(commdiyForm)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveCommidity(commdityForm)' ng-disabled='commdityForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

@@ -1,11 +1,10 @@
 //- Inputs
 //- ----------------------
 
-//- 3 label, 7 input
-mixin input(title, id)
+mixin input(title, id, colspan)
 	th.form-th(ng-show=attributes['ng-jade-show'])
 		label.form-th-label(for='form-' + id)=title
-	td.form-td(ng-show=attributes['ng-jade-show'])
+	td.form-td(ng-show=attributes['ng-jade-show'] colspan=colspan)
 		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 mixin input-phone(title, id)

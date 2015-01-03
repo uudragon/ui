@@ -87,7 +87,7 @@ angular.module('mainApp')
 			}
 
 			$knowlegeForm.modal('spinner');
-			$http.put(config.baseurl + 'knowledgeBase', $scope.knowlege)
+			$http.put(config.basews + 'knowledgeBase', $scope.knowlege)
 				.success(function(status) {
 					if (status === 'true') {
 						$knowlegeForm.modal('success');
@@ -115,7 +115,7 @@ angular.module('mainApp')
 			$scope.knowlege.creater = $scope.currentUser.userNo;
 
 			$knowlegeForm.modal('spinner');
-			$http.post(config.baseurl + 'knowledgeBase', $scope.knowlege)
+			$http.post(config.basews + 'knowledgeBase', $scope.knowlege)
 				.success(function(status) {
 					if (status === 'true') {
 						$knowlegeForm.modal('success');
