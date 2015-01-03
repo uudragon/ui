@@ -71,29 +71,22 @@
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">新建产品</h4>
+        <h4 class="modal-title">核实订单</h4>
       </div>
       <div class="modal-body">
         <div uu-tab="uu-tab">
           <div uu-pane="uu-pane" title="新建产品">
             <form class="form-horizontal">
               <fieldset>
-                <table class="form-table">
-                <tr>
-                  <th class="form-th">
-                    <label class="form-th-label">产品编号</label>
-                  </th>
-                  <td class="form-td" colspan="3">
-                    <p class="form-control-static" ng-bind="good.good_id"></p>
-                  </td>
-                </tr>
-                <tr>
+                <div class="form-group col-xs-6">
                   <th class="form-th">
                     <label for="form-name" class="form-th-label">产品名称</label>
                   </th>
                   <td class="form-td">
                     <input id="form-name" class="form-control input-sm" ng-model="good.good_name"/>
                   </td>
+                </div>
+                <div class="form-group col-xs-6">
                   <th class="form-th">
                     <label for="form-is-valid" class="form-th-label">是否有效</label>
                   </th>
@@ -103,47 +96,49 @@
                       <option value="0">否</option>
                     </select>
                   </td>
-                </tr>
-                <tr>
+                </div>
+                <div class="form-group col-xs-6">
                   <th class="form-th">
                     <label for="form-good-des" class="form-th-label">产品说明</label>
                   </th>
-                  <td class="form-td" colspan="3">
+                  <td class="form-td">
                     <input id="form-good-des" class="form-control input-sm" ng-model="good.good_des"/>
                   </td>
-                </tr>
-                <tr>
+                </div>
+                <div class="form-group col-xs-6">
                   <th class="form-th">
                     <label class="form-th-label">创建时间</label>
                   </th>
                   <td class="form-td">
                     <p class="form-control-static" ng-bind="good.create_time"></p>
                   </td>
+                </div>
+                <div class="form-group col-xs-6">
                   <th class="form-th">
                     <label for="form-creator" class="form-th-label">创建人</label>
                   </th>
                   <td class="form-td">
                     <input id="form-creator" class="form-control input-sm" ng-model="good.creator"/>
                   </td>
-                </tr>
-                <tr>
+                </div>
+                <div class="form-group col-xs-6">
                   <th class="form-th">
                     <label class="form-th-label">更新时间</label>
                   </th>
                   <td class="form-td">
                     <p class="form-control-static" ng-bind="good.update_time"></p>
                   </td>
+                </div>
+                <div class="form-group col-xs-6">
                   <th class="form-th">
                     <label for="form-updator" class="form-th-label">更新人</label>
                   </th>
                   <td class="form-td">
                     <input id="form-updator" class="form-control input-sm" ng-model="good.updator"/>
                   </td>
-                </tr>
-                </table>
+                </div>
               </fieldset>
             </form>
-            <br/><br/>
             <table class="uu-table">
               <thead>
                 <tr>
@@ -165,25 +160,8 @@
                 </tr>
               </tbody>
             </table>
-            <div class="modal-footer">
-              <button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
-              <button data-dismiss="modal" class="btn uu-btn">取消</button>
-            </div>
           </div>
           <div uu-pane="uu-pane" title="添加商品">
-            <form role="form" class="form-inline">
-              <div class="form-group">
-                <select ng-model="searchModel.filter" ng-options="filter.name for filter in commodity_filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
-                <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
-                <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
-              </div>
-               <div class="btn uu-btn">
-                <a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询">
-                  <span class="glyphicon glyphicon-search"></span>
-                </a>
-              </div>
-            </form>
-            <br/>
             <table class="uu-table">
               <thead>
                 <tr>
@@ -213,10 +191,10 @@
           </div>
         </div>
       </div>
-      <!-- <div class="modal-footer">
+      <div class="modal-footer">
         <button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

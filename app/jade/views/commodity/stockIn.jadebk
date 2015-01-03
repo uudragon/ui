@@ -1,0 +1,112 @@
+<div class="clearfix">
+	<ul class="action-bar">
+		<li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建入库单" ng-click="newStockIn()"><span class="glyphicon glyphicon-plus"></span></a>
+		</li>
+		<li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+		</li>
+	</ul>
+	<ul class="action-bar pull-right">
+		<li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+		</li>
+		<li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+		</li>
+	</ul>
+</div>
+<div class="article-header-search">
+	<form role="form" class="form-inline">
+		<div class="form-group">
+			<select ng-model="searchModel.filter" ng-options="filter.name for filter in filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
+			<select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
+			<input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
+		</div>
+		<div ng-show="searchModel.filter.date" class="input-group">
+			<label for="form-date-time" class="input-group-addon">时间
+				<input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+		</div>
+		<div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+		</div>
+	</form>
+</div>
+<table class="uu-table">
+	<thead>
+		<tr ng-dblclick="chooseTh('table-cols')">
+			<th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+				<ul ng-if="th.filters" role="menu" class="dropdown-menu">
+					<li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+				</ul>
+			</th>
+			<th>工具</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="order in orders">
+			<td ng-bind="order.customer.name" ng-show="ths[0].isChecked"></td>
+			<td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.order_no" class="jslink"></a>
+			</td>
+			<td ng-bind="order.customer.phone" ng-show="ths[2].isChecked"></td>
+			<td ng-bind="order.customer.province" ng-show="ths[3].isChecked"></td>
+			<td ng-bind="order.customer.city" ng-show="ths[4].isChecked"></td>
+			<td ng-bind="order.order_type | orderType" ng-show="ths[5].isChecked"></td>
+			<td ng-bind="order.paid | payStatus" ng-show="ths[6].isChecked"></td>
+			<td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
+			<td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
+			<td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
+			<td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<uu-pagination records="orders.meta.recordsCount" per-page="{{orders.meta.pageSize}}" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
+<div id="new-stockIn" class="modal fade">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+				<h4 class="modal-title">新建入库单</h4>
+			</div>
+			<div class="modal-body">
+				<div uu-tab="uu-tab">
+					<div uu-pane="uu-pane" title="新建入库单">
+						<form class="form-horizontal">
+							<fieldset>
+							<table class="form-table">
+
+							</table>
+							</fieldset>
+						</form>
+					</div>
+					<div uu-pane="uu-pane" title="添加入库商品">
+					</div>
+				<div class="modal-footer">
+					<button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
+					<button data-dismiss="modal" class="btn uu-btn">取消</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<div id="table-ths" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+				<h4 class="modal-title">更改显示列</h4>
+			</div>
+			<div class="modal-body">
+				<ul class="list-group">
+					<li class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model="isAllThsShow" ng-click="toggleCheckAll(&quot;isAllThsShow&quot;, ths)"/>全选
+						</label>
+					</li>
+					<li ng-repeat="th in ths" class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model="th.isChecked" ng-click="checkIsAllChecked(&quot;isAllThsShow&quot;, ths, th)"/>{{th.label}}
+						</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
