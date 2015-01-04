@@ -6,8 +6,8 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
-
 	$scope.date = new Date();
+
 	// for debug
 	$scope.currentUser = Auth.getUser() || {
 		account: 'admin',
@@ -101,7 +101,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 		$gbNewOrder.modal('show');
 	};
-
 
 	// 保存工单
 	$scope.saveGlobalOrder = function(form) {
@@ -204,7 +203,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		console.log($scope.searchModel);
 	};
 
-
+	// 生成编号
 	$scope.guid = function() {
 		return 'xxxxxxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
 			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8 );
