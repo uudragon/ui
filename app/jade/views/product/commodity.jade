@@ -31,7 +31,7 @@ table.uu-table(ng-show='commodities')
 				+tooltip('修改', 'top', 'editCommodity(commodity)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('复制新增', 'top', 'duplicateCommodity(commodity)')
+				+tooltip('复制新增', 'top', 'editCommodity(commodity, true)')
 					+glyphicon('file')
 
 uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.meta.pageSize}}' page='commodities.meta.pageNo', model='searchModel', action='getCommdityList()')
@@ -40,7 +40,7 @@ uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.m
 +modal('commidy-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 新建商品
+		h4.modal-title(ng-bind='commodityFormTitle')
 	.modal-body
 		form.form-horizontal.form-nowrap(name='commdityForm' novalidate ng-class='{sumitted: commdityForm.$sumitted}')
 			fieldset
@@ -58,9 +58,6 @@ uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.m
 					tr
 						+input('商品条码', 'barcode')(ng-model='commodity.barcode' required)
 						+input('ISBN号', 'isbn')(ng-model='commodity.isbn' required)
-					//- tr
-					//- 	+static-input('创建人', 'createor')(ng-bind='commodity.createor')
-					//- 	+static-input('修改人', 'updater')(ng-bind='commodity.updater')
 					tr
 						+yesno('是否有效', 'is-valid')(ng-model='commodity.yn')
 						+input('商品描述', 'goods-desc')(ng-model='commodity.goods_desc')

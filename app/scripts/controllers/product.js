@@ -47,6 +47,7 @@ angular.module('mainApp')
 		// 新建商品
 		$scope.newCommdity = function(form) {
 			$scope.resetForm(form);
+			$scope.commodityFormTitle = '添加商品';
 
 			$scope.commodity = {
 				goods_code: $scope.guid(),
@@ -58,16 +59,11 @@ angular.module('mainApp')
 			$commodityForm.modal('show');
 		};
 
-		// 编辑商品
-		$scope.editCommodity = function(commodity) {
+		// 编辑商品 && 复制新增商品
+		$scope.editCommodity = function(commodity, isDuplicate) {
+			$scope.commodityFormTitle = isDuplicate ? '复制添加商品' : '编辑商品';
 			$scope.commodity = angular.copy(commodity);
-			$commodityForm.modal('show');
-		};
-
-		// 复制新增商品
-		$scope.duplicateCommodity = function(commodity) {
-			$scope.commodity = angular.copy(commodity);
-			$scope.commodity.goods_code = $scope.guid();
+			isDuplicate && ($scope.commodity.goods_code = $scope.guid());
 			$commodityForm.modal('show');
 		};
 
@@ -129,7 +125,7 @@ angular.module('mainApp')
 		$controller('ProductManager', {$scope: $scope});
 
 	}])
-	.controller('Goods', ['$scope', '$controller', '$filter', '$http', function ($scope, $controller, $filter, $http) {
+	.controller('Goods', ['$scope', '$controller', '$filter', '$http', '$q', function ($scope, $controller, $filter, $http, $q) {
 		var
 			$productForm = $('#product-form'),
 			$goodsDetailsForm = $('#good-details-form');
@@ -161,7 +157,7 @@ angular.module('mainApp')
 				pageSize: $scope.searchModel.pageSize || config.perPage
 			};
 
-			$http.post(config.basewms + 'baseinfo/query_goods_list/', {
+			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
 				pageSize: $scope.goods.meta.pageSize,
 				pageNo: $scope.searchModel.pageNo || 1
 			})
@@ -178,6 +174,7 @@ angular.module('mainApp')
 		// 新建产品
 		$scope.newProduct = function(form) {
 			$scope.resetForm(form);
+			$scope.productFormTitle = '添加产品';
 
 			$scope.product = {
 				product_code: $scope.guid(),
@@ -187,33 +184,26 @@ angular.module('mainApp')
 				details: []
 			};
 
-			$scope.getCommdityList();
-
-			$productForm.modal('show');
-
-			$scope.commodity_filters = [
-				{name: '商品编号', value: 0, input: true},
-				{name: '商品名称', value: 1, input: true},
-				{name: '商品类型', value: 1, subfilters: [{name: '教材(书籍)', value: 0}, {name: '音像制品(DVD/CD)', value: 1}, {name: '开具', value: 1}, {name: '其它', value: 1}]}
-			];
-		};
-
-		// 编辑产品
-		$scope.editProduct = function(code) {
-			$http.get(config.basewms + 'baseinfo/query_product/' + code + '/')
-				.success(function(product) {
-					$scope.product = product;
+			$scope.getCommdityList()
+				.success(function() {
 					$productForm.modal('show');
 				});
 		};
 
-		// 复制添加产品
-		$scope.duplicateProduct = function(code) {
-			$http.get(config.basewms + 'baseinfo/query_product/' + code + '/')
-				.success(function(product) {
-					$scope.product = product;
-					$scope.product.product_code = $scope.guid();
-					$productForm.modal('show');
+		// 编辑产品 && 复制添加产品
+		$scope.editProduct = function(code, isDuplicate) {
+			var productDefer = $http.get(config.basewms + 'baseinfo/query_product/' + code + '/');
+			var commodityListDefer = $scope.getCommdityList();
+
+			$scope.productFormTitle = isDuplicate ? '复制添加产品' : '编辑产品';
+
+			$q.all([productDefer, commodityListDefer])
+				.then(function(data) {
+					if (data && data[0].status === 200 && data[1].status === 200) {
+						$scope.product = data[0].data;
+						isDuplicate && ($scope.product.product_code = $scope.guid());
+						$productForm.modal('show');
+					}
 				});
 		};
 

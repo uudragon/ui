@@ -59,7 +59,7 @@
       <td ng-bind="commodity.goods_desc" ng-show="ths[7].isChecked"></td>
       <td ng-bind="commodity.yn | valid" ng-show="ths[8].isChecked"></td>
       <td ng-bind="commodity.creator" ng-show="ths[9].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="duplicateCommodity(commodity)"><span class="glyphicon glyphicon-file"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="editCommodity(commodity, true)"><span class="glyphicon glyphicon-file"></span></a>
       </td>
     </tr>
   </tbody>
@@ -70,7 +70,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">新建商品</h4>
+        <h4 ng-bind="commodityFormTitle" class="modal-title"></h4>
       </div>
       <div class="modal-body">
         <form name="commdityForm" novalidate="novalidate" ng-class="{sumitted: commdityForm.$sumitted}" class="form-horizontal form-nowrap">

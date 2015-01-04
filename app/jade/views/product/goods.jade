@@ -29,7 +29,7 @@ table.uu-table(ng-show='products')
 				+tooltip('修改', 'top', 'editProduct(product.product_code)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('复制新增', 'top', 'duplicateProduct(product.product_code)')
+				+tooltip('复制新增', 'top', 'editProduct(product.product_code, true)')
 					+glyphicon('file')
 
 uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pageSize}}' page='products.meta.pageNo', model='searchModel', action='getProductList()')
@@ -38,7 +38,7 @@ uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pa
 +modal('product-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 新建产品
+		h4.modal-title(ng-bind='productFormTitle')
 	.modal-body
 		//- 将form放在uu-pane层级下会导致newProduct(productNewForm)找不到productNewForm
 		form.form-horizontal(name='productNewForm' novalidate ng-class='{sumitted: productNewForm.$sumitted}')
