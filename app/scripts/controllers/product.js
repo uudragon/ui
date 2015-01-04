@@ -134,7 +134,7 @@ angular.module('mainApp')
 		$scope.filters = [
 			{name: '产品编号', value: 'product_code', input: true},
 			{name: '产品名称', value: 'product_name', input: true},
-			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 0}, {name: '否', value: 1}]}
+			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
 		];
 
 		// ths

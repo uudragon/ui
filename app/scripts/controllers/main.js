@@ -69,9 +69,10 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 解析filter成可用的json
 	$scope.parseFilter = function(searchModel) {
-		var query = {};
-		if (searchModel.subfilter && searchModel.filter && searchModel.filter.value) {
-			query[searchModel.filter.value] = searchModel.subfilter;
+		var query = {},
+			value = $.trim(searchModel.subfilter);
+		if (value.toString().length && searchModel.filter && searchModel.filter.value) {
+			query[searchModel.filter.value] = value;
 		}
 		return query;
 	};
