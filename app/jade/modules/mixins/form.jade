@@ -51,7 +51,7 @@ mixin short-input(title, id)
 mixin grouped-input(title, id)
 	.input-group(ng-show=attributes['ng-show'])
 		label.input-group-addon(for='form-' + id)=title
-			input.form-control.input-sm(id='form-' + id)&attributes(attributes)
+		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 
 //- Textarea
