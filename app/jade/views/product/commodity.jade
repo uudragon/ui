@@ -47,7 +47,7 @@ uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.m
 				legend 商品信息
 				table.form-table
 					tr
-						+input('商品编码', 'goods_code')(ng-model='commodity.goods_code' required)
+						+static-input('商品编码', 'goods_code')(ng-bind='commodity.goods_code' required)
 						+input('商品名称', 'goods_name')(ng-model='commodity.goods_name' required)
 					tr
 						+commdity-type('商品类型', 'goods_type')(uu-num ng-model='commodity.goods_type' required)
