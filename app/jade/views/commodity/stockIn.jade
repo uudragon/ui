@@ -3,47 +3,44 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建入库单', 'top', 'newStorage(storageForm)')
+		+tooltip('新建入库单', 'top', 'newStockIn(stockInForm)')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
 			+glyphicon('search')
 
 //- 搜索
-+linkage-search
++linkage-search('search()')
 
-//- 商品列表
 table.uu-table
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders')
-			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
-			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
-			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
-			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
-			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
-			td
-				+tooltip('修改', 'top', 'editStorage(order)')
+		tr(ng-repeat='product in products' ng-dblclick='editStockIn(product.product_code)')
+			td(ng-bind='product.product_code' ng-show='ths[0].isChecked')
+			td(ng-bind='product.product_name' ng-show='ths[1].isChecked')
+			td(ng-bind='product.product_desc' ng-show='ths[2].isChecked')
+			td(ng-bind='product.create_time' ng-show='ths[3].isChecked')
+			td(ng-bind='product.creator' ng-show='ths[4].isChecked')
+			td(ng-bind='product.update_time' ng-show='ths[5].isChecked')
+			td(ng-bind='product.updater' ng-show='ths[6].isChecked')
+			td(ng-bind='product.yn | valid' ng-show='ths[7].isChecked')
+			td.nowrap
+				+tooltip('修改', 'top', 'editStockIn(product.product_code)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('复制新增', 'top', 'editStorage(order, true)')
+				+tooltip('复制新增', 'top', 'editStockIn(product.product_code, true)')
 					+glyphicon('file')
 
-uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' pagstockInForme='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建入库单
-+modal('storage-form')
++modal('stock-in-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建入库单
 	.modal-body
-		//- 将form放在uu-pane层级下会导致newProduct(storageForm)找不到storageForm
-		form.form-horizontal(name='storageForm' novalidate ng-class='{sumitted: storageForm.$sumitted}')
+		//- 将form放在uu-pane层级下会导致newProduct(stockInForm)找不到stockInForm
+		form.form-horizontal(name='stockInForm' novalidate ng-class='{sumitted: stockInForm.$sumitted}')
 			div(uu-tab)
 				div(uu-pane, title='新建入库单')
 					table.form-table
@@ -77,7 +74,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 										+glyphicon('trash')
 
 					.modal-footer
-						button.btn.uu-btn.btn-primary(ng-click='saveStorage(storageForm)' ng-disabled='storageForm.processing') 保存
+						button.btn.uu-btn.btn-primary(ng-click='saveStorage(stockInForm)' ng-disabled='stockInForm.processing') 保存
 						button.btn.uu-btn(data-dismiss='modal') 取消
 
 				div(uu-pane, title='添加入库商品')
@@ -99,7 +96,6 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 									+tooltip('添加商品', 'top', 'addGoodToStorage(good, productDetailsForm)')
 										+glyphicon('plus')
 					uu-pagination(records='goods.meta.recordsCount', per-page='{{goods.meta.pageSize}}' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
-
 
 //- 更改显示列
 include ../../modules/table-ths.jade
