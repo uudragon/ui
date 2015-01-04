@@ -32,7 +32,7 @@
       <label for="form-end-time" class="input-group-addon">结束时间
         <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -48,24 +48,24 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="commodity in commodities" ng-dblclick="showOrder(commodity)">
-      <td ng-bind="commodity.goodsCode" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="commodity.goodsName" ng-show="ths[1].isChecked"></td>
-      <td ng-bind="commodity.goodsType | goodsType" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="commodity.goodsPrice" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="commodity.goodsUnit" ng-show="ths[4].isChecked"></td>
+    <tr ng-repeat="commodity in commodities" ng-dblclick="editCommodity(commodity)">
+      <td ng-bind="commodity.goods_code" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="commodity.goods_name" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="commodity.goods_type | goodsType" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="commodity.goods_price" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="commodity.goods_unit" ng-show="ths[4].isChecked"></td>
       <td ng-bind="commodity.isbn" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="commodity.createTime" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="commodity.goodsDesc" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="commodity.product_date" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="commodity.goods_desc" ng-show="ths[7].isChecked"></td>
       <td ng-bind="commodity.yn | valid" ng-show="ths[8].isChecked"></td>
       <td ng-bind="commodity.creator" ng-show="ths[9].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="duplicateCommodity(commodity)"><span class="glyphicon glyphicon-file"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
 <uu-pagination records="commodities.meta.recordsCount" per-page="{{commodities.meta.pageSize}}" page="commodities.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
-<div id="new-commidy" class="modal fade">
+<div id="commidy-form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -107,7 +107,7 @@
                   <label for="form-goods_price" class="form-th-label">商品价格</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goods_price" class="form-control input-sm" uu-num="uu-num" ng-model="commodity.goods_price" required="required"/>
+                  <input id="form-goods_price" class="form-control input-sm" uu-float="uu-float" ng-model="commodity.goods_price" required="required"/>
                 </td>
               </tr>
               <tr>

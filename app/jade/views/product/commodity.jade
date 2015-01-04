@@ -10,33 +10,34 @@ include ../../modules/mixins.jade
 			+glyphicon('search')
 
 //- 搜索
-+linkage-search
++linkage-search('search()')
+
 //- 商品列表
 table.uu-table(ng-show='commodities')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='commodity in commodities' ng-dblclick='showOrder(commodity)')
-			td(ng-bind='commodity.goodsCode' ng-show='ths[0].isChecked')
-			td(ng-bind='commodity.goodsName' ng-show='ths[1].isChecked')
-			td(ng-bind='commodity.goodsType | goodsType' ng-show='ths[2].isChecked')
-			td(ng-bind='commodity.goodsPrice' ng-show='ths[3].isChecked')
-			td(ng-bind='commodity.goodsUnit' ng-show='ths[4].isChecked')
+		tr(ng-repeat='commodity in commodities' ng-dblclick='editCommodity(commodity)')
+			td(ng-bind='commodity.goods_code' ng-show='ths[0].isChecked')
+			td(ng-bind='commodity.goods_name' ng-show='ths[1].isChecked')
+			td(ng-bind='commodity.goods_type | goodsType' ng-show='ths[2].isChecked')
+			td(ng-bind='commodity.goods_price' ng-show='ths[3].isChecked')
+			td(ng-bind='commodity.goods_unit' ng-show='ths[4].isChecked')
 			td(ng-bind='commodity.isbn' ng-show='ths[5].isChecked')
-			td(ng-bind='commodity.createTime' ng-show='ths[6].isChecked')
-			td(ng-bind='commodity.goodsDesc' ng-show='ths[7].isChecked')
+			td(ng-bind='commodity.product_date' ng-show='ths[6].isChecked')
+			td(ng-bind='commodity.goods_desc' ng-show='ths[7].isChecked')
 			td(ng-bind='commodity.yn | valid' ng-show='ths[8].isChecked')
 			td(ng-bind='commodity.creator' ng-show='ths[9].isChecked')
 			td.nowrap
-				+tooltip('修改', 'top', 'showCommodity(commodity)')
+				+tooltip('修改', 'top', 'editCommodity(commodity)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('复制新增', 'top')
-					+glyphicon('comment')
+				+tooltip('复制新增', 'top', 'duplicateCommodity(commodity)')
+					+glyphicon('file')
 
 uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.meta.pageSize}}' page='commodities.meta.pageNo', model='searchModel', action='getCommdityList()')
 
 //- 新建商品
-+modal('new-commidy')
++modal('commidy-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建商品
@@ -50,7 +51,7 @@ uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.m
 						+input('商品名称', 'goods_name')(ng-model='commodity.goods_name' required)
 					tr
 						+commdity-type('商品类型', 'goods_type')(uu-num ng-model='commodity.goods_type' required)
-						+input('商品价格', 'goods_price')(uu-num ng-model='commodity.goods_price' required)
+						+input('商品价格', 'goods_price')(uu-float ng-model='commodity.goods_price' required)
 					tr
 						+input('商品规格', 'goods_unit')(ng-model='commodity.goods_unit')
 						+input('生产日期', 'product_date')(ng-model='commodity.product_date' uu-date-picker)

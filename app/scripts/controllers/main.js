@@ -47,14 +47,15 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	};
 
 
-	// Form Actions　
+	// 重置表单
 	$scope.resetForm = function(form) {
 		if (form) {
 			form.$setPristine();
 			form.$sumitted = false;
 		}
-	}
+	};
 
+	// 表单验证
 	$scope.validateForm = function(form, $formModal) {
 		form.$sumitted = true;
 
@@ -64,7 +65,16 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		}
 
 		return true;
-	}
+	};
+
+	// 解析filter成可用的json
+	$scope.parseFilter = function(searchModel) {
+		var query = {};
+		if (searchModel.subfilter && searchModel.filter && searchModel.filter.value) {
+			query[searchModel.filter.value] = searchModel.subfilter;
+		}
+		return query;
+	};
 
 	// 显示隐藏搜索框
 	$scope.globalToggleSearch = function() {

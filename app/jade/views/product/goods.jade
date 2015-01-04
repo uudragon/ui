@@ -10,13 +10,13 @@ include ../../modules/mixins.jade
 			+glyphicon('search')
 
 //- 搜索
-+linkage-search
++linkage-search('search()')
 
 //- 订单列表
-table.uu-table
+table.uu-table(ng-show='products')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='product in products' ng-dblclick='showProduct()')
+		tr(ng-repeat='product in products' ng-dblclick='editProduct(product.product_code)')
 			td(ng-bind='product.product_code' ng-show='ths[0].isChecked')
 			td(ng-bind='product.product_name' ng-show='ths[1].isChecked')
 			td(ng-bind='product.product_desc' ng-show='ths[2].isChecked')
@@ -26,16 +26,16 @@ table.uu-table
 			td(ng-bind='product.updater' ng-show='ths[6].isChecked')
 			td(ng-bind='product.yn | valid' ng-show='ths[7].isChecked')
 			td.nowrap
-				+tooltip('修改', 'top', 'showOrder(order)')
+				+tooltip('修改', 'top', 'editProduct(product.product_code)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('发送消息', 'top')
+				+tooltip('发送消息', 'top', 'duplicateProduct(product.product_code)')
 					+glyphicon('comment')
 
 uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pageSize}}' page='products.meta.pageNo', model='searchModel', action='getProductList()')
 
 //- 新建产品
-+modal('new-product')
++modal('product-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建产品
@@ -53,15 +53,11 @@ uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pa
 							+yesno('是否有效', 'is-valid')(ng-model='product.yn')
 						tr
 							+input('产品说明', 'product-desc', 3)(ng-model='product.product_desc')
-							//- +static-input('创建时间')(ng-bind='product.create_time')
-							//- +static-input('更新时间')(ng-bind='product.update_time')
-						//- +hgroup
-						//- 	+input('更新人', 'updator')(ng-model='product.updator')
 					p.badge(style='margin-top: 10px;' ng-show='!product.details.length') 尚未添加任何商品
 					table.uu-table(style='margin-top: 10px;' ng-show='product.details.length')
 						+thead
 							each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
-								th=th
+								th.nowrap=th
 						tbody
 							tr(ng-repeat='good in product.details')
 								td(ng-bind='good.goods_code')
@@ -83,16 +79,15 @@ uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pa
 					table.uu-table
 						+thead
 							each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
-								th=th
+								th.nowrap=th
 						tbody
 							tr(ng-repeat='good in goods')
-								//- td(ng-bind='good.goodsCode' ng-show='ths[0].isChecked')
-								td(ng-bind='good.goodsName')
-								td(ng-bind='good.goodsType | goodsType')
-								td(ng-bind='good.goodsPrice')
-								td(ng-bind='good.goodsUnit')
-								td(ng-bind='good.createTime')
-								td(ng-bind='good.goodsDesc')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.goods_type | goodsType')
+								td(ng-bind='good.goods_price')
+								td(ng-bind='good.goods_unit')
+								td(ng-bind='good.product_date')
+								td(ng-bind='good.goods_desc')
 								td(ng-bind='good.yn | valid')
 								td(ng-bind='good.creator')
 								td
@@ -101,7 +96,7 @@ uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pa
 					uu-pagination(records='goods.meta.recordsCount', per-page='{{goods.meta.pageSize}}' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
 
 //- 商品详情Modal
-+submodal('good-details')
++submodal('good-details-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 修改商品详情

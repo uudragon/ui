@@ -19,27 +19,27 @@ angular.module('mainApp')
 
 	}])
 	.controller('Commodity', ['$scope', '$controller', '$filter', '$http', function ($scope, $controller, $filter, $http) {
-		var $newCommdity = $('#new-commidy');
+		var $commodityForm = $('#commidy-form');
 
 		// 搜索下拉
 		$scope.filters = [
-			{name: '商品编号', value: 0, input: true},
-			{name: '商品名称', value: 1, input: true},
-			{name: '商品类型', value: 1, subfilters: [{name: '教材(书籍)', value: 0}, {name: '音像制品(DVD/CD)', value: 1}, {name: '开具', value: 1}, {name: '其它', value: 1}]},
-			{name: '是否有效', value: 2, subfilters: [{name: '是', value: 0}, {name: '否', value: 1}]}
+			{name: '商品编号', value: 'goods_code', input: true},
+			{name: '商品名称', value: 'goods_name', input: true},
+			{name: '商品类型', value: 'goods_type', subfilters: [{name: '教材(书籍)', value: 1}, {name: '音像制品(DVD/CD)', value: 2}, {name: '玩具', value: 3}, {name: '其它', value: 4}]},
+			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
 		];
 
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'goodsCode', label: '商品编号', isChecked: true},
-			{name: 'goodsName', label: '商品名称', isChecked: true},
-			{name: 'goodsType', label: '商品类型', isChecked: true},
-			{name: 'goodsPrice', label: '商品价格', isChecked: true},
-			{name: 'goodsUnit', label: '商品规格', isChecked: true},
+			{name: 'goods_code', label: '商品编号', isChecked: true},
+			{name: 'goods_name', label: '商品名称', isChecked: true},
+			{name: 'goods_type', label: '商品类型', isChecked: true},
+			{name: 'goods_price', label: '商品价格', isChecked: true},
+			{name: 'goods_unit', label: '商品规格', isChecked: true},
 			{name: 'isbn', label: 'ISBN号', isChecked: true},
-			{name: 'createTime', label: '生产时间', isChecked: true},
-			{name: 'goodsDesc', label: '商品描述', isChecked: true},
+			{name: 'create_time', label: '生产时间', isChecked: true},
+			{name: 'goods_desc', label: '商品描述', isChecked: true},
 			{name: 'yn', label: '是否有效', isChecked: true},
 			{name: 'creator', label: '操作员', isChecked: true}
 		];
@@ -55,27 +55,46 @@ angular.module('mainApp')
 				yn: '1'
 			};
 
-			$newCommdity.modal('show');
+			$commodityForm.modal('show');
+		};
+
+		// 编辑商品
+		$scope.editCommodity = function(commodity) {
+			$scope.commodity = angular.copy(commodity);
+			$commodityForm.modal('show');
+		};
+
+		// 复制新增商品
+		$scope.duplicateCommodity = function(commodity) {
+			$scope.commodity = angular.copy(commodity);
+			$scope.commodity.goods_code = $scope.guid();
+			$commodityForm.modal('show');
 		};
 
 		// 保存商品
 		$scope.saveCommidity = function(form) {
 			// 表单验证
-			if (!$scope.validateForm(form, $newCommdity)) return;
+			if (!$scope.validateForm(form, $commodityForm)) return;
 
 			form.processing = true;
-			$newCommdity.modal('spinner');
+			$commodityForm.modal('spinner');
 
 			$http.post(config.basewms + 'baseinfo/goods_define/', $scope.commodity)
 				.success(function() {
 					form.processing = false;
-					$newCommdity.modal('success');
+					$commodityForm.modal('success');
 					$scope.getCommdityList();
 				})
 				.error(function() {
 					form.processing = false;
-					$newCommdity.modal('fail');
+					$commodityForm.modal('fail');
 				});
+		};
+
+		// 搜索
+		$scope.search = function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			$scope.getCommdityList();
 		};
 
 		// 获取商品列表
@@ -85,10 +104,14 @@ angular.module('mainApp')
 				pageSize: $scope.searchModel.pageSize || config.perPage
 			};
 
-			$http.post(config.basewms + 'baseinfo/query_goods_list/', {
-					pageSize: $scope.commodities.meta.pageSize,
-					pageNo: $scope.searchModel.pageNo || 1
-				})
+			var req = {
+				pageSize: $scope.commodities.meta.pageSize,
+				pageNo: $scope.searchModel.pageNo || 1
+			};
+
+			$.extend(req, $scope.query);
+
+			$http.post(config.basewms + 'baseinfo/query_goods_list/', req)
 				.success(function(data) {
 					$scope.commodities = data.records;
 					$scope.commodities.meta = {
@@ -108,25 +131,25 @@ angular.module('mainApp')
 	}])
 	.controller('Goods', ['$scope', '$controller', '$filter', '$http', function ($scope, $controller, $filter, $http) {
 		var
-			$newProduct = $('#new-product'),
-			$goodsDetails = $('#good-details');
+			$productForm = $('#product-form'),
+			$goodsDetailsForm = $('#good-details-form');
 
 		// 搜索下拉
 		$scope.filters = [
-			{name: '产品编号', value: 0, input: true},
-			{name: '产品名称', value: 1, input: true},
-			{name: '是否有效', value: 2, subfilters: [{name: '是', value: 0}, {name: '否', value: 1}]}
+			{name: '产品编号', value: 'product_code', input: true},
+			{name: '产品名称', value: 'product_name', input: true},
+			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 0}, {name: '否', value: 1}]}
 		];
 
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'goodsCode', label: '产品编号', isChecked: true},
-			{name: 'goodsName', label: '产品名称', isChecked: true},
-			{name: 'goodsDesc', label: '产品说明', isChecked: true},
-			{name: 'createTime', label: '创建时间', isChecked: true},
+			{name: 'goods_code', label: '产品编号', isChecked: true},
+			{name: 'goods_name', label: '产品名称', isChecked: true},
+			{name: 'goods_desc', label: '产品说明', isChecked: true},
+			{name: 'create_time', label: '创建时间', isChecked: true},
 			{name: 'creator', label: '创建人', isChecked: true},
-			{name: 'updateTime', label: '更新时间', isChecked: true},
+			{name: 'update_time', label: '更新时间', isChecked: true},
 			{name: 'updator', label: '更新人', isChecked: true},
 			{name: 'yn', label: '是否有效', isChecked: true}
 		];
@@ -166,7 +189,7 @@ angular.module('mainApp')
 
 			$scope.getCommdityList();
 
-			$newProduct.modal('show');
+			$productForm.modal('show');
 
 			$scope.commodity_filters = [
 				{name: '商品编号', value: 0, input: true},
@@ -175,29 +198,55 @@ angular.module('mainApp')
 			];
 		};
 
+		// 编辑产品
+		$scope.editProduct = function(code) {
+			$http.get(config.basewms + 'baseinfo/query_product/' + code + '/')
+				.success(function(product) {
+					$scope.product = product;
+					$productForm.modal('show');
+				});
+		};
+
+		// 复制添加产品
+		$scope.duplicateProduct = function(code) {
+			$http.get(config.basewms + 'baseinfo/query_product/' + code + '/')
+				.success(function(product) {
+					$scope.product = product;
+					$scope.product.product_code = $scope.guid();
+					$productForm.modal('show');
+				});
+		};
+
 		// 保存产品
 		$scope.saveProduct = function(form) {
 			// 表单验证
-			if (!$scope.validateForm(form, $newProduct)) return;
+			if (!$scope.validateForm(form, $productForm)) return;
 
+			// 验证商品列表是否为空
 			if (!$scope.product.details.length) {
-				$newProduct.modal('fail', '商品列表不能为空');
+				$productForm.modal('fail', '商品列表不能为空');
 				return;
 			}
 
 			form.processing = true;
-			$newProduct.modal('spinner');
+			$productForm.modal('spinner');
 
 			$http.post(config.basewms + 'baseinfo/product_define/', $scope.product)
 				.success(function() {
 					form.processing = false;
-					$newProduct.modal('success');
+					$productForm.modal('success');
 					$scope.getProductList();
 				})
 				.error(function() {
 					form.processing = false;
-					$newProduct.modal('fail');
+					$productForm.modal('fail');
 				});
+		};
+
+		// 搜索
+		$scope.search = function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			$scope.getProductList();
 		};
 
 		// 获取产品列表
@@ -207,19 +256,22 @@ angular.module('mainApp')
 				pageSize: $scope.searchModel.pageSize || config.perPage
 			};
 
-			$http.post(config.basewms + 'baseinfo/query_product_list/', {
+			var req = {
 				pageSize: $scope.products.meta.pageSize,
 				pageNo: $scope.searchModel.pageNo || 1
-			})
-			.success(function(data) {
-				$scope.products = data.records;
+			};
 
-				$scope.products.meta = {
-						pageNo: data.pageNo ? data.pageNo : 1,
-						recordsCount: data.recordsCount,
-						pageNumber: data.pageNumber
-					};
-				});
+			$.extend(req, $scope.query);
+
+			$http.post(config.basewms + 'baseinfo/query_product_list/', req)
+				.success(function(data) {
+					$scope.products = data.records;
+					$scope.products.meta = {
+							pageNo: data.pageNo ? data.pageNo : 1,
+							recordsCount: data.recordsCount,
+							pageNumber: data.pageNumber
+						};
+					});
 		};
 
 		// 为产品添加商品
@@ -228,22 +280,22 @@ angular.module('mainApp')
 			var exists = false;
 
 			angular.forEach($scope.product.details, function(existGood) {
-				if (existGood.goods_code === good.goodsCode) {
+				if (existGood.goods_code === good.goods_code) {
 					exists = true;
 					return;
 				}
 			});
 
 			if (!exists) {
-				$newProduct.modal('info', '添加成功');
+				$productForm.modal('info', '添加成功');
 				$scope.product.details.push({
-					goods_code: good.goodsCode,
-					goods_name: good.goodsName,
+					goods_code: good.goods_code,
+					goods_name: good.goods_name,
 					qty: '1',
 					is_gift: '0'
 				});
 			} else {
-				$newProduct.modal('info', '已经存在, 请勿重复添加');
+				$productForm.modal('info', '已经存在, 请勿重复添加');
 			}
 		};
 
@@ -252,16 +304,16 @@ angular.module('mainApp')
 			$scope.resetForm(form);
 			$scope.productGood = good;
 			$scope.productTmpGood = angular.copy(good);
-			$goodsDetails.modal('show');
+			$goodsDetailsForm.modal('show');
 		};
 
 		// 保存商品详情
 		$scope.saveGoodToProduct = function(form) {
 			// 表单验证
-			if (!$scope.validateForm(form, $goodsDetails)) return;
+			if (!$scope.validateForm(form, $goodsDetailsForm)) return;
 			$scope.productGood.qty = $scope.productTmpGood.qty;
 			$scope.productGood.is_gift = $scope.productTmpGood.is_gift;
-			$goodsDetails.modal('hide');
+			$goodsDetailsForm.modal('hide');
 		};
 
 		$scope.removeGood = function(index) {
