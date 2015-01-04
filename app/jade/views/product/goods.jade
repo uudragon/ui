@@ -29,8 +29,8 @@ table.uu-table(ng-show='products')
 				+tooltip('修改', 'top', 'editProduct(product.product_code)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('发送消息', 'top', 'duplicateProduct(product.product_code)')
-					+glyphicon('comment')
+				+tooltip('复制新增', 'top', 'duplicateProduct(product.product_code)')
+					+glyphicon('file')
 
 uu-pagination(records='products.meta.recordsCount', per-page='{{products.meta.pageSize}}' page='products.meta.pageNo', model='searchModel', action='getProductList()')
 
