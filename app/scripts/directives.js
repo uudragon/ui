@@ -493,8 +493,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		template: '<div>' +
 					'<label class="form-addr-label">省</label>' +
 					'<select ng-required="ngRequired" class="prov form-control input-sm" ng-change="reloadCity()" ng-options="p.name as p.name for p in provinces" ng-model="ngProvinceModel"></select>' +
-					'<label class="form-addr-label">市</label>' +
-					'<select ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
+					'<label ng-show="ngProvinceModel" class="form-addr-label">市</label>' +
+					'<select ng-show="ngProvinceModel" ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
 					'<label class="form-addr-label">详细</label>' +
 					'<input ng-required="ngRequired" class="form-control input-sm" ng-model="ngAddrModel">' +
 				'</div>'

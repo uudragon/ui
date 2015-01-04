@@ -426,7 +426,7 @@
                   <label for="form-customer-gender" class="form-th-label">客户性别</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex">
+                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex" required="required">
                     <option value="0">女</option>
                     <option value="1">男</option>
                   </select>
@@ -477,7 +477,7 @@
                   <label for="form-invoice-owner" class="form-th-label">发票抬头</label>
                 </th>
                 <td ng-show="gbOrder.has_invoice" class="form-td">
-                  <input id="form-invoice-owner" class="form-control input-sm" ng-model="gbOrder.invoice_title" ng-jade-show="gbOrder.has_invoice"/>
+                  <input id="form-invoice-owner" class="form-control input-sm" ng-model="gbOrder.invoice_title" ng-jade-show="gbOrder.has_invoice" ng-required="gbOrder.has_invoice===&quot;1&quot;"/>
                 </td>
               </tr>
               <tr>

@@ -25,7 +25,7 @@
 						+yesno('支付状态', 'pay-status', '已支付', '未支付')(ng-model='gbOrder.paid' required)
 					tr
 						+input('客户姓名', 'customer-name')(ng-model='gbOrder.customer.name' required)
-						+gender('客户性别', 'customer-gender')(ng-model='gbOrder.customer.sex')
+						+gender('客户性别', 'customer-gender')(ng-model='gbOrder.customer.sex' required)
 					tr
 						+input('联系电话', 'customer-phone')(uu-num ng-model='gbOrder.customer.phone' required)
 						+input('儿童姓名', 'child-name')(ng-model='gbOrder.customer.child' required)
@@ -34,7 +34,7 @@
 						+input('出生日期', 'customer-birthday')(ng-model='gbOrder.customer.birthday' uu-date-picker required)
 					tr
 						+yesno('是否开发票', 'has-invoice')(ng-model='gbOrder.has_invoice' required)
-						+input('发票抬头', 'invoice-owner')(ng-model='gbOrder.invoice_title' ng-jade-show='gbOrder.has_invoice')
+						+input('发票抬头', 'invoice-owner')(ng-model='gbOrder.invoice_title' ng-jade-show='gbOrder.has_invoice' ng-required='gbOrder.has_invoice==="1"')
 					tr
 						+input-address('地址', 'order-address', 3)(ng-province-model='gbOrder.customer.province' ng-city-model='gbOrder.customer.city' ng-addr-model='gbOrder.customer.address' ng-required='true')
 
