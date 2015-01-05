@@ -18,36 +18,86 @@
 
 				ul.list-inline
 					li
-						+key-val('当前日期', 'date | date : "yyyy-MM-dd"')
+						+key-val('工号', 'currentUser.userNo')
 					li
 						+key-val('分机', 'currentUser.phone')
 					li
-						+key-val('坐席', 'currentUser.positions')
+						+key-val('网络沟通量', 'currentUser.numWebCommunication')
 					li
-						+key-val('状态', 'currentUser.isValid')
+						+key-val('接听量', 'currentUser.numCallIn')
 					li
-						span.key 计时:
-						span(timing="'h:mm:ss'")
+						+key-val('外呼量','currentUser.numCallOut')
 					li
-						+key-val('工号', 'currentUser.userNo')
+						+key-val('工单量','currentUser.numWorkOrder')
 					li
-						+key-val('姓名', 'currentUser.name')
+						+key-val('订单量','currentUser.numOrder')
 					li
-						+key-val('所在组', 'currentUser.groupId')
+						+key-val('预约客户量','currentUser.numReservation')
 
 				hr
 
 				table.table
 					tr
 						td
-							+key-val('网络沟通量', 'currentUser.userNo')
+							img.brand(src='images/idle.png', alt='idle', width='32', height='32')
 						td
-							+key-val('电话接听量', 'currentUser.name')
+							img.brand(src='images/busy.png', alt='busy', width='32', height='32')
 						td
-							+key-val('电话外呼量', 'currentUser.groupId')
+							img.brand(src='images/dial.png', alt='dial', width='32', height='32')
 						td
-							+key-val('今日工单数量', 'currentUser.userNo')
+							img.brand(src='images/transfer.png', alt='transfer', width='32', height='32')
 						td
-							+key-val('今日订单数量', 'currentUser.name')
+							img.brand(src='images/conf.png', alt='conf', width='32', height='32')
 						td
-							+key-val('预约客户数量', 'currentUser.groupId')
+							img.brand(src='images/hold.png', alt='hold', width='32', height='32')
+						td
+							img.brand(src='images/intercept.png', alt='intercept', width='32', height='32')
+						td
+							img.brand(src='images/accept.png', alt='accept', width='32', height='32')
+						td
+							img.brand(src='images/accept.png', alt='accept', width='32', height='32')
+						td
+							img.brand(src='images/monit.png', alt='monit', width='32', height='32')
+						td
+							img.brand(src='images/hangup.png', alt='hangup', width='32', height='32')
+						td
+							img.brand(src='images/hangup.png', alt='hangup', width='32', height='32')
+						td
+							img.brand(src='images/hangup.png', alt='hangup', width='32', height='32')
+						td
+							img.brand(src='images/hangup.png', alt='hangup', width='32', height='32')
+						td
+							img.brand(src='images/hangup.png', alt='hangup', width='32', height='32')
+					tr
+						td
+							span 空闲
+						td
+							span 置忙
+						td
+							span 拨号
+						td
+							span 转接
+						td
+							span 三方
+						td
+							span 保持
+						td
+							span 抢接
+						td
+							span 监听
+						td
+							span 强插
+						td
+							span 强拆
+						td
+							span 拦截
+						td
+							span 切换状态
+						td
+							span 签出
+						td
+							span 离席
+						td
+							span 外线状态
+
+
