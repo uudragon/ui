@@ -305,7 +305,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 							// 	'<select ng-model="current" class="select" ng-options="page for page in aryTotalPage" ng-change="to(current, true)">' +
 							// 	'</select>' +
 							// ' 页</a></li>' +
-							'<li class="pagination-info"><a>共<span class="pagination-badge" ng-bind="totalPages"></span>页 / <span class="pagination-badge" ng-bind="records"></span>条</a></li>' +
+							'<li class="pagination-info"><a>第<span class="pagination-badge" ng-bind="totalPages"></span>页 / 共<span class="pagination-badge" ng-bind="records"></span>页</a></li>' +
 							'<li class="pagination-info"><a>每页<span class="pagination-badge" ng-bind="perPage"></span>条</a></li>' +
 							// '<li><a>{{current}}页</a></li>' +
 						'</ul>' +
@@ -363,33 +363,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		restrict: 'A',
 		link: function($scope, element, attrs) {
-
 			var accessCode = attrs.uuAuthFilter;
-			var valid = false;
 
 			if (accessCode) {
-
-				if (Auth.getAccessLevels()) {
-
-					Auth.getAccessLevels()
-						.success(function(data) {
-							console.log(data);
-							for (var i = data.length - 1; i >= 0; i--) {
-								if (data[i].code == accessCode) {
-									valid = true;
-								}
-							}
-
-							if (!valid) {
-								element.remove();
-							}
-						})
-						.error(function(msg) {
-							element.remove();
-						});
-				}
+				Auth.getResource().indexOf(accessCode) === -1 && (element.remove());
 			}
-
 		}
 	};
 }])
@@ -401,6 +379,66 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		link: function($scope, elem, attrs, ctrl) {
 			var validate = function(value) {
 				if (!value || /^\s*\d*\s*$/.test(value)) {
+					ctrl.$setValidity('digit', true);
+					return value;
+				} else {
+					ctrl.$setValidity('digit', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('uuFloat', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^\s*[-+]?[0-9]*\.?[0-9]+\s*$/.test(value)) {
+					ctrl.$setValidity('digit', true);
+					return value;
+				} else {
+					ctrl.$setValidity('digit', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('uuPhone', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^\s*\d{11}\s*$/.test(value)) {
+					ctrl.$setValidity('digit', true);
+					return value;
+				} else {
+					ctrl.$setValidity('digit', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('uuIsbn', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/.test(value)) {
 					ctrl.$setValidity('digit', true);
 					return value;
 				} else {
@@ -453,8 +491,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		template: '<div>' +
 					'<label class="form-addr-label">省</label>' +
 					'<select ng-required="ngRequired" class="prov form-control input-sm" ng-change="reloadCity()" ng-options="p.name as p.name for p in provinces" ng-model="ngProvinceModel"></select>' +
-					'<label class="form-addr-label">市</label>' +
-					'<select ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
+					'<label ng-show="ngProvinceModel" class="form-addr-label">市</label>' +
+					'<select ng-show="ngProvinceModel" ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
 					'<label class="form-addr-label">详细</label>' +
 					'<input ng-required="ngRequired" class="form-control input-sm" ng-model="ngAddrModel">' +
 				'</div>'

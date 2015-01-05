@@ -3,7 +3,7 @@
 angular.module('mainApp')
 .service('Resource', ['$http', function ($http) {
 
-	var baseurl = config.baseurl;
+	var baseurl = config.basews;
 
 	// 加载统计信息，或者指定的record
 	this.load = function(model, type) {

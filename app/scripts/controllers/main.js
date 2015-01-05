@@ -6,26 +6,10 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
-
 	$scope.date = new Date();
+
 	// for debug
-	$scope.currentUser = Auth.getUser() || {
-		account: 'admin',
-		birthday: '2014-04-02 00:00',
-		email: '1',
-		extension: null,
-		gender: 1,
-		groupId: null,
-		id: 1,
-		isRemoved: false,
-		isValid: true,
-		name: 'admin',
-		phone: '1',
-		positions: '1',
-		roleId: 234234,
-		seat: null,
-		userNo: '000010'
-	};
+	$scope.currentUser = Auth.getUser();
 
 	$scope.searchModel = {
 		filter: 0,
@@ -39,17 +23,42 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// check is login
 	$scope.$on('auth:invalid', function(e, d) {
-	// 	Auth.logout();
+		Auth.logout();
 	});
 
 	$scope.logout = function() {
 		Auth.logout();
 	};
 
-	var resetForm = function(form) {
-		$scope.model = {};
-		form.$setPristine();
-		$scope.submitted = false;
+
+	// 重置表单
+	$scope.resetForm = function(form) {
+		if (form) {
+			form.$setPristine();
+			form.$sumitted = false;
+		}
+	};
+
+	// 表单验证
+	$scope.validateForm = function(form, $formModal) {
+		form.$sumitted = true;
+
+		if (!form.$valid) {
+			$formModal.modal('fail', '表单填写有误');
+			return false;
+		}
+
+		return true;
+	};
+
+	// 解析filter成可用的json
+	$scope.parseFilter = function(searchModel) {
+		var query = {},
+			value = $.trim(searchModel.subfilter);
+		if (value.toString().length && searchModel.filter && searchModel.filter.value) {
+			query[searchModel.filter.value] = value;
+		}
+		return query;
 	};
 
 	// 显示隐藏搜索框
@@ -61,8 +70,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 新建工单
 	$scope.globalNewOrder = function(form) {
-		form.$setPristine();
-		form.$sumitted = false;
+		$scope.resetForm(form);
 
 		$scope.gbOrder = {
 			effective: $filter('now')(),
@@ -78,16 +86,10 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		$gbNewOrder.modal('show');
 	};
 
-
 	// 保存工单
 	$scope.saveGlobalOrder = function(form) {
-		// 触发表单验证
-		form.$sumitted = true;
-
-		if (!form.$valid) {
-			$gbNewOrder.modal('fail', '表单填写有误');
-			return;
-		}
+		// 表单验证
+		if (!$scope.validateForm(form, $gbNewOrder)) return;
 
 		form.processing = true;
 
@@ -106,7 +108,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 		$gbNewOrder.modal('spinner');
 
-		$http.post(config.baseurl + 'order', $scope.gbOrder)
+		$http.post(config.basews + 'order', $scope.gbOrder)
 			.success(function(status) {
 				form.processing = false;
 				if (status === 'true') {
@@ -185,11 +187,12 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		console.log($scope.searchModel);
 	};
 
-
+	// 生成编号
 	$scope.guid = function() {
 		return 'xxxxxxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
 			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8 );
 			return v.toString(16);
 		});
 	};
+
 }]);

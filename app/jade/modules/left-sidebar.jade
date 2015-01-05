@@ -58,6 +58,7 @@ ul.nav.nav-sections(uu-sidebar='')
 
 	//- 入库
 	- subnavs = []
+	- subnavs.push({href: 'root.commodity.stockin', label: '入库单管理'})
 	- subnavs.push({href: 'root.commodity.storage', label: '商品入库'})
 	- navs.push({href: 'root.commodity', label: '入库管理', auth: '04', subnavs: subnavs})
 

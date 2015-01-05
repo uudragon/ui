@@ -2,13 +2,15 @@
 	'use strict';
 
 	// global variables
-	exports.baseurl = '/atnew/ws/';
+	exports.basews = '/atnew/ws/';
+	exports.basewms = '/wms/';
 	exports.perPage = 8;
 	exports.maxPages = 6;
 
 	exports.auth = {
 		baseurl: '/atnew/ws/auth/',
 		resource: 'resourceListByCode',
+		timeout: 'checkTimeOut',
 		login: 'login',
 		logout: 'logout'
 	};

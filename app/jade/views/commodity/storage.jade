@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建商品', 'top', 'newCommdity()')
+		+tooltip('新建入库单', 'top', 'newStorage(storageForm)')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -19,7 +19,6 @@ table.uu-table
 		tr(ng-repeat='order in orders')
 			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
 			td(ng-show='ths[1].isChecked')
-				+jslink('showOrder(order)')(ng-bind='order.order_no')
 			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
 			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
 			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
@@ -29,43 +28,78 @@ table.uu-table
 			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
 			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
 			td
-				+tooltip('修改', 'top', 'showOrder(order)')
+				+tooltip('修改', 'top', 'editStorage(order)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('复制新增', 'top')
-					+glyphicon('comment')
+				+tooltip('复制新增', 'top', 'editStorage(order, true)')
+					+glyphicon('file')
 
 uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
-//- 新建商品
-+modal('new-commidy', 'modal-lg')
+//- 新建入库单
++modal('storage-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 核实订单
+		h4.modal-title 新建入库单
 	.modal-body
-		form.form-horizontal.form-nowrap
-			fieldset
-				+hgroup
-					+input('商品编号', 'name')(ng-model='storage.good_name')
-				+hgroup
-					+input('商品名称', 'name')(ng-model='storage.good_name')
-				+hgroup
-					+input('所在库房', 'name')(ng-model='storage.good_name')
-				+hgroup
-					+input('商品数量', 'name')(ng-model='storage.good_name')
-				+hgroup
-					+storage-type('入库类型', 'storage-type')(ng-model='storage.storage_type')
-				+hgroup
-					+input('入库时间')(ng-model='storage.income_time', uu-date-picker)
-				+hgroup
-					+input('入库人', 'creator')(ng-model='storage.creator')
-				+hgroup
-					+static-input('更新时间')(ng-bind='storage.update_time')
-				+hgroup
-					+input('更新人', 'updator')(ng-model='storage.updator')
-	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSharedOrder(currentOrder)') 保存
-		button.btn.uu-btn(data-dismiss='modal') 取消
+		//- 将form放在uu-pane层级下会导致newProduct(storageForm)找不到storageForm
+		form.form-horizontal(name='storageForm' novalidate ng-class='{sumitted: storageForm.$sumitted}')
+			div(uu-tab)
+				div(uu-pane, title='新建入库单')
+					table.form-table
+						tr
+							+input('入库号', 'product_code')(ng-model='product.product_code' required)
+							+input('所在库房', 'product_name')(ng-model='product.storage_name' required)
+						//- tr
+						//- 	+static-input('创建人', 'creater')(ng-bind='product.creater')
+						//- 	+static-input('更新人', 'updater')(ng-bind='product.updater')
+						tr
+							+input('预入库时间', 'pre-storage-time')(ng-model='product.product_name' uu-date-picker min-view='1' format='yyyy-mm-dd hh:00' required)
+							+input('入库时间', 'storage-time')(ng-model='product.' uu-date-picker min-view='1' format='yyyy-mm-dd hh:00' required)
+						tr
+							+textarea('入库描述', 'product-desc', 3)(ng-model='product.product_desc')
+					p.badge(style='margin-top: 10px;' ng-show='!product.details.length') 尚未添加任何商品
+					table.uu-table(style='margin-top: 10px;' ng-show='product.details.length')
+						+thead
+							each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
+								th.nowrap=th
+						tbody
+							tr(ng-repeat='good in product.details')
+								td(ng-bind='good.goods_code')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.qty')
+								td(ng-bind='good.is_gift | yesno')
+								td.nowrap
+									+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
+										+glyphicon('pencil') &nbsp;
+
+									+tooltip('删除', 'top', 'removeGood($index)')
+										+glyphicon('trash')
+
+					.modal-footer
+						button.btn.uu-btn.btn-primary(ng-click='saveStorage(storageForm)' ng-disabled='storageForm.processing') 保存
+						button.btn.uu-btn(data-dismiss='modal') 取消
+
+				div(uu-pane, title='添加入库商品')
+					table.uu-table
+						+thead
+							each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+								th.nowrap=th
+						tbody
+							tr(ng-repeat='good in goods')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.goods_type | goodsType')
+								td(ng-bind='good.goods_price')
+								td(ng-bind='good.goods_unit')
+								td(ng-bind='good.product_date')
+								td(ng-bind='good.goods_desc')
+								td(ng-bind='good.yn | valid')
+								td(ng-bind='good.creator')
+								td
+									+tooltip('添加商品', 'top', 'addGoodToStorage(good, productDetailsForm)')
+										+glyphicon('plus')
+					uu-pagination(records='goods.meta.recordsCount', per-page='{{goods.meta.pageSize}}' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
+
 
 //- 更改显示列
 include ../../modules/table-ths.jade

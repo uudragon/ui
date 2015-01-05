@@ -36,16 +36,16 @@
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
-      <label for="form-date-time" class="input-group-addon">时间
-        <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-date-time" class="input-group-addon">时间</label>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-start-time" class="input-group-addon">开始时间
-        <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-end-time" class="input-group-addon">结束时间
-        <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -93,7 +93,7 @@
 <table ng-show="orders.length" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -105,10 +105,9 @@
     <tr ng-repeat="order in orders">
       <td ng-bind="order.customer.name" ng-show="ths[0].isChecked"></td>
       <td ng-bind="order.customer.sex | gender" ng-show="ths[1].isChecked"></td>
-      <td ng-show="ths[2].isChecked"><span ng-bind="order.customer.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="播放" ng-click="playVoice()" ng-show="order.customer.phone"><span class="glyphicon glyphicon-volume-up"></span></a>
+      <td ng-show="ths[2].isChecked"><span ng-bind="order.customer.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(order.customer.phone)" ng-show="order.customer.phone"><span class="glyphicon glyphicon-earphone"></span></a>
       </td>
-      <td ng-show="ths[3].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.order_no" class="jslink"></a>
-      </td>
+      <td ng-bind="order.order_no" ng-show="ths[3].isChecked"></td>
       <td ng-bind="order.order_name" ng-show="ths[4].isChecked"></td>
       <td ng-bind="order.customer.city" ng-show="ths[5].isChecked"></td>
       <td ng-bind="order.customer.address" ng-show="ths[6].isChecked"></td>
@@ -120,7 +119,7 @@
       <td ng-bind="order.paid | payStatus" ng-show="ths[12].isChecked"></td>
       <td ng-bind="order.sumAmount" ng-show="ths[13].isChecked"></td>
       <td ng-bind="order.order_details" ng-show="ths[14].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="导出" ng-click="export()"><span class="glyphicon glyphicon-comment"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="导出" ng-click="export()"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -236,7 +235,6 @@
                 </td>
               </tr>
               <tr>
-                
               </tr>
             </table>
           </fieldset>

@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建商品" ng-click="newCommdity()"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建商品" ng-click="newCommdity(commdityForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -21,25 +21,25 @@
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
-      <label for="form-date-time" class="input-group-addon">时间
-        <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-date-time" class="input-group-addon">时间</label>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-start-time" class="input-group-addon">开始时间
-        <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-end-time" class="input-group-addon">结束时间
-        <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
-<table class="uu-table">
+<table ng-show="commodities" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -48,142 +48,111 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders">
-      <td ng-bind="order.customer.name" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.order_no" class="jslink"></a>
-      </td>
-      <td ng-bind="order.customer.phone" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="order.customer.province" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="order.customer.city" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="order.order_type | orderType" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="order.paid | payStatus" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
+    <tr ng-repeat="commodity in commodities" ng-dblclick="editCommodity(commodity)">
+      <td ng-bind="commodity.goods_code" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="commodity.goods_name" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="commodity.goods_type | goodsType" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="commodity.goods_price" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="commodity.goods_unit" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="commodity.isbn" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="commodity.product_date" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="commodity.goods_desc" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="commodity.yn | valid" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="commodity.creator" ng-show="ths[9].isChecked"></td>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="editCommodity(commodity, true)"><span class="glyphicon glyphicon-file"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
-<uu-pagination records="orders.meta.recordsCount" per-page="{{orders.meta.pageSize}}" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
-<div id="new-commidy" class="modal fade">
-  <div class="modal-dialog modal-lg">
+<uu-pagination records="commodities.meta.recordsCount" per-page="{{commodities.meta.pageSize}}" page="commodities.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
+<div id="commidy-form" class="modal fade">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">新建商品</h4>
+        <h4 ng-bind="commodityFormTitle" class="modal-title"></h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-nowrap">
+        <form name="commdityForm" novalidate="novalidate" ng-class="{sumitted: commdityForm.$sumitted}" class="form-horizontal form-nowrap">
           <fieldset>
+            <legend>商品信息</legend>
             <table class="form-table">
               <tr>
                 <th class="form-th">
-                  <label class="form-th-label">商品编号</label>
+                  <label class="form-th-label">商品编码</label>
                 </th>
-                <td class="form-td" colspan="3">
-                  <p class="form-control-static" ng-bind="commodity.good_id"></p>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="commodity.goods_code" required="required"></p>
+                </td>
+                <th class="form-th">
+                  <label for="form-goods_name" class="form-th-label">商品名称</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-goods_name" class="form-control input-sm" ng-model="commodity.goods_name" required="required"/>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label class="form-th-label">商品名称</label>
+                  <label for="form-goods_type" class="form-th-label">商品类型</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-name" class="form-control input-sm" ng-model="commodity.good_name" required="required"/>
+                  <select id="form-goods_type" class="form-control input-sm" uu-num="uu-num" ng-model="commodity.goods_type" required="required">
+                    <option value="1">教材</option>
+                    <option value="2">音像制品(DVD/CD)</option>
+                    <option value="3">玩具</option>
+                    <option value="4">其它</option>
+                  </select>
                 </td>
                 <th class="form-th">
-                  <label class="form-th-label">商品类型</label>
+                  <label for="form-goods_price" class="form-th-label">商品价格</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-commdity-type" class="form-control input-sm" ng-model="commodity.good_type">
-                  <option value="1">教材（书籍）</option>
-                  <option value="2">音像制品(DVD/CD)</option>
-                  <option value="3">玩具</option>
-                  <option value="4">其它</option>
-                </select>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label class="form-th-label">商品价格</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-good-price" class="form-control input-sm" ng-model="commodity.good_price"/>
-                </td>
-                <th class="form-th">
-                  <label class="form-th-label">商品规格</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-good-spec" class="form-control input-sm" ng-model="commodity.good_spec"/>
+                  <input id="form-goods_price" class="form-control input-sm" uu-float="uu-float" ng-model="commodity.goods_price" required="required"/>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label class="form-th-label">商品条码</label>
+                  <label for="form-goods_unit" class="form-th-label">商品规格</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-good-barcode" class="form-control input-sm" ng-model="commodity.good_barcode"/>
+                  <input id="form-goods_unit" class="form-control input-sm" ng-model="commodity.goods_unit"/>
                 </td>
                 <th class="form-th">
-                  <label class="form-th-label">ISBN号</label>
+                  <label for="form-product_date" class="form-th-label">生产日期</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-good-isbn" class="form-control input-sm" ng-model="commodity.good_isbn"/>
+                  <input id="form-product_date" class="form-control input-sm" ng-model="commodity.product_date" uu-date-picker="uu-date-picker"/>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label class="form-th-label">生产日期</label>
+                  <label for="form-barcode" class="form-th-label">商品条码</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-good-makedate" class="form-control input-sm" ng-model="commodity.good_makedate" uu-date-picker="uu-date-picker"/>
+                  <input id="form-barcode" class="form-control input-sm" ng-model="commodity.barcode" required="required"/>
                 </td>
                 <th class="form-th">
-                  <label class="form-th-label">是否有效</label>
+                  <label for="form-isbn" class="form-th-label">ISBN号</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-is-valid" class="form-control input-sm" ng-model="commodity.is_valid">
+                  <input id="form-isbn" class="form-control input-sm" ng-model="commodity.isbn" required="required"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-is-valid" class="form-th-label">是否有效</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-is-valid" class="form-control input-sm" ng-model="commodity.yn">
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>
                 </td>
-              </tr>
-              <tr>
                 <th class="form-th">
-                  <label class="form-th-label">商品描述</label>
-                </th>
-                <td class="form-td" colspan="3">
-                  <input id="form-good-des" class="form-control input-sm" ng-model="commodity.good_des"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label class="form-th-label">创建时间</label>
+                  <label for="form-goods-desc" class="form-th-label">商品描述</label>
                 </th>
                 <td class="form-td">
-                  <p class="form-control-static" ng-bind="commodity.create_time"></p>
-                </td>
-                
-                <th class="form-th">
-                  <label for="form-creator" class="form-th-label">创建人</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-creator" class="form-control input-sm" ng-model="commodity.creator"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label class="form-th-label">更新时间</label>
-                </th>
-                <td class="form-td">
-                  <p class="form-control-static" ng-bind="commodity.update_time"></p>
-                </td>
-                <th class="form-th">
-                  <label for="form-updator" class="form-th-label">更新人</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-updator" class="form-control input-sm" ng-model="commodity.updator"/>
+                  <input id="form-goods-desc" class="form-control input-sm" ng-model="commodity.goods_desc"/>
                 </td>
               </tr>
             </table>
@@ -191,7 +160,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveCommidity(commdityForm)" ng-disabled="commdityForm.processing" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

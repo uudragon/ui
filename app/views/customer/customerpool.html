@@ -50,14 +50,14 @@
 <table class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th>
+      <th class="nowrap">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, customers)"/>全选
           </label>
         </div>
       </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -71,9 +71,8 @@
         <input type="checkbox" ng-model="customer.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, customers, customer)"/>
       </td>
       <td ng-bind="customer.name" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(customer)" ng-bind="customer.code" class="jslink"></a>
-      </td>
-      <td ng-show="ths[2].isChecked"><span ng-bind="customer.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="播放" ng-click="makePhone(customer.phone)" ng-show="customer.phone"><span class="glyphicon glyphicon-earphone"></span></a>
+      <td ng-bind="customer.code" ng-show="ths[1].isChecked"></td>
+      <td ng-show="ths[2].isChecked"><span ng-bind="customer.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(customer.phone)" ng-show="customer.phone"><span class="glyphicon glyphicon-earphone"></span></a>
       </td>
       <td ng-bind="customer.main_phone" ng-show="ths[2].isChecked"></td>
       <td ng-bind="customer.province" ng-show="ths[3].isChecked"></td>
@@ -82,7 +81,7 @@
       <td ng-bind="customer.type | customerStatus" ng-show="ths[6].isChecked"></td>
       <td ng-bind="customer.create_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="customer.contact_times" ng-show="ths[8].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintcustomers(customer)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintcustomers(customer)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>

@@ -7,8 +7,6 @@
         </li>
         <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
         </li>
-        <li><a href="" ng-click="newComplaint()" class="jslink">新建投诉</a>
-        </li>
       </ul>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
@@ -37,16 +35,16 @@
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
-      <label for="form-date-time" class="input-group-addon">时间
-        <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-date-time" class="input-group-addon">时间</label>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-start-time" class="input-group-addon">开始时间
-        <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-end-time" class="input-group-addon">结束时间
-        <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -70,7 +68,7 @@
 <table ng-show="orders.length" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -90,7 +88,7 @@
       <td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -208,7 +206,6 @@
                 </td>
               </tr>
               <tr>
-                
               </tr>
             </table>
           </fieldset>
@@ -330,7 +327,7 @@
         <h4 class="modal-title">新建来电订单</h4>
       </div>
       <div class="modal-body">
-        <form name="gbNeworderForm" ovalidate="ovalidate" ng-class="{sumitted: gbNeworderForm.$sumitted}" class="form-horizontal">
+        <form name="gbNeworderForm" novalidate="novalidate" ng-class="{sumitted: gbNeworderForm.$sumitted}" class="form-horizontal">
           <fieldset>
             <legend>订单信息</legend>
             <table class="form-table">
@@ -428,7 +425,7 @@
                   <label for="form-customer-gender" class="form-th-label">客户性别</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex">
+                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex" required="required">
                     <option value="0">女</option>
                     <option value="1">男</option>
                   </select>
@@ -439,7 +436,7 @@
                   <label for="form-customer-phone" class="form-th-label">联系电话</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-customer-phone" class="form-control input-sm" uu-num="uu-num" ng-model="gbOrder.customer.phone" required="required"/>
+                  <input id="form-customer-phone" class="form-control input-sm" uu-phone="uu-phone" ng-model="gbOrder.customer.phone" required="required"/>
                 </td>
                 <th class="form-th">
                   <label for="form-child-name" class="form-th-label">儿童姓名</label>
@@ -479,7 +476,7 @@
                   <label for="form-invoice-owner" class="form-th-label">发票抬头</label>
                 </th>
                 <td ng-show="gbOrder.has_invoice" class="form-td">
-                  <input id="form-invoice-owner" class="form-control input-sm" ng-model="gbOrder.invoice_title" ng-jade-show="gbOrder.has_invoice"/>
+                  <input id="form-invoice-owner" class="form-control input-sm" ng-model="gbOrder.invoice_title" ng-jade-show="gbOrder.has_invoice" ng-required="gbOrder.has_invoice===&quot;1&quot;"/>
                 </td>
               </tr>
               <tr>

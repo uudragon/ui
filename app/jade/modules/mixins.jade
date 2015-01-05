@@ -56,11 +56,11 @@ mixin tgroup()
 	.form-group.tgroup.fixwidth
 		block
 
-mixin td-addon(title, position, glyphicon, action)
-	span(ng-bind=attributes['ng-bind'] style='padding-right: 8px;')
-	+tooltip('播放', 'top', action)(ng-show=attributes['ng-bind'])
-		+glyphicon(glyphicon)
-
+mixin td-phone(title, position, action)
+	td(ng-show=attributes['ng-show'])
+		span(ng-bind=attributes['ng-bind'] style='padding-right: 8px;')
+		+tooltip('外呼', 'top', 'makePhone(' + attributes['ng-bind'] + ')')(ng-show=attributes['ng-bind'])
+			+glyphicon('earphone')
 
 //- Other HTML helpers
 //- ----------------------

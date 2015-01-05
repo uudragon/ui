@@ -44,7 +44,7 @@ table.uu-table(ng-show='complaintsOrders.length')
 			td(ng-bind='complaint.paid | payStatus', ng-show='ths[6].isChecked')
 			td(ng-bind='complaint.create_time', ng-show='ths[7].isChecked')
 			td(ng-bind='complaint.contact_count', ng-show='ths[8].isChecked')
-			td
+			td.nowrap
 				+tooltip('修改', 'top', 'showComplaintOrders(complaint)')
 					+glyphicon('pencil') &nbsp;
 

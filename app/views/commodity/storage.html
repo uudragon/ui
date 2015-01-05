@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建商品" ng-click="newCommdity()"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建入库单" ng-click="newStorage(storageForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -21,16 +21,16 @@
       <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
-      <label for="form-date-time" class="input-group-addon">时间
-        <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-date-time" class="input-group-addon">时间</label>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-start-time" class="input-group-addon">开始时间
-        <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
-      <label for="form-end-time" class="input-group-addon">结束时间
-        <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/></label>
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -39,7 +39,7 @@
 <table class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
@@ -50,8 +50,7 @@
   <tbody>
     <tr ng-repeat="order in orders">
       <td ng-bind="order.customer.name" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.order_no" class="jslink"></a>
-      </td>
+      <td ng-show="ths[1].isChecked"></td>
       <td ng-bind="order.customer.phone" ng-show="ths[2].isChecked"></td>
       <td ng-bind="order.customer.province" ng-show="ths[3].isChecked"></td>
       <td ng-bind="order.customer.city" ng-show="ths[4].isChecked"></td>
@@ -60,106 +59,122 @@
       <td ng-bind="order.audit | auditStatus" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="order.contact_count" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editStorage(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="editStorage(order, true)"><span class="glyphicon glyphicon-file"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
 <uu-pagination records="orders.meta.recordsCount" per-page="{{orders.meta.pageSize}}" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
-<div id="new-commidy" class="modal fade">
-  <div class="modal-dialog modal-lg">
+<div id="storage-form" class="modal fade">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">核实订单</h4>
+        <h4 class="modal-title">新建入库单</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-nowrap">
-          <fieldset>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-name" class="form-th-label">商品编号</label>
-              </th>
-              <td class="form-td">
-                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
-              </td>
+        <form name="storageForm" novalidate="novalidate" ng-class="{sumitted: storageForm.$sumitted}" class="form-horizontal">
+          <div uu-tab="uu-tab">
+            <div uu-pane="uu-pane" title="新建入库单">
+              <table class="form-table">
+                <tr>
+                  <th class="form-th">
+                    <label for="form-product_code" class="form-th-label">入库号</label>
+                  </th>
+                  <td class="form-td">
+                    <input id="form-product_code" class="form-control input-sm" ng-model="product.product_code" required="required"/>
+                  </td>
+                  <th class="form-th">
+                    <label for="form-product_name" class="form-th-label">所在库房</label>
+                  </th>
+                  <td class="form-td">
+                    <input id="form-product_name" class="form-control input-sm" ng-model="product.storage_name" required="required"/>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="form-th">
+                    <label for="form-pre-storage-time" class="form-th-label">预入库时间</label>
+                  </th>
+                  <td class="form-td">
+                    <input id="form-pre-storage-time" class="form-control input-sm" ng-model="product.product_name" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00" required="required"/>
+                  </td>
+                  <th class="form-th">
+                    <label for="form-storage-time" class="form-th-label">入库时间</label>
+                  </th>
+                  <td class="form-td">
+                    <input id="form-storage-time" class="form-control input-sm" ng-model="product." uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00" required="required"/>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="form-th">
+                    <label for="form-product-desc" class="form-th-label">入库描述</label>
+                  </th>
+                  <td colspan="3" class="form-td">
+                    <textarea id="form-product-desc" class="form-control" ng-model="product.product_desc"></textarea>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin-top: 10px;" ng-show="!product.details.length" class="badge">尚未添加任何商品</p>
+              <table style="margin-top: 10px;" ng-show="product.details.length" class="uu-table">
+                <thead>
+                  <tr>
+                    <th class="nowrap">商品编号</th>
+                    <th class="nowrap">商品名称</th>
+                    <th class="nowrap">商品数量</th>
+                    <th class="nowrap">是否赠品</th>
+                    <th class="nowrap">工具</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="good in product.details">
+                    <td ng-bind="good.goods_code"></td>
+                    <td ng-bind="good.goods_name"></td>
+                    <td ng-bind="good.qty"></td>
+                    <td ng-bind="good.is_gift | yesno"></td>
+                    <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="modal-footer">
+                <button ng-click="saveStorage(storageForm)" ng-disabled="storageForm.processing" class="btn uu-btn btn-primary">保存</button>
+                <button data-dismiss="modal" class="btn uu-btn">取消</button>
+              </div>
             </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-name" class="form-th-label">商品名称</label>
-              </th>
-              <td class="form-td">
-                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
-              </td>
+            <div uu-pane="uu-pane" title="添加入库商品">
+              <table class="uu-table">
+                <thead>
+                  <tr>
+                    <th class="nowrap">商品名称</th>
+                    <th class="nowrap">商品类型</th>
+                    <th class="nowrap">商品价格</th>
+                    <th class="nowrap">商品规格</th>
+                    <th class="nowrap">生产日期</th>
+                    <th class="nowrap">商品描述</th>
+                    <th class="nowrap">是否有效</th>
+                    <th class="nowrap">操作员</th>
+                    <th class="nowrap">工具</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="good in goods">
+                    <td ng-bind="good.goods_name"></td>
+                    <td ng-bind="good.goods_type | goodsType"></td>
+                    <td ng-bind="good.goods_price"></td>
+                    <td ng-bind="good.goods_unit"></td>
+                    <td ng-bind="good.product_date"></td>
+                    <td ng-bind="good.goods_desc"></td>
+                    <td ng-bind="good.yn | valid"></td>
+                    <td ng-bind="good.creator"></td>
+                    <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加商品" ng-click="addGoodToStorage(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <uu-pagination records="goods.meta.recordsCount" per-page="{{goods.meta.pageSize}}" page="goods.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
             </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-name" class="form-th-label">所在库房</label>
-              </th>
-              <td class="form-td">
-                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
-              </td>
-            </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-name" class="form-th-label">商品数量</label>
-              </th>
-              <td class="form-td">
-                <input id="form-name" class="form-control input-sm" ng-model="storage.good_name"/>
-              </td>
-            </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-storage-type" class="form-th-label">入库类型</label>
-              </th>
-              <td class="form-td">
-                <select id="form-storage-type" class="form-control input-sm" ng-model="storage.storage_type">
-                  <option value="1">一般入库</option>
-                  <option value="2">退货入库</option>
-                  <option value="3">调货入库</option>
-                  <option value="4">调货出库(在途)</option>
-                  <option value="5">一般出库</option>
-                </select>
-              </td>
-            </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-undefined" class="form-th-label">入库时间</label>
-              </th>
-              <td class="form-td">
-                <input id="form-undefined" class="form-control input-sm" ng-model="storage.income_time" uu-date-picker="uu-date-picker"/>
-              </td>
-            </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-creator" class="form-th-label">入库人</label>
-              </th>
-              <td class="form-td">
-                <input id="form-creator" class="form-control input-sm" ng-model="storage.creator"/>
-              </td>
-            </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label class="form-th-label">更新时间</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="storage.update_time"></p>
-              </td>
-            </div>
-            <div class="form-group col-xs-6">
-              <th class="form-th">
-                <label for="form-updator" class="form-th-label">更新人</label>
-              </th>
-              <td class="form-td">
-                <input id="form-updator" class="form-control input-sm" ng-model="storage.updator"/>
-              </td>
-            </div>
-          </fieldset>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button ng-click="saveSharedOrder(currentOrder)" class="btn uu-btn btn-primary">保存</button>
-        <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
   </div>

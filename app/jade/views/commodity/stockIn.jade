@@ -1,0 +1,69 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('新建入库单', 'top', 'newStockIn(stockInForm)')
+			+glyphicon('plus')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+table.uu-table
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='product in products' ng-dblclick='editStockIn(storage.product_code)')
+			td(ng-bind='storage.product_code' ng-show='ths[0].isChecked')
+			td(ng-bind='storage.product_name' ng-show='ths[1].isChecked')
+			td(ng-bind='storage.product_desc' ng-show='ths[2].isChecked')
+			td(ng-bind='storage.create_time' ng-show='ths[3].isChecked')
+			td(ng-bind='storage.creator' ng-show='ths[4].isChecked')
+			td(ng-bind='storage.update_time' ng-show='ths[5].isChecked')
+			td(ng-bind='storage.updater' ng-show='ths[6].isChecked')
+			td(ng-bind='storage.yn | valid' ng-show='ths[7].isChecked')
+			td.nowrap
+				+tooltip('修改', 'top', 'editStockIn(storage.product_code)')
+					+glyphicon('pencil') &nbsp;
+
+				+tooltip('复制新增', 'top', 'editStockIn(storage.product_code, true)')
+					+glyphicon('file')
+
+uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' pagstockInForme='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+
+//- 新建入库单
++modal('stock-in-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 新建入库单
+	.modal-body
+		//- 将form放在uu-pane层级下会导致newProduct(stockInForm)找不到stockInForm
+		form.form-horizontal(name='stockInForm' novalidate ng-class='{sumitted: stockInForm.$sumitted}')
+			div(uu-tab)
+				div(uu-pane, title='新建入库单')
+					table.form-table
+						tr
+							+static-input('入库单号', 'storage-code')(ng-bind='storage.storage_code' required)
+							+input('预入库时间', 'pre-storage-time')(ng-model='storage.product_name' uu-date-picker min-view='1' format='yyyy-mm-dd hh:00' required)
+						tr
+							+input('所在库房', 'storage-name')(ng-model='storage.storage_name' required)
+							+static-input('入库单状态', 'storage-status')(ng-bind='storage.storage_status')
+						tr
+							+textarea('入库描述', 'product-desc', 3)(ng-model='storage.product_desc')
+
+				div(uu-pane, title='添加入库商品')
+					table.form-table
+						tr
+							+static-input('入库单号', 'storage-code')(ng-bind='storage.storage_code' required)
+							+static-input('入库类型', 'storage-type')(ng-bind='storage.storage_type')
+						tr
+							+input('所在库房', 'storage-name')(ng-model='storage.storage_name' required)
+							+input('预入库数量', 'storage-name')(uu-num ng-model='storage.storage_name' required)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveStorage(stockInForm)' ng-disabled='stockInForm.processing') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+//- 更改显示列
+include ../../modules/table-ths.jade

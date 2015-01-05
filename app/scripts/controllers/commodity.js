@@ -19,8 +19,10 @@ angular.module('mainApp')
 
 	}])
 
-	//入库单管理
+	// 入库单管理
 	.controller('StockIn', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
+
+		var $stockInForm = $('#stock-in-form');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -45,19 +47,34 @@ angular.module('mainApp')
 			{name: '', label: '更新人', isChecked: true}
 		];
 
-		$scope.newStockIn = function() {
-			$('#new-stockIn').modal('show');
-			$scope.commodity = {};
-			$scope.commodity.create_time = $filter('now')();
-			$scope.commodity.update_time = $scope.commodity.create_time;
+		// 新建入库单
+		$scope.newStockIn = function(form) {
+			$scope.resetForm(form);
+			$scope.storage = {
+				storage_code: $scope.guid(),
+				creator: $scope.currentUser.account,
+				updater: $scope.currentUser.account,
+				storage_status: '1',
+				storage_type: '1'
+			};
+			$stockInForm.modal('show');
+		};
+
+		// 保存入库单
+		$scope.saveStockIn = function(form) {
+			if (!$scope.validateForm(form)) return;
+
+			$stockInForm.modal('show');
 		};
 
 		// inherit functions from parent
 		$controller('CommodityManager', {$scope: $scope});
 	}])
 
-	//商品入库
+	// 商品入库
 	.controller('Storage', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
+
+		var $storageForm = $('#storage-form');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -70,23 +87,28 @@ angular.module('mainApp')
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: '', label: '商品编号', isChecked: true},
-			{name: '', label: '商品名称', isChecked: true},
-			{name: '', label: '商品数量', isChecked: true},
+			{name: '', label: '入库单号', isChecked: true},
+			{name: '', label: '预入库时间', isChecked: true},
+			{name: '', label: '入库描述', isChecked: true},
+			{name: '', label: '入库单状态', isChecked: true},
 			{name: '', label: '所在库房', isChecked: true},
-			{name: '', label: '入库类型', isChecked: true},
 			{name: '', label: '入库时间', isChecked: true},
-			{name: '', label: '入库人', isChecked: true},
+			{name: '', label: '创建时间', isChecked: true},
+			{name: '', label: '创建人', isChecked: true},
 			{name: '', label: '更新时间', isChecked: true},
 			{name: '', label: '更新人', isChecked: true}
 		];
 
 
-		$scope.newCommdity = function() {
-			$('#new-commidy').modal('show');
-			$scope.commodity = {};
-			$scope.commodity.create_time = $filter('now')();
-			$scope.commodity.update_time = $scope.commodity.create_time;
+		// 新建入库单
+		$scope.newStorage = function(form) {
+			$scope.resetForm(form);
+			$scope.storage = {
+				storage_code: $scope.guid(),
+				creator: $scope.currentUser.account,
+				updater: $scope.currentUser.account,
+			};
+			$storageForm.modal('show');
 		};
 
 		// inherit functions from parent

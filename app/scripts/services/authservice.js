@@ -15,6 +15,10 @@ angular.module('mainApp')
 		self.setHeader(token);
 	};
 
+	var setResource = function(resource) {
+		ipCookie('resource', resource);
+	};
+
 	var getToken = function() {
 		return ipCookie('token');
 	};
@@ -30,8 +34,28 @@ angular.module('mainApp')
 		return _user;
 	};
 
+	this.getResource = function() {
+		return ipCookie('resource').split(',');
+	};
+
 	this.loadAccessLevels = function() {
 		_accessPromise = $http.get(config.auth.baseurl + config.auth.resource);
+	};
+
+	this.checkTimeout = function() {
+		$http({
+			url: config.auth.baseurl + config.auth.timeout,
+			method: 'GET',
+			params: {
+				token: getToken()
+			}
+		})
+		.success(function(status) {
+			!status && (self.logout());
+		})
+		.error(function() {
+			self.logout();
+		});
 	};
 
 	this.getAccessLevels = function() {
@@ -48,6 +72,7 @@ angular.module('mainApp')
 	this.login = function(res) {
 		setUser(res.user);
 		setToken(res.token);
+		setResource(res.resources);
 		$location.path('/');
 	};
 

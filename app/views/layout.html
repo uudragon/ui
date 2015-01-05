@@ -17,58 +17,37 @@
             </li>
           </ul>
           <ul class="list-inline">
-            <li><span class="key">工号: </span><span ng-bind="currentUser.userNo" class="val"></span>
+            <li><span class="key">当前日期: </span><span ng-bind="date | date : &quot;yyyy-MM-dd&quot;" class="val"></span>
             </li>
             <li><span class="key">分机: </span><span ng-bind="currentUser.phone" class="val"></span>
             </li>
-            <li><span class="key">网络沟通量: </span><span ng-bind="currentUser.numWebCommunication" class="val"></span>
+            <li><span class="key">坐席: </span><span ng-bind="currentUser.positions" class="val"></span>
             </li>
-            <li><span class="key">接听量: </span><span ng-bind="currentUser.numCallIn" class="val"></span>
+            <li><span class="key">状态: </span><span ng-bind="currentUser.isValid" class="val"></span>
             </li>
-            <li><span class="key">外呼量: </span><span ng-bind="currentUser.numCallOut" class="val"></span>
+            <li><span class="key">计时:</span><span timing="'h:mm:ss'"></span></li>
+            <li><span class="key">工号: </span><span ng-bind="currentUser.userNo" class="val"></span>
             </li>
-            <li><span class="key">工单量: </span><span ng-bind="currentUser.numWorkOrder" class="val"></span>
+            <li><span class="key">姓名: </span><span ng-bind="currentUser.name" class="val"></span>
             </li>
-            <li><span class="key">订单量: </span><span ng-bind="currentUser.numOrder" class="val"></span>
-            </li>
-            <li><span class="key">预约客户量: </span><span ng-bind="currentUser.numReservation" class="val"></span>
+            <li><span class="key">所在组: </span><span ng-bind="currentUser.groupId" class="val"></span>
             </li>
           </ul>
           <hr/>
           <table class="table">
             <tr>
-              <td><img src="images/idle.png" alt="idle" width="32" height="32" class="brand"/></td>
-              <td><img src="images/busy.png" alt="busy" width="32" height="32" class="brand"/></td>
-              <td><img src="images/dial.png" alt="dial" width="32" height="32" class="brand"/></td>
-              <td><img src="images/transfer.png" alt="transfer" width="32" height="32" class="brand"/></td>
-              <td><img src="images/conf.png" alt="conf" width="32" height="32" class="brand"/></td>
-              <td><img src="images/hold.png" alt="hold" width="32" height="32" class="brand"/></td>
-              <td><img src="images/intercept.png" alt="intercept" width="32" height="32" class="brand"/></td>
-              <td><img src="images/accept.png" alt="accept" width="32" height="32" class="brand"/></td>
-              <td><img src="images/accept.png" alt="accept" width="32" height="32" class="brand"/></td>
-              <td><img src="images/monit.png" alt="monit" width="32" height="32" class="brand"/></td>
-              <td><img src="images/hangup.png" alt="hangup" width="32" height="32" class="brand"/></td>
-              <td><img src="images/hangup.png" alt="hangup" width="32" height="32" class="brand"/></td>
-              <td><img src="images/hangup.png" alt="hangup" width="32" height="32" class="brand"/></td>
-              <td><img src="images/hangup.png" alt="hangup" width="32" height="32" class="brand"/></td>
-              <td><img src="images/hangup.png" alt="hangup" width="32" height="32" class="brand"/></td>
-            </tr>
-            <tr>
-              <td><span>空闲</span></td>
-              <td><span>置忙</span></td>
-              <td><span>拨号</span></td>
-              <td><span>转接</span></td>
-              <td><span>三方</span></td>
-              <td><span>保持</span></td>
-              <td><span>抢接</span></td>
-              <td><span>监听</span></td>
-              <td><span>强插</span></td>
-              <td><span>强拆</span></td>
-              <td><span>拦截</span></td>
-              <td><span>切换状态</span></td>
-              <td><span>签出</span></td>
-              <td><span>离席</span></td>
-              <td><span>外线状态</span></td>
+              <td><span class="key">网络沟通量: </span><span ng-bind="currentUser.userNo" class="val"></span>
+              </td>
+              <td><span class="key">电话接听量: </span><span ng-bind="currentUser.name" class="val"></span>
+              </td>
+              <td><span class="key">电话外呼量: </span><span ng-bind="currentUser.groupId" class="val"></span>
+              </td>
+              <td><span class="key">今日工单数量: </span><span ng-bind="currentUser.userNo" class="val"></span>
+              </td>
+              <td><span class="key">今日订单数量: </span><span ng-bind="currentUser.name" class="val"></span>
+              </td>
+              <td><span class="key">预约客户数量: </span><span ng-bind="currentUser.groupId" class="val"></span>
+              </td>
             </tr>
           </table>
         </div>
@@ -126,6 +105,7 @@
               </li>
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.commodity&quot;)}" uu-auth-filter="04" class="nav-item"><a class="nav-menu-label">入库管理</a>
                 <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.commodity.stockin" ng-class="{active: $state.is(&quot;root.commodity.stockin&quot;)}">入库单管理</a></li>
                   <li><a ui-sref="root.commodity.storage" ng-class="{active: $state.is(&quot;root.commodity.storage&quot;)}">商品入库</a></li>
                 </ul>
               </li>
@@ -156,6 +136,7 @@
               </li>
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.commodity&quot;)}" uu-auth-filter="04" class="nav-item"><a class="nav-menu-label">入库管理</a>
                 <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.commodity.stockin" ng-class="{active: $state.is(&quot;root.commodity.stockin&quot;)}">入库单管理</a></li>
                   <li><a ui-sref="root.commodity.storage" ng-class="{active: $state.is(&quot;root.commodity.storage&quot;)}">商品入库</a></li>
                 </ul>
               </li>
@@ -186,6 +167,7 @@
               </li>
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.commodity&quot;)}" uu-auth-filter="04" class="nav-item"><a class="nav-menu-label">入库管理</a>
                 <ul role="menu" class="nav nav-menu">
+                  <li><a ui-sref="root.commodity.stockin" ng-class="{active: $state.is(&quot;root.commodity.stockin&quot;)}">入库单管理</a></li>
                   <li><a ui-sref="root.commodity.storage" ng-class="{active: $state.is(&quot;root.commodity.storage&quot;)}">商品入库</a></li>
                 </ul>
               </li>
