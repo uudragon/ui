@@ -19,7 +19,7 @@ angular.module('mainApp')
 
 	}])
 
-	//入库单管理
+	// 入库单管理
 	.controller('StockIn', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
 
 		var $stockInForm = $('#stock-in-form');
@@ -54,7 +54,16 @@ angular.module('mainApp')
 				storage_code: $scope.guid(),
 				creator: $scope.currentUser.account,
 				updater: $scope.currentUser.account,
+				storage_status: '1',
+				storage_type: '1'
 			};
+			$stockInForm.modal('show');
+		};
+
+		// 保存入库单
+		$scope.saveStockIn = function(form) {
+			if (!$scope.validateForm(form)) return;
+
 			$stockInForm.modal('show');
 		};
 
@@ -62,7 +71,7 @@ angular.module('mainApp')
 		$controller('CommodityManager', {$scope: $scope});
 	}])
 
-	//商品入库
+	// 商品入库
 	.controller('Storage', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
 
 		var $storageForm = $('#storage-form');

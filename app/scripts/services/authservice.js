@@ -46,6 +46,7 @@ angular.module('mainApp')
 	};
 
 	this.login = function(res) {
+		console.log(res);
 		setUser(res.user);
 		setToken(res.token);
 		$location.path('/');
