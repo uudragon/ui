@@ -10,6 +10,7 @@
 	exports.auth = {
 		baseurl: '/atnew/ws/auth/',
 		resource: 'resourceListByCode',
+		timeout: 'checkTimeOut',
 		login: 'login',
 		logout: 'logout'
 	};

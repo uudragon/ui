@@ -363,33 +363,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	return {
 		restrict: 'A',
 		link: function($scope, element, attrs) {
-
 			var accessCode = attrs.uuAuthFilter;
-			var valid = false;
 
 			if (accessCode) {
-
-				if (Auth.getAccessLevels()) {
-
-					Auth.getAccessLevels()
-						.success(function(data) {
-							console.log(data);
-							for (var i = data.length - 1; i >= 0; i--) {
-								if (data[i].code == accessCode) {
-									valid = true;
-								}
-							}
-
-							if (!valid) {
-								element.remove();
-							}
-						})
-						.error(function(msg) {
-							element.remove();
-						});
-				}
+				Auth.getResource().indexOf(accessCode) === -1 && (element.remove());
 			}
-
 		}
 	};
 }])
@@ -420,7 +398,27 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		require: 'ngModel',
 		link: function($scope, elem, attrs, ctrl) {
 			var validate = function(value) {
-				if (!value || /^[-+]?[0-9]*\.?[0-9]+$/.test(value)) {
+				if (!value || /^\s*[-+]?[0-9]*\.?[0-9]+\s*$/.test(value)) {
+					ctrl.$setValidity('digit', true);
+					return value;
+				} else {
+					ctrl.$setValidity('digit', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('uuPhone', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^\s*\d{11}\s*$/.test(value)) {
 					ctrl.$setValidity('digit', true);
 					return value;
 				} else {

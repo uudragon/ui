@@ -62,7 +62,6 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 
 			},
 			'responseError': function(response) {
-
 				if(response.status === 401 || response.status === 403) {
 					// token is outdate or request for resource beyond the privilege of current user.
 					$rootScope.$broadcast('auth:invalid', response);
@@ -125,9 +124,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	})
 
 
-	//////////////////////
-	// Customer Service //
-	//////////////////////
+	/////////////
+	// 客户服务 //
+	/////////////
 
 	.state('root.customer', {
 		url: 'customer',
@@ -166,9 +165,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	})
 
 
-	//////////////////////
-	// Customer Manager //
-	//////////////////////
+	/////////////
+	// 客户管理 //
+	/////////////
 
 	.state('root.customerManager', {
 		url: 'manager',
@@ -197,9 +196,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	})
 
 
-	////////////////////
-	// Agents Manager //
-	////////////////////
+	/////////////
+	// 数据管理 //
+	/////////////
 
 	.state('root.data', {
 		url: 'data',
@@ -228,9 +227,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	})
 
 
-	//////////////////
-	// Ship Manager //
-	//////////////////
+	///////////
+	// 知识库 //
+	///////////
 
 	.state('root.knowledge', {
 		url: 'knowledge',
@@ -253,9 +252,10 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		controller: 'QA'
 	})
 
-	///////////
-	// Utils //
-	///////////
+
+	/////////////
+	// 隐藏页面 //
+	/////////////
 
 	.state('root.utils', {
 		url: 'utils',
@@ -283,8 +283,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		controller: 'Batchmsg'
 	})
 
+
 	/////////////
-	// Product //
+	// 产品管理 //
 	/////////////
 
 	.state('root.product', {
@@ -303,9 +304,10 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		controller: 'Goods'
 	})
 
-	///////////////
-	// Commodity //
-	///////////////
+
+	/////////////
+	// 入库管理 //
+	/////////////
 
 	.state('root.commodity', {
 		url: 'commodity',
@@ -323,9 +325,10 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		controller: 'Storage'
 	})
 
-	///////////
-	// Order //
-	///////////
+
+	/////////////
+	// 出库管理 //
+	/////////////
 
 	.state('root.order', {
 		url: 'order',
@@ -353,9 +356,10 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		controller: 'Port'
 	})
 
-	////////////////
-	// Storehouse //
-	////////////////
+
+	/////////////
+	// 库房管理 //
+	/////////////
 
 	.state('root.storehouse', {
 		url: 'storehouse',
@@ -388,9 +392,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		cfpLoadingBar.start();
 
 		if (!Auth.isLoggedIn()) {
-			// $location.path('/' + config.auth.login);
+			$location.path('/' + config.auth.login);
 		} else {
-			Auth.loadAccessLevels();
+			Auth.checkTimeout();
 		}
 	});
 

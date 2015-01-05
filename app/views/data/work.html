@@ -98,10 +98,9 @@
     <tr ng-repeat="order in orders">
       <td ng-bind="order.customerName" ng-show="ths[0].isChecked"></td>
       <td ng-bind="order.gender | gender" ng-show="ths[1].isChecked"></td>
-      <td ng-show="ths[2].isChecked"><span ng-bind="order.customer_phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="播放" ng-show="order.customer_phone"><span class="glyphicon glyphicon-volume-up"></span></a>
+      <td ng-show="ths[2].isChecked"><span ng-bind="order.customer_phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(order.customer_phone)" ng-show="order.customer_phone"><span class="glyphicon glyphicon-earphone"></span></a>
       </td>
-      <td ng-show="ths[3].isChecked"><a href="" ng-click="showOrder(order)" ng-bind="order.orderSN" class="jslink"></a>
-      </td>
+      <td ng-bind="order.orderSN" ng-show="ths[3].isChecked"></td>
       <td ng-bind="order.city" ng-show="ths[4].isChecked"></td>
       <td ng-bind="order.workstart" ng-show="ths[5].isChecked"></td>
       <td ng-bind="order.workend" ng-show="ths[6].isChecked"></td>

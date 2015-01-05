@@ -9,23 +9,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	$scope.date = new Date();
 
 	// for debug
-	$scope.currentUser = Auth.getUser() || {
-		account: 'admin',
-		birthday: '2014-04-02 00:00',
-		email: '1',
-		extension: null,
-		gender: 1,
-		groupId: null,
-		id: 1,
-		isRemoved: false,
-		isValid: true,
-		name: 'admin',
-		phone: '1',
-		positions: '1',
-		roleId: 234234,
-		seat: null,
-		userNo: '000010'
-	};
+	$scope.currentUser = Auth.getUser();
 
 	$scope.searchModel = {
 		filter: 0,
@@ -39,7 +23,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// check is login
 	$scope.$on('auth:invalid', function(e, d) {
-	// 	Auth.logout();
+		Auth.logout();
 	});
 
 	$scope.logout = function() {
