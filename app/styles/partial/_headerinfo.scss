@@ -44,8 +44,14 @@
 			td {
 				border: none;
 			}
+			tr.topcenter td {
+				margin-top: 0;
+				padding-top: 0;
+				text-align: center;
+			}
 		}
 	}
+
 
 	/* left side */
 
