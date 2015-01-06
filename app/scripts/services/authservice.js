@@ -35,7 +35,7 @@ angular.module('mainApp')
 	};
 
 	this.getResource = function() {
-		return ipCookie('resource').split(',');
+		return ipCookie('resource') ? ipCookie('resource').split(',') : [];
 	};
 
 	this.loadAccessLevels = function() {

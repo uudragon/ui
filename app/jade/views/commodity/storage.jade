@@ -34,7 +34,7 @@ table.uu-table
 				+tooltip('复制新增', 'top', 'editStorage(order, true)')
 					+glyphicon('file')
 
-uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建入库单
 +modal('storage-form')
@@ -98,7 +98,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSi
 								td
 									+tooltip('添加商品', 'top', 'addGoodToStorage(good, productDetailsForm)')
 										+glyphicon('plus')
-					uu-pagination(records='goods.meta.recordsCount', per-page='{{goods.meta.pageSize}}' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
+					uu-pagination(records='goods.meta.recordsCount', per-page='goods.meta.pageSize' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
 
 
 //- 更改显示列

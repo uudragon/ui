@@ -34,7 +34,7 @@ table.uu-table(ng-show='commodities')
 				+tooltip('复制新增', 'top', 'editCommodity(commodity, true)')
 					+glyphicon('file')
 
-uu-pagination(records='commodities.meta.recordsCount', per-page='{{commodities.meta.pageSize}}' page='commodities.meta.pageNo', model='searchModel', action='getCommdityList()')
+uu-pagination(records='commodities.meta.recordsCount', per-page='commodities.meta.pageSize' page='commodities.meta.pageNo', model='searchModel', action='getCommdityList()')
 
 //- 新建商品
 +modal('commidy-form')

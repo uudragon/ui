@@ -33,16 +33,8 @@
 		};
 	};
 
-	exports.resetForm = function(form, $scope) {
-		$scope.model = {};
-		$scope.submit = false;
-		form.$setPristine();
-	};
-
-	exports.searchLog = function (model, type, url) {
-		console.log('searchModel is:', model);
-		console.log('type is: ' + type);
-		console.log('requrest url is: ' + url);
-	};
+	exports.typeMap = {
+		receipt: {'-1': '撤销', 0: '未入库', 1: '部分入库', 2: '入库完成'}
+	}
 
 })(typeof exports === 'undefined' ? window.config = {} : exports);

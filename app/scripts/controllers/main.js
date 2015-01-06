@@ -9,7 +9,23 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	$scope.date = new Date();
 
 	// for debug
-	$scope.currentUser = Auth.getUser();
+	$scope.currentUser = Auth.getUser() || {
+		account: 'admin',
+		birthday: '2014-04-02 00:00',
+		email: '1',
+		extension: null,
+		gender: 1,
+		groupId: null,
+		id: 1,
+		isRemoved: false,
+		isValid: true,
+		name: 'admin',
+		phone: '1',
+		positions: '1',
+		roleId: 234234,
+		seat: null,
+		userNo: '000010'
+	};
 
 	$scope.searchModel = {
 		filter: 0,
@@ -28,27 +44,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	$scope.logout = function() {
 		Auth.logout();
-	};
-
-
-	// 重置表单
-	$scope.resetForm = function(form) {
-		if (form) {
-			form.$setPristine();
-			form.$sumitted = false;
-		}
-	};
-
-	// 表单验证
-	$scope.validateForm = function(form, $formModal) {
-		form.$sumitted = true;
-
-		if (!form.$valid) {
-			$formModal.modal('fail', '表单填写有误');
-			return false;
-		}
-
-		return true;
 	};
 
 	// 解析filter成可用的json
@@ -187,12 +182,57 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		console.log($scope.searchModel);
 	};
 
+
+	// 表单相关
+	// -----------------------------------------------------
+
+	// 重置表单
+	$scope.resetForm = function(form) {
+		if (form) {
+			form.$setPristine();
+			form.$sumitted = false;
+		}
+	};
+
+	// 表单验证
+	$scope.validateForm = function(form, $formModal) {
+		form.$sumitted = true;
+
+		if (!form.$valid) {
+			$formModal.modal('fail', '表单填写有误');
+			return false;
+		}
+
+		return true;
+	};
+
 	// 生成编号
 	$scope.guid = function() {
 		return 'xxxxxxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
 			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8 );
 			return v.toString(16);
 		});
+	};
+
+	$scope.processing = function(form, $form) {
+		form.processing = true;
+		$form.modal('spinner');
+	};
+
+	$scope.successHandler = function(form, $form, action) {
+		return function(data) {
+			form.processing = false;
+			$form.modal('success');
+			angular.isFunction(action) && action();
+		}
+	};
+
+	$scope.errorHandler = function(form, $form, action) {
+		return function(data) {
+			form.processing = false;
+			$form.modal('fail');
+			angular.isFunction(action) && action();
+		}
 	};
 
 }]);

@@ -42,11 +42,19 @@ angular.module('mainApp')
 		}
 	};
 })
-.filter('mapper', function() {
-	return function() {
-
+.filter('typeMap', function() {
+	return function(numKey, map) {
+		if (!map) return '';
+		var numnumKey = parseInt(numKey, 10);
+		var value = map[numKey];
+		return value ?  value : '';
 	};
 })
+.filter('mapper', ['typeMapFilter', function(typeMapFilter) {
+	return function(num, map) {
+		return typeMapFilter(num, config.typeMap[map]);
+	}
+}])
 .filter('orderType', function() {
 	return function (num) {
 
@@ -174,11 +182,11 @@ angular.module('mainApp')
 				return '一般入库';
 			case 2:
 				return '退货入库';
-			case 2:
+			case 3:
 				return '调货入库';
-			case 2:
+			case 4:
 				return '调货出库(在途)';
-			case 2:
+			case 5:
 				return '一般出库';
 			default:
 				break;

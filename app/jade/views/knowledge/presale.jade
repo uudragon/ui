@@ -58,7 +58,7 @@ table.uu-table(ng-show='knowledges.length')
 				+tooltip('删除', 'top', 'deleteKnowledge(knowledge)')
 					+glyphicon('trash')
 
-uu-pagination(records='knowledges.meta.recordsCount', per-page='{{knowledges.meta.pageSize}}' page='knowledges.meta.pageNo', model='searchModel', action='getKnowlegeList()')
+uu-pagination(records='knowledges.meta.recordsCount', per-page='knowledges.meta.pageSize' page='knowledges.meta.pageNo', model='searchModel', action='getKnowlegeList()')
 
 //- 添加知识Modal
 +modal('knowlege-form')

@@ -45,7 +45,7 @@ table.uu-table(ng-show='orders.length')
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 核实订单Modal
 +modal('split-modal')

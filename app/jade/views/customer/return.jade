@@ -52,7 +52,7 @@ table.uu-table
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='returnOrders.meta.recordsCount', per-page='{{returnOrders.meta.pageSize}}' page='returnOrders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='returnOrders.meta.recordsCount', per-page='returnOrders.meta.pageSize' page='returnOrders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建退货单Modal
 +modal('form-return')

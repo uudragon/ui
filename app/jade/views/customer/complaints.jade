@@ -51,7 +51,7 @@ table.uu-table(ng-show='complaintsOrders.length')
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='{{complaintsOrders.meta.pageSize}}' page='complaintsOrders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaintsOrders.meta.pageSize' page='complaintsOrders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建投诉Modal
 +modal('complaint-details')

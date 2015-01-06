@@ -56,7 +56,7 @@ table.uu-table
 				+tooltip('发送消息', 'top')
 					+glyphicon('comment')
 
-uu-pagination(records='customers.meta.recordsCount', per-page='{{customers.meta.pageSize}}' page='customers.meta.pageNo', model='searchModel', action='getCustomerList()')
+uu-pagination(records='customers.meta.recordsCount', per-page='customers.meta.pageSize' page='customers.meta.pageNo', model='searchModel', action='getCustomerList()')
 
 //- 批量分配
 +modal('batch-assgin')

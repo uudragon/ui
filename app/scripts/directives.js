@@ -200,13 +200,12 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		replace: true,
 		scope: {
 			records: '=',
+			perPage: '=',
 			action: '&',
 			current: '=page',
 			model: '='
 		},
 		link: function($scope, $element, $attrs, model) {
-			$scope.perPage = $attrs.perPage || config.perPage;
-
 			var maxPages = $attrs.maxPages || config.maxPages;
 			var start = 1;
 

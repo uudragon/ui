@@ -72,7 +72,7 @@ table.uu-table(ng-show='orders.length')
 				+tooltip('导出', 'top', 'export()')
 					+glyphicon('comment')
 
-uu-pagination(records='orders.meta.recordsCount', per-page='{{orders.meta.pageSize}}' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 订单详情Modal
 +modal('order-details', 'modal-xg')

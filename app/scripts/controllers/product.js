@@ -95,13 +95,9 @@ angular.module('mainApp')
 
 		// 获取商品列表
 		$scope.getCommdityList = function() {
-			$scope.commodities = [];
-			$scope.commodities.meta = {
-				pageSize: $scope.searchModel.pageSize || config.perPage
-			};
 
 			var req = {
-				pageSize: $scope.commodities.meta.pageSize,
+				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo || 1
 			};
 
@@ -111,7 +107,7 @@ angular.module('mainApp')
 				.success(function(data) {
 					$scope.commodities = data.records;
 					$scope.commodities.meta = {
-						// pageSize: data.pageSize,
+						pageSize: data.pageSize,
 						pageNo: data.pageNo ? data.pageNo : 1,
 						recordsCount: data.recordsCount,
 						pageNumber: data.pageNumber
@@ -152,18 +148,14 @@ angular.module('mainApp')
 
 		// 获取商品列表
 		$scope.getCommdityList = function() {
-			$scope.goods = [];
-			$scope.goods.meta = {
-				pageSize: $scope.searchModel.pageSize || config.perPage
-			};
-
 			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
-				pageSize: $scope.goods.meta.pageSize,
+				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo || 1
 			})
 			.success(function(data) {
 				$scope.goods = data.records;
 				$scope.goods.meta = {
+						pageSize: data.pageSize,
 						pageNo: data.pageNo ? data.pageNo : 1,
 						recordsCount: data.recordsCount,
 						pageNumber: data.pageNumber
@@ -241,13 +233,9 @@ angular.module('mainApp')
 
 		// 获取产品列表
 		$scope.getProductList = function() {
-			$scope.products = [];
-			$scope.products.meta = {
-				pageSize: $scope.searchModel.pageSize || config.perPage
-			};
 
 			var req = {
-				pageSize: $scope.products.meta.pageSize,
+				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo || 1
 			};
 
@@ -257,6 +245,7 @@ angular.module('mainApp')
 				.success(function(data) {
 					$scope.products = data.records;
 					$scope.products.meta = {
+							pageSize: data.pageSize,
 							pageNo: data.pageNo ? data.pageNo : 1,
 							recordsCount: data.recordsCount,
 							pageNumber: data.pageNumber
