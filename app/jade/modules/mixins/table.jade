@@ -21,7 +21,7 @@ mixin theadplus(records)
 					li(ng-repeat='filter in th.filters')
 						a(href='', ng-bind='filter')
 			if (attributes.operation)
-				th=attributes.operation
+				th.nowrap=attributes.operation
 
 mixin tdchecker(items, item)
 	td

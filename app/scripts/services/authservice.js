@@ -75,6 +75,7 @@ angular.module('mainApp')
 	this.logout = function() {
 		ipCookie.remove('user');
 		ipCookie.remove('token');
+		ipCookie.remove('resource');
 		$location.path('/' + config.auth.login);
 	};
 }]);
