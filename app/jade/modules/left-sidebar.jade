@@ -76,6 +76,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	- subnavs.push({href: 'root.storehouse.audit', label: '出入库记录'})
 	- subnavs.push({href: 'root.storehouse.remain', label: '剩余数量'})
 	- navs.push({href: 'root.storehouse', label: '库房管理', auth: '04', subnavs: subnavs})
+
 	li.section-item(ng-class='{"open": $state.includes("root.product") || $state.includes("root.commodity") || $state.includes("root.order") || $state.includes("root.storehouse")}')
 		a.nav-sections-label 库存管理
 		ul.nav.nav-navs

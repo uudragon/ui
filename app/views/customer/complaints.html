@@ -82,7 +82,7 @@
   <tbody>
     <tr ng-repeat="complaint in complaintsOrders">
       <td ng-bind="complaint.customer.name" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showComplaint(complaint)" ng-bind="complaint.order_no" class="jslink"></a>
+      <td ng-show="ths[1].isChecked"><a href="" ng-click="showComplaint(complaint)" class="jslink" ng-bind="complaint.order_no"></a>
       </td>
       <td ng-bind="complaint.customer.phone" ng-show="ths[2].isChecked"></td>
       <td ng-bind="complaint.customer.province" ng-show="ths[3].isChecked"></td>
@@ -321,6 +321,7 @@
                 </td>
               </tr>
               <tr>
+                
               </tr>
             </table>
           </fieldset>

@@ -74,7 +74,7 @@ mixin sub-navbar-link(href, name)
 
 
 mixin jslink(action, title)
-	a.jslink(href='', ng-click=action, ng-bind=attributes['ng-bind'])=title
+	a.jslink(href='', ng-click=action)&attributes(attributes)=title
 		if block
 			block
 

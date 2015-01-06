@@ -8,21 +8,8 @@ angular.module('mainApp')
 
 	$scope.login = function(isValid) {
 		$scope.submitted = true;
+
 		if (!isValid) return;
-
-		var user = {
-			account: $scope.model.account,
-			password: md5.createHash($scope.model.password)
-		};
-
-		var serialize = function (obj, prefix) {
-			var str = [];
-			for(var p in obj) {
-				var k = prefix ? prefix + '[' + p + ']' : p, v = obj[p];
-				str.push(encodeURIComponent(k) + '=' + encodeURIComponent(v));
-			}
-			return str.join('&');
-		};
 
 		var errorHandler = function(errorCode, message) {
 			switch (errorCode) {
@@ -48,7 +35,12 @@ angular.module('mainApp')
 			delete $scope.inValid;
 		};
 
-		$http.get(config.auth.baseurl + config.auth.login + '?' + serialize(user))
+		$http.get(config.auth.baseurl + config.auth.login, {
+				params: {
+					account: $scope.model.account,
+					password: md5.createHash($scope.model.password)
+				}
+			})
 			.success(function(res) {
 				if (res.legal) {
 					// 登录成功

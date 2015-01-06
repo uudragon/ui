@@ -142,6 +142,7 @@
         </td>
       </tr>
       <tr>
+        
       </tr>
     </table>
   </fieldset>
@@ -197,7 +198,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="record in records">
-            <td><a href="" ng-click="showContact(record)" ng-bind="record.topic" class="jslink"></a>
+            <td><a href="" ng-click="showContact(record)" class="jslink" ng-bind="record.topic"></a>
             </td>
             <td ng-bind="record.dealResult"></td>
             <td ng-bind="record.urgency"></td>

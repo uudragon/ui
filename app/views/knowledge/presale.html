@@ -67,7 +67,7 @@
         <input type="checkbox" ng-model="knowledge.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, knowledges, knowledge)"/>
       </td>
       <td ng-bind="knowledge.title" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showknowledge(knowledge)" ng-bind="knowledge.content" class="jslink"></a>
+      <td ng-show="ths[1].isChecked"><a href="" ng-click="showknowledge(knowledge)" class="jslink" ng-bind="knowledge.content"></a>
       </td>
       <td ng-bind="knowledge.creater" ng-show="ths[2].isChecked"></td>
       <td ng-bind="knowledge.type" ng-show="ths[3].isChecked"></td>

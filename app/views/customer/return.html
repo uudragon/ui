@@ -76,7 +76,7 @@
   <tbody>
     <tr ng-repeat="order in returnOrders">
       <td ng-bind="order.customerName" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="order.orderSN" ng-show="ths[1].isChecked"><a href="" ng-click="showReturnOrder(order)" ng-bind="order.order_no" class="jslink"></a>
+      <td ng-bind="order.orderSN" ng-show="ths[1].isChecked"><a href="" ng-click="showReturnOrder(order)" class="jslink" ng-bind="order.order_no"></a>
       </td>
       <td ng-bind="order.customerPhone" ng-show="ths[2].isChecked"></td>
       <td ng-bind="order.customerPhone" ng-show="ths[3].isChecked"></td>
@@ -415,6 +415,7 @@
                 </td>
               </tr>
               <tr>
+                
               </tr>
             </table>
           </fieldset>

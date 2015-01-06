@@ -43,12 +43,8 @@ angular.module('mainApp')
 	};
 
 	this.checkTimeout = function() {
-		$http({
-			url: config.auth.baseurl + config.auth.timeout,
-			method: 'GET',
-			params: {
-				token: getToken()
-			}
+		$http.get(config.auth.baseurl + config.auth.timeout, {
+			params: {token: getToken()}
 		})
 		.success(function(status) {
 			!status && (self.logout());
