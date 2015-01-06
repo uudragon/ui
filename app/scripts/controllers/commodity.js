@@ -22,7 +22,9 @@ angular.module('mainApp')
 	// 入库单管理
 	.controller('StockIn', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
-		var $receiptForm = $('#receipt-form');
+		var $receiptForm = $('#receipt-form'),
+			$goodsDetailsForm = $('#good-details-form');
+
 
 		// 搜索下拉
 		$scope.filters = [
@@ -47,6 +49,23 @@ angular.module('mainApp')
 			{name: 'updater', label: '更新人', isChecked: true}
 		];
 
+		// 获取商品列表
+		$scope.getCommdityList = function() {
+			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1
+			})
+			.success(function(data) {
+				$scope.goods = data.records;
+				$scope.goods.meta = {
+						pageSize: data.pageSize,
+						pageNo: data.pageNo ? data.pageNo : 1,
+						recordsCount: data.recordsCount,
+						pageNumber: data.pageNumber
+					};
+				});
+		};
+
 		// 新建入库单
 		$scope.newReceipt = function(form) {
 			$scope.resetForm(form);
@@ -54,10 +73,58 @@ angular.module('mainApp')
 				receipt_code: $scope.guid(),
 				creator: $scope.currentUser.account,
 				updater: $scope.currentUser.account,
-				receipt_status: '1',
-				receipt_type: '1'
+				details: []
 			};
-			$receiptForm.modal('show');
+
+			$scope.getCommdityList()
+				.success(function() {
+					$receiptForm.modal('show');
+				});
+		};
+
+		// 修改商品
+		$scope.editGood = function(good, form) {
+			$scope.resetForm(form);
+			$scope.productGood = good;
+			$scope.productTmpGood = angular.copy(good);
+			$goodsDetailsForm.modal('show');
+		};
+
+		// 保存商品详情
+		$scope.saveGoodToProduct = function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $goodsDetailsForm)) return;
+			$scope.productGood.qty = $scope.productTmpGood.qty;
+			$scope.productGood.is_gift = $scope.productTmpGood.is_gift;
+			$goodsDetailsForm.modal('hide');
+		};
+
+
+		// 为产品添加商品
+		$scope.addGoodToReceipt = function(good) {
+
+			var exists = false;
+
+			angular.forEach($scope.receipt.details, function(existGood) {
+				if (existGood.goods_code === good.goods_code) {
+					exists = true;
+					return;
+				}
+			});
+
+			if (!exists) {
+				$receiptForm.modal('info', '添加成功');
+				$scope.receipt.details.push({
+					goods_code: good.goods_code,
+					qty: '1'
+				});
+			} else {
+				$receiptForm.modal('info', '已经存在, 请勿重复添加');
+			}
+		};
+
+		$scope.removeGood = function(index) {
+			$scope.receipt.details.splice(index, 1);
 		};
 
 		// 新建入库单

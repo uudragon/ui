@@ -51,21 +51,64 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 							+input('所在库房', 'receipt-name')(ng-model='receipt.warehouse' required)
 						tr
 							+static-input('入库单状态', 'receipt-status')(ng-bind='receipt.receipt_type | mapper:"receipt"')
-							+input('入库数量', 'receipt-qty')(ng-model='receipt.qty' required)
-						tr
-							+textarea('入库描述', 'receipt-desc', 3)(ng-model='receipt.receipt_desc' required)
+							+input('入库描述', 'receipt-desc')(ng-model='receipt.receipt_desc' required)
+					p.badge(style='margin-top: 10px;' ng-show='!receipt.details.length') 尚未添加任何商品
+					table.uu-table(style='margin-top: 10px;' ng-show='receipt.details.length')
+						+thead
+							each th in ['商品编号', '商品名称', '商品数量', '工具']
+								th.nowrap=th
+						tbody
+							tr(ng-repeat='good in receipt.details')
+								td(ng-bind='good.goods_code')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.qty')
+								td.nowrap
+									+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
+										+glyphicon('pencil') &nbsp;
 
+									+tooltip('删除', 'top', 'removeGood($index)')
+										+glyphicon('trash')
 				div(uu-pane title='添加入库商品')
-					table.form-table
-						tr
-							+static-input('入库单号', 'receipt-code')(ng-bind='receipt.receipt_code')
-							+static-input('入库类型', 'receipt-type')(ng-bind='receipt.receipt_type')
-						tr
-							+input('所在库房', 'receipt-name')(ng-model='receipt.warehouse' required)
-							+input('预入库数量', 'receipt-name')(uu-num ng-model='receipt.warehouse_num')
+					table.uu-table
+						+thead
+							each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+								th.nowrap=th
+						tbody
+							tr(ng-repeat='good in goods')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.goods_type | goodsType')
+								td(ng-bind='good.goods_price')
+								td(ng-bind='good.goods_unit')
+								td(ng-bind='good.product_date')
+								td(ng-bind='good.goods_desc')
+								td(ng-bind='good.yn | valid')
+								td(ng-bind='good.creator')
+								td
+									+tooltip('添加商品', 'top', 'addGoodToReceipt(good, productDetailsForm)')
+										+glyphicon('plus')
+					uu-pagination(records='goods.meta.recordsCount', per-page='goods.meta.pageSize' page='goods.meta.pageNo', model='searchModel', action='getCommdityList()')
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveReceipt(receiptForm)' ng-disabled='receiptForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
+
+
+//- 商品详情Modal
++submodal('good-details-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 修改商品详情
+	.modal-body
+		form.form-horizontal(name='productDetailsForm' novalidate ng-class='{sumitted: productDetailsForm.$sumitted}')
+			fieldset
+				legend 商品详情
+				table.form-table.form-table-single
+					tr
+						+input('数量', 'qty')(uu-num ng-model='productTmpGood.qty' required)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveGoodToProduct(productDetailsForm)') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
 //- 更改显示列
 include ../../modules/table-ths.jade

@@ -99,59 +99,102 @@
                     <p class="form-control-static" ng-bind="receipt.receipt_type | mapper:&quot;receipt&quot;"></p>
                   </td>
                   <th class="form-th">
-                    <label for="form-receipt-qty" class="form-th-label">入库数量</label>
-                  </th>
-                  <td class="form-td">
-                    <input id="form-receipt-qty" class="form-control input-sm" ng-model="receipt.qty" required="required"/>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="form-th">
                     <label for="form-receipt-desc" class="form-th-label">入库描述</label>
                   </th>
-                  <td colspan="3" class="form-td">
-                    <textarea id="form-receipt-desc" class="form-control" ng-model="receipt.receipt_desc" required="required"></textarea>
+                  <td class="form-td">
+                    <input id="form-receipt-desc" class="form-control input-sm" ng-model="receipt.receipt_desc" required="required"/>
                   </td>
                 </tr>
+              </table>
+              <p style="margin-top: 10px;" ng-show="!receipt.details.length" class="badge">尚未添加任何商品</p>
+              <table style="margin-top: 10px;" ng-show="receipt.details.length" class="uu-table">
+                <thead>
+                  <tr>
+                    <th class="nowrap">商品编号</th>
+                    <th class="nowrap">商品名称</th>
+                    <th class="nowrap">商品数量</th>
+                    <th class="nowrap">工具</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="good in receipt.details">
+                    <td ng-bind="good.goods_code"></td>
+                    <td ng-bind="good.goods_name"></td>
+                    <td ng-bind="good.qty"></td>
+                    <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
             <div uu-pane="uu-pane" title="添加入库商品">
-              <table class="form-table">
-                <tr>
-                  <th class="form-th">
-                    <label class="form-th-label">入库单号</label>
-                  </th>
-                  <td class="form-td">
-                    <p class="form-control-static" ng-bind="receipt.receipt_code"></p>
-                  </td>
-                  <th class="form-th">
-                    <label class="form-th-label">入库类型</label>
-                  </th>
-                  <td class="form-td">
-                    <p class="form-control-static" ng-bind="receipt.receipt_type"></p>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="form-th">
-                    <label for="form-receipt-name" class="form-th-label">所在库房</label>
-                  </th>
-                  <td class="form-td">
-                    <input id="form-receipt-name" class="form-control input-sm" ng-model="receipt.warehouse" required="required"/>
-                  </td>
-                  <th class="form-th">
-                    <label for="form-receipt-name" class="form-th-label">预入库数量</label>
-                  </th>
-                  <td class="form-td">
-                    <input id="form-receipt-name" class="form-control input-sm" uu-num="uu-num" ng-model="receipt.warehouse_num"/>
-                  </td>
-                </tr>
+              <table class="uu-table">
+                <thead>
+                  <tr>
+                    <th class="nowrap">商品名称</th>
+                    <th class="nowrap">商品类型</th>
+                    <th class="nowrap">商品价格</th>
+                    <th class="nowrap">商品规格</th>
+                    <th class="nowrap">生产日期</th>
+                    <th class="nowrap">商品描述</th>
+                    <th class="nowrap">是否有效</th>
+                    <th class="nowrap">操作员</th>
+                    <th class="nowrap">工具</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="good in goods">
+                    <td ng-bind="good.goods_name"></td>
+                    <td ng-bind="good.goods_type | goodsType"></td>
+                    <td ng-bind="good.goods_price"></td>
+                    <td ng-bind="good.goods_unit"></td>
+                    <td ng-bind="good.product_date"></td>
+                    <td ng-bind="good.goods_desc"></td>
+                    <td ng-bind="good.yn | valid"></td>
+                    <td ng-bind="good.creator"></td>
+                    <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加商品" ng-click="addGoodToReceipt(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
+              <uu-pagination records="goods.meta.recordsCount" per-page="goods.meta.pageSize" page="goods.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button ng-click="saveReceipt(receiptForm)" ng-disabled="receiptForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="good-details-form" class="modal fade sub-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">修改商品详情</h4>
+      </div>
+      <div class="modal-body">
+        <form name="productDetailsForm" novalidate="novalidate" ng-class="{sumitted: productDetailsForm.$sumitted}" class="form-horizontal">
+          <fieldset>
+            <legend>商品详情</legend>
+            <table class="form-table form-table-single">
+              <tr>
+                <th class="form-th">
+                  <label for="form-qty" class="form-th-label">数量</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-qty" class="form-control input-sm" uu-num="uu-num" ng-model="productTmpGood.qty" required="required"/>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="saveGoodToProduct(productDetailsForm)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

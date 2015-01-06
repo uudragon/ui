@@ -53,7 +53,7 @@ angular.module('mainApp')
 .filter('mapper', ['typeMapFilter', function(typeMapFilter) {
 	return function(num, map) {
 		return typeMapFilter(num, config.typeMap[map]);
-	}
+	};
 }])
 .filter('orderType', function() {
 	return function (num) {

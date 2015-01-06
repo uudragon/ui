@@ -224,7 +224,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			form.processing = false;
 			$form.modal('success');
 			angular.isFunction(action) && action();
-		}
+		};
 	};
 
 	$scope.errorHandler = function(form, $form, action) {
@@ -232,7 +232,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			form.processing = false;
 			$form.modal('fail');
 			angular.isFunction(action) && action();
-		}
+		};
 	};
 
 }]);
