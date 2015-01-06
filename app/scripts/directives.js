@@ -365,7 +365,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			var accessCode = attrs.uuAuthFilter;
 
 			if (accessCode) {
-				Auth.getResource().indexOf(accessCode) === -1 && (element.remove());
+				// Auth.getResource().indexOf(accessCode) === -1 && (element.remove());
 			}
 		}
 	};

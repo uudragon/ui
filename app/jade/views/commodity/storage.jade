@@ -29,7 +29,7 @@ table.uu-table
 				+tooltip('入库', 'top', 'putinReceipt(receipt, storageForm)')
 					+glyphicon('import')
 
-uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 商品入库
 +modal('storage-form')

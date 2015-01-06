@@ -32,7 +32,7 @@ table.uu-table
 				+tooltip('取消入库单', 'top', 'cancelReceipt(receipt.receipt_code, $index)')
 					+glyphicon('trash') &nbsp;
 
-uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建入库单
 +modal('receipt-form')
