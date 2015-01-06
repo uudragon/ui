@@ -212,7 +212,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveReceipt(receiptForm)" ng-disabled="receiptForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button ng-show="receiptFormTitle!==&quot;查看入库单&quot;" ng-click="saveReceipt(receiptForm)" ng-disabled="receiptForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button ng-show="receiptFormTitle===&quot;查看入库单&quot;" data-dismiss="modal" class="btn uu-btn btn-primary">确定</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

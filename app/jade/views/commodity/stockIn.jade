@@ -108,7 +108,8 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 							td(ng-bind='good.qty')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveReceipt(receiptForm)' ng-disabled='receiptForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-show='receiptFormTitle!=="查看入库单"' ng-click='saveReceipt(receiptForm)' ng-disabled='receiptForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-show='receiptFormTitle==="查看入库单"' data-dismiss='modal') 确定
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 
