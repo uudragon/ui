@@ -48,10 +48,10 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 					table.form-table
 						tr
 							+static-input('入库单号', 'receipt-code')(ng-bind='receipt.receipt_code' required)
-							+input('预入库时间', 'pre-receipt-time')(ng-model='receipt.receipt_time' uu-date-picker min-view='1' format='yyyy-mm-dd hh:00' required)
-						tr
 							+input('所在库房', 'receipt-name')(ng-model='receipt.warehouse' required)
+						tr
 							+static-input('入库单状态', 'receipt-status')(ng-bind='receipt.receipt_type | mapper:"receipt"')
+							+input('入库数量', 'receipt-qty')(ng-model='receipt.qty' required)
 						tr
 							+textarea('入库描述', 'receipt-desc', 3)(ng-model='receipt.receipt_desc' required)
 

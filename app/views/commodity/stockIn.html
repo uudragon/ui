@@ -85,24 +85,24 @@
                     <p class="form-control-static" ng-bind="receipt.receipt_code" required="required"></p>
                   </td>
                   <th class="form-th">
-                    <label for="form-pre-receipt-time" class="form-th-label">预入库时间</label>
-                  </th>
-                  <td class="form-td">
-                    <input id="form-pre-receipt-time" class="form-control input-sm" ng-model="receipt.receipt_time" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00" required="required"/>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="form-th">
                     <label for="form-receipt-name" class="form-th-label">所在库房</label>
                   </th>
                   <td class="form-td">
                     <input id="form-receipt-name" class="form-control input-sm" ng-model="receipt.warehouse" required="required"/>
                   </td>
+                </tr>
+                <tr>
                   <th class="form-th">
                     <label class="form-th-label">入库单状态</label>
                   </th>
                   <td class="form-td">
                     <p class="form-control-static" ng-bind="receipt.receipt_type | mapper:&quot;receipt&quot;"></p>
+                  </td>
+                  <th class="form-th">
+                    <label for="form-receipt-qty" class="form-th-label">入库数量</label>
+                  </th>
+                  <td class="form-td">
+                    <input id="form-receipt-qty" class="form-control input-sm" ng-model="receipt.qty" required="required"/>
                   </td>
                 </tr>
                 <tr>

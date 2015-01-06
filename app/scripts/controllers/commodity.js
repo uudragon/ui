@@ -65,9 +65,9 @@ angular.module('mainApp')
 			$scope.storage = {
 				storage_code: $scope.guid(),
 				creator: $scope.currentUser.account,
-				updater: $scope.currentUser.account,
-				storage_status: '1',
-				storage_type: '1'
+				updater: $scope.currentUser.account
+				// storage_status: '1',
+				// storage_type: '1'
 			};
 			$receiptForm.modal('show');
 		};
