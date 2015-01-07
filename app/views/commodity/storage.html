@@ -56,8 +56,9 @@
       <td ng-bind="receipt.creator" ng-show="ths[6].isChecked"></td>
       <td ng-bind="receipt.update_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
+      <td ng-show="receipt.status!=0 &amp;&amp; receipt.status!=2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
       </td>
+      <td ng-show="receipt.status==0 || receipt.status==2" class="nowrap">--</td>
     </tr>
   </tbody>
 </table>
@@ -71,7 +72,7 @@
       </div>
       <div class="modal-body">
         <form name="storageForm" novalidate="novalidate" ng-class="{sumitted: storageForm.$sumitted}" class="form-horizontal">
-          <table class="form-table">
+          <table class="form-table form-single">
             <tr>
               <th class="form-th">
                 <label class="form-th-label">入库号</label>
@@ -79,6 +80,8 @@
               <td class="form-td">
                 <p class="form-control-static" ng-bind="receipt.receipt_code"></p>
               </td>
+            </tr>
+            <tr>
               <th class="form-th">
                 <label class="form-th-label">库房编号</label>
               </th>
@@ -90,7 +93,7 @@
               <th class="form-th">
                 <label class="form-th-label">修改人</label>
               </th>
-              <td colspan="3" class="form-td">
+              <td class="form-td">
                 <p class="form-control-static" ng-bind="receipt.updater"></p>
               </td>
             </tr>
