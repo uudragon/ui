@@ -22,10 +22,10 @@ mixin input-address(title, id, colspan)
 		label.form-th-label(for='form-' + id)=title
 	td.uu-city-select.form-td(colspan=colspan)&attributes(attributes)
 
-mixin static-input(title)
+mixin static-input(title, colspan)
 	th.form-th
 		label.form-th-label=title
-	td.form-td
+	td.form-td(colspan=colspan)
 		p.form-control-static&attributes(attributes)
 
 //- 4 label, 6 input

@@ -36,7 +36,7 @@
     </div>
   </form>
 </div>
-<table class="uu-table">
+<table ng-show="receipts" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
@@ -81,7 +81,7 @@
                     <th class="form-th">
                       <label class="form-th-label">入库单号</label>
                     </th>
-                    <td class="form-td">
+                    <td colspan="receipt-code" class="form-td">
                       <p class="form-control-static" ng-bind="receipt.receipt_code"></p>
                     </td>
                     <th class="form-th">
@@ -95,7 +95,7 @@
                     <th class="form-th">
                       <label class="form-th-label">入库单状态</label>
                     </th>
-                    <td class="form-td">
+                    <td colspan="receipt-status" class="form-td">
                       <p class="form-control-static" ng-bind="receipt.status | mapper:&quot;receipt&quot;"></p>
                     </td>
                     <th class="form-th">
@@ -167,13 +167,13 @@
                 <th class="form-th">
                   <label class="form-th-label">入库单号</label>
                 </th>
-                <td class="form-td">
+                <td colspan="receipt-code" class="form-td">
                   <p class="form-control-static" ng-bind="receipt.receipt_code"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">所在库房</label>
                 </th>
-                <td class="form-td">
+                <td colspan="receipt-name" class="form-td">
                   <p class="form-control-static" ng-bind="receipt.warehouse"></p>
                 </td>
               </tr>
@@ -181,13 +181,13 @@
                 <th class="form-th">
                   <label class="form-th-label">入库单状态</label>
                 </th>
-                <td class="form-td">
+                <td colspan="receipt-status" class="form-td">
                   <p class="form-control-static" ng-bind="receipt.status | mapper:&quot;receipt&quot;"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">入库描述</label>
                 </th>
-                <td class="form-td">
+                <td colspan="receipt-desc" class="form-td">
                   <p class="form-control-static" ng-bind="receipt.receipt_desc"></p>
                 </td>
               </tr>

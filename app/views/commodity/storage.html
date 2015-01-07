@@ -34,7 +34,7 @@
     </div>
   </form>
 </div>
-<table class="uu-table">
+<table ng-show="receipts" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
@@ -56,7 +56,7 @@
       <td ng-bind="receipt.creator" ng-show="ths[6].isChecked"></td>
       <td ng-bind="receipt.update_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="入库" ng-click="putinReceipt(receipt, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
       </td>
     </tr>
   </tbody>
@@ -74,37 +74,83 @@
           <table class="form-table">
             <tr>
               <th class="form-th">
-                <label for="form-receipt_code" class="form-th-label">入库号</label>
+                <label class="form-th-label">入库号</label>
               </th>
               <td class="form-td">
-                <input id="form-receipt_code" class="form-control input-sm" ng-model="receipt.receipt_code" required="required"/>
+                <p class="form-control-static" ng-bind="receipt.receipt_code"></p>
               </td>
               <th class="form-th">
-                <label for="form-goods_code" class="form-th-label">商品编号</label>
+                <label class="form-th-label">库房编号</label>
               </th>
               <td class="form-td">
-                <input id="form-goods_code" class="form-control input-sm" ng-model="receipt.goods_code" required="required"/>
+                <p class="form-control-static" ng-bind="receipt.warehouse"></p>
               </td>
             </tr>
             <tr>
               <th class="form-th">
-                <label for="form-pre-storage-time" class="form-th-label">库房编号</label>
+                <label class="form-th-label">修改人</label>
               </th>
-              <td class="form-td">
-                <input id="form-pre-storage-time" class="form-control input-sm" ng-model="receipt.warehouse" required="required"/>
-              </td>
-              <th class="form-th">
-                <label for="form-qty" class="form-th-label">入库商品数量</label>
-              </th>
-              <td class="form-td">
-                <input id="form-qty" class="form-control input-sm" ng-model="receipt.qty" required="required"/>
+              <td colspan="3" class="form-td">
+                <p class="form-control-static" ng-bind="receipt.updater"></p>
               </td>
             </tr>
+          </table>
+          <table style="margin-top: 10px;" ng-show="receipt.details.length" class="uu-table">
+            <thead>
+              <tr>
+                <th class="nowrap">商品编号</th>
+                <th class="nowrap">计划入库数量</th>
+                <th class="nowrap">已经入库数量</th>
+                <th class="nowrap">商品入库数量</th>
+                <th class="nowrap">工具</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="good in receipt.details">
+                <td ng-bind="good.goods_code"></td>
+                <td ng-bind="good.qty"></td>
+                <td ng-bind="good.actual_qty"></td>
+                <td ng-bind="good.putin_qty"></td>
+                <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveStorage(storageForm)" ng-disabled="storageForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="savePutinedReceipt(storageForm)" ng-disabled="storageForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="good-details-form" class="modal fade sub-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">修改商品详情</h4>
+      </div>
+      <div class="modal-body">
+        <form name="productDetailsForm" novalidate="novalidate" ng-class="{sumitted: productDetailsForm.$sumitted}" class="form-horizontal">
+          <fieldset>
+            <legend>商品详情</legend>
+            <table class="form-table form-table-single">
+              <tr>
+                <th class="form-th">
+                  <label for="form-qty" class="form-th-label">数量</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-qty" class="form-control input-sm" uu-num="uu-num" ng-model="productTmpGood.putin_qty" required="required"/>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="saveGoodToProduct(productDetailsForm)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

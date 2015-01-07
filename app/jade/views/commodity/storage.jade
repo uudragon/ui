@@ -12,7 +12,7 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search('search()')
 
-table.uu-table
+table.uu-table(ng-show='receipts')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='receipt in receipts' ng-dblclick='editReceipt(receipt.receipt_code)')
@@ -26,7 +26,7 @@ table.uu-table
 			td(ng-bind='receipt.update_time' ng-show='ths[7].isChecked')
 			td(ng-bind='receipt.updater' ng-show='ths[8].isChecked')
 			td.nowrap
-				+tooltip('入库', 'top', 'putinReceipt(receipt, storageForm)')
+				+tooltip('入库', 'top', 'newPutinedReceipt(receipt.receipt_code, storageForm)')
 					+glyphicon('import')
 
 uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getOrderList()')
@@ -41,13 +41,43 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 		form.form-horizontal(name='storageForm' novalidate ng-class='{sumitted: storageForm.$sumitted}')
 			table.form-table
 				tr
-					+input('入库号', 'receipt_code')(ng-model='receipt.receipt_code' required)
-					+input('商品编号', 'goods_code')(ng-model='receipt.goods_code' required)
+					+static-input('入库号')(ng-bind='receipt.receipt_code')
+					+static-input('库房编号')(ng-bind='receipt.warehouse')
 				tr
-					+input('库房编号', 'pre-storage-time')(ng-model='receipt.warehouse' required)
-					+input('入库商品数量', 'qty')(ng-model='receipt.qty' required)
+					+static-input('修改人', 3)(ng-bind='receipt.updater')
+			table.uu-table(style='margin-top: 10px;' ng-show='receipt.details.length')
+				+thead
+					each th in ['商品编号', '计划入库数量', '已经入库数量', '商品入库数量', '工具']
+						th.nowrap=th
+				tbody
+					tr(ng-repeat='good in receipt.details')
+						td(ng-bind='good.goods_code')
+						td(ng-bind='good.qty')
+						td(ng-bind='good.actual_qty')
+						td(ng-bind='good.putin_qty')
+						td.nowrap
+							+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
+								+glyphicon('pencil')
+
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveStorage(storageForm)' ng-disabled='storageForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-click='savePutinedReceipt(storageForm)' ng-disabled='storageForm.processing') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+
++submodal('good-details-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 修改商品详情
+	.modal-body
+		form.form-horizontal(name='productDetailsForm' novalidate ng-class='{sumitted: productDetailsForm.$sumitted}')
+			fieldset
+				legend 商品详情
+				table.form-table.form-table-single
+					tr
+						+input('数量', 'qty')(uu-num ng-model='productTmpGood.putin_qty' required)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveGoodToProduct(productDetailsForm)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

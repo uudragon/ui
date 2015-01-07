@@ -35,6 +35,6 @@
 
 	exports.typeMap = {
 		receipt: {'-1': '撤销', 0: '未入库', 1: '部分入库', 2: '入库完成'}
-	}
+	};
 
 })(typeof exports === 'undefined' ? window.config = {} : exports);

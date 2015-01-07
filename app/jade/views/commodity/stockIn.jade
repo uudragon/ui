@@ -12,7 +12,7 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search('search()')
 
-table.uu-table
+table.uu-table(ng-show='receipts')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='receipt in receipts' ng-dblclick='editReceipt(receipt.receipt_code)')

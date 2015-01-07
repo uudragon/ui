@@ -166,7 +166,7 @@ angular.module('mainApp')
 						$receiptForm.modal('show');
 					}
 				});
-		}
+		};
 
 		// 保存入库单
 		$scope.saveReceipt = function(form) {
@@ -221,7 +221,8 @@ angular.module('mainApp')
 	// 商品入库
 	.controller('Storage', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
-		var $storageForm = $('#storage-form');
+		var $storageForm = $('#storage-form'),
+			$goodsDetailsForm = $('#good-details-form');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -254,16 +255,50 @@ angular.module('mainApp')
 		};
 
 		// 新建入库单
-		$scope.putinReceipt = function(receipt, form) {
+		$scope.newPutinedReceipt = function(receiptCode, form) {
 			$scope.resetForm(form);
 
-			$scope.receipt = receipt;
+			$http.get(config.basewms + 'inbound/receipt/' + receiptCode + '/')
+				.success(function(receipt) {
+					$scope.receipt = {
+						receipt_code: receipt.receipt_code,
+						warehouse: receipt.warehouse,
+						updater: $scope.currentUser.name,
+						details: []
+					};
 
-			$storageForm.modal('show');
+					angular.forEach(receipt.details, function(good) {
+						$scope.receipt.details.push({
+							goods_code: good.goods_code,
+							putin_qty: good.putin_qty || '0',
+							goods_name: good.goods_name,
+							qty: good.qty,
+							actual_qty: good.actual_qty
+						});
+					});
+					$storageForm.modal('show');
+				});
 		};
 
-		$scope.savePutinedReceipt = function(receipt, form) {
-			$scope.validateForm(form, $storageForm);
+		$scope.savePutinedReceipt = function(form) {
+			if (!$scope.validateForm(form, $storageForm)) return;
+			var inValidGoodsCode = '';
+
+			angular.forEach($scope.receipt.details, function(good) {
+				if (parseInt(good.qty, 10) < parseInt(good.actual_qty, 10) + parseInt(good.putin_qty, 10)) {
+					inValidGoodsCode = good.goods_code;
+					return false;
+				}
+			});
+
+			if (inValidGoodsCode) {
+				$storageForm.modal('fail', '商品' + inValidGoodsCode + '入库数量已超过计划数量');
+				return;
+			}
+
+			$http.post(config.basewms + 'inbound/putin/', $scope.receipt)
+				.success($scope.successHandler(form, $storageForm, $scope.getReceiptList))
+				.error($scope.errorHandler(form, $storageForm));
 		};
 
 		$scope.getReceiptList = function() {
@@ -285,6 +320,23 @@ angular.module('mainApp')
 					};
 				});
 		};
+
+		// 修改商品
+		$scope.editGood = function(good, form) {
+			$scope.resetForm(form);
+			$scope.productGood = good;
+			$scope.productTmpGood = angular.copy(good);
+			$goodsDetailsForm.modal('show');
+		};
+		// 保存商品详情
+		$scope.saveGoodToProduct = function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $goodsDetailsForm)) return;
+			$scope.productGood.putin_qty = $scope.productTmpGood.putin_qty;
+			$goodsDetailsForm.modal('hide');
+		};
+
+
 
 		$scope.getReceiptList();
 
