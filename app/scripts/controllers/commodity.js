@@ -256,7 +256,8 @@ angular.module('mainApp')
 
 		// 新建入库单
 		$scope.newPutinedReceipt = function(receiptCode, form) {
-			$scope.resetForm(form);
+			// $scope.resetForm(form);
+			$scope.storageFormType = 'new';
 
 			$http.get(config.basewms + 'inbound/receipt/' + receiptCode + '/')
 				.success(function(receipt) {
@@ -280,8 +281,13 @@ angular.module('mainApp')
 				});
 		};
 
+		$scope.showPutinedReceipt = function(receiptCode) {
+			$scope.newPutinedReceipt(receiptCode, true);
+			$scope.storageFormType = 'show';
+		};
+
 		$scope.savePutinedReceipt = function(form) {
-			if (!$scope.validateForm(form, $storageForm)) return;
+			// if (!$scope.validateForm(form, $storageForm)) return;
 			var inValidGoodsCode = '';
 
 			angular.forEach($scope.receipt.details, function(good) {

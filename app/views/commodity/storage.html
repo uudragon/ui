@@ -46,7 +46,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="receipt in receipts" ng-dblclick="editReceipt(receipt.receipt_code)">
+    <tr ng-repeat="receipt in receipts" ng-dblclick="showPutinedReceipt(receipt.receipt_code)">
       <td ng-bind="receipt.receipt_code" ng-show="ths[0].isChecked"></td>
       <td ng-bind="receipt.receipt_date" ng-show="ths[1].isChecked"></td>
       <td ng-bind="receipt.receipt_desc" ng-show="ths[2].isChecked"></td>
@@ -58,7 +58,8 @@
       <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
       <td ng-show="receipt.status!=0 &amp;&amp; receipt.status!=2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
       </td>
-      <td ng-show="receipt.status==0 || receipt.status==2" class="nowrap">--</td>
+      <td ng-show="receipt.status==0 || receipt.status==2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="showPutinedReceipt(receipt.receipt_code)"><span class="glyphicon glyphicon-eye-open"></span></a>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -105,7 +106,7 @@
                 <th class="nowrap">计划入库数量</th>
                 <th class="nowrap">已经入库数量</th>
                 <th class="nowrap">商品入库数量</th>
-                <th class="nowrap">工具</th>
+                <th ng-show="storageFormType===&quot;new&quot;" class="nowrap">工具</th>
               </tr>
             </thead>
             <tbody>
@@ -114,7 +115,7 @@
                 <td ng-bind="good.qty"></td>
                 <td ng-bind="good.actual_qty"></td>
                 <td ng-bind="good.putin_qty"></td>
-                <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil"></span></a>
+                <td ng-show="storageFormType===&quot;new&quot;" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil"></span></a>
                 </td>
               </tr>
             </tbody>
@@ -122,7 +123,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="savePutinedReceipt(storageForm)" ng-disabled="storageForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button ng-show="storageFormType===&quot;new&quot;" ng-click="savePutinedReceipt(storageForm)" ng-disabled="storageForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button ng-show="storageFormType===&quot;show&quot;" data-dismiss="modal" class="btn uu-btn btn-primary">确定</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

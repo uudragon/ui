@@ -15,7 +15,7 @@ include ../../modules/mixins.jade
 table.uu-table(ng-show='receipts')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='receipt in receipts' ng-dblclick='editReceipt(receipt.receipt_code)')
+		tr(ng-repeat='receipt in receipts' ng-dblclick='showPutinedReceipt(receipt.receipt_code)')
 			td(ng-bind='receipt.receipt_code' ng-show='ths[0].isChecked')
 			td(ng-bind='receipt.receipt_date' ng-show='ths[1].isChecked')
 			td(ng-bind='receipt.receipt_desc' ng-show='ths[2].isChecked')
@@ -28,7 +28,9 @@ table.uu-table(ng-show='receipts')
 			td.nowrap(ng-show='receipt.status!=0 && receipt.status!=2')
 				+tooltip('入库', 'top', 'newPutinedReceipt(receipt.receipt_code, storageForm)')
 					+glyphicon('import')
-			td.nowrap(ng-show='receipt.status==0 || receipt.status==2') --
+			td.nowrap(ng-show='receipt.status==0 || receipt.status==2')
+				+tooltip('查看', 'top', 'showPutinedReceipt(receipt.receipt_code)')
+					+glyphicon('eye-open')
 
 uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getOrderList()')
 
@@ -49,20 +51,22 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 					+static-input('修改人')(ng-bind='receipt.updater')
 			table.uu-table(style='margin-top: 10px;' ng-show='receipt.details.length')
 				+thead
-					each th in ['商品编号', '计划入库数量', '已经入库数量', '商品入库数量', '工具']
+					each th in ['商品编号', '计划入库数量', '已经入库数量', '商品入库数量']
 						th.nowrap=th
+					th.nowrap(ng-show='storageFormType==="new"') 工具
 				tbody
 					tr(ng-repeat='good in receipt.details')
 						td(ng-bind='good.goods_code')
 						td(ng-bind='good.qty')
 						td(ng-bind='good.actual_qty')
 						td(ng-bind='good.putin_qty')
-						td.nowrap
+						td.nowrap(ng-show='storageFormType==="new"')
 							+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
 								+glyphicon('pencil')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='savePutinedReceipt(storageForm)' ng-disabled='storageForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-show='storageFormType==="new"' ng-click='savePutinedReceipt(storageForm)' ng-disabled='storageForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-show='storageFormType==="show"' data-dismiss='modal') 确定
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 
