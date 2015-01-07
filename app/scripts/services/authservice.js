@@ -47,7 +47,7 @@ angular.module('mainApp')
 			params: {token: getToken()}
 		})
 		.success(function(status) {
-			!status && (self.logout());
+			(!status || status === 'false') && (self.logout());
 		})
 		.error(function() {
 			self.logout();

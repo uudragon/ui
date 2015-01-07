@@ -277,7 +277,6 @@ angular.module('mainApp')
 			$http.post(config.basewms + 'inbound/receipts/', req)
 				.success(function(data) {
 					$scope.receipts = data.records;
-					console.log(data.records[0]);
 					$scope.receipts.meta = {
 						pageSize: data.pageSize,
 						pageNo: data.pageNo ? data.pageNo : 1,

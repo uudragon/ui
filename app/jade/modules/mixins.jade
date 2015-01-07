@@ -87,7 +87,7 @@ mixin nav(nav)
 			a.nav-menu-label=nav.label
 			ul.nav.nav-menu(role='menu')
 				each subnav in nav.subnavs
-					li
+					li(uu-auth-filter=subnav.auth)
 						a(ui-sref=subnav.href, ng-class='{active: $state.is("' + subnav.href + '")}')=subnav.label
 	else
 		li.nav-item(ng-class='{active: $state.includes("'+ nav.href + '")}', uu-auth-filter=nav.auth)
