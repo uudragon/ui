@@ -56,9 +56,9 @@
       <td ng-bind="receipt.creator" ng-show="ths[6].isChecked"></td>
       <td ng-bind="receipt.update_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
-      <td ng-show="receipt.status!=0 &amp;&amp; receipt.status!=2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
+      <td ng-show="receipt.status!=-1 &amp;&amp; receipt.status!=2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
       </td>
-      <td ng-show="receipt.status==0 || receipt.status==2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="showPutinedReceipt(receipt.receipt_code)"><span class="glyphicon glyphicon-eye-open"></span></a>
+      <td ng-show="receipt.status==-1 || receipt.status==2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="showPutinedReceipt(receipt.receipt_code)"><span class="glyphicon glyphicon-eye-open"></span></a>
       </td>
     </tr>
   </tbody>

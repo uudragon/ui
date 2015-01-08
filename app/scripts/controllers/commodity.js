@@ -297,6 +297,8 @@ angular.module('mainApp')
 				}
 			});
 
+			$scope.processing(form, $storageForm);
+
 			if (inValidGoodsCode) {
 				$storageForm.modal('fail', '商品' + inValidGoodsCode + '入库数量已超过计划数量');
 				return;
