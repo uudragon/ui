@@ -1,0 +1,66 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('新建库房', 'top', 'newAudit(auditForm)')
+			+glyphicon('plus')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+form.form-inline(role='form')
+	.form-group
+		lablel(for='form-field-warehouse') 请选择所在库房
+		select#form-field-warehouse.form-control.input-sm(ng-model='selectedWarehouse' ng-change='getAuditList()' ng-options='warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses')
+
+//- 库房列表
+table.uu-table(ng-show='audits')
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='audit in audits' ng-dblclick='editAudit(audit.audit_code)')
+			td(ng-bind='audit.audit_code' ng-show='ths[0].isChecked')
+			td(ng-bind='audit.audit_name' ng-show='ths[1].isChecked')
+			td(ng-bind='audit.address' ng-show='ths[2].isChecked')
+			td(ng-bind='audit.type | mapper:"audit"' ng-show='ths[3].isChecked')
+			td(ng-bind='audit.creator' ng-show='ths[4].isChecked')
+			td(ng-bind='audit.create_time' ng-show='ths[5].isChecked')
+			td(ng-bind='audit.updater' ng-show='ths[6].isChecked')
+			td(ng-bind='audit.update_time' ng-show='ths[7].isChecked')
+			td(ng-bind='audit.yn | valid' ng-show='ths[7].isChecked')
+			td.nowrap
+				+tooltip('修改', 'top', 'editAudit(audit.audit_code)')
+					+glyphicon('pencil') &nbsp;
+
+				+tooltip('复制新增', 'top', 'editAudit(audit.audit_code, true)')
+					+glyphicon('file')
+
+uu-pagination(records='audits.meta.recordsCount' per-page='audits.meta.pageSize' page='audits.meta.pageNo' model='searchModel' action='getAuditList()')
+
+//- 新建库房
++modal('audit-form')
+	.modal-header
+		button.close(data-dismiss='modal' aria-hidden='true') &times;
+		h4.modal-title(ng-bind='auditFormTitle')
+	.modal-body
+		//- 将form放在uu-pane层级下会导致newAudit(auditForm)找不到auditForm
+		form.form-horizontal(name='auditForm' novalidate ng-class='{sumitted: auditForm.$sumitted}')
+			table.form-table
+				tr
+					+input('库房编号', 'audit_code')(ng-model='audit.audit_code' required)
+					+input('库房名称', 'audit_name')(ng-model='audit.audit_name' required)
+				tr
+					+warehosue-type('库房类型', 'audit_type')(ng-model='audit.type' required)
+					+yesno('是否有效', 'is-valid')(ng-model='audit.yn' required)
+				tr
+					+input('库房地址', 'audit_address', 3)(ng-model='audit.audit_address' required)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveAudit(auditForm)' ng-disabled='auditForm.processing') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//- 更改显示列
+include ../../modules/table-ths.jade

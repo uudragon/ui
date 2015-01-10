@@ -1,0 +1,61 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('新建库房', 'top', 'newWarehouse(warehouseForm)')
+			+glyphicon('plus')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+//- 库房列表
+table.uu-table(ng-show='warehouses')
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='warehouse in warehouses' ng-dblclick='editWarehouse(warehouse.warehouse_code)')
+			td(ng-bind='warehouse.warehouse_code' ng-show='ths[0].isChecked')
+			td(ng-bind='warehouse.warehouse_name' ng-show='ths[1].isChecked')
+			td(ng-bind='warehouse.address' ng-show='ths[2].isChecked')
+			td(ng-bind='warehouse.type | mapper:"warehouse"' ng-show='ths[3].isChecked')
+			td(ng-bind='warehouse.creator' ng-show='ths[4].isChecked')
+			td(ng-bind='warehouse.create_time' ng-show='ths[5].isChecked')
+			td(ng-bind='warehouse.updater' ng-show='ths[6].isChecked')
+			td(ng-bind='warehouse.update_time' ng-show='ths[7].isChecked')
+			td(ng-bind='warehouse.yn | valid' ng-show='ths[7].isChecked')
+			td.nowrap
+				+tooltip('修改', 'top', 'editWarehouse(warehouse.warehouse_code)')
+					+glyphicon('pencil') &nbsp;
+
+				+tooltip('复制新增', 'top', 'editWarehouse(warehouse.warehouse_code, true)')
+					+glyphicon('file')
+
+uu-pagination(records='warehouses.meta.recordsCount' per-page='warehouses.meta.pageSize' page='warehouses.meta.pageNo' model='searchModel' action='getWarehouseList()')
+
+//- 新建库房
++modal('warehouse-form')
+	.modal-header
+		button.close(data-dismiss='modal' aria-hidden='true') &times;
+		h4.modal-title(ng-bind='warehouseFormTitle')
+	.modal-body
+		//- 将form放在uu-pane层级下会导致newWarehouse(warehouseForm)找不到warehouseForm
+		form.form-horizontal(name='warehouseForm' novalidate ng-class='{sumitted: warehouseForm.$sumitted}')
+			table.form-table
+				tr
+					+input('库房编号', 'warehouse_code')(ng-model='warehouse.warehouse_code' required)
+					+input('库房名称', 'warehouse_name')(ng-model='warehouse.warehouse_name' required)
+				tr
+					+warehosue-type('库房类型', 'warehouse_type')(ng-model='warehouse.type' required)
+					+yesno('是否有效', 'is-valid')(ng-model='warehouse.yn' required)
+				tr
+					+input('库房地址', 'warehouse_address', 3)(ng-model='warehouse.warehouse_address' required)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveWarehouse(warehouseForm)' ng-disabled='warehouseForm.processing') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//- 更改显示列
+include ../../modules/table-ths.jade
