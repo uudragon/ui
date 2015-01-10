@@ -80,10 +80,15 @@ angular.module('mainApp')
 
 			$scope.receiptFormTitle = '新建入库单';
 
-			$scope.getCommdityList()
-				.success(function() {
+			var warehouseDefer = $scope.getWarehouseList();
+			var goodsDefer = $scope.getCommdityList();
+
+			$q.all([warehouseDefer, goodsDefer])
+				.then(function(data) {
+					console.log(data);
 					$receiptForm.modal('show');
 				});
+
 		};
 
 		// 修改商品
@@ -212,6 +217,20 @@ angular.module('mainApp')
 				});
 		};
 
+		// 获取库房列表
+		$scope.getWarehouseList = function() {
+			var req = {
+				pageSize: 10000,
+				pageNo: 1
+			};
+
+			return $http.post(config.basewms + 'baseinfo/warehouses/', req)
+				.success(function(data) {
+					$scope.warehouses = data.records;
+				});
+		};
+
+
 		$scope.getReceiptList();
 
 		// inherit functions from parent
@@ -336,6 +355,8 @@ angular.module('mainApp')
 			$scope.productTmpGood = angular.copy(good);
 			$goodsDetailsForm.modal('show');
 		};
+
+
 		// 保存商品详情
 		$scope.saveGoodToProduct = function(form) {
 			// 表单验证
@@ -343,8 +364,6 @@ angular.module('mainApp')
 			$scope.productGood.putin_qty = $scope.productTmpGood.putin_qty;
 			$goodsDetailsForm.modal('hide');
 		};
-
-
 
 		$scope.getReceiptList();
 

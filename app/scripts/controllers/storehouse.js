@@ -21,7 +21,8 @@ angular.module('mainApp')
 	.controller('Define', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 		// 搜索下拉
-		var $warehouseForm = $('#warehouse-form');
+		var $warehouseForm = $('#warehouse-form'),
+			$pickgoodForm = $('#pickgood-form');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -75,6 +76,60 @@ angular.module('mainApp')
 						$scope.warehouse.warehouse_code = $scope.guid();
 					}
 					$warehouseForm.modal('show');
+				});
+		};
+
+		// 拣货
+		$scope.pickProduct = function(warehouse_code) {
+
+			$scope.pickInfo = {
+				warehouse_code: warehouse_code
+			};
+			$scope.searchModel.pageNo = 1;
+
+			$scope.getProductList()
+				.success(function() {
+					$pickgoodForm.modal('show');
+				});
+		};
+
+		// 获取产品列表
+		$scope.getProductList = function() {
+
+			var req = {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1
+			};
+
+			return $http.post(config.basewms + 'baseinfo/query_product_list/', req)
+				.success(function(data) {
+					$scope.products = data.records;
+					$scope.products.meta = {
+							pageSize: data.pageSize,
+							pageNo: data.pageNo ? data.pageNo : 1,
+							recordsCount: data.recordsCount,
+							pageNumber: data.pageNumber
+						};
+					});
+		};
+
+
+		$scope.savePickProduct = function(product, form) {
+			$scope.pickInfo.productName = product.product_name;
+			$scope.processing(form, $pickgoodForm);
+
+			$http.post(config.basewms + 'inner/' + $scope.pickInfo.warehouse_code + '/picking/', {
+					product_code: product.product_code,
+					updater: $scope.currentUser.account
+				})
+				.success(function(result) {
+					form.processing = false;
+					$pickgoodForm.modal('info', '操作成功');
+					$scope.pickResult = result;
+				})
+				.error(function() {
+					form.processing = false;
+					$pickgoodForm.modal('fail', '操作失败');
 				});
 		};
 
@@ -224,8 +279,10 @@ angular.module('mainApp')
 		$scope.getAuditList = function() {
 
 			var req = {
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo || 1
+				// pageSize: $scope.searchModel.pageSize || config.perPage,
+				// pageNo: $scope.searchModel.pageNo || 1,
+				product_code: '8bf0c27e-b031-012e',
+				updater: $scope.currentUser.name
 			};
 
 			$.extend(req, $scope.query);

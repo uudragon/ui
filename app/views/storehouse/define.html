@@ -58,7 +58,7 @@
       <td ng-bind="warehouse.updater" ng-show="ths[6].isChecked"></td>
       <td ng-bind="warehouse.update_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="warehouse.yn | valid" ng-show="ths[7].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editWarehouse(warehouse.warehouse_code)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="editWarehouse(warehouse.warehouse_code, true)"><span class="glyphicon glyphicon-file"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editWarehouse(warehouse.warehouse_code)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拣货" ng-click="pickProduct(warehouse.warehouse_code)"><span class="glyphicon glyphicon-shopping-cart">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="editWarehouse(warehouse.warehouse_code, true)"><span class="glyphicon glyphicon-file"></span></a>
       </td>
     </tr>
   </tbody>
@@ -121,6 +121,47 @@
       </div>
       <div class="modal-footer">
         <button ng-click="saveWarehouse(warehouseForm)" ng-disabled="warehouseForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="pickgood-form" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">拣货</h4>
+      </div>
+      <div class="modal-body">
+        <form name="pickgoodForm" novalidate="novalidate" ng-class="{sumitted: pickgoodForm.$sumitted}" class="form-horizontal">
+          <table ng-show="products.length" class="uu-table">
+            <thead>
+              <tr>
+                <th class="nowrap">产品编号</th>
+                <th class="nowrap">产品名称</th>
+                <th class="nowrap">创建人</th>
+                <th class="nowrap">更新人</th>
+                <th class="nowrap">工具</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="product in products">
+                <td ng-bind="product.product_code"></td>
+                <td ng-bind="product.product_name"></td>
+                <td ng-bind="product.creator"></td>
+                <td ng-bind="product.updater"></td>
+                <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="确定拣货" ng-click="savePickProduct(product, pickgoodForm)"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <uu-pagination records="products.meta.recordsCount" per-page="products.meta.pageSize" page="products.meta.pageNo" model="searchModel" action="getProductList()"></uu-pagination>
+          <p style="margin-top: 10px" ng-show="pickResult"><span ng-bind="pickInfo.productName" class="text-primary"></span>可预拣货的数量:<span ng-bind="pickResult.picking_qty" class="text-danger"></span></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" ng-click="pickResult=&quot;&quot;" class="btn uu-btn btn-primary">确定</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

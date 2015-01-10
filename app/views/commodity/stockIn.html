@@ -88,7 +88,8 @@
                       <label for="form-receipt-name" class="form-th-label">所在库房</label>
                     </th>
                     <td class="form-td">
-                      <input id="form-receipt-name" class="form-control input-sm" ng-model="receipt.warehouse" required="required"/>
+                      <select id="form-receipt-name" class="form-control input-sm" ng-model="receipt.warehouse" ng-options="warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses" required="required">
+                      </select>
                     </td>
                   </tr>
                   <tr>

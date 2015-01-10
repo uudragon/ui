@@ -48,7 +48,7 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 						table.form-table
 							tr
 								+static-input('入库单号', 'receipt-code')(ng-bind='receipt.receipt_code')
-								+input('所在库房', 'receipt-name')(ng-model='receipt.warehouse' required)
+								+select('所在库房', 'receipt-name')(ng-model='receipt.warehouse' ng-options='warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses' required)
 							tr
 								+static-input('入库单状态', 'receipt-status')(ng-bind='receipt.status | mapper:"receipt"')
 								+input('入库描述', 'receipt-desc')(ng-model='receipt.receipt_desc' required)
