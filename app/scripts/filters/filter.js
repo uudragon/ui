@@ -45,7 +45,6 @@ angular.module('mainApp')
 .filter('typeMap', function() {
 	return function(numKey, map) {
 		if (!map) return '';
-		var numnumKey = parseInt(numKey, 10);
 		var value = map[numKey];
 		return value ?  value : '';
 	};

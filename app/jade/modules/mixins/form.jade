@@ -23,9 +23,9 @@ mixin input-address(title, id, colspan)
 	td.uu-city-select.form-td(colspan=colspan)&attributes(attributes)
 
 mixin static-input(title, colspan)
-	th.form-th
+	th.form-th(ng-show=attributes['ng-jade-show'])
 		label.form-th-label=title
-	td.form-td(colspan=colspan)
+	td.form-td(ng-show=attributes['ng-jade-show'] colspan=colspan)
 		p.form-control-static&attributes(attributes)
 
 //- 4 label, 6 input
@@ -308,4 +308,10 @@ mixin freight-payer(title, id)
 		+option('客户', 1)
 		+option('公司', 2)
 		+option('快递公司', 3)
+
+//- 库房类型
+mixin warehosue-type(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('主库', 1)
+		+option('备库', 2)
 
