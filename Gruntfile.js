@@ -274,6 +274,12 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>/scripts',
           src: ['generated/*']
       },
+      callcenter: {
+        expand: true,
+        cwd: '<%= config.app %>/callcenter/',
+        dest: '<%= config.dist %>/callcenter/',
+        src: ['{,**/}*']
+      },
       styles: {
         expand: true,
         cwd: '<%= config.app %>/styles',
@@ -412,6 +418,7 @@ module.exports = function (grunt) {
     'concat',
     'ngmin',
     'copy:dist',
+    'copy:callcenter',
     // 'cdnify',
     'cssmin',
     'uglify',

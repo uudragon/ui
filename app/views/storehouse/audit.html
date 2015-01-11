@@ -27,13 +27,12 @@
 </div>
 <table ng-show="audits" class="uu-table">
   <thead>
-    <tr ng-dblclick="chooseTh('table-cols')">
+    <tr>
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
         </ul>
       </th>
-      <th class="nowrap">工具</th>
     </tr>
   </thead>
   <tbody>
@@ -49,8 +48,6 @@
       <td ng-bind="audit.creator" ng-show="ths[8].isChecked"></td>
       <td ng-bind="audit.update_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="audit.updater" ng-show="ths[9].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editAudit(audit.audit_code)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="editAudit(audit.audit_code, true)"><span class="glyphicon glyphicon-file"></span></a>
-      </td>
     </tr>
   </tbody>
 </table>

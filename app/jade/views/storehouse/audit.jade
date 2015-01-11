@@ -15,7 +15,7 @@ include ../../modules/mixins.jade
 
 //- 库房列表
 table.uu-table(ng-show='audits')
-	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	+theadplus()
 	tbody
 		tr(ng-repeat='audit in audits' ng-dblclick='editAudit(audit.audit_code)')
 			td(ng-bind='audit.warehouse' ng-show='ths[0].isChecked')
@@ -29,12 +29,6 @@ table.uu-table(ng-show='audits')
 			td(ng-bind='audit.creator' ng-show='ths[8].isChecked')
 			td(ng-bind='audit.update_time' ng-show='ths[8].isChecked')
 			td(ng-bind='audit.updater' ng-show='ths[9].isChecked')
-			td.nowrap
-				+tooltip('修改', 'top', 'editAudit(audit.audit_code)')
-					+glyphicon('pencil') &nbsp;
-
-				+tooltip('复制新增', 'top', 'editAudit(audit.audit_code, true)')
-					+glyphicon('file')
 
 uu-pagination(records='audits.meta.recordsCount' per-page='audits.meta.pageSize' page='audits.meta.pageNo' model='searchModel' action='getAuditList()')
 
