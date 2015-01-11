@@ -114,7 +114,7 @@ var phoneTbar = new Ext.Toolbar({
 	renderTo:'toolbarDiv',
 	height:62,
 	items:[
-			'<div style="text-align:center;padding-left:10px"><img src="/callcenter/ctiControls/images/telephone.png" width="32px" height="32px"/></div>','<div id="pStatus" style="width:80;text-align:center;">未注册</div>',
+			'<div style="text-align:center;padding-left:10px"><img src="callcenter/ctiControls/images/telephone.png" width="32px" height="32px"/></div>','<div id="pStatus" style="width:80;text-align:center;">未注册</div>',
 			'-',
 			{
 				id:'btnIdle',
@@ -123,7 +123,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/idle.png',
+				icon:'callcenter/ctiControls/images/idle.png',
 				listeners:{ 
 					"click":function(){ 
 						ivrSetBusy(false);
@@ -137,7 +137,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/busy.png',
+				icon:'callcenter/ctiControls/images/busy.png',
 				listeners:{ 
 					"click":function(){ 
 						ivrSetBusy(true);
@@ -152,7 +152,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/dial.png',
+				icon:'callcenter/ctiControls/images/dial.png',
 				listeners:{ 
 					"click":function(){ 
 						showDialPad(200,80,"拨号",function(exten){phoneDial(exten)}, true);
@@ -167,7 +167,7 @@ var phoneTbar = new Ext.Toolbar({
                 scale: 'large',
                 hidden: true,
 				width:40,
-				icon:'/callcenter/ctiControls/images/accept.png',
+				icon:'callcenter/ctiControls/images/accept.png',
 				listeners:{ 
 					"click":function(){ 
 						phoneAccept();
@@ -182,7 +182,7 @@ var phoneTbar = new Ext.Toolbar({
                 scale: 'large',
 				width:40,
 				hidden:true,
-				icon:'/callcenter/ctiControls/images/hangup.png',
+				icon:'callcenter/ctiControls/images/hangup.png',
 				listeners:{ 
 					"click":function(){ 
 						phoneHangup();
@@ -196,7 +196,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/transfer.png',
+				icon:'callcenter/ctiControls/images/transfer.png',
 				listeners:{ 
 					"click":function(){ 
 						showDialPad(330,80,"转接给",function(exten){phoneTransfer(exten)});
@@ -210,7 +210,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/conf.png',
+				icon:'callcenter/ctiControls/images/conf.png',
 				listeners:{ 
 					"click":function(){ 
 						showDialPad(370,80,"邀请三方",function(exten){phoneConf(exten)});
@@ -224,7 +224,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/hold.png',
+				icon:'callcenter/ctiControls/images/hold.png',
 				listeners:{ 
 					"click":function(){ 
 						phoneHold();
@@ -238,7 +238,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/intercept.png',
+				icon:'callcenter/ctiControls/images/intercept.png',
 				listeners:{ 
 					"click":function(){ 
 						phoneIntercept();
@@ -252,7 +252,7 @@ var phoneTbar = new Ext.Toolbar({
                 iconAlign: 'top',
                 scale: 'large',
 				width:40,
-				icon:'/callcenter/ctiControls/images/monit.png',
+				icon:'callcenter/ctiControls/images/monit.png',
 				hidden:true
 			}
 ]});
@@ -340,7 +340,7 @@ function toolbarStatus() {
 		bHangup.disable();
 		bMonit.disable();
 		bIntercept.disable();
-		//console.log("======No Connection OR No Register"+gIvrState);
+		console.log("======No Connection OR No Register"+gIvrState);
 		return;
 	} else if (gIvrState == 2) { //空闲
 		pStatus.innerText=getPhoneAccount()+"\n（本机号码）"; //显示分机号码
@@ -391,7 +391,7 @@ function toolbarStatus() {
 setInterval("toolbarStatus()", 1000);
 function registIvr() {
 	var ivrState = ivr.MyState;
-	//console.log("============registIvr: ivrState:" + ivrState);
+	console.log("============registIvr: ivrState:" + ivrState);
 	if (ivrState <= -1) { //未连接
 		ivrConnect();
 	} else if (ivrState == 0 || ivrState == 1){ //已连接，未注册
@@ -419,7 +419,7 @@ function ivrSetBusy(bBusy) {
 function ivrConnect() {
 	ivr.SInit(getIvrServerAddress(), getIvrServerPort());
 	
-	//console.log("============ivrConnect: ivrState:" + ivr.MyState);
+	console.log("============ivrConnect: ivrState:" + ivr.MyState);
 	//ivr.SInit("192.168.0.193", "1202"); 
 }
 function ToConnectACD() {
