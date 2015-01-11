@@ -1,7 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">   
-<html>   
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>呼叫中心系统</title>
 <link rel="stylesheet" type="text/css" href="callcenter/ext/resources/css/ext-all.css"/>
 <script src="callcenter/ext/adapter/ext/ext-base.js"></script>
@@ -43,7 +44,7 @@ CODEBASE="callcenter/ctiControls/spSip.CAB#version=1.0.0.1">
 </script>
 <script language="javaScript" event="OnOutQueue(nGroup,nNum,strPhone)" for="SpzcIvrObject">//外线出队列
 	console.log("出队列"+strPhone);
-	
+
 </script>
 <script langugae="javaScript" event="OnReceivePhone(strChannel,strPhone,strTelID,strOther)" for="SpzcIvrObject">
 	gRemoteNumber = strPhone;
@@ -59,13 +60,13 @@ CODEBASE="callcenter/ctiControls/spSip.CAB#version=1.0.0.1">
 </script>
 <script language="javaScript" event="OnStateChange(nOldState,nNewState)" for="SpzcIvrObject">
 	console.log("SpzcIvrObject.OnStateChange");
-	if (nNewState == 2) 
+	if (nNewState == 2)
 		gRemoteNumber = getPhoneAccount();
 	toolbarStatus();
 </script>
 <script language="javaScript" event="OnReceiveWav(strWaveName)" for="SpzcIvrObject">
 	console.log("SpzcIvrObject.OnReceiveWav:"+strWaveName);
-	Activeformx1_OnReceiveWav(strWaveName);			
+	Activeformx1_OnReceiveWav(strWaveName);
 </script>
 
 
