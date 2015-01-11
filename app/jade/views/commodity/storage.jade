@@ -32,7 +32,7 @@ table.uu-table(ng-show='receipts')
 				+tooltip('查看', 'top', 'showPutinedReceipt(receipt.receipt_code)')
 					+glyphicon('eye-open')
 
-uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getOrderList()')
+uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getReceiptList()')
 
 //- 商品入库
 +modal('storage-form')

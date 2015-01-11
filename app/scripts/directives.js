@@ -304,7 +304,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 							// 	'<select ng-model="current" class="select" ng-options="page for page in aryTotalPage" ng-change="to(current, true)">' +
 							// 	'</select>' +
 							// ' 页</a></li>' +
-							'<li class="pagination-info"><a>第<span class="pagination-badge" ng-bind="totalPages"></span>页 / 共<span class="pagination-badge" ng-bind="records"></span>页</a></li>' +
+							'<li class="pagination-info"><a>第<span class="pagination-badge" ng-bind="totalPages"></span>页 / 共<span class="pagination-badge" ng-bind="records"></span>条</a></li>' +
 							'<li class="pagination-info"><a>每页<span class="pagination-badge" ng-bind="perPage"></span>条</a></li>' +
 							// '<li><a>{{current}}页</a></li>' +
 						'</ul>' +
