@@ -69,26 +69,27 @@ angular.module('mainApp')
 
 		// 新建入库单
 		$scope.newReceipt = function(form) {
+			var warehouseDefer = $scope.getWarehouseList();
+			var goodsDefer = $scope.getCommdityList();
+
 			$scope.resetForm(form);
 			$scope.receipt = {
 				receipt_code: $scope.guid(),
-				creator: $scope.currentUser.account,
-				updater: $scope.currentUser.account,
+				creator: $scope.currentUser.userNo,
+				updater: $scope.currentUser.userNo,
 				status: 0,
 				details: []
 			};
 
 			$scope.receiptFormTitle = '新建入库单';
 
-			var warehouseDefer = $scope.getWarehouseList();
-			var goodsDefer = $scope.getCommdityList();
 
 			$q.all([warehouseDefer, goodsDefer])
 				.then(function(data) {
-					console.log(data);
-					$receiptForm.modal('show');
+					if (data[0].status === 200 && data[1].status === 200) {
+						$receiptForm.modal('show');
+					}
 				});
-
 		};
 
 		// 修改商品
@@ -145,20 +146,10 @@ angular.module('mainApp')
 			$scope.receipt.details.splice(index, 1);
 		};
 
-		// 新建入库单
-		$scope.editReceipt = function(form) {
-			$scope.storage = {
-				storage_code: $scope.guid(),
-				creator: $scope.currentUser.account,
-				updater: $scope.currentUser.account
-				// storage_status: '1',
-				// storage_type: '1'
-			};
-			$receiptForm.modal('show');
-		};
 
 		// 编辑入库单
 		$scope.editReceipt = function(receiptCode) {
+			// var warehouseDefer = $scope.getWarehouseList();
 			var productDefer = $http.get(config.basewms + 'inbound/receipt/' + receiptCode + '/');
 			// var commodityListDefer = $scope.getCommdityList();
 			// $scope.receiptFormTitle = status > -1 ? '查看入库单' : '修改入库单';
@@ -168,6 +159,7 @@ angular.module('mainApp')
 				.then(function(data) {
 					if (data && data[0].status === 200) {
 						$scope.receipt = data[0].data;
+						// $scope.warehouses = data[1].data;
 						$receiptForm.modal('show');
 					}
 				});
@@ -208,9 +200,10 @@ angular.module('mainApp')
 			$http.post(config.basewms + 'inbound/receipts/', req)
 				.success(function(data) {
 					$scope.receipts = data.records;
+
 					$scope.receipts.meta = {
 						pageSize: data.pageSize,
-						pageNo: data.pageNo ? data.pageNo : 1,
+						pageNo: data.pageNo,
 						recordsCount: data.recordsCount,
 						pageNumber: data.pageNumber
 					};

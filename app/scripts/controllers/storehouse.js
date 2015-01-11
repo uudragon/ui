@@ -85,6 +85,7 @@ angular.module('mainApp')
 			$scope.pickInfo = {
 				warehouse_code: warehouse_code
 			};
+
 			$scope.searchModel.pageNo = 1;
 
 			$scope.getProductList()
@@ -187,77 +188,38 @@ angular.module('mainApp')
 
 	}])
 	.controller('Audit', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
-		// 搜索下拉
-		var $auditForm = $('#audit-form');
+
+		$('.article-header-search').stop().slideDown('fast');
 
 		// 搜索下拉
-		$scope.filters = [
-			{name: '库房编号', value: 'audit_code', input: true},
-			{name: '库房名称', value: 'audit_name', input: true},
-			{name: '库房类型', value: 'audit_name', subfilters: $scope.mapRevert('audit')},
-			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
-		];
+		// $scope.filters = [
+		// 	{name: '库房编号', value: 'audit_code', input: true},
+		// 	{name: '库房名称', value: 'audit_name', input: true},
+		// 	{name: '库房类型', value: 'audit_name', subfilters: $scope.mapRevert('audit')},
+		// 	{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
+		// ];
 
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'audit_code', label: '库房编号', isChecked: true},
-			{name: 'audit_name', label: '库房名称', isChecked: true},
-			{name: 'address', label: '库房地址', isChecked: true},
-			{name: 'type', label: '库房类型', isChecked: true},
-			{name: 'creator', label: '创建人', isChecked: true},
-			{name: 'create_time', label: '创建时间', isChecked: true},
-			{name: 'updater', label: '修改人', isChecked: true},
-			{name: 'update_time', label: '修改时间', isChecked: true},
-			{name: 'yn', label: '是否生效, isChecked: true'}
+			{name: 'warehouse', label: '库房编码', isChecked: true},
+			{name: 'warehouse_name', label: '库房名称', isChecked: true},
+			{name: 'goods_code', label: '商品编码', isChecked: true},
+			{name: 'goods_name', label: '商品名称', isChecked: true},
+			{name: 'qty', label: '商品数量', isChecked: true},
+			{name: 'code', label: '单据号', isChecked: true},
+			{name: 'type', label: '单据类型', isChecked: true},
+			{name: 'create_time', label: '记录创建时间', isChecked: true},
+			{name: 'creator', label: '记录创建人', isChecked: true},
+			{name: 'update_time', label: '记录修改时间', isChecked: true},
+			{name: 'updater', label: '记录最后修改人', isChecked: true}
 		];
 
-		// 新建库房
-		$scope.newAudit = function(form) {
-			$scope.resetForm(form);
-			$scope.auditFormTitle = '库房定义';
-
-			$scope.audit = {
-				audit_code: $scope.guid(),
-				creator: $scope.currentUser.name,
-				updater: $scope.currentUser.name,
-				type: 1,
-				yn: '1'
-			};
-
-			$auditForm.modal('show');
-		};
-
-		// 编辑库房 && 复制添加库房
-		$scope.editAudit = function(code, isDuplicate) {
-			$scope.auditFormTitle = isDuplicate ? '复制添加库房' : '编辑库房';
-
-			$http.get(config.basewms + 'baseinfo/audit/' + code + '/')
-				.success(function(audit) {
-
-					$scope.audit = audit;
-
-					isDuplicate && ($scope.audit.audit_code = $scope.guid());
-					$auditForm.modal('show');
-				});
-		};
-
-		// 保存库房
-		$scope.saveAudit = function(form) {
-			// 表单验证
-			if (!$scope.validateForm(form, $auditForm)) return;
-
-			$scope.processing(form, $auditForm);
-
-			$http.post(config.basewms + 'baseinfo/audit/save/', $scope.audit)
-				.success($scope.successHandler(form, $auditForm, $scope.getAuditList))
-				.error($scope.errorHandler(form, $auditForm));
-		};
-
 		// 搜索
-		$scope.search = function() {
-			$scope.query = $scope.parseFilter($scope.searchModel);
-			$scope.getAuditList();
+		$scope.search = function(warehouseCode) {
+			$scope.selectedWarehouse = warehouseCode;
+			$scope.query = $scope.searchModel.productFilter ? {goods_code: $scope.searchModel.productFilter } : '';
+			$scope.selectedWarehouse && $scope.getAuditList();
 		};
 
 		// 获取库房列表
@@ -273,23 +235,20 @@ angular.module('mainApp')
 				});
 		};
 
-		$scope.getWarehouseList();
+		// $scope.getWarehouseList();
 
 		// 获取库房列表
 		$scope.getAuditList = function() {
 
 			var req = {
-				// pageSize: $scope.searchModel.pageSize || config.perPage,
-				// pageNo: $scope.searchModel.pageNo || 1,
-				product_code: '8bf0c27e-b031-012e',
-				updater: $scope.currentUser.name
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1
 			};
 
 			$.extend(req, $scope.query);
-			console.log($scope.selectedWarehouse);
+
 			$http.post(config.basewms + 'inner/' + $scope.selectedWarehouse + '/records/', req)
 				.success(function(data) {
-					console.log(data);
 					$scope.audits = data.records;
 					$scope.audits.meta = {
 							pageSize: data.pageSize,
@@ -306,6 +265,79 @@ angular.module('mainApp')
 	}])
 	.controller('Remain', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
+		$('.article-header-search').stop().slideDown('fast');
+
+		// ths
+		$scope.isAllThsShow = true;
+		$scope.goodsThs = [
+			{name: 'warehouse', label: '库房编码', isChecked: true},
+			{name: 'warehouse_name', label: '库房名称', isChecked: true},
+			{name: 'goods_code', label: '商品编码', isChecked: true},
+			{name: 'goods_name', label: '商品名称', isChecked: true},
+			{name: 'qty', label: '商品总数', isChecked: true},
+			{name: 'not_picking_qty', label: '为拣货商品数', isChecked: true},
+			{name: 'picking_qty', label: '已预拣货数量', isChecked: true},
+			{name: 'create_time', label: '记录创建时间', isChecked: true},
+			{name: 'creator', label: '记录创建人', isChecked: true},
+			{name: 'update_time', label: '记录修改时间', isChecked: true},
+			{name: 'updater', label: '记录最后修改人', isChecked: true}
+		];
+
+		$scope.productsThs = [
+			{name: 'warehouse', label: '库房编码', isChecked: true},
+			{name: 'warehouse_name', label: '库房名称', isChecked: true},
+			{name: 'product_code', label: '产品编码', isChecked: true},
+			{name: 'product_name', label: '产品名称', isChecked: true},
+			{name: 'qty', label: '预拣产品总数', isChecked: true},
+			{name: 'create_time', label: '记录创建时间', isChecked: true},
+			{name: 'creator', label: '记录创建人', isChecked: true},
+			{name: 'update_time', label: '记录修改时间', isChecked: true},
+			{name: 'updater', label: '记录最后修改人', isChecked: true}
+		];
+
+		$scope.ths = $scope.goodsThs;
+
+		$scope.$watch('searchModel.searchType', function(newVal, oldVal) {
+			if (newVal !== oldVal && $scope.selectedWarehouse) {
+				if (newVal === 'goods') {
+					$scope.ths = $scope.goodsThs;
+					$scope.products = '';
+				} else {
+					$scope.ths = $scope.productsThs;
+					$scope.goods = '';
+				}
+				$scope.getItemList();
+			}
+		});
+
+		// 搜索
+		$scope.search = function(warehouseCode) {
+			$scope.selectedWarehouse = warehouseCode;
+			$scope.query = $scope.searchModel.productFilter ? {goods_code: $scope.searchModel.productFilter } : '';
+			$scope.selectedWarehouse && $scope.getItemList();
+		};
+
+		// 获取在库产品/商品列表
+		$scope.getItemList = function() {
+			var req = {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1
+			};
+
+			$.extend(req, $scope.query);
+
+			$http.post(config.basewms + 'inner/' + $scope.selectedWarehouse + '/' + $scope.searchModel.searchType + '/', req)
+				.success(function(data) {
+					var fieldName = $scope.searchModel.searchType;
+					$scope[fieldName] = data.records;
+					$scope[fieldName].meta = {
+							pageSize: data.pageSize,
+							pageNo: data.pageNo ? data.pageNo : 1,
+							recordsCount: data.recordsCount,
+							pageNumber: data.pageNumber
+						};
+					});
+		};
 
 		// inherit functions from parent
 		$controller('StorehouseManager', {$scope: $scope});

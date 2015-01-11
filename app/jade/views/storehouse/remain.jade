@@ -1,0 +1,61 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
+.article-header-search
+	form.form-inline(role='form')
+		+grouped-input('库房编号', 'warehouse-code')(ng-model='searchModel.warehouseFilter')
+		+grouped-input('产品编号', 'product-code')(ng-model='searchModel.productFilter')
+		+action-btn('查询')(ng-click='search(searchModel.warehouseFilter)')
+
+//- 订单列表过滤条件
+- var filters = []
+- filters.push({label: '在库商品', value: 'goods'})
+- filters.push({label: '在库预拣货产品', value: 'products'})
++article-header-filter('searchModel.searchType', filters)
+
+//- 库房列表
+table.uu-table(ng-show='goods')
+	+theadplus()
+	tbody
+		tr(ng-repeat='good in goods')
+			td(ng-bind='good.warehouse' ng-show='ths[0].isChecked')
+			td(ng-bind='good.warehouse_name' ng-show='ths[1].isChecked')
+			td(ng-bind='good.goods_code' ng-show='ths[2].isChecked')
+			td(ng-bind='good.goods_name' ng-show='ths[3].isChecked')
+			td(ng-bind='good.qty' ng-show='ths[4].isChecked')
+			td(ng-bind='good.not_picking_qty' ng-show='ths[5].isChecked')
+			td(ng-bind='good.picking_qty' ng-show='ths[6].isChecked')
+			td(ng-bind='good.create_time' ng-show='ths[7].isChecked')
+			td(ng-bind='good.creator' ng-show='ths[8].isChecked')
+			td(ng-bind='good.update_time' ng-show='ths[8].isChecked')
+			td(ng-bind='good.updater' ng-show='ths[9].isChecked')
+
+uu-pagination(ng-show='goods' records='goods.meta.recordsCount' per-page='goods.meta.pageSize' page='goods.meta.pageNo' model='searchModel' action='getItemList()')
+
+//- 库房列表
+table.uu-table(ng-show='products')
+	+theadplus()
+	tbody
+		tr(ng-repeat='good in goods')
+			td(ng-bind='good.warehouse' ng-show='ths[0].isChecked')
+			td(ng-bind='good.warehouse_name' ng-show='ths[1].isChecked')
+			td(ng-bind='good.goods_code' ng-show='ths[2].isChecked')
+			td(ng-bind='good.goods_name' ng-show='ths[3].isChecked')
+			td(ng-bind='good.qty' ng-show='ths[4].isChecked')
+			td(ng-bind='good.not_picking_qty' ng-show='ths[5].isChecked')
+			td(ng-bind='good.picking_qty' ng-show='ths[6].isChecked')
+			td(ng-bind='good.create_time' ng-show='ths[7].isChecked')
+			td(ng-bind='good.creator' ng-show='ths[8].isChecked')
+			td(ng-bind='good.update_time' ng-show='ths[8].isChecked')
+			td(ng-bind='good.updater' ng-show='ths[9].isChecked')
+
+uu-pagination(ng-show='products' records='audits.meta.recordsCount' per-page='audits.meta.pageSize' page='audits.meta.pageNo' model='searchModel' action='getItemList()')
+
+//- 更改显示列
+include ../../modules/table-ths.jade

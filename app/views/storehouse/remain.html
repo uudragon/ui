@@ -1,0 +1,117 @@
+
+<div class="clearfix">
+  <ul class="action-bar">
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    </li>
+  </ul>
+  <ul class="action-bar pull-right">
+    <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+    </li>
+    <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+    </li>
+  </ul>
+</div>
+<div class="article-header-search">
+  <form role="form" class="form-inline">
+    <div class="input-group">
+      <label for="form-warehouse-code" class="input-group-addon">库房编号</label>
+      <input id="form-warehouse-code" class="form-control input-sm" ng-model="searchModel.warehouseFilter"/>
+    </div>
+    <div class="input-group">
+      <label for="form-product-code" class="input-group-addon">产品编号</label>
+      <input id="form-product-code" class="form-control input-sm" ng-model="searchModel.productFilter"/>
+    </div>
+    <div ng-click="search(searchModel.warehouseFilter)" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    </div>
+  </form>
+</div>
+<div class="article-header-filter">
+  <form role="form" class="form-inline">
+    <div data-toggle="buttons" class="btn-group">
+      <label ng-click="searchModel.searchType='goods'" ng-init="searchModel.searchType='goods'" class="btn uu-btn active">
+        <input checked="checked" type="radio"/>在库商品
+      </label>
+      <label ng-click="searchModel.searchType='products'" class="btn uu-btn">
+        <input type="radio"/>在库预拣货产品
+      </label>
+    </div>
+  </form>
+</div>
+<table ng-show="goods" class="uu-table">
+  <thead>
+    <tr>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+        </ul>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="good in goods">
+      <td ng-bind="good.warehouse" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="good.warehouse_name" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="good.goods_code" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="good.goods_name" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="good.qty" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="good.not_picking_qty" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="good.picking_qty" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="good.create_time" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="good.creator" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="good.update_time" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="good.updater" ng-show="ths[9].isChecked"></td>
+    </tr>
+  </tbody>
+</table>
+<uu-pagination ng-show="goods" records="goods.meta.recordsCount" per-page="goods.meta.pageSize" page="goods.meta.pageNo" model="searchModel" action="getItemList()"></uu-pagination>
+<table ng-show="products" class="uu-table">
+  <thead>
+    <tr>
+      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+        </ul>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="good in goods">
+      <td ng-bind="good.warehouse" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="good.warehouse_name" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="good.goods_code" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="good.goods_name" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="good.qty" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="good.not_picking_qty" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="good.picking_qty" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="good.create_time" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="good.creator" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="good.update_time" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="good.updater" ng-show="ths[9].isChecked"></td>
+    </tr>
+  </tbody>
+</table>
+<uu-pagination ng-show="products" records="audits.meta.recordsCount" per-page="audits.meta.pageSize" page="audits.meta.pageNo" model="searchModel" action="getItemList()"></uu-pagination>
+<div id="table-ths" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">更改显示列</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="isAllThsShow" ng-click="toggleCheckAll(&quot;isAllThsShow&quot;, ths)"/>全选
+            </label>
+          </li>
+          <li ng-repeat="th in ths" class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" ng-model="th.isChecked" ng-click="checkIsAllChecked(&quot;isAllThsShow&quot;, ths, th)"/>{{th.label}}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

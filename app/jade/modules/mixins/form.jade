@@ -53,6 +53,13 @@ mixin grouped-input(title, id)
 		label.input-group-addon(for='form-' + id)=title
 		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
+//- action button
+mixin action-btn(title, glyphicon)
+	- glyphicon = glyphicon || 'search';
+	.btn.uu-btn(ng-click=attributes['ng-click'])
+		+tooltip(title, 'top')
+			+glyphicon(glyphicon)
+
 
 //- Textarea
 //- ----------------------

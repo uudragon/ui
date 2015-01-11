@@ -78,7 +78,7 @@ uu-pagination(records='warehouses.meta.recordsCount' per-page='warehouses.meta.p
 						td(ng-bind='product.creator')
 						td(ng-bind='product.updater')
 						td.nowrap
-							+tooltip('确定拣货', 'top', 'savePickProduct(product, pickgoodForm)')
+							+tooltip('执行预拣货', 'top', 'savePickProduct(product, pickgoodForm)')
 								+glyphicon('thumbs-up')
 
 			uu-pagination(records='products.meta.recordsCount', per-page='products.meta.pageSize' page='products.meta.pageNo', model='searchModel', action='getProductList()')
