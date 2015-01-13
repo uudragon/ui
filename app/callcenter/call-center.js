@@ -3,7 +3,7 @@ var p_serverIp = "124.205.241.254";
 var p_serverPort = 1202;
 var p_agentNumber = "1001";
 var p_agentName = "zhang";
-var p_extension = "881";
+var p_extension = "891";
 var p_agentGroup = 4;
 var p_agentLevel = 1;
 
