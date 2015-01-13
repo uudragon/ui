@@ -62,14 +62,15 @@ uu-pagination(records='recordsCount', page='currentPage', model='searchModel', a
 		h4.modal-title 发送短消息
 	.modal-body
 		form.form-horizontal
-			.form-group
-				label.control-label.col-xs-3(for='form-reciever') 接收人
-				.col-xs-7.message-multi
-					input.form-control.input-sm(id='form-reciever', ng-model='msg.reciever')
-					button.btn.uu-btn 查找
-				//- +input('接收人', 'responsor')(ng-model='msg.reciever')
-			.form-group
-				+textarea('内容', 'template')(ng-model='msg.content')
+			table.form-table.form-table-single
+				tr
+					+input('接收人', 'reciever')(ng-model="msg.reciever" required)
+				//- label.control-label.col-xs-3(for='form-reciever') 接收人
+				//- .col-xs-7.message-multi
+				//- 	input.form-control.input-sm(id='form-reciever', ng-model='msg.reciever')
+				//- 	button.btn.uu-btn 查找
+				tr
+					+textarea('内容', 'template')(ng-model='msg.content' required)
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveNote()') 保存

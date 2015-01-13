@@ -132,10 +132,10 @@
                   <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
                 </td>
                 <th class="form-th">
-                  <label for="form-order" class="form-th-label">订单编号</label>
+                  <label class="form-th-label">订单编号</label>
                 </th>
-                <td class="form-td">
-                  <input id="form-order" class="form-control input-sm" ng-model="currentOrder.orders_no"/>
+                <td colspan="order" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.order_no"></p>
                 </td>
               </tr>
               <tr>
@@ -161,8 +161,8 @@
                 </th>
                 <td class="form-td">
                   <div class="input-group">
-                    <input id="form-telphone" class="form-control input-sm"/>
-                    <div class="input-group-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
+                    <input id="form-telphone" class="form-control input-sm" ng-model="currentOrder.customer.phone"/>
+                    <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
                     </div>
                   </div>
                 </td>
@@ -198,10 +198,14 @@
                   </select>
                 </td>
                 <th class="form-th">
-                  <label for="form-payway" class="form-th-label">支付方式</label>
+                  <label for="form-payment" class="form-th-label">支付方式</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-payway" class="form-control input-sm" ng-model="currentOrder.payway"/>
+                  <select id="form-payment" class="form-control input-sm" ng-model="currentOrder.payment">
+                    <option value="1">银行</option>
+                    <option value="2">支付宝</option>
+                    <option value="3">货到付款</option>
+                  </select>
                 </td>
               </tr>
               <tr>
@@ -222,7 +226,10 @@
                 </td>
               </tr>
               <tr>
-                
+                <th class="form-th">
+                  <label for="form-order-address" class="form-th-label">地址</label>
+                </th>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.customer.province" ng-city-model="currentOrder.customer.city" ng-addr-model="currentOrder.customer.address" ng-required="true"></td>
               </tr>
             </table>
           </fieldset>

@@ -3,7 +3,7 @@
   <ul class="action-bar">
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建"><span class="glyphicon glyphicon-plus"></span></a>
       <ul role="menu" class="dropdown-menu">
-        <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
+        <li><a href="" ng-click="newMsgTemplate(msgForm)" class="jslink">新增短信模板</a>
         </li>
         <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
         </li>
@@ -76,7 +76,7 @@
   </form>
 </div>
 <div class="article-header-operate">
-  <btn ng-click="newMsgTemplate()" class="btn uu-btn btn-success">新增模板</btn>
+  <btn ng-click="newMsgTemplate(msgForm)" class="btn uu-btn btn-success">新增模板</btn>
 </div>
 <table class="uu-table">
   <thead>
@@ -99,7 +99,7 @@
   </tbody>
 </table>
 <uu-pagination records="recordsCount" page="currentPage" model="searchModel" action="listByPage()"></uu-pagination>
-<div id="new-msg-templet" class="modal fade">
+<div id="msg-form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -107,35 +107,37 @@
         <h4 class="modal-title">新增短信模板</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form name="msgForm" novalidate="novalidate" ng-class="{sumitted: msgForm.$sumitted}" class="form-horizontal">
           <fieldset>
-            <div class="form-group">
-              <th class="form-th">
-                <label for="form-subject" class="form-th-label">主题</label>
-              </th>
-              <td class="form-td">
-                <select id="form-subject" class="form-control input-sm" ng-model="msg.subject">
-                  <option value="0">核实订单</option>
-                  <option value="1">投诉</option>
-                  <option value="2">回访</option>
-                  <option value="3">催费</option>
-                  <option value="4">促进销售</option>
-                </select>
-              </td>
-            </div>
-            <div class="form-group">
-              <th class="form-th">
-                <label for="form-content" class="form-th-label">内容</label>
-              </th>
-              <td class="form-td">
-                <textarea id="form-content" class="form-control" ng-model="msg.content"></textarea>
-              </td>
-            </div>
+            <table class="form-table form-table-single">
+              <tr>
+                <th class="form-th">
+                  <label for="form-subject" class="form-th-label">主题</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-subject" class="form-control input-sm" ng-model="msg.subject" required="required">
+                    <option value="0">核实订单</option>
+                    <option value="1">投诉</option>
+                    <option value="2">回访</option>
+                    <option value="3">催费</option>
+                    <option value="4">促进销售</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-content" class="form-th-label">内容</label>
+                </th>
+                <td class="form-td">
+                  <textarea id="form-content" class="form-control" ng-model="msg.content" required="required"></textarea>
+                </td>
+              </tr>
+            </table>
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveMsgTemplate()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveMsgTemplate(msgForm)" ng-disabled="msgForm.processing" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

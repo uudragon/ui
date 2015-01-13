@@ -22,11 +22,13 @@ include ../../modules/mixins.jade
 					a(href='')=filter
 
 //- 订单列表过滤条件
-- var filters = []
-- filters.push({label: '所有', value: ''})
-- filters.push({label: '已分配', value: 1})
-- filters.push({label: '未分配', value: 2})
-+article-header-filter('searchModel.isAllot', filters)
+- var filter = {init: 1}
+- var filterItems = []
+- filterItems.push({label: '所有', value: ''})
+- filterItems.push({label: '已分配', value: 1, checked: true})
+- filterItems.push({label: '未分配', value: 2})
+- filter.filterItems = filterItems
++article-filter('searchModel.isAllot', filter)
 
 //- 功能区
 .article-header-operate

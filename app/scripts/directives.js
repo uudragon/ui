@@ -476,20 +476,24 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				return index;
 			}
 
-			$scope.reloadCity = function(a, b) {
+			$scope.$watch('ngProvinceModel', function() {
+				if ($scope.ngProvinceModel) $scope.reloadCity();
+			});
+
+			$scope.reloadCity = function() {
 				var provinceID = getProvinceID(),
 					cityData = $scope.provinces[provinceID];
 
-				console.log(provinceID);
 				if(cityData && cityData.city) {
 					$scope.cities = cityData.city;
 					$scope.ngCityModel = cityData.city[0].name;
 				}
 			};
+
 		},
 		template: '<div>' +
 					'<label class="form-addr-label">省</label>' +
-					'<select ng-required="ngRequired" class="prov form-control input-sm" ng-change="reloadCity()" ng-options="p.name as p.name for p in provinces" ng-model="ngProvinceModel"></select>' +
+					'<select ng-required="ngRequired" class="prov form-control input-sm" ng-options="p.name as p.name for p in provinces" ng-model="ngProvinceModel"></select>' +
 					'<label ng-show="ngProvinceModel" class="form-addr-label">市</label>' +
 					'<select ng-show="ngProvinceModel" ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
 					'<label class="form-addr-label">详细</label>' +

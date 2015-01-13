@@ -118,11 +118,11 @@ angular.module('mainApp')
 	return function (num) {
 
 		switch (parseInt(num, 10)) {
-			case 0:
+			case 1:
 				return '银行';
-			case 1:
+			case 2:
 				return '支付宝';
-			case 1:
+			case 3:
 				return '货到付款';
 			default:
 				break;

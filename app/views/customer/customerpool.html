@@ -30,15 +30,15 @@
 </div>
 <div class="article-header-filter">
   <form role="form" class="form-inline">
-    <div data-toggle="buttons" class="btn-group">
-      <label ng-click="searchModel.isAllot=''" ng-init="searchModel.isAllot=''" class="btn uu-btn active">
+    <div data-toggle="buttons" ng-init="searchModel.isAllot='1'" class="btn-group">
+      <label ng-click="searchModel.isAllot=''" ng-class="{active: searchModel.isAllot==''}" class="btn uu-btn">
         <input checked="checked" type="radio"/>所有
       </label>
-      <label ng-click="searchModel.isAllot='1'" class="btn uu-btn">
-        <input type="radio"/>已分配
+      <label ng-click="searchModel.isAllot='1'" ng-class="{active: searchModel.isAllot=='1'}" class="btn uu-btn">
+        <input checked="checked" type="radio"/>已分配
       </label>
-      <label ng-click="searchModel.isAllot='2'" class="btn uu-btn">
-        <input type="radio"/>未分配
+      <label ng-click="searchModel.isAllot='2'" ng-class="{active: searchModel.isAllot=='2'}" class="btn uu-btn">
+        <input checked="checked" type="radio"/>未分配
       </label>
     </div>
   </form>

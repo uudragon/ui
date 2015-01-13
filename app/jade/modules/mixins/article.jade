@@ -29,6 +29,19 @@ mixin article-header-filter(key, filters)
 			if block
 				block
 
+//- article filter
+mixin article-filter(key, filter)
+	.article-header-filter
+		form.form-inline(role='form')
+			.btn-group(data-toggle='buttons' ng-init="#{key}='#{filter.init}'")
+				if filter.filterItems
+					each filterItem, index in filter.filterItems
+						label.btn.uu-btn(ng-click="#{key}='#{filterItem.value}'" ng-class="{active: #{key}=='#{filterItem.value}'}")
+							input(checked, type='radio')
+							| #{filterItem.label}
+			if block
+				block
+
 
 mixin order-details()
 	fieldset(uu-form-field='isCustometInfoEditable')
@@ -36,39 +49,24 @@ mixin order-details()
 		table.form-table
 			tr
 				+input('客户姓名', 'name')(ng-model='currentOrder.customer.name')
-				+input('订单编号', 'order')(ng-model='currentOrder.orders_no')
+				+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
 			tr
 				+gender('客户性别', 'customer-gender')(ng-model='currentOrder.customer.sex')
 				+input('订购产品', 'good')(ng-model='currentOrder.good')
 			tr
-				+input-phone('联系电话', 'form-telphone')
+				+input-phone('联系电话', 'form-telphone')(ng-model='currentOrder.customer.phone')
 				+input('起订日期', 'startDate')(ng-model='currentOrder.effective', uu-date-picker)
 			tr
 				+input('儿童姓名', 'child-name')(ng-model='currentOrder.customer.child')
 				+input('结束日期', 'enddate')(ng-model='currentOrder.deadline', uu-date-picker)
 			tr
 				+gender('儿童性别', 'child-gender')(ng-model='currentOrder.customer.c_sex')
-				+input('支付方式', 'payway')(ng-model='currentOrder.payway')
+				+payment('支付方式', 'payment')(ng-model='currentOrder.payment')
 			tr
 				+input('出生日期', 'birthday')(ng-model='currentOrder.customer.birthday', uu-date-picker)
-				+select('支付状态', 'pay-status')(ng-model='currentOrder.paid')
-					+option('未付费', 0)
-					+option('已付费', 1)
+				+pay-status('支付状态', 'pay-status')(ng-model='currentOrder.paid')
 			tr
-				//- .form-group.col-xs-12.location
-				//- 	.control-label(for='location-details')
-				//- 		| 详细地址
-				//- 	div.location-wrap
-				//- 		.input-group.col-xs-3
-				//- 			span.input-group-addon 省
-				//- 			input.form-control.input-sm(ng-model='currentOrder.customer.province')
-				//- 		.input-group.col-xs-3
-				//- 			span.input-group-addon 市
-				//- 			input.form-control.input-sm(ng-model='currentOrder.customer.city')
-				//- 		.input-group.col-xs-4
-				//- 			span.input-group-addon 详细
-				//- 			input.form-control.input-sm(ng-model='currentOrder.customer.address')
-
+				+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.customer.province' ng-city-model='currentOrder.customer.city' ng-addr-model='currentOrder.customer.address' ng-required='true')
 
 //- Searches
 //- ----------------------

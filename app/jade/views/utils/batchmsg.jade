@@ -25,37 +25,33 @@ include ../../modules/mixins.jade
 
 div(uu-tab)
 	div(uu-pane, title='发短信', action='msg.sendType=1;')
-		form.form-horizontal.col-xs-7
-			.form-group
-				+short-input('收件人手机号码', 'target-1')(ng-model='msg.target')
-					button.btn.uu-btn 选择用户
+		form.form-horizontal.col-xs-7(style='padding-left: 0')
+			table.form-table
+				tr
+					+input('收件人手机号码', 'target-1')(ng-model='msg.target')
+						//- button.btn.uu-btn 选择用户
+				tr
+					+textarea('信息内容', 'content-1')(ng-model='msg.template')
+				tr
+					//- label 发送时间
+					//- uu-plain-datetime(ng-model='msg')
+					+input('发送时间', 'send-time-1')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
-			.form-group
-				+textarea('信息内容', 'content-1')(ng-model='msg.template')
-
-			.form-group
-				//- label 发送时间
-				//- uu-plain-datetime(ng-model='msg')
-				+short-input('发送时间', 'send-time-1')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-
-			.form-group
-				+submit
-					button.btn.uu-btn.btn-primary(ng-click='sendMsg()') 发送
-					button.btn.uu-btn 取消
+			.form-group(style='margin-top: 10px; margin-left: 0')
+				button.btn.uu-btn.btn-primary(ng-click='sendMsg()') 发送
+				button.btn.uu-btn(style='margin-left: 15px') 取消
 
 	div(uu-pane, title='发邮件', action='msg.sendType=2;')
-		form.form-horizontal.col-xs-7
-			.form-group
-				+short-input('收件人邮箱地址', 'target-2')(ng-model='msg.target')
-					button.btn.uu-btn 选择用户
+		form.form-horizontal.col-xs-7(style='padding-left: 0')
+			table.form-table
+				tr
+					+input('收件人邮箱地址', 'target-2')(ng-model='msg.target')
+						//- button.btn.uu-btn 选择用户
+				tr
+					+textarea('邮件内容', 'content-2')(ng-model='msg.template')
+				tr
+					+input('发送时间', 'send-time-2')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
 
-			.form-group
-				+textarea('邮件内容', 'content-2')(ng-model='msg.template')
-
-			.form-group
-				+short-input('发送时间', 'send-time-2')(ng-model='msg.sendTime', uu-date-picker, min-view='0', format='yyyy-mm-dd hh:ii')
-
-			.form-group
-				+submit
-					button.btn.uu-btn.btn-primary(ng-click='sendMsg()') 发送
-					button.btn.uu-btn 取消
+			.form-group(style='margin-top: 10px; margin-left: 0')
+				button.btn.uu-btn.btn-primary(ng-click='sendMsg()') 发送
+				button.btn.uu-btn(style='margin-left: 15px') 取消

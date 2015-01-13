@@ -129,7 +129,10 @@ angular.module('mainApp')
 		$controller('CustomerManagerManager', {$scope: $scope});
 
 	}])
-	.controller('Info', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
+	.controller('Info', ['$scope', '$controller', '$http', 'Restangular', function ($scope, $controller, $http, Restangular) {
+
+		var Message = Restangular.all('message'),
+			$msgForm = $('#msg-form');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -141,19 +144,32 @@ angular.module('mainApp')
 		];
 
 
-		$scope.msg = {};
-
-		$scope.newMsgTemplate = function() {
-			$('#new-msg-templet').modal('show');
+		$scope.newMsgTemplate = function(form) {
+			$scope.resetForm(form);
+			$scope.msg = {};
+			$msgForm.modal('show');
 		};
 
 		// 保存短信模板
-		$scope.saveMsgTemplate = function() {
+		$scope.saveMsgTemplate = function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $msgForm)) return;
+
+			$scope.processing(form, $msgForm);
+
 			$http.post('/atnew/ws/message/template', $scope.msg)
-				.success(function(data, status) {
-					$('#new-msg-templet').modal('hide');
-				});
+				.success($scope.successHandler(form, $msgForm, $scope.getMsgList))
+				.error($scope.errorHandler(form, $msgForm));
 		};
+
+		// 获取短信模板列表
+		$scope.getMsgList = function() {
+			$scope.msgs = Message.getList({
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo
+			}).$object;
+		};
+
 
 		// 查询
 		$scope.listByPage = function() {
@@ -163,6 +179,8 @@ angular.module('mainApp')
 					$scope.recordsCount = data.recordsCount;
 				});
 		};
+
+		$scope.getMsgList();
 
 		$controller('CustomerManagerManager', {$scope: $scope});
 	}]);

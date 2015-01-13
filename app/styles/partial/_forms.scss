@@ -430,6 +430,12 @@ input[type="checkbox"] {
 	color: lighten($text-color, 25%); // lighten the text some for contrast
 }
 
+.input-group-addon.phone-addon {
+	display: none;
+	fieldset[disabled] & {
+		display: table-cell;
+	}
+}
 
 
 // Inline forms

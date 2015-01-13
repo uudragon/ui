@@ -13,7 +13,7 @@ mixin input-phone(title, id)
 	td.form-td
 		.input-group
 			input.form-control.input-sm(id='form-telphone')&attributes(attributes)
-			.input-group-addon
+			.input-group-addon.phone-addon
 				+tooltip('外呼', 'top')
 					+glyphicon('earphone')
 
@@ -162,12 +162,11 @@ mixin payment(title, id)
 		+option('支付宝', 2)
 		+option('货到付款', 3)
 
-//- 付款方式
+//- 支付状态
 mixin pay-status(title, id)
 	+select(title, id)&attributes(attributes)
-		+option('银行', 1)
-		+option('支付宝', 2)
-		+option('货到付款', 3)
+		+option('未付费', 0)
+		+option('已付费', 1)
 
 //- 是否付款
 mixin isPaid(title, id)
@@ -321,4 +320,13 @@ mixin warehosue-type(title, id)
 	+select(title, id)&attributes(attributes)
 		+option('主库', 1)
 		+option('备库', 2)
+
+//- 信息主题
+mixin msg-subject(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('核实订单', 0)
+		+option('投诉', 1)
+		+option('回访', 2)
+		+option('催费', 3)
+		+option('促进销售', 4)
 

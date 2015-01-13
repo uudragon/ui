@@ -398,7 +398,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		cfpLoadingBar.start();
 
 		if (!Auth.isLoggedIn()) {
-			// $location.path('/' + config.auth.login);
+			$location.path('/' + config.auth.login);
 		} else {
 			// 因为负责业务的后端服务不保存状态, 所以这里需要不断的通过负责权限的后台检查登陆是否超时
 			Auth.checkTimeout();
