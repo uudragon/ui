@@ -1,3 +1,5 @@
+if( window.ActiveXObject ) {
+
 //控件配置
 var p_serverIp = "124.205.241.254";
 var p_serverPort = 1202;
@@ -457,4 +459,6 @@ function phoneHold() {
 		setLocalHold(false);
 		gPhoneHold = false;
 	}
+}
+
 }
