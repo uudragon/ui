@@ -349,7 +349,7 @@ angular.module('mainApp')
 		};
 
 		// 退换货
-		$scope.return = function() {
+		$scope.returnGoods = function() {
 			$returnOrder.modal('show');
 		};
 

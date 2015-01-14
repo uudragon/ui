@@ -1000,8 +1000,8 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					height: 0
 				})
 				.transition()
+				.attr('class', 'bar')
 				.attr({
-					class: 'bar',
 					x: function(d) { return x(d.name); },
 					y: function(d) { return y(d.value); },
 					width: x.rangeBand(),
