@@ -9,7 +9,7 @@ include ../../modules/mixins.jade
 			li
 				+jslink('globalNewOrder(gbNeworderForm)', '新建订单')
 			li
-				+jslink('globalNewTicket()', '新建工单')
+				+jslink('globalNewTicket(gbTicketForm)', '新建工单')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
 			+glyphicon('search')
@@ -61,12 +61,12 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 核实订单
 	.modal-body
-		form.form-horizontal
+		form.form-horizontal(name='orderDetailsForm' novalidate ng-class='{sumitted: orderDetailsForm.$sumitted}')
 			//- edit and save button
 			.form-group.modal-action
 				+tooltip('修改', 'top', 'editCustomerInfo()')
 					+glyphicon('pencil')
-				+tooltip('保存', 'top', 'saveCustomerInfo(currentOrder)')
+				+tooltip('保存', 'top', 'saveCustomerInfo(orderDetailsForm)')
 					+glyphicon('floppy-disk')
 
 			//- customer details

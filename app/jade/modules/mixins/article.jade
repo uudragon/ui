@@ -48,20 +48,20 @@ mixin order-details()
 		legend 基本信息
 		table.form-table(ng-show='isCustometInfoEditable')
 			tr
-				+input('客户姓名', 'name')(ng-model='currentOrder.customer.name')
+				+input('客户姓名', 'name')(uu-name ng-model='currentOrder.customer.name' required)
 				+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
 			tr
-				+gender('客户性别', 'customer-gender')(ng-model='currentOrder.customer.sex')
+				+gender('客户性别', 'customer-gender')(ng-model='currentOrder.customer.sex' required)
 				+input('订购产品', 'good')(ng-model='currentOrder.good')
 			tr
-				+input('联系电话', 'form-telphone')(ng-model='currentOrder.customer.phone')
-				+input('起订日期', 'startDate')(ng-model='currentOrder.effective', uu-date-picker)
+				+input('联系电话', 'form-telphone')(uu-phone ng-model='currentOrder.customer.phone' required)
+				+input('起订日期', 'startDate')(ng-model='currentOrder.effective' uu-date-picker required)
 			tr
 				+input('儿童姓名', 'child-name')(ng-model='currentOrder.customer.child')
-				+input('结束日期', 'enddate')(ng-model='currentOrder.deadline', uu-date-picker)
+				+input('结束日期', 'enddate')(ng-model='currentOrder.deadline' uu-date-picker)
 			tr
 				+gender('儿童性别', 'child-gender')(ng-model='currentOrder.customer.c_sex')
-				+payment('支付方式', 'payment')(ng-model='currentOrder.payment')
+				+payment('支付方式', 'payment')(ng-model='currentOrder.payment' required)
 			tr
 				+input('出生日期', 'birthday')(ng-model='currentOrder.customer.birthday', uu-date-picker)
 				+pay-status('支付状态', 'pay-status')(ng-model='currentOrder.paid')

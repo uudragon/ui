@@ -142,7 +142,7 @@
                   <label for="form-name" class="form-th-label">客户姓名</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-name" class="form-control input-sm" ng-model="currentOrder.customer.name"/>
+                  <input id="form-name" class="form-control input-sm" uu-name="uu-name" ng-model="currentOrder.customer.name" required="required"/>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">订单编号</label>
@@ -156,7 +156,7 @@
                   <label for="form-customer-gender" class="form-th-label">客户性别</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex">
+                  <select id="form-customer-gender" class="form-control input-sm" ng-model="currentOrder.customer.sex" required="required">
                     <option value="0">女</option>
                     <option value="1">男</option>
                   </select>
@@ -173,13 +173,13 @@
                   <label for="form-form-telphone" class="form-th-label">联系电话</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-form-telphone" class="form-control input-sm" ng-model="currentOrder.customer.phone"/>
+                  <input id="form-form-telphone" class="form-control input-sm" uu-phone="uu-phone" ng-model="currentOrder.customer.phone" required="required"/>
                 </td>
                 <th class="form-th">
                   <label for="form-startDate" class="form-th-label">起订日期</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker"/>
+                  <input id="form-startDate" class="form-control input-sm" ng-model="currentOrder.effective" uu-date-picker="uu-date-picker" required="required"/>
                 </td>
               </tr>
               <tr>
@@ -210,7 +210,7 @@
                   <label for="form-payment" class="form-th-label">支付方式</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-payment" class="form-control input-sm" ng-model="currentOrder.payment">
+                  <select id="form-payment" class="form-control input-sm" ng-model="currentOrder.payment" required="required">
                     <option value="1">银行</option>
                     <option value="2">支付宝</option>
                     <option value="3">货到付款</option>

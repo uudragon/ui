@@ -1,18 +1,17 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('CustomerServiceCtrl', ['$scope', '$controller',function ($scope, $controller) {
+.controller('CustomerServiceCtrl', ['$scope', '$controller', 'Order', function ($scope, $controller, Order) {
 
 	// init
 	$scope.searchModel = {
-		pagination: {
-			perPage: config.perPage,
-			toPage: 1
-		}
+		pageSize: config.perPage,
+		pageNo: 1,
 	};
 
-	$scope.page = 1;
-	$scope.objType = 'customer';
+	$scope.getBaseOrder = function() {
+
+	};
 
 	$controller('MainCtrl', {$scope: $scope});
 
@@ -24,34 +23,6 @@ angular.module('mainApp')
 	 * ---------------------------------------------------------------------------------
 	 */
 
-	.controller('CustomerServiceManager', ['$scope', '$controller', '$filter', function ($scope, $controller, $filter) {
-
-		$scope.searchModel = {};
-
-		if ( $scope.$state.includes('root.customer.traded') ) {
-			$scope.search('tradedCustomer');
-		} else if ( $scope.$state.includes('root.customer.manager') ) {
-			$scope.load('customer_statistics');
-		}
-
-		$scope.getOrderBySN = function(orderSN) {
-			for (var i = 0; i < $scope.orders.length; i++) {
-				if ($scope.orders[i] && $scope.orders[i].orderSN === orderSN) {
-					return $scope.orders[i];
-				}
-			}
-			return {};
-		};
-
-		$scope.addContact = function() {
-			$scope.order = $scope.order || {};
-			$scope.order.contactTime = $filter('now')();
-			$('#contact-history').modal('show');
-		};
-
-		$controller('CustomerServiceCtrl', {$scope: $scope});
-
-	}])
 	.controller('CheckOrder', ['$scope', '$controller', 'Order', '$http', function($scope, $controller, Order, $http) {
 		var
 			$orderShareForm = $('#share-order'),
@@ -94,7 +65,6 @@ angular.module('mainApp')
 
 		// 获取订单列表
 		$scope.getOrderList = function() {
-
 			var req = {
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo || 1,
@@ -188,16 +158,20 @@ angular.module('mainApp')
 		};
 
 		// 保存客户信息
-		$scope.saveCustomerInfo = function(currentOrder) {
-			currentOrder.put().then(function() {
+		$scope.saveCustomerInfo = function(form) {
+			if (!$scope.isCustometInfoEditable || form.processing) return;
+			// 表单验证
+			if (!$scope.validateForm(form, $orderDetails)) return;
+			$orderDetails.modal('spinner');
+			$scope.currentOrder.put().then($scope.successHandler(form, $orderDetails, function() {
 				$scope.isCustometInfoEditable = false;
-			});
+			}), $scope.errorHandler(form, $orderDetails));
 		};
 
 		// 首次加载定单列表
 		$scope.getOrderList();
 
-		$controller('CustomerServiceManager', {$scope: $scope});
+		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
 	.controller('SplitOrder', ['$scope', '$controller', 'Order', function($scope, $controller, Order) {
 
@@ -273,7 +247,7 @@ angular.module('mainApp')
 			$('#select-gift').modal('show');
 		};
 
-		$controller('CustomerServiceManager', {$scope: $scope});
+		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
 	.controller('Complains', ['$scope', '$controller', '$http', '$filter', 'Restangular', function($scope, $controller, $http, $filter, Restangular) {
 		var
@@ -381,7 +355,7 @@ angular.module('mainApp')
 			console.log(selectedNodes);
 		};
 
-		$controller('CustomerServiceManager', {$scope: $scope});
+		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
 	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
 
@@ -442,7 +416,7 @@ angular.module('mainApp')
 			});
 		};
 
-		$controller('CustomerServiceManager', {$scope: $scope});
+		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
 	.controller('Exchange', ['$scope', '$controller', function($scope, $controller) {
 
@@ -507,7 +481,7 @@ angular.module('mainApp')
 			});
 		};
 
-		$controller('CustomerServiceManager', {$scope: $scope});
+		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
 	.controller('CustomerPool', ['$scope', '$controller', 'Restangular', function($scope, $controller, Restangular) {
 		var Customer = Restangular.all('customer');
@@ -611,5 +585,5 @@ angular.module('mainApp')
 			$scope.getCustomerList();
 		}, 0);
 
-		$controller('CustomerServiceManager', {$scope: $scope});
+		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}]);

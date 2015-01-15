@@ -188,7 +188,7 @@
                 <h4 class="modal-title">新建来电工单</h4>
               </div>
               <div class="modal-body">
-                <form class="form-horizontal">
+                <form name="gbTicketForm" novalidate="novalidate" ng-class="{sumitted: gbTicketForm.$sumitted}" class="form-horizontal">
                   <fieldset>
                     <legend>工单信息</legend>
                     <table class="form-table">
@@ -197,13 +197,13 @@
                           <label for="form-name" class="form-th-label">客户姓名</label>
                         </th>
                         <td class="form-td">
-                          <input id="form-name" class="form-control input-sm" ng-model="gbOrder.name"/>
+                          <input id="form-name" class="form-control input-sm" uu-name="uu-name" ng-model="gbOrder.name" required="required"/>
                         </td>
                         <th class="form-th">
                           <label for="form-order-status" class="form-th-label">工单状态</label>
                         </th>
                         <td class="form-td">
-                          <select id="form-order-status" class="form-control input-sm" ng-model="gbOrder.orderStatus">
+                          <select id="form-order-status" class="form-control input-sm" ng-model="gbOrder.orderStatus" required="required">
                             <option value="0">已完成</option>
                             <option value="0">处理中</option>
                             <option value="0">待处理</option>
@@ -215,13 +215,13 @@
                           <label class="form-th-label">来电时间</label>
                         </th>
                         <td class="form-td">
-                          <p class="form-control-static" ng-bind="gbOrder.callTime"></p>
+                          <p class="form-control-static" ng-bind="gbOrder.callTime" required="required"></p>
                         </td>
                         <th class="form-th">
                           <label class="form-th-label">负责人</label>
                         </th>
                         <td class="form-td">
-                          <p class="form-control-static" ng-bind="gbOrder.responser"></p>
+                          <p class="form-control-static" ng-bind="gbOrder.responser" required="required"></p>
                         </td>
                       </tr>
                       <tr>
@@ -229,7 +229,7 @@
                           <label for="form-query-type" class="form-th-label">查询类型</label>
                         </th>
                         <td class="form-td">
-                          <select id="form-query-type" class="form-control input-sm" ng-model="gbOrder.queryType">
+                          <select id="form-query-type" class="form-control input-sm" ng-model="gbOrder.queryType" required="required">
                             <option value="0">产品</option>
                             <option value="0">售后服务</option>
                             <option value="0">订购</option>
@@ -241,7 +241,7 @@
                           <label for="form-telphone" class="form-th-label">联系电话</label>
                         </th>
                         <td class="form-td">
-                          <input id="form-telphone" class="form-control input-sm" ng-model="gbOrder.telphone"/>
+                          <input id="form-telphone" class="form-control input-sm" uu-phone="uu-phone" ng-model="gbOrder.telphone" required="required"/>
                         </td>
                       </tr>
                       <tr>
@@ -249,7 +249,7 @@
                           <label for="form-content" class="form-th-label">内容</label>
                         </th>
                         <td colspan="3" class="form-td">
-                          <textarea id="form-content" class="form-control" ng-model="gbOrder.content"></textarea>
+                          <textarea id="form-content" class="form-control" ng-model="gbOrder.content" required="required"></textarea>
                         </td>
                       </tr>
                     </table>
@@ -257,7 +257,7 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button ng-click="saveGlobalTicket()" class="btn uu-btn btn-primary">保存</button>
+                <button ng-click="saveGlobalTicket(gbTicketForm)" class="btn uu-btn btn-primary">保存</button>
                 <button data-dismiss="modal" class="btn uu-btn">取消</button>
               </div>
             </div>

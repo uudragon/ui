@@ -63,6 +63,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	};
 
 	var $gbNewOrder = $('#global-new-order');
+	var $gbNewTicket = $('#global-new-ticket');
 
 	// 新建工单
 	$scope.globalNewOrder = function(form) {
@@ -122,17 +123,29 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 
 	// 新建订单
-	$scope.globalNewTicket = function() {
-		$scope.gbTicket = $scope.gbTicket || {};
-		$scope.gbTicket.create_time = $filter('now')();
-		$scope.gbTicket.update_time = $scope.gbTicket.create_time;
-		$('#global-new-ticket').modal('show');
+	$scope.globalNewTicket = function(form) {
+		$scope.resetForm(form);
+
+		$scope.gbTicket = {
+			effective: $filter('now')(),
+			order_no: $scope.guid(),
+			creator: $scope.currentUser.account,
+			sourceName: '客服系统',
+			source: '1',
+			order_type: '0',
+			amount: '2380',
+			paid: '0'
+		};
+
+		$gbNewTicket.modal('show');
 	};
 
 	// 保存订单
-	$scope.saveGlobalTicket = function() {
-		$('#global-new-ticket').modal('hide');
-		$scope.gbTicket = {};
+	$scope.saveGlobalTicket = function(form) {
+		// 表单验证
+		if (!$scope.validateForm(form, $gbNewTicket)) return;
+
+		$gbNewTicket.modal('hide');
 	};
 
 	// 所有的全选逻辑
