@@ -391,6 +391,26 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuName', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^[\u4e00-\u9fa5a-zA-Z \.]*$/.test(value)) {
+					ctrl.$setValidity('name', true);
+					return value;
+				} else {
+					ctrl.$setValidity('name', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
 .directive('uuFloat', function() {
 	return {
 		restrict: 'A',
@@ -417,11 +437,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		require: 'ngModel',
 		link: function($scope, elem, attrs, ctrl) {
 			var validate = function(value) {
-				if (!value || /^\s*\d{11}\s*$/.test(value)) {
-					ctrl.$setValidity('digit', true);
+				if (!value || /^\s*1\d{10}\s*$/.test(value)) {
+					ctrl.$setValidity('phone', true);
 					return value;
 				} else {
-					ctrl.$setValidity('digit', false);
+					ctrl.$setValidity('phone', false);
 					return undefined;
 				}
 			};
@@ -438,10 +458,10 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		link: function($scope, elem, attrs, ctrl) {
 			var validate = function(value) {
 				if (!value || /((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/.test(value)) {
-					ctrl.$setValidity('digit', true);
+					ctrl.$setValidity('isbn', true);
 					return value;
 				} else {
-					ctrl.$setValidity('digit', false);
+					ctrl.$setValidity('isbn', false);
 					return undefined;
 				}
 			};

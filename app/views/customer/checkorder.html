@@ -381,15 +381,15 @@
                   <label for="form-deadline" class="form-th-label">结束日期</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-deadline" class="form-control input-sm" ng-model="gbOrder.deadline" uu-date-picker="uu-date-picker" required="required"/>
+                  <input id="form-deadline" class="form-control input-sm" ng-model="gbOrder.deadline" uu-date-picker="uu-date-picker"/>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-creator" class="form-th-label">下单人</label>
+                  <label class="form-th-label">下单人</label>
                 </th>
-                <td class="form-td">
-                  <input id="form-creator" class="form-control input-sm" ng-model="gbOrder.creator" required="required"/>
+                <td colspan="creator" class="form-td">
+                  <p class="form-control-static" ng-bind="gbOrder.creator"></p>
                 </td>
                 <th class="form-th">
                   <label for="form-payment" class="form-th-label">支付方式</label>
@@ -427,13 +427,13 @@
                   <label for="form-customer-name" class="form-th-label">客户姓名</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-customer-name" class="form-control input-sm" ng-model="gbOrder.customer.name" required="required"/>
+                  <input id="form-customer-name" class="form-control input-sm" uu-name="uu-name" ng-model="gbOrder.customer.name" required="required"/>
                 </td>
                 <th class="form-th">
                   <label for="form-customer-gender" class="form-th-label">客户性别</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex" required="required">
+                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex">
                     <option value="0">女</option>
                     <option value="1">男</option>
                   </select>
@@ -450,7 +450,7 @@
                   <label for="form-child-name" class="form-th-label">儿童姓名</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-child-name" class="form-control input-sm" ng-model="gbOrder.customer.child" required="required"/>
+                  <input id="form-child-name" class="form-control input-sm" uu-name="uu-name" ng-model="gbOrder.customer.child"/>
                 </td>
               </tr>
               <tr>
@@ -458,7 +458,7 @@
                   <label for="form-child-gender" class="form-th-label">儿童性别</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-child-gender" class="form-control input-sm" ng-model="gbOrder.customer.c_sex" required="required">
+                  <select id="form-child-gender" class="form-control input-sm" ng-model="gbOrder.customer.c_sex">
                     <option value="0">女</option>
                     <option value="1">男</option>
                   </select>
@@ -467,7 +467,7 @@
                   <label for="form-customer-birthday" class="form-th-label">出生日期</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-customer-birthday" class="form-control input-sm" ng-model="gbOrder.customer.birthday" uu-date-picker="uu-date-picker" required="required"/>
+                  <input id="form-customer-birthday" class="form-control input-sm" ng-model="gbOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
                 </td>
               </tr>
               <tr>
@@ -475,7 +475,7 @@
                   <label for="form-has-invoice" class="form-th-label">是否开发票</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-has-invoice" class="form-control input-sm" ng-model="gbOrder.has_invoice" required="required">
+                  <select id="form-has-invoice" class="form-control input-sm" ng-model="gbOrder.has_invoice">
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>

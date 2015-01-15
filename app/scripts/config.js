@@ -4,7 +4,7 @@
 	// global variables
 	exports.basews = '/atnew/ws/';
 	exports.basewms = '/wms/';
-	exports.perPage = 8;
+	exports.perPage = 12;
 	exports.maxPages = 6;
 
 	exports.auth = {

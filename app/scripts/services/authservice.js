@@ -65,10 +65,11 @@ angular.module('mainApp')
 		return false;
 	};
 
-	this.login = function(res) {
+	this.login = function(res, phoneNum) {
 		setUser(res.user);
 		setToken(res.token);
 		setResource(res.resources);
+		ipCookie('phoneNum', phoneNum);
 		$location.path('/');
 	};
 
@@ -76,6 +77,7 @@ angular.module('mainApp')
 		ipCookie.remove('user');
 		ipCookie.remove('token');
 		ipCookie.remove('resource');
+		ipCookie.remove('phoneNum');
 		$location.path('/' + config.auth.login);
 	};
 }]);

@@ -27,7 +27,7 @@ th {
 		> tr {
 			> th,
 			> td {
-				padding: $table-cell-padding;
+				padding: $table-cell-padding - 2;
 				line-height: $line-height-base;
 				vertical-align: middle;
 				border-top: 1px solid $table-border-color;
@@ -73,11 +73,11 @@ th {
 
 			&:before {
 				border-bottom-color: #999;
-				top: 6px;
+				top: 4px;
 			}
 
 			&:after {
-				top: 18px;
+				top: 16px;
 				border-top-color: #999;
 			}
 
