@@ -478,6 +478,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 			ngProvinceModel: '=',
 			ngAddrModel: '=',
 			ngRequired: '=',
+			ngDisabled: '=',
 			ngCityModel: '='
 		},
 		link: function($scope, elem, attrs, ctrl) {
@@ -513,11 +514,11 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		template: '<div>' +
 					'<label class="form-addr-label">省</label>' +
-					'<select ng-required="ngRequired" class="prov form-control input-sm" ng-options="p.name as p.name for p in provinces" ng-model="ngProvinceModel"></select>' +
+					'<select ng-disabled="ngDisabled" ng-required="ngRequired" class="prov form-control input-sm" ng-options="p.name as p.name for p in provinces" ng-model="ngProvinceModel"></select>' +
 					'<label ng-show="ngProvinceModel" class="form-addr-label">市 / 区</label>' +
-					'<select ng-show="ngProvinceModel" ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
+					'<select ng-disabled="ngDisabled" ng-show="ngProvinceModel" ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
 					'<label class="form-addr-label">详细</label>' +
-					'<input ng-required="ngRequired" class="form-control input-sm" ng-model="ngAddrModel">' +
+					'<input ng-disabled="ngDisabled" ng-required="ngRequired" class="form-control input-sm" ng-model="ngAddrModel">' +
 				'</div>'
 	};
 })
@@ -582,24 +583,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			menus.on('click', toggleFn);
 			setions.on('click', toggleFn);
-		}
-	};
-})
-
-.directive('uuFormField', function() {
-	return {
-		scope: {
-			isFiledEnable: '=uuFormField'
-		},
-		restrict: 'A',
-		link: function($scope, elem) {
-			$scope.$watch('isFiledEnable', function(val) {
-				if (val) {
-					elem.attr('disabled', false);
-				} else {
-					elem.attr('disabled', true);
-				}
-			});
 		}
 	};
 })

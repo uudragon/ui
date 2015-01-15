@@ -121,9 +121,9 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
-          <fieldset uu-form-field="isCustometInfoEditable">
+          <fieldset>
             <legend>基本信息</legend>
-            <table class="form-table">
+            <table ng-show="isCustometInfoEditable" class="form-table">
               <tr>
                 <th class="form-th">
                   <label for="form-name" class="form-th-label">客户姓名</label>
@@ -160,11 +160,7 @@
                   <label for="form-form-telphone" class="form-th-label">联系电话</label>
                 </th>
                 <td class="form-td">
-                  <div class="input-group">
-                    <input id="form-telphone" class="form-control input-sm" ng-model="currentOrder.customer.phone"/>
-                    <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
-                    </div>
-                  </div>
+                  <input id="form-form-telphone" class="form-control input-sm" ng-model="currentOrder.customer.phone"/>
                 </td>
                 <th class="form-th">
                   <label for="form-startDate" class="form-th-label">起订日期</label>
@@ -230,6 +226,102 @@
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
                 <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.customer.province" ng-city-model="currentOrder.customer.city" ng-addr-model="currentOrder.customer.address" ng-required="true"></td>
+              </tr>
+            </table>
+            <table ng-show="!isCustometInfoEditable" class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">客户姓名</label>
+                </th>
+                <td colspan="name" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.customer.name"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">订单编号</label>
+                </th>
+                <td colspan="order" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.order_no"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">客户性别</label>
+                </th>
+                <td colspan="customer-gender" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.customer.sex | gender"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">订购产品</label>
+                </th>
+                <td colspan="good" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.good"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">联系电话</label>
+                </th>
+                <td class="form-td">
+                  <div class="input-group">
+                    <p class="form-control-static" ng-bind="currentOrder.customer.phone"></p>
+                    <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
+                    </div>
+                  </div>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">起订日期</label>
+                </th>
+                <td colspan="startDate" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.effective"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">儿童姓名</label>
+                </th>
+                <td colspan="child-name" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.customer.child"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">结束日期</label>
+                </th>
+                <td colspan="enddate" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.deadline"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">儿童性别</label>
+                </th>
+                <td colspan="child-gender" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.customer.c_sex | gender"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">支付方式</label>
+                </th>
+                <td colspan="payment" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.payment | payment"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">出生日期</label>
+                </th>
+                <td colspan="birthday" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.customer.birthday"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">支付状态</label>
+                </th>
+                <td colspan="pay-status" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.paid | payStatus"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-order-address" class="form-th-label">地址</label>
+                </th>
+                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.customer.province" ng-city-model="currentOrder.customer.city" ng-addr-model="currentOrder.customer.address" ng-required="true"></td>
               </tr>
             </table>
           </fieldset>

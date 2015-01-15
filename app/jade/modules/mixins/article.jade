@@ -44,9 +44,9 @@ mixin article-filter(key, filter)
 
 
 mixin order-details()
-	fieldset(uu-form-field='isCustometInfoEditable')
+	fieldset
 		legend 基本信息
-		table.form-table
+		table.form-table(ng-show='isCustometInfoEditable')
 			tr
 				+input('客户姓名', 'name')(ng-model='currentOrder.customer.name')
 				+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
@@ -54,7 +54,7 @@ mixin order-details()
 				+gender('客户性别', 'customer-gender')(ng-model='currentOrder.customer.sex')
 				+input('订购产品', 'good')(ng-model='currentOrder.good')
 			tr
-				+input-phone('联系电话', 'form-telphone')(ng-model='currentOrder.customer.phone')
+				+input('联系电话', 'form-telphone')(ng-model='currentOrder.customer.phone')
 				+input('起订日期', 'startDate')(ng-model='currentOrder.effective', uu-date-picker)
 			tr
 				+input('儿童姓名', 'child-name')(ng-model='currentOrder.customer.child')
@@ -67,6 +67,27 @@ mixin order-details()
 				+pay-status('支付状态', 'pay-status')(ng-model='currentOrder.paid')
 			tr
 				+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.customer.province' ng-city-model='currentOrder.customer.city' ng-addr-model='currentOrder.customer.address' ng-required='true')
+		table.form-table(ng-show='!isCustometInfoEditable')
+			tr
+				+static-input('客户姓名', 'name')(ng-bind='currentOrder.customer.name')
+				+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
+			tr
+				+static-input('客户性别', 'customer-gender')(ng-bind='currentOrder.customer.sex | gender')
+				+static-input('订购产品', 'good')(ng-bind='currentOrder.good')
+			tr
+				+static-input-phone('联系电话', 'form-telphone')(ng-bind='currentOrder.customer.phone')
+				+static-input('起订日期', 'startDate')(ng-bind='currentOrder.effective')
+			tr
+				+static-input('儿童姓名', 'child-name')(ng-bind='currentOrder.customer.child')
+				+static-input('结束日期', 'enddate')(ng-bind='currentOrder.deadline')
+			tr
+				+static-input('儿童性别', 'child-gender')(ng-bind='currentOrder.customer.c_sex | gender')
+				+static-input('支付方式', 'payment')(ng-bind='currentOrder.payment | payment')
+			tr
+				+static-input('出生日期', 'birthday')(ng-bind='currentOrder.customer.birthday')
+				+static-input('支付状态', 'pay-status')(ng-bind='currentOrder.paid | payStatus')
+			tr
+				+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.customer.province' ng-city-model='currentOrder.customer.city' ng-addr-model='currentOrder.customer.address' ng-required='true')
 
 //- Searches
 //- ----------------------
