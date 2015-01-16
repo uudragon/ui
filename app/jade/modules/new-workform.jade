@@ -1,0 +1,29 @@
+//- 新建来电工单
++modal('global-new-ticket')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 新建来电工单
+	.modal-body
+		form.form-horizontal(name='gbworkformForm' novalidate ng-class='{sumitted: gbworkformForm.$sumitted}')
+			fieldset
+				legend 工单信息
+				table.form-table
+					tr
+						+input('客户姓名', 'gb-workform-name')(uu-name ng-model='gbWorkform.customer_name')
+						+input('主题', 'gb-workform-theme')(uu-name ng-model='gbWorkform.theme')
+					//- tr
+					//- 	+static-input('来电时间')(ng-bind='gbWorkform.create_time')
+					//- 	+static-input('负责人')(ng-bind='gbWorkform.user')
+					tr
+						+workform-type('工单类型', 'gb-workform--type')(ng-model='gbWorkform.type' required)
+						+workform-subtype('子类型', 'gb-workform-subtype')(ng-model='gbWorkform.subtype' required)
+					tr
+						+input('联系电话', 'gb-workform-telphone')(uu-phone ng-model='gbWorkform.phone' required)
+						+workform-status('工单状态', 'gb-workform-status')(ng-model='gbWorkform.status' required)
+					tr
+						+textarea('内容', 'gb-workform-content', 3)(ng-model='gbWorkform.content' required)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveGlobalTicket(gbworkformForm)') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
