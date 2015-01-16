@@ -63,7 +63,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	};
 
 	var $gbNewOrder = $('#global-new-order');
-	var $gbNewTicket = $('#global-new-ticket');
+	var $gbNewWorkform = $('#global-new-ticket');
 
 	// 新建工单
 	$scope.globalNewOrder = function(form) {
@@ -123,29 +123,28 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 
 	// 新建订单
-	$scope.globalNewTicket = function(form) {
-		$scope.resetForm(form);
-
-		$scope.gbTicket = {
-			effective: $filter('now')(),
-			order_no: $scope.guid(),
-			creator: $scope.currentUser.account,
-			sourceName: '客服系统',
-			source: '1',
-			order_type: '0',
-			amount: '2380',
-			paid: '0'
+	$scope.globalNewWorkForm = function(form) {
+		$scope.gbWorkform = {
+			create_time: $filter('now')(),
+			user: $scope.currentUser.userNo
 		};
-
-		$gbNewTicket.modal('show');
+		$scope.resetForm(form);
+		$gbNewWorkform.modal('show');
 	};
+
+	// $scope.globalNewWorkForm();
 
 	// 保存订单
 	$scope.saveGlobalTicket = function(form) {
 		// 表单验证
-		if (!$scope.validateForm(form, $gbNewTicket)) return;
+		console.log($scope.gbWorkformCallback);
+		if (!$scope.validateForm(form, $gbNewWorkform)) return;
 
-		$gbNewTicket.modal('hide');
+		$scope.processing(form, $gbNewWorkform);
+
+		$http.post(config.basews + 'workform', $scope.gbWorkform)
+			.success($scope.successHandler(form, $gbNewWorkform, $scope.gbWorkformCallback))
+			.error($scope.errorHandler(form, $gbNewWorkform));
 	};
 
 	// 所有的全选逻辑

@@ -5,7 +5,7 @@
       <ul role="menu" class="dropdown-menu">
         <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
         </li>
-        <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
+        <li><a href="" ng-click="globalNewWorkForm(gbworkformForm)" class="jslink">新建工单</a>
         </li>
       </ul>
     </li>
@@ -95,23 +95,24 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders">
-      <td ng-bind="order.customerName" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="order.gender | gender" ng-show="ths[1].isChecked"></td>
-      <td ng-show="ths[2].isChecked"><span ng-bind="order.customer_phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(order.customer_phone)" ng-show="order.customer_phone"><span class="glyphicon glyphicon-earphone"></span></a>
+    <tr ng-repeat="workform in workforms">
+      <td ng-bind="workform.consumer_name" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="workform.gender | gender" ng-show="ths[1].isChecked"></td>
+      <td ng-show="ths[2].isChecked"><span ng-bind="workform.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(workform.phone)" ng-show="workform.phone"><span class="glyphicon glyphicon-earphone"></span></a>
       </td>
-      <td ng-bind="order.orderSN" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="order.city" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="order.workstart" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="order.workend" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="order.responser" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="order.workStatus" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="order.workType" ng-show="ths[9].isChecked"></td>
+      <td ng-bind="workform.code" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="workform.city" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="workform.workstart" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="workform.user" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="workform.status" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="workform.type" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="workform.workType" ng-show="ths[9].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="导出" ng-click="export()"><span class="glyphicon glyphicon-export"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
+<uu-pagination records="workforms.meta.recordsCount" per-page="workforms.meta.pageSize" page="workforms.meta.pageNo" model="searchModel" action="getWorkformList()"></uu-pagination>
 <div id="order-details" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -391,6 +392,92 @@
             </label>
           </li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="global-new-ticket" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">新建来电工单</h4>
+      </div>
+      <div class="modal-body">
+        <form name="gbworkformForm" novalidate="novalidate" ng-class="{sumitted: gbworkformForm.$sumitted}" class="form-horizontal">
+          <fieldset>
+            <legend>工单信息</legend>
+            <table class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label for="form-gb-workform-name" class="form-th-label">客户姓名</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-gb-workform-name" class="form-control input-sm" uu-name="uu-name" ng-model="gbWorkform.customer_name"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-gb-workform-theme" class="form-th-label">主题</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-gb-workform-theme" class="form-control input-sm" uu-name="uu-name" ng-model="gbWorkform.theme"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-gb-workform--type" class="form-th-label">工单类型</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-gb-workform--type" class="form-control input-sm" ng-model="gbWorkform.type" required="required">
+                    <option value="2">查询</option>
+                    <option value="3">投诉</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-gb-workform-subtype" class="form-th-label">子类型</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-gb-workform-subtype" class="form-control input-sm" ng-model="gbWorkform.subtype" required="required">
+                    <option value="21">产品</option>
+                    <option value="22">售后服务</option>
+                    <option value="23">订购</option>
+                    <option value="24">支付</option>
+                    <option value="25">物流</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-gb-workform-telphone" class="form-th-label">联系电话</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-gb-workform-telphone" class="form-control input-sm" uu-phone="uu-phone" ng-model="gbWorkform.phone" required="required"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-gb-workform-status" class="form-th-label">工单状态</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-gb-workform-status" class="form-control input-sm" ng-model="gbWorkform.status" required="required">
+                    <option value="1">未处理</option>
+                    <option value="2">处理中</option>
+                    <option value="3">关闭</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-gb-workform-content" class="form-th-label">内容</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <textarea id="form-gb-workform-content" class="form-control" ng-model="gbWorkform.content" required="required"></textarea>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="saveGlobalTicket(gbworkformForm)" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
   </div>

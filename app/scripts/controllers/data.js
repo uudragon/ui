@@ -95,7 +95,7 @@ angular.module('mainApp')
 
 		$controller('DataManager', {$scope: $scope});
 	}])
-	.controller('Work', ['$scope', '$controller', function ($scope, $controller) {
+	.controller('Work', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 		// 搜索下拉
 		$scope.filters = [
@@ -127,6 +127,33 @@ angular.module('mainApp')
 			{name: 'workStatus', label: '工单状态', isChecked: true, sortable: true},
 			{name: 'workType', label: '工单类型', isChecked: true, sortable: true}
 		];
+
+		$scope.getWorkformList = function() {
+			var req = {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1,
+				status: $scope.searchModel.status
+			};
+
+			$.extend(req, $scope.query);
+			$http.get(config.basews + 'workform/consulation', {
+					params: req
+				})
+				.success(function(data) {
+					$scope.workforms = data.records;
+					$scope.workforms.meta = {
+						pageSize: data.pageSize,
+						pageNo: data.pageNo ? data.pageNo : 1,
+						recordsCount: data.recordsCount,
+						pageNumber: data.pageNumber
+					};
+				});
+		};
+
+		$scope.gbWorkformCallback = $scope.getWorkformList;
+
+		$scope.getWorkformList();
+
 
 		// fake data
 		// $scope.orders = [{"id":7,"order_no":"7","order_type":1,"effective":"2014-10-23 00:00","deadline":"2014-10-30 00:00","customer_code":"2","customer_name":null,"customer_phone":'1203323212',"customer_addr":null,"has_invoice":true,"source":1,"agent_code":null,"coupon_code":null,"discount_amount":1,"amount":1,"payment":1,"status":2,"paid":0,"validity":1,"order_time":"2014-10-30 23:19","creator":"1","create_time":"2014-10-30 23:19","updater":null,"update_time":null,"contact_count":0,"yn":true,"audit":4,"workflow":1,"customer":{"id":2,"code":"2","type":1,"name":"客户2","sex":1,"birthday":"1","child":"客户2孩子","c_sex":1,"email":"1","province":"山西","city":"太原","district":null,"street":null,"address":"太远","post":null,"phone":"","main_phone":null,"fax":null,"status":null,"creator":"","create_time":null,"updater":null,"update_time":null,"yn":1,"is_allot":null},"details":[{"id":9,"orders_no":"7","product_no":"1","effective":"2014-10-30 23:28","qty":1,"bulk":1,"weight":1,"status":1,"yn":true}],"route":"order","reqParams":null,"fromServer":true,"parentResource":null,"restangularCollection":false,"$$hashKey":"01V"},{"id":8,"order_no":"8","order_type":1,"effective":"2014-10-23 00:00","deadline":"2014-10-30 00:00","customer_code":"2","customer_name":null,"customer_phone":null,"customer_addr":null,"has_invoice":true,"source":1,"agent_code":null,"coupon_code":null,"discount_amount":1,"amount":1,"payment":1,"status":2,"paid":0,"validity":1,"order_time":"2014-10-30 23:19","creator":"1","create_time":"2014-10-30 23:19","updater":null,"update_time":null,"contact_count":0,"yn":true,"audit":2,"workflow":1,"customer":{"id":2,"code":"2","type":1,"name":"客户2","sex":1,"birthday":"1","child":"客户2孩子","c_sex":1,"email":"1","province":"山西","city":"太原","district":null,"street":null,"address":"太远","post":null,"phone":"","main_phone":null,"fax":null,"status":null,"creator":"","create_time":null,"updater":null,"update_time":null,"yn":1,"is_allot":null},"details":[{"id":11,"orders_no":"8","product_no":"1","effective":"2014-10-30 23:28","qty":1,"bulk":1,"weight":1,"status":1,"yn":true}],"route":"order","reqParams":null,"fromServer":true,"parentResource":null,"restangularCollection":false,"$$hashKey":"01W"}];

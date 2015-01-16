@@ -340,3 +340,24 @@ mixin msg-subject(title, id)
 		+option('催费', 3)
 		+option('促进销售', 4)
 
+//- 工单状态
+mixin workform-status(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('未处理', 1)
+		+option('处理中', 2)
+		+option('关闭', 3)
+
+//- 工单类型
+mixin workform-type(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('查询', 2)
+		+option('投诉', 3)
+
+//- 工单子类型
+mixin workform-subtype(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('产品', 21)
+		+option('售后服务', 22)
+		+option('订购', 23)
+		+option('支付', 24)
+		+option('物流', 25)
