@@ -96,7 +96,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="workform in workforms">
-      <td ng-bind="workform.customer_name" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="workform.consumer_name" ng-show="ths[0].isChecked"></td>
       <td ng-bind="workform.gender | gender" ng-show="ths[1].isChecked"></td>
       <td ng-show="ths[2].isChecked"><span ng-bind="workform.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(workform.phone)" ng-show="workform.phone"><span class="glyphicon glyphicon-earphone"></span></a>
       </td>
@@ -412,7 +412,7 @@
                   <label for="form-gb-workform-name" class="form-th-label">客户姓名</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-gb-workform-name" class="form-control input-sm" uu-name="uu-name" ng-model="gbWorkform.customer_name"/>
+                  <input id="form-gb-workform-name" class="form-control input-sm" uu-name="uu-name" ng-model="gbWorkform.consumer_name"/>
                 </td>
                 <th class="form-th">
                   <label for="form-gb-workform-theme" class="form-th-label">主题</label>

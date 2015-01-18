@@ -139,7 +139,6 @@ angular.module('mainApp')
 					params: req
 				})
 				.success(function(data) {
-					console.log(data);
 					$scope.workforms = data.records;
 					$scope.workforms.meta = {
 						pageSize: data.pageSize,
