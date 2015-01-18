@@ -120,8 +120,7 @@ angular.module('mainApp')
 			{name: 'gender', label: '性别', isChecked: true, sortable: true},
 			{name: 'customer_phone', label: '手机', isChecked: true, sortable: true},
 			{name: 'orderSN', label: '工单号', isChecked: true, sortable: true},
-			{name: 'city', label: '城市', isChecked: true, sortable: true},
-			{name: 'workstart', label: '工单开始时间', isChecked: false, sortable: true},
+			{name: 'workstart', label: '工单开始时间', isChecked: true, sortable: true},
 			{name: 'workend', label: '工单结束时间', isChecked: false, sortable: true},
 			{name: 'responser', label: '受理人', isChecked: true, sortable: true},
 			{name: 'workStatus', label: '工单状态', isChecked: true, sortable: true},
@@ -136,10 +135,11 @@ angular.module('mainApp')
 			};
 
 			$.extend(req, $scope.query);
-			$http.get(config.basews + 'workform/consulation', {
+			$http.get(config.basews + 'workform', {
 					params: req
 				})
 				.success(function(data) {
+					console.log(data);
 					$scope.workforms = data.records;
 					$scope.workforms.meta = {
 						pageSize: data.pageSize,

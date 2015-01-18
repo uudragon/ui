@@ -96,17 +96,16 @@
   </thead>
   <tbody>
     <tr ng-repeat="workform in workforms">
-      <td ng-bind="workform.consumer_name" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="workform.customer_name" ng-show="ths[0].isChecked"></td>
       <td ng-bind="workform.gender | gender" ng-show="ths[1].isChecked"></td>
       <td ng-show="ths[2].isChecked"><span ng-bind="workform.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(workform.phone)" ng-show="workform.phone"><span class="glyphicon glyphicon-earphone"></span></a>
       </td>
       <td ng-bind="workform.code" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="workform.city" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="workform.workstart" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="workform.create_time" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="workform.workend" ng-show="ths[5].isChecked"></td>
       <td ng-bind="workform.user" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="workform.status" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="workform.type" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="workform.workType" ng-show="ths[9].isChecked"></td>
+      <td ng-bind="workform.status | mapper:&quot;workformStatus&quot;" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="workform.type | mapper:&quot;workformType&quot;" ng-show="ths[8].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="导出" ng-click="export()"><span class="glyphicon glyphicon-export"></span></a>
       </td>
     </tr>

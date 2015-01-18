@@ -37,7 +37,9 @@
 		receipt: {'-1': '撤销', 0: '未入库', 1: '部分入库', 2: '入库完成'},
 		warehouse: {1: '主库', 2: '备库'},
 		putin: {1: '一般入库', 2: '退货入库', 3: '调货入库', 4: '调货出库(在途)', 5: '一般出库'},
-		orderStatus: {1: '待审核', 2: '审核中', 3: '审核通过', 4: '无效'}
+		orderStatus: {1: '待审核', 2: '审核中', 3: '审核通过', 4: '无效'},
+		workformStatus: {1: '未处理', 2: '处理中', 3: '关闭'},
+		workformType: {2: '查询', 3: '投诉'}
 	};
 
 })(typeof exports === 'undefined' ? window.config = {} : exports);

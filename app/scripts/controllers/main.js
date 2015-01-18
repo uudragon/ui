@@ -10,23 +10,23 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// for debug
 	$scope.currentUser = Auth.getUser();
-	$scope.currentUser = Auth.getUser() || {
-		account: 'admin',
-		birthday: '2014-04-02 00:00',
-		email: '1',
-		extension: null,
-		gender: 1,
-		groupId: null,
-		id: 1,
-		isRemoved: false,
-		isValid: true,
-		name: 'admin',
-		phone: '1',
-		positions: '1',
-		roleId: 234234,
-		seat: null,
-		userNo: '000010'
-	};
+	// $scope.currentUser = Auth.getUser() || {
+	// 	account: 'admin',
+	// 	birthday: '2014-04-02 00:00',
+	// 	email: '1',
+	// 	extension: null,
+	// 	gender: 1,
+	// 	groupId: null,
+	// 	id: 1,
+	// 	isRemoved: false,
+	// 	isValid: true,
+	// 	name: 'admin',
+	// 	phone: '1',
+	// 	positions: '1',
+	// 	roleId: 234234,
+	// 	seat: null,
+	// 	userNo: '000010'
+	// };
 
 	$scope.searchModel = {
 		filter: 0,
@@ -108,6 +108,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		$http.post(config.basews + 'order', $scope.gbOrder)
 			.success(function(status) {
 				form.processing = false;
+
 				if (status === 'true') {
 					$gbNewOrder.modal('success');
 					$scope.getOrderList();
@@ -137,13 +138,12 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	// 保存订单
 	$scope.saveGlobalTicket = function(form) {
 		// 表单验证
-		console.log($scope.gbWorkformCallback);
 		if (!$scope.validateForm(form, $gbNewWorkform)) return;
 
 		$scope.processing(form, $gbNewWorkform);
 
 		$http.post(config.basews + 'workform', $scope.gbWorkform)
-			.success($scope.successHandler(form, $gbNewWorkform, $scope.gbWorkformCallback))
+			.success($scope.successHandlerWs(form, $gbNewWorkform, $scope.gbWorkformCallback))
 			.error($scope.errorHandler(form, $gbNewWorkform));
 	};
 
@@ -255,6 +255,18 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			form.processing = false;
 			$form.modal('success');
 			angular.isFunction(action) && action();
+		};
+	};
+
+	$scope.successHandlerWs = function(form, $form, action) {
+		return function(status) {
+			form.processing = false;
+			if (status === 'true') {
+				$form.modal('success');
+				angular.isFunction(action) && action();
+			} else {
+				$form.modal('fail');
+			}
 		};
 	};
 
