@@ -49,10 +49,10 @@ uu-pagination(records='products.meta.recordsCount', per-page='products.meta.page
 							+input('产品编号', 'product_code')(ng-model='product.product_code' required)
 							+input('产品名称', 'product_name')(ng-model='product.product_name' required)
 						tr
-							+static-input('创建人', 'creator')(ng-bind='product.creator')
+							+select('阶数', 'product_level')(ng-model='product.product_level' ng-options='level for level in goodLevels' required)
 							+yesno('是否有效', 'is-valid')(ng-model='product.yn')
 						tr
-							+input('产品说明', 'product-desc', 3)(ng-model='product.product_desc')
+							+textarea('产品说明', 'product-desc', 3)(ng-model='product.product_desc')
 					p.badge(style='margin-top: 10px;' ng-show='!product.details.length') 尚未添加任何商品
 					table.uu-table(style='margin-top: 10px;' ng-show='product.details.length')
 						+thead

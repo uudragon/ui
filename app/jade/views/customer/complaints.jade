@@ -87,7 +87,7 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaints
 +modal('order-details', 'modal-lg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 核实订单
+		h4.modal-title 投诉详情
 	.modal-body
 		form.form-horizontal
 			+order-details
@@ -122,7 +122,7 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaints
 							+glyphicon('plus')
 
 
-//- 核实订单Modal
+//- 投诉详情Modal
 include ../../modules/contact-history.jade
 
 //- 共享Modal

@@ -91,10 +91,11 @@
                 </tr>
                 <tr>
                   <th class="form-th">
-                    <label class="form-th-label">创建人</label>
+                    <label for="form-product_level" class="form-th-label">阶数</label>
                   </th>
-                  <td colspan="creator" class="form-td">
-                    <p class="form-control-static" ng-bind="product.creator"></p>
+                  <td class="form-td">
+                    <select id="form-product_level" class="form-control input-sm" ng-model="product.product_level" ng-options="level for level in goodLevels" required="required">
+                    </select>
                   </td>
                   <th class="form-th">
                     <label for="form-is-valid" class="form-th-label">是否有效</label>
@@ -111,7 +112,7 @@
                     <label for="form-product-desc" class="form-th-label">产品说明</label>
                   </th>
                   <td colspan="3" class="form-td">
-                    <input id="form-product-desc" class="form-control input-sm" ng-model="product.product_desc"/>
+                    <textarea id="form-product-desc" class="form-control" ng-model="product.product_desc"></textarea>
                   </td>
                 </tr>
               </table>

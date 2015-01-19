@@ -133,6 +133,10 @@ angular.module('mainApp')
 			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
 		];
 
+		$scope.goodLevels = _.map(new Array(12), function(item, index) {
+			return index + 1;
+		});
+
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
@@ -155,12 +159,12 @@ angular.module('mainApp')
 			.success(function(data) {
 				$scope.goods = data.records;
 				$scope.goods.meta = {
-						pageSize: data.pageSize,
-						pageNo: data.pageNo ? data.pageNo : 1,
-						recordsCount: data.recordsCount,
-						pageNumber: data.pageNumber
-					};
-				});
+					pageSize: data.pageSize,
+					pageNo: data.pageNo ? data.pageNo : 1,
+					recordsCount: data.recordsCount,
+					pageNumber: data.pageNumber
+				};
+			});
 		};
 
 		// 新建产品
