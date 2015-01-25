@@ -1423,6 +1423,10 @@
     this.info(msg, 'alert-success', true)
   }
 
+  Modal.prototype.hideMsg = function() {
+    this.$element.find('.modal-msgcontent').hide()
+  }
+
   Modal.prototype.showMsg = function($msg, blnHideMsgBox) {
     var self = this;
     $msg.finish().fadeIn('slow', function() {

@@ -1,0 +1,102 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	//- li
+	//- 	+tooltip('新建入库单', 'top', 'newStorage(storageForm)')
+	//- 		+glyphicon('plus')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+table.uu-table
+	+thplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='shipment in shipments' ng-dblclick='showPutinedshipment(shipment.shipment_code)')
+			td(ng-bind="shipment.orders_no" ng-show='ths.orders_no.isChecked')
+			td(ng-bind="shipment.shipment_no" ng-show='ths.shipment_no.isChecked')
+			td(ng-bind="shipment.customer_code" ng-show='ths.customer_code.isChecked')
+			td(ng-bind="shipment.customer_name" ng-show='ths.customer_name.isChecked')
+			td(ng-bind="shipment.address" ng-show='ths.address.isChecked')
+			td(ng-bind="shipment.customer_tel" ng-show='ths.customer_tel.isChecked')
+			td(ng-bind="shipment.amount" ng-show='ths.amount.isChecked')
+			td(ng-bind="shipment.shipped_qty" ng-show='ths.shipped_qty.isChecked')
+			td(ng-bind="shipment.has_invoice" ng-show='ths.has_invoice.isChecked')
+			td(ng-bind="shipment.express_code" ng-show='ths.express_code.isChecked')
+			td(ng-bind="shipment.express_orders_no" ng-show='ths.express_orders_no.isChecked')
+			td(ng-bind="shipment.express_name" ng-show='ths.express_name.isChecked')
+			td(ng-bind="shipment.express_cost" ng-show='ths.express_cost.isChecked')
+			td(ng-bind="shipment.courier" ng-show='ths.courier.isChecked')
+			td(ng-bind="shipment.courier_tel" ng-show='ths.courier_tel.isChecked')
+			td(ng-bind="shipment.sent_date" ng-show='ths.sent_date.isChecked')
+			td(ng-bind="shipment.create_time" ng-show='ths.create_time.isChecked')
+			td(ng-bind="shipment.creator" ng-show='ths.creator.isChecked')
+			td(ng-bind="shipment.update_time" ng-show='ths.update_time.isChecked')
+			td(ng-bind="shipment.updater" ng-show='ths.updater.isChecked')
+			td(ng-bind="shipment.status" ng-show='ths.status.isChecked')
+			td.nowrap(ng-show='shipment.status!=-1 && shipment.status!=2')
+				+tooltip('入库', 'top', 'newPutinedshipment(shipment.shipment_code, storageForm)')
+					+glyphicon('import')
+			td.nowrap(ng-show='shipment.status==-1 || shipment.status==2')
+				+tooltip('查看', 'top', 'showPutinedshipment(shipment.receipt_code)')
+					+glyphicon('eye-open')
+
+uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pageSize' page='shipments.meta.pageNo' pagreceiptForme='shipments.meta.pageNo', model='searchModel', action='getShipmentsList()')
+
+//- 商品入库
++modal('storage-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 商品入库
+	.modal-body
+		//- 将form放在uu-pane层级下会导致newProduct(storageForm)找不到storageForm
+		form.form-horizontal(name='storageForm' novalidate ng-class='{sumitted: storageForm.$sumitted}')
+			table.form-table.form-single
+				tr
+					+static-input('入库号')(ng-bind='receipt.receipt_code')
+				tr
+					+static-input('库房编号')(ng-bind='receipt.warehouse')
+				tr
+					+static-input('修改人')(ng-bind='receipt.updater')
+			table.uu-table(style='margin-top: 10px;' ng-show='receipt.details.length')
+				+thead
+					each th in ['商品编号', '计划入库数量', '已经入库数量', '商品入库数量']
+						th.nowrap=th
+					th.nowrap(ng-show='storageFormType==="new"') 工具
+				tbody
+					tr(ng-repeat='good in receipt.details')
+						td(ng-bind='good.goods_code')
+						td(ng-bind='good.qty')
+						td(ng-bind='good.actual_qty')
+						td(ng-bind='good.putin_qty')
+						td.nowrap(ng-show='storageFormType==="new"')
+							+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
+								+glyphicon('pencil')
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-show='storageFormType==="new"' ng-click='savePutinedReceipt(storageForm)' ng-disabled='storageForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-show='storageFormType==="show"' data-dismiss='modal') 确定
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+
++submodal('good-details-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 修改商品详情
+	.modal-body
+		form.form-horizontal(name='productDetailsForm' novalidate ng-class='{sumitted: productDetailsForm.$sumitted}')
+			fieldset
+				legend 商品详情
+				table.form-table.form-table-single
+					tr
+						+input('数量', 'qty')(uu-num ng-model='productTmpGood.putin_qty' required)
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveGoodToProduct(productDetailsForm)') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//- 更改显示列
+include ../../modules/table-ths.jade

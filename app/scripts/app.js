@@ -285,7 +285,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 
 
 	/////////////
-	// 产品管理 //
+	// 业务信息 //
 	/////////////
 
 	.state('root.product', {
@@ -302,6 +302,11 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		url: '/goods',
 		templateUrl: 'views/product/goods.html',
 		controller: 'Goods'
+	})
+	.state('root.product.suit', {
+		url: '/suit',
+		templateUrl: 'views/product/suit.html',
+		controller: 'Suit'
 	})
 
 
@@ -330,29 +335,29 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	// 出库管理 //
 	/////////////
 
-	.state('root.order', {
-		url: 'order',
-		templateUrl: 'views/order/layout.html',
-		controller: 'OrderCtrl'
+	.state('root.outbound', {
+		url: 'outbound',
+		templateUrl: 'views/outbound/layout.html',
+		controller: 'OutboundCtrl'
 	})
-	.state('root.order.distrib', {
+	.state('root.outbound.distrib', {
 		url: '/distrib',
-		templateUrl: 'views/order/distrib.html',
+		templateUrl: 'views/outbound/distrib.html',
 		controller: 'Distrib'
 	})
-	.state('root.order.adjust', {
+	.state('root.outbound.adjust', {
 		url: '/adjust',
-		templateUrl: 'views/order/adjust.html',
+		templateUrl: 'views/outbound/adjust.html',
 		controller: 'Adjust'
 	})
-	.state('root.order.print', {
+	.state('root.outbound.print', {
 		url: '/print',
-		templateUrl: 'views/order/print.html',
+		templateUrl: 'views/outbound/print.html',
 		controller: 'Print'
 	})
-	.state('root.order.port', {
+	.state('root.outbound.port', {
 		url: '/port',
-		templateUrl: 'views/order/port.html',
+		templateUrl: 'views/outbound/port.html',
 		controller: 'Port'
 	})
 

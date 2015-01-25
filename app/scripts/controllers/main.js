@@ -278,4 +278,20 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		};
 	};
 
+	$scope.onFine = function(params) {
+		return function(data) {
+			params.form && (params.form.processing = false);
+			params.$form && params.$form.modal('success', params.msg);
+			angular.isFunction(params.action) && params.action();
+		};
+	};
+
+	$scope.onError = function(params) {
+		return function(data) {
+			params.form && (params.form.processing = false);
+			params.$form && params.$form.modal('fail', params.msg);
+			angular.isFunction(params.action) && params.action();
+		};
+	};
+
 }]);

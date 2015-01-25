@@ -50,6 +50,7 @@ angular.module('mainApp')
 			{name: 'updater', label: '更新人', isChecked: true}
 		];
 
+
 		// 获取商品列表
 		$scope.getCommdityList = function() {
 			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {

@@ -3,12 +3,6 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建', 'top')
-			+glyphicon('plus')
-		ul.dropdown-menu(role="menu")
-			li
-				+jslink('globalNewOrder()', '新建订单')
-	li
 		+tooltip('', 'top', 'globalToggleSearch()')
 			+glyphicon('search')
 	li
@@ -48,12 +42,12 @@ table.uu-table(ng-show='orders.length')
 uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 核实订单Modal
-+modal('split-modal')
++modal('split-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 查看订单
 	.modal-body
-		form.form-horizontal
+		form.form-horizontal(name='splitForm')
 			+order-details
 			fieldset
 				legend 订单
@@ -72,54 +66,85 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 							td(ng-bind='currentOrder.customer.birthday')
 							td(ng-bind='currentOrder.order_status | orderStatus')
 							td.nowrap
-								+tooltip('拆分订单', 'top', 'splitOrder(currentOrder)')
+								+tooltip('拆分订单', 'top', 'splitOrder(splitForm)')
 									+glyphicon('pencil') &nbsp;
 
 								+tooltip('共享订单', 'top')
 									+glyphicon('send')
 
-			fieldset(ng-show='currentOrder.isSplited')
-				legend 发货单
-				table.uu-table
-					+thead
-						each th in ['订单序号', '订单编号', '客户姓名', '详细地址', '产品名称', '构成物', '订购类型', '付款状态', '下单日期', '发货日期', '发货单号', '发货状态', '应付金额', '操作']
-							th=th
-					tbody
-						tr(ng-repeat='(index, order) in currentOrder.splitedOrders')
-							td(ng-bind='index + 1')
-							td(ng-bind='order.orderSN')
-							td(ng-bind='order.customerName')
-							td(ng-bind='order.customer.province + order.customer.city')
-							td(ng-bind='order.order_type | orderType')
-							td(ng-bind='order.createTime')
-							td(ng-bind='order.payWay')
-							td(ng-bind='order.payStatus | payStatus')
-							td(ng-bind='order.createTime')
-							td(ng-bind='order.orderSN')
-							td(ng-bind='order.sendStatus | payStatus')
-							td(ng-bind='order.orderStatus')
-							td(ng-bind='order.cost')
-							td
-								+tooltip('添加赠品', 'top', 'selectGift(currentOrder)')
-									+glyphicon('plus')
-
-			.modal-footer(ng-show='currentOrder.isSplited')
-				button.btn.uu-btn.btn-primary(ng-click='saveSplitResult(currentOrder)') 保存
+			.modal-footer
+				button.btn.uu-btn.btn-primary(data-dismiss='modal') 确定
 				button.btn.uu-btn(data-dismiss='modal') 取消
 
++submodal('split-results')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 查看订单
+	.modal-body
+		table.uu-table
+			+thead
+				each th in ['序号', '订单号', '客户编号', '客户姓名', '客户地址', '付款金额', '发货数量', '是否有发票', '快递单号', '发货时间', '创建人', '发货单状态', '操作']
+					th=th
+			tbody
+				tr(ng-repeat='(index, order) in currentOrder.splitedOrders')
+					td(ng-bind='index + 1')
+					td(ng-bind='order.orders_no')
+					td(ng-bind='order.customer_code')
+					td(ng-bind='order.customer_name')
+					td(ng-bind='order.address')
+					td(ng-bind='order.amount')
+					td(ng-bind='order.shipped_qty')
+					td(ng-bind='order.has_invoice | yesno')
+					td(ng-bind='order.express_code')
+					td(ng-bind='order.sent_date')
+					td(ng-bind='order.creator')
+					td(ng-bind='order.status | mapper:"shipmentStatus"')
+					td
+						+tooltip('编辑', 'top', 'editShipment(order)')
+							+glyphicon('pencil')
+						+tooltip('添加赠品', 'top', 'selectGift(currentOrder)')
+							+glyphicon('plus')
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveSplitResult(currentOrder)') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
++submodal('shipment-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 编辑订单明细
+	.modal-body
+		form.form-horizontal(name='shipmentForm' novalidate ng-class='{sumitted: shipmentForm.$sumitted}')
+			fieldset
+				legend 订单明细
+				table.form-table.form-single
+					tr
+						+input('快递公司', 'shipment-form-express')(ng-model='shipment.express_name')
+						+input('快递公司编号', 'shipment-form-express-code')(ng-model='shipment.express_code')
+					tr
+						+input('快递单号', 'shipment-form-express-no')(uu-num ng-model='shipment.express_orders_no' required)
+						+input('快递费用', 'shipment-form-express-cost')(uu-num ng-model='shipment.express_cost')
+					tr
+						+input('快递员', 'shipment-form-express-courier')(ng-model='shipment.courier')
+						+input('快递员电话', 'shipment-form-express-courier-tel')(uu-phone ng-model='shipment.courier_tel' required)
+					tr
+						+shipment-status('发货单状态', 'shipment-status')(ng-model='shipment.status', required)
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 选择赠品Modal
-+submodal('select-gift')
++submodal('gift-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 选择赠品
 	.modal-body
 		form.form-horizontal
 			fieldset
-				.form-group
-					+select('选择赠品', 'selectGift')(ng-model='order.gift')
-						+option('生日礼品', 0)
-						+option('促销赠品', 1)
+				table.form-table.form-single
+					tr
+						+select('选择赠品', 'selectGift')(ng-model='order.gift')
+							+option('生日礼品', 0)
+							+option('促销赠品', 1)
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveOrder(order.orderSN)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

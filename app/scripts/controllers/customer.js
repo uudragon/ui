@@ -173,7 +173,11 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
-	.controller('SplitOrder', ['$scope', '$controller', 'Order', function($scope, $controller, Order) {
+	.controller('SplitOrder', ['$scope', '$controller', 'Order', '$http', function($scope, $controller, Order, $http) {
+		var $splitForm = $('#split-form'),
+			$splitResult = $('#split-results'),
+			$shipmentForm = $('#shipment-form'),
+			$giftForm = $('#gift-form');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -227,24 +231,65 @@ angular.module('mainApp')
 
 		$scope.showSplitModal = function(order) {
 			$scope.currentOrder = order;
-			$('#split-modal').modal('show');
+			$splitForm.modal('show');
 		};
 
 		$scope.saveSplitResult = function() {
-			$('#split-modal').modal('hide');
+			var request = $.extend({}, $scope.currentOrder, {details: $scope.currentOrder.splitedOrders});
+
+			$http.post(config.basewms + 'outbound/shipment/save/', request)
+				.success(function(data) {
+
+				})
+				.error(function(abc) {
+
+				});
+			// $splitResult.modal('hide');
 		};
 
-		$scope.splitOrder = function(order) {
-			order.isSplited = true;
-			order.splitedOrders = [
-				{orderSN: '123071231', customerName: order.customerName, orderType: '季度', createTime: '2014-10-15', payWay: '在线支付', payStatus: '0', birthday: '2010-06-01', orderStatus: '正常'},
-				{orderSN: '143071231', customerName: order.customerName, orderType: '季度', createTime: '2014-10-15', payWay: '在线支付', payStatus: '1', birthday: '2010-06-01', orderStatus: '正常'}
-			];
+		$scope.splitOrder = function(form) {
+
+			$scope.processing(form, $splitForm);
+
+			$http.post(config.basewms + 'outbound/split/', {
+				orders_no: $scope.currentOrder.order_no,
+				customer_code: $scope.currentOrder.customer_code,
+				customer_name: $scope.currentOrder.customer.name,
+				effective_date: $scope.currentOrder.effective.replace(/\s\d{2}:\d{2}/, ''),
+				address: $scope.currentOrder.customer.province + $scope.currentOrder.customer.city + $scope.currentOrder.customer.address,
+				customer_tel: $scope.currentOrder.customer.phone,
+				amount: $scope.currentOrder.amount,
+				has_invoice: $scope.currentOrder.has_invoice,
+				creator: $scope.currentUser.userNo,
+				updater: $scope.currentUser.userNo,
+				details: $scope.currentOrder.details,
+				package_code: 'default',
+				status: 5
+			}).success(function(data) {
+				$splitResult.modal('show');
+				$splitForm.modal('hideMsg');
+				$scope.currentOrder.splitedOrders = data;
+			}).error($scope.onError({
+				form: form,
+				$form: $splitForm,
+				msg: '定单拆分失败!'
+			}));
+		};
+
+		$scope.editShipment = function(shipment) {
+			$scope.shipment = shipment;
+			$shipmentForm.modal('show');
+		};
+
+
+		$scope.saveShipment = function(form) {
+			$scope.validateForm(form, $shipmentForm);
+			// $shipmentForm.modal('show');
 		};
 
 
 		$scope.selectGift = function() {
-			$('#select-gift').modal('show');
+			$giftForm.modal('show');
 		};
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});

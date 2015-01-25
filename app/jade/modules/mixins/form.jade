@@ -361,3 +361,13 @@ mixin workform-subtype(title, id)
 		+option('订购', 23)
 		+option('支付', 24)
 		+option('物流', 25)
+
+//- 工单子类型
+mixin shipment-status(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('无效', -1)
+		+option('待审核', 0)
+		+option('待发货', 1)
+		+option('备货中', 2)
+		+option('发货中', 3)
+		+option('已发货', 4)

@@ -51,24 +51,18 @@ ul.nav.nav-sections(uu-sidebar='')
 	- navs = []
 	- subnavs = []
 
-	//- 产品管理
-	- subnavs.push({href: 'root.product.commodity', auth: '010000', label: '商品定义'})
-	- subnavs.push({href: 'root.product.goods', auth: '010001', label: '产品定义'})
-	- navs.push({href: 'root.product', label: '产品管理', auth: '0100', subnavs: subnavs})
-
 	//- 入库
-	- subnavs = []
 	- subnavs.push({href: 'root.commodity.stockin', auth: '010100', label: '入库单管理'})
 	- subnavs.push({href: 'root.commodity.storage', auth: '010101', label: '商品入库'})
 	- navs.push({href: 'root.commodity', label: '入库管理', auth: '0101', subnavs: subnavs})
 
 	//- 出库管理
 	- subnavs = []
-	- subnavs.push({href: 'root.order.distrib', auth: '010200', label: '订单配货'})
-	- subnavs.push({href: 'root.order.adjust', auth: '010201', label: '换货调整'})
-	- subnavs.push({href: 'root.order.print', auth: '010202', label: '打印出库单'})
-	- subnavs.push({href: 'root.order.port', auth: '010203', label: '调货出库'})
-	- navs.push({href: 'root.warehouse', label: '出库管理', auth: '0102', subnavs: subnavs})
+	- subnavs.push({href: 'root.outbound.distrib', auth: '010200', label: '订单配货'})
+	- subnavs.push({href: 'root.outbound.adjust', auth: '010201', label: '换货调整'})
+	- subnavs.push({href: 'root.outbound.print', auth: '010202', label: '打印出库单'})
+	- subnavs.push({href: 'root.outbound.port', auth: '010203', label: '调货出库'})
+	- navs.push({href: 'root.outbound', label: '出库管理', auth: '0102', subnavs: subnavs})
 
 	//- 库房管理
 	- subnavs = []
@@ -78,8 +72,31 @@ ul.nav.nav-sections(uu-sidebar='')
 	- subnavs.push({href: 'root.storehouse.remain', auth: '010303', label: '剩余数量'})
 	- navs.push({href: 'root.storehouse', label: '库房管理', auth: '0103', subnavs: subnavs})
 
-	li.section-item(uu-auth-filter='01' ng-class='{"open": $state.includes("root.product") || $state.includes("root.commodity") || $state.includes("root.order") || $state.includes("root.storehouse")}')
+	li.section-item(uu-auth-filter='01' ng-class='{"open": $state.includes("root.commodity") || $state.includes("root.outbound") || $state.includes("root.storehouse")}')
 		a.nav-sections-label 库存管理
+		ul.nav.nav-navs
+			each nav in navs
+				+nav(nav)
+
+
+	//- 基础信息管理
+	//------------------------------------------------------
+	- navs = []
+	- subnavs = []
+
+	//- 业务信息
+	- subnavs.push({href: 'root.product.commodity', auth: '010000', label: '商品定义'})
+	- subnavs.push({href: 'root.product.goods', auth: '010001', label: '产品定义'})
+	- subnavs.push({href: 'root.product.suit', auth: '010001', label: '套餐定义'})
+	- navs.push({href: 'root.product', label: '业务信息', auth: '0100', subnavs: subnavs})
+
+	//- 系统信息
+	- subnavs = []
+	- subnavs.push({href: 'root.params.system', auth: '010500', label: '参数维护'})
+	- navs.push({href: 'root.params', label: '系统信息', auth: '0105', subnavs: subnavs})
+
+	li.section-item(uu-auth-filter='01' ng-class='{"open": $state.includes("root.product") || $state.includes("root.params")}')
+		a.nav-sections-label 基础信息
 		ul.nav.nav-navs
 			each nav in navs
 				+nav(nav)
@@ -93,7 +110,6 @@ ul.nav.nav-sections(uu-sidebar='')
 		ul.nav.nav-navs
 			each nav in navs
 				+nav(nav)
-
 
 
 	//- 财务管理
