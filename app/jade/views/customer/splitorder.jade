@@ -21,23 +21,21 @@ table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders' ng-dblclick='showSplitModal(order)')
-			td(ng-bind='order.customer.name', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-				+jslink('showSplitModal(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.order_no' ng-show='ths[0].isChecked')
+			td(ng-bind='order.customer.name', ng-show='ths[1].isChecked')
 			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
-			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
+			td(ng-bind='order.customer.province + order.customer.city', ng-show='ths[3].isChecked')
+			td(ng-bind='order.order_type | orderType', ng-show='ths[4].isChecked')
+			td(ng-bind='order.payment | payment', ng-show='ths[5].isChecked')
 			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
-			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
-			td(ng-bind='order.contact_count', ng-show='ths[9].isChecked')
+			td(ng-bind='order.create_time', ng-show='ths[7].isChecked')
+			td(ng-bind='order.user', ng-show='ths[8].isChecked')
 			td.nowrap
-				+tooltip('修改', 'top', 'showSplitModal(order)')
+				+tooltip('拆分订单', 'top', 'splitOrder(order, splitForm)')
 					+glyphicon('pencil') &nbsp;
 
-				+tooltip('发送消息', 'top')
-					+glyphicon('comment')
+				+tooltip('退回', 'top')
+					+glyphicon('backward')
 
 uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
@@ -48,29 +46,27 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 		h4.modal-title 查看订单
 	.modal-body
 		form.form-horizontal(name='splitForm')
-			+order-details
 			fieldset
-				legend 订单
+				+info('订单编号')(ng-bind='order.order_no')
 				table.uu-table
 					+thead
-						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '操作']
-							th=th
+					each th in ['序号', '子订单编号', '产品名称', '派送月份', '产品单位', '产品数量', '赠品', '分拆数量', '操作']
+						th=th
 					tbody
-						tr
-							td(ng-bind='currentOrder.id')
-							td(ng-bind='currentOrder.customer.name')
-							td(ng-bind='currentOrder.order_type | orderType')
-							td(ng-bind='currentOrder.create_time')
-							td(ng-bind='currentOrder.payment | payment')
-							td(ng-bind='currentOrder.paid | payStatus')
-							td(ng-bind='currentOrder.customer.birthday')
-							td(ng-bind='currentOrder.order_status | orderStatus')
-							td.nowrap
-								+tooltip('拆分订单', 'top', 'splitOrder(splitForm)')
+						tr(ng-repeat='(index, order) in splitedOrders')
+							td(ng-bind='index + 1')
+							td(ng-bind='order.orders_no')
+							td(ng-bind='order.product_name')
+							td(ng-bind='order.send_time')
+							td(ng-bind='order.product_unit')
+							td(ng-bind='order.product_amount')
+							td(ng-bind='order.gift')
+							td(ng-bind='order.split_num')
+							td
+								+tooltip('编辑', 'top', 'editShipment(order)')
 									+glyphicon('pencil') &nbsp;
-
-								+tooltip('共享订单', 'top')
-									+glyphicon('send')
+								+tooltip('添加赠品', 'top', 'selectGift(order)')
+									+glyphicon('plus')
 
 			.modal-footer
 				button.btn.uu-btn.btn-primary(data-dismiss='modal') 确定
@@ -79,17 +75,19 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 +submodal('split-results')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 查看订单
+		h4.modal-title 折单列表
 	.modal-body
 		table.uu-table
 			+thead
-				each th in ['序号', '订单号', '客户编号', '客户姓名', '客户地址', '付款金额', '发货数量', '是否有发票', '快递单号', '发货时间', '创建人', '发货单状态', '操作']
+				//- each th in ['序号', '订单号', '客户编号', '客户姓名', '客户地址', '付款金额', '发货数量', '是否有发票', '快递单号', '发货时间', '创建人', '发货单状态', '操作']
+				each th in ['客户姓名', '客户地址', '付款金额', '发货数量', '是否有发票', '快递单号', '发货时间', '发货单状态', '操作']
 					th=th
 			tbody
 				tr(ng-repeat='(index, order) in currentOrder.splitedOrders')
-					td(ng-bind='index + 1')
-					td(ng-bind='order.orders_no')
-					td(ng-bind='order.customer_code')
+				tr
+					//- td(ng-bind='index + 1')
+					//- td(ng-bind='order.orders_no')
+					//- td(ng-bind='order.customer_code')
 					td(ng-bind='order.customer_name')
 					td(ng-bind='order.address')
 					td(ng-bind='order.amount')
@@ -97,15 +95,14 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 					td(ng-bind='order.has_invoice | yesno')
 					td(ng-bind='order.express_code')
 					td(ng-bind='order.sent_date')
-					td(ng-bind='order.creator')
 					td(ng-bind='order.status | mapper:"shipmentStatus"')
 					td
 						+tooltip('编辑', 'top', 'editShipment(order)')
-							+glyphicon('pencil')
+							+glyphicon('pencil') &nbsp;
 						+tooltip('添加赠品', 'top', 'selectGift(currentOrder)')
 							+glyphicon('plus')
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSplitResult(currentOrder)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveSplitResult(currentOrder)') 保存并确认
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 +submodal('shipment-form')
@@ -118,16 +115,31 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 				legend 订单明细
 				table.form-table.form-single
 					tr
-						+input('快递公司', 'shipment-form-express')(ng-model='shipment.express_name')
-						+input('快递公司编号', 'shipment-form-express-code')(ng-model='shipment.express_code')
+						+input('客户编号', 'form-customer-code')(ng-model='tmpShipment.customer_code')
+						+input('客户姓名', 'form-customer-name')(ng-model='tmpShipment.customer_name')
 					tr
-						+input('快递单号', 'shipment-form-express-no')(uu-num ng-model='shipment.express_orders_no' required)
-						+input('快递费用', 'shipment-form-express-cost')(uu-num ng-model='shipment.express_cost')
+						+input('客户地址', 'form-address')(ng-model='tmpShipment.address')
+						+input('客户电话', 'form-customer-tel')(ng-model='tmpShipment.customer_tel')
 					tr
-						+input('快递员', 'shipment-form-express-courier')(ng-model='shipment.courier')
-						+input('快递员电话', 'shipment-form-express-courier-tel')(uu-phone ng-model='shipment.courier_tel' required)
+						+input('付款金额', 'form-amount')(ng-model='tmpShipment.amount')
+						+input('发货数量', 'form-shipped-qty')(ng-model='tmpShipment.shipped_qty')
 					tr
-						+shipment-status('发货单状态', 'shipment-status')(ng-model='shipment.status', required)
+						+input('是否有发票', 'form-has-invoice')(ng-model='tmpShipment.has_invoice')。0：无；1：有
+						+input('快递公司编号', 'form-express-code')(ng-model='tmpShipment.express_code')
+					tr
+						+input('快递单号', 'form-express-orders_no')(ng-model='tmpShipment.express_orders_no')
+						+input('快递公司名称', 'form-express_name')(ng-model='tmpShipment.express_name')
+					tr
+						+input('快递费用', 'form-express-cost')(ng-model='tmpShipment.express_cost')
+						+input('快递员', 'form-courier')(ng-model='tmpShipment.courier')
+					tr
+						+input('快递员电话', 'form-courier-tel')(ng-model='tmpShipment.courier_tel')
+						+input('发货时间', 'form-sent-date')(ng-model='tmpShipment.sent_date')
+					tr
+						+input('数量', 'form-num')(ng-model='tmpShipment.details.qty' required)
+						+yesno('是否赠品', 'form-is-gift')(ng-model='tmpShipment.details.is_gift' required)
+					tr
+						+shipment-status('发货单状态', 'shipment-status')(ng-model='tmpShipment.status', required)
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
@@ -140,13 +152,13 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 	.modal-body
 		form.form-horizontal
 			fieldset
-				table.form-table.form-single
+				table.form-table.form-table-single
 					tr
-						+select('选择赠品', 'selectGift')(ng-model='order.gift')
+						+select('选择赠品', 'selectGift')(ng-model='tmpOrder.gift')
 							+option('生日礼品', 0)
 							+option('促销赠品', 1)
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveOrder(order.orderSN)') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveSelectedGift()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

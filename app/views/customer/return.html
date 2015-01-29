@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建退货单" ng-click="addNewReturnOrder()"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建退货单" ng-click="addNewReturnOrder(returnForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -40,7 +40,7 @@
       <label for="form-end-time" class="input-group-addon">结束时间</label>
       <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -95,7 +95,7 @@
   </tbody>
 </table>
 <uu-pagination records="returnOrders.meta.recordsCount" per-page="returnOrders.meta.pageSize" page="returnOrders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
-<div id="form-return" class="modal fade">
+<div id="return-form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -103,7 +103,7 @@
         <h4 class="modal-title">退货</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-nowrap">
+        <form name="returnForm" novalidate="novalidate" ng-class="{sumitted: returnForm.$sumitted}" class="form-horizontal form-nowrap">
           <fieldset>
             <table class="form-table">
               <tr>
@@ -111,13 +111,13 @@
                   <label for="form-goodCode" class="form-th-label">客户姓名</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
+                  <input id="form-goodCode" class="form-control input-sm" uu-name="uu-name" ng-model="order.customer_name" required="required"/>
                 </td>
                 <th class="form-th">
-                  <label for="form-goodCode" class="form-th-label">订单编号</label>
+                  <label class="form-th-label">订单编号</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goodCode" class="form-control input-sm" ng-model="exchange.code"/>
+                  <p class="form-control-static" ng-bind="order.order_no"></p>
                 </td>
               </tr>
               <tr>
@@ -139,13 +139,13 @@
                   <label for="form-subscribeAmount" class="form-th-label">合同金额</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" uu-float="uu-float" ng-model="good.subscribeAmountasdfasdf"/>
                 </td>
                 <th class="form-th">
                   <label for="form-subscribeAmount" class="form-th-label">已收金额</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" uu-float="uu-float" ng-model="good.recievedAmount"/>
                 </td>
               </tr>
               <tr>
@@ -221,7 +221,7 @@
                   <label for="form-subscribeAmount" class="form-th-label">退货数量</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmountasdfasdf"/>
                 </td>
               </tr>
               <tr>
@@ -229,13 +229,16 @@
                   <label for="form-subscribeAmount" class="form-th-label">退货进度</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="good.return_status">
+                    <option value="1">处理中</option>
+                    <option value="2">已完成</option>
+                  </select>
                 </td>
                 <th class="form-th">
                   <label for="form-subscribeAmount" class="form-th-label">是否已入库</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount">
+                  <select id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmountdf" required="required">
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>
@@ -246,13 +249,13 @@
                   <label for="form-subscribeAmount" class="form-th-label">退款手续费</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" uu-float="uu-float" ng-model="good.subscribeAmountadf"/>
                 </td>
                 <th class="form-th">
                   <label for="form-subscribeAmount" class="form-th-label">承担人</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" uu-name="uu-name" ng-model="good.subscribeAmountasdfasdfasdf"/>
                 </td>
               </tr>
               <tr>
@@ -260,13 +263,13 @@
                   <label for="form-subscribeAmount" class="form-th-label">实际退款金额</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" uu-floatng-model="good.subscribeAmountvvv"/>
                 </td>
                 <th class="form-th">
                   <label for="form-subscribeAmount" class="form-th-label">收款人姓名</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" uu-name="uu-name" ng-model="good.subscribeAmount"/>
                 </td>
               </tr>
               <tr>
@@ -274,13 +277,13 @@
                   <label for="form-subscribeAmount" class="form-th-label">退款帐户</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmountiiii" required="required"/>
                 </td>
                 <th class="form-th">
                   <label for="form-subscribeAmount" class="form-th-label">开户行</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmount"/>
+                  <input id="form-subscribeAmount" class="form-control input-sm" ng-model="good.subscribeAmountjhjh" required="required"/>
                 </td>
               </tr>
               <tr>
@@ -299,7 +302,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="confirmAndShare()" class="btn uu-btn btn-primary">确认并共享</button>
+        <button ng-click="confirmAndShare(returnForm)" class="btn uu-btn btn-primary">确认并共享</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

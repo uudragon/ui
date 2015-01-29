@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建退货单', 'top', 'addNewReturnOrder()')
+		+tooltip('新建退货单', 'top', 'addNewReturnOrder(returnForm)')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -17,7 +17,7 @@ include ../../modules/mixins.jade
 					a(href='')=filter
 
 //- 搜索
-+linkage-search
++linkage-search('search()')
 
 //- 订单列表过滤条件
 - var filters = []
@@ -55,23 +55,23 @@ table.uu-table
 uu-pagination(records='returnOrders.meta.recordsCount', per-page='returnOrders.meta.pageSize' page='returnOrders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建退货单Modal
-+modal('form-return')
++modal('return-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 退货
 	.modal-body
-		form.form-horizontal.form-nowrap
+		form.form-horizontal.form-nowrap(name='returnForm' novalidate ng-class='{sumitted: returnForm.$sumitted}')
 			fieldset
 				table.form-table
 					tr
-						+input('客户姓名', 'goodCode')(ng-model='exchange.code')
-						+input('订单编号', 'goodCode')(ng-model='exchange.code')
+						+input('客户姓名', 'goodCode')(uu-name ng-model='order.customer_name' required)
+						+static-input('订单编号')(ng-bind='order.order_no')
 					tr
 						+input('实际订阅刊数', 'subscribeNum')(ng-model='good.subscribeNum')
 						+input('实际订阅金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
 					tr
-						+input('合同金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-						+input('已收金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
+						+input('合同金额', 'subscribeAmount')(uu-float ng-model='good.subscribeAmountasdfasdf')
+						+input('已收金额', 'subscribeAmount')(uu-float ng-model='good.recievedAmount')
 					tr
 						+input('订购刊号', 'goodCode')(ng-model='goods.code')
 						+input('订购刊数', 'goodNum')(ng-model='goods.num')
@@ -83,24 +83,24 @@ uu-pagination(records='returnOrders.meta.recordsCount', per-page='returnOrders.m
 						+return-type('退货类别', 'goodNum')(ng-model='goods.num')
 					tr
 						+return-reason('退订原因', 'return-reason')(ng-model='goods.phoneStatus')
-						+input('退货数量', 'subscribeAmount')(ng-model='good.subscribeAmount')
+						+input('退货数量', 'subscribeAmount')(ng-model='good.subscribeAmountasdfasdf')
 					tr
-						+input('退货进度', 'subscribeAmount')(ng-model='good.subscribeAmount')
-						+yesno('是否已入库', 'subscribeAmount')(ng-model='good.subscribeAmount')
+						+return-status('退货进度', 'subscribeAmount')(ng-model='good.return_status')
+						+yesno('是否已入库', 'subscribeAmount')(ng-model='good.subscribeAmountdf' required)
 					tr
-						+input('退款手续费', 'subscribeAmount')(ng-model='good.subscribeAmount')
-						+input('承担人', 'subscribeAmount')(ng-model='good.subscribeAmount')
+						+input('退款手续费', 'subscribeAmount')(uu-float ng-model='good.subscribeAmountadf')
+						+input('承担人', 'subscribeAmount')(uu-name ng-model='good.subscribeAmountasdfasdfasdf')
 					tr
-						+input('实际退款金额', 'subscribeAmount')(ng-model='good.subscribeAmount')
-						+input('收款人姓名', 'subscribeAmount')(ng-model='good.subscribeAmount')
+						+input('实际退款金额', 'subscribeAmount')(uu-floatng-model='good.subscribeAmountvvv')
+						+input('收款人姓名', 'subscribeAmount')(uu-name ng-model='good.subscribeAmount')
 					tr
-						+input('退款帐户', 'subscribeAmount')(ng-model='good.subscribeAmount')
-						+input('开户行', 'subscribeAmount')(ng-model='good.subscribeAmount')
+						+input('退款帐户', 'subscribeAmount')(ng-model='good.subscribeAmountiiii' required)
+						+input('开户行', 'subscribeAmount')(ng-model='good.subscribeAmountjhjh' required)
 					tr
 						+yesno('是否到库', 'urgency')(ng-model='user.urgency')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 确认并共享
+		button.btn.uu-btn.btn-primary(ng-click='confirmAndShare(returnForm)') 确认并共享
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 订单详情Modal

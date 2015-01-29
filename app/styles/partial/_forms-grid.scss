@@ -69,8 +69,12 @@ textarea.form-control {
 	}
 
 	input {
-		width: 170px;
+		width: 160px;
 		float: left;
+	}
+
+	input.input-long {
+		width: 228px;
 	}
 }
 

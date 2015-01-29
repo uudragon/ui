@@ -391,6 +391,46 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuEmail', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(value)) {
+					ctrl.$setValidity('email', true);
+					return value;
+				} else {
+					ctrl.$setValidity('email', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('uuAddress', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /(?=[\u4e00-\u9fa5a-zA-Z])[\s\S]*/.test(value)) {
+					ctrl.$setValidity('address', true);
+					return value;
+				} else {
+					ctrl.$setValidity('address', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
 .directive('uuName', function() {
 	return {
 		restrict: 'A',
@@ -437,7 +477,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		require: 'ngModel',
 		link: function($scope, elem, attrs, ctrl) {
 			var validate = function(value) {
-				if (!value || /^\s*1\d{10}\s*$/.test(value)) {
+				if (!value || /^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(value)) {
 					ctrl.$setValidity('phone', true);
 					return value;
 				} else {
@@ -518,7 +558,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					'<label ng-show="ngProvinceModel" class="form-addr-label">市 / 区</label>' +
 					'<select ng-disabled="ngDisabled" ng-show="ngProvinceModel" ng-required="ngRequired" class="city form-control input-sm" ng-options="c.name as c.name for c in cities" ng-model="ngCityModel"></select>' +
 					'<label class="form-addr-label">详细</label>' +
-					'<input ng-disabled="ngDisabled" ng-required="ngRequired" class="form-control input-sm" ng-model="ngAddrModel">' +
+					'<input ng-disabled="ngDisabled" uu-address ng-required="ngRequired" class="form-control input-sm input-long" ng-model="ngAddrModel">' +
 				'</div>'
 	};
 })

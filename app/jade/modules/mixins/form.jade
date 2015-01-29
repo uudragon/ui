@@ -284,6 +284,12 @@ mixin return-reason(title, id)
 		+option('玩具缺漏', 15)
 		+option('光盘损坏', 16)
 
+//- 退货状态
+mixin return-status(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('处理中', 1)
+		+option('已完成', 2)
+
 //- 退货类别
 mixin return-type(title, id)
 	+select(title, id)&attributes(attributes)

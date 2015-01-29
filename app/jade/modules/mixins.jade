@@ -78,6 +78,10 @@ mixin jslink(action, title)
 		if block
 			block
 
+mixin info(title)
+	p.info-text=title + ': '
+		span.info-text-val&attributes(attributes)
+
 //- Bootstrap helpers
 //- ----------------------
 

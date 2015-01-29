@@ -200,31 +200,37 @@ angular.module('mainApp')
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'customer_name', label: '客户姓名', isChecked: true},
 			{name: 'order_no', label: '订单编号', isChecked: true},
+			{name: 'customer_name', label: '客户姓名', isChecked: true},
 			{name: 'phone', label: '客户电话', isChecked: true},
-			{name: 'province', label: '所在省', isChecked: true},
-			{name: 'city', label: '城市', isChecked: true},
-			{name: 'order_type', label: '订单类型', isChecked: true},
+			{name: 'province', label: '详细地址', isChecked: true},
+			{name: 'order_type', label: '订购类型', isChecked: true},
+			{name: 'payment', label: '付款方式', isChecked: true},
 			{name: 'paid', label: '付款状态', isChecked: true},
-			{name: 'audit', label: '审单状态', isChecked: true},
-			{name: 'create_time', label: '创建时间', isChecked: true},
-			{name: 'contact_count', label: '联系次数', isChecked: true}
+			{name: 'create_time', label: '下单时间', isChecked: true},
+			{name: 'who', label: '下单人', isChecked: true}
 		];
 
-		// 修改订单列表
+		// 获取订单列表
 		$scope.getOrderList = function() {
 
 			var req = {
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo || 1,
 				workflow: 2,
+				audit: 4,
 				paid: $scope.searchModel.paid
 			};
 
 			$.extend(req, $scope.query);
 
 			$scope.orders = Order.getList(req).$object;
+		};
+
+
+		$scope.search = function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			$scope.getOrderList();
 		};
 
 		$scope.getOrderList();
@@ -235,40 +241,31 @@ angular.module('mainApp')
 		};
 
 		$scope.saveSplitResult = function() {
-			var request = $.extend({}, $scope.currentOrder, {details: $scope.currentOrder.splitedOrders});
-
-			$http.post(config.basewms + 'outbound/shipment/save/', request)
-				.success(function(data) {
-
-				})
-				.error(function(abc) {
-
+			var request = $.extend({}, $scope.currentOrder, {
+					details: $scope.currentOrder.splitedOrders,
+					updater: $scope.currentUser.userNo,
 				});
-			// $splitResult.modal('hide');
+
+			console.log(request);
+
+			$scope.processing({}, $splitResult);
+
+			// $http.post(config.basewms + 'outbound/shipment/save/', request)
+			// 	.success($scope.onFine({
+			// 		$form: $splitResult
+			// 	}))
+			// 	.error($scope.onError({
+			// 		$form: $splitResult
+			// 	}));
 		};
 
-		$scope.splitOrder = function(form) {
+		$scope.splitOrder = function(order, form) {
+			$scope.currentOrder = order;
 
-			$scope.processing(form, $splitForm);
-
-			$http.post(config.basewms + 'outbound/split/', {
-				orders_no: $scope.currentOrder.order_no,
-				customer_code: $scope.currentOrder.customer_code,
-				customer_name: $scope.currentOrder.customer.name,
-				effective_date: $scope.currentOrder.effective.replace(/\s\d{2}:\d{2}/, ''),
-				address: $scope.currentOrder.customer.province + $scope.currentOrder.customer.city + $scope.currentOrder.customer.address,
-				customer_tel: $scope.currentOrder.customer.phone,
-				amount: $scope.currentOrder.amount,
-				has_invoice: $scope.currentOrder.has_invoice,
-				creator: $scope.currentUser.userNo,
-				updater: $scope.currentUser.userNo,
-				details: $scope.currentOrder.details,
-				package_code: 'default',
-				status: 5
-			}).success(function(data) {
-				$splitResult.modal('show');
-				$splitForm.modal('hideMsg');
-				$scope.currentOrder.splitedOrders = data;
+			$http.get(config.basews + 'order/' + $scope.currentOrder.id + '/split/').success(function(data) {
+				console.log(data);
+				$scope.splitedOrders = data;
+				$splitForm.modal('show');
 			}).error($scope.onError({
 				form: form,
 				$form: $splitForm,
@@ -277,19 +274,32 @@ angular.module('mainApp')
 		};
 
 		$scope.editShipment = function(shipment) {
-			$scope.shipment = shipment;
+			$scope.tmpShipment = angular.copy(shipment);
 			$shipmentForm.modal('show');
 		};
 
 
 		$scope.saveShipment = function(form) {
 			$scope.validateForm(form, $shipmentForm);
+
+			$http.post(config.basewms + 'outbound/shipment/save/')
+				.success($scope.onFine({
+					$form: $splitResult
+				}))
+				.error($scope.onError({
+					$form: $splitResult
+				}));
 			// $shipmentForm.modal('show');
 		};
 
-
-		$scope.selectGift = function() {
+		$scope.selectGift = function(currentOrder) {
+			$scope.tmpOrder = {gift: currentOrder.gift};
 			$giftForm.modal('show');
+		};
+
+		$scope.saveSelectedGift = function() {
+			$scope.currentOrder.gift = $scope.tmpOrder.gift;
+			$giftForm.modal('hide');
 		};
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
@@ -404,7 +414,8 @@ angular.module('mainApp')
 	}])
 	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
 
-		var $tree = $('#tree');
+		var $tree = $('#tree'),
+			$returnForm = $('#return-form');
 
 		// ths
 		$scope.isAllThsShow = false;
@@ -425,11 +436,27 @@ angular.module('mainApp')
 		];
 
 		// 新建退货单
-		$scope.addNewReturnOrder = function() {
-			$('#form-return').modal('show');
+		$scope.addNewReturnOrder = function(form) {
+			$scope.resetForm(form);
+
+			$scope.order = {
+				order_no: $scope.guid(),
+				creator: $scope.currentUser.userNo,
+				updator: $scope.currentUser.userNo
+			};
+
+			$returnForm.modal('show');
 		};
 
-		$scope.confirmAndShare =function() {
+		$scope.search = function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			// $scope.getOrderList();
+		};
+
+		$scope.confirmAndShare =function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $returnForm)) return;
+
 			$('#share-order').modal('show');
 
 			var treeSourece = [

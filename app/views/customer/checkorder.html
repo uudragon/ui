@@ -539,13 +539,19 @@
                   <input id="form-customer-phone" class="form-control input-sm" uu-phone="uu-phone" ng-model="gbOrder.customer.phone" required="required"/>
                 </td>
                 <th class="form-th">
+                  <label for="form-customer-phone" class="form-th-label">Email</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-customer-phone" class="form-control input-sm" uu-email="uu-email" ng-model="gbOrder.customer.email"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
                   <label for="form-child-name" class="form-th-label">儿童姓名</label>
                 </th>
                 <td class="form-td">
                   <input id="form-child-name" class="form-control input-sm" uu-name="uu-name" ng-model="gbOrder.customer.child"/>
                 </td>
-              </tr>
-              <tr>
                 <th class="form-th">
                   <label for="form-child-gender" class="form-th-label">儿童性别</label>
                 </th>
@@ -555,11 +561,19 @@
                     <option value="1">男</option>
                   </select>
                 </td>
+              </tr>
+              <tr>
                 <th class="form-th">
                   <label for="form-customer-birthday" class="form-th-label">出生日期</label>
                 </th>
                 <td class="form-td">
                   <input id="form-customer-birthday" class="form-control input-sm" ng-model="gbOrder.customer.birthday" uu-date-picker="uu-date-picker"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-customer-main-phone" class="form-th-label">固定电话</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-customer-main-phone" class="form-control input-sm" uu-num="uu-num" ng-model="gbOrder.customer.main_phone" required="required"/>
                 </td>
               </tr>
               <tr>
@@ -584,6 +598,22 @@
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
                 <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.customer.province" ng-city-model="gbOrder.customer.city" ng-addr-model="gbOrder.customer.address" ng-required="true"></td>
+              </tr>
+              <tr>
+                <th ng-show="gbOrder.has_invoice" class="form-th">
+                  <label for="form-invoice-owner" class="form-th-label">发票抬头</label>
+                </th>
+                <td ng-show="gbOrder.has_invoice" class="form-td">
+                  <input id="form-invoice-owner" class="form-control input-sm" ng-model="gbOrder.invoice_title" ng-jade-show="gbOrder.has_invoice" ng-required="gbOrder.has_invoice===&quot;1&quot;"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-customer-post" class="form-th-label">邮编</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-customer-post" class="form-control input-sm" ng-model="gbOrder.customer.post"/>
+                </td>
               </tr>
             </table>
           </fieldset>
