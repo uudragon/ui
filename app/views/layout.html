@@ -51,6 +51,7 @@
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.customer&quot;)}" uu-auth-filter="0000" class="nav-item"><a class="nav-menu-label">客户服务</a>
                 <ul role="menu" class="nav nav-menu">
                   <li uu-auth-filter="000000"><a ui-sref="root.customer.checkorder" ng-class="{active: $state.is(&quot;root.customer.checkorder&quot;)}">官网核实订单</a></li>
+                  <li uu-auth-filter="000001"><a ui-sref="root.customer.shipment" ng-class="{active: $state.is(&quot;root.customer.shipment&quot;)}">拆单</a></li>
                   <li uu-auth-filter="000001"><a ui-sref="root.customer.splitorder" ng-class="{active: $state.is(&quot;root.customer.splitorder&quot;)}">拆分订单</a></li>
                   <li uu-auth-filter="000002"><a ui-sref="root.customer.complaints" ng-class="{active: $state.is(&quot;root.customer.complaints&quot;)}">投诉</a></li>
                   <li uu-auth-filter="000003"><a ui-sref="root.customer.return" ng-class="{active: $state.is(&quot;root.customer.return&quot;)}">退货</a></li>

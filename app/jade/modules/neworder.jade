@@ -12,7 +12,7 @@
 						+static-input('订单编号', 'order-no')(ng-bind='gbOrder.order_no')
 						+static-input('订单来源', 'order-source')(ng-bind='gbOrder.sourceName')
 					tr
-						+order-source('订购类型', 'order-type')(ng-model='gbOrder.order_type' required)
+						+select('订购类型', 'order-type')(ng-model='gbOrder.order_type' ng-options='suit.package_code as suit.package_name for suit in suits' required)
 						+input('订单金额', 'order-amount')(ng-model='gbOrder.amount' required uu-num)
 					tr
 						+static-input('下单时间', 'order-time')(ng-bind='gbOrder.effective')
@@ -34,7 +34,7 @@
 						+gender('儿童性别', 'child-gender')(ng-model='gbOrder.customer.c_sex')
 					tr
 						+input('出生日期', 'customer-birthday')(ng-model='gbOrder.customer.birthday' uu-date-picker)
-						+input('固定电话', 'customer-main-phone')(uu-num ng-model='gbOrder.customer.main_phone' required)
+						+input('固定电话', 'customer-main-phone')(uu-num ng-model='gbOrder.customer.main_phone')
 					tr
 						+yesno('是否开发票', 'has-invoice')(ng-model='gbOrder.has_invoice')
 						+input('发票抬头', 'invoice-owner')(ng-model='gbOrder.invoice_title' ng-jade-show='gbOrder.has_invoice' ng-required='gbOrder.has_invoice==="1"')

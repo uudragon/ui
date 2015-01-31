@@ -85,11 +85,11 @@ angular.module('mainApp')
 		// 获取库房列表
 		$scope.getShipmentsList = function() {
 			var req = {
-				pageSize: 10000,
-				pageNo: 1
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1,
 			};
 
-			return $http.post(config.basewms + 'inner/shipments/', req)
+			return $http.post(config.basewms + 'outbound/shipments/', req)
 				.success(function(data) {
 					$scope.shipments = data.records;
 

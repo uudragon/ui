@@ -40,7 +40,8 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// check is login
 	$scope.$on('auth:invalid', function(e, d) {
-		Auth.logout();
+		console.log('invalid');
+		// Auth.logout();
 	});
 
 	$scope.logout = function() {
@@ -62,68 +63,10 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		$('.article-header-search').stop().toggle('fast');
 	};
 
-	var $gbNewOrder = $('#global-new-order');
 	var $gbNewWorkform = $('#global-new-ticket');
 
+
 	// 新建工单
-	$scope.globalNewOrder = function(form) {
-		$scope.resetForm(form);
-
-		$scope.gbOrder = {
-			effective: $filter('now')(),
-			order_no: $scope.guid(),
-			creator: $scope.currentUser.account,
-			sourceName: '客服系统',
-			source: '1',
-			order_type: '0',
-			amount: '2380',
-			paid: '0'
-		};
-
-		$gbNewOrder.modal('show');
-	};
-
-	// 保存工单
-	$scope.saveGlobalOrder = function(form) {
-		// 表单验证
-		if (!$scope.validateForm(form, $gbNewOrder)) return;
-
-		form.processing = true;
-
-		var staticOrderDetails = {
-			orders_no: '112312',
-			product_no: '313213',
-			qty: '2',
-			bulk: '123',
-			weight: '12321',
-			status: '1',
-			yn: '1'
-		};
-
-		$scope.gbOrder.customer.creator = $scope.currentUser.account;
-		$scope.gbOrder.details = [staticOrderDetails];
-
-		$gbNewOrder.modal('spinner');
-
-		$http.post(config.basews + 'order', $scope.gbOrder)
-			.success(function(status) {
-				form.processing = false;
-
-				if (status === 'true') {
-					$gbNewOrder.modal('success');
-					$scope.getOrderList();
-				} else {
-					$gbNewOrder.modal('fail');
-				}
-			})
-			.error(function() {
-				form.processing = false;
-				$gbNewOrder.modal('fail');
-			});
-	};
-
-
-	// 新建订单
 	$scope.globalNewWorkForm = function(form) {
 		$scope.gbWorkform = {
 			create_time: $filter('now')(),
@@ -135,7 +78,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// $scope.globalNewWorkForm();
 
-	// 保存订单
+	// 保存工单
 	$scope.saveGlobalTicket = function(form) {
 		// 表单验证
 		if (!$scope.validateForm(form, $gbNewWorkform)) return;

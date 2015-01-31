@@ -450,9 +450,7 @@
                   <label for="form-order-type" class="form-th-label">订购类型</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-order-type" class="form-control input-sm" ng-model="gbOrder.order_type" required="required">
-                    <option value="0">网站套餐</option>
-                    <option value="1">电话</option>
+                  <select id="form-order-type" class="form-control input-sm" ng-model="gbOrder.order_type" ng-options="suit.package_code as suit.package_name for suit in suits" required="required">
                   </select>
                 </td>
                 <th class="form-th">
@@ -573,7 +571,7 @@
                   <label for="form-customer-main-phone" class="form-th-label">固定电话</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-customer-main-phone" class="form-control input-sm" uu-num="uu-num" ng-model="gbOrder.customer.main_phone" required="required"/>
+                  <input id="form-customer-main-phone" class="form-control input-sm" uu-num="uu-num" ng-model="gbOrder.customer.main_phone"/>
                 </td>
               </tr>
               <tr>
