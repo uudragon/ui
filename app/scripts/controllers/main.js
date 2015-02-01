@@ -223,6 +223,19 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		};
 	};
 
+	$scope.onFineWs = function(params) {
+		return function(status) {
+			params.form && (params.form.processing = false);
+			if (status === 'true') {
+				console.log('here');
+				params.$form && params.$form.modal('success', params.msg);
+				angular.isFunction(params.action) && params.action();
+			} else {
+				params.$form && params.$form.modal('fail', params.errMsg);
+			}
+		};
+	};
+
 	$scope.onFine = function(params) {
 		return function(data) {
 			params.form && (params.form.processing = false);

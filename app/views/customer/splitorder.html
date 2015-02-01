@@ -64,7 +64,7 @@
       <td ng-bind="order.paid | payStatus" ng-show="ths[6].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.user" ng-show="ths[8].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拆分订单" ng-click="showShipments(order.order_no)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="退回"><span class="glyphicon glyphicon-backward"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拆分订单" ng-click="showShipments(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="退回"><span class="glyphicon glyphicon-backward"></span></a>
       </td>
     </tr>
   </tbody>
@@ -216,7 +216,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="splitOrder(shipments[0].id, shipmentForm)" ng-disabled="shipmentForm.processing" class="btn uu-btn btn-primary">确定</button>
+        <button ng-click="splitOrder(shipmentForm)" ng-disabled="shipmentForm.processing" class="btn uu-btn btn-primary">确定</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

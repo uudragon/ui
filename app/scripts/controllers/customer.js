@@ -452,32 +452,12 @@ angular.module('mainApp')
 			$splitForm.modal('show');
 		};
 
-		$scope.saveSplitResult = function() {
-			var request = $.extend({}, $scope.currentOrder, {
-					details: $scope.currentOrder.splitedOrders,
-					updater: $scope.currentUser.userNo,
-				});
+		$scope.showShipments = function(order) {
+			$scope.order = order;
 
-			console.log(request);
-
-			$scope.processing({}, $splitResult);
-
-			// $http.post(config.basewms + 'outbound/shipment/save/', request)
-			// 	.success($scope.onFine({
-			// 		$form: $splitResult
-			// 	}))
-			// 	.error($scope.onError({
-			// 		$form: $splitResult
-			// 	}));
-		};
-
-		$scope.showShipments = function(orderNo) {
-
-			// $http.post(config.basewms + 'outbound/shipments/', {pageSize: 6, pageNo: 2})
-			$http.get(config.basewms + 'outbound/shipments/orders' + orderNo + '/')
+			$http.get(config.basewms + 'outbound/shipments/orders' + $scope.order.order_no + '/')
 			.success(function(data) {
 				$scope.shipments = data;
-				console.log($scope.shipments[0]);
 				$shipmentForm.modal('show');
 			});
 		};
@@ -526,23 +506,20 @@ angular.module('mainApp')
 			});
 		};
 
-		$scope.splitOrder = function(orderID, form) {
-			console.log(orderID);
+		$scope.splitOrder = function(form) {
+
 			$scope.processing(form, $shipmentForm);
 
-			$http.put(config.basews + 'order/' + orderID + '/split/', {
+			$http.put(config.basews + 'order/' + $scope.order.id + '/split/', {
 					updater: $scope.currentUser.userNo
 				})
-				.success(function(status) {
-					if (status === 'true') {
-						$shipmentForm.modal('success', '成功');
-						$shipmentForm.modal('hide');
-						form.processing = false;
-					} else {
-						$shipmentForm.modal('fail', '失败');
-						form.processing = false;
-					}
-				}).error($scope.onError({
+				.success($scope.onFineWs({
+					form: form,
+					$form: $shipmentForm,
+					msg: '成功',
+					errMsg: '失败',
+					action: $scope.getOrderList
+				})).error($scope.onError({
 					form: form,
 					$form: $shipmentForm,
 					msg: '失败!'

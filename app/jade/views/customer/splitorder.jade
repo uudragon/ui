@@ -31,7 +31,7 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.create_time', ng-show='ths[7].isChecked')
 			td(ng-bind='order.user', ng-show='ths[8].isChecked')
 			td.nowrap
-				+tooltip('拆分订单', 'top', 'showShipments(order.order_no)')
+				+tooltip('拆分订单', 'top', 'showShipments(order)')
 					+glyphicon('pencil') &nbsp;
 
 				+tooltip('退回', 'top')
@@ -134,7 +134,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 								+tooltip('发货单复合', 'top', 'checkShipment(shipment.shipment_no)')
 									+glyphicon('pencil')
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='splitOrder(shipments[0].id, shipmentForm)' ng-disabled='shipmentForm.processing') 确定
+		button.btn.uu-btn.btn-primary(ng-click='splitOrder(shipmentForm)' ng-disabled='shipmentForm.processing') 确定
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- shipment check form
