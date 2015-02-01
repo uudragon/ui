@@ -117,7 +117,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 					+thead(['订单号', '客户姓名', '客户电话', '付款金额', '发货数量', '是否有发票', '快递单号', '快递公司', '快递费用', '发货时间', '发货单状态'])
 					//- +thead(['订单号', '发货单号', '客户姓名', '客户电话', '付款金额', '发货数量', '是否有发票', '快递单号', '快递公司', '快递费用', '发货时间', '发货单状态'])
 					tbody
-						tr(ng-repeat='shipment in shipments' ng-dblclick='checkShipment(shipment.shipment_no)')
+						tr(ng-repeat='shipment in shipments' ng-dblclick='checkShipment(shipment.shipment_no, shipmentCheckForm)')
 							td(ng-bind="shipment.orders_no")
 							//- td(ng-bind="shipment.shipment_no")
 							td(ng-bind="shipment.customer_name")
@@ -131,7 +131,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 							td(ng-bind="shipment.sent_date")
 							td(ng-bind="shipment.status | mapper:'shipmentStatus'")
 							td.nowrap
-								+tooltip('发货单复合', 'top', 'checkShipment(shipment.shipment_no)')
+								+tooltip('发货单复合', 'top', 'checkShipment(shipment.shipment_no, shipmentCheckForm)')
 									+glyphicon('pencil')
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='splitOrder(shipmentForm)' ng-disabled='shipmentForm.processing') 确定
@@ -161,7 +161,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 							+input('发货时间', 'form-send-date')(ng-model='shipment.sent_date' uu-date-picker required)
 						tr
 							+static-input('是否有发票', 'form-has-invoice')(ng-bind='shipment.has_invoice')
-							+static-input('发货单状态', 'shipment-status')(ng-bind='shipment.status')
+							+static-input('发货单状态', 'shipment-status')(ng-bind='shipment.status | mapper:"shipmentStatus"')
 						tr
 							+select('库房', 'form-warehouse')(ng-model='shipment.warehouse' ng-options='warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses' required)
 

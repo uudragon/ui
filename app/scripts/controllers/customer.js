@@ -473,7 +473,10 @@ angular.module('mainApp')
 			});
 		};
 
-		$scope.checkShipment = function(shipmentNo) {
+		$scope.checkShipment = function(shipmentNo, form) {
+
+			$scope.resetForm(form);
+
 			var shipmentDefer = $http.get(config.basewms + 'outbound/shipment/' + shipmentNo + '/');
 			var warehousesDefer = $scope.getWarehouseList();
 			var commodityListDefer = $scope.getCommdityList();
@@ -540,6 +543,7 @@ angular.module('mainApp')
 					warehouse: $scope.shipment.warehouse,
 					updater: $scope.currentUser.userNo,
 					shipment_no: $scope.shipment.shipment_no,
+					sent_date: $scope.shipment.sent_date,
 					details: $scope.shipment.details
 				})
 				.success($scope.onFine({

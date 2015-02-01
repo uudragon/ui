@@ -195,7 +195,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="shipment in shipments" ng-dblclick="checkShipment(shipment.shipment_no)">
+                <tr ng-repeat="shipment in shipments" ng-dblclick="checkShipment(shipment.shipment_no, shipmentCheckForm)">
                   <td ng-bind="shipment.orders_no"></td>
                   <td ng-bind="shipment.customer_name"></td>
                   <td ng-bind="shipment.customer_tel"></td>
@@ -207,7 +207,7 @@
                   <td ng-bind="shipment.express_cost"></td>
                   <td ng-bind="shipment.sent_date"></td>
                   <td ng-bind="shipment.status | mapper:'shipmentStatus'"></td>
-                  <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发货单复合" ng-click="checkShipment(shipment.shipment_no)"><span class="glyphicon glyphicon-pencil"></span></a>
+                  <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发货单复合" ng-click="checkShipment(shipment.shipment_no, shipmentCheckForm)"><span class="glyphicon glyphicon-pencil"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -301,7 +301,7 @@
                     <label class="form-th-label">发货单状态</label>
                   </th>
                   <td colspan="shipment-status" class="form-td">
-                    <p class="form-control-static" ng-bind="shipment.status"></p>
+                    <p class="form-control-static" ng-bind="shipment.status | mapper:&quot;shipmentStatus&quot;"></p>
                   </td>
                 </tr>
                 <tr>
