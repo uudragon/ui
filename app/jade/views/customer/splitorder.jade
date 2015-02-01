@@ -29,7 +29,7 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.payment | payment', ng-show='ths[5].isChecked')
 			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
 			td(ng-bind='order.create_time', ng-show='ths[7].isChecked')
-			td(ng-bind='order.user', ng-show='ths[8].isChecked')
+			td(ng-bind='order.creator', ng-show='ths[8].isChecked')
 			td.nowrap
 				+tooltip('拆分订单', 'top', 'showShipments(order)')
 					+glyphicon('pencil') &nbsp;
