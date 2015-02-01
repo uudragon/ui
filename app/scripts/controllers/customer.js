@@ -537,8 +537,10 @@ angular.module('mainApp')
 					if (status === 'true') {
 						$shipmentForm.modal('success', '成功');
 						$shipmentForm.modal('hide');
+						form.processing = false;
 					} else {
-						$shipmentForm.modal('success', '失败');
+						$shipmentForm.modal('fail', '失败');
+						form.processing = false;
 					}
 				}).error($scope.onError({
 					form: form,
