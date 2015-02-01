@@ -41,120 +41,87 @@ table.uu-table
 			td(ng-bind="shipment.creator" ng-show='ths[17].isChecked')
 			td(ng-bind="shipment.update_time" ng-show='ths[18].isChecked')
 			td(ng-bind="shipment.updater" ng-show='ths[19].isChecked')
-			td(ng-bind="shipment.status" ng-show='ths[20].isChecked')
-			td.nowrap(ng-show='shipment.status!=-1 && shipment.status!=2')
-				+tooltip('入库', 'top', 'newPutinedshipment(shipment.shipment_code, storageForm)')
-					+glyphicon('import')
-			td.nowrap(ng-show='shipment.status==-1 || shipment.status==2')
-				+tooltip('查看', 'top', 'showPutinedshipment(shipment.receipt_code)')
-					+glyphicon('eye-open')
+			td(ng-bind="shipment.status | mapper:'shipmentStatus'" ng-show='ths[20].isChecked')
+			td.nowrap
+				+tooltip('修改', 'top', 'editShipment(shipment.shipment_no)')
+					+glyphicon('pencil')
+				//- +tooltip('查看', 'top', 'showPutinedshipment(shipment.receipt_code)')
+				//- 	+glyphicon('eye-open')
 
 uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pageSize' page='shipments.meta.pageNo' pagreceiptForme='shipments.meta.pageNo', model='searchModel', action='getShipmentsList()')
 
-//- 核实订单Modal
-+modal('split-form')
+
+//- 修改出库单
++modal('shipment-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 查看订单
+		h4.modal-title(ng-bind='shipmentFormTitle')
 	.modal-body
-		form.form-horizontal(name='splitForm')
-			fieldset
-				+info('订单编号')(ng-bind='order.order_no')
-				table.uu-table
-					+thead
-					each th in ['序号', '子订单编号', '产品名称', '派送月份', '产品单位', '产品数量', '赠品', '分拆数量', '操作']
-						th=th
-					tbody
-						tr(ng-repeat='(index, order) in splitedOrders')
-							td(ng-bind='index + 1')
-							td(ng-bind='order.orders_no')
-							td(ng-bind='order.product_name')
-							td(ng-bind='order.send_time')
-							td(ng-bind='order.product_unit')
-							td(ng-bind='order.product_amount')
-							td(ng-bind='order.gift')
-							td(ng-bind='order.split_num')
-							td
-								+tooltip('编辑', 'top', 'editShipment(order)')
-									+glyphicon('pencil') &nbsp;
-								+tooltip('添加赠品', 'top', 'selectGift(order)')
-									+glyphicon('plus')
-
-			.modal-footer
-				button.btn.uu-btn.btn-primary(data-dismiss='modal') 确定
-				button.btn.uu-btn(data-dismiss='modal') 取消
-
-+submodal('split-results')
-	.modal-header
-		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 折单列表
-	.modal-body
-		table.uu-table
-			+thead
-				//- each th in ['序号', '订单号', '客户编号', '客户姓名', '客户地址', '付款金额', '发货数量', '是否有发票', '快递单号', '发货时间', '创建人', '发货单状态', '操作']
-				each th in ['客户姓名', '客户地址', '付款金额', '发货数量', '是否有发票', '快递单号', '发货时间', '发货单状态', '操作']
-					th=th
-			tbody
-				tr(ng-repeat='(index, order) in currentOrder.splitedOrders')
-				tr
-					//- td(ng-bind='index + 1')
-					//- td(ng-bind='order.orders_no')
-					//- td(ng-bind='order.customer_code')
-					td(ng-bind='order.customer_name')
-					td(ng-bind='order.address')
-					td(ng-bind='order.amount')
-					td(ng-bind='order.shipped_qty')
-					td(ng-bind='order.has_invoice | yesno')
-					td(ng-bind='order.express_code')
-					td(ng-bind='order.sent_date')
-					td(ng-bind='order.status | mapper:"shipmentStatus"')
-					td
-						+tooltip('编辑', 'top', 'editShipment(order)')
-							+glyphicon('pencil') &nbsp;
-						+tooltip('添加赠品', 'top', 'selectGift(currentOrder)')
-							+glyphicon('plus')
-	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSplitResult(currentOrder)') 保存并确认
-		button.btn.uu-btn(data-dismiss='modal') 取消
-
-+submodal('shipment-form')
-	.modal-header
-		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 编辑订单明细
-	.modal-body
+		//- 将form放在uu-pane层级下会导致newProduct(shipmentForm)找不到shipmentForm
 		form.form-horizontal(name='shipmentForm' novalidate ng-class='{sumitted: shipmentForm.$sumitted}')
-			fieldset
-				legend 订单明细
-				table.form-table.form-single
-					tr
-						+input('客户编号', 'form-customer-code')(ng-model='tmpShipment.customer_code')
-						+input('客户姓名', 'form-customer-name')(ng-model='tmpShipment.customer_name')
-					tr
-						+input('客户地址', 'form-address')(ng-model='tmpShipment.address')
-						+input('客户电话', 'form-customer-tel')(ng-model='tmpShipment.customer_tel')
-					tr
-						+input('付款金额', 'form-amount')(ng-model='tmpShipment.amount')
-						+input('发货数量', 'form-shipped-qty')(ng-model='tmpShipment.shipped_qty')
-					tr
-						+input('是否有发票', 'form-has-invoice')(ng-model='tmpShipment.has_invoice')。0：无；1：有
-						+input('快递公司编号', 'form-express-code')(ng-model='tmpShipment.express_code')
-					tr
-						+input('快递单号', 'form-express-orders_no')(ng-model='tmpShipment.express_orders_no')
-						+input('快递公司名称', 'form-express_name')(ng-model='tmpShipment.express_name')
-					tr
-						+input('快递费用', 'form-express-cost')(ng-model='tmpShipment.express_cost')
-						+input('快递员', 'form-courier')(ng-model='tmpShipment.courier')
-					tr
-						+input('快递员电话', 'form-courier-tel')(ng-model='tmpShipment.courier_tel')
-						+input('发货时间', 'form-sent-date')(ng-model='tmpShipment.sent_date')
-					tr
-						+input('数量', 'form-num')(ng-model='tmpShipment.details.qty' required)
-						+yesno('是否赠品', 'form-is-gift')(ng-model='tmpShipment.details.is_gift' required)
-					tr
-						+shipment-status('发货单状态', 'shipment-status')(ng-model='tmpShipment.status', required)
-	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)') 保存
-		button.btn.uu-btn(data-dismiss='modal') 取消
+			div(uu-tab)
+				div(uu-pane, title='发货单')
+					table.form-table
+						tr
+							+input('订单号', 'orders_no')(ng-model='shipment.orders_no' required)
+							+input('发货单号', 'shipment_no')(ng-model='shipment.shipment_no' required)
+						tr
+							+input('客户编号', 'form-customer-code')(ng-model='shipment.customer_code' required)
+							+input('客户姓名', 'form-customer-name')(ng-model='shipment.customer_name' required)
+						tr
+							+input('客户地址', 'form-address')(ng-model='shipment.address' required)
+							+input('客户电话', 'form-customer-tel')(ng-model='shipment.customer_tel' required)
+						tr
+							+input('付款金额', 'form-amount')(ng-model='shipment.amount' required)
+							+input('发货数量', 'form-shipped-qty')(ng-model='shipment.shipped_qty' required)
+						tr
+							+input('发货时间', 'sent_date')(ng-model='sent_date' uu-date-picker required)
+							+yesno('是否有发票', 'form-has-invoice')(ng-model='shipment.has_invoice' required)
+						tr
+							+shipment-status('发货单状态', 'shipment-status')(ng-model='shipment.status', required)
+
+					p.badge(style='margin-top: 10px;' ng-show='!shipment.details.length') 尚未添加任何商品
+					table.uu-table(style='margin-top: 10px;' ng-show='shipment.details.length')
+						+thead
+							each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
+								th.nowrap=th
+						tbody
+							tr(ng-repeat='good in shipment.details')
+								td(ng-bind='good.goods_code')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.qty')
+								td(ng-bind='good.is_gift | yesno')
+								td.nowrap
+									+tooltip('修改', 'top', 'editGood(good, giftForm)')
+										+glyphicon('pencil') &nbsp;
+
+									+tooltip('删除', 'top', 'removeGood($index)')
+										+glyphicon('trash')
+
+					.modal-footer
+						button.btn.uu-btn.btn-primary(ng-click='saveProduct(shipmentForm)' ng-disabled='shipmentForm.processing') 保存
+						button.btn.uu-btn(data-dismiss='modal') 取消
+
+				div(uu-pane, title='添加商品')
+					table.uu-table
+						+thead
+							each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+								th.nowrap=th
+						tbody
+							tr(ng-repeat='good in goods')
+								td(ng-bind='good.goods_name')
+								td(ng-bind='good.goods_type | goodsType')
+								td(ng-bind='good.goods_price')
+								td(ng-bind='good.goods_unit')
+								td(ng-bind='good.product_date')
+								td(ng-bind='good.goods_desc')
+								td(ng-bind='good.yn | valid')
+								td(ng-bind='good.creator')
+								td
+									+tooltip('添加商品', 'top', 'addGoodToShipment(good, giftForm)')
+										+glyphicon('plus')
+					uu-pagination(records='goods.meta.recordsCount', per-page='goods.meta.pageSize' page='goods.meta.pageNo', model='subSearchModel', action='getCommdityList()')
+
 
 //- 选择赠品Modal
 +submodal('gift-form')
@@ -162,15 +129,19 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 选择赠品
 	.modal-body
-		form.form-horizontal
+		form.form-horizontal(name='giftForm' novalidate ng-class='{sumitted: giftForm.$sumitted}')
 			fieldset
+				legend 商品详情
 				table.form-table.form-table-single
 					tr
-						+select('选择赠品', 'selectGift')(ng-model='tmpOrder.gift')
+						+input('数量', 'qty')(uu-num ng-model='shipmentTmpGood.qty' required)
+					tr
+						+select('选择赠品', 'selectGift')(ng-model='shipmentTmpGood.gift' required)
 							+option('生日礼品', 0)
 							+option('促销赠品', 1)
+
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveSelectedGift()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveGoodToShipment(giftForm)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

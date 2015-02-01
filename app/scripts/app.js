@@ -138,11 +138,11 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		templateUrl: 'views/customer/checkorder.html',
 		controller: 'CheckOrder'
 	})
-	.state('root.customer.shipment', {
-		url: '/shipment',
-		templateUrl: 'views/customer/shipment.html',
-		controller: 'Shipment'
-	})
+	// .state('root.customer.shipment', {
+	// 	url: '/shipment',
+	// 	templateUrl: 'views/customer/shipment.html',
+	// 	controller: 'Shipment'
+	// })
 	.state('root.customer.splitorder', {
 		url: '/splitorder',
 		templateUrl: 'views/customer/splitorder.html',

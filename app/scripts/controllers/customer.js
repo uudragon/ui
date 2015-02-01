@@ -188,6 +188,8 @@ angular.module('mainApp')
 				paid: '0'
 			};
 
+			// $scope.gbOrder = {"effective":"2015-02-01 20:12","order_no":"6d08040d-0b8f-808b","creator":"admin","sourceName":"客服系统","source":"1","amount":"2380","workflow":2,"audit":4,"paid":"0","order_type":"13c3d04e-82da-11ab","status":"1","customer":{"name":"你是苛夺革","phone":"15932331233","child":"是谁","birthday":"2015-01-28","c_sex":"0","main_phone":"11111","email":"","sex":"0","province":"黑龙江省","city":"伊春市","address":"哪里哪里","post":"121231","creator":"admin"},"has_invoice":"1","invoice_title":"你是那","payment":"1","deadline":"2015-02-05","details":[{"orders_no":"112312","product_no":"313213","qty":"2","bulk":"123","weight":"12321","status":"1","yn":"1"}]};
+			// $scope.gbOrder.order_no = $scope.guid();
 			// 获取套餐列表
 			$http.post(config.basewms + 'baseinfo/packages/', {
 				pageSize: 50,
@@ -241,12 +243,13 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
-	.controller('Shipment', ['$scope', '$controller', 'Order', '$http', function($scope, $controller, Order, $http) {
-		var $splitForm = $('#split-form'),
+	.controller('Shipment', ['$scope', '$controller', 'Order', '$http', '$q', function($scope, $controller, Order, $http, $q) {
+		var
 			$splitResult = $('#split-results'),
 			$shipmentForm = $('#shipment-form'),
 			$giftForm = $('#gift-form');
 
+		$scope.subSearchModel = {};
 
 		// 搜索下拉
 		$scope.filters = [
@@ -319,22 +322,53 @@ angular.module('mainApp')
 			$scope.getShipmentsList();
 		};
 
+		// 获取商品列表
+		$scope.getCommdityList = function() {
 
-		$scope.editShipment = function(shipment) {
-			$scope.tmpShipment = angular.copy(shipment);
-			$shipmentForm.modal('show');
+			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
+				pageSize: $scope.subSearchModel.pageSize || Math.ceil(config.perPage / 2 ),
+				pageNo: $scope.subSearchModel.pageNo || 1
+			})
+			.success(function(data) {
+				$scope.goods = data.records;
+				$scope.goods.meta = {
+					pageSize: data.pageSize,
+					pageNo: data.pageNo ? data.pageNo : 1,
+					recordsCount: data.recordsCount,
+					pageNumber: data.pageNumber
+				};
+			});
 		};
 
+		$scope.editShipment = function(code) {
+
+			var shipmentDefer = $http.get(config.basewms + 'outbound/shipment/' + code + '/');
+			var commodityListDefer = $scope.getCommdityList();
+
+			$scope.shipmentFormTitle = '修改发货单';
+
+			$q.all([shipmentDefer, commodityListDefer])
+				.then(function(data) {
+					if (data && data[0].status === 200 && data[1].status === 200) {
+						$scope.shipment = data[0].data;
+						$scope.shipment.updater = $scope.currentUser.userNo;
+						$shipmentForm.modal('show');
+					}
+				});
+
+		};
 
 		$scope.saveShipment = function(form) {
 			$scope.validateForm(form, $shipmentForm);
 
-			$http.post(config.basewms + 'outbound/shipment/save/')
+			$http.post(config.basewms + 'wms/outbound/shipment', $scope.shipment)
 				.success($scope.onFine({
-					$form: $splitResult
+					form: form,
+					$form: $shipmentForm
 				}))
 				.error($scope.onError({
-					$form: $splitResult
+					form: form,
+					$form: $shipmentForm
 				}));
 			// $shipmentForm.modal('show');
 		};
@@ -351,196 +385,11 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
-	.controller('Complains', ['$scope', '$controller', '$http', '$filter', 'Restangular', function($scope, $controller, $http, $filter, Restangular) {
-		var
-			$returnOrder = $('#return-order'),
-			$orderDetails = $('#order-details'),
-			$tree = $('#tree');
-
-		// 搜索下拉
-		$scope.filters = [
-			{name: '所有投诉', value: 0, input: true},
-			{name: '投诉日期', value: 8, datetime: true},
-			{name: '客户姓名', value: 5, input: true},
-			{name: '联系电话', value: 1, input: true},
-			{name: '订单编号', value: 2, input: true},
-			{name: '省份', value: 1, subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
-			{name: '城市', value: 2, input: true},
-			{name: '投诉分类', value: 1, subfilters: [{name: '发票抬头错误', value: 31}, {name: '未开发票', value: 32}, {name: '开票时间长', value: 33}, {name: '发票丢失', value: 34}, {name: '客服态度不好', value: 35}, {name: '客服不专业', value: 36}, {name: '客服电话难打', value: 37}, {name: '物流慢', value: 38}, {name: '货物丢失', value: 39}, {name: '物品破损', value: 310}, {name: '快递态度', value: 311}]},
-            {name: '紧急程度', value: 1, subfilters: [{name: '一般', value: 1 }, {name: '优先', value: 2 }, {name: '紧急', value: 3 }]},
-			{name: '待处理', value: 9},
-			{name: '处理中', value: 10},
-			{name: '已完成', value: 11},
-		];
-
-		$scope.subfilters = [{name: '包含', value: 0}, {name: '排除', value: 1}];
-
-		// ths
-		$scope.isAllThsShow = true;
-		$scope.ths = [
-			{name: 'customer_name', label: '客户姓名', isChecked: true},
-			{name: 'odrer_no', label: '订单编号', isChecked: true},
-			{name: 'phone', label: '客户电话', isChecked: true},
-			{name: 'province', label: '所在省', isChecked: true, sortable: true},
-			{name: 'city', label: '城市', isChecked: true},
-			{name: 'order_type', label: '订单类型', isChecked: true, sortable: true},
-			{name: 'paid', label: '付款状态', isChecked: true, sortable: true},
-			{name: 'create_time', label: '创建时间', isChecked: true, sortable: true},
-			{name: 'contact_times', label: '联系次数', isChecked: true}
-		];
-
-		var Workform = Restangular.all('workform');
-
-		// 获取投诉列表
-		$scope.getOrderList = function() {
-			$scope.complaintsOrders = Workform.all('consulation').getList({
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo,
-				status: $scope.searchModel.status
-			}).$object;
-		};
-
-		// 状态快速查询按钮
-		$scope.$watch('searchModel.status', function(current, prev) {
-			if (current !== prev) {
-				$scope.searchModel.pageNo = 1;
-				$scope.getOrderList();
-			}
-		});
-
-		$scope.getOrderList();
-
-		// 订单详情
-		$scope.showComplaintOrders = function(order) {
-			$scope.currentOrder = order;
-			$orderDetails.modal('show');
-			$scope.currentOrder.complaintOrders = [
-				{orderSN: '123071231', customerName: order.customerName, customerPhone: order.customerPhone, orderType: '季度', createTime: '2014-10-15', payWay: '在线支付', payStatus: '0', birthday: '2010-06-01', orderStatus: '正常'},
-				{orderSN: '143071231', customerName: order.customerName, customerPhone: order.customerPhone, orderType: '季度', createTime: '2014-10-15', payWay: '在线支付', payStatus: '1', birthday: '2010-06-01', orderStatus: '正常'}
-			];
-		};
-
-		// 新建投诉
-		$scope.addNewComplains = function() {
-			$scope.complaint = {
-				// contact_time: $filter('now')(),
-				type: 3,
-				theme: 2,
-				user: $scope.currentUser.userNo
-			};
-			$('#complaint-details').modal('show');
-		};
-
-		// 保存投诉
-		$scope.saveComplaint = function(complaint) {
-			$http.post(config.basews + 'workform', complaint)
-				.success(function(status) {
-					status === 'true' && $('#complaint-details').modal('hide');
-				});
-		};
-
-		// 退换货
-		$scope.exchange = function() {
-			$returnOrder.modal('show');
-		};
-
-		// 退换货
-		$scope.returnGoods = function() {
-			$returnOrder.modal('show');
-		};
-
-		$scope.saveOrder = function(order) {
-			var
-				tree = $tree.fancytree('getTree'),
-				selectedNodes = tree.getSelectedNodes();
-
-			console.log(selectedNodes);
-		};
-
-		$controller('CustomerServiceCtrl', {$scope: $scope});
-	}])
-	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
-
-		var $tree = $('#tree'),
-			$returnForm = $('#return-form');
-
-		// ths
-		$scope.isAllThsShow = false;
-		$scope.ths = [
-			{name: 'customerName', label: '退货单号', isChecked: true},
-			{name: 'orderSN', label: '客户姓名', isChecked: true},
-			{name: 'customerPhone', label: '联系方式', isChecked: false},
-			{name: 'customerPhone', label: '家庭住址', isChecked: true},
-			{name: 'province', label: '订单编号', isChecked: false, sortable: true},
-			{name: 'city', label: '订购类型', isChecked: true},
-			{name: 'email', label: '退货原因', isChecked: true},
-			{name: 'payStatus', label: '退货日期', isChecked: false, sortable: true},
-			{name: 'createTime', label: '退货刊号', isChecked: true, sortable: true},
-			{name: 'contactTimes', label: '退货金额', isChecked: true},
-			{name: 'contactTimes', label: '到库状态', isChecked: true},
-			{name: 'contactTimes', label: '退货结果', isChecked: true},
-			{name: 'contactTimes', label: '退货类别', isChecked: true},
-		];
-
-		// 新建退货单
-		$scope.addNewReturnOrder = function(form) {
-			$scope.resetForm(form);
-
-			$scope.order = {
-				order_no: $scope.guid(),
-				creator: $scope.currentUser.userNo,
-				updator: $scope.currentUser.userNo
-			};
-
-			$returnForm.modal('show');
-		};
-
-		$scope.search = function() {
-			$scope.query = $scope.parseFilter($scope.searchModel);
-			// $scope.getOrderList();
-		};
-
-		$scope.confirmAndShare =function(form) {
-			// 表单验证
-			if (!$scope.validateForm(form, $returnForm)) return;
-
-			$('#share-order').modal('show');
-
-			var treeSourece = [
-				{
-					'title': '财务部', 'key': '1', 'fold': true, 'children': [
-						{'title': 'test1', 'key': '3'},
-						{'title': 'test2', 'key': '4'}
-					]
-				},
-				{
-					'title': '库房部', 'key': '2', 'fold': true, 'children': [
-						{'title': 'test1', 'key': '3'},
-						{'title': 'test2', 'key': '4'}
-					]
-				},
-				{
-					'title': '投诉组', 'key': '3', 'fold': true, 'children': [
-						{'title': 'test1', 'key': '3'},
-						{'title': 'test2', 'key': '4'}
-					]
-				}
-			];
-			$tree.fancytree({
-				source: treeSourece,
-				selectMode: 3,
-				clickFolderMode: 2,
-				icons: false,
-				checkbox: true
-			});
-		};
-
-		$controller('CustomerServiceCtrl', {$scope: $scope});
-	}])
-	.controller('SplitOrder', ['$scope', '$controller', 'Order', '$http', function($scope, $controller, Order, $http) {
+	.controller('SplitOrder', ['$scope', '$controller', 'Order', '$http', '$q', function($scope, $controller, Order, $http, $q) {
 		var $splitForm = $('#split-form'),
 			$splitResult = $('#split-results'),
 			$shipmentForm = $('#shipment-form'),
+			$shipmentCheckForm = $('#shipment-check-form'),
 			$giftForm = $('#gift-form');
 
 		// 搜索下拉
@@ -582,7 +431,6 @@ angular.module('mainApp')
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo || 1,
 				workflow: 2,
-				audit: 4,
 				paid: $scope.searchModel.paid
 			};
 
@@ -623,17 +471,80 @@ angular.module('mainApp')
 			// 	}));
 		};
 
-		$scope.splitOrder = function(order, form) {
-			$scope.currentOrder = order;
+		$scope.showShipments = function(orderNo) {
 
-			$http.get(config.basews + 'order/' + $scope.currentOrder.id + '/split/').success(function(data) {
-				$scope.splitedOrders = data;
-				$splitForm.modal('show');
-			}).error($scope.onError({
-				form: form,
-				$form: $splitForm,
-				msg: '定单拆分失败!'
-			}));
+			// $http.post(config.basewms + 'outbound/shipments/', {pageSize: 6, pageNo: 2})
+			$http.get(config.basewms + 'outbound/shipments/orders' + orderNo + '/')
+			.success(function(data) {
+				$scope.shipments = data;
+				console.log($scope.shipments[0]);
+				$shipmentForm.modal('show');
+			});
+		};
+
+		// 获取库房列表
+		$scope.getWarehouseList = function() {
+			return $http.post(config.basewms + 'baseinfo/warehouses/', {
+				pageSize: 50,
+				pageNo: 1
+			})
+			.success(function(data) {
+				$scope.warehouses = data.records;
+			});
+		};
+
+		$scope.checkShipment = function(shipmentNo) {
+			var shipmentDefer = $http.get(config.basewms + 'outbound/shipment/' + shipmentNo + '/');
+			var warehousesDefer = $scope.getWarehouseList();
+			var commodityListDefer = $scope.getCommdityList();
+
+			$q.all([shipmentDefer, commodityListDefer, warehousesDefer])
+				.then(function(data) {
+					if (data && data[0].status === 200 && data[1].status === 200 && data[2].status === 200) {
+						$scope.shipment = data[0].data;
+						$scope.shipment.updater = $scope.currentUser.userNo;
+						$shipmentCheckForm.modal('show');
+					}
+				});
+		};
+
+		// 获取商品列表
+		$scope.getCommdityList = function() {
+
+			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
+				pageSize: $scope.subSearchModel.pageSize || Math.ceil(config.perPage / 2 ),
+				pageNo: $scope.subSearchModel.pageNo || 1
+			})
+			.success(function(data) {
+				$scope.goods = data.records;
+				$scope.goods.meta = {
+					pageSize: data.pageSize,
+					pageNo: data.pageNo ? data.pageNo : 1,
+					recordsCount: data.recordsCount,
+					pageNumber: data.pageNumber
+				};
+			});
+		};
+
+		$scope.splitOrder = function(orderID, form) {
+			console.log(orderID);
+			$scope.processing(form, $shipmentForm);
+
+			$http.put(config.basews + 'order/' + orderID + '/split/', {
+					updater: $scope.currentUser.userNo
+				})
+				.success(function(status) {
+					if (status === 'true') {
+						$shipmentForm.modal('success', '成功');
+						$shipmentForm.modal('hide');
+					} else {
+						$shipmentForm.modal('success', '失败');
+					}
+				}).error($scope.onError({
+					form: form,
+					$form: $shipmentForm,
+					msg: '失败!'
+				}));
 		};
 
 		$scope.editShipment = function(shipment) {
@@ -641,9 +552,30 @@ angular.module('mainApp')
 			$shipmentForm.modal('show');
 		};
 
+		$scope.confirmShipment = function(form) {
+			if (!$scope.validateForm(form, $shipmentCheckForm)) return;
+
+			$scope.processing(form, $shipmentCheckForm);
+
+			$http.post(config.basewms + 'outbound/shipment/check/', {
+					warehouse: $scope.shipment.warehouse,
+					updater: $scope.currentUser.userNo,
+					shipment_no: $scope.shipment.shipment_no,
+					details: $scope.shipment.details
+				})
+				.success($scope.onFine({
+					form: form,
+					$form: $shipmentCheckForm
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $shipmentCheckForm
+				}));
+		};
+
 
 		$scope.saveShipment = function(form) {
-			$scope.validateForm(form, $shipmentForm);
+			if (!$scope.validateForm(form, $shipmentForm)) return;
 
 			$http.post(config.basewms + 'outbound/shipment/save/')
 				.success($scope.onFine({
@@ -655,14 +587,142 @@ angular.module('mainApp')
 			// $shipmentForm.modal('show');
 		};
 
+		// 为产品添加商品
+		$scope.addGoodToShipment = function(good) {
+
+			var exists = false;
+
+			angular.forEach($scope.shipment.details, function(existGood) {
+				if (existGood.goods_code === good.goods_code) {
+					exists = true;
+					return;
+				}
+			});
+
+			if (!exists) {
+				$shipmentCheckForm.modal('info', '添加成功');
+				$scope.shipment.details.push({
+					code: good.goods_code,
+					name: good.goods_name,
+					qty: '1',
+					is_product: '0',
+					operatable: true,
+					is_gift: '1'
+				});
+			} else {
+				$shipmentCheckForm.modal('info', '已经存在, 请勿重复添加');
+			}
+		};
+
+		// 修改商品
+		$scope.editGood = function(good, form) {
+			$scope.resetForm(form);
+			$scope.shipmentGood = good;
+			$scope.shipmentTmpGood = angular.copy(good);
+			$giftForm.modal('show');
+		};
+
+		$scope.removeGood = function(index) {
+			$scope.shipment.details.splice(index, 1);
+		};
+
+		// 保存商品详情
+		$scope.saveGoodToShipment = function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $giftForm)) return;
+			$scope.shipmentGood.qty = $scope.shipmentTmpGood.qty;
+			$scope.shipmentGood.is_gift = $scope.shipmentTmpGood.is_gift;
+			$scope.shipmentGood.is_product = $scope.shipmentTmpGood.is_product;
+			$scope.shipmentGood.status = $scope.shipmentTmpGood.status;
+			$giftForm.modal('hide');
+		};
+
 		$scope.selectGift = function(currentOrder) {
 			$scope.tmpOrder = {gift: currentOrder.gift};
 			$giftForm.modal('show');
 		};
 
 		$scope.saveSelectedGift = function() {
-			$scope.currentOrder.gift = $scope.tmpOrder.gift;
+			$scope.currentOrder.gift = $scope.shipmentTmpGood.gift;
 			$giftForm.modal('hide');
+		};
+
+		$controller('CustomerServiceCtrl', {$scope: $scope});
+	}])
+	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
+
+		var $tree = $('#tree'),
+			$returnForm = $('#return-form');
+
+		// ths
+		$scope.isAllThsShow = false;
+		$scope.ths = [
+			{name: 'customerName', label: '退货单号', isChecked: true},
+			{name: 'orderSN', label: '客户姓名', isChecked: true},
+			{name: 'customerPhone', label: '联系方式', isChecked: false},
+			{name: 'customerPhone', label: '家庭住址', isChecked: true},
+			{name: 'province', label: '订单编号', isChecked: false, sortable: true},
+			{name: 'city', label: '订购类型', isChecked: true},
+			{name: 'email', label: '退货原因', isChecked: true},
+			{name: 'payStatus', label: '退货日期', isChecked: false, sortable: true},
+			{name: 'createTime', label: '退货刊号', isChecked: true, sortable: true},
+			{name: 'contactTimes', label: '退货金额', isChecked: true},
+			{name: 'contactTimes', label: '到库状态', isChecked: true},
+			{name: 'contactTimes', label: '退货结果', isChecked: true},
+			{name: 'contactTimes', label: '退货类别', isChecked: true},
+		];
+
+		// 新建退货单
+		$scope.addNewReturnOrder = function(form) {
+			$scope.resetForm(form);
+
+			$scope.order = {
+				order_no: $scope.guid(),
+				creator: $scope.currentUser.userNo,
+				updator: $scope.currentUser.userNo
+			};
+
+			$returnForm.modal('show');
+		};
+
+		$scope.search = function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			// $scope.getOrderList();
+		};
+
+		$scope.confirmAndShare =function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $returnForm)) return;
+
+			$('#share-order').modal('show');
+
+			var treeSourece = [
+				{
+					'title': '财务部', 'key': '1', 'fold': true, 'children': [
+						{'title': 'test1', 'key': '3'},
+						{'title': 'test2', 'key': '4'}
+					]
+				},
+				{
+					'title': '库房部', 'key': '2', 'fold': true, 'children': [
+						{'title': 'test1', 'key': '3'},
+						{'title': 'test2', 'key': '4'}
+					]
+				},
+				{
+					'title': '投诉组', 'key': '3', 'fold': true, 'children': [
+						{'title': 'test1', 'key': '3'},
+						{'title': 'test2', 'key': '4'}
+					]
+				}
+			];
+			$tree.fancytree({
+				source: treeSourece,
+				selectMode: 3,
+				clickFolderMode: 2,
+				icons: false,
+				checkbox: true
+			});
 		};
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
@@ -771,84 +831,6 @@ angular.module('mainApp')
 				selectedNodes = tree.getSelectedNodes();
 
 			console.log(selectedNodes);
-		};
-
-		$controller('CustomerServiceCtrl', {$scope: $scope});
-	}])
-	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
-
-		var $tree = $('#tree'),
-			$returnForm = $('#return-form');
-
-		// ths
-		$scope.isAllThsShow = false;
-		$scope.ths = [
-			{name: 'customerName', label: '退货单号', isChecked: true},
-			{name: 'orderSN', label: '客户姓名', isChecked: true},
-			{name: 'customerPhone', label: '联系方式', isChecked: false},
-			{name: 'customerPhone', label: '家庭住址', isChecked: true},
-			{name: 'province', label: '订单编号', isChecked: false, sortable: true},
-			{name: 'city', label: '订购类型', isChecked: true},
-			{name: 'email', label: '退货原因', isChecked: true},
-			{name: 'payStatus', label: '退货日期', isChecked: false, sortable: true},
-			{name: 'createTime', label: '退货刊号', isChecked: true, sortable: true},
-			{name: 'contactTimes', label: '退货金额', isChecked: true},
-			{name: 'contactTimes', label: '到库状态', isChecked: true},
-			{name: 'contactTimes', label: '退货结果', isChecked: true},
-			{name: 'contactTimes', label: '退货类别', isChecked: true},
-		];
-
-		// 新建退货单
-		$scope.addNewReturnOrder = function(form) {
-			$scope.resetForm(form);
-
-			$scope.order = {
-				order_no: $scope.guid(),
-				creator: $scope.currentUser.userNo,
-				updator: $scope.currentUser.userNo
-			};
-
-			$returnForm.modal('show');
-		};
-
-		$scope.search = function() {
-			$scope.query = $scope.parseFilter($scope.searchModel);
-			// $scope.getOrderList();
-		};
-
-		$scope.confirmAndShare =function(form) {
-			// 表单验证
-			if (!$scope.validateForm(form, $returnForm)) return;
-
-			$('#share-order').modal('show');
-
-			var treeSourece = [
-				{
-					'title': '财务部', 'key': '1', 'fold': true, 'children': [
-						{'title': 'test1', 'key': '3'},
-						{'title': 'test2', 'key': '4'}
-					]
-				},
-				{
-					'title': '库房部', 'key': '2', 'fold': true, 'children': [
-						{'title': 'test1', 'key': '3'},
-						{'title': 'test2', 'key': '4'}
-					]
-				},
-				{
-					'title': '投诉组', 'key': '3', 'fold': true, 'children': [
-						{'title': 'test1', 'key': '3'},
-						{'title': 'test2', 'key': '4'}
-					]
-				}
-			];
-			$tree.fancytree({
-				source: treeSourece,
-				selectMode: 3,
-				clickFolderMode: 2,
-				icons: false,
-				checkbox: true
-			});
 		};
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});

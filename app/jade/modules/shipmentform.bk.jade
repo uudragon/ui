@@ -1,0 +1,38 @@
++submodal('shipment-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 编辑订单明细
+	.modal-body
+		form.form-horizontal(name='shipmentForm' novalidate ng-class='{sumitted: shipmentForm.$sumitted}')
+			fieldset
+				legend 订单明细
+				table.form-table.form-single
+					tr
+						+input('客户编号', 'form-customer-code')(ng-model='tmpShipment.customer_code')
+						+input('客户姓名', 'form-customer-name')(ng-model='tmpShipment.customer_name')
+					tr
+						+input('客户地址', 'form-address')(ng-model='tmpShipment.address')
+						+input('客户电话', 'form-customer-tel')(ng-model='tmpShipment.customer_tel')
+					tr
+						+input('付款金额', 'form-amount')(ng-model='tmpShipment.amount')
+						+input('发货数量', 'form-shipped-qty')(ng-model='tmpShipment.shipped_qty')
+					tr
+						+input('是否有发票', 'form-has-invoice')(ng-model='tmpShipment.has_invoice')。0：无；1：有
+						+input('快递公司编号', 'form-express-code')(ng-model='tmpShipment.express_code')
+					tr
+						+input('快递单号', 'form-express-orders_no')(ng-model='tmpShipment.express_orders_no')
+						+input('快递公司名称', 'form-express_name')(ng-model='tmpShipment.express_name')
+					tr
+						+input('快递费用', 'form-express-cost')(ng-model='tmpShipment.express_cost')
+						+input('快递员', 'form-courier')(ng-model='tmpShipment.courier')
+					tr
+						+input('快递员电话', 'form-courier-tel')(ng-model='tmpShipment.courier_tel')
+						+input('发货时间', 'form-sent-date')(ng-model='tmpShipment.sent_date')
+					tr
+						+input('数量', 'form-num')(ng-model='tmpShipment.details.qty' required)
+						+yesno('是否赠品', 'form-is-gift')(ng-model='tmpShipment.details.is_gift' required)
+					tr
+						+shipment-status('发货单状态', 'shipment-status')(ng-model='tmpShipment.status', required)
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消

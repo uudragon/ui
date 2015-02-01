@@ -598,14 +598,6 @@
                 <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.customer.province" ng-city-model="gbOrder.customer.city" ng-addr-model="gbOrder.customer.address" ng-required="true"></td>
               </tr>
               <tr>
-                <th ng-show="gbOrder.has_invoice" class="form-th">
-                  <label for="form-invoice-owner" class="form-th-label">发票抬头</label>
-                </th>
-                <td ng-show="gbOrder.has_invoice" class="form-td">
-                  <input id="form-invoice-owner" class="form-control input-sm" ng-model="gbOrder.invoice_title" ng-jade-show="gbOrder.has_invoice" ng-required="gbOrder.has_invoice===&quot;1&quot;"/>
-                </td>
-              </tr>
-              <tr>
                 <th class="form-th">
                   <label for="form-customer-post" class="form-th-label">邮编</label>
                 </th>

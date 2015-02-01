@@ -41,8 +41,6 @@
 					tr
 						+input-address('地址', 'order-address', 3)(ng-province-model='gbOrder.customer.province' ng-city-model='gbOrder.customer.city' ng-addr-model='gbOrder.customer.address' ng-required='true')
 					tr
-						+input('发票抬头', 'invoice-owner')(ng-model='gbOrder.invoice_title' ng-jade-show='gbOrder.has_invoice' ng-required='gbOrder.has_invoice==="1"')
-					tr
 						+input('邮编', 'customer-post')(ng-model='gbOrder.customer.post')
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbNeworderForm)' ng-disabled='gbNeworderForm.processing') 保存

@@ -214,7 +214,7 @@ angular.module('mainApp')
 		// 获取库房列表
 		$scope.getWarehouseList = function() {
 			var req = {
-				pageSize: 10000,
+				pageSize: 50,
 				pageNo: 1
 			};
 

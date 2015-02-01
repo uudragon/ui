@@ -34,6 +34,8 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		keyword: ''
 	};
 
+	$scope.subSearchModel = {};
+
 	$scope.print = function() {
 		window.print();
 	};

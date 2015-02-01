@@ -148,6 +148,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		},
 		link: function(scope, element, attrs, tabsCtrl) {
 			tabsCtrl.addPane(scope);
+			element.attr && element.attr('title', '');
 		},
 		template: '<div class="tab-pane" ng-show="selected" ng-transclude></div>'
 	};

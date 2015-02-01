@@ -1,7 +1,13 @@
-mixin thead()
+mixin thead(ths, blnNoOperation)
 	thead
-		tr(ng-dblclick=attributes['ng-dblclick'])
-			block
+		tr&attributes(attributes)
+			if ths
+				each th in ths
+					th=th
+				if !blnNoOperation
+					th 操作
+			else
+				block
 
 
 mixin theadplus(records)
