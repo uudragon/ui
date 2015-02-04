@@ -10,7 +10,22 @@ angular.module('mainApp')
 	};
 
 	$scope.getBaseOrder = function() {
+		console.log('get base order');
+	};
 
+	// 新建退货单
+	$scope.addNewContact = function($form) {
+		return function(form) {
+			$scope.resetForm(form);
+
+			$scope.order = {
+				order_no: $scope.guid(),
+				creator: $scope.currentUser.userNo,
+				updator: $scope.currentUser.userNo
+			};
+
+			$form.modal('show');
+		};
 	};
 
 	$controller('MainCtrl', {$scope: $scope});
@@ -35,17 +50,17 @@ angular.module('mainApp')
 			{name: '省份', value: 'province', subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
 			{name: '城市', value: 'city', input: true},
 			{name: '客户姓名', value: 'customer_name', input: true},
-			{name: '客户电话', value: 'cicustomer_phone', input: true},
+			{name: '客户电话', value: 'customer_phone', input: true},
+			{name: '订单编号', value: 'order_no', input: true},
 			// {name: '订单类型', value: 3, subfilters: [{name: '季度', value: 0}, {name: '半年度', value: 1}, {name: '年度', value: 2}, {name: '一次性周边', value: 3}]},
-			// {name: '付款状态', value: 4, subfilters: [{name: '已付款', value: 1}, {name: '未付款', value: 2}]},
-			{name: '支付方式', value: 'payment', subfilters: [{name: '货到付款', value: 1}, {name: '在线付款', value: 2}]},
+			{name: '付款状态', value: 'paid', subfilters: [{name: '未支付', value: 0}, {name: '已支付', value: 1}]},
+			{name: '支付方式', value: 'payment', subfilters: [{name: '银行', value: 1}, {name: '支付宝', value: 2}, {name: '货到付款', value: 3}]},
 			{name: '审单状态', value: 'status', subfilters: [{name: '待审核', value: 1}, {name: '审核中', value: 2}, {name: '审核通过', value: 3}, {name: '无效', value: 4}]},
-			{name: '创建时间', value: 7, datetime: true},
+			{name: '创建时间', value: 'create_time', date: true},
 			{name: '联系次数', value: 8, input: true},
 			{name: '订单状态', value: 9, subfilters: [{name: '正常', value: 1}, {name: '取消', value: 2}]},
 			{name: '发货状态', value: 10, subfilters: [{name: '已发货', value: 1}, {name: '未发货', value: 2}]},
-			{name: '发票状态', value: 11, subfilters: [{name: '已开', value: 1}, {name: '未开', value: 2}]},
-			{name: '退换货单号', value: 12, input: true}
+			{name: '发票状态', value: 11, subfilters: [{name: '已开', value: 1}, {name: '未开', value: 2}]}
 		];
 
 		// ths
@@ -179,12 +194,14 @@ angular.module('mainApp')
 			$scope.gbOrder = {
 				effective: $filter('now')(),
 				order_no: $scope.guid(),
-				creator: $scope.currentUser.account,
+				creator: $scope.currentUser.userNo,
 				sourceName: '客服系统',
 				source: '1',
 				amount: '2380',
 				workflow: 2,
 				audit: 4,
+				payment: '3',
+				status: '1',
 				paid: '0'
 			};
 
@@ -243,148 +260,6 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
-	.controller('Shipment', ['$scope', '$controller', 'Order', '$http', '$q', function($scope, $controller, Order, $http, $q) {
-		var
-			$splitResult = $('#split-results'),
-			$shipmentForm = $('#shipment-form'),
-			$giftForm = $('#gift-form');
-
-		$scope.subSearchModel = {};
-
-		// 搜索下拉
-		$scope.filters = [
-			{name: '省份', value: 'province', subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
-			{name: '城市', value: 'city', input: true},
-			{name: '客户姓名', value: 'customer_name', input: true},
-			{name: '客户电话', value: 'cicustomer_phone', input: true},
-			// {name: '订单类型', value: 3, subfilters: [{name: '季度', value: 0}, {name: '半年度', value: 1}, {name: '年度', value: 2}, {name: '一次性周边', value: 3}]},
-			// {name: '付款状态', value: 4, subfilters: [{name: '已付款', value: 1}, {name: '未付款', value: 2}]},
-			{name: '支付方式', value: 'payment', subfilters: [{name: '货到付款', value: 1}, {name: '在线付款', value: 2}]},
-			{name: '审单状态', value: 'status', subfilters: [{name: '待审核', value: 1}, {name: '审核中', value: 2}, {name: '审核通过', value: 3}, {name: '无效', value: 4}]},
-			{name: '创建时间', value: 7, datetime: true},
-			{name: '联系次数', value: 8, input: true},
-			{name: '订单状态', value: 9, subfilters: [{name: '正常', value: 1}, {name: '取消', value: 2}]},
-			{name: '发货状态', value: 10, subfilters: [{name: '已发货', value: 1}, {name: '未发货', value: 2}]},
-			{name: '发票状态', value: 11, subfilters: [{name: '已开', value: 1}, {name: '未开', value: 2}]},
-			{name: '退换货单号', value: 12, input: true}
-		];
-
-		// ths
-		$scope.isAllThsShow = false;
-		$scope.ths = [
-			{name: 'orders_no', label: '订单号', isChecked: true},
-			{name: 'shipment_no', label: '发货单号', isChecked: false},
-			{name: 'customer_code', label: '客户编号', isChecked: false},
-			{name: 'customer_name', label: '客户姓名', isChecked: true},
-			{name: 'address', label: '客户地址', isChecked: false},
-			{name: 'customer_tel', label: '客户电话', isChecked: true},
-			{name: 'amount', label: '付款金额', isChecked: true},
-			{name: 'shipped_qty', label: '发货数量', isChecked: false},
-			{name: 'has_invoice', label: '是否有发票', isChecked: false},
-			{name: 'express_code', label: '快递公司编号', isChecked: false},
-			{name: 'express_orders_no', label: '快递单号', isChecked: true},
-			{name: 'express_name', label: '快递公司', isChecked: true},
-			{name: 'express_cost', label: '快递费用', isChecked: true},
-			{name: 'courier', label: '快递员', isChecked: true},
-			{name: 'courier_tel', label: '快递员电话', isChecked: true},
-			{name: 'sent_date', label: '发货时间', isChecked: true},
-			{name: 'create_time', label: '创建时间', isChecked: false},
-			{name: 'creator', label: '创建人', isChecked: false},
-			{name: 'update_time', label: '修改时间', isChecked: false},
-			{name: 'updater', label: '需改人', isChecked: false},
-			{name: 'status', label: '发货单状态', isChecked: true}
-		];
-
-		$scope.getShipmentsList = function() {
-			var req = {
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo || 1,
-			};
-
-			return $http.post(config.basewms + 'outbound/shipments/', req)
-				.success(function(data) {
-					$scope.shipments = data.records;
-
-					$scope.shipments.meta = {
-						pageSize: data.pageSize,
-						pageNo: data.pageNo,
-						recordsCount: data.recordsCount,
-						pageNumber: data.pageNumber
-					};
-				});
-		};
-
-		$scope.getShipmentsList();
-
-
-		$scope.search = function() {
-			$scope.query = $scope.parseFilter($scope.searchModel);
-			$scope.getShipmentsList();
-		};
-
-		// 获取商品列表
-		$scope.getCommdityList = function() {
-
-			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
-				pageSize: $scope.subSearchModel.pageSize || Math.ceil(config.perPage / 2 ),
-				pageNo: $scope.subSearchModel.pageNo || 1
-			})
-			.success(function(data) {
-				$scope.goods = data.records;
-				$scope.goods.meta = {
-					pageSize: data.pageSize,
-					pageNo: data.pageNo ? data.pageNo : 1,
-					recordsCount: data.recordsCount,
-					pageNumber: data.pageNumber
-				};
-			});
-		};
-
-		$scope.editShipment = function(code) {
-
-			var shipmentDefer = $http.get(config.basewms + 'outbound/shipment/' + code + '/');
-			var commodityListDefer = $scope.getCommdityList();
-
-			$scope.shipmentFormTitle = '修改发货单';
-
-			$q.all([shipmentDefer, commodityListDefer])
-				.then(function(data) {
-					if (data && data[0].status === 200 && data[1].status === 200) {
-						$scope.shipment = data[0].data;
-						$scope.shipment.updater = $scope.currentUser.userNo;
-						$shipmentForm.modal('show');
-					}
-				});
-
-		};
-
-		$scope.saveShipment = function(form) {
-			$scope.validateForm(form, $shipmentForm);
-
-			$http.post(config.basewms + 'wms/outbound/shipment', $scope.shipment)
-				.success($scope.onFine({
-					form: form,
-					$form: $shipmentForm
-				}))
-				.error($scope.onError({
-					form: form,
-					$form: $shipmentForm
-				}));
-			// $shipmentForm.modal('show');
-		};
-
-		$scope.selectGift = function(currentOrder) {
-			$scope.tmpOrder = {gift: currentOrder.gift};
-			$giftForm.modal('show');
-		};
-
-		$scope.saveSelectedGift = function() {
-			$scope.currentOrder.gift = $scope.tmpOrder.gift;
-			$giftForm.modal('hide');
-		};
-
-		$controller('CustomerServiceCtrl', {$scope: $scope});
-	}])
 	.controller('SplitOrder', ['$scope', '$controller', 'Order', '$http', '$q', function($scope, $controller, Order, $http, $q) {
 		var $splitForm = $('#split-form'),
 			$splitResult = $('#split-results'),
@@ -399,10 +274,10 @@ angular.module('mainApp')
 			{name: '客户姓名', value: 'customer_name', input: true},
 			{name: '客户电话', value: 'cicustomer_phone', input: true},
 			// {name: '订单类型', value: 3, subfilters: [{name: '季度', value: 0}, {name: '半年度', value: 1}, {name: '年度', value: 2}, {name: '一次性周边', value: 3}]},
-			// {name: '付款状态', value: 4, subfilters: [{name: '已付款', value: 1}, {name: '未付款', value: 2}]},
-			{name: '支付方式', value: 'payment', subfilters: [{name: '货到付款', value: 1}, {name: '在线付款', value: 2}]},
+			{name: '付款状态', value: 'paid', subfilters: [{name: '未支付', value: 0}, {name: '已支付', value: 1}]},
+			{name: '支付方式', value: 'payment', subfilters: [{name: '银行', value: 1}, {name: '支付宝', value: 2}, {name: '货到付款', value: 3}]},
 			{name: '审单状态', value: 'status', subfilters: [{name: '待审核', value: 1}, {name: '审核中', value: 2}, {name: '审核通过', value: 3}, {name: '无效', value: 4}]},
-			{name: '创建时间', value: 7, datetime: true},
+			{name: '创建时间', value: 'create_time', date: true},
 			{name: '联系次数', value: 8, input: true},
 			{name: '订单状态', value: 9, subfilters: [{name: '正常', value: 1}, {name: '取消', value: 2}]},
 			{name: '发货状态', value: 10, subfilters: [{name: '已发货', value: 1}, {name: '未发货', value: 2}]},
@@ -576,7 +451,7 @@ angular.module('mainApp')
 			var exists = false;
 
 			angular.forEach($scope.shipment.details, function(existGood) {
-				if (existGood.goods_code === good.goods_code) {
+				if (existGood.code === good.goods_code) {
 					exists = true;
 					return;
 				}
@@ -655,19 +530,6 @@ angular.module('mainApp')
 			{name: 'contactTimes', label: '退货类别', isChecked: true},
 		];
 
-		// 新建退货单
-		$scope.addNewReturnOrder = function(form) {
-			$scope.resetForm(form);
-
-			$scope.order = {
-				order_no: $scope.guid(),
-				creator: $scope.currentUser.userNo,
-				updator: $scope.currentUser.userNo
-			};
-
-			$returnForm.modal('show');
-		};
-
 		$scope.search = function() {
 			$scope.query = $scope.parseFilter($scope.searchModel);
 			// $scope.getOrderList();
@@ -714,6 +576,7 @@ angular.module('mainApp')
 		var
 			$returnOrder = $('#return-order'),
 			$orderDetails = $('#order-details'),
+			$complaintForm = $('#complaint-form'),
 			$tree = $('#tree');
 
 		// 搜索下拉
@@ -752,7 +615,7 @@ angular.module('mainApp')
 
 		// 获取投诉列表
 		$scope.getOrderList = function() {
-			$scope.complaintsOrders = Workform.all('consulation').getList({
+			$scope.complaintsOrders = Workform.all('complain').getList({
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo,
 				status: $scope.searchModel.status
@@ -768,6 +631,7 @@ angular.module('mainApp')
 		});
 
 		$scope.getOrderList();
+		$scope.addNewReturnOrder = $scope.addNewContact($complaintForm);
 
 		// 订单详情
 		$scope.showComplaintOrders = function(order) {
@@ -780,22 +644,33 @@ angular.module('mainApp')
 		};
 
 		// 新建投诉
-		$scope.addNewComplains = function() {
+		$scope.addNewComplains = function(form) {
+			$scope.resetForm(form);
 			$scope.complaint = {
 				// contact_time: $filter('now')(),
 				type: 3,
 				theme: 2,
 				user: $scope.currentUser.userNo
 			};
-			$('#complaint-details').modal('show');
+			$complaintForm.modal('show');
 		};
 
 		// 保存投诉
-		$scope.saveComplaint = function(complaint) {
-			$http.post(config.basews + 'workform', complaint)
-				.success(function(status) {
-					status === 'true' && $('#complaint-details').modal('hide');
-				});
+		$scope.saveComplaint = function(form) {
+			if (!$scope.validateForm(form, $complaintForm)) return;
+
+			$scope.processing(form, $complaintForm);
+
+			$http.post(config.basews + 'workform', $scope.complaint)
+				.success($scope.onFineWs({
+					form: form,
+					$form: $complaintForm,
+					action: $scope.getOrderList
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $complaintForm
+				}));
 		};
 
 		// 退换货

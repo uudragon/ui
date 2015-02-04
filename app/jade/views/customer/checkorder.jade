@@ -32,7 +32,7 @@ include ../../modules/mixins.jade
 +article-header-filter('searchModel.paid', filters)
 
 //- 订单列表
-table.uu-table(ng-show='orders.length')
+table.uu-table
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders' ng-dblclick="showOrder(order)")
@@ -41,7 +41,7 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')
 			td(ng-bind='order.customer.province', ng-show='ths[3].isChecked')
 			td(ng-bind='order.customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='order.order_type | orderType', ng-show='ths[5].isChecked')
+			td(ng-bind='order.order_type', ng-show='ths[5].isChecked')
 			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
 			td(ng-bind='order.audit | auditStatus', ng-show='ths[7].isChecked')
 			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
@@ -56,7 +56,7 @@ table.uu-table(ng-show='orders.length')
 uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 订单详情Modal
-+modal('order-details')
++modal('order-details', 'modal-lg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 核实订单

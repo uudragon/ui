@@ -418,7 +418,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		require: 'ngModel',
 		link: function($scope, elem, attrs, ctrl) {
 			var validate = function(value) {
-				if (!value || /(?=[\u4e00-\u9fa5a-zA-Z])[\s\S]*/.test(value)) {
+				if (!value || /(?=[\u4e00-\u9fa5])[\s\S]*/.test(value)) {
 					ctrl.$setValidity('address', true);
 					return value;
 				} else {
@@ -483,6 +483,26 @@ uud.directive('timing', ['$interval', 'dateFilter',
 					return value;
 				} else {
 					ctrl.$setValidity('phone', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('uuTel', function() {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function($scope, elem, attrs, ctrl) {
+			var validate = function(value) {
+				if (!value || /^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(value)) {
+					ctrl.$setValidity('tel', true);
+					return value;
+				} else {
+					ctrl.$setValidity('tel', false);
 					return undefined;
 				}
 			};
@@ -569,6 +589,22 @@ uud.directive('timing', ['$interval', 'dateFilter',
 		restrict: 'A',
 		link: function($scope, elem) {
 			if (elem.tooltip) elem.tooltip();
+		}
+	};
+})
+.directive('uuTable', function() {
+	return {
+		restrict: 'A',
+		scope: {
+			uuTable: '='
+		},
+		link: function($scope, elem) {
+			console.log($scope.uuTable);
+			if ($scope.uuTable) {
+				elem.show();
+			} else {
+				elem.hide().prepend('<div>no data</div>');
+			}
 		}
 	};
 })

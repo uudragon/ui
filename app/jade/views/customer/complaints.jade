@@ -3,7 +3,7 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建投诉', 'top', 'addNewComplains()')
+		+tooltip('新建投诉', 'top', 'addNewComplains(complaintForm)')
 			+glyphicon('plus')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -33,17 +33,16 @@ include ../../modules/mixins.jade
 table.uu-table(ng-show='complaintsOrders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='complaint in complaintsOrders')
-			td(ng-bind='complaint.customer.name', ng-show='ths[0].isChecked')
-			td(ng-show='ths[1].isChecked')
-				+jslink('showComplaint(complaint)')(ng-bind='complaint.order_no')
-			td(ng-bind='complaint.customer.phone', ng-show='ths[2].isChecked')
-			td(ng-bind='complaint.customer.province', ng-show='ths[3].isChecked')
-			td(ng-bind='complaint.customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='complaint.order_type | complainType', ng-show='ths[5].isChecked')
-			td(ng-bind='complaint.paid | payStatus', ng-show='ths[6].isChecked')
+		tr(ng-repeat='complaint in complaintsOrders')(ng-dblclick='showComplaintOrders(complaint)')
+			td(ng-bind='complaint.order.customer.name', ng-show='ths[0].isChecked')
+			td(ng-bind='complaint.order_no' ng-show='ths[1].isChecked')
+			td(ng-bind='complaint.order.customer.phone', ng-show='ths[2].isChecked')
+			td(ng-bind='complaint.order.customer.province', ng-show='ths[3].isChecked')
+			td(ng-bind='complaint.order.customer.city', ng-show='ths[4].isChecked')
+			td(ng-bind='complaint.order.order_type', ng-show='ths[5].isChecked')
+			td(ng-bind='complaint.order.paid | payStatus', ng-show='ths[6].isChecked')
 			td(ng-bind='complaint.create_time', ng-show='ths[7].isChecked')
-			td(ng-bind='complaint.contact_count', ng-show='ths[8].isChecked')
+			td(ng-bind='complaint.order.contact_count', ng-show='ths[8].isChecked')
 			td.nowrap
 				+tooltip('修改', 'top', 'showComplaintOrders(complaint)')
 					+glyphicon('pencil') &nbsp;
@@ -54,33 +53,33 @@ table.uu-table(ng-show='complaintsOrders.length')
 uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaintsOrders.meta.pageSize' page='complaintsOrders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 新建投诉Modal
-+modal('complaint-details')
++modal('complaint-form')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建投诉
 	.modal-body
-		form.form-horizontal.form-nowrap
+		form.form-horizontal.form-nowrap(name='complaintForm' novalidate ng-class='{sumitted: complaintForm.$sumitted}')
 			fieldset
 				table.form-table
 					tr
-						+input('客户姓名', 'goodCode')(ng-model='complaint.customer_name')
-						+input('联系电话', 'goodNum')(ng-model='complaint.customer_phone')
+						+input('客户姓名', 'goodCode')(uu-name ng-model='complaint.customer_name' required)
+						+input('联系电话', 'goodNum')(uu-phone ng-model='complaint.customer_phone' required)
 					tr
-						+input('订单编号', 'goodCode')(ng-model='complaint.order_no')
+						+input('订单编号', 'goodCode')(ng-model='complaint.order_no' required)
 						+static-input('处理人', 'contact-responsor')(ng-bind='currentUser.name')
 					tr
-						+complain-type('投诉分类', 'complain-type')(ng-model='complaint.complainType')
-						+urgency-level('紧急程度', 'urgency')(ng-model='complaint.level')
+						+complain-type('投诉分类', 'complain-type')(ng-model='complaint.complainType' required)
+						+urgency-level('紧急程度', 'urgency')(ng-model='complaint.level' required)
 					tr
-						+deal-result('处理结果', 'deal-result')(ng-model='complaint.status')
-						+input('下次回访日期', 'complaint-next-time')(ng-model='complaint.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
+						+deal-result('处理结果', 'deal-result')(ng-model='complaint.status' required)
+						+input('下次回访日期', 'complaint-next-time')(ng-model='complaint.next_time' uu-date-picker format='yyyy-mm-dd hh:ii' min-view='0')
 					tr
-						+textarea('详细说明', 'content-details', 3)(ng-model="complaint.details")
+						+textarea('详细说明', 'content-details', 3)(ng-model="complaint.details" required)
 					tr
-						+textarea('处理描述', 'deal-desc', 3)(ng-model="complaint.result_desc")
+						+textarea('处理描述', 'deal-desc', 3)(ng-model="complaint.result_desc" required)
 
 		.modal-footer
-			button.btn.uu-btn.btn-primary(ng-click='saveComplaint(complaint)') 确认并共享
+			button.btn.uu-btn.btn-primary(ng-click='saveComplaint(complaintForm)' ng-disabled='complaintForm.processing') 确认并共享
 			button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 订单详情Modal
@@ -95,7 +94,7 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaints
 				legend 订单
 				table.uu-table
 					+thead
-						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态', '操作']
+						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态']
 							th=th
 					tbody
 						tr(ng-repeat='order in currentOrder.complaintOrders')
@@ -107,13 +106,6 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaints
 							td(ng-bind='order.payStatus')
 							td(ng-bind='order.birthday')
 							td(ng-bind='order.payStatus | payStatus')
-							td
-								+tooltip('调换', 'top', 'exchange(order)')
-									+glyphicon('gift') &nbsp;
-
-								+tooltip('退货', 'top', 'returnGoods(order)')
-									+glyphicon('export')
-
 			p
 				ul.list-inline
 					li 联系记录

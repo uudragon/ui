@@ -37,7 +37,7 @@
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
       <label for="form-date-time" class="input-group-addon">时间</label>
-      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
@@ -229,8 +229,8 @@
                 </th>
                 <td class="form-td">
                   <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
-                    <option value="0">未付费</option>
-                    <option value="1">已付费</option>
+                    <option value="0">未支付</option>
+                    <option value="1">已支付</option>
                   </select>
                 </td>
               </tr>

@@ -1,5 +1,5 @@
 //- 新建来电订单
-+modal('global-new-order')
++modal('global-new-order', 'modal-lg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建来电订单
@@ -18,30 +18,28 @@
 						+static-input('下单时间', 'order-time')(ng-bind='gbOrder.effective')
 						+input('结束日期', 'deadline')(ng-model='gbOrder.deadline' uu-date-picker)
 					tr
-						+static-input('下单人', 'creator')(ng-bind='gbOrder.creator')
 						+payment('支付方式', 'payment')(ng-model='gbOrder.payment' required)
-					tr
 						+yesno('订单状态', 'order-status', '正常', '取消')(ng-model='gbOrder.status' required)
+					tr
 						+yesno('支付状态', 'pay-status', '已支付', '未支付')(ng-model='gbOrder.paid' required)
-					tr
 						+input('客户姓名', 'customer-name')(uu-name ng-model='gbOrder.customer.name' required)
-						+gender('客户性别', 'customer-gender')(ng-model='gbOrder.customer.sex')
 					tr
+						+gender('客户性别', 'customer-gender')(ng-model='gbOrder.customer.sex')
 						+input('联系电话', 'customer-phone')(uu-phone ng-model='gbOrder.customer.phone' required)
+					tr
 						+input('Email', 'customer-phone')(uu-email ng-model='gbOrder.customer.email')
+						+input('邮编', 'customer-post')(ng-model='gbOrder.customer.post')
 					tr
 						+input('儿童姓名', 'child-name')(uu-name ng-model='gbOrder.customer.child')
 						+gender('儿童性别', 'child-gender')(ng-model='gbOrder.customer.c_sex')
 					tr
 						+input('出生日期', 'customer-birthday')(ng-model='gbOrder.customer.birthday' uu-date-picker)
-						+input('固定电话', 'customer-main-phone')(uu-num ng-model='gbOrder.customer.main_phone')
+						+input('固定电话', 'customer-main-phone')(uu-tel ng-model='gbOrder.customer.main_phone')
 					tr
 						+yesno('是否开发票', 'has-invoice')(ng-model='gbOrder.has_invoice')
 						+input('发票抬头', 'invoice-owner')(ng-model='gbOrder.invoice_title' ng-jade-show='gbOrder.has_invoice' ng-required='gbOrder.has_invoice==="1"')
 					tr
 						+input-address('地址', 'order-address', 3)(ng-province-model='gbOrder.customer.province' ng-city-model='gbOrder.customer.city' ng-addr-model='gbOrder.customer.address' ng-required='true')
-					tr
-						+input('邮编', 'customer-post')(ng-model='gbOrder.customer.post')
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbNeworderForm)' ng-disabled='gbNeworderForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

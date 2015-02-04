@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建投诉" ng-click="addNewComplains()"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建投诉" ng-click="addNewComplains(complaintForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -54,7 +54,7 @@
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
       <label for="form-date-time" class="input-group-addon">时间</label>
-      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
@@ -80,24 +80,23 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="complaint in complaintsOrders">
-      <td ng-bind="complaint.customer.name" ng-show="ths[0].isChecked"></td>
-      <td ng-show="ths[1].isChecked"><a href="" ng-click="showComplaint(complaint)" class="jslink" ng-bind="complaint.order_no"></a>
-      </td>
-      <td ng-bind="complaint.customer.phone" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="complaint.customer.province" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="complaint.customer.city" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="complaint.order_type | complainType" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="complaint.paid | payStatus" ng-show="ths[6].isChecked"></td>
+    <tr ng-repeat="complaint in complaintsOrders" ng-dblclick="showComplaintOrders(complaint)">
+      <td ng-bind="complaint.order.customer.name" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="complaint.order_no" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="complaint.order.customer.phone" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="complaint.order.customer.province" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="complaint.order.customer.city" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="complaint.order.order_type" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="complaint.order.paid | payStatus" ng-show="ths[6].isChecked"></td>
       <td ng-bind="complaint.create_time" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="complaint.contact_count" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="complaint.order.contact_count" ng-show="ths[8].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintOrders(complaint)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
 <uu-pagination records="complaintsOrders.meta.recordsCount" per-page="complaintsOrders.meta.pageSize" page="complaintsOrders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
-<div id="complaint-details" class="modal fade">
+<div id="complaint-form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -105,7 +104,7 @@
         <h4 class="modal-title">新建投诉</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal form-nowrap">
+        <form name="complaintForm" novalidate="novalidate" ng-class="{sumitted: complaintForm.$sumitted}" class="form-horizontal form-nowrap">
           <fieldset>
             <table class="form-table">
               <tr>
@@ -113,13 +112,13 @@
                   <label for="form-goodCode" class="form-th-label">客户姓名</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goodCode" class="form-control input-sm" ng-model="complaint.customer_name"/>
+                  <input id="form-goodCode" class="form-control input-sm" uu-name="uu-name" ng-model="complaint.customer_name" required="required"/>
                 </td>
                 <th class="form-th">
                   <label for="form-goodNum" class="form-th-label">联系电话</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goodNum" class="form-control input-sm" ng-model="complaint.customer_phone"/>
+                  <input id="form-goodNum" class="form-control input-sm" uu-phone="uu-phone" ng-model="complaint.customer_phone" required="required"/>
                 </td>
               </tr>
               <tr>
@@ -127,7 +126,7 @@
                   <label for="form-goodCode" class="form-th-label">订单编号</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goodCode" class="form-control input-sm" ng-model="complaint.order_no"/>
+                  <input id="form-goodCode" class="form-control input-sm" ng-model="complaint.order_no" required="required"/>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">处理人</label>
@@ -141,7 +140,7 @@
                   <label for="form-complain-type" class="form-th-label">投诉分类</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-complain-type" class="form-control input-sm" ng-model="complaint.complainType">
+                  <select id="form-complain-type" class="form-control input-sm" ng-model="complaint.complainType" required="required">
                     <option value="31">发票抬头错误</option>
                     <option value="32">未开发票</option>
                     <option value="33">开票时间长</option>
@@ -159,7 +158,7 @@
                   <label for="form-urgency" class="form-th-label">紧急程度</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-urgency" class="form-control input-sm" ng-model="complaint.level">
+                  <select id="form-urgency" class="form-control input-sm" ng-model="complaint.level" required="required">
                     <option value="1">一般</option>
                     <option value="2">优先</option>
                     <option value="3">紧急</option>
@@ -171,7 +170,7 @@
                   <label for="form-deal-result" class="form-th-label">处理结果</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-deal-result" class="form-control input-sm" ng-model="complaint.status">
+                  <select id="form-deal-result" class="form-control input-sm" ng-model="complaint.status" required="required">
                     <option value="1">待处理</option>
                     <option value="2">处理中</option>
                     <option value="3">已完成</option>
@@ -189,7 +188,7 @@
                   <label for="form-content-details" class="form-th-label">详细说明</label>
                 </th>
                 <td colspan="3" class="form-td">
-                  <textarea id="form-content-details" class="form-control" ng-model="complaint.details"></textarea>
+                  <textarea id="form-content-details" class="form-control" ng-model="complaint.details" required="required"></textarea>
                 </td>
               </tr>
               <tr>
@@ -197,14 +196,14 @@
                   <label for="form-deal-desc" class="form-th-label">处理描述</label>
                 </th>
                 <td colspan="3" class="form-td">
-                  <textarea id="form-deal-desc" class="form-control" ng-model="complaint.result_desc"></textarea>
+                  <textarea id="form-deal-desc" class="form-control" ng-model="complaint.result_desc" required="required"></textarea>
                 </td>
               </tr>
             </table>
           </fieldset>
         </form>
         <div class="modal-footer">
-          <button ng-click="saveComplaint(complaint)" class="btn uu-btn btn-primary">确认并共享</button>
+          <button ng-click="saveComplaint(complaintForm)" ng-disabled="complaintForm.processing" class="btn uu-btn btn-primary">确认并共享</button>
           <button data-dismiss="modal" class="btn uu-btn">取消</button>
         </div>
       </div>
@@ -315,8 +314,8 @@
                 </th>
                 <td class="form-td">
                   <select id="form-pay-status" class="form-control input-sm" ng-model="currentOrder.paid">
-                    <option value="0">未付费</option>
-                    <option value="1">已付费</option>
+                    <option value="0">未支付</option>
+                    <option value="1">已支付</option>
                   </select>
                 </td>
               </tr>
@@ -437,7 +436,6 @@
                   <th>支付状态</th>
                   <th>出生日期</th>
                   <th>订单状态</th>
-                  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -450,8 +448,6 @@
                   <td ng-bind="order.payStatus"></td>
                   <td ng-bind="order.birthday"></td>
                   <td ng-bind="order.payStatus | payStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="调换" ng-click="exchange(order)"><span class="glyphicon glyphicon-gift">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="退货" ng-click="returnGoods(order)"><span class="glyphicon glyphicon-export"></span></a>
-                  </td>
                 </tr>
               </tbody>
             </table>

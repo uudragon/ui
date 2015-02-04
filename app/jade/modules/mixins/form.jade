@@ -175,8 +175,8 @@ mixin payment(title, id)
 //- 支付状态
 mixin pay-status(title, id)
 	+select(title, id)&attributes(attributes)
-		+option('未付费', 0)
-		+option('已付费', 1)
+		+option('未支付', 0)
+		+option('已支付', 1)
 
 //- 是否付款
 mixin isPaid(title, id)

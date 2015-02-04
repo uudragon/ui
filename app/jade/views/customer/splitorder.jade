@@ -20,7 +20,7 @@ include ../../modules/mixins.jade
 table.uu-table(ng-show='orders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='order in orders' ng-dblclick='showSplitModal(order)')
+		tr(ng-repeat='order in orders' ng-dblclick='showShipments(order)')
 			td(ng-bind='order.order_no' ng-show='ths[0].isChecked')
 			td(ng-bind='order.customer.name', ng-show='ths[1].isChecked')
 			td(ng-bind='order.customer.phone', ng-show='ths[2].isChecked')

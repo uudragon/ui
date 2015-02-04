@@ -28,7 +28,7 @@
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
       <label for="form-date-time" class="input-group-addon">时间</label>
-      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
@@ -54,7 +54,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders" ng-dblclick="showSplitModal(order)">
+    <tr ng-repeat="order in orders" ng-dblclick="showShipments(order)">
       <td ng-bind="order.order_no" ng-show="ths[0].isChecked"></td>
       <td ng-bind="order.customer.name" ng-show="ths[1].isChecked"></td>
       <td ng-bind="order.customer.phone" ng-show="ths[2].isChecked"></td>
