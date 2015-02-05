@@ -1287,8 +1287,8 @@
   Modal.VERSION  = '3.2.0'
 
   Modal.DEFAULTS = {
-    backdrop: true,
-    keyboard: true,
+    backdrop: 'static',
+    keyboard: false,
     show: true
   }
 
