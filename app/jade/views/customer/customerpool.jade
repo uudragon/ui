@@ -7,8 +7,6 @@ include ../../modules/mixins.jade
 			+glyphicon('plus')
 		ul.dropdown-menu(role="menu")
 			li
-				+jslink('globalNewOrder()', '新建订单')
-			li
 				+jslink('globalNewTicket()', '新建工单')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
@@ -21,6 +19,9 @@ include ../../modules/mixins.jade
 				li
 					a(href='')=filter
 
+//- 搜索
++linkage-search('search()')
+
 //- 订单列表过滤条件
 - var filter = {init: 1}
 - var filterItems = []
@@ -32,8 +33,8 @@ include ../../modules/mixins.jade
 
 //- 功能区
 .article-header-operate
-	button.btn.uu-btn.btn-primary(ng-click='batchAssign()') 批量分配
-	button.btn.uu-btn.btn-success(ng-click='batchPick()') 批量领取
+	button.btn.uu-btn.btn-primary(ng-click='batchAssign(batchAssignForm)') 批量分配
+	button.btn.uu-btn.btn-success(ng-click='batchPick(batchPickForm)') 批量领取
 
 //- 客户列表
 table.uu-table
@@ -43,14 +44,14 @@ table.uu-table
 			+tdchecker('customers', 'customer')(ng-model='customer.isChecked')
 			td(ng-bind='customer.name', ng-show='ths[0].isChecked')
 			td(ng-bind='customer.code' ng-show='ths[1].isChecked')
-			+td-phone(ng-show='ths[2].isChecked' ng-bind='customer.phone')
-			td(ng-bind='customer.main_phone', ng-show='ths[2].isChecked')
-			td(ng-bind='customer.province', ng-show='ths[3].isChecked')
-			td(ng-bind='customer.city', ng-show='ths[4].isChecked')
-			td(ng-bind='customer.email', ng-show='ths[5].isChecked')
-			td(ng-bind='customer.type | customerStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='customer.create_time', ng-show='ths[7].isChecked')
-			td(ng-bind='customer.contact_times', ng-show='ths[8].isChecked')
+			+td-phone(ng-bind='customer.phone' ng-show='ths[2].isChecked')
+			td(ng-bind='customer.main_phone', ng-show='ths[3].isChecked')
+			td(ng-bind='customer.province', ng-show='ths[4].isChecked')
+			td(ng-bind='customer.city', ng-show='ths[5].isChecked')
+			td(ng-bind='customer.email', ng-show='ths[6].isChecked')
+			td(ng-bind='customer.type | customerStatus', ng-show='ths[7].isChecked')
+			td(ng-bind='customer.create_time', ng-show='ths[8].isChecked')
+			td(ng-bind='customer.contact_times', ng-show='ths[9].isChecked')
 			td.nowrap
 				+tooltip('修改', 'top', 'showComplaintcustomers(customer)')
 					+glyphicon('pencil') &nbsp;
@@ -66,7 +67,7 @@ uu-pagination(records='customers.meta.recordsCount', per-page='customers.meta.pa
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 批量分配
 	.modal-body
-		form.form-horizontal
+		form.form-horizontal(name='batchAssignForm' novalidate ng-class='{sumitted: batchAssignForm.$sumitted}')
 			fieldset
 				.form-group(ng-show='getSelectedCustomers().length === 1')
 					label.control-label.col-xs-3(for='form-responser') 将客户:
@@ -76,10 +77,10 @@ uu-pagination(records='customers.meta.recordsCount', per-page='customers.meta.pa
 					label.control-label.col-xs-3(for='form-responser', ng-show='getSelectedCustomers().length !== 1') 选择负责人
 					label.control-label.col-xs-3(for='form-responser', ng-show='getSelectedCustomers().length === 1') 分配给
 					.col-xs-7
-						select.form-control.input-sm(id='form-responser', name='responser', ng-model='batchResponser', ng-options='user.userNo as user.name for user in resUsers')
+						select.form-control.input-sm(required id='form-responser' ng-model='batchResponser' ng-options='user.account as user.name for user in resUsers')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveBatchAssign()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveBatchAssign(batchAssignForm)' ng-disabled='batchAssignForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 批量领取
@@ -88,14 +89,14 @@ uu-pagination(records='customers.meta.recordsCount', per-page='customers.meta.pa
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 批量领取
 	.modal-body(ng-show='getSelectedCustomers().length === 1')
-		form.form-horizontal
+		form.form-horizontal(name='batchPickForm' novalidate ng-class='{sumitted: batchPickForm.$sumitted}')
 			fieldset
 				label.control-label.col-xs-3(for='form-responser') 领取客户:
 				.col-xs-7
 					p.form-static {{selectedCustomers[0].name}}
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveBatchPick()') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveBatchPick(batchPickForm)' ng-disabled='batchPickForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

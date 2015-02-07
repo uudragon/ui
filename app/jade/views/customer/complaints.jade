@@ -20,7 +20,7 @@ include ../../modules/mixins.jade
 - var filters = []
 - filters.push({label: '所有', value: ''})
 - filters.push({label: '今日新增', value: 1})
-- filters.push({label: '未处理', value: 2})
+- filters.push({label: '待处理', value: 2})
 - filters.push({label: '处理中', value: 3})
 - filters.push({label: '已完成', value: 4})
 - filters.push({label: '非常紧急', value: 5})
@@ -42,7 +42,10 @@ table.uu-table(ng-show='complaintsOrders.length')
 			td(ng-bind='complaint.order.order_type', ng-show='ths[5].isChecked')
 			td(ng-bind='complaint.order.paid | payStatus', ng-show='ths[6].isChecked')
 			td(ng-bind='complaint.create_time', ng-show='ths[7].isChecked')
-			td(ng-bind='complaint.order.contact_count', ng-show='ths[8].isChecked')
+			td(ng-bind='complaint.subtype | mapper:"complaintType"', ng-show='ths[8].isChecked')
+			td(ng-bind='complaint.status | mapper:"complaintStatus"', ng-show='ths[9].isChecked')
+			td(ng-bind='complaint.communications.next_time', ng-show='ths[10].isChecked')
+			td(ng-bind='complaint.order.contact_count', ng-show='ths[11].isChecked')
 			td.nowrap
 				+tooltip('修改', 'top', 'showComplaintOrders(complaint)')
 					+glyphicon('pencil') &nbsp;
@@ -97,7 +100,7 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaints
 						each th in ['订单编号', '客户姓名', '订单产品', '下单日期', '支付方式', '支付状态', '出生日期', '订单状态']
 							th=th
 					tbody
-						tr(ng-repeat='order in currentOrder.complaintOrders')
+						tr(ng-repeat='order in currentOrder.communications')
 							td(ng-bind='order.orderSN')
 							td(ng-bind='order.customerName')
 							td(ng-bind='order.orderType')
@@ -113,6 +116,9 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaints
 						+tooltip('新建联系记录', 'top', 'addNewComplains(currentOrder)')
 							+glyphicon('plus')
 
+	.modal-footer
+		button.btn.uu-btn.btn-primary(data-dismiss='modal') 确定
+		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 投诉详情Modal
 include ../../modules/contact-history.jade

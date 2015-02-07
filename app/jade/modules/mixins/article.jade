@@ -100,8 +100,8 @@ mixin linkage-search(action)
 				select.form-control.input-sm(ng-model='searchModel.subfilter', ng-options='filter.value as filter.name for filter in searchModel.filter.subfilters', ng-show='searchModel.filter.subfilters')
 				input.form-control.input-sm(ng-model='searchModel.subfilter', ng-show='searchModel.filter.input')
 			+grouped-input('时间', 'date-time')(ng-show='searchModel.filter.date' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
-			+grouped-input('开始时间', 'start-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.startTime' uu-date-picker min-view='1' format='yyyy-mm-dd hh:00')
-			+grouped-input('结束时间', 'end-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.endTime' uu-date-picker min-view='1' format='yyyy-mm-dd hh:00')
+			+grouped-input('开始时间', 'start-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+			+grouped-input('结束时间', 'end-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
 			if block
 				block
 			.btn.uu-btn(ng-click=action)

@@ -589,7 +589,7 @@ angular.module('mainApp')
 			{name: '省份', value: 1, subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
 			{name: '城市', value: 2, input: true},
 			{name: '投诉分类', value: 1, subfilters: [{name: '发票抬头错误', value: 31}, {name: '未开发票', value: 32}, {name: '开票时间长', value: 33}, {name: '发票丢失', value: 34}, {name: '客服态度不好', value: 35}, {name: '客服不专业', value: 36}, {name: '客服电话难打', value: 37}, {name: '物流慢', value: 38}, {name: '货物丢失', value: 39}, {name: '物品破损', value: 310}, {name: '快递态度', value: 311}]},
-            {name: '紧急程度', value: 1, subfilters: [{name: '一般', value: 1 }, {name: '优先', value: 2 }, {name: '紧急', value: 3 }]},
+            {name: '紧急程度', value: 1, subfilters: [{name: '一般', value: 1 }, {name: '优先', value: 2 }, {name: '非常紧急', value: 3 }]},
 			{name: '待处理', value: 9},
 			{name: '处理中', value: 10},
 			{name: '已完成', value: 11},
@@ -603,11 +603,14 @@ angular.module('mainApp')
 			{name: 'customer_name', label: '客户姓名', isChecked: true},
 			{name: 'odrer_no', label: '订单编号', isChecked: true},
 			{name: 'phone', label: '客户电话', isChecked: true},
-			{name: 'province', label: '所在省', isChecked: true, sortable: true},
+			{name: 'province', label: '所在省', isChecked: true},
 			{name: 'city', label: '城市', isChecked: true},
-			{name: 'order_type', label: '订单类型', isChecked: true, sortable: true},
-			{name: 'paid', label: '付款状态', isChecked: true, sortable: true},
-			{name: 'create_time', label: '创建时间', isChecked: true, sortable: true},
+			{name: 'order_type', label: '订单类型', isChecked: true},
+			{name: 'paid', label: '付款状态', isChecked: true},
+			{name: 'create_time', label: '创建时间', isChecked: true},
+			{name: 'subType', label: '投诉分类', isChecked: true},
+			{name: 'status', label: '处理结果', isChecked: true},
+			{name: 'next_time', label: '回访时间', isChecked: true},
 			{name: 'contact_times', label: '联系次数', isChecked: true}
 		];
 
@@ -633,14 +636,12 @@ angular.module('mainApp')
 		$scope.getOrderList();
 		$scope.addNewReturnOrder = $scope.addNewContact($complaintForm);
 
-		// 订单详情
+
+		// 查看订单
 		$scope.showComplaintOrders = function(order) {
 			$scope.currentOrder = order;
+			$scope.isCustometInfoEditable = false;
 			$orderDetails.modal('show');
-			$scope.currentOrder.complaintOrders = [
-				{orderSN: '123071231', customerName: order.customerName, customerPhone: order.customerPhone, orderType: '季度', createTime: '2014-10-15', payWay: '在线支付', payStatus: '0', birthday: '2010-06-01', orderStatus: '正常'},
-				{orderSN: '143071231', customerName: order.customerName, customerPhone: order.customerPhone, orderType: '季度', createTime: '2014-10-15', payWay: '在线支付', payStatus: '1', birthday: '2010-06-01', orderStatus: '正常'}
-			];
 		};
 
 		// 新建投诉
@@ -759,8 +760,29 @@ angular.module('mainApp')
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
 	.controller('CustomerPool', ['$scope', '$controller', 'Restangular', function($scope, $controller, Restangular) {
-		var Customer = Restangular.all('customer');
-		var User = Restangular.all('user');
+		var
+			Customer = Restangular.all('customer'),
+			User = Restangular.all('user'),
+			$assginForm = $('#batch-assgin'),
+			$pickForm = $('#batch-pick');
+
+		// 搜索下拉
+		$scope.filters = [
+			{name: '省份', value: 'province', subfilters: [{name: '河北省', value: 1 }, {name: '山西省', value: 2 }, {name: '吉林省', value: 3 }, {name: '辽宁省', value: 4 }, {name: '黑龙江省', value: 5 }, {name: '陕西省', value: 6 }, {name: '甘肃省', value: 7 }, {name: '青海省', value: 8 }, {name: '山东省', value: 9 }, {name: '福建省', value: 10 }, {name: '浙江省', value: 11 }, {name: '台湾省', value: 12 }, {name: '河南省', value: 13 }, {name: '湖北省', value: 14 }, {name: '湖南省', value: 15 }, {name: '江西省', value: 16 }, {name: '江苏省', value: 17 }, {name: '安徽省', value: 18 }, {name: '广东省', value: 19 }, {name: '海南省', value: 20 }, {name: '四川省', value: 21 }, {name: '贵州省', value: 22 }, {name: '云南省', value: 23 }, {name: '北京市', value: 24 }, {name: '天津市', value: 25 }, {name: '上海市', value: 26 }, {name: '重庆市', value: 27 }, {name: '内蒙古', value: 28 }, {name: '新疆', value: 29 }, {name: '宁夏', value: 30 }, {name: '广西', value: 31 }, {name: '西藏', value: 32 }, {name: '香港', value: 33 }, {name: '澳门', value: 34 }]},
+			{name: '城市', value: 'city', input: true},
+			{name: '客户姓名', value: 'customer_name', input: true},
+			{name: '客户电话', value: 'customer_phone', input: true},
+			{name: '订单编号', value: 'order_no', input: true},
+			// {name: '订单类型', value: 3, subfilters: [{name: '季度', value: 0}, {name: '半年度', value: 1}, {name: '年度', value: 2}, {name: '一次性周边', value: 3}]},
+			{name: '付款状态', value: 'paid', subfilters: [{name: '未支付', value: 0}, {name: '已支付', value: 1}]},
+			{name: '支付方式', value: 'payment', subfilters: [{name: '银行', value: 1}, {name: '支付宝', value: 2}, {name: '货到付款', value: 3}]},
+			{name: '审单状态', value: 'status', subfilters: [{name: '待审核', value: 1}, {name: '审核中', value: 2}, {name: '审核通过', value: 3}, {name: '无效', value: 4}]},
+			{name: '创建时间', value: 'create_time', date: true},
+			{name: '联系次数', value: 8, input: true},
+			{name: '订单状态', value: 9, subfilters: [{name: '正常', value: 1}, {name: '取消', value: 2}]},
+			{name: '发货状态', value: 10, subfilters: [{name: '已发货', value: 1}, {name: '未发货', value: 2}]},
+			{name: '发票状态', value: 11, subfilters: [{name: '已开', value: 1}, {name: '未开', value: 2}]}
+		];
 
 		$scope.isAllThsShow = true;
 		$scope.ths = [
@@ -807,58 +829,72 @@ angular.module('mainApp')
 		};
 
 		// 批量分配
-		$scope.batchAssign = function() {
+		$scope.batchAssign = function(form) {
 			$scope.getSelectedCustomers();
 			if ($scope.selectedCustomers.length) {
 				User.getList().then(function(users) {
 					$scope.resUsers = users;
-					$('#batch-assgin').modal('show');
+					$scope.resetForm(form);
+					$assginForm.modal('show');
 				});
 			}
 		};
 
-		$scope.saveBatchAssign = function() {
+		$scope.saveBatchAssign = function(form) {
+			if (!$scope.validateForm(form, $assginForm)) return;
+
 			var userIds = [];
+
 			angular.forEach($scope.selectedCustomers, function(customer) {
 				userIds.push(customer.id);
 			});
 
+			$scope.processing(form, $assginForm);
+
 			Customer.doPUT({
-				// manager: $scope.batchResponser,
-				manager: $scope.currentUser.userNo,
+				manager: $scope.batchResponser,
 				ids: userIds.join(',')
-			}).then(function() {
-				$('#batch-assgin').modal('hide');
-				$scope.getCustomerList();
-			});
+			}).then($scope.onFineWs({
+				form: form,
+				$form: $assginForm,
+				action: $scope.getCustomerList
+			}), $scope.onError({
+				form: form,
+				$form: $assginForm
+			}));
 		};
 
 		// 批量领取
-		$scope.batchPick = function() {
+		$scope.batchPick = function(form) {
 			$scope.getSelectedCustomers();
 			if ($scope.selectedCustomers.length) {
-				$('#batch-pick').modal('show');
+				$scope.resetForm(form);
+				$pickForm.modal('show');
 			}
 		};
 
-		$scope.saveBatchPick = function() {
+		$scope.saveBatchPick = function(form) {
 			var userIds = [];
 			angular.forEach($scope.selectedCustomers, function(customer) {
 				userIds.push(customer.id);
 			});
 
+			$scope.processing(form, $pickForm);
+
 			Customer.doPUT({
 				manager: $scope.currentUser.userNo,
 				ids: userIds.join(',')
-			}).then(function() {
-				$('#batch-pick').modal('hide');
-				$scope.getCustomerList();
-			});
+			}).then($scope.onFineWs({
+				form: form,
+				$form: $pickForm,
+				action: $scope.getCustomerList
+			}), $scope.onError({
+				form: form,
+				$form: $pickForm
+			}));
 		};
 
-		setTimeout(function() {
-			$scope.getCustomerList();
-		}, 0);
+		$scope.getCustomerList();
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}]);

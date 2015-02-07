@@ -31,7 +31,7 @@
         <input type="radio"/>今日新增
       </label>
       <label ng-click="searchModel.status='2'" class="btn uu-btn">
-        <input type="radio"/>未处理
+        <input type="radio"/>待处理
       </label>
       <label ng-click="searchModel.status='3'" class="btn uu-btn">
         <input type="radio"/>处理中
@@ -58,11 +58,11 @@
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
-      <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
+      <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-end-time" class="input-group-addon">结束时间</label>
-      <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" min-view="1" format="yyyy-mm-dd hh:00"/>
+      <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -89,7 +89,10 @@
       <td ng-bind="complaint.order.order_type" ng-show="ths[5].isChecked"></td>
       <td ng-bind="complaint.order.paid | payStatus" ng-show="ths[6].isChecked"></td>
       <td ng-bind="complaint.create_time" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="complaint.order.contact_count" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="complaint.subtype | mapper:&quot;complaintType&quot;" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="complaint.status | mapper:&quot;complaintStatus&quot;" ng-show="ths[9].isChecked"></td>
+      <td ng-bind="complaint.communications.next_time" ng-show="ths[10].isChecked"></td>
+      <td ng-bind="complaint.order.contact_count" ng-show="ths[11].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintOrders(complaint)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
@@ -152,6 +155,7 @@
                     <option value="39">货物丢失</option>
                     <option value="310">物品破损</option>
                     <option value="311">快递态度</option>
+                    <option value="-1">其它</option>
                   </select>
                 </td>
                 <th class="form-th">
@@ -439,7 +443,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="order in currentOrder.complaintOrders">
+                <tr ng-repeat="order in currentOrder.communications">
                   <td ng-bind="order.orderSN"></td>
                   <td ng-bind="order.customerName"></td>
                   <td ng-bind="order.orderType"></td>
@@ -460,6 +464,10 @@
             </ul>
           </p>
         </form>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn uu-btn btn-primary">确定</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
   </div>
@@ -551,6 +559,7 @@
                     <option value="39">货物丢失</option>
                     <option value="310">物品破损</option>
                     <option value="311">快递态度</option>
+                    <option value="-1">其它</option>
                   </select>
                 </td>
                 <th class="form-th">

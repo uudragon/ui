@@ -3,8 +3,6 @@
   <ul class="action-bar">
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建"><span class="glyphicon glyphicon-plus"></span></a>
       <ul role="menu" class="dropdown-menu">
-        <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
-        </li>
         <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
         </li>
       </ul>
@@ -28,6 +26,29 @@
     </li>
   </ul>
 </div>
+<div class="article-header-search">
+  <form role="form" class="form-inline">
+    <div class="form-group">
+      <select ng-model="searchModel.filter" ng-options="filter.name for filter in filters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
+      <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in searchModel.filter.subfilters" ng-show="searchModel.filter.subfilters" class="form-control input-sm"></select>
+      <input ng-model="searchModel.subfilter" ng-show="searchModel.filter.input" class="form-control input-sm"/>
+    </div>
+    <div ng-show="searchModel.filter.date" class="input-group">
+      <label for="form-date-time" class="input-group-addon">时间</label>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
+    </div>
+    <div ng-show="searchModel.filter.datetime" class="input-group">
+      <label for="form-start-time" class="input-group-addon">开始时间</label>
+      <input id="form-start-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
+    </div>
+    <div ng-show="searchModel.filter.datetime" class="input-group">
+      <label for="form-end-time" class="input-group-addon">结束时间</label>
+      <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
+    </div>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    </div>
+  </form>
+</div>
 <div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" ng-init="searchModel.isAllot='1'" class="btn-group">
@@ -44,8 +65,8 @@
   </form>
 </div>
 <div class="article-header-operate">
-  <button ng-click="batchAssign()" class="btn uu-btn btn-primary">批量分配</button>
-  <button ng-click="batchPick()" class="btn uu-btn btn-success">批量领取</button>
+  <button ng-click="batchAssign(batchAssignForm)" class="btn uu-btn btn-primary">批量分配</button>
+  <button ng-click="batchPick(batchPickForm)" class="btn uu-btn btn-success">批量领取</button>
 </div>
 <table class="uu-table">
   <thead>
@@ -74,13 +95,13 @@
       <td ng-bind="customer.code" ng-show="ths[1].isChecked"></td>
       <td ng-show="ths[2].isChecked"><span ng-bind="customer.phone" style="padding-right: 8px;"></span><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼" ng-click="makePhone(customer.phone)" ng-show="customer.phone"><span class="glyphicon glyphicon-earphone"></span></a>
       </td>
-      <td ng-bind="customer.main_phone" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="customer.province" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="customer.city" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="customer.email" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="customer.type | customerStatus" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="customer.create_time" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="customer.contact_times" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="customer.main_phone" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="customer.province" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="customer.city" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="customer.email" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="customer.type | customerStatus" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="customer.create_time" ng-show="ths[8].isChecked"></td>
+      <td ng-bind="customer.contact_times" ng-show="ths[9].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="showComplaintcustomers(customer)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
@@ -95,7 +116,7 @@
         <h4 class="modal-title">批量分配</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form name="batchAssignForm" novalidate="novalidate" ng-class="{sumitted: batchAssignForm.$sumitted}" class="form-horizontal">
           <fieldset>
             <div ng-show="getSelectedCustomers().length === 1" class="form-group">
               <label for="form-responser" class="control-label col-xs-3">将客户:</label>
@@ -107,14 +128,14 @@
               <label for="form-responser" ng-show="getSelectedCustomers().length !== 1" class="control-label col-xs-3">选择负责人</label>
               <label for="form-responser" ng-show="getSelectedCustomers().length === 1" class="control-label col-xs-3">分配给</label>
               <div class="col-xs-7">
-                <select id="form-responser" name="responser" ng-model="batchResponser" ng-options="user.userNo as user.name for user in resUsers" class="form-control input-sm"></select>
+                <select required="required" id="form-responser" ng-model="batchResponser" ng-options="user.account as user.name for user in resUsers" class="form-control input-sm"></select>
               </div>
             </div>
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveBatchAssign()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveBatchAssign(batchAssignForm)" ng-disabled="batchAssignForm.processing" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
@@ -128,7 +149,7 @@
         <h4 class="modal-title">批量领取</h4>
       </div>
       <div ng-show="getSelectedCustomers().length === 1" class="modal-body">
-        <form class="form-horizontal">
+        <form name="batchPickForm" novalidate="novalidate" ng-class="{sumitted: batchPickForm.$sumitted}" class="form-horizontal">
           <fieldset>
             <label for="form-responser" class="control-label col-xs-3">领取客户:</label>
             <div class="col-xs-7">
@@ -138,7 +159,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveBatchPick()" class="btn uu-btn btn-primary">保存</button>
+        <button ng-click="saveBatchPick(batchPickForm)" ng-disabled="batchPickForm.processing" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

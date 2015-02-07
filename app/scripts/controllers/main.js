@@ -167,6 +167,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		if (form) {
 			form.$setPristine();
 			form.$sumitted = false;
+			form.processing = false;
 		}
 	};
 
