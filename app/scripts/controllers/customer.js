@@ -419,6 +419,7 @@ angular.module('mainApp')
 					updater: $scope.currentUser.userNo,
 					shipment_no: $scope.shipment.shipment_no,
 					sent_date: $scope.shipment.sent_date,
+					type: '1',
 					details: $scope.shipment.details
 				})
 				.success($scope.onFine({

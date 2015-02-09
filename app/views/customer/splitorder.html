@@ -171,13 +171,85 @@
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">编辑订单明细</h4>
+        <h4 class="modal-title">复合发货单</h4>
       </div>
       <div class="modal-body">
         <form name="shipmentForm" novalidate="novalidate" ng-class="{sumitted: shipmentForm.$sumitted}" class="form-horizontal">
           <fieldset>
-            <legend>订单明细</legend>
-            <table class="uu-table">
+            <legend>发货单明细</legend>
+            <table class="form-table">
+              <tr class="nowrap">
+                <th class="form-th">
+                  <label class="form-th-label">订单号</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.order_no"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">客户姓名</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.customer.name"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">客户地址</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.customer.province + order.customer.city + order.customer.address"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">客户电话</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.customer.phone"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">付款金额</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.amount"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">订购时间</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.effective"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">是否有发票</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.has_invoice | yesno"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">儿童生日</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.customer.birthday"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">订购类型</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.order_type"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">付款状态</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="order.paid | payStatus"></p>
+                </td>
+              </tr>
+            </table>
+            <table style="margin-top: 20px;" class="uu-table">
               <thead>
                 <tr>
                   <th>订单号</th>
@@ -185,26 +257,18 @@
                   <th>客户电话</th>
                   <th>付款金额</th>
                   <th>发货数量</th>
-                  <th>是否有发票</th>
-                  <th>快递单号</th>
-                  <th>快递公司</th>
-                  <th>快递费用</th>
                   <th>发货时间</th>
                   <th>发货单状态</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="shipment in shipments" ng-dblclick="checkShipment(shipment.shipment_no, shipmentCheckForm)">
+                <tr ng-repeat="shipment in shipments" ng-dblclick="checkShipment(shipment.shipment_no, shipmentCheckForm)" ng-class="{&quot;success&quot; : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}">
                   <td ng-bind="shipment.orders_no"></td>
                   <td ng-bind="shipment.customer_name"></td>
                   <td ng-bind="shipment.customer_tel"></td>
                   <td ng-bind="shipment.amount"></td>
                   <td ng-bind="shipment.shipped_qty"></td>
-                  <td ng-bind="shipment.has_invoice"></td>
-                  <td ng-bind="shipment.express_orders_no"></td>
-                  <td ng-bind="shipment.express_name"></td>
-                  <td ng-bind="shipment.express_cost"></td>
                   <td ng-bind="shipment.sent_date"></td>
                   <td ng-bind="shipment.status | mapper:'shipmentStatus'"></td>
                   <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发货单复合" ng-click="checkShipment(shipment.shipment_no, shipmentCheckForm)"><span class="glyphicon glyphicon-pencil"></span></a>

@@ -108,26 +108,38 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 +submodal('shipment-form', 'modal-lg')
 	.modal-header
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
-		h4.modal-title 编辑订单明细
+		h4.modal-title 复合发货单
 	.modal-body
 		form.form-horizontal(name='shipmentForm' novalidate ng-class='{sumitted: shipmentForm.$sumitted}')
 			fieldset
-				legend 订单明细
-				table.uu-table
-					+thead(['订单号', '客户姓名', '客户电话', '付款金额', '发货数量', '是否有发票', '快递单号', '快递公司', '快递费用', '发货时间', '发货单状态'])
-					//- +thead(['订单号', '发货单号', '客户姓名', '客户电话', '付款金额', '发货数量', '是否有发票', '快递单号', '快递公司', '快递费用', '发货时间', '发货单状态'])
+				legend 发货单明细
+				table.form-table
+					tr.nowrap
+						+static-input('订单号')(ng-bind='order.order_no')
+						+static-input('客户姓名')(ng-bind='order.customer.name')
+					tr
+						+static-input('客户地址')(ng-bind='order.customer.province + order.customer.city + order.customer.address')
+						+static-input('客户电话')(ng-bind='order.customer.phone')
+					tr
+						+static-input('付款金额')(ng-bind='order.amount')
+						+static-input('订购时间')(ng-bind='order.effective')
+					tr
+						+static-input('是否有发票')(ng-bind='order.has_invoice | yesno')
+						+static-input('儿童生日')(ng-bind='order.customer.birthday')
+					tr
+						+static-input('订购类型')(ng-bind='order.order_type')
+						+static-input('付款状态')(ng-bind='order.paid | payStatus')
+
+
+				table.uu-table(style='margin-top: 20px;')
+					+thead(['订单号', '客户姓名', '客户电话', '付款金额', '发货数量', '发货时间', '发货单状态'])
 					tbody
-						tr(ng-repeat='shipment in shipments' ng-dblclick='checkShipment(shipment.shipment_no, shipmentCheckForm)')
+						tr(ng-repeat='shipment in shipments' ng-dblclick='checkShipment(shipment.shipment_no, shipmentCheckForm)' ng-class='{"success" : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}')
 							td(ng-bind="shipment.orders_no")
-							//- td(ng-bind="shipment.shipment_no")
 							td(ng-bind="shipment.customer_name")
 							td(ng-bind="shipment.customer_tel")
 							td(ng-bind="shipment.amount")
 							td(ng-bind="shipment.shipped_qty")
-							td(ng-bind="shipment.has_invoice")
-							td(ng-bind="shipment.express_orders_no")
-							td(ng-bind="shipment.express_name")
-							td(ng-bind="shipment.express_cost")
 							td(ng-bind="shipment.sent_date")
 							td(ng-bind="shipment.status | mapper:'shipmentStatus'")
 							td.nowrap
