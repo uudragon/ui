@@ -81,16 +81,31 @@ uu-pagination(records='warehouses.meta.recordsCount' per-page='warehouses.meta.p
 							+tooltip('执行预拣货', 'top', 'savePickProduct(product, pickgoodForm)')
 								+glyphicon('thumbs-up')
 
-			uu-pagination(records='products.meta.recordsCount', per-page='products.meta.pageSize' page='products.meta.pageNo', model='searchModel', action='getProductList()')
-
-			p(style='margin-top: 10px' ng-show='pickResult')
-				span.text-primary(ng-bind='pickInfo.productName')
-				| 可预拣货的数量:
-				span.text-danger(ng-bind='pickResult.picking_qty')
+			uu-pagination(records='products.meta.recordsCount', per-page='products.meta.pageSize' page='products.meta.pageNo', model='subSearchModel', action='getProductList()')
 
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(data-dismiss='modal' ng-click='pickResult=""') 确定
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//-  调整拣货数
++submodal('pickgood-amount-form')
+	.modal-header
+		button.close(data-dismiss='modal' aria-hidden='true') &times;
+		h4.modal-title 调整拣货数
+	.modal-body
+		form.form-horizontal(name='pickGoodAmountForm' novalidate ng-class='{sumitted: pickGoodAmountForm.$sumitted}')
+			p
+				span.text-primary(ng-bind='pickInfo.productName')
+				| 可预拣货的数量:
+				span.text-danger(ng-bind='pickInfo.max')
+
+			table.form-table.form-table-single
+				tr
+					+input('拣货数量', 'picking_count')(ng-model='pickInfo.picking_count' required uu-num ng-max='pickInfo.max + 1')
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='tweakPickProduct(pickGoodAmountForm)' ng-disabled='pickGoodAmountForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列

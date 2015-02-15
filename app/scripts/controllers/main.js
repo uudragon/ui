@@ -200,7 +200,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		return function(data) {
 			form.processing = false;
 			$form.modal('success');
-			angular.isFunction(action) && action();
+			angular.isFunction(action) && action(data);
 		};
 	};
 
@@ -209,7 +209,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			form.processing = false;
 			if (status === 'true') {
 				$form.modal('success');
-				angular.isFunction(action) && action();
+				angular.isFunction(action) && action(status);
 			} else {
 				$form.modal('fail');
 			}
@@ -220,7 +220,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		return function(data) {
 			form.processing = false;
 			$form.modal('fail');
-			angular.isFunction(action) && action();
+			angular.isFunction(action) && action(data);
 		};
 	};
 
@@ -230,7 +230,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			if (status === 'true') {
 				console.log('here');
 				params.$form && params.$form.modal('success', params.msg);
-				angular.isFunction(params.action) && params.action();
+				angular.isFunction(params.action) && params.action(status);
 			} else {
 				params.$form && params.$form.modal('fail', params.errMsg);
 			}
@@ -241,7 +241,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		return function(data) {
 			params.form && (params.form.processing = false);
 			params.$form && params.$form.modal('success', params.msg);
-			angular.isFunction(params.action) && params.action();
+			angular.isFunction(params.action) && params.action(data);
 		};
 	};
 
@@ -249,7 +249,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		return function(data) {
 			params.form && (params.form.processing = false);
 			params.$form && params.$form.modal('fail', params.msg);
-			angular.isFunction(params.action) && params.action();
+			angular.isFunction(params.action) && params.action(data);
 		};
 	};
 

@@ -55,7 +55,7 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 						th.nowrap=th
 					th.nowrap(ng-show='storageFormType==="new"') 工具
 				tbody
-					tr(ng-repeat='good in receipt.details')
+					tr(ng-repeat='good in receipt.details' ng-class='{success: (good.qty === good.actual_qty), warning: (good.qty > good.actual_qty && good.actual_qty !== 0), danger: (good.actual_qty === 0)}')
 						td(ng-bind='good.goods_code')
 						td(ng-bind='good.qty')
 						td(ng-bind='good.actual_qty')

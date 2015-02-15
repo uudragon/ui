@@ -392,6 +392,52 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('ngMin', function () {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		scope: {
+			ngMin: '='
+		},
+		link: function ($scope, elem, attr, ctrl) {
+			var validate = function(value) {
+				if (!value || value > $scope.ngMin) {
+					ctrl.$setValidity('ngMin', true);
+					return value;
+				} else {
+					ctrl.$setValidity('ngMin', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
+.directive('ngMax', function () {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		scope: {
+			ngMax: '='
+		},
+		link: function ($scope, elem, attr, ctrl) {
+			var validate = function(value) {
+				if (!value || value < $scope.ngMax) {
+					ctrl.$setValidity('ngMax', true);
+					return value;
+				} else {
+					ctrl.$setValidity('ngMax', false);
+					return undefined;
+				}
+			};
+			ctrl.$parsers.push(validate);
+			ctrl.$formatters.push(validate);
+		}
+	};
+})
+
 .directive('uuEmail', function() {
 	return {
 		restrict: 'A',

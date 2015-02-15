@@ -22,7 +22,8 @@ angular.module('mainApp')
 
 		// 搜索下拉
 		var $warehouseForm = $('#warehouse-form'),
-			$pickgoodForm = $('#pickgood-form');
+			$pickgoodForm = $('#pickgood-form'),
+			$pickgoodAmountForm = $('#pickgood-amount-form');
 
 		// 搜索下拉
 		$scope.filters = [
@@ -86,7 +87,7 @@ angular.module('mainApp')
 				warehouse_code: warehouse_code
 			};
 
-			$scope.searchModel.pageNo = 1;
+			$scope.subSearchModel.pageNo = 1;
 
 			$scope.getProductList()
 				.success(function() {
@@ -98,8 +99,8 @@ angular.module('mainApp')
 		$scope.getProductList = function() {
 
 			var req = {
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo || 1
+				pageSize: $scope.subSearchModel.pageSize || config.perPage,
+				pageNo: $scope.subSearchModel.pageNo || 1
 			};
 
 			return $http.post(config.basewms + 'baseinfo/query_product_list/', req)
@@ -116,22 +117,48 @@ angular.module('mainApp')
 
 
 		$scope.savePickProduct = function(product, form) {
-			$scope.pickInfo.productName = product.product_name;
+			if (form.processing) return;
+
 			$scope.processing(form, $pickgoodForm);
 
-			$http.post(config.basewms + 'inner/' + $scope.pickInfo.warehouse_code + '/picking/', {
+			$http.post(config.basewms + 'inner/' + $scope.pickInfo.warehouse_code + '/picking_statistic/', {
 					product_code: product.product_code,
 					updater: $scope.currentUser.account
 				})
-				.success(function(result) {
-					form.processing = false;
-					$pickgoodForm.modal('info', '操作成功');
-					$scope.pickResult = result;
-				})
-				.error(function() {
-					form.processing = false;
-					$pickgoodForm.modal('fail', '操作失败');
-				});
+				.success($scope.onFine({
+					form: form,
+					action: function(result) {
+						if (result.picking_qty === 0) {
+							$pickgoodForm.modal('info', '可拣货数为零, 不能执行拣货');
+
+						} else {
+
+							$scope.pickInfo = {
+								product_code: product.product_code,
+								max: result.picking_qty,
+								picking_count: result.picking_qty,
+								productName: product.product_name
+							};
+
+							$pickgoodAmountForm.modal('show');
+						}
+					}
+				}))
+				.error($scope.onError({form: form, $form: $pickgoodForm }));
+		};
+
+		// 保存调整拣货数
+		$scope.tweakPickProduct = function(form) {
+			if (!$scope.validateForm(form, $pickgoodAmountForm)) return;
+
+			$scope.processing(form, $pickgoodAmountForm);
+
+			$http.post(config.basewms + 'inner/' + $scope.pickInfo.warehouse_code + '/picking/', $scope.pickInfo)
+				.success($scope.onFine({
+					form: form,
+					$form: $pickgoodAmountForm
+				}))
+				.error($scope.onError({form: form, $form: $pickgoodAmountForm }));
 		};
 
 		// 保存库房
