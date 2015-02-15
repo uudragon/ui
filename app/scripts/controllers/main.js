@@ -172,11 +172,12 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	};
 
 	// 表单验证
-	$scope.validateForm = function(form, $formModal) {
+	$scope.validateForm = function(form, $formModal, msg) {
 		form.$sumitted = true;
+		msg = msg || '表单填写有误';
 
 		if (!form.$valid) {
-			$formModal.modal('fail', '表单填写有误');
+			$formModal && $formModal.modal('fail', msg);
 			return false;
 		}
 

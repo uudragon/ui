@@ -80,7 +80,7 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 				legend 商品详情
 				table.form-table.form-table-single
 					tr
-						+input('数量', 'qty')(uu-num ng-model='productTmpGood.putin_qty' required)
+						+input('数量', 'qty')(uu-num ng-max='productTmpGood.max' ng-model='productTmpGood.putin_qty' required)
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveGoodToProduct(productDetailsForm)') 保存

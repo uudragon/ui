@@ -300,22 +300,7 @@ angular.module('mainApp')
 		};
 
 		$scope.savePutinedReceipt = function(form) {
-			// if (!$scope.validateForm(form, $storageForm)) return;
-			var inValidGoodsCode = '';
-
-			angular.forEach($scope.receipt.details, function(good) {
-				if (parseInt(good.qty, 10) < parseInt(good.actual_qty, 10) + parseInt(good.putin_qty, 10)) {
-					inValidGoodsCode = good.goods_code;
-					return false;
-				}
-			});
-
 			$scope.processing(form, $storageForm);
-
-			if (inValidGoodsCode) {
-				$storageForm.modal('fail', '商品' + inValidGoodsCode + '入库数量已超过计划数量');
-				return;
-			}
 
 			$http.post(config.basewms + 'inbound/putin/', $scope.receipt)
 				.success($scope.successHandler(form, $storageForm, $scope.getReceiptList))
@@ -346,15 +331,15 @@ angular.module('mainApp')
 		$scope.editGood = function(good, form) {
 			$scope.resetForm(form);
 			$scope.productGood = good;
-			$scope.productTmpGood = angular.copy(good);
 			$goodsDetailsForm.modal('show');
+			$scope.productTmpGood = angular.copy(good);
+			$scope.productTmpGood.max = good.qty - good.actual_qty + 1;
 		};
-
 
 		// 保存商品详情
 		$scope.saveGoodToProduct = function(form) {
 			// 表单验证
-			if (!$scope.validateForm(form, $goodsDetailsForm)) return;
+			if (!$scope.validateForm(form, $goodsDetailsForm, '入库数量已超过计划数量')) return;
 			$scope.productGood.putin_qty = $scope.productTmpGood.putin_qty;
 			$goodsDetailsForm.modal('hide');
 		};
