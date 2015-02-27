@@ -68,7 +68,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	//- 库房管理
 	- subnavs = []
 	- subnavs.push({href: 'root.storehouse.define', auth: '010300', label: '库房定义'})
-	//- - subnavs.push({href: 'root.storehouse.allocate', auth: '010301', label: '调配入库'})
+	//- - subnavs.push({href: 'root.storehouse.allocate', auth: '010301', label: '订单发货'})
 	- subnavs.push({href: 'root.storehouse.audit', auth: '010302', label: '出入库记录'})
 	- subnavs.push({href: 'root.storehouse.remain', auth: '010303', label: '剩余数量'})
 	- navs.push({href: 'root.storehouse', label: '库房管理', auth: '0103', subnavs: subnavs})

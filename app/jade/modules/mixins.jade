@@ -78,6 +78,13 @@ mixin jslink(action, title)
 		if block
 			block
 
+mixin js-glyph(action, iconName, title)
+	a.jsglyph(href='', ng-click=action)&attributes(attributes)
+		+glyphicon(iconName)
+		span.jsglyph-label=title
+		if block
+			block
+
 mixin info(title)
 	p.info-text=title + ': '
 		span.info-text-val&attributes(attributes)

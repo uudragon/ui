@@ -193,8 +193,8 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	};
 
 	$scope.processing = function(form, $form) {
-		form.processing = true;
-		$form.modal('spinner');
+		form && (form.processing = true);
+		$form && $form.modal('spinner');
 	};
 
 	$scope.successHandler = function(form, $form, action) {
@@ -252,6 +252,28 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 			params.$form && params.$form.modal('fail', params.msg);
 			angular.isFunction(params.action) && params.action(data);
 		};
+	};
+
+	// 搜索相关
+	// -----------------------------------------------------
+
+	$scope.baseSearch = function($scope, action) {
+		return function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			$scope[action] && $scope[action]();
+		};
+	};
+
+	// 获取选中的项目
+	$scope.getSelectedItems = function(items, name) {
+		$scope.selectedItems = [];
+		angular.forEach(items, function(customer) {
+			if (customer.isChecked) {
+				var item = name ? customer[name] : customer;
+				$scope.selectedItems.push(item);
+			}
+		});
+		return $scope.selectedItems;
 	};
 
 }]);

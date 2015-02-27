@@ -339,7 +339,7 @@ angular.module('mainApp')
 		// 保存商品详情
 		$scope.saveGoodToProduct = function(form) {
 			// 表单验证
-			if (!$scope.validateForm(form, $goodsDetailsForm, '入库数量已超过计划数量')) return;
+			if (!$scope.validateForm(form, $goodsDetailsForm, '入库数量格式不对或已超过计划数量')) return;
 			$scope.productGood.putin_qty = $scope.productTmpGood.putin_qty;
 			$goodsDetailsForm.modal('hide');
 		};

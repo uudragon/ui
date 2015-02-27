@@ -36,7 +36,6 @@ include ../../modules/mixins.jade
 - filters.push({label: '近30天', value: 1})
 +article-header-filter('sendTime', filters)
 
-
 //- 工单列表
 table.uu-table
 	+theadplus()(operation='操作', ng-dblclick="chooseTh('table-cols')")

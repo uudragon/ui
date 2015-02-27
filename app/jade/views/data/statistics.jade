@@ -64,8 +64,8 @@ h2 占比统计图
 hr
 
 .row.printable
-	p(style='text-align: right; font-size: 20px; padding-right: 15px;')
-		+tooltip('打印图表', 'top', 'printCharts()')
+	p.noprint(style='text-align: right; font-size: 20px; padding-right: 15px;')
+		+tooltip('', 'top', 'printCharts()')
 			+glyphicon('print')
 	.col-xs-6
 		div(uu-pie-chart, header='全国各区域销量比值', data="[{value: 5332, name: '华北'}, {value: 3465, name: '华南'}, {value: 7485, name: '华东'}, {value: 4488, name: '华中'}, {value: 6684, name: '华西'}]")

@@ -81,6 +81,33 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+.directive('uuPrint', function() {
+	return {
+		transclude: true,
+		scope: {},
+		controller: ['$scope', function($scope) {
+			var panes = $scope.panes = [];
+
+			$scope.print = function() {
+				var printWin = window.open('', 'MsgWindow', 'width=920px,height=auto,left=40,top=40,toolbar=0,status=0');
+				var dupDoc = $(document.all[0].cloneNode(true));
+
+				dupDoc.find('.sort').removeClass('sort');
+				dupDoc.find('.col-xs-10').removeClass('col-xs-10');
+				dupDoc.find('.left-sidebar').remove();
+				dupDoc.find('.pg-info').remove();
+				dupDoc.find('.pagination-wraper').remove();
+				dupDoc.find('.action-bar').remove();
+				dupDoc.find('.article-header-filter').remove();
+				dupDoc.find('.btn-print').remove();
+
+				printWin.document.write(dupDoc.html());
+			};
+		}],
+		template: '<div class="btn btn-danger btn-print btn-xs" ng-click="print()">print</div>'
+	};
+})
+
 // get week form date
 .directive('toFullWeek', function() {
 

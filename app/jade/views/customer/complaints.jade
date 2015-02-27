@@ -33,7 +33,7 @@ include ../../modules/mixins.jade
 table.uu-table(ng-show='complaintsOrders.length')
 	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='complaint in complaintsOrders')(ng-dblclick='showComplaintOrders(complaint)')
+		tr(ng-repeat='complaint in complaintsOrders' ng-dblclick='showComplaintOrders(complaint)')
 			td(ng-bind='complaint.order.customer.name', ng-show='ths[0].isChecked')
 			td(ng-bind='complaint.order_no' ng-show='ths[1].isChecked')
 			td(ng-bind='complaint.order.customer.phone', ng-show='ths[2].isChecked')
