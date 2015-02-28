@@ -202,9 +202,21 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 						button.btn.uu-btn(data-dismiss='modal') 取消
 
 				div(uu-pane, title='添加赠品')
+					.modal-search-bar
+						.form-group
+							select.form-control.input-sm(ng-model='subSearchModel.filter', ng-options='filter.name for filter in goodsFilters', ng-change='resetSubFilter()')
+							select.form-control.input-sm(ng-model='subSearchModel.subfilter', ng-options='filter.value as filter.name for filter in subSearchModel.filter.subfilters', ng-show='subSearchModel.filter.subfilters')
+							input.form-control.input-sm(ng-model='subSearchModel.subfilter', ng-show='subSearchModel.filter.input')
+						+grouped-input('时间', 'date-time')(ng-show='subSearchModel.filter.date' ng-model='subSearchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+						+grouped-input('开始时间', 'start-time')(ng-show='subSearchModel.filter.datetime' ng-model='subSearchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+						+grouped-input('结束时间', 'end-time')(ng-show='subSearchModel.filter.datetime' ng-model='subSearchModel.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
+						.btn.uu-btn(ng-click='goodsSearch()')
+							+tooltip('查询', 'top')
+								+glyphicon('search')
+
 					table.uu-table
 						+thead
-							each th in ['出库单号', '编号', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+							each th in ['商品名', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
 								th.nowrap=th
 						tbody
 							tr(ng-repeat='good in goods')

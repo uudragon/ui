@@ -50,11 +50,10 @@
       <td ng-bind="pickingOrder.picking_no" ng-show="ths[0].isChecked"></td>
       <td ng-bind="pickingOrder.picking_qty" ng-show="ths[1].isChecked"></td>
       <td ng-bind="pickingOrder.status | mapper:&quot;pickmentStatus&quot;" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="pickingOrder.details" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="pickingOrder.creator" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="pickingOrder.create_time" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="pickingOrder.updater" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="pickingOrder.update_time" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="pickingOrder.creator" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="pickingOrder.create_time" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="pickingOrder.updater" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="pickingOrder.update_time" ng-show="ths[6].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editPickingOrder(pickingOrder.picking_no, pickingOrderForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询对应发货单" ng-click="showShipments(pickingOrder.picking_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
       </td>
     </tr>

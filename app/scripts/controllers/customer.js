@@ -297,6 +297,13 @@ angular.module('mainApp')
 			{name: '退换货单号', value: 12, input: true}
 		];
 
+		$scope.goodsFilters = [
+			{name: '商品编号', value: 'goods_code', input: true},
+			{name: '商品名称', value: 'goods_name', input: true},
+			{name: '商品类型', value: 'goods_type', subfilters: [{name: '教材(书籍)', value: 1}, {name: '音像制品(DVD/CD)', value: 2}, {name: '玩具', value: 3}, {name: '其它', value: 4}]},
+			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
+		];
+
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
@@ -331,6 +338,8 @@ angular.module('mainApp')
 			$scope.query = $scope.parseFilter($scope.searchModel);
 			$scope.getOrderList();
 		};
+
+		$scope.goodsSearch = $scope.baseSearch($scope, 'getCommdityList', 'subSearchModel');
 
 		$scope.getOrderList();
 
@@ -419,10 +428,14 @@ angular.module('mainApp')
 		// 获取商品列表
 		$scope.getCommdityList = function() {
 
-			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
+			var req = {
 				pageSize: $scope.subSearchModel.pageSize || Math.ceil(config.perPage / 2 ),
 				pageNo: $scope.subSearchModel.pageNo || 1
-			})
+			};
+
+			$.extend(req, $scope.query);
+
+			return $http.post(config.basewms + 'baseinfo/query_goods_list/', req)
 			.success(function(data) {
 				$scope.goods = data.records;
 				$scope.goods.meta = {

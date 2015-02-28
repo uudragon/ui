@@ -409,11 +409,32 @@
               </div>
             </div>
             <div uu-pane="uu-pane" title="添加赠品">
+              <div class="modal-search-bar">
+                <div class="form-group">
+                  <select ng-model="subSearchModel.filter" ng-options="filter.name for filter in goodsFilters" ng-change="resetSubFilter()" class="form-control input-sm"></select>
+                  <select ng-model="subSearchModel.subfilter" ng-options="filter.value as filter.name for filter in subSearchModel.filter.subfilters" ng-show="subSearchModel.filter.subfilters" class="form-control input-sm"></select>
+                  <input ng-model="subSearchModel.subfilter" ng-show="subSearchModel.filter.input" class="form-control input-sm"/>
+                </div>
+                <div ng-show="subSearchModel.filter.date" class="input-group">
+                  <label for="form-date-time" class="input-group-addon">时间</label>
+                  <input id="form-date-time" class="form-control input-sm" ng-show="subSearchModel.filter.date" ng-model="subSearchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
+                </div>
+                <div ng-show="subSearchModel.filter.datetime" class="input-group">
+                  <label for="form-start-time" class="input-group-addon">开始时间</label>
+                  <input id="form-start-time" class="form-control input-sm" ng-show="subSearchModel.filter.datetime" ng-model="subSearchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
+                </div>
+                <div ng-show="subSearchModel.filter.datetime" class="input-group">
+                  <label for="form-end-time" class="input-group-addon">结束时间</label>
+                  <input id="form-end-time" class="form-control input-sm" ng-show="subSearchModel.filter.datetime" ng-model="subSearchModel.subfilter.endTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
+                </div>
+                <div ng-click="goodsSearch()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+                </div>
+              </div>
               <table class="uu-table">
                 <thead>
                   <tr>
-                    <th class="nowrap">出库单号</th>
-                    <th class="nowrap">编号</th>
+                    <th class="nowrap">商品名</th>
+                    <th class="nowrap">商品类型</th>
                     <th class="nowrap">商品价格</th>
                     <th class="nowrap">商品规格</th>
                     <th class="nowrap">生产日期</th>

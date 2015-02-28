@@ -92,6 +92,22 @@ mixin order-details()
 //- Searches
 //- ----------------------
 
+mixin linkage-search-form(action, filters)
+	.article-header-search
+		form.form-inline(role='form')
+			.form-group
+				select.form-control.input-sm(ng-model='searchModel.filter', ng-options='filter.name for filter in #{filters}', ng-change='resetSubFilter()')
+				select.form-control.input-sm(ng-model='searchModel.subfilter', ng-options='filter.value as filter.name for filter in searchModel.filter.subfilters', ng-show='searchModel.filter.subfilters')
+				input.form-control.input-sm(ng-model='searchModel.subfilter', ng-show='searchModel.filter.input')
+			+grouped-input('时间', 'date-time')(ng-show='searchModel.filter.date' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+			+grouped-input('开始时间', 'start-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+			+grouped-input('结束时间', 'end-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
+			if block
+				block
+			.btn.uu-btn(ng-click=action)
+				+tooltip('查询', 'top')
+					+glyphicon('search')
+
 mixin linkage-search(action)
 	.article-header-search
 		form.form-inline(role='form')

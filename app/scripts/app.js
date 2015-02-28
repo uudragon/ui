@@ -334,6 +334,11 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		templateUrl: 'views/commodity/storage.html',
 		controller: 'Storage'
 	})
+	.state('root.commodity.adjust', {
+		url: '/adjust',
+		templateUrl: 'views/commodity/adjust.html',
+		controller: 'Adjust'
+	})
 
 
 	/////////////
@@ -349,11 +354,6 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		url: '/distrib',
 		templateUrl: 'views/outbound/distrib.html',
 		controller: 'Distrib'
-	})
-	.state('root.outbound.adjust', {
-		url: '/adjust',
-		templateUrl: 'views/outbound/adjust.html',
-		controller: 'Adjust'
 	})
 	.state('root.outbound.pick', {
 		url: '/pick',

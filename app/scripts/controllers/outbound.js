@@ -27,13 +27,13 @@ angular.module('mainApp')
 		// 搜索下拉
 		$scope.filters = [
 			{name: '月份', value: 'month', subfilters: [{name: '所有', value: ''}, {name: '1月', value: '1'}, {name: '2月', value: '2'}, {name: '3月', value: '3'}, {name: '4月', value: '4'}, {name: '5月', value: '5'}, {name: '6月', value: '6'}, {name: '7月', value: '7'}, {name: '8月', value: '8'}, {name: '9月', value: '9'}, {name: '10月', value: '10'}, {name: '11月', value: '11'}, {name: '12月', value: '12'}]},
-			{name: '入库单号', value: 'receipt_code', input: true},
-			{name: '入库单状态', value: 'status', subfilters: [{name: '撤销', value: -1}, {name: '未入库', value: 0}, {name: '部分入库', value: 1}, {name: '入库完成', value: 2}]},
-			// {name: '所在库房', value: 'warehouse', input: true},
-			// {name: '预入库时间', value: '', date: true},
-			// {name: '入库时间', value: '', date: true},
-			{name: '创建人', value: 'creator', input: true},
-			{name: '修改人', value: 'updater', input: true}
+			// {name: '入库单号', value: 'receipt_code', input: true},
+			// {name: '入库单状态', value: 'status', subfilters: [{name: '撤销', value: -1}, {name: '未入库', value: 0}, {name: '部分入库', value: 1}, {name: '入库完成', value: 2}]},
+			// // {name: '所在库房', value: 'warehouse', input: true},
+			// // {name: '预入库时间', value: '', date: true},
+			// // {name: '入库时间', value: '', date: true},
+			// {name: '创建人', value: 'creator', input: true},
+			// {name: '修改人', value: 'updater', input: true}
 		];
 
 		$scope.isAllThsShow = false;
@@ -127,6 +127,7 @@ angular.module('mainApp')
 				.success(function(data) {
 					$scope.pickments = data;
 					$pickmentList.modal('show');
+					$scope.getShipmentList();
 				});
 		};
 
@@ -149,9 +150,8 @@ angular.module('mainApp')
 				}));
 		};
 
-		// 编辑出库单
-		$scope.editShipment = function(shipmentNo, form) {
-			$scope.resetForm(form);
+		// 查看出库单
+		$scope.showShipment = function(shipmentNo) {
 			$http.get(config.basewms + 'outbound/shipment/' + shipmentNo + '/')
 				.success(function(shipment) {
 					$scope.shipment = shipment;
@@ -195,13 +195,6 @@ angular.module('mainApp')
 		$controller('OrderManager', {$scope: $scope});
 
 	}])
-	.controller('Adjust', ['$scope', '$controller', function ($scope, $controller) {
-
-
-		// inherit functions from parent
-		$controller('OrderManager', {$scope: $scope});
-
-	}])
 	.controller('Pick', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 		var $pickmentList = $('#pickment-list'),
@@ -227,7 +220,6 @@ angular.module('mainApp')
 			{name:'picking_no', label: '拣货单号', isChecked: true},
 			{name:'picking_qty', label: '拣货总数量', isChecked: true},
 			{name:'status', label: '拣货单状态', isChecked: true},
-			{name:'details', label: '拣货单明细', isChecked: true},
 			{name:'creator', label: '创建人', isChecked: true},
 			{name:'create_time', label: '创建时间', isChecked: true},
 			{name:'updater', label: '更新人', isChecked: true},

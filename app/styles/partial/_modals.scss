@@ -189,6 +189,28 @@
   overflow: scroll;
 }
 
+.modal-search-bar {
+
+  .form-control,
+  .form-group {
+    display: inline-block;
+  }
+
+  .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .form-control {
+    width: auto;
+    vertical-align: middle;
+  }
+
+  select {
+    min-width: 100px;
+  }
+}
+
 // Scale up the modal
 @media (min-width: $screen-sm-min) {
   // Automatically set modal's width for larger viewports

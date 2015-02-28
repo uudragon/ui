@@ -349,4 +349,11 @@ angular.module('mainApp')
 		// inherit functions from parent
 		$controller('CommodityManager', {$scope: $scope});
 
+	}])
+	.controller('Adjust', ['$scope', '$controller', function ($scope, $controller) {
+
+
+		// inherit functions from parent
+		$controller('OrderManager', {$scope: $scope});
+
 	}]);

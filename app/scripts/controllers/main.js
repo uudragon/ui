@@ -256,9 +256,9 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	// 搜索相关
 	// -----------------------------------------------------
 
-	$scope.baseSearch = function($scope, action) {
+	$scope.baseSearch = function($scope, action, searchModel) {
 		return function() {
-			$scope.query = $scope.parseFilter($scope.searchModel);
+			$scope.query = $scope.parseFilter($scope[searchModel] || $scope.searchModel);
 			$scope[action] && $scope[action]();
 		};
 	};

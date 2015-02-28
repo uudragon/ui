@@ -89,14 +89,14 @@
                 <ul role="menu" class="nav nav-menu">
                   <li uu-auth-filter="010100"><a ui-sref="root.commodity.stockin" ng-class="{active: $state.is(&quot;root.commodity.stockin&quot;)}">入库单管理</a></li>
                   <li uu-auth-filter="010101"><a ui-sref="root.commodity.storage" ng-class="{active: $state.is(&quot;root.commodity.storage&quot;)}">商品入库</a></li>
+                  <li uu-auth-filter="010102"><a ui-sref="root.commodity.adjust" ng-class="{active: $state.is(&quot;root.commodity.adjust&quot;)}">换货调整</a></li>
                 </ul>
               </li>
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.outbound&quot;)}" uu-auth-filter="0102" class="nav-item"><a class="nav-menu-label">出库管理</a>
                 <ul role="menu" class="nav nav-menu">
                   <li uu-auth-filter="010200"><a ui-sref="root.outbound.distrib" ng-class="{active: $state.is(&quot;root.outbound.distrib&quot;)}">订单配货</a></li>
-                  <li uu-auth-filter="010201"><a ui-sref="root.outbound.adjust" ng-class="{active: $state.is(&quot;root.outbound.adjust&quot;)}">换货调整</a></li>
-                  <li uu-auth-filter="010202"><a ui-sref="root.outbound.pick" ng-class="{active: $state.is(&quot;root.outbound.pick&quot;)}">拣货出库</a></li>
-                  <li uu-auth-filter="010203"><a ui-sref="root.outbound.port" ng-class="{active: $state.is(&quot;root.outbound.port&quot;)}">调货出库</a></li>
+                  <li uu-auth-filter="010201"><a ui-sref="root.outbound.pick" ng-class="{active: $state.is(&quot;root.outbound.pick&quot;)}">拣货出库</a></li>
+                  <li uu-auth-filter="010202"><a ui-sref="root.outbound.port" ng-class="{active: $state.is(&quot;root.outbound.port&quot;)}">调货出库</a></li>
                 </ul>
               </li>
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.storehouse&quot;)}" uu-auth-filter="0103" class="nav-item"><a class="nav-menu-label">库房管理</a>

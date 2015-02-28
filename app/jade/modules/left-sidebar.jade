@@ -55,14 +55,14 @@ ul.nav.nav-sections(uu-sidebar='')
 	//- 入库
 	- subnavs.push({href: 'root.commodity.stockin', auth: '010100', label: '入库单管理'})
 	- subnavs.push({href: 'root.commodity.storage', auth: '010101', label: '商品入库'})
+	- subnavs.push({href: 'root.commodity.adjust', auth: '010102', label: '换货调整'})
 	- navs.push({href: 'root.commodity', label: '入库管理', auth: '0101', subnavs: subnavs})
 
 	//- 出库管理
 	- subnavs = []
 	- subnavs.push({href: 'root.outbound.distrib', auth: '010200', label: '订单配货'})
-	- subnavs.push({href: 'root.outbound.adjust', auth: '010201', label: '换货调整'})
-	- subnavs.push({href: 'root.outbound.pick', auth: '010202', label: '拣货出库'})
-	- subnavs.push({href: 'root.outbound.port', auth: '010203', label: '调货出库'})
+	- subnavs.push({href: 'root.outbound.pick', auth: '010201', label: '拣货出库'})
+	- subnavs.push({href: 'root.outbound.port', auth: '010202', label: '调货出库'})
 	- navs.push({href: 'root.outbound', label: '出库管理', auth: '0102', subnavs: subnavs})
 
 	//- 库房管理
