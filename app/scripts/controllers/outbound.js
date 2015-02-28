@@ -321,6 +321,7 @@ angular.module('mainApp')
 
 		// 发货
 		$scope.sendShipment = function(shipment, form) {
+			if (shipment.status != 4) return;
 
 			$scope.processing(form, $shipmentList);
 

@@ -104,12 +104,12 @@ uu-pagination(records='pickingOrders.meta.recordsCount', per-page='pickingOrders
 							td(ng-bind='shipment.updater')
 							td(ng-bind='shipment.status | mapper:"shipmentStatus"')
 							td.nowrap
-								+tooltip('发货', 'top', 'sendShipment(shipment, shipmentForm)')
+								+tooltip('确认发货', 'top', 'sendShipment(shipment, shipmentForm)')(ng-class='{disabled: shipment.status != 4}')
 									+glyphicon('send') &nbsp;
 								+tooltip('查看', 'top', 'showShipmentDetail(shipment.shipment_no)')
 									+glyphicon('eye-open')
 
-				uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pageSize' page='shipments.meta.pageNo' pagreceiptForme='shipments.meta.pageNo', model='searchModel', action='getShipmentList()')
+				uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pageSize' page='shipments.meta.pageNo' model='subSearchModel', action='getShipmentList()')
 
 	.modal-footer
 		//- button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)' ng-disabled='shipmentForm.processing') 保存

@@ -51,7 +51,7 @@ table.uu-table
 				//- +tooltip('查看', 'top', 'showShipment(shipment.orders_no)')
 				//- 	+glyphicon('eye-open')
 
-uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pageSize' page='shipments.meta.pageNo' pagreceiptForme='shipments.meta.pageNo', model='searchModel', action='getShipmentList()')
+uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pageSize' page='shipments.meta.pageNo' model='searchModel', action='getShipmentList()')
 
 //- 拣货单信息
 +modal('pickment-list', 'modal-lg printable-modal')

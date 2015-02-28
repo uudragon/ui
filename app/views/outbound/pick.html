@@ -178,12 +178,12 @@
                   <td ng-bind="shipment.shipped_qty"></td>
                   <td ng-bind="shipment.updater"></td>
                   <td ng-bind="shipment.status | mapper:&quot;shipmentStatus&quot;"></td>
-                  <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发货" ng-click="sendShipment(shipment, shipmentForm)"><span class="glyphicon glyphicon-send">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="showShipmentDetail(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                  <td class="nowrap"><a href="" ng-class="{disabled: shipment.status != 4}" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="确认发货" ng-click="sendShipment(shipment, shipmentForm)"><span class="glyphicon glyphicon-send">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="showShipmentDetail(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <uu-pagination records="shipments.meta.recordsCount" per-page="shipments.meta.pageSize" page="shipments.meta.pageNo" pagreceiptForme="shipments.meta.pageNo" model="searchModel" action="getShipmentList()"></uu-pagination>
+            <uu-pagination records="shipments.meta.recordsCount" per-page="shipments.meta.pageSize" page="shipments.meta.pageNo" model="subSearchModel" action="getShipmentList()"></uu-pagination>
           </fieldset>
         </form>
       </div>
