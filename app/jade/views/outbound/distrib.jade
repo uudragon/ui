@@ -140,8 +140,8 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 							td(ng-bind='product.qty')
 							td(ng-bind='product.status')
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)' ng-disabled='shipmentForm.processing') 保存
-		button.btn.uu-btn(data-dismiss='modal') 取消
+		//- button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)' ng-disabled='shipmentForm.processing') 保存
+		button.btn.uu-btn(data-dismiss='modal') 关闭
 
 //- 更改显示列
 include ../../modules/table-ths.jade
