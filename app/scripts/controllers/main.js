@@ -229,7 +229,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		return function(status) {
 			params.form && (params.form.processing = false);
 			if (status === 'true') {
-				console.log('here');
 				params.$form && params.$form.modal('success', params.msg);
 				angular.isFunction(params.action) && params.action(status);
 			} else {
@@ -241,7 +240,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	$scope.onFine = function(params) {
 		return function(data) {
 			params.form && (params.form.processing = false);
-			params.$form && params.$form.modal('success', params.msg);
+			params.$form && params.$form.modal('success', {msg: params.msg, hide: params.hide});
 			angular.isFunction(params.action) && params.action(data);
 		};
 	};

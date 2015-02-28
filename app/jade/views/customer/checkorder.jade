@@ -64,13 +64,58 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 		form.form-horizontal(name='orderDetailsForm' novalidate ng-class='{sumitted: orderDetailsForm.$sumitted}')
 			//- edit and save button
 			.form-group.modal-action
-				+tooltip('修改', 'top', 'editCustomerInfo()')
+				+tooltip('修改', 'top', 'editCustomerInfo()')(ng-class='{disabled: isCustometInfoEditable}')
 					+glyphicon('pencil')
-				+tooltip('保存', 'top', 'saveCustomerInfo(orderDetailsForm)')
+				+tooltip('保存', 'top', 'saveCustomerInfo(orderDetailsForm)')(ng-class='{disabled: !isCustometInfoEditable || orderDetailsForm.processing}')
 					+glyphicon('floppy-disk')
 
 			//- customer details
-			+order-details
+			fieldset
+				legend 基本信息
+				table.form-table(ng-show='isCustometInfoEditable')
+					tr
+						+input('收货人', 'name')(uu-name ng-model='currentOrder.consignee' required)
+						+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
+					tr
+						+gender('客户性别', 'customer-gender')(ng-model='currentOrder.customer.sex' required)
+						+input('订购产品', 'good')(ng-model='currentOrder.good')
+					tr
+						+input('联系电话', 'form-telphone')(uu-phone ng-model='currentOrder.phone' required)
+						+input('起订日期', 'startDate')(ng-model='currentOrder.effective' uu-date-picker required)
+					tr
+						+input('儿童姓名', 'child-name')(ng-model='currentOrder.customer.child')
+						+input('结束日期', 'enddate')(ng-model='currentOrder.deadline' uu-date-picker)
+					tr
+						+gender('儿童性别', 'child-gender')(ng-model='currentOrder.customer.c_sex')
+						+payment('支付方式', 'payment')(ng-model='currentOrder.payment' required)
+					tr
+						+input('出生日期', 'birthday')(ng-model='currentOrder.customer.birthday', uu-date-picker)
+						+pay-status('支付状态', 'pay-status')(ng-model='currentOrder.paid')
+					tr
+						+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-addr-model='currentOrder.address' ng-required='true')
+
+				table.form-table(ng-show='!isCustometInfoEditable')
+					tr
+						+static-input('客户姓名', 'name')(ng-bind='currentOrder.consignee')
+						+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
+					tr
+						+static-input('客户性别', 'customer-gender')(ng-bind='currentOrder.customer.sex | gender')
+						+static-input('订购产品', 'good')(ng-bind='currentOrder.good')
+					tr
+						+static-input-phone('联系电话', 'form-telphone')(ng-bind='currentOrder.phone')
+						+static-input('起订日期', 'startDate')(ng-bind='currentOrder.effective')
+					tr
+						+static-input('儿童姓名', 'child-name')(ng-bind='currentOrder.customer.child')
+						+static-input('结束日期', 'enddate')(ng-bind='currentOrder.deadline')
+					tr
+						+static-input('儿童性别', 'child-gender')(ng-bind='currentOrder.customer.c_sex | gender')
+						+static-input('支付方式', 'payment')(ng-bind='currentOrder.payment | payment')
+					tr
+						+static-input('出生日期', 'birthday')(ng-bind='currentOrder.customer.birthday')
+						+static-input('支付状态', 'pay-status')(ng-bind='currentOrder.paid | payStatus')
+					tr
+						+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-addr-model='currentOrder.address' ng-required='true')
+
 			fieldset
 				legend 订单
 				table.uu-table

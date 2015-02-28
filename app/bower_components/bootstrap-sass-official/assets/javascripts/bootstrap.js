@@ -1418,9 +1418,19 @@
     this.info(msg, 'alert-danger')
   }
 
-  Modal.prototype.success = function(msg) {
+  Modal.prototype.success = function(obj) {
+    var msg, blnHideMsgBox = true
+
+    if (typeof obj === 'object') {
+      msg = obj.msg
+      if (typeof obj.hide !== 'undefined') blnHideMsgBox = obj.hide
+    } else {
+      msg = obj;
+    }
+
     msg = msg || '保存成功';
-    this.info(msg, 'alert-success', true)
+
+    this.info(msg, 'alert-success', blnHideMsgBox)
   }
 
   Modal.prototype.hideMsg = function() {

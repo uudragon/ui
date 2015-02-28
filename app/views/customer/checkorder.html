@@ -103,17 +103,17 @@
       </div>
       <div class="modal-body">
         <form name="orderDetailsForm" novalidate="novalidate" ng-class="{sumitted: orderDetailsForm.$sumitted}" class="form-horizontal">
-          <div class="form-group modal-action"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editCustomerInfo()"><span class="glyphicon glyphicon-pencil"></span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="保存" ng-click="saveCustomerInfo(orderDetailsForm)"><span class="glyphicon glyphicon-floppy-disk"></span></a>
+          <div class="form-group modal-action"><a href="" ng-class="{disabled: isCustometInfoEditable}" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editCustomerInfo()"><span class="glyphicon glyphicon-pencil"></span></a><a href="" ng-class="{disabled: !isCustometInfoEditable || orderDetailsForm.processing}" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="保存" ng-click="saveCustomerInfo(orderDetailsForm)"><span class="glyphicon glyphicon-floppy-disk"></span></a>
           </div>
           <fieldset>
             <legend>基本信息</legend>
             <table ng-show="isCustometInfoEditable" class="form-table">
               <tr>
                 <th class="form-th">
-                  <label for="form-name" class="form-th-label">客户姓名</label>
+                  <label for="form-name" class="form-th-label">收货人</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-name" class="form-control input-sm" uu-name="uu-name" ng-model="currentOrder.customer.name" required="required"/>
+                  <input id="form-name" class="form-control input-sm" uu-name="uu-name" ng-model="currentOrder.consignee" required="required"/>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">订单编号</label>
@@ -144,7 +144,7 @@
                   <label for="form-form-telphone" class="form-th-label">联系电话</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-form-telphone" class="form-control input-sm" uu-phone="uu-phone" ng-model="currentOrder.customer.phone" required="required"/>
+                  <input id="form-form-telphone" class="form-control input-sm" uu-phone="uu-phone" ng-model="currentOrder.phone" required="required"/>
                 </td>
                 <th class="form-th">
                   <label for="form-startDate" class="form-th-label">起订日期</label>
@@ -209,7 +209,7 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.customer.province" ng-city-model="currentOrder.customer.city" ng-addr-model="currentOrder.customer.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-addr-model="currentOrder.address" ng-required="true"></td>
               </tr>
             </table>
             <table ng-show="!isCustometInfoEditable" class="form-table">
@@ -218,7 +218,7 @@
                   <label class="form-th-label">客户姓名</label>
                 </th>
                 <td colspan="name" class="form-td">
-                  <p class="form-control-static" ng-bind="currentOrder.customer.name"></p>
+                  <p class="form-control-static" ng-bind="currentOrder.consignee"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">订单编号</label>
@@ -247,7 +247,7 @@
                 </th>
                 <td class="form-td">
                   <div class="input-group">
-                    <p class="form-control-static" ng-bind="currentOrder.customer.phone"></p>
+                    <p class="form-control-static" ng-bind="currentOrder.phone"></p>
                     <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
                     </div>
                   </div>
@@ -305,7 +305,7 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.customer.province" ng-city-model="currentOrder.customer.city" ng-addr-model="currentOrder.customer.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-addr-model="currentOrder.address" ng-required="true"></td>
               </tr>
             </table>
           </fieldset>

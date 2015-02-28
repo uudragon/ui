@@ -151,19 +151,22 @@ angular.module('mainApp')
 
 		// 共享订单 - 发送请求
 		$scope.saveSharedOrder = function(form) {
-			$orderShareForm.modal('spinner');
-			form.processing = true;
+			$scope.processing(form, $orderShareForm);
 			$http.put(config.basews + 'order/' + $scope.currentOrder.id + '/workflow', {
 				workflow: $scope.currentOrder.workflow
 			}).success(function(status) {
 				form.processing = false;
 				if (status) {
 					$orderShareForm.modal('success');
+					$orderShareForm.one('hidden.bs.modal', function() {
+						$orderDetails.modal('hide');
+					});
 					$scope.getOrderList();
 				} else {
 					$orderShareForm.modal('fail');
 				}
 			}).error(function() {
+				form.processing = false;
 				$orderShareForm.modal('fail');
 			});
 		};
@@ -176,18 +179,27 @@ angular.module('mainApp')
 		// 保存客户信息
 		$scope.saveCustomerInfo = function(form) {
 			if (!$scope.isCustometInfoEditable || form.processing) return;
+
 			// 表单验证
 			if (!$scope.validateForm(form, $orderDetails)) return;
-			$orderDetails.modal('spinner');
-			$scope.currentOrder.put().then($scope.successHandler(form, $orderDetails, function() {
-				$scope.isCustometInfoEditable = false;
-			}), $scope.errorHandler(form, $orderDetails));
+
+			$scope.processing(form, $orderDetails);
+
+			$scope.currentOrder.put()
+				.then($scope.onFine({
+					form: form,
+					$form: $orderDetails,
+					action: function() {
+						$scope.isCustometInfoEditable = false;
+					},
+					hide: false
+				}), $scope.errorHandler(form, $orderDetails));
 		};
 
 		// 首次加载定单列表
 		$scope.getOrderList();
 
-		// 新建工单
+		// 新建订单
 		$scope.globalNewOrder = function(form) {
 			$scope.resetForm(form);
 
@@ -199,7 +211,7 @@ angular.module('mainApp')
 				source: '1',
 				amount: '2380',
 				workflow: 2,
-				audit: 4,
+				audit: 1,
 				payment: '3',
 				status: '1',
 				paid: '0'
@@ -218,7 +230,7 @@ angular.module('mainApp')
 			});
 		};
 
-		// 保存工单
+		// 保存订单
 		$scope.saveGlobalOrder = function(form) {
 			// 表单验证
 			if (!$scope.validateForm(form, $gbNewOrder)) return;
@@ -327,14 +339,25 @@ angular.module('mainApp')
 			$splitForm.modal('show');
 		};
 
+		// 拆分定单(名称与行为不一致)
 		$scope.showShipments = function(order) {
-			$scope.order = order;
+			order && ($scope.order = order);
 
-			$http.get(config.basewms + 'outbound/shipments/orders' + $scope.order.order_no + '/')
+			$http.get(config.basews + 'order/' + $scope.order.id + '/split', {
+				params: {
+					updater: $scope.currentUser.userNo
+				}
+			})
 			.success(function(data) {
 				$scope.shipments = data;
 				$shipmentForm.modal('show');
 			});
+
+			// $http.get(config.basewms + 'outbound/shipments/orders' + $scope.order.order_no + '/')
+			// .success(function(data) {
+			// 	$scope.shipments = data;
+			// 	$shipmentForm.modal('show');
+			// });
 		};
 
 		// 获取库房列表
@@ -348,6 +371,7 @@ angular.module('mainApp')
 			});
 		};
 
+		// 发货单复核
 		$scope.checkShipment = function(shipmentNo, form) {
 
 			$scope.resetForm(form);
@@ -364,6 +388,32 @@ angular.module('mainApp')
 						$shipmentCheckForm.modal('show');
 					}
 				});
+		};
+
+
+		// 保存发货单
+		$scope.confirmShipment = function(form) {
+			if (!$scope.validateForm(form, $shipmentCheckForm)) return;
+
+			$scope.processing(form, $shipmentCheckForm);
+
+			$http.post(config.basewms + 'outbound/shipment/check/', {
+					warehouse: $scope.shipment.warehouse,
+					updater: $scope.currentUser.userNo,
+					shipment_no: $scope.shipment.shipment_no,
+					sent_date: $scope.shipment.sent_date,
+					type: '1',
+					details: $scope.shipment.details
+				})
+				.success($scope.onFine({
+					form: form,
+					$form: $shipmentCheckForm,
+					action: $scope.showShipments
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $shipmentCheckForm
+				}));
 		};
 
 		// 获取商品列表
@@ -409,28 +459,6 @@ angular.module('mainApp')
 			$shipmentForm.modal('show');
 		};
 
-		$scope.confirmShipment = function(form) {
-			if (!$scope.validateForm(form, $shipmentCheckForm)) return;
-
-			$scope.processing(form, $shipmentCheckForm);
-
-			$http.post(config.basewms + 'outbound/shipment/check/', {
-					warehouse: $scope.shipment.warehouse,
-					updater: $scope.currentUser.userNo,
-					shipment_no: $scope.shipment.shipment_no,
-					sent_date: $scope.shipment.sent_date,
-					type: '1',
-					details: $scope.shipment.details
-				})
-				.success($scope.onFine({
-					form: form,
-					$form: $shipmentCheckForm
-				}))
-				.error($scope.onError({
-					form: form,
-					$form: $shipmentCheckForm
-				}));
-		};
 
 		// 为产品添加商品
 		$scope.addGoodToShipment = function(good) {
