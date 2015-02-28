@@ -96,7 +96,7 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 
 				table.form-table(ng-show='!isCustometInfoEditable')
 					tr
-						+static-input('客户姓名', 'name')(ng-bind='currentOrder.consignee')
+						+static-input('收货人', 'name')(ng-bind='currentOrder.consignee')
 						+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
 					tr
 						+static-input('客户性别', 'customer-gender')(ng-bind='currentOrder.customer.sex | gender')
