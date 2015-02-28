@@ -10,7 +10,8 @@ mixin thead(ths, blnNoOperation)
 				block
 
 
-mixin theadplus(records)
+mixin theadplus(records, ths)
+	- ths = ths || 'ths'
 	thead
 		tr(ng-dblclick=attributes['ng-dblclick'])
 			if records

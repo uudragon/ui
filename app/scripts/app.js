@@ -355,10 +355,10 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		templateUrl: 'views/outbound/adjust.html',
 		controller: 'Adjust'
 	})
-	.state('root.outbound.print', {
-		url: '/print',
-		templateUrl: 'views/outbound/print.html',
-		controller: 'Print'
+	.state('root.outbound.pick', {
+		url: '/pick',
+		templateUrl: 'views/outbound/pick.html',
+		controller: 'Pick'
 	})
 	.state('root.outbound.port', {
 		url: '/port',

@@ -84,27 +84,45 @@ uud.directive('timing', ['$interval', 'dateFilter',
 .directive('uuPrint', function() {
 	return {
 		transclude: true,
-		scope: {},
+		scope: {
+			uuPrint: '@'
+		},
 		controller: ['$scope', function($scope) {
 			var panes = $scope.panes = [];
 
 			$scope.print = function() {
-				var printWin = window.open('', 'MsgWindow', 'width=920px,height=auto,left=40,top=40,toolbar=0,status=0');
-				var dupDoc = $(document.all[0].cloneNode(true));
+				// var printWin = window.open('', 'print window', 'width=920px,height=auto,left=40,top=40,toolbar=0,status=0');
+				// console.log($scope.uuPrint);
+				// var data = $($scope.uuPrint).html();
+				// console.log(data);
+				// // var dupDoc = $(document.all[0].cloneNode(true));
+				// printWin.document.write('<html><head><title>优优龙</title>');
+				// printWin.document.write('<link rel="stylesheet" href="styles/main.css">');
+				// printWin.document.write('</head><body >');
+				// printWin.document.write(data);
+				// printWin.document.write('</body></html>');
+				// printWin.document.close(); // necessary for IE >= 10
+				// printWin.focus(); // necessary for IE >= 10
 
-				dupDoc.find('.sort').removeClass('sort');
-				dupDoc.find('.col-xs-10').removeClass('col-xs-10');
-				dupDoc.find('.left-sidebar').remove();
-				dupDoc.find('.pg-info').remove();
-				dupDoc.find('.pagination-wraper').remove();
-				dupDoc.find('.action-bar').remove();
-				dupDoc.find('.article-header-filter').remove();
-				dupDoc.find('.btn-print').remove();
+				// printWin.print();
+				// printWin.close();
 
-				printWin.document.write(dupDoc.html());
+				// dupDoc.find('.sort').removeClass('sort');
+				// dupDoc.find('.col-xs-10').removeClass('col-xs-10');
+				// dupDoc.find('.left-sidebar').remove();
+				// dupDoc.find('.pg-info').remove();
+				// dupDoc.find('.pagination-wraper').remove();
+				// dupDoc.find('.action-bar').remove();
+				// dupDoc.find('.article-header-filter').remove();
+				// dupDoc.find('.btn-print').remove();
+
+				// var printable = $(document).find('.printable');
+				// dupDoc.find('body').html(printable.html());
+				// printWin.document.write(dupDoc.html());
+				// printWin.print();
 			};
 		}],
-		template: '<div class="btn btn-danger btn-print btn-xs" ng-click="print()">print</div>'
+		template: '<a href="" ng-click="print()" class="jsglyph"><span class="glyphicon glyphicon-print"></span></a>'
 	};
 })
 

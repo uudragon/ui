@@ -34,7 +34,7 @@
     </div>
   </form>
 </div>
-<div class="article-header-operate pull-right"><a href="" ng-click="generatePickment()" class="jsglyph"><span class="glyphicon glyphicon-new-window"></span><span class="jsglyph-label">生成拣货单</span></a><a href="" ng-click="printShipment()" class="jsglyph"><span class="glyphicon glyphicon-print"></span><span class="jsglyph-label">打印发货单</span></a><a href="" ng-click="printExpress()" class="jsglyph"><span class="glyphicon glyphicon-print"></span><span class="jsglyph-label">打印快递单</span></a>
+<div class="article-header-operate pull-right"><a href="" ng-click="generatePickment()" class="jsglyph"><span class="glyphicon glyphicon-new-window"></span><span class="jsglyph-label">生成拣货单</span></a>
 </div>
 <table class="uu-table">
   <thead>
@@ -55,7 +55,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="shipment in shipments" ng-dblclick="showPutinedshipment(shipment.shipment_code)">
+    <tr ng-repeat="shipment in shipments" ng-dblclick="editShipment(shipment.shipment_code, shipmentForm)">
       <td>
         <input type="checkbox" ng-model="shipment.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, shipment, shipment)"/>
       </td>
@@ -80,7 +80,7 @@
       <td ng-bind="shipment.update_time" ng-show="ths[18].isChecked"></td>
       <td ng-bind="shipment.updater" ng-show="ths[19].isChecked"></td>
       <td ng-bind="shipment.status | mapper:&quot;shipmentStatus&quot;" ng-show="ths[20].isChecked"></td>
-      <td ng-show="shipment.status!=-1 &amp;&amp; shipment.status!=2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editShipment(shipment.shipment_no, shipmentForm)"><span class="glyphicon glyphicon-pencil"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editShipment(shipment.shipment_no, shipmentForm)"><span class="glyphicon glyphicon-pencil"></span></a>
       </td>
     </tr>
   </tbody>
@@ -95,9 +95,7 @@
       </div>
       <div class="modal-body printable">
         <form name="pickmentForm" novalidate="novalidate" ng-class="{sumitted: pickmentForm.$sumitted}" class="form-horizontal">
-          <p class="noprint"><a href="" ng-click="print()" class="jsglyph"><span class="glyphicon glyphicon-print"></span><span class="jsglyph-label">打印</span></a>
-          </p>
-          <table style="margin: 0 auto;" class="form-table">
+          <table class="form-table">
             <tr class="nowrap">
               <th class="form-th">
                 <label class="form-th-label">拣货单号</label>
@@ -141,7 +139,7 @@
               </td>
             </tr>
           </table>
-          <table style="margin-top: 10px;" class="uu-table">
+          <table ng-show="pickments.details.length" class="uu-table">
             <thead>
               <tr>
                 <th class="nowrap">产品 / 商品编号</th>
@@ -161,12 +159,11 @@
               </tr>
             </tbody>
           </table>
+          <p class="text-success"><strong>拣货单已经生成，请到“拣货出库”中进行拣货操作</strong></p>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="savePutinedReceipt(pickmentForm)" ng-disabled="pickmentForm.processing" class="btn uu-btn btn-primary">拣货</button>
-        <button ng-click="confirmPick(pickmentForm)" ng-disabled="pickmentForm.processing" class="btn uu-btn btn-success">拣货完成</button>
-        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+        <button data-dismiss="modal" class="btn uu-btn">关闭</button>
       </div>
     </div>
   </div>

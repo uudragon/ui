@@ -1,0 +1,173 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	//- li
+	//- 	+tooltip('新建入库单', 'top', 'newStorage(shipmentForm)')
+	//- 		+glyphicon('plus')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+table.uu-table
+	+theadplus(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='pickingOrder in pickingOrders' ng-dblclick='showPutinedpickingOrder(pickingOrder.pickingOrder_code)')
+			td(ng-bind='pickingOrder.picking_no' ng-show='ths[0].isChecked')
+			td(ng-bind='pickingOrder.picking_qty' ng-show='ths[1].isChecked')
+			td(ng-bind='pickingOrder.status | mapper:"pickmentStatus"' ng-show='ths[2].isChecked')
+			td(ng-bind='pickingOrder.details' ng-show='ths[3].isChecked')
+			td(ng-bind='pickingOrder.creator' ng-show='ths[4].isChecked')
+			td(ng-bind='pickingOrder.create_time' ng-show='ths[5].isChecked')
+			td(ng-bind='pickingOrder.updater' ng-show='ths[6].isChecked')
+			td(ng-bind='pickingOrder.update_time' ng-show='ths[7].isChecked')
+			td.nowrap
+				+tooltip('修改', 'top', 'editPickingOrder(pickingOrder.picking_no, pickingOrderForm)')
+					+glyphicon('pencil') &nbsp;
+				+tooltip('查询对应发货单', 'top', 'showShipments(pickingOrder.picking_no)')
+					+glyphicon('eye-open')
+
+uu-pagination(records='pickingOrders.meta.recordsCount', per-page='pickingOrders.meta.pageSize' page='pickingOrders.meta.pageNo' pagreceiptForme='pickingOrders.meta.pageNo', model='searchModel', action='getPickingOrderList()')
+
+//- 拣货单信息
++modal('pickment-list', 'modal-lg printable-modal')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 拣货单信息
+	.modal-body.printable
+		form.form-horizontal(name='pickmentForm' novalidate ng-class='{sumitted: pickmentForm.$sumitted}')
+			p.noprint
+				+js-glyph('print()', 'print', '打印')
+			table.form-table(style='margin: 0 auto;')
+				tr.nowrap
+					+static-input('拣货单号')(ng-bind='pickingOrder.picking_no')
+					+static-input('状态')(ng-bind='pickingOrder.status | mapper: "pickmentStatus"')
+				tr
+					+static-input('创建人')(ng-bind='pickingOrder.creator')
+					+static-input('创建时间')(ng-bind='pickingOrder.create_time')
+				tr
+					+static-input('更新人')(ng-bind='pickingOrder.updater')
+					+static-input('更新时间')(ng-bind='pickingOrder.update_time')
+
+			table.uu-table(style='margin-top: 10px;')
+				+thead
+					each th in ['产品 / 商品编号', '名称', '是否产品', '是否赠品', '数量']
+						th.nowrap=th
+				tbody
+					tr(ng-repeat='order in pickingOrder.details')
+						td(ng-bind='order.code')
+						td(ng-bind='order.name')
+						td(ng-bind='order.is_product | yesno')
+						td(ng-bind='order.is_gift | yesno')
+						td(ng-bind='order.qty')
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='pickOrder(pickingOrder.picking_no, pickmentForm)' ng-disabled='pickmentForm.processing || pickingOrder.status == 1 || pickingOrder.status == 2') 拣货
+		button.btn.uu-btn.btn-success(ng-click='pickOrderFinished(pickingOrder.picking_no, pickmentForm)' ng-disabled='pickmentForm.processing || pickingOrder.status == 0 || pickingOrder.status == 2') 拣货完成
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+
++modal('shipment-list', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 对应发货单
+	.modal-body
+		form.form-horizontal(name='pickingOrderForm' novalidate ng-class='{sumitted: pickingOrderForm.$sumitted}')
+			fieldset
+				table.uu-table
+					+thead
+						//- each th in ['订单号', '发货单号', '客户编号', '客户姓名', '客户地址', '客户电话', '付款金额', '发货数量', '是否有发票', '快递公司编号', '快递单号', '快递公司名称', '快递费用', '快递员', '快递员电话', '发货时间', '创建时间', '创建人', '修改时间', '需改人', '发货单状态']
+						each th in ['订单号', '客户姓名', '客户电话', '付款金额', '发货数量', '需改人', '发货单状态']
+							th.nowrap=th
+						th.nowrap 操作
+					tbody
+						tr(ng-repeat='shipment in shipments' ng-dblclick='editShipment(shipment.shipment_code, shipmentForm)')
+							td(ng-bind='shipment.orders_no')
+							td(ng-bind='shipment.customer_name')
+							td(ng-bind='shipment.address')
+							//- td(ng-bind='shipment.customer_tel')
+							td(ng-bind='shipment.amount')
+							td(ng-bind='shipment.shipped_qty')
+							//- td(ng-bind='shipment.has_invoice')
+							//- td(ng-bind='shipment.express_code')
+							//- td(ng-bind='shipment.express_orders_no')
+							//- td(ng-bind='shipment.express_name')
+							//- td(ng-bind='shipment.express_cost')
+							//- td(ng-bind='shipment.courier')
+							//- td(ng-bind='shipment.courier_tel')
+							//- td(ng-bind='shipment.sent_date')
+							//- td(ng-bind='shipment.create_time')
+							//- td(ng-bind='shipment.creator')
+							//- td(ng-bind='shipment.update_time')
+							td(ng-bind='shipment.updater')
+							td(ng-bind='shipment.status | mapper:"shipmentStatus"')
+							td.nowrap
+								+tooltip('发货', 'top', 'sendShipment(shipment, shipmentForm)')
+									+glyphicon('send') &nbsp;
+								+tooltip('查看', 'top', 'showShipmentDetail(shipment.shipment_no)')
+									+glyphicon('eye-open')
+
+				uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pageSize' page='shipments.meta.pageNo' pagreceiptForme='shipments.meta.pageNo', model='searchModel', action='getShipmentList()')
+
+	.modal-footer
+		//- button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)' ng-disabled='shipmentForm.processing') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
++submodal('shipment-detail', 'modal-lg printable-modal')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 出库单信息
+	.modal-body.printable
+		form.form-horizontal(name='shipmentDetailForm' novalidate ng-class='{sumitted: shipmentDetailForm.$sumitted}')
+
+			p.noprint
+				+js-glyph('print()', 'print', '打印')
+
+			table.form-table
+				tr
+					+static-input('订单号')(ng-bind='shipment.orders_no')
+					+static-input('发货单号')(ng-bind='shipment.shipment_no')
+				tr
+					+static-input('客户编号')(ng-bind='shipment.customer_no')
+					+static-input('客户姓名')(ng-bind='shipment.customer_name')
+				tr
+					+static-input('客户地址')(ng-bind='shipment.address')
+					+static-input('客户电话')(ng-bind='shipment.customer_tel')
+				tr
+					+static-input('付款金额')(ng-bind='shipment.amount')
+					+static-input('发货数量')(ng-bind='shipment.shipped_qty')
+				tr
+					+static-input('是否有发票')(ng-bind='shipment.has_invoice | yesno')
+					+static-input('发货时间')(ng-bind='shipment.sent_date')
+				tr
+					+static-input('创建时间')(ng-bind='shipment.create_time')
+					+static-input('创建人')(ng-bind='shipment.creator')
+				tr
+					+static-input('修改时间')(ng-bind='shipment.update_time')
+					+static-input('需改人')(ng-bind='shipment.updater')
+				tr
+					+static-input('发货单状态')(ng-bind='shipment.status | mapper:"shipmentStatus"')
+					//- +input('发货明细', 'form_details')(ng-model='shipment.details' required)
+
+			table.uu-table(style='margin-top: 10px;' ng-show='shipment.details.length')
+				+thead
+					each th in ['出库单号', '编号', '名称', '是否产品', '是否赠品', '数量']
+						th.nowrap=th
+				tbody
+					tr(ng-repeat='product in shipment.details')
+						td(ng-bind='product.shipment_no')
+						td(ng-bind='product.code')
+						td(ng-bind='product.name')
+						td(ng-bind='product.is_product | yesno')
+						td(ng-bind='product.is_gift | yesno')
+						td(ng-bind='product.qty')
+
+
+	.modal-footer
+		button.btn.uu-btn(data-dismiss='modal') 关闭
+
+
+//- 更改显示列
+include ../../modules/table-ths.jade

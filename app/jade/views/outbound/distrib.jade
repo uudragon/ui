@@ -15,13 +15,13 @@ include ../../modules/mixins.jade
 //- 功能区
 .article-header-operate.pull-right
 	+js-glyph('generatePickment()', 'new-window', '生成拣货单')
-	+js-glyph('printShipment()', 'print', '打印发货单')
-	+js-glyph('printExpress()', 'print', '打印快递单')
+	//- +js-glyph('printShipment()', 'print', '打印发货单')
+	//- +js-glyph('printExpress()', 'print', '打印快递单')
 
 table.uu-table
 	+theadplus('shipments')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
-		tr(ng-repeat='shipment in shipments' ng-dblclick='showPutinedshipment(shipment.shipment_code)')
+		tr(ng-repeat='shipment in shipments' ng-dblclick='editShipment(shipment.shipment_code, shipmentForm)')
 			+tdchecker('shipment', 'shipment')(ng-model='shipment.isChecked')
 			//- td(ng-bind="shipment.id" ng-show='ths[0].isChecked')
 			td(ng-bind='shipment.orders_no' ng-show='ths[0].isChecked')
@@ -45,7 +45,7 @@ table.uu-table
 			td(ng-bind='shipment.update_time' ng-show='ths[18].isChecked')
 			td(ng-bind='shipment.updater' ng-show='ths[19].isChecked')
 			td(ng-bind='shipment.status | mapper:"shipmentStatus"' ng-show='ths[20].isChecked')
-			td.nowrap(ng-show='shipment.status!=-1 && shipment.status!=2')
+			td.nowrap
 				+tooltip('修改', 'top', 'editShipment(shipment.shipment_no, shipmentForm)')
 					+glyphicon('pencil')
 				//- +tooltip('查看', 'top', 'showShipment(shipment.orders_no)')
@@ -60,13 +60,8 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 		h4.modal-title 拣货单信息
 	.modal-body.printable
 		form.form-horizontal(name='pickmentForm' novalidate ng-class='{sumitted: pickmentForm.$sumitted}')
-			//- p.noprint
-			//- 	+tooltip('', 'top', 'print()')
-			//- 		+glyphicon('print')
-			p.noprint
-				+js-glyph('print()', 'print', '打印')
 
-			table.form-table(style='margin: 0 auto;')
+			table.form-table
 				tr.nowrap
 					+static-input('拣货单号')(ng-bind='pickments.picking_no')
 					+static-input('状态')(ng-bind='pickments.status | mapper: "pickmentStatus"')
@@ -77,7 +72,7 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 					+static-input('更新人')(ng-bind='pickments.updater')
 					+static-input('更新时间')(ng-bind='pickments.update_time')
 
-			table.uu-table(style='margin-top: 10px;')
+			table.uu-table(ng-show='pickments.details.length')
 				+thead
 					each th in ['产品 / 商品编号', '名称', '是否产品', '是否赠品', '数量']
 						th.nowrap=th
@@ -88,10 +83,14 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 						td(ng-bind='pickment.is_product | yesno')
 						td(ng-bind='pickment.is_gift | yesno')
 						td(ng-bind='pickment.qty')
+
+			p.text-success
+				strong 拣货单已经生成，请到“拣货出库”中进行拣货操作
+
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='savePutinedReceipt(pickmentForm)' ng-disabled='pickmentForm.processing') 拣货
-		button.btn.uu-btn.btn-success(ng-click='confirmPick(pickmentForm)' ng-disabled='pickmentForm.processing') 拣货完成
-		button.btn.uu-btn(data-dismiss='modal') 取消
+		//- button.btn.uu-btn.btn-primary(ng-click='savePutinedReceipt(pickmentForm)' ng-disabled='pickmentForm.processing') 拣货
+		//- button.btn.uu-btn.btn-success(ng-click='confirmPick(pickmentForm)' ng-disabled='pickmentForm.processing') 拣货完成
+		button.btn.uu-btn(data-dismiss='modal') 关闭
 
 
 +modal('shipment-form')

@@ -432,20 +432,6 @@ angular.module('mainApp')
 				}));
 		};
 
-
-		$scope.saveShipment = function(form) {
-			if (!$scope.validateForm(form, $shipmentForm)) return;
-
-			$http.post(config.basewms + 'outbound/shipment/save/')
-				.success($scope.onFine({
-					$form: $splitResult
-				}))
-				.error($scope.onError({
-					$form: $splitResult
-				}));
-			// $shipmentForm.modal('show');
-		};
-
 		// 为产品添加商品
 		$scope.addGoodToShipment = function(good) {
 
