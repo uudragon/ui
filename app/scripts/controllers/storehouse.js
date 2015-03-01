@@ -1,8 +1,17 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('StorehouseCtrl', ['$scope', '$controller', function ($scope, $controller) {
-
+.controller('StorehouseCtrl', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
+	// 获取库房列表
+	$scope.getWarehouseBaseList = function() {
+		return $http.post(config.basewms + 'baseinfo/warehouses/', {
+			pageSize: 50,
+			pageNo: 1
+		})
+		.success(function(data) {
+			$scope.warehouses = data.records;
+		});
+	};
 	$controller('MainCtrl', {$scope: $scope});
 }])
 
@@ -10,14 +19,6 @@ angular.module('mainApp')
 	 * Sub-Controller
 	 * ---------------------------------------------------------------------------------
 	 */
-
-	.controller('StorehouseManager', ['$scope', '$controller', function ($scope, $controller) {
-
-
-		// inherit functions from parent
-		$controller('StorehouseCtrl', {$scope: $scope});
-
-	}])
 	.controller('Define', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 		// 搜索下拉
@@ -204,27 +205,37 @@ angular.module('mainApp')
 		$scope.getWarehouseList();
 
 		// inherit functions from parent
-		$controller('StorehouseManager', {$scope: $scope});
+		$controller('StorehouseCtrl', {$scope: $scope});
 
 	}])
 	.controller('Allocate', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 
 		// inherit functions from parent
-		$controller('StorehouseManager', {$scope: $scope});
+		$controller('StorehouseCtrl', {$scope: $scope});
 
 	}])
 	.controller('Audit', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 		$('.article-header-search').stop().slideDown('fast');
 
-		// 搜索下拉
-		// $scope.filters = [
-		// 	{name: '库房编号', value: 'audit_code', input: true},
-		// 	{name: '库房名称', value: 'audit_name', input: true},
-		// 	{name: '库房类型', value: 'audit_name', subfilters: $scope.mapRevert('audit')},
-		// 	{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
-		// ];
+		$scope.getWarehouseBaseList();
+			// .success(function() {
+			// 	var subfilters = [];
+
+			// 	_.each($scope.warehouses, function(item) {
+			// 		subfilters.push({
+			// 			name: item.warehouse_name,
+			// 			value: item.warehouse_code
+			// 		});
+			// 	});
+
+			// 	// 搜索下拉
+			// 	$scope.filters = [
+			// 		{name: '库房名', value: 'warehouse', subfilters: subfilters}
+			// 		// {name: '产品名', value: 'goods_name', input: true}
+			// 	];
+			// });
 
 		// ths
 		$scope.isAllThsShow = true;
@@ -243,26 +254,16 @@ angular.module('mainApp')
 		];
 
 		// 搜索
-		$scope.search = function(warehouseCode) {
-			$scope.selectedWarehouse = warehouseCode;
+		$scope.search = function() {
+			$scope.selectedWarehouse = $scope.searchModel.warehouseFilter;
 			$scope.query = $scope.searchModel.productFilter ? {goods_code: $scope.searchModel.productFilter } : '';
-			$scope.selectedWarehouse && $scope.getAuditList();
+
+			if ($scope.selectedWarehouse) {
+				$scope.getAuditList();
+			} else {
+				window.alert('请选择库房');
+			}
 		};
-
-		// 获取库房列表
-		$scope.getWarehouseList = function() {
-			var req = {
-				pageSize: 50,
-				pageNo: 1
-			};
-
-			$http.post(config.basewms + 'baseinfo/warehouses/', req)
-				.success(function(data) {
-					$scope.warehouses = data.records;
-				});
-		};
-
-		// $scope.getWarehouseList();
 
 		// 获取库房列表
 		$scope.getAuditList = function() {
@@ -287,12 +288,14 @@ angular.module('mainApp')
 		};
 
 		// inherit functions from parent
-		$controller('StorehouseManager', {$scope: $scope});
+		$controller('StorehouseCtrl', {$scope: $scope});
 
 	}])
 	.controller('Remain', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 		$('.article-header-search').stop().slideDown('fast');
+
+		$scope.getWarehouseBaseList();
 
 		// ths
 		$scope.isAllThsShow = true;
@@ -341,7 +344,11 @@ angular.module('mainApp')
 		$scope.search = function(warehouseCode) {
 			$scope.selectedWarehouse = warehouseCode;
 			$scope.query = $scope.searchModel.productFilter ? {goods_code: $scope.searchModel.productFilter } : '';
-			$scope.selectedWarehouse && $scope.getItemList();
+			if ($scope.selectedWarehouse) {
+				$scope.getItemList();
+			} else {
+				window.alert('请选择库房');
+			}
 		};
 
 		// 获取在库产品/商品列表
@@ -367,6 +374,6 @@ angular.module('mainApp')
 		};
 
 		// inherit functions from parent
-		$controller('StorehouseManager', {$scope: $scope});
+		$controller('StorehouseCtrl', {$scope: $scope});
 
 	}]);

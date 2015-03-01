@@ -252,6 +252,7 @@ angular.module('mainApp')
 			$http.get(config.basewms + 'outbound/picking_orders/' + pickingNo +'/')
 				.success(function(pickingOrder) {
 					$scope.pickingOrder = pickingOrder;
+					console.log($scope.pickingOrder);
 					$pickmentList.modal('show');
 				});
 		};

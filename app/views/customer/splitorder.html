@@ -56,9 +56,9 @@
   <tbody>
     <tr ng-repeat="order in orders" ng-dblclick="showShipments(order)">
       <td ng-bind="order.order_no" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="order.customer.name" ng-show="ths[1].isChecked"></td>
-      <td ng-bind="order.customer.phone" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="order.customer.province + order.customer.city" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="order.consignee" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="order.phone" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="order.province + order.city" ng-show="ths[3].isChecked"></td>
       <td ng-bind="order.packag" ng-show="ths[4].isChecked"></td>
       <td ng-bind="order.payment | payment" ng-show="ths[5].isChecked"></td>
       <td ng-bind="order.paid | payStatus" ng-show="ths[6].isChecked"></td>

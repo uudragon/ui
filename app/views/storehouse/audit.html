@@ -13,19 +13,22 @@
 </div>
 <div class="article-header-search">
   <form role="form" class="form-inline">
+    <th class="form-th">
+      <label for="form-form-warehouse" class="form-th-label"></label>
+    </th>
+    <td class="form-td">
+      <select id="form-form-warehouse" class="form-control input-sm" ng-model="searchModel.warehouseFilter" ng-options="warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses" required="required">
+      </select>
+    </td>
     <div class="input-group">
-      <label for="form-warehouse-code" class="input-group-addon">库房编号</label>
-      <input id="form-warehouse-code" class="form-control input-sm" ng-model="searchModel.warehouseFilter"/>
-    </div>
-    <div class="input-group">
-      <label for="form-product-code" class="input-group-addon">产品编号</label>
+      <label for="form-product-code" class="input-group-addon">商品编号</label>
       <input id="form-product-code" class="form-control input-sm" ng-model="searchModel.productFilter"/>
     </div>
     <div ng-click="search(searchModel.warehouseFilter)" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
-<table ng-show="audits" class="uu-table">
+<table class="uu-table">
   <thead>
     <tr>
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>

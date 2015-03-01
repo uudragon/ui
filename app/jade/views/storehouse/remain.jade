@@ -7,11 +7,18 @@ include ../../modules/mixins.jade
 			+glyphicon('search')
 
 //- 搜索
+//- .article-header-search
+//- 	form.form-inline(role='form')
+//- 		+grouped-input('库房编号', 'warehouse-code')(ng-model='searchModel.warehouseFilter')
+//- 		+grouped-input('产品编号', 'product-code')(ng-model='searchModel.productFilter')
+//- 		+action-btn('查询')(ng-click='search(searchModel.warehouseFilter)')
+//- //- 搜索
 .article-header-search
 	form.form-inline(role='form')
-		+grouped-input('库房编号', 'warehouse-code')(ng-model='searchModel.warehouseFilter')
-		+grouped-input('产品编号', 'product-code')(ng-model='searchModel.productFilter')
+		+select('', 'form-warehouse')(ng-model='searchModel.warehouseFilter' ng-options='warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses' required)
+		+grouped-input('商品编号', 'product-code')(ng-model='searchModel.productFilter')
 		+action-btn('查询')(ng-click='search(searchModel.warehouseFilter)')
+
 
 //- 订单列表过滤条件
 - var filters = []
@@ -20,7 +27,7 @@ include ../../modules/mixins.jade
 +article-header-filter('searchModel.searchType', filters)
 
 //- 库房列表
-table.uu-table(ng-show='goods')
+table.uu-table
 	+theadplus()
 	tbody
 		tr(ng-repeat='good in goods')

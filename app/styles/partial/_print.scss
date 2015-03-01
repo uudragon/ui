@@ -8,41 +8,41 @@
 
 @media print {
 
-	// body * {
-	// 	visibility: hidden;
-	// }
+	body * {
+		visibility: hidden;
+	}
 
-	// .printable-modal {
-	// 	width: 100% !important;
-	// 	margin: 0 auto !important;
-	// }
+	.printable-modal {
+		width: 100% !important;
+		margin: 0 auto !important;
+	}
 
-	// .col-xs-10.main {
-	// 	width: 100%;
-	// 	padding: 50px;
-	// 	position: absolute;
-	// 	top: 5%;
-	// }
+	.col-xs-10.main {
+		width: 100%;
+		padding: 50px;
+		position: absolute;
+		top: 5%;
+	}
 
-	// .printable {
-	// 	margin-left: auto;
-	// 	margin-right: auto;
-	// }
+	.printable {
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-	// .printable, .printable * {
-	// 	visibility: visible;
-	// }
+	.printable, .printable * {
+		visibility: visible;
+	}
 
-	// .noprint,
-	// .noprint *,
-	// .tooltip {
-	// 	visibility: hidden !important;
-	// }
+	.noprint,
+	.noprint *,
+	.tooltip {
+		visibility: hidden !important;
+	}
 
-	// .printable {
-	// 	position: absolute;
-	// 	top: 0;
-	// 	width: 90%;
-	// 	margin: 10px;
-	// }
+	.printable {
+		position: absolute;
+		top: 0;
+		width: 90%;
+		margin: 10px;
+	}
 }
