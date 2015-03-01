@@ -81,22 +81,23 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 							+shipment-status('发货单状态', 'shipment-status')(ng-model='shipment.status', required)
 
 					p.badge(style='margin-top: 10px;' ng-show='!shipment.details.length') 尚未添加任何商品
-					table.uu-table(style='margin-top: 10px;' ng-show='shipment.details.length')
-						+thead
-							each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
-								th.nowrap=th
-						tbody
-							tr(ng-repeat='good in shipment.details')
-								td(ng-bind='good.goods_code')
-								td(ng-bind='good.goods_name')
-								td(ng-bind='good.qty')
-								td(ng-bind='good.is_gift | yesno')
-								td.nowrap
-									+tooltip('修改', 'top', 'editGood(good, giftForm)')
-										+glyphicon('pencil') &nbsp;
+					.modal-lists(ng-show='shipment.details.length')
+						table.uu-table
+							+thead
+								each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
+									th.nowrap=th
+							tbody
+								tr(ng-repeat='good in shipment.details')
+									td(ng-bind='good.goods_code')
+									td(ng-bind='good.goods_name')
+									td(ng-bind='good.qty')
+									td(ng-bind='good.is_gift | yesno')
+									td.nowrap
+										+tooltip('修改', 'top', 'editGood(good, giftForm)')
+											+glyphicon('pencil') &nbsp;
 
-									+tooltip('删除', 'top', 'removeGood($index)')
-										+glyphicon('trash')
+										+tooltip('删除', 'top', 'removeGood($index)')
+											+glyphicon('trash')
 
 					.modal-footer
 						button.btn.uu-btn.btn-primary(ng-click='saveProduct(shipmentForm)' ng-disabled='shipmentForm.processing') 保存

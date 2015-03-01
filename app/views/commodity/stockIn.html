@@ -108,25 +108,27 @@
                   </tr>
                 </table>
                 <p style="margin-top: 10px;" ng-show="!receipt.details.length" class="badge">尚未添加任何商品</p>
-                <table style="margin-top: 10px;" ng-show="receipt.details.length" class="uu-table">
-                  <thead>
-                    <tr>
-                      <th class="nowrap">商品编号</th>
-                      <th class="nowrap">商品名称</th>
-                      <th class="nowrap">商品数量</th>
-                      <th class="nowrap">工具</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="good in receipt.details">
-                      <td ng-bind="good.goods_code"></td>
-                      <td ng-bind="good.goods_name"></td>
-                      <td ng-bind="good.qty"></td>
-                      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div ng-show="receipt.details.length" class="modal-lists">
+                  <table class="uu-table">
+                    <thead>
+                      <tr>
+                        <th class="nowrap">商品编号</th>
+                        <th class="nowrap">商品名称</th>
+                        <th class="nowrap">商品数量</th>
+                        <th class="nowrap">工具</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="good in receipt.details">
+                        <td ng-bind="good.goods_code"></td>
+                        <td ng-bind="good.goods_name"></td>
+                        <td ng-bind="good.qty"></td>
+                        <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div uu-pane="uu-pane" title="添加入库商品">
                 <table class="uu-table">
@@ -193,22 +195,24 @@
                 </td>
               </tr>
             </table>
-            <table style="margin-top: 10px;" ng-show="receipt.details.length" class="uu-table">
-              <thead>
-                <tr>
-                  <th class="nowrap">商品编号</th>
-                  <th class="nowrap">商品名称</th>
-                  <th class="nowrap">商品数量</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="good in receipt.details">
-                  <td ng-bind="good.goods_code"></td>
-                  <td ng-bind="good.goods_name"></td>
-                  <td ng-bind="good.qty"></td>
-                </tr>
-              </tbody>
-            </table>
+            <div ng-show="receipt.details.length" class="modal-lists">
+              <table class="uu-table">
+                <thead>
+                  <tr>
+                    <th class="nowrap">商品编号</th>
+                    <th class="nowrap">商品名称</th>
+                    <th class="nowrap">商品数量</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="good in receipt.details">
+                    <td ng-bind="good.goods_code"></td>
+                    <td ng-bind="good.goods_name"></td>
+                    <td ng-bind="good.qty"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </fieldset>
         </form>
       </div>

@@ -33,7 +33,7 @@ include ../../modules/mixins.jade
 
 //- 订单列表
 table.uu-table
-	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	+theadplus()(operation='工具' ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='order in orders' ng-dblclick="showOrder(order)")
 			td(ng-bind='order.consignee', ng-show='ths[0].isChecked')

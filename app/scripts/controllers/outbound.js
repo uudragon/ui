@@ -199,7 +199,8 @@ angular.module('mainApp')
 
 		var $pickmentList = $('#pickment-list'),
 			$shipmentList = $('#shipment-list'),
-			$shipmentDetail = $('#shipment-detail');
+			$shipmentDetail = $('#shipment-detail'),
+			$shipmentDetailForm = $('#shipment-detail-form');
 
 		$('.article-header-search').stop().slideDown('fast');
 
@@ -252,7 +253,6 @@ angular.module('mainApp')
 			$http.get(config.basewms + 'outbound/picking_orders/' + pickingNo +'/')
 				.success(function(pickingOrder) {
 					$scope.pickingOrder = pickingOrder;
-					console.log($scope.pickingOrder);
 					$pickmentList.modal('show');
 				});
 		};
@@ -312,27 +312,40 @@ angular.module('mainApp')
 				});
 		};
 
-		// 发货
-		$scope.sendShipment = function(shipment, form) {
-			if (shipment.status != 4) return;
+		// 确认发货
+		$scope.sendShipment = function(form) {
+			if (!$scope.validateForm(form, $shipmentDetailForm)) return;
 
-			$scope.processing(form, $shipmentList);
+			$scope.processing(form, $shipmentDetailForm);
 
-			$http.post(config.basewms + 'outbound/shipment/sent/', shipment)
+			$http.post(config.basewms + 'outbound/shipment/sent/', $scope.shipment)
 				.success($scope.onFine({
 					form: form,
-					$form: $shipmentList,
+					$form: $shipmentDetailForm,
 					msg: '发货成功'
 				}))
 				.error($scope.onError({
 					form: form,
-					$form: $shipmentList,
+					$form: $shipmentDetailForm,
 					msg: '发货失败'
 				}));
 		};
 
+		// 发货
+		$scope.showShipmentDetailForm = function(shipmentNo, form) {
+			if ($scope.shipment.status != 3) return;
+			$scope.resetForm(form);
+
+			$http.get(config.basewms + 'outbound/shipment/'  + shipmentNo + '/')
+				.success(function(shipment) {
+					$scope.shipment = shipment;
+					$shipmentDetailForm.modal('show');
+				});
+		};
+
 		// 查询出库单详细信息
-		$scope.showShipmentDetail = function(shipmentNo, form) {
+		$scope.showShipmentDetail = function(shipmentNo) {
+			// if (validate === false) return;
 
 			$http.get(config.basewms + 'outbound/shipment/'  + shipmentNo + '/')
 				.success(function(shipment) {

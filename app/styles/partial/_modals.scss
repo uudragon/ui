@@ -211,6 +211,12 @@
   }
 }
 
+.modal-lists {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
 // Scale up the modal
 @media (min-width: $screen-sm-min) {
   // Automatically set modal's width for larger viewports

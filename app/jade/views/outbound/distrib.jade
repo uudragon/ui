@@ -126,19 +126,20 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 						+static-input('发货单状态')(ng-bind='shipment.status | mapper:"shipmentStatus"')
 						//- +input('发货明细', 'form_details')(ng-bind='shipment.details' required)
 
-				table.uu-table(style='margin-top: 10px;' ng-show='shipment.details.length')
-					+thead
-						each th in ['编号', '名称', '是否产品', '是否赠品', '数量']
-							th.nowrap=th
-					tbody
-						tr(ng-repeat='product in shipment.details')
-							//- td(ng-bind='product.shipment_no')
-							td(ng-bind='product.code')
-							td(ng-bind='product.name')
-							td(ng-bind='product.is_product | yesno')
-							td(ng-bind='product.is_gift | yesno')
-							td(ng-bind='product.qty')
-							//- td(ng-bind='product.status')
+				.modal-lists(ng-show='shipment.details.length')
+					table.uu-table
+						+thead
+							each th in ['编号', '名称', '是否产品', '是否赠品', '数量']
+								th.nowrap=th
+						tbody
+							tr(ng-repeat='product in shipment.details')
+								//- td(ng-bind='product.shipment_no')
+								td(ng-bind='product.code')
+								td(ng-bind='product.name')
+								td(ng-bind='product.is_product | yesno')
+								td(ng-bind='product.is_gift | yesno')
+								td(ng-bind='product.qty')
+								//- td(ng-bind='product.status')
 	.modal-footer
 		//- button.btn.uu-btn.btn-primary(ng-click='saveShipment(shipmentForm)' ng-disabled='shipmentForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 关闭

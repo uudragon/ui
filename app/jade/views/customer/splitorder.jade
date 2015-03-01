@@ -178,24 +178,25 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 							+select('库房', 'form-warehouse')(ng-model='shipment.warehouse' ng-options='warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses' required)
 
 					p.badge(style='margin-top: 10px;' ng-show='!shipment.details.length') 尚未添加任何赠品
-					table.uu-table(style='margin-top: 10px;' ng-show='shipment.details.length')
-						+thead
-							each th in ['编号', '名称', '数量', '是否产品', '是否赠品', '工具']
-								th.nowrap=th
-						tbody
-							tr(ng-repeat='good in shipment.details')
-								td(ng-bind='good.code')
-								td(ng-bind='good.name')
-								td(ng-bind='good.qty')
-								td(ng-bind='good.is_product | yesno')
-								td(ng-bind='good.is_gift | yesno')
-								td.nowrap(ng-show='!good.operatable') --
-								td.nowrap(ng-show='good.operatable')
-									+tooltip('修改', 'top', 'editGood(good, giftForm)')
-										+glyphicon('pencil') &nbsp;
+					.modal-lists(ng-show='shipment.details.length')
+						table.uu-table
+							+thead
+								each th in ['编号', '名称', '数量', '是否产品', '是否赠品', '工具']
+									th.nowrap=th
+							tbody
+								tr(ng-repeat='good in shipment.details')
+									td(ng-bind='good.code')
+									td(ng-bind='good.name')
+									td(ng-bind='good.qty')
+									td(ng-bind='good.is_product | yesno')
+									td(ng-bind='good.is_gift | yesno')
+									td.nowrap(ng-show='!good.operatable') --
+									td.nowrap(ng-show='good.operatable')
+										+tooltip('修改', 'top', 'editGood(good, giftForm)')
+											+glyphicon('pencil') &nbsp;
 
-									+tooltip('删除', 'top', 'removeGood($index)')
-										+glyphicon('trash')
+										+tooltip('删除', 'top', 'removeGood($index)')
+											+glyphicon('trash')
 
 					.modal-footer
 						button.btn.uu-btn.btn-primary(ng-click='confirmShipment(shipmentCheckForm)' ng-disabled='shipmentCheckForm.processing') 确定

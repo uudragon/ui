@@ -42,7 +42,7 @@
 </div>
 <table ng-show="goods" class="uu-table">
   <thead>
-    <tr>
+    <tr ng-dblclick="chooseTh('table-cols')">
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
@@ -69,7 +69,7 @@
 <uu-pagination ng-show="goods" records="goods.meta.recordsCount" per-page="goods.meta.pageSize" page="goods.meta.pageNo" model="searchModel" action="getItemList()"></uu-pagination>
 <table ng-show="products" class="uu-table">
   <thead>
-    <tr>
+    <tr ng-dblclick="chooseTh('table-cols')">
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
         <ul ng-if="th.filters" role="menu" class="dropdown-menu">
           <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>

@@ -286,26 +286,28 @@
                 </td>
               </tr>
             </table>
-            <table style="margin-top: 10px;" ng-show="shipment.details.length" class="uu-table">
-              <thead>
-                <tr>
-                  <th class="nowrap">编号</th>
-                  <th class="nowrap">名称</th>
-                  <th class="nowrap">是否产品</th>
-                  <th class="nowrap">是否赠品</th>
-                  <th class="nowrap">数量</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="product in shipment.details">
-                  <td ng-bind="product.code"></td>
-                  <td ng-bind="product.name"></td>
-                  <td ng-bind="product.is_product | yesno"></td>
-                  <td ng-bind="product.is_gift | yesno"></td>
-                  <td ng-bind="product.qty"></td>
-                </tr>
-              </tbody>
-            </table>
+            <div ng-show="shipment.details.length" class="modal-lists">
+              <table class="uu-table">
+                <thead>
+                  <tr>
+                    <th class="nowrap">编号</th>
+                    <th class="nowrap">名称</th>
+                    <th class="nowrap">是否产品</th>
+                    <th class="nowrap">是否赠品</th>
+                    <th class="nowrap">数量</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="product in shipment.details">
+                    <td ng-bind="product.code"></td>
+                    <td ng-bind="product.name"></td>
+                    <td ng-bind="product.is_product | yesno"></td>
+                    <td ng-bind="product.is_gift | yesno"></td>
+                    <td ng-bind="product.qty"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </fieldset>
         </form>
       </div>

@@ -49,20 +49,21 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 					+static-input('库房编号')(ng-bind='receipt.warehouse')
 				tr
 					+static-input('修改人')(ng-bind='receipt.updater')
-			table.uu-table(style='margin-top: 10px;' ng-show='receipt.details.length')
-				+thead
-					each th in ['商品编号', '计划入库数量', '已经入库数量', '商品入库数量']
-						th.nowrap=th
-					th.nowrap(ng-show='storageFormType==="new"') 工具
-				tbody
-					tr(ng-repeat='good in receipt.details' ng-class='{success: (good.qty === good.actual_qty), warning: (good.qty > good.actual_qty && good.actual_qty !== 0), danger: (good.actual_qty === 0)}')
-						td(ng-bind='good.goods_code')
-						td(ng-bind='good.qty')
-						td(ng-bind='good.actual_qty')
-						td(ng-bind='good.putin_qty')
-						td.nowrap(ng-show='storageFormType==="new"')
-							+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
-								+glyphicon('pencil')
+			.modal-lists(ng-show='receipt.details.length')
+				table.uu-table
+					+thead
+						each th in ['商品编号', '计划入库数量', '已经入库数量', '商品入库数量']
+							th.nowrap=th
+						th.nowrap(ng-show='storageFormType==="new"') 工具
+					tbody
+						tr(ng-repeat='good in receipt.details' ng-class='{success: (good.qty === good.actual_qty), warning: (good.qty > good.actual_qty && good.actual_qty !== 0), danger: (good.actual_qty === 0)}')
+							td(ng-bind='good.goods_code')
+							td(ng-bind='good.qty')
+							td(ng-bind='good.actual_qty')
+							td(ng-bind='good.putin_qty')
+							td.nowrap(ng-show='storageFormType==="new"')
+								+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
+									+glyphicon('pencil')
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-show='storageFormType==="new"' ng-click='savePutinedReceipt(storageForm)' ng-disabled='storageForm.processing') 保存

@@ -28,7 +28,7 @@ include ../../modules/mixins.jade
 
 //- 库房列表
 table.uu-table(ng-show='goods')
-	+theadplus()
+	+theadplus()(ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='good in goods')
 			td(ng-bind='good.warehouse' ng-show='ths[0].isChecked')
@@ -47,7 +47,7 @@ uu-pagination(ng-show='goods' records='goods.meta.recordsCount' per-page='goods.
 
 //- 库房列表
 table.uu-table(ng-show='products')
-	+theadplus()
+	+theadplus()(ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='product in products')
 			td(ng-bind='product.warehouse' ng-show='ths[0].isChecked')

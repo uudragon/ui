@@ -51,21 +51,22 @@ uu-pagination(records='suits.meta.recordsCount', per-page='suits.meta.pageSize' 
 							+yesno('是否有效', 'is-valid')(ng-model='suit.yn')
 							+input('套餐描述', 'suit-desc')(ng-model='suit.package_desc')
 					p.badge(style='margin-top: 10px;' ng-show='!suit.details.length') 尚未添加任何产品
-					table.uu-table(style='margin-top: 10px;' ng-show='suit.details.length')
-						+thead
-							each th in ['产品编号', '产品名称', '产品数量', '工具']
-								th.nowrap=th
-						tbody
-							tr(ng-repeat='product in suit.details')
-								td(ng-bind='product.product_code')
-								td(ng-bind='product.product_name')
-								td(ng-bind='product.qty')
-								td.nowrap
-									+tooltip('修改', 'top', 'editProduct(product, suitForm)')
-										+glyphicon('pencil') &nbsp;
+					.modal-lists(ng-show='suit.details.length')
+						table.uu-table
+							+thead
+								each th in ['产品编号', '产品名称', '产品数量', '工具']
+									th.nowrap=th
+							tbody
+								tr(ng-repeat='product in suit.details')
+									td(ng-bind='product.product_code')
+									td(ng-bind='product.product_name')
+									td(ng-bind='product.qty')
+									td.nowrap
+										+tooltip('修改', 'top', 'editProduct(product, suitForm)')
+											+glyphicon('pencil') &nbsp;
 
-									+tooltip('删除', 'top', 'removeProduct($index)')
-										+glyphicon('trash')
+										+tooltip('删除', 'top', 'removeProduct($index)')
+											+glyphicon('trash')
 
 					.modal-footer
 						button.btn.uu-btn.btn-primary(ng-click='saveSuit(suitForm)' ng-disabled='suitForm.processing') 保存

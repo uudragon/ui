@@ -238,19 +238,19 @@ angular.module('mainApp')
 			// });
 
 		// ths
-		$scope.isAllThsShow = true;
+		$scope.isAllThsShow = false;
 		$scope.ths = [
-			{name: 'warehouse', label: '库房编码', isChecked: true},
+			{name: 'warehouse', label: '库房编码', isChecked: false},
 			{name: 'warehouse_name', label: '库房名称', isChecked: true},
 			{name: 'goods_code', label: '商品编码', isChecked: true},
 			{name: 'goods_name', label: '商品名称', isChecked: true},
-			{name: 'qty', label: '商品数量', isChecked: true},
+			{name: 'goods_qty', label: '商品数量', isChecked: true},
 			{name: 'code', label: '单据号', isChecked: true},
 			{name: 'type', label: '单据类型', isChecked: true},
-			{name: 'create_time', label: '记录创建时间', isChecked: true},
-			{name: 'creator', label: '记录创建人', isChecked: true},
-			{name: 'update_time', label: '记录修改时间', isChecked: true},
-			{name: 'updater', label: '记录最后修改人', isChecked: true}
+			{name: 'create_time', label: '创建时间', isChecked: true},
+			{name: 'creator', label: '创建人', isChecked: true},
+			{name: 'update_time', label: '修改时间', isChecked: true},
+			{name: 'updater', label: '更新人', isChecked: true}
 		];
 
 		// 搜索
@@ -305,7 +305,7 @@ angular.module('mainApp')
 			{name: 'goods_code', label: '商品编码', isChecked: true},
 			{name: 'goods_name', label: '商品名称', isChecked: true},
 			{name: 'qty', label: '商品总数', isChecked: true},
-			{name: 'not_picking_qty', label: '为拣货商品数', isChecked: true},
+			{name: 'not_picking_qty', label: '未拣货商品数', isChecked: true},
 			{name: 'picking_qty', label: '已预拣货数量', isChecked: true},
 			{name: 'create_time', label: '创建时间', isChecked: true},
 			{name: 'creator', label: '创建人', isChecked: true},

@@ -1414,7 +1414,7 @@
   }
 
   Modal.prototype.fail = function(msg) {
-    msg = msg || '保存失败';
+    msg = msg || '操作失败';
     this.info(msg, 'alert-danger')
   }
 
@@ -1428,7 +1428,7 @@
       msg = obj;
     }
 
-    msg = msg || '保存成功';
+    msg = msg || '操作成功';
 
     this.info(msg, 'alert-success', blnHideMsgBox)
   }

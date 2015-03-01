@@ -108,25 +108,27 @@
                 </tr>
               </table>
               <p style="margin-top: 10px;" ng-show="!suit.details.length" class="badge">尚未添加任何产品</p>
-              <table style="margin-top: 10px;" ng-show="suit.details.length" class="uu-table">
-                <thead>
-                  <tr>
-                    <th class="nowrap">产品编号</th>
-                    <th class="nowrap">产品名称</th>
-                    <th class="nowrap">产品数量</th>
-                    <th class="nowrap">工具</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="product in suit.details">
-                    <td ng-bind="product.product_code"></td>
-                    <td ng-bind="product.product_name"></td>
-                    <td ng-bind="product.qty"></td>
-                    <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editProduct(product, suitForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeProduct($index)"><span class="glyphicon glyphicon-trash"></span></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div ng-show="suit.details.length" class="modal-lists">
+                <table class="uu-table">
+                  <thead>
+                    <tr>
+                      <th class="nowrap">产品编号</th>
+                      <th class="nowrap">产品名称</th>
+                      <th class="nowrap">产品数量</th>
+                      <th class="nowrap">工具</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="product in suit.details">
+                      <td ng-bind="product.product_code"></td>
+                      <td ng-bind="product.product_name"></td>
+                      <td ng-bind="product.qty"></td>
+                      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editProduct(product, suitForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeProduct($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <div class="modal-footer">
                 <button ng-click="saveSuit(suitForm)" ng-disabled="suitForm.processing" class="btn uu-btn btn-primary">保存</button>
                 <button data-dismiss="modal" class="btn uu-btn">取消</button>

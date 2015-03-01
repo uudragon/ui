@@ -99,27 +99,29 @@
               </td>
             </tr>
           </table>
-          <table style="margin-top: 10px;" ng-show="receipt.details.length" class="uu-table">
-            <thead>
-              <tr>
-                <th class="nowrap">商品编号</th>
-                <th class="nowrap">计划入库数量</th>
-                <th class="nowrap">已经入库数量</th>
-                <th class="nowrap">商品入库数量</th>
-                <th ng-show="storageFormType===&quot;new&quot;" class="nowrap">工具</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="good in receipt.details" ng-class="{success: (good.qty === good.actual_qty), warning: (good.qty &gt; good.actual_qty &amp;&amp; good.actual_qty !== 0), danger: (good.actual_qty === 0)}">
-                <td ng-bind="good.goods_code"></td>
-                <td ng-bind="good.qty"></td>
-                <td ng-bind="good.actual_qty"></td>
-                <td ng-bind="good.putin_qty"></td>
-                <td ng-show="storageFormType===&quot;new&quot;" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil"></span></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div ng-show="receipt.details.length" class="modal-lists">
+            <table class="uu-table">
+              <thead>
+                <tr>
+                  <th class="nowrap">商品编号</th>
+                  <th class="nowrap">计划入库数量</th>
+                  <th class="nowrap">已经入库数量</th>
+                  <th class="nowrap">商品入库数量</th>
+                  <th ng-show="storageFormType===&quot;new&quot;" class="nowrap">工具</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="good in receipt.details" ng-class="{success: (good.qty === good.actual_qty), warning: (good.qty &gt; good.actual_qty &amp;&amp; good.actual_qty !== 0), danger: (good.actual_qty === 0)}">
+                  <td ng-bind="good.goods_code"></td>
+                  <td ng-bind="good.qty"></td>
+                  <td ng-bind="good.actual_qty"></td>
+                  <td ng-bind="good.putin_qty"></td>
+                  <td ng-show="storageFormType===&quot;new&quot;" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil"></span></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </form>
       </div>
       <div class="modal-footer">

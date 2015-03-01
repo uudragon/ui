@@ -54,22 +54,23 @@ uu-pagination(records='products.meta.recordsCount', per-page='products.meta.page
 						tr
 							+textarea('产品说明', 'product-desc', 3)(ng-model='product.product_desc')
 					p.badge(style='margin-top: 10px;' ng-show='!product.details.length') 尚未添加任何商品
-					table.uu-table(style='margin-top: 10px;' ng-show='product.details.length')
-						+thead
-							each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
-								th.nowrap=th
-						tbody
-							tr(ng-repeat='good in product.details')
-								td(ng-bind='good.goods_code')
-								td(ng-bind='good.goods_name')
-								td(ng-bind='good.qty')
-								td(ng-bind='good.is_gift | yesno')
-								td.nowrap
-									+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
-										+glyphicon('pencil') &nbsp;
+					.modal-lists(ng-show='product.details.length')
+						table.uu-table
+							+thead
+								each th in ['商品编号', '商品名称', '商品数量', '是否赠品', '工具']
+									th.nowrap=th
+							tbody
+								tr(ng-repeat='good in product.details')
+									td(ng-bind='good.goods_code')
+									td(ng-bind='good.goods_name')
+									td(ng-bind='good.qty')
+									td(ng-bind='good.is_gift | yesno')
+									td.nowrap
+										+tooltip('修改', 'top', 'editGood(good, productDetailsForm)')
+											+glyphicon('pencil') &nbsp;
 
-									+tooltip('删除', 'top', 'removeGood($index)')
-										+glyphicon('trash')
+										+tooltip('删除', 'top', 'removeGood($index)')
+											+glyphicon('trash')
 
 					.modal-footer
 						button.btn.uu-btn.btn-primary(ng-click='saveProduct(productNewForm)' ng-disabled='productNewForm.processing') 保存
