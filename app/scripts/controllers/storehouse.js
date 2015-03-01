@@ -307,10 +307,10 @@ angular.module('mainApp')
 			{name: 'qty', label: '商品总数', isChecked: true},
 			{name: 'not_picking_qty', label: '为拣货商品数', isChecked: true},
 			{name: 'picking_qty', label: '已预拣货数量', isChecked: true},
-			{name: 'create_time', label: '记录创建时间', isChecked: true},
-			{name: 'creator', label: '记录创建人', isChecked: true},
-			{name: 'update_time', label: '记录修改时间', isChecked: true},
-			{name: 'updater', label: '记录最后修改人', isChecked: true}
+			{name: 'create_time', label: '创建时间', isChecked: true},
+			{name: 'creator', label: '创建人', isChecked: true},
+			{name: 'update_time', label: '更新时间', isChecked: true},
+			{name: 'updater', label: '更新人', isChecked: true}
 		];
 
 		$scope.productsThs = [
@@ -319,10 +319,10 @@ angular.module('mainApp')
 			{name: 'product_code', label: '产品编码', isChecked: true},
 			{name: 'product_name', label: '产品名称', isChecked: true},
 			{name: 'qty', label: '预拣产品总数', isChecked: true},
-			{name: 'create_time', label: '记录创建时间', isChecked: true},
-			{name: 'creator', label: '记录创建人', isChecked: true},
-			{name: 'update_time', label: '记录修改时间', isChecked: true},
-			{name: 'updater', label: '记录最后修改人', isChecked: true}
+			{name: 'create_time', label: '创建时间', isChecked: true},
+			{name: 'creator', label: '创建人', isChecked: true},
+			{name: 'update_time', label: '更新时间', isChecked: true},
+			{name: 'updater', label: '更新人', isChecked: true}
 		];
 
 		$scope.ths = $scope.goodsThs;
