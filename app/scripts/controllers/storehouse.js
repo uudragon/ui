@@ -88,6 +88,8 @@ angular.module('mainApp')
 				warehouse_code: warehouse_code
 			};
 
+			console.log($scope.pickInfo);
+
 			$scope.subSearchModel.pageNo = 1;
 
 			$scope.getProductList()
@@ -116,7 +118,7 @@ angular.module('mainApp')
 					});
 		};
 
-
+		// 执行预拣货
 		$scope.savePickProduct = function(product, form) {
 			if (form.processing) return;
 
@@ -128,6 +130,8 @@ angular.module('mainApp')
 				})
 				.success($scope.onFine({
 					form: form,
+					$form: $pickgoodForm,
+					hide: false,
 					action: function(result) {
 						if (result.picking_qty === 0) {
 							$pickgoodForm.modal('info', '可拣货数为零, 不能执行拣货');
@@ -138,6 +142,7 @@ angular.module('mainApp')
 								product_code: product.product_code,
 								max: result.picking_qty,
 								picking_count: result.picking_qty,
+								warehouse_code: $scope.pickInfo.warehouse_code,
 								productName: product.product_name
 							};
 

@@ -227,6 +227,15 @@ angular.module('mainApp')
 			{name:'update_time', label: '更新时间', isChecked: true}
 		];
 
+		// $scope.$watch('searchModel.filter.month', function(current, prev) {
+		// 	if (current !== prev) {
+		// 		$scope.searchModel.pageNo = 1;
+
+		// 		console.log($scope.searchModel.month);
+		// 		$scope.search();
+		// 	}
+		// });
+
 		// 获取拣货单列表
 		$scope.getPickingOrderList = function() {
 
@@ -333,12 +342,12 @@ angular.module('mainApp')
 
 		// 发货
 		$scope.showShipmentDetailForm = function(shipmentNo, form) {
-			if ($scope.shipment.status != 3) return;
 			$scope.resetForm(form);
 
 			$http.get(config.basewms + 'outbound/shipment/'  + shipmentNo + '/')
 				.success(function(shipment) {
 					$scope.shipment = shipment;
+					if ($scope.shipment.status != 3) return;
 					$shipmentDetailForm.modal('show');
 				});
 		};

@@ -50,15 +50,6 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		Auth.logout();
 	};
 
-	// 解析filter成可用的json
-	$scope.parseFilter = function(searchModel) {
-		var query = {},
-			value = $.trim(searchModel.subfilter);
-		if (value.toString().length && searchModel.filter && searchModel.filter.value) {
-			query[searchModel.filter.value] = value;
-		}
-		return query;
-	};
 
 	// 显示隐藏搜索框
 	$scope.globalToggleSearch = function() {
@@ -255,6 +246,16 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 
 	// 搜索相关
 	// -----------------------------------------------------
+
+	// 解析filter成可用的json
+	$scope.parseFilter = function(searchModel) {
+		var query = {},
+			value = $.trim(searchModel.subfilter);
+		if (value.toString().length && searchModel.filter && searchModel.filter.value) {
+			query[searchModel.filter.value] = value;
+		}
+		return query;
+	};
 
 	$scope.baseSearch = function($scope, action, searchModel) {
 		return function() {

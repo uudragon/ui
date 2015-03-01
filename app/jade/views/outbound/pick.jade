@@ -12,6 +12,23 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search('search()')
 
+//- 订单列表过滤条件
+//- - var filters = []
+//- - filters.push({label: '所有', value: ''})
+//- - filters.push({label: '1月', value: '1'})
+//- - filters.push({label: '2月', value: '2'})
+//- - filters.push({label: '3月', value: '3'})
+//- - filters.push({label: '4月', value: '4'})
+//- - filters.push({label: '5月', value: '5'})
+//- - filters.push({label: '6月', value: '6'})
+//- - filters.push({label: '8月', value: '8'})
+//- - filters.push({label: '9月', value: '9'})
+//- - filters.push({label: '10月', value: '10'})
+//- - filters.push({label: '11月', value: '11'})
+//- - filters.push({label: '12月', value: '12'})
+//- +article-header-filter('searchModel.filter.month', filters)
+
+
 table.uu-table
 	+theadplus(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
