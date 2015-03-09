@@ -20,11 +20,12 @@ table.uu-table(ng-show='suits')
 			td(ng-bind='suit.package_name' ng-show='ths[0].isChecked')
 			td(ng-bind='suit.package_code' ng-show='ths[1].isChecked')
 			td(ng-bind='suit.package_desc' ng-show='ths[2].isChecked')
-			td(ng-bind='suit.creator' ng-show='ths[3].isChecked')
-			td(ng-bind='suit.create_time' ng-show='ths[4].isChecked')
-			td(ng-bind='suit.updater' ng-show='ths[5].isChecked')
-			td(ng-bind='suit.update_time' ng-show='ths[6].isChecked')
-			td(ng-bind='suit.yn | valid' ng-show='ths[7].isChecked')
+			td(ng-bind='suit.package_price' ng-show='ths[3].isChecked')
+			td(ng-bind='suit.creator' ng-show='ths[4].isChecked')
+			td(ng-bind='suit.create_time' ng-show='ths[5].isChecked')
+			td(ng-bind='suit.updater' ng-show='ths[6].isChecked')
+			td(ng-bind='suit.update_time' ng-show='ths[7].isChecked')
+			td(ng-bind='suit.yn | valid' ng-show='ths[8].isChecked')
 			td.nowrap
 				+tooltip('修改', 'top', 'editSuit(suit.package_code)')
 					+glyphicon('pencil') &nbsp;
@@ -45,11 +46,13 @@ uu-pagination(records='suits.meta.recordsCount', per-page='suits.meta.pageSize' 
 				div(uu-pane, title='新建套餐')
 					table.form-table
 						tr
-							+input('套餐编号', 'package_code')(ng-model='suit.package_code' required)
+							+static-input('套餐编号')(ng-bind='suit.package_code')
 							+input('套餐名称', 'suit_name')(ng-model='suit.package_name' required)
 						tr
 							+yesno('是否有效', 'is-valid')(ng-model='suit.yn')
-							+input('套餐描述', 'suit-desc')(ng-model='suit.package_desc')
+							+input('套餐价格', 'suit-price')(uu-float ng-model='suit.package_price' required)
+						tr
+							+input('套餐描述', 'suit-desc', 3)(ng-model='suit.package_desc')
 					p.badge(style='margin-top: 10px;' ng-show='!suit.details.length') 尚未添加任何产品
 					.modal-lists(ng-show='suit.details.length')
 						table.uu-table

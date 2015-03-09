@@ -330,6 +330,7 @@ angular.module('mainApp')
 			{name: 'package_name', label: '套餐名称', isChecked: true},
 			{name: 'package_code', label: '套餐编码', isChecked: true},
 			{name: 'package_desc', label: '套餐说明', isChecked: true},
+			{name: 'package_price', label: '套餐价格', isChecked: true},
 			{name: 'creator', label: '创建人', isChecked: true},
 			{name: 'create_time', label: '创建时间', isChecked: true},
 			{name: 'updater', label: '修改人', isChecked: true},

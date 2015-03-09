@@ -88,8 +88,6 @@ angular.module('mainApp')
 				warehouse_code: warehouse_code
 			};
 
-			console.log($scope.pickInfo);
-
 			$scope.subSearchModel.pageNo = 1;
 
 			$scope.getProductList()
@@ -224,7 +222,11 @@ angular.module('mainApp')
 
 		$('.article-header-search').stop().slideDown('fast');
 
-		$scope.getWarehouseBaseList();
+		$scope.getWarehouseBaseList()
+			.success(function() {
+				$scope.searchModel.warehouseFilter = $scope.warehouses[0].warehouse_code;
+				$scope.search();
+			});
 			// .success(function() {
 			// 	var subfilters = [];
 
@@ -300,7 +302,11 @@ angular.module('mainApp')
 
 		$('.article-header-search').stop().slideDown('fast');
 
-		$scope.getWarehouseBaseList();
+		$scope.getWarehouseBaseList()
+			.success(function() {
+				$scope.searchModel.warehouseFilter = $scope.warehouses[0].warehouse_code;
+				$scope.search($scope.searchModel.warehouseFilter);
+			});
 
 		// ths
 		$scope.isAllThsShow = true;
