@@ -19,12 +19,8 @@ angular.module('mainApp')
 
 		// 搜索下拉
 		$scope.filters = [
-			{name: '库房编号', value: 'warehouse_code', input: true},
-			// {name: '库房名称', value: 'warehouse_name', input: true},
-			{name: '库房类型', value: 'type', subfilters: $scope.mapRevert('warehouse')},
-			{name: '创建人', value: 'creator', input: true},
-			{name: '修改人', value: 'updater', input: true},
-			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
+			{name: '代理商姓名', value: 'warehouse_code', input: true},
+			{name: '渠道经理', value: 'creator', input: true}
 		];
 
 		// ths

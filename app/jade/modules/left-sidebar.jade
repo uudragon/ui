@@ -114,7 +114,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	- navs.push({href: 'root.agents', label: '基本信息', auth: '0100', subnavs: subnavs})
 
 
-	li.section-item
+	li.section-item(uu-auth-filter='02' ng-class='{"open": $state.includes("root.agents")}')
 		a.nav-sections-label 代理商管理
 		ul.nav.nav-navs
 			each nav in navs
