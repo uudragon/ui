@@ -124,34 +124,20 @@
               </li>
             </ul>
           </li>
-          <li class="section-item"><a class="nav-sections-label">经销商管理</a>
+          <li class="section-item"><a class="nav-sections-label">代理商管理</a>
             <ul class="nav nav-navs">
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.product&quot;)}" uu-auth-filter="0100" class="nav-item"><a class="nav-menu-label">业务信息</a>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.agents&quot;)}" uu-auth-filter="0100" class="nav-item"><a class="nav-menu-label">基本信息</a>
                 <ul role="menu" class="nav nav-menu">
-                  <li uu-auth-filter="010000"><a ui-sref="root.product.commodity" ng-class="{active: $state.is(&quot;root.product.commodity&quot;)}">商品定义</a></li>
-                  <li uu-auth-filter="010001"><a ui-sref="root.product.goods" ng-class="{active: $state.is(&quot;root.product.goods&quot;)}">产品定义</a></li>
-                  <li uu-auth-filter="010001"><a ui-sref="root.product.suit" ng-class="{active: $state.is(&quot;root.product.suit&quot;)}">套餐定义</a></li>
-                </ul>
-              </li>
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.params&quot;)}" uu-auth-filter="0105" class="nav-item"><a class="nav-menu-label">系统信息</a>
-                <ul role="menu" class="nav nav-menu">
-                  <li uu-auth-filter="010500"><a ui-sref="root.params.system" ng-class="{active: $state.is(&quot;root.params.system&quot;)}">参数维护</a></li>
+                  <li uu-auth-filter="010000"><a ui-sref="root.agents.manage" ng-class="{active: $state.is(&quot;root.agents.manage&quot;)}">代理商录入</a></li>
                 </ul>
               </li>
             </ul>
           </li>
           <li class="section-item"><a class="nav-sections-label">财务管理</a>
             <ul class="nav nav-navs">
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.product&quot;)}" uu-auth-filter="0100" class="nav-item"><a class="nav-menu-label">业务信息</a>
+              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.agents&quot;)}" uu-auth-filter="0100" class="nav-item"><a class="nav-menu-label">基本信息</a>
                 <ul role="menu" class="nav nav-menu">
-                  <li uu-auth-filter="010000"><a ui-sref="root.product.commodity" ng-class="{active: $state.is(&quot;root.product.commodity&quot;)}">商品定义</a></li>
-                  <li uu-auth-filter="010001"><a ui-sref="root.product.goods" ng-class="{active: $state.is(&quot;root.product.goods&quot;)}">产品定义</a></li>
-                  <li uu-auth-filter="010001"><a ui-sref="root.product.suit" ng-class="{active: $state.is(&quot;root.product.suit&quot;)}">套餐定义</a></li>
-                </ul>
-              </li>
-              <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.params&quot;)}" uu-auth-filter="0105" class="nav-item"><a class="nav-menu-label">系统信息</a>
-                <ul role="menu" class="nav nav-menu">
-                  <li uu-auth-filter="010500"><a ui-sref="root.params.system" ng-class="{active: $state.is(&quot;root.params.system&quot;)}">参数维护</a></li>
+                  <li uu-auth-filter="010000"><a ui-sref="root.agents.manage" ng-class="{active: $state.is(&quot;root.agents.manage&quot;)}">代理商录入</a></li>
                 </ul>
               </li>
             </ul>

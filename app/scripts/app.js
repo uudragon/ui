@@ -28,8 +28,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 	.when('/customer', '/customer/checkorder')
 	.when('/service', '/service/ordermanager')
 	.when('/financial', '/financial/deposit')
-	.when('/agents', '/agents/list')
-	.when('/ship', '/ship/summary')
+	// .when('/agents', '/agents/list')
 
 	.otherwise('/');
 
@@ -395,6 +394,21 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		url: '/remain',
 		templateUrl: 'views/storehouse/remain.html',
 		controller: 'Remain'
+	})
+
+	//////////////
+	// 代理商管理 //
+	//////////////
+
+	.state('root.agents', {
+		url: 'agents',
+		templateUrl: 'views/agents/layout.html',
+		controller: 'AgentsCtrl'
+	})
+	.state('root.agents.manage', {
+		url: '/manage',
+		templateUrl: 'views/agents/manage.html',
+		controller: 'Manage'
 	});
 
 }])

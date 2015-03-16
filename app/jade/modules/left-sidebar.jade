@@ -103,11 +103,19 @@ ul.nav.nav-sections(uu-sidebar='')
 				+nav(nav)
 
 
-	//- 经销商管理
+	//- 代理商管理
 	//------------------------------------------------------
 
+	- navs = []
+	- subnavs = []
+
+	//- 基本信息
+	- subnavs.push({href: 'root.agents.manage', auth: '010000', label: '代理商录入'})
+	- navs.push({href: 'root.agents', label: '基本信息', auth: '0100', subnavs: subnavs})
+
+
 	li.section-item
-		a.nav-sections-label 经销商管理
+		a.nav-sections-label 代理商管理
 		ul.nav.nav-navs
 			each nav in navs
 				+nav(nav)
