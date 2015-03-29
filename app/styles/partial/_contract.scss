@@ -1,0 +1,18 @@
+.contract-item {
+  padding: 20px 30px 7px 10px;
+  border: 1px dashed #CCC;
+  margin-bottom: 10px;
+  position: relative;
+  .close {
+    position: absolute;
+    right: 8px;
+    top: 4px;
+  }
+}
+
+.contract-area-item {
+  position: relative;
+  // padding: 10px 27px 0 10px;
+  // margin: 0 -30px 0 -10px;
+  border-top: dashed 1px #EFEFEF;
+}

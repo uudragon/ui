@@ -228,6 +228,19 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 		};
 	};
 
+	$scope.onFineAgent = function(params) {
+		return function(data) {
+			params.form && (params.form.processing = false);
+			if (data.isSuccess) {
+				params.$form && params.$form.modal('success', {msg: params.msg, hide: params.hide});
+				angular.isFunction(params.action) && params.action(data);
+			} else {
+				params.$form && params.$form.modal('fail', {msg: params.msg, hide: params.hide});
+			}
+		};
+	};
+
+
 	$scope.onFine = function(params) {
 		return function(data) {
 			params.form && (params.form.processing = false);

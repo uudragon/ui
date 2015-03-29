@@ -10,11 +10,13 @@ angular.module('mainApp')
 	 * Sub-Controller
 	 * ---------------------------------------------------------------------------------
 	 */
-	.controller('Manage', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
+	.controller('Manage', ['$scope', '$controller', '$http',
+		function ($scope, $controller, $http) {
 
 		// 搜索下拉
 		var $agentsForm = $('#agents-form'),
-			$pickgoodForm = $('#pickgood-form'),
+			$contractForm = $('#contract-form'),
+			$contractFormDetails = $('#contract-form-details'),
 			$pickgoodAmountForm = $('#pickgood-amount-form');
 
 		// 搜索下拉
@@ -26,28 +28,39 @@ angular.module('mainApp')
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
-			{name: 'warehouse_code', label: '库房编号', isChecked: true},
-			{name: 'warehouse_name', label: '库房名称', isChecked: true},
-			{name: 'address', label: '库房地址', isChecked: true},
-			{name: 'type', label: '库房类型', isChecked: true},
-			{name: 'creator', label: '创建人', isChecked: true},
-			{name: 'create_time', label: '创建时间', isChecked: true},
-			{name: 'updater', label: '修改人', isChecked: true},
-			{name: 'update_time', label: '修改时间', isChecked: true},
-			{name: 'yn', label: '是否生效', isChecked: true}
+			{name: 'company', label: '公司名称', isChecked: true},
+			{name: 'agencyName', label: '联系人姓名', isChecked: true},
+			{name: 'agencyPhone', label: '联系手机', isChecked: true},
+			{name: 'proxy_manager', label: '渠道经理', isChecked: true},
+			{name: 'agencyPassword', label: '初始密码', isChecked: true},
+			{name: 'fixedtelephone', label: '固定电话', isChecked: true},
+			{name: 'email', label: '邮箱', isChecked: true},
+			{name: 'addr', label: '地址', isChecked: true},
+			{name: 'fax', label: '传真', isChecked: true},
+			{name: 'post', label: '邮编', isChecked: true}
 		];
 
 		// 新建代理商
 		$scope.newAgent = function(form) {
 			$scope.resetForm(form);
-			$scope.agentsFormTitle = '代理商录入';
+			$scope.agentsFormTitle = '新建代理商';
 			$scope.agent = {
-				order_no: $scope.guid(),
-				creator: $scope.currentUser.name,
-				updater: $scope.currentUser.name,
-				password: 111111
+				channelloginId: $scope.currentUser.id,
+				channelLoginName: $scope.currentUser.name,
+				agencyNo: $scope.guid(),
+				// creator: $scope.currentUser.name,
+				// updater: $scope.currentUser.name,
+				agencyPassword: 111111,
+				contracts: []
 			};
 
+			$agentsForm.modal('show');
+		};
+
+		// 修改代理商
+		$scope.editAgent = function(agent, form) {
+			$scope.agentsFormTitle = '修改代理商';
+			$scope.agent = agent;
 			$agentsForm.modal('show');
 		};
 
@@ -55,52 +68,47 @@ angular.module('mainApp')
 		$scope.saveAgent = function(form) {
 			if (!$scope.validateForm(form, $agentsForm)) return;
 
-			$agentsForm.modal('hide');
+			$scope.processing(form, $agentsForm);
+
+			$http.post(config.agent + 'saveChannelAgency', $scope.agent)
+				.success($scope.onFineAgent({
+					form: form,
+					$form: $agentsForm
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $agentsForm
+				}));
 		};
 
-		// 编辑库房 && 复制添加库房
-		$scope.editWarehouse = function(code, isDuplicate) {
-			$scope.agentsFormTitle = isDuplicate ? '复制添加库房' : '编辑库房';
-
-			$http.get(config.basewms + 'baseinfo/warehouse/' + code + '/')
-				.success(function(warehouse) {
-					$scope.warehouse = warehouse;
-					$scope.warehouse.updater = $scope.currentUser.name;
-
-					if (isDuplicate) {
-						$scope.warehouse.warehouse_code = $scope.guid();
-					}
-					$agentsForm.modal('show');
-				});
-		};
-
-		// 拣货
-		$scope.pickProduct = function(warehouse_code) {
-
-			$scope.pickInfo = {
-				warehouse_code: warehouse_code
-			};
-
-			$scope.subSearchModel.pageNo = 1;
-
-			$scope.getProductList()
-				.success(function() {
-					$pickgoodForm.modal('show');
-				});
-		};
-
-		// 获取产品列表
-		$scope.getProductList = function() {
+		// 维护合同信息
+		$scope.manageContact = function(agent) {
+			$scope.agent = agent;
 
 			var req = {
-				pageSize: $scope.subSearchModel.pageSize || config.perPage,
-				pageNo: $scope.subSearchModel.pageNo || 1
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1,
+				agencyloginId: agent.agencyloginId
 			};
 
-			return $http.post(config.basewms + 'baseinfo/query_product_list/', req)
+			$http.post(config.agent + 'queryAgencyContactList', req)
 				.success(function(data) {
-					$scope.products = data.records;
-					$scope.products.meta = {
+					$scope.contracts = data.records;
+					$contractFormDetails.modal('show');
+				});
+		};
+
+		// 获取代理商列表
+		$scope.getAgentsList = function() {
+			var req = {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1
+			};
+
+			return $http.post(config.agent + 'queryAgencyInfoList', req)
+				.success(function(data) {
+					$scope.agents = data.records;
+					$scope.agents.meta = {
 							pageSize: data.pageSize,
 							pageNo: data.pageNo ? data.pageNo : 1,
 							recordsCount: data.recordsCount,
@@ -109,65 +117,62 @@ angular.module('mainApp')
 					});
 		};
 
-		// 执行预拣货
-		$scope.savePickProduct = function(product, form) {
-			if (form.processing) return;
+		$scope.getAgentsList();
 
-			$scope.processing(form, $pickgoodForm);
+		// 添加合同
+		$scope.addContract = function(form) {
+			$scope.resetForm(form);
+			$scope.contract = {
+				agencyLoginId: $scope.agent.agencyPhone,
+				contractId: $scope.guid(),
+				// channelLoginName: $scope.currentUser.name,
+				// creator: $scope.currentUser.name,
+				// updater: $scope.currentUser.name,
+				// agencyPassword: 111111,
+				agencyAreaEntity: []
+			};
 
-			$http.post(config.basewms + 'inner/' + $scope.pickInfo.warehouse_code + '/picking_statistic/', {
-					product_code: product.product_code,
-					updater: $scope.currentUser.account
-				})
-				.success($scope.onFine({
+			console.log($scope.contract);
+
+			$contractForm.modal('show');
+		};
+
+		// 保存合同
+		$scope.saveContract = function(form) {
+			if (!$scope.validateForm(form, $contractForm)) return;
+
+			$scope.processing(form, $contractForm);
+
+			$http.post(config.agent + 'saveAgencyContact', $scope.contract)
+				.success($scope.onFineAgent({
 					form: form,
-					$form: $pickgoodForm,
-					hide: false,
-					action: function(result) {
-						if (result.picking_qty === 0) {
-							$pickgoodForm.modal('info', '可拣货数为零, 不能执行拣货');
-
-						} else {
-
-							$scope.pickInfo = {
-								product_code: product.product_code,
-								max: result.picking_qty,
-								picking_count: result.picking_qty,
-								warehouse_code: $scope.pickInfo.warehouse_code,
-								productName: product.product_name
-							};
-
-							$pickgoodAmountForm.modal('show');
-						}
+					$form: $contractForm,
+					action: function() {
+						$scope.contracts.push($scope.contract);
 					}
 				}))
-				.error($scope.onError({form: form, $form: $pickgoodForm }));
-		};
-
-		// 保存调整拣货数
-		$scope.tweakPickProduct = function(form) {
-			if (!$scope.validateForm(form, $pickgoodAmountForm)) return;
-
-			$scope.processing(form, $pickgoodAmountForm);
-
-			$http.post(config.basewms + 'inner/' + $scope.pickInfo.warehouse_code + '/picking/', $scope.pickInfo)
-				.success($scope.onFine({
+				.error($scope.onError({
 					form: form,
-					$form: $pickgoodAmountForm
-				}))
-				.error($scope.onError({form: form, $form: $pickgoodAmountForm }));
+					$form: $contractForm
+				}));
+
 		};
 
-		// 保存库房
-		$scope.saveWarehouse = function(form) {
-			// 表单验证
-			if (!$scope.validateForm(form, $agentsForm)) return;
+		// 删除合同
+		$scope.removeContract = function(index) {
+			$scope.agent.contracts.splice(index, 1);
+		};
 
-			$scope.processing(form, $agentsForm);
+		// 添加代理区域
+		$scope.addProxyArea = function(contract) {
+			$scope.contract.agencyAreaEntity.push({
+				areaId: $scope.guid()
+			});
+		};
 
-			$http.post(config.basewms + 'baseinfo/warehouse/save/', $scope.warehouse)
-				.success($scope.successHandler(form, $agentsForm, $scope.getWarehouseList))
-				.error($scope.errorHandler(form, $agentsForm));
+		// 删除代理区域
+		$scope.removeProxyArea = function(contract, index) {
+			$scope.contract.agencyAreaEntity.splice(index, 1);
 		};
 
 		// 搜索
@@ -175,30 +180,6 @@ angular.module('mainApp')
 			$scope.query = $scope.parseFilter($scope.searchModel);
 			$scope.getWarehouseList();
 		};
-
-		// 获取库房列表
-		$scope.getWarehouseList = function() {
-
-			var req = {
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo || 1
-			};
-
-			$.extend(req, $scope.query);
-
-			$http.post(config.basewms + 'baseinfo/warehouses/', req)
-				.success(function(data) {
-					$scope.warehouses = data.records;
-					$scope.warehouses.meta = {
-							pageSize: data.pageSize,
-							pageNo: data.pageNo ? data.pageNo : 1,
-							recordsCount: data.recordsCount,
-							pageNumber: data.pageNumber
-						};
-					});
-		};
-
-		$scope.getWarehouseList();
 
 		// inherit functions from parent
 		$controller('AgentsCtrl', {$scope: $scope});

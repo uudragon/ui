@@ -4,6 +4,7 @@
 	// global variables
 	exports.basews = '/atnew/ws/';
 	exports.basewms = '/wms/';
+	exports.agent = '/service/agencybusiness/';
 	exports.perPage = 12;
 	exports.maxPages = 6;
 
@@ -43,7 +44,8 @@
 		workformStatus: {1: '未处理', 2: '处理中', 3: '关闭'},
 		workformType: {2: '查询', 3: '投诉'},
 		complaintStatus: {1: '待处理', 2: '处理中', 3: '已完成'},
-		complaintType: {31: '发票抬头错误', 32: '未开发票', 33: '开票时间长', 34: '发票丢失', 35: '客服态度不好', 36: '客服不专业', 37: '客服电话难打', 38: '物流慢', 39: '货物丢失', 310: '物品破损', 311: '快递态度'}
+		complaintType: {31: '发票抬头错误', 32: '未开发票', 33: '开票时间长', 34: '发票丢失', 35: '客服态度不好', 36: '客服不专业', 37: '客服电话难打', 38: '物流慢', 39: '货物丢失', 310: '物品破损', 311: '快递态度'},
+		contractType: {0: '独家代理商', 1: '普通代理商'}
 	};
 
 })(typeof exports === 'undefined' ? window.config = {} : exports);
