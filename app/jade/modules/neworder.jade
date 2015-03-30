@@ -24,7 +24,7 @@
 						+yesno('支付状态', 'pay-status', '已支付', '未支付')(ng-model='gbOrder.paid' required)
 						+input('客户姓名', 'customer-name')(uu-name ng-model='gbOrder.customer.name' required)
 					tr
-						+gender('客户性别', 'customer-gender')(ng-model='gbOrder.customer.sex')
+						+gender('客户性别', 'customer-gender')(ng-model='gbOrder.customer.sex' required)
 						+input('联系电话', 'customer-phone')(uu-phone ng-model='gbOrder.customer.phone' required)
 					tr
 						+input('Email', 'customer-phone')(uu-email ng-model='gbOrder.customer.email')
@@ -39,7 +39,9 @@
 						+yesno('是否开发票', 'has-invoice')(ng-model='gbOrder.has_invoice')
 						+input('发票抬头', 'invoice-owner')(ng-model='gbOrder.invoice_title' ng-jade-show='gbOrder.has_invoice' ng-required='gbOrder.has_invoice==="1"')
 					tr
-						+input-address('地址', 'order-address', 3)(ng-province-model='gbOrder.customer.province' ng-city-model='gbOrder.customer.city' ng-addr-model='gbOrder.customer.address' ng-required='true')
+						+input-address('省市区', 'order-address', 3)(ng-province-model='gbOrder.province' ng-city-model='gbOrder.city' ng-area-model='gbOrder.area' ng-required='true')
+					tr
+						+input-address-details('详细地址', 'order-address-details', 3)(ng-model='gbOrder.address' ng-required='true')
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveGlobalOrder(gbNeworderForm)' ng-disabled='gbNeworderForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

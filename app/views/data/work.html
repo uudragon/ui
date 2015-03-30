@@ -225,7 +225,15 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.customer.province" ng-city-model="currentOrder.customer.city" ng-addr-model="currentOrder.customer.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.area" ng-required="true"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-order-address-details" class="form-th-label">详细地址</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <input uu-address="uu-address" class="form-control input-sm input-long" ng-model="currentOrder.address" ng-required="true"/>
+                </td>
               </tr>
             </table>
             <table ng-show="!isCustometInfoEditable" class="form-table">
@@ -321,7 +329,15 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.customer.province" ng-city-model="currentOrder.customer.city" ng-addr-model="currentOrder.customer.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.area"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">详细地址</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.address"></p>
+                </td>
               </tr>
             </table>
           </fieldset>

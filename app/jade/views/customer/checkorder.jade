@@ -24,6 +24,10 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search('search()')
 
+div(ng-init='currentOrder={}')
+
+	<div uu-addr-selector ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-addr-model="currentOrder.address" ng-required="true"></div>
+
 //- 订单列表过滤条件
 - var filters = []
 - filters.push({label: '所有', value: ''})
@@ -92,29 +96,33 @@ uu-pagination(records='orders.meta.recordsCount' per-page='orders.meta.pageSize'
 						+input('出生日期', 'birthday')(ng-model='currentOrder.customer.birthday', uu-date-picker)
 						+pay-status('支付状态', 'pay-status')(ng-model='currentOrder.paid')
 					tr
-						+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-addr-model='currentOrder.address' ng-required='true')
+						+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.area' ng-required='true')
+					tr
+						+input-address-details('详细地址', 'order-address-details', 3)(ng-model='currentOrder.address' ng-required='true')
 
 				table.form-table(ng-show='!isCustometInfoEditable')
 					tr
-						+static-input('收货人', 'name')(ng-bind='currentOrder.consignee')
-						+static-input('订单编号', 'order')(ng-bind='currentOrder.order_no')
+						+static-input('收货人')(ng-bind='currentOrder.consignee')
+						+static-input('订单编号')(ng-bind='currentOrder.order_no')
 					tr
-						+static-input('客户性别', 'customer-gender')(ng-bind='currentOrder.customer.sex | gender')
-						+static-input('订购产品', 'good')(ng-bind='currentOrder.good')
+						+static-input('客户性别')(ng-bind='currentOrder.customer.sex | gender')
+						+static-input('订购产品')(ng-bind='currentOrder.packag')
 					tr
-						+static-input-phone('联系电话', 'form-telphone')(ng-bind='currentOrder.phone')
-						+static-input('起订日期', 'startDate')(ng-bind='currentOrder.effective')
+						+static-input-phone('联系电话')(ng-bind='currentOrder.phone')
+						+static-input('起订日期')(ng-bind='currentOrder.effective')
 					tr
-						+static-input('儿童姓名', 'child-name')(ng-bind='currentOrder.customer.child')
-						+static-input('结束日期', 'enddate')(ng-bind='currentOrder.deadline')
+						+static-input('儿童姓名')(ng-bind='currentOrder.customer.child')
+						+static-input('结束日期')(ng-bind='currentOrder.deadline')
 					tr
-						+static-input('儿童性别', 'child-gender')(ng-bind='currentOrder.customer.c_sex | gender')
-						+static-input('支付方式', 'payment')(ng-bind='currentOrder.payment | payment')
+						+static-input('儿童性别')(ng-bind='currentOrder.customer.c_sex | gender')
+						+static-input('支付方式')(ng-bind='currentOrder.payment | payment')
 					tr
-						+static-input('出生日期', 'birthday')(ng-bind='currentOrder.customer.birthday')
-						+static-input('支付状态', 'pay-status')(ng-bind='currentOrder.paid | payStatus')
+						+static-input('出生日期')(ng-bind='currentOrder.customer.birthday')
+						+static-input('支付状态')(ng-bind='currentOrder.paid | payStatus')
 					tr
-						+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-addr-model='currentOrder.address' ng-required='true')
+						+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.area')
+					tr
+						+static-input('详细地址', 3)(ng-bind='currentOrder.address')
 
 			fieldset
 				legend 订单

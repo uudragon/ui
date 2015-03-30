@@ -32,6 +32,12 @@ mixin input-address(title, id, colspan)
 		label.form-th-label(for='form-' + id)=title
 	td.uu-city-select.form-td(colspan=colspan)&attributes(attributes)
 
+mixin input-address-details(title, id, colspan)
+	th.form-th
+		label.form-th-label(for='form-' + id)=title
+	td.form-td(colspan=colspan)
+		input.form-control.input-sm.input-long(uu-address)&attributes(attributes)
+
 mixin static-input(title, colspan)
 	th.form-th(ng-show=attributes['ng-jade-show'])
 		label.form-th-label=title
@@ -201,12 +207,14 @@ mixin workflow-group(title, id)
 		+option('审单组', 1)
 		+option('拆单组', 2)
 
+//- 商品类型
 mixin commdity-type(title, id)
 	+select(title, id)&attributes(attributes)
 		+option('教材', 1)
 		+option('音像制品(DVD/CD)', 2)
 		+option('玩具', 3)
-		+option('其它', 4)
+		+option('宣传品', 4)
+		+option('其它', 5)
 
 //- 投诉分类
 mixin complain-type(title, id)
@@ -384,3 +392,10 @@ mixin contract-type(title, id)
 	+select(title, id)&attributes(attributes)
 		+option('独家代理商', 0)
 		+option('普通代理商', 1)
+
+//- 套餐类型
+mixin package-type(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('官网套餐', 1)
+		+option('代理商套餐', 2)
+		+option('首期套餐', 3)

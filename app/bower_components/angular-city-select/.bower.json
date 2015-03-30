@@ -1,0 +1,32 @@
+{
+  "name": "angular-city-select",
+  "main": "angular-city-select.js",
+  "authors": [
+    "cipchk <cipchk@gmail.com>"
+  ],
+  "description": "AngularJS 省份城市联动",
+  "license": "MIT",
+  "homepage": "https://github.com/cipchk",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.3.2",
+    "angular-bootstrap": "~0.12.0",
+    "bootstrap": "~3.3.1"
+  },
+  "_release": "1f9a52f7a5",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1f9a52f7a5a6355a45365b17645d50311671b917"
+  },
+  "_source": "git://github.com/cipchk/angular-city-select.git",
+  "_target": "*",
+  "_originalSource": "angular-city-select",
+  "_direct": true
+}

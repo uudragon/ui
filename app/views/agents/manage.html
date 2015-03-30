@@ -52,13 +52,12 @@
       <td ng-bind="agent.company" ng-show="ths[0].isChecked"></td>
       <td ng-bind="agent.agencyName" ng-show="ths[1].isChecked"></td>
       <td ng-bind="agent.agencyPhone" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="agent.proxy_manager | mapper:&quot;agent&quot;" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="agent.agencyPassword" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="agent.fixedtelephone" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="agent.email" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="agent.province + agent.city + agent.address" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="agent.fax" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="agent.post" ng-show="ths[9].isChecked"></td>
+      <td ng-bind="agent.proxy_manager" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="agent.fixedtelephone" ng-show="ths[4].isChecked"></td>
+      <td ng-bind="agent.email" ng-show="ths[5].isChecked"></td>
+      <td ng-bind="agent.province + agent.city + agent.address" ng-show="ths[6].isChecked"></td>
+      <td ng-bind="agent.fax" ng-show="ths[7].isChecked"></td>
+      <td ng-bind="agent.post" ng-show="ths[8].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editAgent(agent, agentsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="维护合同信息" ng-click="manageContact(agent, agentsForm)"><span class="glyphicon glyphicon-wrench"></span></a>
       </td>
     </tr>
@@ -151,7 +150,15 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">收货地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="agent.province" ng-city-model="agent.city" ng-addr-model="agent.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="agent.province" ng-city-model="agent.city" ng-area-model="agent.district" ng-required="true"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-order-address-details" class="form-th-label">详细地址</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <input uu-address="uu-address" class="form-control input-sm input-long" ng-model="agent.address" ng-required="true"/>
+                </td>
               </tr>
             </table>
           </fieldset>
@@ -202,7 +209,7 @@
   </div>
 </div>
 <div id="contract-form" class="modal fade sub-modal">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
@@ -265,7 +272,15 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">代理地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="area.province" ng-city-model="area.city" ng-addr-model="area.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="area.province" ng-city-model="area.city" ng-area-model="area.district" ng-required="true"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-order-address-details" class="form-th-label">详细</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <input uu-address="uu-address" class="form-control input-sm input-long" ng-model="area.address" ng-required="true"/>
+                </td>
               </tr>
             </table>
           </div><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="addProxyArea(contract)"><span class="glyphicon glyphicon-plus"></span>添加代理区域</a>

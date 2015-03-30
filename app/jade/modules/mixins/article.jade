@@ -66,7 +66,9 @@ mixin order-details()
 				+input('出生日期', 'birthday')(ng-model='currentOrder.customer.birthday', uu-date-picker)
 				+pay-status('支付状态', 'pay-status')(ng-model='currentOrder.paid')
 			tr
-				+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.customer.province' ng-city-model='currentOrder.customer.city' ng-addr-model='currentOrder.customer.address' ng-required='true')
+				+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.area' ng-required='true')
+			tr
+				+input-address-details('详细地址', 'order-address-details', 3)(ng-model='currentOrder.address' ng-required='true')
 		table.form-table(ng-show='!isCustometInfoEditable')
 			tr
 				+static-input('客户姓名', 'name')(ng-bind='currentOrder.customer.name')
@@ -87,7 +89,9 @@ mixin order-details()
 				+static-input('出生日期', 'birthday')(ng-bind='currentOrder.customer.birthday')
 				+static-input('支付状态', 'pay-status')(ng-bind='currentOrder.paid | payStatus')
 			tr
-				+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.customer.province' ng-city-model='currentOrder.customer.city' ng-addr-model='currentOrder.customer.address' ng-required='true')
+				+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.area')
+			tr
+				+static-input('详细地址', 3)(ng-bind='currentOrder.address')
 
 //- Searches
 //- ----------------------

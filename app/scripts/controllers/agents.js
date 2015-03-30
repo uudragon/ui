@@ -32,7 +32,6 @@ angular.module('mainApp')
 			{name: 'agencyName', label: '联系人姓名', isChecked: true},
 			{name: 'agencyPhone', label: '联系手机', isChecked: true},
 			{name: 'proxy_manager', label: '渠道经理', isChecked: true},
-			{name: 'agencyPassword', label: '初始密码', isChecked: true},
 			{name: 'fixedtelephone', label: '固定电话', isChecked: true},
 			{name: 'email', label: '邮箱', isChecked: true},
 			{name: 'addr', label: '地址', isChecked: true},
@@ -60,7 +59,8 @@ angular.module('mainApp')
 		// 修改代理商
 		$scope.editAgent = function(agent, form) {
 			$scope.agentsFormTitle = '修改代理商';
-			$scope.agent = agent;
+			$scope.agent = angular.copy(agent);
+			$scope.tmpAgent = agent;
 			$agentsForm.modal('show');
 		};
 
@@ -73,7 +73,10 @@ angular.module('mainApp')
 			$http.post(config.agent + 'saveChannelAgency', $scope.agent)
 				.success($scope.onFineAgent({
 					form: form,
-					$form: $agentsForm
+					$form: $agentsForm,
+					action: function() {
+						$scope.tmpAgent = agent;
+					}
 				}))
 				.error($scope.onError({
 					form: form,

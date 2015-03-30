@@ -3,7 +3,9 @@
 angular.module('mainApp')
 .filter('gender', function () {
 	return function (gender) {
-		return (gender == 1 || gender == 'male') ? '男' : '女';
+		if (gender == 1 || gender == 'male') return '男';
+		if (gender == 0 || gender == 'female') return '女';
+		return '';
 	};
 })
 .filter('yesno', function() {
@@ -77,6 +79,8 @@ angular.module('mainApp')
 			case 3:
 				return '玩具';
 			case 4:
+				return '宣传品';
+			case 5:
 				return '其它';
 			default:
 				break;

@@ -50,6 +50,7 @@
     </div>
   </form>
 </div>
+<div ng-init="currentOrder={}"><div uu-addr-selector ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-addr-model="currentOrder.address" ng-required="true"></div></div>
 <div class="article-header-filter">
   <form role="form" class="form-inline">
     <div data-toggle="buttons" class="btn-group">
@@ -209,7 +210,15 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-addr-model="currentOrder.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.area" ng-required="true"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-order-address-details" class="form-th-label">详细地址</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <input uu-address="uu-address" class="form-control input-sm input-long" ng-model="currentOrder.address" ng-required="true"/>
+                </td>
               </tr>
             </table>
             <table ng-show="!isCustometInfoEditable" class="form-table">
@@ -217,13 +226,13 @@
                 <th class="form-th">
                   <label class="form-th-label">收货人</label>
                 </th>
-                <td colspan="name" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.consignee"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">订单编号</label>
                 </th>
-                <td colspan="order" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.order_no"></p>
                 </td>
               </tr>
@@ -231,14 +240,14 @@
                 <th class="form-th">
                   <label class="form-th-label">客户性别</label>
                 </th>
-                <td colspan="customer-gender" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.customer.sex | gender"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">订购产品</label>
                 </th>
-                <td colspan="good" class="form-td">
-                  <p class="form-control-static" ng-bind="currentOrder.good"></p>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.packag"></p>
                 </td>
               </tr>
               <tr>
@@ -255,7 +264,7 @@
                 <th class="form-th">
                   <label class="form-th-label">起订日期</label>
                 </th>
-                <td colspan="startDate" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.effective"></p>
                 </td>
               </tr>
@@ -263,13 +272,13 @@
                 <th class="form-th">
                   <label class="form-th-label">儿童姓名</label>
                 </th>
-                <td colspan="child-name" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.customer.child"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">结束日期</label>
                 </th>
-                <td colspan="enddate" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.deadline"></p>
                 </td>
               </tr>
@@ -277,13 +286,13 @@
                 <th class="form-th">
                   <label class="form-th-label">儿童性别</label>
                 </th>
-                <td colspan="child-gender" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.customer.c_sex | gender"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">支付方式</label>
                 </th>
-                <td colspan="payment" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.payment | payment"></p>
                 </td>
               </tr>
@@ -291,13 +300,13 @@
                 <th class="form-th">
                   <label class="form-th-label">出生日期</label>
                 </th>
-                <td colspan="birthday" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.customer.birthday"></p>
                 </td>
                 <th class="form-th">
                   <label class="form-th-label">支付状态</label>
                 </th>
-                <td colspan="pay-status" class="form-td">
+                <td class="form-td">
                   <p class="form-control-static" ng-bind="currentOrder.paid | payStatus"></p>
                 </td>
               </tr>
@@ -305,7 +314,15 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-addr-model="currentOrder.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.area"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">详细地址</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <p class="form-control-static" ng-bind="currentOrder.address"></p>
+                </td>
               </tr>
             </table>
           </fieldset>
@@ -517,7 +534,7 @@
                   <label for="form-customer-gender" class="form-th-label">客户性别</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex">
+                  <select id="form-customer-gender" class="form-control input-sm" ng-model="gbOrder.customer.sex" required="required">
                     <option value="0">女</option>
                     <option value="1">男</option>
                   </select>
@@ -593,9 +610,17 @@
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-order-address" class="form-th-label">地址</label>
+                  <label for="form-order-address" class="form-th-label">省市区</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.customer.province" ng-city-model="gbOrder.customer.city" ng-addr-model="gbOrder.customer.address" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.province" ng-city-model="gbOrder.city" ng-area-model="gbOrder.area" ng-required="true"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-order-address-details" class="form-th-label">详细地址</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <input uu-address="uu-address" class="form-control input-sm input-long" ng-model="gbOrder.address" ng-required="true"/>
+                </td>
               </tr>
             </table>
           </fieldset>
