@@ -1,0 +1,58 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+table.uu-table(ng-show='contracts')
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='contract in contracts' ng-dblclick='showContract(contract.contract_code)')
+			td(ng-bind='contract.contractId' ng-show='ths[0].isChecked')
+			td(ng-bind='contract.contactsigntime' ng-show='ths[1].isChecked')
+			//- td(ng-bind='contract.contactstarttime' ng-show='ths[2].isChecked')
+			td(ng-bind='contract.contactendime' ng-show='ths[2].isChecked')
+			td(ng-bind='contract.agencyfees' ng-show='ths[3].isChecked')
+			td(ng-bind='contract.contacttype | mapper:"contractType"' ng-show='ths[4].isChecked')
+			td.nowrap
+				+tooltip('查看', 'top', 'showContract(contract, contractsForm)')
+					+glyphicon('eye-open')
+
+uu-pagination(records='contracts.meta.recordsCount', per-page='contracts.meta.pageSize' page='contracts.meta.pageNo' model='searchModel' action='getContractList()')
+
+//- 合同详细modal
++modal('contract-details')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title(ng-bind='contractsFormTitle')
+	.modal-body
+		//- 将form放在uu-pane层级下会导致newContract(contractsForm)找不到contractsForm
+		form.form-horizontal(name='contractsForm' novalidate ng-class='{sumitted: contractsForm.$sumitted}')
+			fieldset
+				legend 合同信息
+				table.form-table
+					tr
+						+static-input('合同编号')(ng-bind='contract.contractId')
+						+static-input('签订时间')(ng-bind='contract.contactsigntime')
+					tr
+						+static-input('结束时间')(ng-bind='contract.contactendime')
+						+static-input('代理费')(ng-bind='contract.agencyfees')
+					tr
+						+static-input('合同类型')(ng-bind='contract.contacttype')
+
+			.modal-lists(ng-show='contract.agencyAreaEntity.length')
+				h3 代理区域
+				ul.list-group
+					li.list-group-item(ng-repeat='area in contract.agencyAreaEntity' ng-bind='area.province + area.city + area.district')
+
+	.modal-footer
+		button.btn.uu-btn(data-dismiss='modal') 关闭
+
+
+//- 更改显示列
+include ../../modules/table-ths.jade

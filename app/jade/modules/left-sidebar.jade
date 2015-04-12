@@ -10,6 +10,7 @@ ul.nav.nav-sections(uu-sidebar='')
 	- subnavs.push({href: 'root.customer.checkorder', auth: '000000', label: '官网核实订单'})
 	//- - subnavs.push({href: 'root.customer.shipment', auth: '000001', label: '拆单'})
 	- subnavs.push({href: 'root.customer.splitorder', auth: '000001', label: '拆分订单'})
+	- subnavs.push({href: 'root.customer.firstbuy', auth: '000003', label: '代理商订单审核'})
 	- subnavs.push({href: 'root.customer.complaints', auth: '000002', label: '投诉'})
 	- subnavs.push({href: 'root.customer.return', auth: '000003', label: '退货'})
 	- subnavs.push({href: 'root.customer.exchange', auth: '000004', label: '换货'})
@@ -111,6 +112,9 @@ ul.nav.nav-sections(uu-sidebar='')
 
 	//- 基本信息
 	- subnavs.push({href: 'root.agents.manage', auth: '010000', label: '代理商录入'})
+	- subnavs.push({href: 'root.agents.channel', auth: '010001', label: '渠道信息'})
+	- subnavs.push({href: 'root.agents.contract', auth: '010001', label: '合同信息'})
+	- subnavs.push({href: 'root.agents.overview', auth: '010001', label: '代理区域关系'})
 	- navs.push({href: 'root.agents', label: '基本信息', auth: '0100', subnavs: subnavs})
 
 

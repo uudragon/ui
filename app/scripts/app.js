@@ -147,6 +147,11 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		templateUrl: 'views/customer/splitorder.html',
 		controller: 'SplitOrder'
 	})
+	.state('root.customer.firstbuy', {
+		url: '/firstbuy',
+		templateUrl: 'views/customer/firstbuy.html',
+		controller: 'Firstbuy'
+	})
 	.state('root.customer.complaints', {
 		url: '/complaints',
 		templateUrl: 'views/customer/complaints.html',
@@ -409,8 +414,22 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		url: '/manage',
 		templateUrl: 'views/agents/manage.html',
 		controller: 'Manage'
+	})
+	.state('root.agents.channel', {
+		url: '/channel',
+		templateUrl: 'views/agents/channel.html',
+		controller: 'Channel'
+	})
+	.state('root.agents.contract', {
+		url: '/contract',
+		templateUrl: 'views/agents/contract.html',
+		controller: 'Contract'
+	})
+	.state('root.agents.overview', {
+		url: '/overview',
+		templateUrl: 'views/agents/overview.html',
+		controller: 'Overview'
 	});
-
 }])
 
 .run(['$rootScope', '$state', 'Auth', '$location', '$q', 'cfpLoadingBar', function ($rootScope, $state, Auth, $location, $q, cfpLoadingBar) {

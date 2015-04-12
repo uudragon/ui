@@ -1,0 +1,80 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+//- 订单列表过滤条件
+- var filters = []
+- filters.push({label: '订购首期', value: '0'})
+- filters.push({label: '订购宣传品', value: '1'})
++article-header-filter('query.order_type', filters)
+
+//- 订单列表
+table.uu-table
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='order in orders')
+			td(ng-bind='order.order_no' ng-show='ths[0].isChecked')
+			td(ng-bind='order.order_type | mapper: "orderType"' ng-show='ths[1].isChecked'): +jslink('showReturnOrder(order)')(ng-bind='order.order_no')
+			td(ng-bind='order.customer_name' ng-show='ths[2].isChecked')
+			td(ng-bind='order.customer_phone' ng-show='ths[3].isChecked')
+			td(ng-bind='order.customer_tel' ng-show='ths[4].isChecked')
+			td(ng-bind='order.customer_addr' ng-show='ths[5].isChecked')
+			td(ng-bind='order.has_invoice | yesno' ng-show='ths[6].isChecked')
+			td(ng-bind='order.amount' ng-show='ths[7].isChecked')
+			td(ng-bind='order.payment | mapper: "payment"' ng-show='ths[8].isChecked')
+			td(ng-bind='order.status | mapper: "goodsStatus"' ng-show='ths[9].isChecked')
+			td
+				+tooltip('审核', 'top', 'showOrder(order.order_no)')
+					+glyphicon('wrench')
+
+uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+
+
+//- 订单详情Modal
++modal('order-details')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 核实订单
+	.modal-body
+		form.form-horizontal(name='ordersForm')
+			table.form-table
+				tr
+					+static-input('订单号')(ng-bind='order.order_no')
+					+static-input('订单类型')(ng-bind='order.order_type | mapper: "orderType"')
+				tr
+					+static-input('客户姓名')(ng-bind='order.customer_name')
+					+static-input('客户手机')(ng-bind='order.customer_phone')
+				tr
+					+static-input('客户电话')(ng-bind='order.customer_tel')
+					+static-input('客户地址')(ng-bind='order.customer_addr')
+				tr
+					+static-input('是否有发票')(ng-bind='order.has_invoice | yesno')
+					+static-input('总金额')(ng-bind='order.amount')
+				tr
+					+static-input('支付方式')(ng-bind='order.payment | mapper: "payment"')
+					+static-input('状态')(ng-bind='order.status | mapper: "goodsStatus"')
+			.modal-lists(ng-show='order.details.length')
+				table.uu-table
+					+thead
+						each th in ['编号', '名称', '数量', '单品金额']
+							th.nowrap=th
+					tbody
+						tr(ng-repeat='good in order.details')
+							td(ng-bind='good.code')
+							td(ng-bind='good.name')
+							td(ng-bind='good.qty')
+							td(ng-bind='good.amount')
+		.modal-footer
+			button.btn.uu-btn.btn-primary(ng-click='confirmOrder(ordersForm, order.order_no)' ng-disabled='ordersForm.processing') 审核通过
+			button.btn.uu-btn(data-dismiss='modal') 取消
+
+
+//- 更改显示列
+include ../../modules/table-ths.jade

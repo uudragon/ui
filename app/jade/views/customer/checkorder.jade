@@ -24,10 +24,6 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search('search()')
 
-div(ng-init='currentOrder={}')
-
-	<div uu-addr-selector ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-addr-model="currentOrder.address" ng-required="true"></div>
-
 //- 订单列表过滤条件
 - var filters = []
 - filters.push({label: '所有', value: ''})

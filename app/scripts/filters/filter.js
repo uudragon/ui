@@ -3,8 +3,8 @@
 angular.module('mainApp')
 .filter('gender', function () {
 	return function (gender) {
-		if (gender == 1 || gender == 'male') return '男';
-		if (gender == 0 || gender == 'female') return '女';
+		if (parseInt(gender, 10) === 1 || gender === 'male') return '男';
+		if (parseInt(gender, 10) === 0 || gender === 'female') return '女';
 		return '';
 	};
 })

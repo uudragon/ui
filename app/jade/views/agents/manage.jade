@@ -19,12 +19,12 @@ table.uu-table(ng-show='agents')
 			td(ng-bind='agent.company' ng-show='ths[0].isChecked')
 			td(ng-bind='agent.agencyName' ng-show='ths[1].isChecked')
 			td(ng-bind='agent.agencyPhone' ng-show='ths[2].isChecked')
-			td(ng-bind='agent.proxy_manager' ng-show='ths[3].isChecked')
-			td(ng-bind='agent.fixedtelephone' ng-show='ths[4].isChecked')
-			td(ng-bind='agent.email' ng-show='ths[5].isChecked')
-			td(ng-bind='agent.province + agent.city + agent.address' ng-show='ths[6].isChecked')
-			td(ng-bind='agent.fax' ng-show='ths[7].isChecked')
-			td(ng-bind='agent.post' ng-show='ths[8].isChecked')
+			//- td(ng-bind='agent.channelloginName' ng-show='ths[3].isChecked')
+			td(ng-bind='agent.fixedtelephone' ng-show='ths[3].isChecked')
+			td(ng-bind='agent.email' ng-show='ths[4].isChecked')
+			td(ng-bind='agent.province + agent.city + agent.address' ng-show='ths[5].isChecked')
+			td(ng-bind='agent.fax' ng-show='ths[6].isChecked')
+			td(ng-bind='agent.post' ng-show='ths[7].isChecked')
 			td.nowrap
 				+tooltip('修改', 'top', 'editAgent(agent, agentsForm)')
 					+glyphicon('pencil') &nbsp;
@@ -51,8 +51,8 @@ uu-pagination(records='agents.meta.recordsCount', per-page='agents.meta.pageSize
 						+input('联系人姓名', 'name')(uu-name ng-model='agent.agencyName' required)
 						+input('联系手机', 'form-telphone')(uu-phone ng-model='agent.agencyPhone' required)
 					tr
-						+input('渠道经理', 'proxy_manager')(ng-model='agent.proxy_manager' required)
-						+input('初始密码', 'password')(ng-model='agent.agencyPassword' required)
+						+input('渠道经理', 'channelLoginName')(ng-model='agent.channelLoginName' required)
+						+input('初始密码', 'password')(ng-jade-show="agentsFormStatus === 'new'" ng-model='agent.agencyPassword' ng-required="agentsFormStatus === 'new'")
 					tr
 						+input('固定电话', 'form-tel')(uu-tel ng-model='agent.fixedtelephone' required)
 						+input('邮箱', 'email')(uu-email ng-model='agent.email' required)
@@ -65,7 +65,8 @@ uu-pagination(records='agents.meta.recordsCount', per-page='agents.meta.pageSize
 						+input-address-details('详细地址', 'order-address-details', 3)(ng-model='agent.address' ng-required='true')
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveAgent(agentsForm)' ng-disabled='agentsForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-click='saveAgent(agentsForm)' ng-show="agentsFormStatus === 'new'" ng-disabled='agentsForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-click='updateAgent(agentsForm)' ng-show="agentsFormStatus === 'edit'" ng-disabled='agentsForm.processing') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 
@@ -123,8 +124,6 @@ uu-pagination(records='agents.meta.recordsCount', per-page='agents.meta.pageSize
 				table.form-table
 					tr
 						+input-address('代理地址', 'order-address', 3)(ng-province-model='area.province' ng-city-model='area.city' ng-area-model='area.district' ng-required='true')
-					tr
-						+input-address-details('详细', 'order-address-details', 3)(ng-model='area.address' ng-required='true')
 			+tooltip('', 'top', 'addProxyArea(contract)')
 				+glyphicon('plus')
 				| 添加代理区域

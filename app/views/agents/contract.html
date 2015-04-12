@@ -1,8 +1,6 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建商品" ng-click="newCommdity(commdityForm)"><span class="glyphicon glyphicon-plus"></span></a>
-    </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
   </ul>
@@ -39,7 +37,7 @@
     </div>
   </form>
 </div>
-<table ng-show="commodities" class="uu-table">
+<table ng-show="contracts" class="uu-table">
   <thead>
     <tr ng-dblclick="chooseTh('table-cols')">
       <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
@@ -51,121 +49,78 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="commodity in commodities" ng-dblclick="editCommodity(commodity)">
-      <td ng-bind="commodity.goods_code" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="commodity.goods_name" ng-show="ths[1].isChecked"></td>
-      <td ng-bind="commodity.goods_type | goodsType" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="commodity.goods_price" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="commodity.goods_unit" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="commodity.isbn" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="commodity.product_date" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="commodity.goods_desc" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="commodity.yn | valid" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="commodity.creator" ng-show="ths[9].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editCommodity(commodity)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="复制新增" ng-click="editCommodity(commodity, true)"><span class="glyphicon glyphicon-file"></span></a>
+    <tr ng-repeat="contract in contracts" ng-dblclick="showContract(contract.contract_code)">
+      <td ng-bind="contract.contractId" ng-show="ths[0].isChecked"></td>
+      <td ng-bind="contract.contactsigntime" ng-show="ths[1].isChecked"></td>
+      <td ng-bind="contract.contactendime" ng-show="ths[2].isChecked"></td>
+      <td ng-bind="contract.agencyfees" ng-show="ths[3].isChecked"></td>
+      <td ng-bind="contract.contacttype | mapper:&quot;contractType&quot;" ng-show="ths[4].isChecked"></td>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="showContract(contract, contractsForm)"><span class="glyphicon glyphicon-eye-open"></span></a>
       </td>
     </tr>
   </tbody>
 </table>
-<uu-pagination records="commodities.meta.recordsCount" per-page="commodities.meta.pageSize" page="commodities.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
-<div id="commidy-form" class="modal fade">
+<uu-pagination records="contracts.meta.recordsCount" per-page="contracts.meta.pageSize" page="contracts.meta.pageNo" model="searchModel" action="getContractList()"></uu-pagination>
+<div id="contract-details" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 ng-bind="commodityFormTitle" class="modal-title"></h4>
+        <h4 ng-bind="contractsFormTitle" class="modal-title"></h4>
       </div>
       <div class="modal-body">
-        <form name="commdityForm" novalidate="novalidate" ng-class="{sumitted: commdityForm.$sumitted}" class="form-horizontal form-nowrap">
+        <form name="contractsForm" novalidate="novalidate" ng-class="{sumitted: contractsForm.$sumitted}" class="form-horizontal">
           <fieldset>
-            <legend>商品信息</legend>
+            <legend>合同信息</legend>
             <table class="form-table">
               <tr>
                 <th class="form-th">
-                  <label class="form-th-label">商品编码</label>
-                </th>
-                <td colspan="goods_code" class="form-td">
-                  <p class="form-control-static" ng-bind="commodity.goods_code" required="required"></p>
-                </td>
-                <th class="form-th">
-                  <label for="form-goods_name" class="form-th-label">商品名称</label>
+                  <label class="form-th-label">合同编号</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goods_name" class="form-control input-sm" ng-model="commodity.goods_name" required="required"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-goods_type" class="form-th-label">商品类型</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-goods_type" class="form-control input-sm" uu-num="uu-num" ng-model="commodity.goods_type" required="required">
-                    <option value="1">教材</option>
-                    <option value="2">音像制品(DVD/CD)</option>
-                    <option value="3">玩具</option>
-                    <option value="4">宣传品</option>
-                    <option value="5">其它</option>
-                  </select>
+                  <p class="form-control-static" ng-bind="contract.contractId"></p>
                 </td>
                 <th class="form-th">
-                  <label for="form-goods_price" class="form-th-label">商品价格</label>
+                  <label class="form-th-label">签订时间</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goods_price" class="form-control input-sm" uu-float="uu-float" ng-model="commodity.goods_price" required="required"/>
+                  <p class="form-control-static" ng-bind="contract.contactsigntime"></p>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-goods_unit" class="form-th-label">商品规格</label>
+                  <label class="form-th-label">结束时间</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-goods_unit" class="form-control input-sm" ng-model="commodity.goods_unit"/>
+                  <p class="form-control-static" ng-bind="contract.contactendime"></p>
                 </td>
                 <th class="form-th">
-                  <label for="form-product_date" class="form-th-label">生产日期</label>
+                  <label class="form-th-label">代理费</label>
                 </th>
                 <td class="form-td">
-                  <input id="form-product_date" class="form-control input-sm" ng-model="commodity.product_date" uu-date-picker="uu-date-picker"/>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-barcode" class="form-th-label">商品条码</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-barcode" class="form-control input-sm" ng-model="commodity.barcode" required="required"/>
-                </td>
-                <th class="form-th">
-                  <label for="form-isbn" class="form-th-label">ISBN号</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-isbn" class="form-control input-sm" ng-model="commodity.isbn" required="required"/>
+                  <p class="form-control-static" ng-bind="contract.agencyfees"></p>
                 </td>
               </tr>
               <tr>
                 <th class="form-th">
-                  <label for="form-is-valid" class="form-th-label">是否有效</label>
+                  <label class="form-th-label">合同类型</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-is-valid" class="form-control input-sm" ng-model="commodity.yn">
-                    <option value="1">是</option>
-                    <option value="0">否</option>
-                  </select>
-                </td>
-                <th class="form-th">
-                  <label for="form-goods-desc" class="form-th-label">商品描述</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-goods-desc" class="form-control input-sm" ng-model="commodity.goods_desc"/>
+                  <p class="form-control-static" ng-bind="contract.contacttype"></p>
                 </td>
               </tr>
             </table>
           </fieldset>
+          <div ng-show="contract.agencyAreaEntity.length" class="modal-lists">
+            <h3>代理区域</h3>
+            <ul class="list-group">
+              <li ng-repeat="area in contract.agencyAreaEntity" ng-bind="area.province + area.city + area.district" class="list-group-item"></li>
+            </ul>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="saveCommidity(commdityForm)" ng-disabled="commdityForm.processing" class="btn uu-btn btn-primary">保存</button>
-        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+        <button data-dismiss="modal" class="btn uu-btn">关闭</button>
       </div>
     </div>
   </div>

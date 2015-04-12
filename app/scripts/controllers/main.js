@@ -235,8 +235,7 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 				params.$form && params.$form.modal('success', {msg: params.msg, hide: params.hide});
 				angular.isFunction(params.action) && params.action(data);
 			} else {
-				params.msg = params.msg || '操作失败';
-				params.$form && params.$form.modal('fail', {msg: params.msg, hide: params.hide});
+				params.$form && params.$form.modal('fail');
 			}
 		};
 	};
@@ -265,9 +264,16 @@ function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
 	$scope.parseFilter = function(searchModel) {
 		var query = {},
 			value = $.trim(searchModel.subfilter);
+
 		if (value.toString().length && searchModel.filter && searchModel.filter.value) {
 			query[searchModel.filter.value] = value;
 		}
+
+		// 单独解析地址
+		if (searchModel.filter && searchModel.filter.addr) {
+			$.extend(query, searchModel.addr);
+		}
+
 		return query;
 	};
 

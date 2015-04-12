@@ -64,6 +64,9 @@
       <label for="form-end-time" class="input-group-addon">结束时间</label>
       <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
+    <div ng-show="searchModel.filter.addr" class="input-group">
+      <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.area" class="uu-city-select"></div>
+    </div>
     <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>

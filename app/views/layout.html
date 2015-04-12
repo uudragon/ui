@@ -52,6 +52,7 @@
                 <ul role="menu" class="nav nav-menu">
                   <li uu-auth-filter="000000"><a ui-sref="root.customer.checkorder" ng-class="{active: $state.is(&quot;root.customer.checkorder&quot;)}">官网核实订单</a></li>
                   <li uu-auth-filter="000001"><a ui-sref="root.customer.splitorder" ng-class="{active: $state.is(&quot;root.customer.splitorder&quot;)}">拆分订单</a></li>
+                  <li uu-auth-filter="000003"><a ui-sref="root.customer.firstbuy" ng-class="{active: $state.is(&quot;root.customer.firstbuy&quot;)}">代理商订单审核</a></li>
                   <li uu-auth-filter="000002"><a ui-sref="root.customer.complaints" ng-class="{active: $state.is(&quot;root.customer.complaints&quot;)}">投诉</a></li>
                   <li uu-auth-filter="000003"><a ui-sref="root.customer.return" ng-class="{active: $state.is(&quot;root.customer.return&quot;)}">退货</a></li>
                   <li uu-auth-filter="000004"><a ui-sref="root.customer.exchange" ng-class="{active: $state.is(&quot;root.customer.exchange&quot;)}">换货</a></li>
@@ -129,6 +130,9 @@
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.agents&quot;)}" uu-auth-filter="0100" class="nav-item"><a class="nav-menu-label">基本信息</a>
                 <ul role="menu" class="nav nav-menu">
                   <li uu-auth-filter="010000"><a ui-sref="root.agents.manage" ng-class="{active: $state.is(&quot;root.agents.manage&quot;)}">代理商录入</a></li>
+                  <li uu-auth-filter="010001"><a ui-sref="root.agents.channel" ng-class="{active: $state.is(&quot;root.agents.channel&quot;)}">渠道信息</a></li>
+                  <li uu-auth-filter="010001"><a ui-sref="root.agents.contract" ng-class="{active: $state.is(&quot;root.agents.contract&quot;)}">合同信息</a></li>
+                  <li uu-auth-filter="010001"><a ui-sref="root.agents.overview" ng-class="{active: $state.is(&quot;root.agents.overview&quot;)}">代理区域关系</a></li>
                 </ul>
               </li>
             </ul>
@@ -138,6 +142,9 @@
               <li ng-class="{&quot;active open&quot;: $state.includes(&quot;root.agents&quot;)}" uu-auth-filter="0100" class="nav-item"><a class="nav-menu-label">基本信息</a>
                 <ul role="menu" class="nav nav-menu">
                   <li uu-auth-filter="010000"><a ui-sref="root.agents.manage" ng-class="{active: $state.is(&quot;root.agents.manage&quot;)}">代理商录入</a></li>
+                  <li uu-auth-filter="010001"><a ui-sref="root.agents.channel" ng-class="{active: $state.is(&quot;root.agents.channel&quot;)}">渠道信息</a></li>
+                  <li uu-auth-filter="010001"><a ui-sref="root.agents.contract" ng-class="{active: $state.is(&quot;root.agents.contract&quot;)}">合同信息</a></li>
+                  <li uu-auth-filter="010001"><a ui-sref="root.agents.overview" ng-class="{active: $state.is(&quot;root.agents.overview&quot;)}">代理区域关系</a></li>
                 </ul>
               </li>
             </ul>

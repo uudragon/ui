@@ -535,6 +535,100 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
+	.controller('Firstbuy', ['$scope', '$controller', 'Order', '$http', function($scope, $controller, Order, $http) {
+
+		var $orderDetails = $('#order-details');
+
+		// 搜索下拉
+		$scope.filters = [
+			// {name: '订单类型', value: 'order_type', subfilters: $scope.mapRevert('orderType')},
+			{name: '客户姓名', value: 'customer_name', input: true},
+			{name: '代理商号', value: 'agent_id', input: true}
+		];
+
+		// ths
+		$scope.isAllThsShow = true;
+		$scope.ths = [
+			{name: 'order_no', label: '订单号', isChecked: true},
+			{name: 'order_type', label: '订单类型', isChecked: true},
+			{name: 'customer_name', label: '客户姓名', isChecked: true},
+			{name: 'customer_phone', label: '客户手机', isChecked: true},
+			{name: 'customer_tel', label: '客户电话', isChecked: true},
+			{name: 'customer_addr', label: '客户地址', isChecked: true},
+			{name: 'has_invoice', label: '是否有发票', isChecked: true},
+			{name: 'amount', label: '总金额', isChecked: true},
+			{name: 'payment', label: '支付方式', isChecked: true},
+			{name: 'status', label: '状态', isChecked: true}
+		];
+
+		$scope.showOrder = function(order_no) {
+
+			$http.get('agency/orders/query_orders/' + order_no + '/')
+				.success(function(order) {
+					$scope.order = order;
+					$orderDetails.modal('show');
+				});
+		};
+
+		$scope.confirmOrder = function(form, order_no) {
+			$scope.processing(form, $orderDetails);
+
+			$http.post('agency/orders/check_orders/' + order_no + '/', {
+				updater: $scope.currentUser.userNo
+			})
+				.success($scope.onFine({
+					form: form,
+					$form: $orderDetails
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $orderDetails
+				}));
+		};
+
+		// 获取订单列表
+		$scope.getOrderList = function() {
+
+			var req = {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1,
+				paid: $scope.searchModel.paid
+			};
+
+			$.extend(req, $scope.query);
+
+			$http.get('agency/orders/query_all/', {params: req})
+				.success(function(data) {
+					$scope.orders = data.records;
+					$scope.orders.meta = {
+							pageSize: data.pageSize,
+							pageNo: data.pageNo ? data.pageNo : 1,
+							recordsCount: data.recordsCount,
+							pageNumber: data.pageNumber
+						};
+				});
+		};
+
+		// 状态快速切换
+		$scope.$watch('query.order_type', function(current, prev) {
+			if (current !== prev) {
+				$scope.searchModel.pageNo = 1;
+				$scope.getOrderList();
+			}
+		});
+
+		// 搜索
+		$scope.search = function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			$scope.getOrderList();
+		};
+
+		$scope.goodsSearch = $scope.baseSearch($scope, 'getCommdityList', 'subSearchModel');
+
+		$scope.getOrderList();
+
+		$controller('CustomerServiceCtrl', {$scope: $scope});
+	}])
 	.controller('Return', ['$scope', '$controller', function($scope, $controller) {
 
 		var $tree = $('#tree'),

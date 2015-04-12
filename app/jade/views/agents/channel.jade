@@ -1,0 +1,59 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('添加渠道', 'top', 'newChannel(channelsForm)')
+			+glyphicon('plus')
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+table.uu-table(ng-show='channels')
+	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='channel in channels' ng-dblclick='editChannel(channel.channel_code)')
+			td(ng-bind='channel.channelNo' ng-show='ths[0].isChecked')
+			td(ng-bind='channel.channelName' ng-show='ths[1].isChecked')
+			td(ng-bind='channel.channelLoginId' ng-show='ths[2].isChecked')
+			td(ng-bind='channel.channelPhone' ng-show='ths[3].isChecked')
+			td(ng-bind='channel.company' ng-show='ths[4].isChecked')
+			td(ng-bind='channel.status' ng-show='ths[5].isChecked')
+			td.nowrap
+				+tooltip('修改', 'top', 'editChannel(channel, channelsForm)')
+					+glyphicon('pencil')
+
+uu-pagination(records='channels.meta.recordsCount', per-page='channels.meta.pageSize' page='channels.meta.pageNo' model='searchModel' action='getChannelList()')
+
+//- 代理商modal
++modal('channels-form')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title(ng-bind='channelsFormTitle')
+	.modal-body
+		//- 将form放在uu-pane层级下会导致newChannel(channelsForm)找不到channelsForm
+		form.form-horizontal(name='channelsForm' novalidate ng-class='{sumitted: channelsForm.$sumitted}')
+			fieldset
+				legend 渠道商信息
+				table.form-table
+					tr
+						+static-input('渠道商编号')(ng-bind='channel.channelNo')
+						+input('渠道商姓名', 'name')(uu-name ng-model='channel.channelName')
+					tr
+						+input('登陆id', 'company_name')(ng-model='channel.channelLoginId' required)
+						+input('登陆密码', 'password')(ng-model='channel.password' required)
+					tr
+						+input('渠道商手机', 'form-telphone')(uu-phone ng-model='channel.channelPhone')
+						+input('渠道商公司', 'company')(ng-model='channel.company' )
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveChannel(channelsForm)' ng-show="channelsFormStatus === 'new'" ng-disabled='channelsForm.processing') 保存
+		button.btn.uu-btn.btn-primary(ng-click='updateChannel(channelsForm)' ng-show="channelsFormStatus === 'edit'" ng-disabled='channelsForm.processing') 更新
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+
+//- 更改显示列
+include ../../modules/table-ths.jade

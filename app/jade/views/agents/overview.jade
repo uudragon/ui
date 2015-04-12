@@ -1,0 +1,25 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+table.uu-table(ng-show='areas')
+	+theadplus()(ng-dblclick="chooseTh('table-cols')")
+	tbody
+		tr(ng-repeat='area in areas')
+			td(ng-bind='area.contractId' ng-show='ths[0].isChecked')
+			td(ng-bind='area.agencyNo' ng-show='ths[1].isChecked')
+			td(ng-bind='area.agencyName' ng-show='ths[2].isChecked')
+			td(ng-bind='area.agencyPhone' ng-show='ths[3].isChecked')
+			td(ng-bind='area.province + area.city + area.district' ng-show='ths[4].isChecked')
+
+uu-pagination(records='areas.meta.recordsCount', per-page='areas.meta.pageSize' page='areas.meta.pageNo' model='searchModel' action='getAreasList()')
+
+//- 更改显示列
+include ../../modules/table-ths.jade
