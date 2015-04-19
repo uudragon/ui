@@ -4,6 +4,7 @@ var uud = angular.module('mainApp', [
 	'ivpusic.cookie',
 	'restangular',
 	'ui.router',
+	'ui.select',
 	'angular-loading-bar',
 	'angular-md5'
 ])

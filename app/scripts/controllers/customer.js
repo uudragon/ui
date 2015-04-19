@@ -359,14 +359,9 @@ angular.module('mainApp')
 			})
 			.success(function(data) {
 				$scope.shipments = data;
+				$scope.isAllChecked = false;
 				$shipmentForm.modal('show');
 			});
-
-			// $http.get(config.basewms + 'outbound/shipments/orders' + $scope.order.order_no + '/')
-			// .success(function(data) {
-			// 	$scope.shipments = data;
-			// 	$shipmentForm.modal('show');
-			// });
 		};
 
 		// 获取库房列表
@@ -422,6 +417,40 @@ angular.module('mainApp')
 				.error($scope.onError({
 					form: form,
 					$form: $shipmentCheckForm
+				}));
+		};
+
+		// 合并出库单
+		$scope.mergeShipment = function(form) {
+			var shipmentNos = [];
+
+			angular.forEach($scope.shipments, function(shipment) {
+				if (shipment.isChecked) shipmentNos.push(shipment.shipment_no);
+			});
+
+			if (shipmentNos.length < 2) {
+				window.alert('请至少选择两个出库单');
+				return;
+			}
+
+			$scope.processing(form, $shipmentForm);
+
+			$http.post(config.basewms + 'outbound/shipment/merge/', {
+					shipment_nos: shipmentNos,
+					updater: $scope.currentUser.userNo
+				})
+				.success($scope.onFine({
+					form: form,
+					$form: $shipmentForm,
+					hide: false,
+					action: function() {
+						$scope.isAllChecked = false;
+						$scope.showShipments();
+					}
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $shipmentForm
 				}));
 		};
 

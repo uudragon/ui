@@ -123,7 +123,7 @@ mixin linkage-search(action)
 			+grouped-input('开始时间', 'start-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
 			+grouped-input('结束时间', 'end-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
 			.input-group(ng-show='searchModel.filter.addr')
-				.uu-city-select(ng-show='searchModel.filter.addr' ng-province-model='searchModel.addr.province' ng-city-model='searchModel.addr.city' ng-area-model='searchModel.addr.area')
+				.uu-city-select(ng-show='searchModel.filter.addr' ng-province-model='searchModel.addr.province' ng-city-model='searchModel.addr.city' ng-area-model='searchModel.addr.district')
 
 			if block
 				block

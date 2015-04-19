@@ -39,7 +39,7 @@
       <input id="form-end-time" class="form-control input-sm" ng-show="searchModel.filter.datetime" ng-model="searchModel.subfilter.endTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
     <div ng-show="searchModel.filter.addr" class="input-group">
-      <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.area" class="uu-city-select"></div>
+      <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
     <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
@@ -252,22 +252,33 @@
                 </td>
               </tr>
             </table>
+            <button ng-click="mergeShipment(shipmentForm)" ng-disabled="shipmentForm.processing" class="btn uu-btn btn-primary">合并出库单</button>
             <div class="modal-lists">
               <table class="uu-table">
                 <thead>
                   <tr>
-                    <th>订单号</th>
-                    <th>客户姓名</th>
-                    <th>客户电话</th>
-                    <th>付款金额</th>
-                    <th>发货数量</th>
-                    <th>发货时间</th>
-                    <th>发货单状态</th>
-                    <th>操作</th>
+                    <th class="nowrap">
+                      <div class="checkbox">
+                        <label style="position: relative;">
+                          <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, shipments)"/>全选
+                        </label>
+                      </div>
+                    </th>
+                    <th class="nowrap">订单号</th>
+                    <th class="nowrap">客户姓名</th>
+                    <th class="nowrap">客户电话</th>
+                    <th class="nowrap">付款金额</th>
+                    <th class="nowrap">发货数量</th>
+                    <th class="nowrap">发货时间</th>
+                    <th class="nowrap">发货单状态</th>
+                    <th class="nowrap">操作</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="shipment in shipments" ng-dblclick="checkShipment(shipment.shipment_no, shipmentCheckForm)" ng-class="{&quot;success&quot; : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}">
+                    <td>
+                      <input type="checkbox" ng-model="shipment.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, shipments, shipment)"/>
+                    </td>
                     <td ng-bind="shipment.orders_no"></td>
                     <td ng-bind="shipment.customer_name"></td>
                     <td ng-bind="shipment.customer_tel"></td>
@@ -292,7 +303,7 @@
   </div>
 </div>
 <div id="shipment-check-form" class="modal fade sub-modal">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>

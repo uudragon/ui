@@ -167,6 +167,8 @@ angular.module('mainApp')
 		// 添加合同
 		$scope.addContract = function(form) {
 			$scope.resetForm(form);
+			form.step = 1;
+
 			$scope.contract = {
 				agencyNo: $scope.agent.agencyNo,
 				contractId: $scope.guid(),
@@ -178,6 +180,13 @@ angular.module('mainApp')
 			};
 
 			$contractForm.modal('show');
+		};
+
+		// 点击下一步
+		$scope.saveContractPre = function(form) {
+			if (!$scope.validateForm(form, $contractForm)) return;
+
+			form.step = 2;
 		};
 
 		// 保存合同

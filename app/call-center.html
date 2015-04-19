@@ -1,88 +1,100 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<title>呼叫中心系统</title>
-<link rel="stylesheet" type="text/css" href="callcenter/ext/resources/css/ext-all.css"/>
-<script src="callcenter/ext/adapter/ext/ext-base.js"></script>
-<script src="callcenter/ext/ext-all.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>呼叫中心系统</title>
+	<link rel="stylesheet" type="text/css" href="callcenter/ext/resources/css/ext-all.css"/>
+	<script src="callcenter/ext/adapter/ext/ext-base.js"></script>
+	<script src="callcenter/ext/ext-all.js"></script>
 </head>
-<body style="min-width: 800px; max-width: 100%; width: expression (document.body.clientWidth <= 800? '800px': (document.body.clientWidth >= 1440? '1440px': 'auto'));">
-<div id="toolbarDiv" style="width:98%;height:62px;"></div>
-<OBJECT ID="SpzcIvrObject"
-style="width:0px; position:absolute;top:0px;height:0px;"
-CLASSID="CLSID:8C64C9F3-1947-4484-9727-E32102F07A59"
-CODEBASE="callcenter/ctiControls/spSip.CAB#version=1.0.0.1">
-</OBJECT>
-<script src="callcenter/call-center.js"></script>
-<!-- 页面新增事件函数 -->
-<!-- 事件 -->
-<script language="javaScript" event="OnConnected" for="SpzcIvrObject">
-	//gIvrState=0
-	console.log("SpzcIvrObject.OnConnected");
-	ivrLogin();
-	toolbarStatus();		//连接服务器成功
-</script>
-<script language="javaScript" event="OnDisConnected" for="SpzcIvrObject">
-	//gIvrState=-1;
-	console.log("SpzcIvrObject.OnDisConnected");
-	toolbarStatus();		//断开服务器连接成功
-</script>
-<script language="javaScript" event="OnLoginSucceed" for="SpzcIvrObject">
-	//gIvrState=2;
-	console.log("SpzcIvrObject.OnLoginSucceed");
-	toolbarStatus();		//注册成功
-</script>
-<script language="javaScript" event="OnLogoutSucceed" for="SpzcIvrObject">
-	//gIvrState=0
-	console.log("SpzcIvrObject.OnLogoutSucceed");
-	toolbarStatus();		//注销成功
-</script>
-<script language="javaScript" event="OnInQueue(nGroup,nNum,strPhone)" for="SpzcIvrObject">//外线进队列
-	console.log("进队列"+strPhone);
-</script>
-<script language="javaScript" event="OnOutQueue(nGroup,nNum,strPhone)" for="SpzcIvrObject">//外线出队列
-	console.log("出队列"+strPhone);
+	<body style="min-width: 800px; max-width: 100%; width: expression (document.body.clientWidth <= 800? '800px': (document.body.clientWidth >
+		= 1440? '1440px': 'auto'));">
 
-</script>
-<script langugae="javaScript" event="OnReceivePhone(strChannel,strPhone,strTelID,strOther)" for="SpzcIvrObject">
-	gRemoteNumber = strPhone;
-	console.log("SpzcIvrObject.OnReceivePhone:"+strPhone);
-	toolbarStatus();
-	//Activeformx1_OnReceivePhone(strChannel,strPhone,strTelID,strOther);	//收到来电
-</script>
-<script langugae="javaScript" event="OnReceiveDial(strPhone,strTelID)" for="SpzcIvrObject">
-	console.log("SpzcIvrObject.OnReceiveDial:"+strPhone);
-	gRemoteNumber = strPhone;
-	toolbarStatus();
-	//Activeformx1_OnReceivePhone(strChannel,strPhone,strTelID,strOther);	//收到来电
-</script>
-<script language="javaScript" event="OnStateChange(nOldState,nNewState)" for="SpzcIvrObject">
-	console.log("SpzcIvrObject.OnStateChange");
-	if (nNewState == 2)
-		gRemoteNumber = getPhoneAccount();
-	toolbarStatus();
-</script>
-<script language="javaScript" event="OnReceiveWav(strWaveName)" for="SpzcIvrObject">
-	console.log("SpzcIvrObject.OnReceiveWav:"+strWaveName);
-	Activeformx1_OnReceiveWav(strWaveName);
-</script>
+	<div id="toolbarDiv" style="width:98%;height:62px;"></div>
+
+	<OBJECT ID="SpzcIvrObject"
+		style="width:0px; position:absolute;top:0px;height:0px;"
+		CLASSID="CLSID:8C64C9F3-1947-4484-9727-E32102F07A59"
+		CODEBASE="callcenter/ctiControls/spSip.CAB#version=1.0.0.1"></OBJECT>
 
 
-<!-- 页面新增控件函数 -->
-<script language="javaScript" id="clientEventHandlersJS">
-	var callerId = "";
-	var screenId=0;
-	function Activeformx1_OnReceivePhone(strChannel,strPhone,strTelID,strOther)
-	{
-		gPhoneId=gPhoneId + 1;
-		callerId = strPhone;
-		addtab("newcall-"+gPhoneId, "order_goTo.action?phone="+callerId, "客户来电-"+callerId);
-	}
-</script>
+	<script src="callcenter/call-center.js"></script>
+	<!-- 页面新增事件函数 -->
 
+	<!-- 事件 -->
+	<script language="javaScript" event="OnConnected" for="SpzcIvrObject">
+		//gIvrState=0
+		console.log("SpzcIvrObject.OnConnected");
+		ivrLogin();
+		toolbarStatus();		//连接服务器成功
+	</script>
+
+	<script language="javaScript" event="OnDisConnected" for="SpzcIvrObject">
+		//gIvrState=-1;
+		console.log("SpzcIvrObject.OnDisConnected");
+		toolbarStatus();		//断开服务器连接成功
+	</script>
+
+	<script language="javaScript" event="OnLoginSucceed" for="SpzcIvrObject">
+		//gIvrState=2;
+		console.log("SpzcIvrObject.OnLoginSucceed");
+		toolbarStatus();		//注册成功
+	</script>
+
+	<script language="javaScript" event="OnLogoutSucceed" for="SpzcIvrObject">
+		//gIvrState=0
+		console.log("SpzcIvrObject.OnLogoutSucceed");
+		toolbarStatus();		//注销成功
+	</script>
+
+	<script language="javaScript" event="OnInQueue(nGroup,nNum,strPhone)" for="SpzcIvrObject">//外线进队列
+		console.log("进队列"+strPhone);
+	</script>
+
+	<script language="javaScript" event="OnOutQueue(nGroup,nNum,strPhone)" for="SpzcIvrObject">//外线出队列
+		console.log("出队列"+strPhone);
+
+	</script>
+
+	<script langugae="javaScript" event="OnReceivePhone(strChannel,strPhone,strTelID,strOther)" for="SpzcIvrObject">
+		gRemoteNumber = strPhone;
+		console.log("SpzcIvrObject.OnReceivePhone:"+strPhone);
+		toolbarStatus();
+		//Activeformx1_OnReceivePhone(strChannel,strPhone,strTelID,strOther);	//收到来电
+	</script>
+
+	<script langugae="javaScript" event="OnReceiveDial(strPhone,strTelID)" for="SpzcIvrObject">
+		console.log("SpzcIvrObject.OnReceiveDial:"+strPhone);
+		gRemoteNumber = strPhone;
+		toolbarStatus();
+		//Activeformx1_OnReceivePhone(strChannel,strPhone,strTelID,strOther);	//收到来电
+	</script>
+
+	<script language="javaScript" event="OnStateChange(nOldState,nNewState)" for="SpzcIvrObject">
+		console.log("SpzcIvrObject.OnStateChange");
+		if (nNewState == 2)
+			gRemoteNumber = getPhoneAccount();
+		toolbarStatus();
+	</script>
+
+
+	<script language="javaScript" event="OnReceiveWav(strWaveName)" for="SpzcIvrObject">
+		console.log("SpzcIvrObject.OnReceiveWav:"+strWaveName);
+		Activeformx1_OnReceiveWav(strWaveName);
+	</script>
+
+	<!-- 页面新增控件函数 -->
+	<script language="javaScript" id="clientEventHandlersJS">
+		var callerId = "";
+		var screenId=0;
+		function Activeformx1_OnReceivePhone(strChannel,strPhone,strTelID,strOther)
+		{
+			gPhoneId=gPhoneId + 1;
+			callerId = strPhone;
+			addtab("newcall-"+gPhoneId, "order_goTo.action?phone="+callerId, "客户来电-"+callerId);
+		}
+	</script>
 
 </body>
 </html>
-

@@ -106,7 +106,7 @@ uu-pagination(records='agents.meta.recordsCount', per-page='agents.meta.pageSize
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 新建合同
 	.modal-body
-		form.form-horizontal(name='contractForm' novalidate ng-class='{sumitted: contractForm.$sumitted}')
+		form.form-horizontal(name='contractForm' novalidate ng-class='{sumitted: contractForm.$sumitted}' ng-show='contractForm.step!==2')
 			legend 合同信息
 			table.form-table
 				tr
@@ -127,9 +127,14 @@ uu-pagination(records='agents.meta.recordsCount', per-page='agents.meta.pageSize
 			+tooltip('', 'top', 'addProxyArea(contract)')
 				+glyphicon('plus')
 				| 添加代理区域
+		div(ng-show='contractForm.step===2')
+			p.text-primary
+				em 确定添加合同吗？
 
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveContract(contractForm)' ng-disabled="contractForm.processing") 保存
+		button.btn.uu-btn.btn-success(ng-show='contractForm.step!==2' ng-click='saveContractPre(contractForm)' ng-disabled="contractForm.processing") 下一步
+		button.btn.uu-btn.btn-success(ng-show='contractForm.step===2' ng-click='contractForm.step=1' ng-disabled="contractForm.processing") 上一步
+		button.btn.uu-btn.btn-primary(ng-show='contractForm.step===2' ng-click='saveContract(contractForm)' ng-disabled="contractForm.processing") 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
 //- 更改显示列
