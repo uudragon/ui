@@ -137,6 +137,7 @@
   padding: $modal-title-padding;
   border-bottom: 1px solid $modal-header-border-color;
   min-height: ($modal-title-padding + $modal-title-line-height);
+  cursor: move;
 }
 // Close icon
 .modal-header .close {

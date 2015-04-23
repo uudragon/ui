@@ -1301,6 +1301,7 @@
     var e    = $.Event('show.bs.modal', { relatedTarget: _relatedTarget })
 
     this.$element.trigger(e)
+    this.$dialog = this.$element.find('.modal-dialog');
 
     if (this.isShown || e.isDefaultPrevented()) return
 
@@ -1312,7 +1313,44 @@
     this.setScrollbar()
     this.escape()
 
+    that.$dialog.css({left: 0, top: 0})
+
     this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
+    this.$dialog.one('mousedown.move.bs.modal', '.modal-header', function modalMove(evt) {
+      that.$dialog.css({position: 'relative'});
+
+      var oldPoint = {
+        left: evt.pageX,
+        top: evt.pageY
+      };
+
+      var modalPos = {
+        left: parseInt(that.$dialog.css('left'), 10),
+        top: parseInt(that.$dialog.css('top'), 10)
+      };
+
+      var marginTop = parseInt(that.$dialog.css('marginTop'), 10);
+
+      $(document).on('mousemove.move.bs.modal', function(evt) {
+
+          var newPoint = {
+            left: modalPos.left + evt.pageX - oldPoint.left,
+            top: modalPos.top + evt.pageY - oldPoint.top
+          };
+
+          if (newPoint.top < -marginTop) {
+            newPoint.top = -marginTop;
+          }
+
+          that.$dialog.css(newPoint);
+      });
+
+      $(document).one('mouseup.move.bs.modal', function() {
+        $(document).off('mousemove.move.bs.modal');
+        that.$dialog.one('mousedown.move.bs.modal', '.modal-header', modalMove);
+      });
+
+    });
 
     this.backdrop(function () {
       var transition = $.support.transition && that.$element.hasClass('fade')
