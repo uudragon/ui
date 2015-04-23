@@ -12,7 +12,7 @@ include ./mixins/article.jade
 mixin tooltip(title, placement, action)
 	if placement === null
 		- var placement = 'bottom'
-	a(href='' ui-sref=attributes['ui-sref'] ng-class=attributes['ng-class'] uu-tooltip data-placement=placement data-toggle='dropdown' title=title class!=attributes.class ng-click=action ng-show=attributes['ng-show'])
+	a(href='' uu-tooltip data-toggle='dropdown' ng-click=action)&attributes(attributes)
 		if block
 			block
 

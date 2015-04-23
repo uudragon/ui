@@ -434,7 +434,9 @@ angular.module('mainApp')
 			});
 
 			if (shipmentNos.length < 2) {
-				window.alert('请至少选择两个出库单');
+				$.confirm({
+					text: '请至少选择两个出库单!'
+				});
 				return;
 			}
 
@@ -565,6 +567,11 @@ angular.module('mainApp')
 		$scope.saveSelectedGift = function() {
 			$scope.currentOrder.gift = $scope.shipmentTmpGood.gift;
 			$giftForm.modal('hide');
+		};
+
+		// 回退
+		$scope.goBack = function() {
+			console.log('go back');
 		};
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});

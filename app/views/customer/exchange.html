@@ -1,11 +1,11 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建调货单" ng-click="addNewExchangeOrder()"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addNewExchangeOrder()"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
       <ul role="menu" class="dropdown-menu">
         <li><a href="">当日投诉</a></li>
         <li><a href="">本月投诉</a></li>
@@ -15,9 +15,9 @@
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -28,7 +28,7 @@
       <select ng-model="searchModel.subfilter" ng-options="filter.value as filter.name for filter in subfilters" class="form-control input-sm"></select>
       <input ng-model="searchModel.keyword" class="form-control input-sm"/>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -77,7 +77,7 @@
       <td ng-bind="order.contactTimes" ng-show="ths[10].isChecked"></td>
       <td ng-bind="order.contactTimes" ng-show="ths[11].isChecked"></td>
       <td ng-bind="order.contactTimes" ng-show="ths[12].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editReturnOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editReturnOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -243,7 +243,7 @@
                 <td class="form-td">
                   <div class="input-group">
                     <p class="form-control-static" ng-bind="currentOrder.customer.phone"></p>
-                    <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
+                    <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-earphone"></span></a>
                     </div>
                   </div>
                 </td>
@@ -338,7 +338,7 @@
                   <td ng-bind="order.payStatus"></td>
                   <td ng-bind="order.birthday"></td>
                   <td ng-bind="order.payStatus | payStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="调换" ng-click="exchange(order)"><span class="glyphicon glyphicon-gift">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="退货" ng-click="return(order)"><span class="glyphicon glyphicon-export"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="exchange(order)"><span class="glyphicon glyphicon-gift">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="return(order)"><span class="glyphicon glyphicon-export"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -347,7 +347,7 @@
           <p>
             <ul class="list-inline">
               <li>联系记录</li>
-              <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建联系记录" ng-click="addNewComplains(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
+              <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addNewComplains(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
               </li>
             </ul>
           </p>

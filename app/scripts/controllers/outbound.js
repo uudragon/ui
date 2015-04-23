@@ -115,7 +115,9 @@ angular.module('mainApp')
 			var shipment_nos = $scope.getSelectedItems($scope.shipments, 'shipment_no');
 
 			if (!shipment_nos.length) {
-				window.alert('请至少选择一个发货单');
+				$.confirm({
+					text: '请至少选择一个发货单!'
+				});
 				return;
 			}
 

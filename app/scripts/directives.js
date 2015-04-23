@@ -203,7 +203,6 @@ uud.directive('timing', ['$interval', 'dateFilter',
 .directive('uuConfirm', function() {
 	return {
 		scope: {
-			label: '@',
 			confirm: '&',
 			cancel: '&'
 		},
@@ -217,13 +216,9 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				},
 				cancel: function(button) {
 					scope.cancel();
-				},
-				confirmButton: attrs.confirmBtn || '确定',
-				cancelButton: attrs.cancelBtn || '取消',
-				confirmButtonClass: 'btn-danger'
+				}
 			});
-		},
-		template: '<a href="">{{label}}</a>'
+		}
 	};
 })
 

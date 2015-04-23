@@ -268,7 +268,9 @@ angular.module('mainApp')
 			if ($scope.selectedWarehouse) {
 				$scope.getAuditList();
 			} else {
-				window.alert('请选择库房');
+				$.confirm({
+					text: '请选择库房'
+				});
 			}
 		};
 
@@ -358,7 +360,9 @@ angular.module('mainApp')
 			if ($scope.selectedWarehouse) {
 				$scope.getItemList();
 			} else {
-				window.alert('请选择库房');
+				$.confirm({
+					text: '请选择库房'
+				});
 			}
 		};
 

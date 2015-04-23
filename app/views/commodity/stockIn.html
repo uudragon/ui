@@ -1,15 +1,15 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="新建入库单" ng-click="newReceipt(receiptForm)"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="newReceipt(receiptForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -35,7 +35,7 @@
     <div ng-show="searchModel.filter.addr" class="input-group">
       <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
-    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -61,7 +61,7 @@
       <td ng-bind="receipt.creator" ng-show="ths[6].isChecked"></td>
       <td ng-bind="receipt.update_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="editReceipt(receipt.receipt_code, receipt.status)"><span class="glyphicon glyphicon-eye-open">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="取消入库单" ng-click="cancelReceipt(receipt.receipt_code, $index)"><span class="glyphicon glyphicon-trash">&nbsp;</span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editReceipt(receipt.receipt_code, receipt.status)"><span class="glyphicon glyphicon-eye-open">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="cancelReceipt(receipt.receipt_code, $index)"><span class="glyphicon glyphicon-trash">&nbsp;</span></a>
       </td>
     </tr>
   </tbody>
@@ -126,7 +126,7 @@
                         <td ng-bind="good.goods_code"></td>
                         <td ng-bind="good.goods_name"></td>
                         <td ng-bind="good.qty"></td>
-                        <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                        <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>
                       </tr>
                     </tbody>
@@ -158,7 +158,7 @@
                       <td ng-bind="good.goods_desc"></td>
                       <td ng-bind="good.yn | valid"></td>
                       <td ng-bind="good.creator"></td>
-                      <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加商品" ng-click="addGoodToReceipt(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
+                      <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addGoodToReceipt(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
                       </td>
                     </tr>
                   </tbody>

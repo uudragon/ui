@@ -1,9 +1,9 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
       <ul role="menu" class="dropdown-menu">
         <li><a href="">本月处理订单</a></li>
         <li><a href="">当日处理订单</a></li>
@@ -13,9 +13,9 @@
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -41,7 +41,7 @@
     <div ng-show="searchModel.filter.addr" class="input-group">
       <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
-    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -57,7 +57,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="order in orders" ng-dblclick="showShipments(order)">
+    <tr ng-repeat="order in orders">
       <td ng-bind="order.order_no" ng-show="ths[0].isChecked"></td>
       <td ng-bind="order.consignee" ng-show="ths[1].isChecked"></td>
       <td ng-bind="order.phone" ng-show="ths[2].isChecked"></td>
@@ -67,7 +67,7 @@
       <td ng-bind="order.paid | payStatus" ng-show="ths[6].isChecked"></td>
       <td ng-bind="order.create_time" ng-show="ths[7].isChecked"></td>
       <td ng-bind="order.creator" ng-show="ths[8].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拆分订单" ng-click="showShipments(order)"><span class="glyphicon glyphicon-wrench">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="退回"><span class="glyphicon glyphicon-backward"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="showShipments(order)"><span class="glyphicon glyphicon-wrench">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" title="提示" confirm="goBack(user, $index)" text="确定要将订单退回到官网核实订单界面?" uu-confirm="uu-confirm"><span class="glyphicon glyphicon-backward"></span></a>
       </td>
     </tr>
   </tbody>
@@ -108,7 +108,7 @@
                   <td ng-bind="order.product_amount"></td>
                   <td ng-bind="order.gift"></td>
                   <td ng-bind="order.split_num"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="编辑" ng-click="editShipment(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加赠品" ng-click="selectGift(order)"><span class="glyphicon glyphicon-plus"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editShipment(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="selectGift(order)"><span class="glyphicon glyphicon-plus"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -156,7 +156,7 @@
               <td ng-bind="order.express_code"></td>
               <td ng-bind="order.sent_date"></td>
               <td ng-bind="order.status | mapper:&quot;shipmentStatus&quot;"></td>
-              <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="编辑" ng-click="editShipment(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加赠品" ng-click="selectGift(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
+              <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editShipment(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="selectGift(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
               </td>
             </tr>
           </tbody>
@@ -288,7 +288,7 @@
                     <td ng-bind="shipment.shipped_qty"></td>
                     <td ng-bind="shipment.sent_date"></td>
                     <td ng-bind="shipment.status | mapper:'shipmentStatus'"></td>
-                    <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发货单复合" ng-click="checkShipment(shipment.shipment_no, shipmentCheckForm)"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="checkShipment(shipment.shipment_no, shipmentCheckForm)"><span class="glyphicon glyphicon-pencil"></span></a>
                     </td>
                   </tr>
                 </tbody>
@@ -416,7 +416,7 @@
                       <td ng-show="good.is_product">产品</td>
                       <td ng-show="good.is_gift">赠品</td>
                       <td ng-show="!good.operatable" class="nowrap">--</td>
-                      <td ng-show="good.operatable" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="修改" ng-click="editGood(good, giftForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                      <td ng-show="good.operatable" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editGood(good, giftForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
                       </td>
                     </tr>
                   </tbody>
@@ -446,7 +446,7 @@
                   <label for="form-end-time" class="input-group-addon">结束时间</label>
                   <input id="form-end-time" class="form-control input-sm" ng-show="subSearchModel.filter.datetime" ng-model="subSearchModel.subfilter.endTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
                 </div>
-                <div ng-click="goodsSearch()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+                <div ng-click="goodsSearch()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
                 </div>
               </div>
               <table class="uu-table">
@@ -473,7 +473,7 @@
                     <td ng-bind="good.goods_desc"></td>
                     <td ng-bind="good.yn | valid"></td>
                     <td ng-bind="good.creator"></td>
-                    <td><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="添加商品" ng-click="addGoodToShipment(good, giftForm)"><span class="glyphicon glyphicon-plus"></span></a>
+                    <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addGoodToShipment(good, giftForm)"><span class="glyphicon glyphicon-plus"></span></a>
                     </td>
                   </tr>
                 </tbody>

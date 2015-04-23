@@ -22,7 +22,7 @@ table.uu-table
 	+theadplus('shipments')(operation='工具', ng-dblclick="chooseTh('table-cols')")
 	tbody
 		tr(ng-repeat='shipment in shipments' ng-dblclick='editShipment(shipment.shipment_code, shipmentForm)' ng-class='{"active": shipment.status == -1, "danger": shipment.status == 0, "info": shipment.status == 1, "warning": shipment.status == 2, "success": shipment.status == 4}')
-			+tdchecker('shipment', 'shipment')(ng-model='shipment.isChecked')
+			+tdchecker('shipments', 'shipment')(ng-model='shipment.isChecked')
 			//- td(ng-bind="shipment.id" ng-show='ths[0].isChecked')
 			td(ng-bind='shipment.orders_no' ng-show='ths[0].isChecked')
 			td(ng-bind='shipment.shipment_no' ng-show='ths[1].isChecked')

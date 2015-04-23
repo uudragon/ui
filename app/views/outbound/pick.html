@@ -1,13 +1,13 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" ui-sref="root.utils.message" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="站内提醒"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" ui-sref="root.utils.batchmsg" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="群发信息"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -33,7 +33,7 @@
     <div ng-show="searchModel.filter.addr" class="input-group">
       <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
-    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -58,7 +58,7 @@
       <td ng-bind="pickingOrder.create_time" ng-show="ths[4].isChecked"></td>
       <td ng-bind="pickingOrder.updater" ng-show="ths[5].isChecked"></td>
       <td ng-bind="pickingOrder.update_time" ng-show="ths[6].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="拣货" ng-click="editPickingOrder(pickingOrder.picking_no, pickingOrderForm)"><span class="glyphicon glyphicon-shopping-cart">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查询对应发货单" ng-click="showShipments(pickingOrder.picking_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editPickingOrder(pickingOrder.picking_no, pickingOrderForm)"><span class="glyphicon glyphicon-shopping-cart">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="showShipments(pickingOrder.picking_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
       </td>
     </tr>
   </tbody>
@@ -183,7 +183,7 @@
                   <td ng-bind="shipment.shipped_qty"></td>
                   <td ng-bind="shipment.updater"></td>
                   <td ng-bind="shipment.status | mapper:&quot;shipmentStatus&quot;"></td>
-                  <td class="nowrap"><a href="" ng-class="{disabled: shipment.status != 3}" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="发货" ng-click="showShipmentDetailForm(shipment.shipment_no, shipmentDetailForm)"><span class="glyphicon glyphicon-send">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-placement="top" data-toggle="dropdown" title="查看" ng-click="showShipmentDetail(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                  <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="showShipmentDetailForm(shipment.shipment_no, shipmentDetailForm)" ng-class="{disabled: shipment.status != 3}"><span class="glyphicon glyphicon-send">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="showShipmentDetail(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
                   </td>
                 </tr>
               </tbody>
