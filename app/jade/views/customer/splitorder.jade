@@ -139,11 +139,12 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 									label(style='position: relative;')
 										input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", shipments)')
 										| 全选
-							each th in ['订单号', '客户姓名', '客户电话', '付款金额', '发货数量', '发货时间', '发货单状态', '操作']
+							each th in ['序号', '订单号', '客户姓名', '客户电话', '付款金额', '发货数量', '发货时间', '发货单状态', '操作']
 								th.nowrap=th
 						tbody
-							tr(ng-repeat='shipment in shipments' ng-dblclick='checkShipment(shipment.shipment_no, shipmentCheckForm)' ng-class='{"success" : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}')
+							tr(ng-repeat='($index, shipment) in shipments' ng-dblclick='checkShipment(shipment.shipment_no, shipmentCheckForm)' ng-class='{"success" : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}')
 								+tdchecker('shipments', 'shipment')(ng-model='shipment.isChecked')
+								td(ng-bind="$index + 1")
 								td(ng-bind="shipment.orders_no")
 								td(ng-bind="shipment.customer_name")
 								td(ng-bind="shipment.customer_tel")
@@ -190,15 +191,15 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 					.modal-lists(ng-show='shipment.details.length')
 						table.uu-table
 							+thead
-								each th in ['编号', '名称', '数量', '是否产品', '是否赠品', '工具']
+								each th in ['编号', '名称', '数量', '产品类别', '工具']
 									th.nowrap=th
 							tbody
 								tr(ng-repeat='good in shipment.details')
 									td(ng-bind='good.code')
 									td(ng-bind='good.name')
 									td(ng-bind='good.qty')
-									td(ng-bind='good.is_product | yesno')
-									td(ng-bind='good.is_gift | yesno')
+									td(ng-show='good.is_product') 产品
+									td(ng-show='good.is_gift') 赠品
 									td.nowrap(ng-show='!good.operatable') --
 									td.nowrap(ng-show='good.operatable')
 										+tooltip('修改', 'top', 'editGood(good, giftForm)')

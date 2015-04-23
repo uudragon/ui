@@ -85,6 +85,7 @@ angular.module('mainApp')
 				pageSize: $scope.searchModel.pageSize || config.perPage,
 				pageNo: $scope.searchModel.pageNo || 1,
 				workflow: 1,
+				status: 1,
 				paid: $scope.searchModel.paid
 			};
 
@@ -131,8 +132,12 @@ angular.module('mainApp')
 
 				if (status) {
 					$scope.currentOrder.audit = $scope.currentOrder.auditStatus;
-					$orderUpdateForm.modal('success');
-					$scope.getOrderList();
+					$orderUpdateForm.modal('success', {
+						callback: function() {
+							$orderDetails.modal('hide');
+							$scope.getOrderList();
+						}
+					});
 				} else {
 					$orderUpdateForm.modal('fail');
 				}

@@ -1386,8 +1386,17 @@
     this.$element.find('.modal-msgcontent').hide()
   }
 
-  Modal.prototype.info = function(msg, className, blnHideMsgBox) {
-    var $msg = this.$element.find('.modal-msgcontent')
+  Modal.prototype.info = function(option) {
+    var $msg = this.$element.find('.modal-msgcontent'),
+        options
+
+    if (typeof option === 'object') {
+      options = option
+    } else {
+      options = {
+        msg: option
+      }
+    }
 
     if (!$msg.length) {
       var $msgbox = $('<div class="modal-msgbox"><div class="modal-msgcontent"></div></div>')
@@ -1395,9 +1404,9 @@
       this.$element.find('.modal-content').prepend($msgbox)
     }
     $msg.removeClass('alert-info alert-danger alert-success modal-msg-spinner')
-    className ? $msg.addClass(className) : $msg.addClass('alert-info')
-    $msg.html(msg)
-    this.showMsg($msg, blnHideMsgBox)
+    options.className ? $msg.addClass(options.className) : $msg.addClass('alert-info')
+    $msg.html(options.msg)
+    this.showMsg($msg, {hide: options.hide, callback: options.callback})
   }
 
   Modal.prototype.spinner = function() {
@@ -1413,36 +1422,54 @@
     $msg.html('').finish().show()
   }
 
-  Modal.prototype.fail = function(msg) {
-    msg = msg || '操作失败';
-    this.info(msg, 'alert-danger')
-  }
+  Modal.prototype.fail = function(option) {
+    var options
 
-  Modal.prototype.success = function(obj) {
-    var msg, blnHideMsgBox = true
-
-    if (typeof obj === 'object') {
-      msg = obj.msg
-      if (typeof obj.hide !== 'undefined') blnHideMsgBox = obj.hide
+    if (typeof option === 'object') {
+      options = option
     } else {
-      msg = obj;
+      options = {
+        msg: option
+      }
     }
 
-    msg = msg || '操作成功';
+    if (typeof options.msg === 'undefined') options.msg = '操作失败'
+    options.className = 'alert-danger'
 
-    this.info(msg, 'alert-success', blnHideMsgBox)
+    this.info(options)
+  }
+
+  Modal.prototype.success = function(option) {
+    var options;
+
+    if (typeof option === 'object') {
+      options = option;
+      options.hide = typeof option.hide !== 'undefined' ? option.hide : true;
+    } else {
+      options = {
+        msg: option,
+        hide: true
+      };
+    }
+
+    if (typeof options.msg === 'undefined') options.msg = '操作成功'
+
+    options.className = 'alert-success';
+
+    this.info(options)
   }
 
   Modal.prototype.hideMsg = function() {
     this.$element.find('.modal-msgcontent').hide()
   }
 
-  Modal.prototype.showMsg = function($msg, blnHideMsgBox) {
+  Modal.prototype.showMsg = function($msg, options) {
     var self = this;
     $msg.finish().fadeIn('slow', function() {
       setTimeout(function() {
         $msg.fadeOut(function() {
-          blnHideMsgBox && self.hide()
+          options.hide && self.hide()
+          typeof options.callback && options.callback()
         })
       }, 1000)
     })
