@@ -455,25 +455,31 @@ angular.module('mainApp')
 				return;
 			}
 
-			$scope.processing(form, $shipmentForm);
+			dialog.alert({
+				text: '确定将所选出库单合并为一张出库单? 您的操作将无法撤消!',
+				cancel: 1,
+				onyes: function() {
+					$scope.processing(form, $shipmentForm);
 
-			$http.post(config.basewms + 'outbound/shipment/merge/', {
-					shipment_nos: shipmentNos,
-					updater: $scope.currentUser.userNo
-				})
-				.success($scope.onFine({
-					form: form,
-					$form: $shipmentForm,
-					hide: false,
-					action: function() {
-						$scope.isAllChecked = false;
-						$scope.showShipments();
-					}
-				}))
-				.error($scope.onError({
-					form: form,
-					$form: $shipmentForm
-				}));
+					$http.post(config.basewms + 'outbound/shipment/merge/', {
+							shipment_nos: shipmentNos,
+							updater: $scope.currentUser.userNo
+						})
+						.success($scope.onFine({
+							form: form,
+							$form: $shipmentForm,
+							hide: false,
+							action: function() {
+								$scope.isAllChecked = false;
+								$scope.showShipments();
+							}
+						}))
+						.error($scope.onError({
+							form: form,
+							$form: $shipmentForm
+						}));
+				}
+			});
 		};
 
 		// 获取商品列表
