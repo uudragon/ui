@@ -22,7 +22,7 @@
 
 /*
  * Improvement by CuGBabyBeaR @ 2013-09-12
- * 
+ *
  * Make it work in bootstrap v3
  */
 
@@ -145,7 +145,7 @@
 		}
 
 		this.picker = $((this.bootcssVer == 3) ? DPGlobal.templateV3 : DPGlobal.template)
-			.appendTo(this.isInline ? this.element : this.container) // 'body')
+			// .appendTo(this.isInline ? this.element : this.container) // 'body')
 			.on({
 				click:     $.proxy(this.click, this),
 				mousedown: $.proxy(this.mousedown, this)
@@ -278,7 +278,14 @@
 			this._events = [];
 		},
 
+		appendToContainer: function() {
+			this.container = 'body';
+			this.picker.appendTo(this.isInline ? this.element : this.container) // 'body')
+		},
+
 		show: function (e) {
+			// this.picker.appendToContainer();
+			this.appendToContainer();
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			if (this.forceParse) {
@@ -300,8 +307,10 @@
 		hide: function (e) {
 			if (!this.isVisible) return;
 			if (this.isInline) return;
-			this.picker.hide();
+
 			$(window).off('resize', this.place);
+
+			this.picker.detach();
 			this.viewMode = this.startViewMode;
 			this.showMode();
 			if (!this.isInput) {
@@ -451,11 +460,11 @@
 				offset = this.element.offset();
 				left = offset.left;
 			}
-			
+
 			if(left+220 > document.body.clientWidth){
             			left = document.body.clientWidth-220;
           		}
-			
+
 			if (this.pickerPosition == 'top-left' || this.pickerPosition == 'top-right') {
 				top = offset.top - this.picker.outerHeight();
 			} else {
