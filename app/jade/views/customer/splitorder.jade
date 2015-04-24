@@ -35,7 +35,7 @@ table.uu-table(ng-show='orders.length')
 				+tooltip('拆分订单', 'top', 'showShipments(order)')
 					+glyphicon('wrench') &nbsp;
 
-				+tooltip('退回', 'top')(title='提示' confirm='goBack(user, $index)' text='确定要将订单退回到官网核实订单界面?' uu-confirm)
+				+tooltip('退回', 'top')(title='提示' confirm='goBack(order, onFine, onError)' text='确定要将订单退回到官网核实订单界面?' auto-hide='false' uu-confirm)
 					+glyphicon('backward')
 
 uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')

@@ -3,23 +3,23 @@
 		button.close(data-dismiss='modal', aria-hidden='true') &times;
 		h4.modal-title 联系记录
 	.modal-body
-		form.form-horizontal
+		form.form-horizontal(name='contactHistotryForm' novalidate ng-class='{sumitted: contactHistotryForm.$sumitted}')
 			fieldset
 				table.form-table
 					tr
-						+contact-topic('主题', 'topic')(ng-model='contact.topic')
-						+deal-result('处理结果', 'deal-result')(ng-model='contact.status')
+						+contact-topic('主题', 'topic')(ng-model='gbContact.topic' required)
+						+deal-result('处理结果', 'deal-result')(ng-model='gbContact.status')
 					tr
-						+static-input('联系时间', 'contact-time')(ng-bind='contact.contactTime')
-						+static-input('负责人', 'contact-responsor')(ng-bind='currentUser.name')
+						+static-input('联系时间', 'contact-time')(ng-bind='gbContact.contactTime')
+						+static-input('负责人', 'contact-responsor')(ng-bind='gbContact.name')
 					tr
-						+phone-status('电话状态', 'phone-status')(ng-model='contact.phoneStatus')
-						+input('下次回访日期', 'contact-next-time')(ng-model='contact.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
-					tr(ng-show='contact.topic==="2"')
-						+complain-type('投诉分类', 'complain-type')(ng-model='contact.complainType')
-						+urgency-level('紧急程度', 'urgency')(ng-model='contact.level')
+						+phone-status('电话状态', 'phone-status')(ng-model='gbContact.phoneStatus')
+						+input('下次回访日期', 'contact-next-time')(ng-model='gbContact.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
+					tr(ng-show='gbContact.topic==="2"')
+						+complain-type('投诉分类', 'complain-type')(ng-model='gbContact.complainType')
+						+urgency-level('紧急程度', 'urgency')(ng-model='gbContact.level')
 					tr
-						+textarea('内容', 'content', 3)(ng-model="contact.content")
+						+textarea('内容', 'content', 3)(ng-model="gbContact.content")
 	.modal-footer
-		button.btn.uu-btn.btn-primary(ng-click='saveContact(contact)') 保存
+		button.btn.uu-btn.btn-primary(ng-disabled='contactHistotryForm.processing' ng-click='saveContact(contactHistotryForm)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

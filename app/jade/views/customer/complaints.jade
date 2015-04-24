@@ -113,15 +113,12 @@ uu-pagination(records='complaintsOrders.meta.recordsCount', per-page='complaints
 				ul.list-inline
 					li 联系记录
 					li
-						+tooltip('新建联系记录', 'top', 'addNewComplains(currentOrder)')
+						+tooltip('新建联系记录', 'top', 'addContact(complaintForm)')
 							+glyphicon('plus')
 
 	.modal-footer
 		button.btn.uu-btn.btn-primary(data-dismiss='modal') 确定
 		button.btn.uu-btn(data-dismiss='modal') 取消
-
-//- 投诉详情Modal
-include ../../modules/contact-history.jade
 
 //- 共享Modal
 +submodal('share-order')
@@ -136,6 +133,10 @@ include ../../modules/contact-history.jade
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveOrder()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
+
+
+//- 联系记录
+include ../../modules/contact-history.jade
 
 //- 更改显示列
 include ../../modules/table-ths.jade

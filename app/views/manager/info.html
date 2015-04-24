@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="新建"><span class="glyphicon glyphicon-plus"></span></a>
       <ul role="menu" class="dropdown-menu">
         <li><a href="" ng-click="newMsgTemplate(msgForm)" class="jslink">新增短信模板</a>
         </li>
@@ -9,9 +9,9 @@
         </li>
       </ul>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
       <ul role="menu" class="dropdown-menu">
         <li><a href="">本月处理订单</a></li>
         <li><a href="">当日处理订单</a></li>
@@ -22,9 +22,9 @@
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="站内提醒" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="群发信息" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -50,7 +50,7 @@
     <div ng-show="searchModel.filter.addr" class="input-group">
       <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>

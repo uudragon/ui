@@ -200,27 +200,49 @@ uud.directive('timing', ['$interval', 'dateFilter',
 })
 
 // confirm dialog, require plugin jquery.confirm
-.directive('uuConfirm', function() {
+.directive('uuConfirm', ['dialog', function(dialog) {
 	return {
 		scope: {
 			confirm: '&',
-			cancel: '&'
+			cancel: '&',
+			autoHide: '='
 		},
 		replace: true,
-		link: function(scope, elem, attrs) {
-			elem.confirm({
-				text: attrs.text,
-				title: attrs.title,
-				confirm: function() {
-					scope.confirm();
-				},
-				cancel: function(button) {
-					scope.cancel();
-				}
+		link: function($scope, elem, attrs) {
+			elem.on('click', function() {
+				dialog.info({
+					text: attrs.text,
+					title: attrs.title,
+					autohide: $scope.autoHide,
+					cancel: 1,
+					onyes: function(modal, btnYes) {
+						if (!$scope.autoHide) {
+							modal.modal('spinner');
+							btnYes.setAttribute('disabled', true);
+
+							$scope.confirm({
+								onFine: function() {
+									modal.modal('success');
+									btnYes.removeAttribute('disabled');
+								},
+								onError: function() {
+									modal.modal('fail');
+									btnYes.removeAttribute('disabled');
+								}
+							});
+						} else {
+							$scope.confirm();
+						}
+
+					},
+					oncancel: function(button) {
+						$scope.cancel();
+					}
+				});
 			});
 		}
 	};
-})
+}])
 
 /**
  * generate pagination

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Resource', '$filter', '$http',
-function ($scope, $state, $stateParams, Auth, Resource, $filter, $http) {
+.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'Auth', '$filter', '$http',
+function ($scope, $state, $stateParams, Auth, $filter, $http) {
 
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;

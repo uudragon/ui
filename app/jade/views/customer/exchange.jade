@@ -138,9 +138,6 @@ uu-pagination(records='returnOrders.meta.recordsCount', per-page='returnOrders.m
 		button.btn.uu-btn.btn-primary(ng-click='confirmAndShare()') 确认并共享
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
-//- 核实订单Modal
-include ../../modules/contact-history.jade
-
 //- 共享Modal
 +submodal('share-order')
 	.modal-header
@@ -154,6 +151,9 @@ include ../../modules/contact-history.jade
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-click='saveOrder()') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消
+
+//- 联系记录
+include ../../modules/contact-history.jade
 
 //- 更改显示列
 include ../../modules/table-ths.jade

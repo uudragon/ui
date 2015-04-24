@@ -1,13 +1,13 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="站内提醒" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="群发信息" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -24,7 +24,7 @@
       <label for="form-product-code" class="input-group-addon">商品编号</label>
       <input id="form-product-code" class="form-control input-sm" ng-model="searchModel.productFilter"/>
     </div>
-    <div ng-click="search(searchModel.warehouseFilter)" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search(searchModel.warehouseFilter)" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>

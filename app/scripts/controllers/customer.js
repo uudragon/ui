@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('CustomerServiceCtrl', ['$scope', '$controller', 'Order', function ($scope, $controller, Order) {
+.controller('CustomerServiceCtrl', ['$scope', '$controller', '$http', '$filter', function ($scope, $controller, $http, $filter) {
+
+	var $contactForm = $('#contact-history');
 
 	// init
 	$scope.searchModel = {
@@ -13,19 +15,33 @@ angular.module('mainApp')
 		console.log('get base order');
 	};
 
-	// 新建退货单
-	$scope.addNewContact = function($form) {
-		return function(form) {
-			$scope.resetForm(form);
-
-			$scope.order = {
-				order_no: $scope.guid(),
-				creator: $scope.currentUser.userNo,
-				updator: $scope.currentUser.userNo
-			};
-
-			$form.modal('show');
+	// 新建联系记录
+	$scope.addContact = function(form) {
+		$scope.resetForm(form);
+		$scope.gbContact = {
+			creator: $scope.currentUser.userNo,
+			updator: $scope.currentUser.userNo,
+			contactTime: $filter('now')(),
+			name: $scope.currentUser.name
 		};
+		$contactForm.modal('show');
+	};
+
+	// 保存联系记录
+	$scope.saveContact = function(form) {
+		if (!$scope.validateForm(form, $contactForm)) return;
+		$scope.processing(form, $contactForm);
+		console.log($scope.gbContact);
+
+		$http.post(config.basewms + 'ahhasdfa/picking/', $scope.gbContact)
+			.success($scope.onFine({
+				form: form,
+				$form: $contactForm
+			}))
+			.error($scope.onError({
+				form: form,
+				$form: $contactForm
+			}));
 	};
 
 	$controller('MainCtrl', {$scope: $scope});
@@ -122,8 +138,7 @@ angular.module('mainApp')
 
 		// 保存订单状态
 		$scope.updateOrderStatus = function(form) {
-			$orderUpdateForm.modal('spinner');
-			form.processing = true;
+			$scope.processing(form, $orderUpdateForm);
 
 			$http.put(config.basews + 'order/' + $scope.currentOrder.id + '/audit', {
 				audit: $scope.currentOrder.auditStatus
@@ -277,7 +292,7 @@ angular.module('mainApp')
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
 	}])
-	.controller('SplitOrder', ['$scope', '$controller', 'Order', '$http', '$q', function($scope, $controller, Order, $http, $q) {
+	.controller('SplitOrder', ['$scope', '$controller', 'Order', '$http', '$q', 'dialog', function($scope, $controller, Order, $http, $q, dialog) {
 		var $splitForm = $('#split-form'),
 			$splitResult = $('#split-results'),
 			$shipmentForm = $('#shipment-form'),
@@ -434,7 +449,7 @@ angular.module('mainApp')
 			});
 
 			if (shipmentNos.length < 2) {
-				$.confirm({
+				dialog.info({
 					text: '请至少选择两个出库单!'
 				});
 				return;
@@ -570,8 +585,15 @@ angular.module('mainApp')
 		};
 
 		// 回退
-		$scope.goBack = function() {
-			console.log('go back');
+		$scope.goBack = function(order, onFine, onError) {
+
+			console.log(order);
+
+			console.log('go back')
+
+			setTimeout(function() {
+				onError();
+			}, 1000);
 		};
 
 		$controller('CustomerServiceCtrl', {$scope: $scope});
@@ -698,6 +720,19 @@ angular.module('mainApp')
 			// $scope.getOrderList();
 		};
 
+		// 新建退货单
+		$scope.addNewReturnOrder = function(form) {
+			$scope.resetForm(form);
+
+			$scope.order = {
+				order_no: $scope.guid(),
+				creator: $scope.currentUser.userNo,
+				updator: $scope.currentUser.userNo
+			};
+
+			$returnForm.modal('show');
+		};
+
 		$scope.confirmAndShare =function(form) {
 			// 表单验证
 			if (!$scope.validateForm(form, $returnForm)) return;
@@ -738,8 +773,8 @@ angular.module('mainApp')
 	.controller('Complains', ['$scope', '$controller', '$http', '$filter', 'Restangular', function($scope, $controller, $http, $filter, Restangular) {
 		var
 			$returnOrder = $('#return-order'),
-			$orderDetails = $('#order-details'),
 			$complaintForm = $('#complaint-form'),
+			$orderDetails = $('#order-details'),
 			$tree = $('#tree');
 
 		// 搜索下拉
@@ -797,8 +832,6 @@ angular.module('mainApp')
 		});
 
 		$scope.getOrderList();
-		$scope.addNewReturnOrder = $scope.addNewContact($complaintForm);
-
 
 		// 查看订单
 		$scope.showComplaintOrders = function(order) {

@@ -17,7 +17,7 @@ angular.module('mainApp')
 		$controller('OutboundCtrl', {$scope: $scope});
 
 	}])
-	.controller('Distrib', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
+	.controller('Distrib', ['$scope', '$controller', '$http', 'dialog', function ($scope, $controller, $http, dialog) {
 
 		var $pickmentList = $('#pickment-list'),
 			$shipmentForm = $('#shipment-form');
@@ -110,12 +110,13 @@ angular.module('mainApp')
 		// 搜索
 		$scope.search = $scope.baseSearch($scope, 'getShipmentList');
 
+
 		// 生成拣货单
 		$scope.generatePickment = function() {
 			var shipment_nos = $scope.getSelectedItems($scope.shipments, 'shipment_no');
 
 			if (!shipment_nos.length) {
-				$.confirm({
+				dialog.alert({
 					text: '请至少选择一个发货单!'
 				});
 				return;
@@ -127,9 +128,16 @@ angular.module('mainApp')
 					updater: $scope.currentUser.userNo
 				})
 				.success(function(data) {
+					$scope.isAllChecked = false;
 					$scope.pickments = data;
 					$pickmentList.modal('show');
 					$scope.getShipmentList();
+				})
+				.error(function(data) {
+					dialog.alert({
+						contentType: 'danger',
+						text: '拣货失败!'
+					});
 				});
 		};
 

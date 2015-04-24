@@ -1,7 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="新建"><span class="glyphicon glyphicon-plus"></span></a>
       <ul role="menu" class="dropdown-menu">
         <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
         </li>
@@ -9,9 +9,9 @@
         </li>
       </ul>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
       <ul role="menu" class="dropdown-menu">
         <li><a href="">本月处理订单</a></li>
         <li><a href="">当日处理订单</a></li>
@@ -22,9 +22,9 @@
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="站内提醒" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="群发信息" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -38,7 +38,7 @@
       <label for="form-end-time" class="input-group-addon">结束时间</label>
       <input id="form-end-time" class="form-control input-sm" ng-model="searchModel.endTime" uu-date-picker="uu-date-picker" min-view="0" format="yyyy-mm-dd hh:ii"/>
     </div>
-    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+    <div class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -90,7 +90,7 @@
 <h2>占比统计图</h2>
 <hr/>
 <div class="row printable">
-  <p style="text-align: right; font-size: 20px; padding-right: 15px;" class="noprint"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="printCharts()"><span class="glyphicon glyphicon-print"></span></a>
+  <p style="text-align: right; font-size: 20px; padding-right: 15px;" class="noprint"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="printCharts()"><span class="glyphicon glyphicon-print"></span></a>
   </p>
   <div class="col-xs-6">
     <div uu-pie-chart="uu-pie-chart" header="全国各区域销量比值" data="[{value: 5332, name: '华北'}, {value: 3465, name: '华南'}, {value: 7485, name: '华东'}, {value: 4488, name: '华中'}, {value: 6684, name: '华西'}]"></div>

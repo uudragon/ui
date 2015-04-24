@@ -1,15 +1,15 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="newSuit(suitForm)"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="新建套餐" ng-click="newSuit(suitForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="站内提醒" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="群发信息" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -35,7 +35,7 @@
     <div ng-show="searchModel.filter.addr" class="input-group">
       <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
-    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -62,7 +62,7 @@
       <td ng-bind="suit.updater" ng-show="ths[7].isChecked"></td>
       <td ng-bind="suit.update_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="suit.yn | valid" ng-show="ths[9].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editSuit(suit.package_code)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editSuit(suit.package_code, true)"><span class="glyphicon glyphicon-file"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="修改" ng-click="editSuit(suit.package_code)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="复制新增" ng-click="editSuit(suit.package_code, true)"><span class="glyphicon glyphicon-file"></span></a>
       </td>
     </tr>
   </tbody>
@@ -146,7 +146,7 @@
                       <td ng-bind="product.product_code"></td>
                       <td ng-bind="product.product_name"></td>
                       <td ng-bind="product.qty"></td>
-                      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editProduct(product, suitForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="removeProduct($index)"><span class="glyphicon glyphicon-trash"></span></a>
+                      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="修改" ng-click="editProduct(product, suitForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="删除" ng-click="removeProduct($index)"><span class="glyphicon glyphicon-trash"></span></a>
                       </td>
                     </tr>
                   </tbody>
@@ -180,7 +180,7 @@
                     <td ng-bind="product.update_time"></td>
                     <td ng-bind="product.updater"></td>
                     <td ng-bind="product.yn | valid"></td>
-                    <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addProductToSuit(product, suitForm)"><span class="glyphicon glyphicon-plus"></span></a>
+                    <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="添加商品" ng-click="addProductToSuit(product, suitForm)"><span class="glyphicon glyphicon-plus"></span></a>
                     </td>
                   </tr>
                 </tbody>

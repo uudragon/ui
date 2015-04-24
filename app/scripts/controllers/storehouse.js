@@ -218,7 +218,7 @@ angular.module('mainApp')
 		$controller('StorehouseCtrl', {$scope: $scope});
 
 	}])
-	.controller('Audit', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
+	.controller('Audit', ['$scope', '$controller', '$http', 'dialog', function ($scope, $controller, $http, dialog) {
 
 		$('.article-header-search').stop().slideDown('fast');
 
@@ -268,7 +268,7 @@ angular.module('mainApp')
 			if ($scope.selectedWarehouse) {
 				$scope.getAuditList();
 			} else {
-				$.confirm({
+				dialog.info({
 					text: '请选择库房'
 				});
 			}
@@ -300,7 +300,7 @@ angular.module('mainApp')
 		$controller('StorehouseCtrl', {$scope: $scope});
 
 	}])
-	.controller('Remain', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
+	.controller('Remain', ['$scope', '$controller', '$http', 'dialog', function ($scope, $controller, $http, dialog) {
 
 		$('.article-header-search').stop().slideDown('fast');
 
@@ -360,7 +360,7 @@ angular.module('mainApp')
 			if ($scope.selectedWarehouse) {
 				$scope.getItemList();
 			} else {
-				$.confirm({
+				dialog.info({
 					text: '请选择库房'
 				});
 			}

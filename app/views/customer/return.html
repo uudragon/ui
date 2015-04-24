@@ -1,11 +1,11 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addNewReturnOrder(returnForm)"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="新建退货单" ng-click="addNewReturnOrder(returnForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="过滤条件" class="dropdown-toggle"><span class="glyphicon glyphicon-filter"></span></a>
       <ul role="menu" class="dropdown-menu">
         <li><a href="">当日投诉</a></li>
         <li><a href="">本月投诉</a></li>
@@ -15,9 +15,9 @@
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="站内提醒" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="群发信息" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -43,7 +43,7 @@
     <div ng-show="searchModel.filter.addr" class="input-group">
       <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
-    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -92,7 +92,7 @@
       <td ng-bind="order.contactTimes" ng-show="ths[10].isChecked"></td>
       <td ng-bind="order.contactTimes" ng-show="ths[11].isChecked"></td>
       <td ng-bind="order.contactTimes" ng-show="ths[12].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editReturnOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-comment"></span></a>
+      <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="修改" ng-click="editReturnOrder(order)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="发送消息"><span class="glyphicon glyphicon-comment"></span></a>
       </td>
     </tr>
   </tbody>
@@ -471,7 +471,7 @@
                 <td class="form-td">
                   <div class="input-group">
                     <p class="form-control-static" ng-bind="currentOrder.customer.phone"></p>
-                    <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-earphone"></span></a>
+                    <div class="input-group-addon phone-addon"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="外呼"><span class="glyphicon glyphicon-earphone"></span></a>
                     </div>
                   </div>
                 </td>
@@ -566,7 +566,7 @@
                   <td ng-bind="order.payStatus"></td>
                   <td ng-bind="order.birthday"></td>
                   <td ng-bind="order.payStatus | payStatus"></td>
-                  <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="exchange(order)"><span class="glyphicon glyphicon-gift">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="return(order)"><span class="glyphicon glyphicon-export"></span></a>
+                  <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="调换" ng-click="exchange(order)"><span class="glyphicon glyphicon-gift">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="退货" ng-click="return(order)"><span class="glyphicon glyphicon-export"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -575,131 +575,11 @@
           <p>
             <ul class="list-inline">
               <li>联系记录</li>
-              <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addNewComplains(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
+              <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="新建联系记录" ng-click="addNewComplains(currentOrder)"><span class="glyphicon glyphicon-plus"></span></a>
               </li>
             </ul>
           </p>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="contact-history" class="modal fade sub-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-        <h4 class="modal-title">联系记录</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal">
-          <fieldset>
-            <table class="form-table">
-              <tr>
-                <th class="form-th">
-                  <label for="form-topic" class="form-th-label">主题</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-topic" class="form-control input-sm" ng-model="contact.topic">
-                    <option value="1">核实订单</option>
-                    <option value="2">投诉</option>
-                    <option value="3">回访</option>
-                    <option value="4">催费</option>
-                    <option value="5">促进销售</option>
-                  </select>
-                </td>
-                <th class="form-th">
-                  <label for="form-deal-result" class="form-th-label">处理结果</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-deal-result" class="form-control input-sm" ng-model="contact.status">
-                    <option value="1">待处理</option>
-                    <option value="2">处理中</option>
-                    <option value="3">已完成</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label class="form-th-label">联系时间</label>
-                </th>
-                <td colspan="contact-time" class="form-td">
-                  <p class="form-control-static" ng-bind="contact.contactTime"></p>
-                </td>
-                <th class="form-th">
-                  <label class="form-th-label">负责人</label>
-                </th>
-                <td colspan="contact-responsor" class="form-td">
-                  <p class="form-control-static" ng-bind="currentUser.name"></p>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-phone-status" class="form-th-label">电话状态</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-phone-status" class="form-control input-sm" ng-model="contact.phoneStatus">
-                    <option value="1">无人接</option>
-                    <option value="2">占线</option>
-                    <option value="3">接听</option>
-                    <option value="4">停机</option>
-                    <option value="5">空号</option>
-                    <option value="6">错号</option>
-                  </select>
-                </td>
-                <th class="form-th">
-                  <label for="form-contact-next-time" class="form-th-label">下次回访日期</label>
-                </th>
-                <td class="form-td">
-                  <input id="form-contact-next-time" class="form-control input-sm" ng-model="contact.next_time" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0"/>
-                </td>
-              </tr>
-              <tr ng-show="contact.topic===&quot;2&quot;">
-                <th class="form-th">
-                  <label for="form-complain-type" class="form-th-label">投诉分类</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-complain-type" class="form-control input-sm" ng-model="contact.complainType">
-                    <option value="31">发票抬头错误</option>
-                    <option value="32">未开发票</option>
-                    <option value="33">开票时间长</option>
-                    <option value="34">发票丢失</option>
-                    <option value="35">客服态度不好</option>
-                    <option value="36">客服不专业</option>
-                    <option value="37">客服电话难打</option>
-                    <option value="38">物流慢</option>
-                    <option value="39">货物丢失</option>
-                    <option value="310">物品破损</option>
-                    <option value="311">快递态度</option>
-                    <option value="-1">其它</option>
-                  </select>
-                </td>
-                <th class="form-th">
-                  <label for="form-urgency" class="form-th-label">紧急程度</label>
-                </th>
-                <td class="form-td">
-                  <select id="form-urgency" class="form-control input-sm" ng-model="contact.level">
-                    <option value="1">一般</option>
-                    <option value="2">优先</option>
-                    <option value="3">紧急</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <th class="form-th">
-                  <label for="form-content" class="form-th-label">内容</label>
-                </th>
-                <td colspan="3" class="form-td">
-                  <textarea id="form-content" class="form-control" ng-model="contact.content"></textarea>
-                </td>
-              </tr>
-            </table>
-          </fieldset>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button ng-click="saveContact(contact)" class="btn uu-btn btn-primary">保存</button>
-        <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>
   </div>
@@ -720,6 +600,126 @@
       </div>
       <div class="modal-footer">
         <button ng-click="saveOrder()" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="contact-history" class="modal fade sub-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">联系记录</h4>
+      </div>
+      <div class="modal-body">
+        <form name="contactHistotryForm" novalidate="novalidate" ng-class="{sumitted: contactHistotryForm.$sumitted}" class="form-horizontal">
+          <fieldset>
+            <table class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label for="form-topic" class="form-th-label">主题</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-topic" class="form-control input-sm" ng-model="gbContact.topic" required="required">
+                    <option value="1">核实订单</option>
+                    <option value="2">投诉</option>
+                    <option value="3">回访</option>
+                    <option value="4">催费</option>
+                    <option value="5">促进销售</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-deal-result" class="form-th-label">处理结果</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-deal-result" class="form-control input-sm" ng-model="gbContact.status">
+                    <option value="1">待处理</option>
+                    <option value="2">处理中</option>
+                    <option value="3">已完成</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">联系时间</label>
+                </th>
+                <td colspan="contact-time" class="form-td">
+                  <p class="form-control-static" ng-bind="gbContact.contactTime"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">负责人</label>
+                </th>
+                <td colspan="contact-responsor" class="form-td">
+                  <p class="form-control-static" ng-bind="gbContact.name"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-phone-status" class="form-th-label">电话状态</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-phone-status" class="form-control input-sm" ng-model="gbContact.phoneStatus">
+                    <option value="1">无人接</option>
+                    <option value="2">占线</option>
+                    <option value="3">接听</option>
+                    <option value="4">停机</option>
+                    <option value="5">空号</option>
+                    <option value="6">错号</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-contact-next-time" class="form-th-label">下次回访日期</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-contact-next-time" class="form-control input-sm" ng-model="gbContact.next_time" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0"/>
+                </td>
+              </tr>
+              <tr ng-show="gbContact.topic===&quot;2&quot;">
+                <th class="form-th">
+                  <label for="form-complain-type" class="form-th-label">投诉分类</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-complain-type" class="form-control input-sm" ng-model="gbContact.complainType">
+                    <option value="31">发票抬头错误</option>
+                    <option value="32">未开发票</option>
+                    <option value="33">开票时间长</option>
+                    <option value="34">发票丢失</option>
+                    <option value="35">客服态度不好</option>
+                    <option value="36">客服不专业</option>
+                    <option value="37">客服电话难打</option>
+                    <option value="38">物流慢</option>
+                    <option value="39">货物丢失</option>
+                    <option value="310">物品破损</option>
+                    <option value="311">快递态度</option>
+                    <option value="-1">其它</option>
+                  </select>
+                </td>
+                <th class="form-th">
+                  <label for="form-urgency" class="form-th-label">紧急程度</label>
+                </th>
+                <td class="form-td">
+                  <select id="form-urgency" class="form-control input-sm" ng-model="gbContact.level">
+                    <option value="1">一般</option>
+                    <option value="2">优先</option>
+                    <option value="3">紧急</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-content" class="form-th-label">内容</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <textarea id="form-content" class="form-control" ng-model="gbContact.content"></textarea>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-disabled="contactHistotryForm.processing" ng-click="saveContact(contactHistotryForm)" class="btn uu-btn btn-primary">保存</button>
         <button data-dismiss="modal" class="btn uu-btn">取消</button>
       </div>
     </div>

@@ -148,7 +148,7 @@ uu-pagination(records='orders.meta.recordsCount' per-page='orders.meta.pageSize'
 				ul.list-inline
 					li 联系记录
 					li
-						+tooltip('添加联系记录', 'top', 'addContact()')
+						+tooltip('添加联系记录', 'top', 'addContact(contactHistotryForm)')
 							+glyphicon('plus')
 
 //- 共享订单Modal
@@ -182,7 +182,7 @@ uu-pagination(records='orders.meta.recordsCount' per-page='orders.meta.pageSize'
 
 include ../../modules/neworder.jade
 
-//- 核实订单Modal
+//- 联系记录
 include ../../modules/contact-history.jade
 
 //- 更改显示列

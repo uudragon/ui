@@ -1,15 +1,15 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="newAgent(agentsForm)"><span class="glyphicon glyphicon-plus"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="添加代理商" ng-click="newAgent(agentsForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
   </ul>
   <ul class="action-bar pull-right">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="站内提醒" ui-sref="root.utils.message"><span class="glyphicon glyphicon-comment"></span></a>
     </li>
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="群发信息" ui-sref="root.utils.batchmsg"><span class="glyphicon glyphicon-envelope"></span></a>
     </li>
   </ul>
 </div>
@@ -35,7 +35,7 @@
     <div ng-show="searchModel.filter.addr" class="input-group">
       <div ng-show="searchModel.filter.addr" ng-province-model="searchModel.addr.province" ng-city-model="searchModel.addr.city" ng-area-model="searchModel.addr.district" class="uu-city-select"></div>
     </div>
-    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+    <div ng-click="search()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询"><span class="glyphicon glyphicon-search"></span></a>
     </div>
   </form>
 </div>
@@ -60,7 +60,7 @@
       <td ng-bind="agent.province + agent.city + agent.address" ng-show="ths[5].isChecked"></td>
       <td ng-bind="agent.fax" ng-show="ths[6].isChecked"></td>
       <td ng-bind="agent.post" ng-show="ths[7].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="editAgent(agent, agentsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="manageContact(agent, agentsForm)"><span class="glyphicon glyphicon-wrench"></span></a>
+      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="修改" ng-click="editAgent(agent, agentsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="维护合同信息" ng-click="manageContact(agent, agentsForm)"><span class="glyphicon glyphicon-wrench"></span></a>
       </td>
     </tr>
   </tbody>
@@ -182,7 +182,7 @@
         <h4 class="modal-title">合同列表</h4>
       </div>
       <div class="modal-body">
-        <p><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addContract(contractForm)"><span class="glyphicon glyphicon-plus"></span></a>
+        <p><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="添加合同" ng-click="addContract(contractForm)"><span class="glyphicon glyphicon-plus"></span></a>
         </p>
         <table ng-show="contracts.length" class="uu-table">
           <thead>
@@ -278,7 +278,7 @@
                 <td colspan="3" class="uu-city-select form-td" ng-province-model="area.province" ng-city-model="area.city" ng-area-model="area.district" ng-required="true"></td>
               </tr>
             </table>
-          </div><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" ng-click="addProxyArea(contract)"><span class="glyphicon glyphicon-plus"></span>添加代理区域</a>
+          </div><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="addProxyArea(contract)"><span class="glyphicon glyphicon-plus"></span>添加代理区域</a>
         </form>
         <div ng-show="contractForm.step===2">
           <p class="text-primary"><em>确定添加合同吗？</em></p>

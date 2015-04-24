@@ -1507,7 +1507,7 @@
       setTimeout(function() {
         $msg.fadeOut(function() {
           options.hide && self.hide()
-          typeof options.callback && options.callback()
+          typeof options.callback === 'function' && options.callback()
         })
       }, 1000)
     })
