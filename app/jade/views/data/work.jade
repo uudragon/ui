@@ -3,13 +3,8 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建', 'top')
+		+tooltip('新建工单', 'top', 'globalNewWorkForm(gbworkformForm)')
 			+glyphicon('plus')
-		ul.dropdown-menu(role="menu")
-			li
-				+jslink('globalNewOrder()', '新建订单')
-			li
-				+jslink('globalNewWorkForm(gbworkformForm)', '新建工单')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
 			+glyphicon('search')

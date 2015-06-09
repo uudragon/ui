@@ -17,28 +17,29 @@ include ../../modules/mixins.jade
 +linkage-search('search()')
 
 //- 订单列表
-table.uu-table(ng-show='orders.length')
-	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
-	tbody
-		//- tr(ng-repeat='order in orders' ng-dblclick='showShipments(order)')
-		tr(ng-repeat='order in orders')
-			td(ng-bind='order.order_no' ng-show='ths[0].isChecked')
-			td(ng-bind='order.consignee', ng-show='ths[1].isChecked')
-			td(ng-bind='order.phone', ng-show='ths[2].isChecked')
-			td(ng-bind='order.province + order.city', ng-show='ths[3].isChecked')
-			td(ng-bind='order.packag', ng-show='ths[4].isChecked')
-			td(ng-bind='order.payment | payment', ng-show='ths[5].isChecked')
-			td(ng-bind='order.paid | payStatus', ng-show='ths[6].isChecked')
-			td(ng-bind='order.create_time', ng-show='ths[7].isChecked')
-			td(ng-bind='order.creator', ng-show='ths[8].isChecked')
-			td.nowrap
-				+tooltip('拆分订单', 'top', 'showShipments(order)')
-					+glyphicon('wrench') &nbsp;
+div(d-check='orders' type='rest')
+	table.uu-table
+		+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+		tbody
+			//- tr(ng-repeat='order in orders' ng-dblclick='showShipments(order)')
+			tr(ng-repeat='order in orders')
+				td(ng-bind='order.order_no' ng-show='ths[0].isChecked')
+				td(ng-bind='order.consignee', ng-show='ths[1].isChecked')
+				td(ng-bind='order.phone', ng-show='ths[2].isChecked')
+				td(ng-bind='order.province + order.city', ng-show='ths[3].isChecked')
+				td(ng-bind='order.packag', ng-show='ths[4].isChecked')
+				td(ng-bind='order.payment| mapper: "payment"', ng-show='ths[5].isChecked')
+				td(ng-bind='order.paid | mapper: "payStatus"', ng-show='ths[6].isChecked')
+				td(ng-bind='order.create_time', ng-show='ths[7].isChecked')
+				td(ng-bind='order.creator', ng-show='ths[8].isChecked')
+				td.nowrap
+					+tooltip('拆分订单', 'top', 'showShipments(order)')
+						+glyphicon('wrench') &nbsp;
 
-				+tooltip('退回', 'top')(title='提示' confirm='goBack(order, onFine, onError)' text='确定要将订单退回到官网核实订单界面?' auto-hide='false' uu-confirm)
-					+glyphicon('backward')
+					+tooltip('退回', 'top')(title='退回' confirm='goBack(order, onFine, onError)' text='确定要将订单退回到官网核实订单界面?' auto-hide='false' uu-confirm)
+						+glyphicon('backward')
 
-uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
+	uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize' page='orders.meta.pageNo', model='searchModel', action='getOrderList()')
 
 //- 核实订单Modal
 +modal('split-form')
@@ -129,7 +130,10 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 						+static-input('儿童生日')(ng-bind='order.customer.birthday')
 					tr
 						+static-input('订购类型')(ng-bind='order.packag')
-						+static-input('付款状态')(ng-bind='order.paid | payStatus')
+						+static-input('付款状态')(ng-bind='order.paid | mapper: "payStatus"')
+
+					tr(ng-show='order.firstsend >= 2')
+						+static-input('首次发货阶数', 3)(ng-bind='order.firstsend' class='tdcell-highlight')
 
 				button.btn.uu-btn.btn-primary(ng-click='mergeShipment(shipmentForm)' ng-disabled='shipmentForm.processing') 合并出库单
 				.modal-lists
@@ -143,20 +147,23 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 							each th in ['序号', '订单号', '客户姓名', '客户电话', '付款金额', '发货数量', '发货时间', '发货单状态', '操作']
 								th.nowrap=th
 						tbody
-							tr(ng-repeat='($index, shipment) in shipments' ng-dblclick='checkShipment(shipment.shipment_no, shipmentCheckForm)' ng-class='{"success" : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}')
-								+tdchecker('shipments', 'shipment')(ng-model='shipment.isChecked')
+							//- tr(ng-repeat='($index, shipment) in shipments' ng-dblclick='checkShipment(shipment.shipment_no, shipmentCheckForm)' ng-class='{"success" : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}')
+							tr(ng-repeat='($index, shipment) in shipments' callback='showTableShipmentCallback(params)' td-content='showTableShipment(shipment.shipment_no)' ng-class='{"success" : order.customer.birthday.substr(5,2) === shipment.sent_date.substr(5,2)}')
+								+tdchecker('shipments', 'shipment')(ng-model='shipment.isChecked' ng-show='shipment.status === 0')
 								td(ng-bind="$index + 1")
 								td(ng-bind="shipment.orders_no")
 								td(ng-bind="shipment.customer_name")
 								td(ng-bind="shipment.customer_tel")
 								td(ng-bind="shipment.amount")
 								td(ng-bind="shipment.shipped_qty")
-								td(ng-bind="shipment.sent_date")
+								td.nowrap(ng-bind="shipment.sent_date")
 								td(ng-bind="shipment.status | mapper:'shipmentStatus'")
-								td.nowrap
+								td.nowrap.escontent
 									+tooltip('发货单复合', 'top', 'checkShipment(shipment.shipment_no, shipmentCheckForm)')
 										+glyphicon('pencil')
+
 	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='batchConfirm(shipmentForm)' ng-disabled='shipmentForm.processing') 批量复合
 		button.btn.uu-btn.btn-primary(ng-click='splitOrder(shipmentForm)' ng-disabled='shipmentForm.processing') 确定
 		button.btn.uu-btn(data-dismiss='modal') 取消
 
@@ -171,20 +178,26 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 				div(uu-pane, title='发货单')
 					table.form-table
 						tr.nowrap
-							+static-input('订单号', 'orders_no')(ng-bind='shipment.orders_no')
-							+static-input('发货单号', 'shipment_no')(ng-bind='shipment.shipment_no')
+							+static-input('订单号')(ng-bind='shipment.orders_no')
+							+static-input('发货单号')(ng-bind='shipment.shipment_no')
 						tr
-							+static-input('客户姓名', 'form-customer-name')(ng-bind='shipment.customer_name')
-							+static-input('客户地址', 'form-address')(ng-bind='shipment.address')
+							+static-input('客户姓名')(ng-bind='shipment.customer_name')
+							+static-input('客户地址')(ng-bind='shipment.address')
 						tr
-							+static-input('客户电话', 'form-customer-tel')(ng-bind='shipment.customer_tel')
-							+static-input('付款金额', 'form-amount')(ng-bind='shipment.amount')
+							+static-input('客户电话')(ng-bind='shipment.customer_tel')
+							+static-input('付款金额')(ng-bind='shipment.amount')
 						tr
-							+static-input('发货数量', 'form-shipped-qty')(ng-bind='shipment.shipped_qty')
-							+input('发货时间', 'form-send-date')(ng-model='shipment.sent_date' uu-date-picker required)
+							+static-input('发货数量')(ng-bind='shipment.shipped_qty')
+							+input('发货时间')(ng-model='shipment.sent_date' uu-date-picker required)
 						tr
-							+static-input('是否有发票', 'form-has-invoice')(ng-bind='shipment.has_invoice')
-							+static-input('发货单状态', 'shipment-status')(ng-bind='shipment.status | mapper:"shipmentStatus"')
+							+static-input('是否有发票')(ng-bind='shipment.has_invoice | yesno')
+							+static-input('发货单状态')(ng-bind='shipment.status | mapper:"shipmentStatus"')
+						tr
+							+static-input('邮篇')(ng-bind='shipment.post')
+							+static-input('座机')(ng-bind='shipment.customer_phone')
+						tr
+							+static-input('省份')(ng-bind='shipment.prov')
+							+static-input('城市')(ng-bind='shipment.city')
 						tr
 							+select('库房', 'form-warehouse')(ng-model='shipment.warehouse' ng-options='warehouse.warehouse_code as warehouse.warehouse_name for warehouse in warehouses' required)
 
@@ -214,36 +227,26 @@ uu-pagination(records='orders.meta.recordsCount', per-page='orders.meta.pageSize
 						button.btn.uu-btn(data-dismiss='modal') 取消
 
 				div(uu-pane, title='添加赠品')
-					.modal-search-bar
-						.form-group
-							select.form-control.input-sm(ng-model='subSearchModel.filter', ng-options='filter.name for filter in goodsFilters', ng-change='resetSubFilter()')
-							select.form-control.input-sm(ng-model='subSearchModel.subfilter', ng-options='filter.value as filter.name for filter in subSearchModel.filter.subfilters', ng-show='subSearchModel.filter.subfilters')
-							input.form-control.input-sm(ng-model='subSearchModel.subfilter', ng-show='subSearchModel.filter.input')
-						+grouped-input('时间', 'date-time')(ng-show='subSearchModel.filter.date' ng-model='subSearchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
-						+grouped-input('开始时间', 'start-time')(ng-show='subSearchModel.filter.datetime' ng-model='subSearchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
-						+grouped-input('结束时间', 'end-time')(ng-show='subSearchModel.filter.datetime' ng-model='subSearchModel.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
-						.btn.uu-btn(ng-click='goodsSearch()')
-							+tooltip('查询', 'top')
-								+glyphicon('search')
-
-					table.uu-table
-						+thead
-							each th in ['商品名', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
-								th.nowrap=th
-						tbody
-							tr(ng-repeat='good in goods')
-								td(ng-bind='good.goods_name')
-								td(ng-bind='good.goods_type | goodsType')
-								td(ng-bind='good.goods_price')
-								td(ng-bind='good.goods_unit')
-								td(ng-bind='good.product_date')
-								td(ng-bind='good.goods_desc')
-								td(ng-bind='good.yn | valid')
-								td(ng-bind='good.creator')
-								td
-									+tooltip('添加商品', 'top', 'addGoodToShipment(good, giftForm)')
-										+glyphicon('plus')
-					uu-pagination(records='goods.meta.recordsCount', per-page='goods.meta.pageSize' page='goods.meta.pageNo', model='subSearchModel', action='getCommdityList()')
+					+linkage-search-form('goodsSearch()', 'goodsFilters', 'subSearchModel')
+					div(d-check='goods')
+						table.uu-table
+							+thead
+								each th in ['商品名', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']
+									th.nowrap=th
+							tbody
+								tr(ng-repeat='good in goods')
+									td(ng-bind='good.goods_name')
+									td(ng-bind='good.goods_type | mapper:"goodType"')
+									td(ng-bind='good.goods_price')
+									td(ng-bind='good.goods_unit')
+									td(ng-bind='good.product_date')
+									td(ng-bind='good.goods_desc')
+									td(ng-bind='good.yn | valid')
+									td(ng-bind='good.creator')
+									td
+										+tooltip('添加商品', 'top', 'addGoodToShipment(good, giftForm)')
+											+glyphicon('plus')
+						uu-pagination(records='goods.meta.recordsCount', per-page='goods.meta.pageSize' page='goods.meta.pageNo', model='subSearchModel', action='getCommdityList()')
 
 //- 选择赠品Modal
 +submodal('gift-form')

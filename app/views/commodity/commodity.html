@@ -39,7 +39,7 @@
     </div>
   </form>
 </div>
-<div d-check="receipts">
+<div d-check="receipts.length">
   <table class="uu-table">
     <thead>
       <tr ng-dblclick="chooseTh('table-cols')">
@@ -52,7 +52,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="receipt in receipts" ng-dblclick="editReceipt(receipt.receipt_code)" ng-class="{success: (receipt.status == 2), danger: (receipt.status == 1 || receipt.status == 0)}">
+      <tr ng-repeat="receipt in receipts" ng-dblclick="editReceipt(receipt.receipt_code)">
         <td ng-bind="receipt.receipt_code" ng-show="ths[0].isChecked"></td>
         <td ng-bind="receipt.receipt_date" ng-show="ths[1].isChecked"></td>
         <td ng-bind="receipt.receipt_desc" ng-show="ths[2].isChecked"></td>
@@ -62,7 +62,7 @@
         <td ng-bind="receipt.creator" ng-show="ths[6].isChecked"></td>
         <td ng-bind="receipt.update_time" ng-show="ths[7].isChecked"></td>
         <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
-        <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="editReceipt(receipt.receipt_code, receipt.status)"><span class="glyphicon glyphicon-eye-open"></span></a><span ng-show="receipt.status != 2">&nbsp;&nbsp;</span><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="取消入库单" ng-click="cancelReceipt(receipt.receipt_code, $index)" ng-show="receipt.status != 2"><span class="glyphicon glyphicon-trash"></span></a>
+        <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="editReceipt(receipt.receipt_code, receipt.status)"><span class="glyphicon glyphicon-eye-open">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="取消入库单" ng-click="cancelReceipt(receipt.receipt_code, $index)"><span class="glyphicon glyphicon-trash">&nbsp;</span></a>
         </td>
       </tr>
     </tbody>
@@ -119,7 +119,6 @@
                       <tr>
                         <th class="nowrap">商品编号</th>
                         <th class="nowrap">商品名称</th>
-                        <th class="nowrap">商品类型</th>
                         <th class="nowrap">商品数量</th>
                         <th class="nowrap">工具</th>
                       </tr>
@@ -128,7 +127,6 @@
                       <tr ng-repeat="good in receipt.details">
                         <td ng-bind="good.goods_code"></td>
                         <td ng-bind="good.goods_name"></td>
-                        <td ng-bind="good.goods_type | mapper:&quot;goodType&quot;"></td>
                         <td ng-bind="good.qty"></td>
                         <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="修改" ng-click="editGood(good, productDetailsForm)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="删除" ng-click="removeGood($index)"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>
@@ -138,59 +136,36 @@
                 </div>
               </div>
               <div uu-pane="uu-pane" title="添加入库商品">
-                <div class="article-search-form form-inline">
-                  <div class="form-group">
-                    <select ng-model="subSearchModel.filter" ng-options="filter.name for filter in subFilters" ng-change="resetSubFilter(subSearchModel)" class="form-control input-sm"></select>
-                    <select ng-model="subSearchModel.subfilter" ng-options="filter.value as filter.name for filter in subSearchModel.filter.subfilters" ng-show="subSearchModel.filter.subfilters" class="form-control input-sm"></select>
-                    <input ng-model="subSearchModel.subfilter" ng-show="subSearchModel.filter.input" class="form-control input-sm"/>
-                  </div>
-                  <div ng-show="subSearchModel.filter.date" class="input-group">
-                    <label for="form-date-time" class="input-group-addon">时间</label>
-                    <input id="form-date-time" class="form-control input-sm" ng-show="subSearchModel.filter.date" ng-model="subSearchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
-                  </div>
-                  <div ng-show="subSearchModel.filter.datetime" class="input-group">
-                    <label for="form-start-time" class="input-group-addon">开始时间</label>
-                    <input id="form-start-time" class="form-control input-sm" ng-show="subSearchModel.filter.datetime" ng-model="subSearchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
-                  </div>
-                  <div ng-show="subSearchModel.filter.datetime" class="input-group">
-                    <label for="form-end-time" class="input-group-addon">结束时间</label>
-                    <input id="form-end-time" class="form-control input-sm" ng-show="subSearchModel.filter.datetime" ng-model="subSearchModel.subfilter.endTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
-                  </div>
-                  <div ng-click="goodsQuery()" class="btn uu-btn"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询"><span class="glyphicon glyphicon-search"></span></a>
-                  </div>
-                </div>
-                <div d-check="goods.length">
-                  <table class="uu-table">
-                    <thead>
-                      <tr>
-                        <th class="nowrap">商品名称</th>
-                        <th class="nowrap">商品类型</th>
-                        <th class="nowrap">商品价格</th>
-                        <th class="nowrap">商品规格</th>
-                        <th class="nowrap">生产日期</th>
-                        <th class="nowrap">商品描述</th>
-                        <th class="nowrap">是否有效</th>
-                        <th class="nowrap">操作员</th>
-                        <th class="nowrap">工具</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="good in goods">
-                        <td ng-bind="good.goods_name"></td>
-                        <td ng-bind="good.goods_type | mapper:&quot;goodType&quot;"></td>
-                        <td ng-bind="good.goods_price"></td>
-                        <td ng-bind="good.goods_unit"></td>
-                        <td ng-bind="good.product_date"></td>
-                        <td ng-bind="good.goods_desc"></td>
-                        <td ng-bind="good.yn | valid"></td>
-                        <td ng-bind="good.creator"></td>
-                        <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="添加商品" ng-click="addGoodToReceipt(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <uu-pagination records="goods.meta.recordsCount" per-page="goods.meta.pageSize" page="goods.meta.pageNo" model="subSearchModel" action="getCommdityList()"></uu-pagination>
-                </div>
+                <table class="uu-table">
+                  <thead>
+                    <tr>
+                      <th class="nowrap">商品名称</th>
+                      <th class="nowrap">商品类型</th>
+                      <th class="nowrap">商品价格</th>
+                      <th class="nowrap">商品规格</th>
+                      <th class="nowrap">生产日期</th>
+                      <th class="nowrap">商品描述</th>
+                      <th class="nowrap">是否有效</th>
+                      <th class="nowrap">操作员</th>
+                      <th class="nowrap">工具</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="good in goods">
+                      <td ng-bind="good.goods_name"></td>
+                      <td ng-bind="good.goods_type | goodsType"></td>
+                      <td ng-bind="good.goods_price"></td>
+                      <td ng-bind="good.goods_unit"></td>
+                      <td ng-bind="good.product_date"></td>
+                      <td ng-bind="good.goods_desc"></td>
+                      <td ng-bind="good.yn | valid"></td>
+                      <td ng-bind="good.creator"></td>
+                      <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="添加商品" ng-click="addGoodToReceipt(good, productDetailsForm)"><span class="glyphicon glyphicon-plus"></span></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <uu-pagination records="goods.meta.recordsCount" per-page="goods.meta.pageSize" page="goods.meta.pageNo" model="searchModel" action="getCommdityList()"></uu-pagination>
               </div>
             </div>
           </fieldset>

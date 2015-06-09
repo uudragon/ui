@@ -464,4 +464,132 @@ angular.module('mainApp')
 		// inherit functions from parent
 		$controller('AgentsCtrl', {$scope: $scope});
 
+	}])
+	.controller('Rebates', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
+		var
+			$productForm = $('#product-form'),
+			$productUpdateForm = $('#product-update-form');
+
+		// 搜索下拉
+		$scope.filters = [
+			{name: '商品名称', value: 'rebateName', input: true},
+			{name: '商品编号', value: 'rebateNo', input: true},
+			// {name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
+			{name: '一阶产品返利', value: 'rebateType', subfilters: $scope.mapRevert('rebateType')}
+		];
+
+		// ths
+		$scope.isAllThsShow = true;
+		$scope.ths = [
+			{name: 'rebateNo', label: '商品编号', isChecked: true},
+			{name: 'rebateType', label: '一阶产品返利', isChecked: true},
+			{name: 'rebateName', label: '商品名称', isChecked: true},
+			{name: 'amount', label: '产品金额', isChecked: true},
+			{name: 'rebateDesc', label: '商品描述', isChecked: true},
+			{name: 'operator', label: '操作人', isChecked: true},
+			{name: 'yn', label: '是否有效', isChecked: true}
+			// {name: 'rebatelv', label: '返利利率', isChecked: true}
+		];
+
+
+		// 商品搜索
+		$scope.goodsQuery = function() {
+			$scope.subQuery = $scope.parseFilter($scope.subSearchModel);
+			$scope.getCommdityList();
+		};
+
+
+		// 搜索
+		$scope.search = function() {
+			$scope.query = $scope.parseFilter($scope.searchModel);
+			$scope.getProductList();
+		};
+
+		// 新建返利商品
+		$scope.getProductList = function() {
+
+			var req = {
+				pageSize: $scope.searchModel.pageSize || config.perPage,
+				pageNo: $scope.searchModel.pageNo || 1
+			};
+
+			$.extend(req, $scope.query);
+
+			$http.post(config.agent + 'queryGoodsRebateType', req)
+				.success(function(data) {
+					$scope.products = data.records;
+					$scope.products.meta = {
+							pageSize: data.pageSize,
+							pageNo: data.pageNo ? data.pageNo : 1,
+							recordsCount: data.recordsCount,
+							pageNumber: data.pageNumber
+						};
+					});
+		};
+
+		// 新建返利商品
+		$scope.newProduct = function(form) {
+			$scope.resetForm(form);
+			$scope.product = {
+				rebateNo: $scope.guid(),
+				rebateType: 1,
+				operator: $scope.currentUser.userNo,
+				yn: 1
+			};
+
+			$productForm.modal('show');
+		};
+
+		// 保存返利商品
+		$scope.saveProduct = function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $productForm)) return;
+			// 表单验证
+
+			$scope.processing(form, $productForm);
+
+			$http.post(config.agent + 'saveGoodsRebateType', $scope.product)
+				.success($scope.onFineAgent({
+					form: form,
+					$form: $productForm,
+					action: $scope.getProductList,
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $productForm
+				}));
+		};
+
+		// 更新返利商品
+		$scope.editProduct = function(product) {
+			$scope.product = product;
+
+			$productUpdateForm.modal('show');
+		};
+
+		// 更新返利商品
+		$scope.updateProduct = function(form) {
+			// 表单验证
+			if (!$scope.validateForm(form, $productUpdateForm)) return;
+
+			$scope.processing(form, $productUpdateForm);
+
+			$http.post(config.agent + 'updateGoodsRebateType', $scope.product)
+				.success($scope.onFineAgent({
+					form: form,
+					$form: $productUpdateForm,
+					action: $scope.getProductList,
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $productUpdateForm
+				}));
+		};
+
+
+		$scope.getProductList();
+
+		// inherit functions from parent
+		$controller('ProductCtrl', {$scope: $scope});
+
 	}]);

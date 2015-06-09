@@ -57,7 +57,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="shipment in shipments" ng-dblclick="editShipment(shipment.shipment_code)">
-      <td>
+      <td class="escontent">
         <input type="checkbox" ng-model="shipment.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, shipment, shipment)"/>
       </td>
       <td ng-bind="$index + 1" ng-show="ths[0].isChecked"></td>

@@ -63,7 +63,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="knowledge in knowledges">
-      <td>
+      <td class="escontent">
         <input type="checkbox" ng-model="knowledge.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, knowledges, knowledge)"/>
       </td>
       <td ng-bind="knowledge.title" ng-show="ths[0].isChecked"></td>

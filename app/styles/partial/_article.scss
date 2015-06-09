@@ -2,6 +2,7 @@
 
 }
 
+.article-search-form,
 .article-header-search {
 	margin: 10px 0;
 	display: none;
@@ -22,6 +23,15 @@
 			min-width: inherit;
 		}
 	}
+}
+
+.article-search-form {
+	.form-group {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	display: block;
 }
 
 .action-bar {

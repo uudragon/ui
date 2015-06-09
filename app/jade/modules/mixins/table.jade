@@ -18,9 +18,9 @@ mixin theadplus(records, ths)
 				th.nowrap
 					.checkbox
 						label
-							input(type='checkbox', ng-model='isAllChecked', ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", #{records})')
+							input(type='checkbox' ng-model='isAllChecked' ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", #{records})')
 							| 全选
-			th.nowrap(ng-repeat='th in ths', ng-show='th.isChecked', ng-class='{"sort": th.sortable}', uu-sort="th.sortable", sort-name='th.name', action='sortBy(name, type)')
+			th.nowrap(ng-repeat='th in ths' ng-show='th.isChecked' ng-class='{"sort": th.sortable}' uu-sort="th.sortable" sort-name='th.name' action='sortBy(name, type)')
 				| {{th.label}}
 				+th-filter(ng-if='th.filters')
 					+glyphicon('filter')
@@ -31,11 +31,11 @@ mixin theadplus(records, ths)
 				th.nowrap=attributes.operation
 
 mixin tdchecker(items, item)
-	td
-		input(type='checkbox', ng-model=attributes['ng-model'], ng-click='checkIsAllChecked("isAllChecked", #{items}, #{item})')
+	td.escontent
+		input(type='checkbox' ng-model=attributes['ng-model'] ng-show=attributes['ng-show'] ng-click='checkIsAllChecked("isAllChecked", #{items}, #{item})')
 
 
 mixin th-filter()
-	a(href='', ng-if=attributes['ng-if'], data-toggle='dropdown', class!=attributes.class)
+	a(href='' ng-if=attributes['ng-if'] data-toggle='dropdown' class!=attributes.class)
 		if block
 			block

@@ -199,6 +199,49 @@ uud.directive('timing', ['$interval', 'dateFilter',
 	};
 })
 
+// generate clickable tab
+.directive('dCheck', function() {
+	return {
+		transclude: true,
+		restrict: 'A',
+		replace: true,
+		scope: {
+			dCheck: '=',
+			type: '@'
+		},
+		controller: ['$scope', function($scope) {
+
+				if ($scope.type === 'rest') {
+
+					$scope.$watch('dCheck.finished', function(isFinished) {
+						$scope.showContent = isFinished && $scope.dCheck.length;
+						$scope.showSpinner = !isFinished;
+						$scope.showNoContent = isFinished && !$scope.dCheck.length;
+					});
+
+				} else {
+					$scope.$watch('dCheck.length', function(len) {
+						$scope.showContent = len;
+						$scope.showSpinner = len === undefined;
+						$scope.showNoContent = len === 0;
+					});
+				}
+		}],
+		template: '<div class="data-checker">' +
+						'<div ng-transclude ng-show="showContent"></div>' +
+						'<div class="gb-spinner" ng-show="showSpinner">' +
+							'<div class="spinner-bounce1"></div>' +
+							'<div class="spinner-bounce2"></div>' +
+							'<div class="spinner-bounce3"></div>' +
+						'</div>' +
+						'<p class="text-danger" ng-show="showNoContent">' +
+							'<i class="glyphicon glyphicon-warning-sign"></i>&nbsp;' +
+							'未找到匹配数据!' +
+						'</p>' +
+				'</div>'
+	};
+})
+
 // confirm dialog, require plugin jquery.confirm
 .directive('uuConfirm', ['dialog', function(dialog) {
 	return {
@@ -821,6 +864,65 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 			menus.on('click', toggleFn);
 			setions.on('click', toggleFn);
+		}
+	};
+})
+
+.directive('tdContent', function() {
+	return {
+		restrict: 'A',
+		scope: {
+			method: '&tdContent',
+			callback: '&callback'
+		},
+		link: function($scope, $elem) {
+
+			var $td = $('<tr><td></td></tr>').children('td'),
+				$content = $('<div></div>'),
+				len = $elem.data('tdlen');
+
+			if (!len) ($elem.data('tdlen', (len = $elem.children('td').length)));
+
+			$content.addClass('table-inner-wrap').hide();
+
+			$td.attr('colspan', len).append($content);
+
+			$scope.toggle = function(e) {
+				var $target = $(e.target).closest('.escontent');
+
+				if ($target.length) return;
+
+				if ($content.data('loaded')) {
+					$content.slideToggle('fast');
+				} else {
+					$scope.method()
+						.success(function(data) {
+							$content.data('loaded', true);
+							$scope.callback({params: {
+								$content: $content,
+								data: data
+							}});
+							$td.insertAfter($elem);
+							$content.slideDown('fast');
+						})
+						.error(function() {
+							$content.data('loaded', true);
+							$scope.callback({params: {
+								$content: $content,
+								data: [{name: 'asdfadf', age: '1'}, {name: 'asdfadf', age: '1'}]
+							}});
+							$td.insertAfter($elem);
+							$content.slideDown('fast');
+						});
+				}
+				// !$elem.data('loaded') ?
+				// 	$td.insertAfter($elem) && $elem.data('loaded', true) :
+				// 	$td.remove() && $elem.data('loaded', false);
+			};
+
+			// console.log($scope.method);
+
+			$elem.on('click', $scope.toggle);
 		}
 	};
 })

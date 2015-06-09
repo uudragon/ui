@@ -1,0 +1,111 @@
+
+<form name="contactInfoForm" novalidate="novalidate" ng-class="{sumitted: contactInfoForm.$sumitted}" class="form-horizontal">
+  <fieldset>
+    <legend>参数维护</legend>
+    <div class="form-group modal-action"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="修改" ng-click="editContactInfo(contactInfoForm)" ng-class="{disabled: isContactEditable}"><span class="glyphicon glyphicon-pencil"></span></a>
+    </div>
+    <table style="width: 65%; margin-left: 0;" ng-show="!isContactEditable" class="form-table form-nobg">
+      <tr>
+        <th class="form-th">
+          <label class="form-th-label">发货人</label>
+        </th>
+        <td class="form-td">
+          <p class="form-control-static" ng-bind="contact.consignee"></p>
+        </td>
+      </tr>
+      <tr>
+        <th class="form-th">
+          <label class="form-th-label">邮编</label>
+        </th>
+        <td class="form-td">
+          <p class="form-control-static" ng-bind="contact.customer.sex"></p>
+        </td>
+      </tr>
+      <tr>
+        <th class="form-th">
+          <label class="form-th-label">电话</label>
+        </th>
+        <td class="form-td">
+          <p class="form-control-static" ng-bind="contact.tel"></p>
+        </td>
+      </tr>
+      <tr>
+        <th class="form-th">
+          <label class="form-th-label">地址</label>
+        </th>
+        <td colspan="3" class="form-td">
+          <p class="form-control-static" ng-bind="contact.province + &quot; / &quot; + contact.city + &quot; / &quot; + contact.area"></p>
+        </td>
+      </tr>
+      <tr>
+        <th class="form-th">
+          <label class="form-th-label">详细地址</label>
+        </th>
+        <td colspan="3" class="form-td">
+          <p class="form-control-static" ng-bind="contact.address"></p>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+</form>
+<div id="system-contact" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+        <h4 class="modal-title">修改联系信息</h4>
+      </div>
+      <div class="modal-body">
+        <form name="contactInfoForm" novalidate="novalidate" ng-class="{sumitted: contactInfoForm.$sumitted}" class="form-horizontal">
+          <fieldset>
+            <legend>联系信息</legend>
+            <table class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label for="form-name" class="form-th-label">发货人</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-name" class="form-control input-sm" uu-name="uu-name" ng-model="contactCloned.consignee" required="required"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-customer-post" class="form-th-label">邮编</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-customer-post" class="form-control input-sm" ng-model="contactCloned.customer.sex" required="required"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-contact-tel" class="form-th-label">电话</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-contact-tel" class="form-control input-sm" ng-model="contactCloned.tel"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-contact-address" class="form-th-label">地址</label>
+                </th>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="contactCloned.province" ng-city-model="contactCloned.city" ng-area-model="contactCloned.area" ng-required="true"></td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-contact-address-details" class="form-th-label">详细地址</label>
+                </th>
+                <td colspan="3" class="form-td">
+                  <input uu-address="uu-address" class="form-control input-sm input-long" ng-model="contactCloned.address" ng-required="true"/>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="saveContactInfo(contactInfoForm)" ng-disabled="contactInfoForm.processing" class="btn uu-btn btn-primary">保存</button>
+        <button data-dismiss="modal" class="btn uu-btn">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,19 +7,25 @@
 			fieldset
 				table.form-table
 					tr
-						+contact-topic('主题', 'topic')(ng-model='gbContact.topic' required)
+						+contact-topic('主题', 'topic')(ng-model='gbContact.theme' required)
+						+static-input('工单号', 'form_no')(ng-bind='gbContact.form_no')
+					tr
 						+deal-result('处理结果', 'deal-result')(ng-model='gbContact.status')
+						+static-input('id')(ng-bind='gbContact.id')
 					tr
-						+static-input('联系时间', 'contact-time')(ng-bind='gbContact.contactTime')
-						+static-input('负责人', 'contact-responsor')(ng-bind='gbContact.name')
+						+input('联系时间', 'contact-time')(uu-date-picker format='yyyy-mm-dd hh:ii' min-view='0' ng-model='gbContact.start_time' required)
+						+input('结束时间', 'contact-end-time')(uu-date-picker format='yyyy-mm-dd hh:ii' min-view='0' ng-model='gbContact.end_time' required)
 					tr
-						+phone-status('电话状态', 'phone-status')(ng-model='gbContact.phoneStatus')
+						+input('电话号码', 'phone-number')(uu-num ng-model='gbContact.tel_no' required)
+						+phone-status('电话状态', 'phone-status')(ng-model='gbContact.tel_status' required)
+					tr
 						+input('下次回访日期', 'contact-next-time')(ng-model='gbContact.next_time', uu-date-picker, format='yyyy-mm-dd hh:ii', min-view='0')
-					tr(ng-show='gbContact.topic==="2"')
-						+complain-type('投诉分类', 'complain-type')(ng-model='gbContact.complainType')
+						+static-input('负责人', 'contact-responsor')(ng-bind='gbContact.user_no')
+					tr(ng-show='gbContact.theme==="2"')
+						+complain-type('投诉分类', 'complain-type')(ng-model='gbContact.subtype')
 						+urgency-level('紧急程度', 'urgency')(ng-model='gbContact.level')
 					tr
-						+textarea('内容', 'content', 3)(ng-model="gbContact.content")
+						+textarea('内容', 'content', 3)(ng-model="gbContact.content" required)
 	.modal-footer
 		button.btn.uu-btn.btn-primary(ng-disabled='contactHistotryForm.processing' ng-click='saveContact(contactHistotryForm)') 保存
 		button.btn.uu-btn(data-dismiss='modal') 取消

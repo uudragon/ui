@@ -111,7 +111,7 @@ uu-pagination(records='shipments.meta.recordsCount', per-page='shipments.meta.pa
 						tbody
 							tr(ng-repeat='good in goods')
 								td(ng-bind='good.goods_name')
-								td(ng-bind='good.goods_type | goodsType')
+								td(ng-bind='good.goods_type | mapper:"goodType"')
 								td(ng-bind='good.goods_price')
 								td(ng-bind='good.goods_unit')
 								td(ng-bind='good.product_date')

@@ -350,16 +350,64 @@ angular.module('mainApp')
 				}));
 		};
 
+		// var $expressForm = $('#express-confirm')
+
 		// 发货
-		$scope.showShipmentDetailForm = function(shipmentNo, form) {
+		$scope.showShipmentDetailForm = function(shipment, form) {
 			$scope.resetForm(form);
 
-			$http.get(config.basewms + 'outbound/shipment/'  + shipmentNo + '/')
-				.success(function(shipment) {
-					$scope.shipment = shipment;
-					if ($scope.shipment.status != 3) return;
-					$shipmentDetailForm.modal('show');
+			if (shipment.status != 3) {
+				$shipmentList.modal('fail', {
+					msg: '只有发货单状态为是发货中的订单才可以发货!',
+					duration: 3000
 				});
+				return;
+			}
+
+			$scope.processing(form, $shipmentList);
+
+			$http.get(config.basewms + 'outbound/shipment/'  + shipment.shipment_no + '/')
+				.success($scope.onFine({
+					form: form,
+					$form: $shipmentList,
+					hide: false,
+					action: function(shipment) {
+						$scope.shipment = shipment;
+						$scope.expressInfo = {};
+						$shipmentDetailForm.modal('show');
+					}
+				}))
+				.error($scope.onError({
+					form: form,
+					$form: $shipmentList
+				}));
+		};
+
+		// 摘取面单
+		$scope.pullExpressInfo = function(shipmentNo, form) {
+			$scope.processing(form, $shipmentDetailForm);
+
+			$http.post(config.basewms + 'outbound/request_express_info/', {
+				shipment_no: shipmentNo,
+				updater: $scope.currentUser.userNo
+			})
+			.success($scope.onFine({
+				form: form,
+				$form: $shipmentDetailForm,
+				hide: false,
+				action: function(expressInfo) {
+					$scope.expressInfo = expressInfo;
+					$scope.expressInfo.success = true;
+				}
+			}))
+			.error($scope.onError({
+				form: form,
+				$form: $shipmentDetailForm,
+				action: function(expressInfo) {
+					$scope.expressInfo = expressInfo;
+					$scope.expressInfo.success = false;
+				}
+			}));
 		};
 
 		// 查询出库单详细信息

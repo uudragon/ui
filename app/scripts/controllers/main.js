@@ -42,8 +42,7 @@ function ($scope, $state, $stateParams, Auth, $filter, $http) {
 
 	// check is login
 	$scope.$on('auth:invalid', function(e, d) {
-		console.log('invalid');
-		// Auth.logout();
+		Auth.logout();
 	});
 
 	$scope.logout = function() {
@@ -115,12 +114,13 @@ function ($scope, $state, $stateParams, Auth, $filter, $http) {
 	};
 
 	// 二级下拉选框，当第一次下拉选框变化时，第二次下拉选框默认选择第一项
-	$scope.resetSubFilter = function() {
-		if ($scope.searchModel && $scope.searchModel.filter) {
-			if ($scope.searchModel.filter.input || $scope.searchModel.filter.datetime) {
-				$scope.searchModel.subfilter = '';
-			} else if ($scope.searchModel.filter.subfilters && $scope.searchModel.filter.subfilters.length){
-				$scope.searchModel.subfilter = $scope.searchModel.filter.subfilters[0].value;
+	$scope.resetSubFilter = function(searchModel) {
+		searchModel = searchModel || $scope.searchModel;
+		if (searchModel && searchModel.filter) {
+			if (searchModel.filter.input || searchModel.filter.datetime) {
+				searchModel.subfilter = '';
+			} else if (searchModel.filter.subfilters && searchModel.filter.subfilters.length){
+				searchModel.subfilter = searchModel.filter.subfilters[0].value;
 			}
 		}
 	};
@@ -274,6 +274,8 @@ function ($scope, $state, $stateParams, Auth, $filter, $http) {
 			$.extend(query, searchModel.addr);
 		}
 
+		searchModel.pageNo = 1;
+
 		return query;
 	};
 
@@ -296,4 +298,35 @@ function ($scope, $state, $stateParams, Auth, $filter, $http) {
 		return $scope.selectedItems;
 	};
 
+
+	// 业务相关
+	// -----------------------------------------------------
+
+	// 获取商品列表
+	$scope.getBaseCommdityList = function($scope, searchModel, query, attacher, $form) {
+
+		return function() {
+			var req = {
+				pageSize: $scope[searchModel].pageSize || config.perPage,
+				pageNo: $scope[searchModel].pageNo || 1
+			};
+
+			$.extend(req, $scope[query]);
+
+			$form && $form.modal('spinner');
+
+			return $http.post(config.basewms + 'baseinfo/query_goods_list/', req)
+				.success(function(data) {
+					$scope[attacher] = data.records;
+					$scope[attacher].meta = {
+						pageSize: data.pageSize,
+						pageNo: data.pageNo ? data.pageNo : 1,
+						recordsCount: data.recordsCount,
+						pageNumber: data.pageNumber
+					};
+
+					$form && $form.modal('spinner', true);
+				});
+			};
+	};
 }]);

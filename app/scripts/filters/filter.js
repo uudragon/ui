@@ -69,24 +69,6 @@ angular.module('mainApp')
 		}
 	};
 })
-.filter('goodsType', function() {
-	return function (num) {
-		switch (parseInt(num, 10)) {
-			case 1:
-				return '教材';
-			case 2:
-				return '音像制品(DVD/CD)';
-			case 3:
-				return '玩具';
-			case 4:
-				return '宣传品';
-			case 5:
-				return '其它';
-			default:
-				break;
-		}
-	};
-})
 .filter('complainType', function() {
 	return function (num) {
 

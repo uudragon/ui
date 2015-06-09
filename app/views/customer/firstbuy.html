@@ -49,36 +49,38 @@
     </div>
   </form>
 </div>
-<table class="uu-table">
-  <thead>
-    <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
-          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
-        </ul>
-      </th>
-      <th class="nowrap">工具</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="order in orders">
-      <td ng-bind="order.order_no" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="order.order_type | mapper: &quot;orderType&quot;" ng-show="ths[1].isChecked"><a href="" ng-click="showReturnOrder(order)" class="jslink" ng-bind="order.order_no"></a>
-      </td>
-      <td ng-bind="order.customer_name" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="order.customer_phone" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="order.customer_tel" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="order.customer_addr" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="order.has_invoice | yesno" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="order.amount" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="order.payment | mapper: &quot;payment&quot;" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="order.status | mapper: &quot;goodsStatus&quot;" ng-show="ths[9].isChecked"></td>
-      <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="审核" ng-click="showOrder(order.order_no)"><span class="glyphicon glyphicon-wrench"></span></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<uu-pagination records="orders.meta.recordsCount" per-page="orders.meta.pageSize" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
+<div d-check="orders">
+  <table class="uu-table">
+    <thead>
+      <tr ng-dblclick="chooseTh('table-cols')">
+        <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+          <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+            <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+          </ul>
+        </th>
+        <th class="nowrap">工具</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="order in orders">
+        <td ng-bind="order.order_no" ng-show="ths[0].isChecked"></td>
+        <td ng-bind="order.order_type | mapper: &quot;orderType&quot;" ng-show="ths[1].isChecked"><a href="" ng-click="showReturnOrder(order)" class="jslink" ng-bind="order.order_no"></a>
+        </td>
+        <td ng-bind="order.customer_name" ng-show="ths[2].isChecked"></td>
+        <td ng-bind="order.customer_phone" ng-show="ths[3].isChecked"></td>
+        <td ng-bind="order.customer_tel" ng-show="ths[4].isChecked"></td>
+        <td ng-bind="order.customer_addr" ng-show="ths[5].isChecked"></td>
+        <td ng-bind="order.has_invoice | yesno" ng-show="ths[6].isChecked"></td>
+        <td ng-bind="order.amount" ng-show="ths[7].isChecked"></td>
+        <td ng-bind="order.payment | mapper: &quot;payment&quot;" ng-show="ths[8].isChecked"></td>
+        <td ng-bind="order.status | mapper: &quot;goodsStatus&quot;" ng-show="ths[9].isChecked"></td>
+        <td><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="审核" ng-click="showOrder(order.order_no)" ng-show="order.status == 1"><span class="glyphicon glyphicon-wrench"></span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <uu-pagination records="orders.meta.recordsCount" per-page="orders.meta.pageSize" page="orders.meta.pageNo" model="searchModel" action="getOrderList()"></uu-pagination>
+</div>
 <div id="order-details" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">

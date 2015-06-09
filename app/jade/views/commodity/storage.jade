@@ -12,27 +12,28 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search('search()')
 
-table.uu-table(ng-show='receipts')
-	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
-	tbody
-		tr(ng-repeat='receipt in receipts' ng-dblclick='showPutinedReceipt(receipt.receipt_code)')
-			td(ng-bind='receipt.receipt_code' ng-show='ths[0].isChecked')
-			td(ng-bind='receipt.receipt_date' ng-show='ths[1].isChecked')
-			td(ng-bind='receipt.receipt_desc' ng-show='ths[2].isChecked')
-			td(ng-bind='receipt.status | mapper:"receipt"' ng-show='ths[3].isChecked')
-			td(ng-bind='receipt.warehouse_name' ng-show='ths[4].isChecked')
-			td(ng-bind='receipt.create_time' ng-show='ths[5].isChecked')
-			td(ng-bind='receipt.creator' ng-show='ths[6].isChecked')
-			td(ng-bind='receipt.update_time' ng-show='ths[7].isChecked')
-			td(ng-bind='receipt.updater' ng-show='ths[8].isChecked')
-			td.nowrap(ng-show='receipt.status!=-1 && receipt.status!=2')
-				+tooltip('入库', 'top', 'newPutinedReceipt(receipt.receipt_code, storageForm)')
-					+glyphicon('import')
-			td.nowrap(ng-show='receipt.status==-1 || receipt.status==2')
-				+tooltip('查看', 'top', 'showPutinedReceipt(receipt.receipt_code)')
-					+glyphicon('eye-open')
+div(d-check='receipts')
+	table.uu-table
+		+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+		tbody
+			tr(ng-repeat='receipt in receipts' ng-dblclick='showPutinedReceipt(receipt.receipt_code)')
+				td(ng-bind='receipt.receipt_code' ng-show='ths[0].isChecked')
+				td(ng-bind='receipt.receipt_date' ng-show='ths[1].isChecked')
+				td(ng-bind='receipt.receipt_desc' ng-show='ths[2].isChecked')
+				td(ng-bind='receipt.status | mapper:"receipt"' ng-show='ths[3].isChecked')
+				td(ng-bind='receipt.warehouse_name' ng-show='ths[4].isChecked')
+				td(ng-bind='receipt.create_time' ng-show='ths[5].isChecked')
+				td(ng-bind='receipt.creator' ng-show='ths[6].isChecked')
+				td(ng-bind='receipt.update_time' ng-show='ths[7].isChecked')
+				td(ng-bind='receipt.updater' ng-show='ths[8].isChecked')
+				td.nowrap(ng-show='receipt.status!=-1 && receipt.status!=2')
+					+tooltip('入库', 'top', 'newPutinedReceipt(receipt.receipt_code, storageForm)')
+						+glyphicon('import')
+				td.nowrap(ng-show='receipt.status==-1 || receipt.status==2')
+					+tooltip('查看', 'top', 'showPutinedReceipt(receipt.receipt_code)')
+						+glyphicon('eye-open')
 
-uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getReceiptList()')
+	uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.pageSize' page='receipts.meta.pageNo' pagreceiptForme='receipts.meta.pageNo', model='searchModel', action='getReceiptList()')
 
 //- 商品入库
 +modal('storage-form')
@@ -52,12 +53,14 @@ uu-pagination(records='receipts.meta.recordsCount', per-page='receipts.meta.page
 			.modal-lists(ng-show='receipt.details.length')
 				table.uu-table
 					+thead
-						each th in ['商品编号', '计划入库数量', '已经入库数量', '商品入库数量']
+						each th in ['商品编号', '商品名称', '商品类型', '计划入库数量', '已经入库数量', '商品入库数量']
 							th.nowrap=th
 						th.nowrap(ng-show='storageFormType==="new"') 工具
 					tbody
-						tr(ng-repeat='good in receipt.details' ng-class='{success: (good.qty === good.actual_qty), warning: (good.qty > good.actual_qty && good.actual_qty !== 0), danger: (good.actual_qty === 0)}')
+						tr(ng-repeat='good in receipt.details' ng-class='{success: (good.qty === good.actual_qty && good.qty !== 0), warning: (good.qty > good.actual_qty && good.actual_qty !== 0), danger: (good.actual_qty === 0)}')
 							td(ng-bind='good.goods_code')
+							td(ng-bind='good.goods_name')
+							td(ng-bind='good.goods_type | mapper:"goodType"')
 							td(ng-bind='good.qty')
 							td(ng-bind='good.actual_qty')
 							td(ng-bind='good.putin_qty')

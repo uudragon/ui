@@ -20,7 +20,7 @@ angular.module('mainApp')
 	}])
 
 	// 入库单管理
-	.controller('StockIn', ['$scope', '$controller', '$http', '$q', function ($scope, $controller, $http, $q) {
+	.controller('StockIn', ['$scope', '$controller', '$http', '$q', 'dialog', function ($scope, $controller, $http, $q, dialog) {
 
 		var $receiptForm = $('#receipt-form'),
 			$goodsDetailsForm = $('#good-details-form');
@@ -36,6 +36,22 @@ angular.module('mainApp')
 			{name: '修改人', value: 'updater', input: true}
 		];
 
+		$scope.subFilters = [
+			{name: '商品编号', value: 'goods_code', input: true},
+			{name: '商品名称', value: 'goods_name', input: true},
+			{name: '商品类型', value: 'goods_type', subfilters: $scope.mapRevert('goodType')},
+			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
+		];
+
+		// 获取商品列表
+		$scope.getCommdityList = $scope.getBaseCommdityList($scope, 'subSearchModel', 'subQuery', 'goods', $receiptForm);
+
+		// 商品搜索
+		$scope.goodsQuery = function() {
+			$scope.subQuery = $scope.parseFilter($scope.subSearchModel);
+			$scope.getCommdityList();
+		};
+
 		// ths
 		$scope.isAllThsShow = true;
 		$scope.ths = [
@@ -49,24 +65,6 @@ angular.module('mainApp')
 			{name: 'update_time', label: '更新时间', isChecked: true},
 			{name: 'updater', label: '更新人', isChecked: true}
 		];
-
-
-		// 获取商品列表
-		$scope.getCommdityList = function() {
-			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo || 1
-			})
-			.success(function(data) {
-				$scope.goods = data.records;
-				$scope.goods.meta = {
-						pageSize: data.pageSize,
-						pageNo: data.pageNo ? data.pageNo : 1,
-						recordsCount: data.recordsCount,
-						pageNumber: data.pageNumber
-					};
-				});
-		};
 
 		// 新建入库单
 		$scope.newReceipt = function(form) {
@@ -103,10 +101,25 @@ angular.module('mainApp')
 
 		// 取消入库单
 		$scope.cancelReceipt = function(receiptCode, index) {
-			$http.get(config.basewms + 'inbound/receipt/' + receiptCode + '/cancel/')
-				.success(function() {
-					$scope.receipts.splice(index, 1);
-				});
+
+			dialog.alert({
+				text: '确定取消入库单吗? 您的操作将无法撤消!',
+				cancel: 1,
+				onyes: function() {
+					$http.get(config.basewms + 'inbound/receipt/' + receiptCode + '/cancel/')
+						.success(function(res) {
+							$scope.receipts.splice(index, 1);
+						})
+						.error(function(data) {
+							dialog.alert({
+								contentType: 'danger',
+								text: '撤消失败!'
+							});
+						});
+				}
+			});
+
+
 		};
 
 		// 保存商品详情
@@ -136,6 +149,7 @@ angular.module('mainApp')
 				$scope.receipt.details.push({
 					goods_code: good.goods_code,
 					goods_name: good.goods_name,
+					goods_type: good.goods_type,
 					qty: '1'
 				});
 			} else {
@@ -283,6 +297,7 @@ angular.module('mainApp')
 
 					angular.forEach(receipt.details, function(good) {
 						$scope.receipt.details.push({
+							goods_type: good.goods_type,
 							goods_code: good.goods_code,
 							putin_qty: good.putin_qty || '0',
 							goods_name: good.goods_name,
@@ -290,12 +305,13 @@ angular.module('mainApp')
 							actual_qty: good.actual_qty
 						});
 					});
+
 					$storageForm.modal('show');
 				});
 		};
 
 		$scope.showPutinedReceipt = function(receiptCode) {
-			$scope.newPutinedReceipt(receiptCode, true);
+			$scope.newPutinedReceipt(receiptCode);
 			$scope.storageFormType = 'show';
 		};
 

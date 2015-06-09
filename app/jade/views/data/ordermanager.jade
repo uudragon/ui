@@ -9,7 +9,7 @@ include ../../modules/mixins.jade
 			li
 				+jslink('globalNewOrder()', '新建订单')
 			li
-				+jslink('globalNewTicket()', '新建工单')
+				+jslink('globalNewWorkForm()', '新建工单')
 	li
 		+tooltip('', 'top', 'globalToggleSearch()')
 			+glyphicon('search')
@@ -61,8 +61,8 @@ table.uu-table(ng-show='orders.length')
 			td(ng-bind='order.create_time', ng-show='ths[8].isChecked')
 			td(ng-bind='order.status | orderStatus', ng-show='ths[9].isChecked')
 			td(ng-bind='order.order_type | orderType', ng-show='ths[10].isChecked')
-			td(ng-bind='order.payment | payment', ng-show='ths[11].isChecked')
-			td(ng-bind='order.paid | payStatus', ng-show='ths[12].isChecked')
+			td(ng-bind='order.payment| mapper: "payment"', ng-show='ths[11].isChecked')
+			td(ng-bind='order.paid | mapper: "payStatus"', ng-show='ths[12].isChecked')
 			td(ng-bind='order.sumAmount', ng-show='ths[13].isChecked')
 			td(ng-bind='order.order_details', ng-show='ths[14].isChecked')
 			td.nowrap

@@ -37,36 +37,38 @@
     </div>
   </form>
 </div>
-<table ng-show="receipts" class="uu-table">
-  <thead>
-    <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
-          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
-        </ul>
-      </th>
-      <th class="nowrap">工具</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="receipt in receipts" ng-dblclick="showPutinedReceipt(receipt.receipt_code)">
-      <td ng-bind="receipt.receipt_code" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="receipt.receipt_date" ng-show="ths[1].isChecked"></td>
-      <td ng-bind="receipt.receipt_desc" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="receipt.status | mapper:&quot;receipt&quot;" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="receipt.warehouse_name" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="receipt.create_time" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="receipt.creator" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="receipt.update_time" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
-      <td ng-show="receipt.status!=-1 &amp;&amp; receipt.status!=2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
-      </td>
-      <td ng-show="receipt.status==-1 || receipt.status==2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="showPutinedReceipt(receipt.receipt_code)"><span class="glyphicon glyphicon-eye-open"></span></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<uu-pagination records="receipts.meta.recordsCount" per-page="receipts.meta.pageSize" page="receipts.meta.pageNo" pagreceiptForme="receipts.meta.pageNo" model="searchModel" action="getReceiptList()"></uu-pagination>
+<div d-check="receipts">
+  <table class="uu-table">
+    <thead>
+      <tr ng-dblclick="chooseTh('table-cols')">
+        <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+          <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+            <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+          </ul>
+        </th>
+        <th class="nowrap">工具</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="receipt in receipts" ng-dblclick="showPutinedReceipt(receipt.receipt_code)">
+        <td ng-bind="receipt.receipt_code" ng-show="ths[0].isChecked"></td>
+        <td ng-bind="receipt.receipt_date" ng-show="ths[1].isChecked"></td>
+        <td ng-bind="receipt.receipt_desc" ng-show="ths[2].isChecked"></td>
+        <td ng-bind="receipt.status | mapper:&quot;receipt&quot;" ng-show="ths[3].isChecked"></td>
+        <td ng-bind="receipt.warehouse_name" ng-show="ths[4].isChecked"></td>
+        <td ng-bind="receipt.create_time" ng-show="ths[5].isChecked"></td>
+        <td ng-bind="receipt.creator" ng-show="ths[6].isChecked"></td>
+        <td ng-bind="receipt.update_time" ng-show="ths[7].isChecked"></td>
+        <td ng-bind="receipt.updater" ng-show="ths[8].isChecked"></td>
+        <td ng-show="receipt.status!=-1 &amp;&amp; receipt.status!=2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="入库" ng-click="newPutinedReceipt(receipt.receipt_code, storageForm)"><span class="glyphicon glyphicon-import"></span></a>
+        </td>
+        <td ng-show="receipt.status==-1 || receipt.status==2" class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="showPutinedReceipt(receipt.receipt_code)"><span class="glyphicon glyphicon-eye-open"></span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <uu-pagination records="receipts.meta.recordsCount" per-page="receipts.meta.pageSize" page="receipts.meta.pageNo" pagreceiptForme="receipts.meta.pageNo" model="searchModel" action="getReceiptList()"></uu-pagination>
+</div>
 <div id="storage-form" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -107,6 +109,8 @@
               <thead>
                 <tr>
                   <th class="nowrap">商品编号</th>
+                  <th class="nowrap">商品名称</th>
+                  <th class="nowrap">商品类型</th>
                   <th class="nowrap">计划入库数量</th>
                   <th class="nowrap">已经入库数量</th>
                   <th class="nowrap">商品入库数量</th>
@@ -114,8 +118,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="good in receipt.details" ng-class="{success: (good.qty === good.actual_qty), warning: (good.qty &gt; good.actual_qty &amp;&amp; good.actual_qty !== 0), danger: (good.actual_qty === 0)}">
+                <tr ng-repeat="good in receipt.details" ng-class="{success: (good.qty === good.actual_qty &amp;&amp; good.qty !== 0), warning: (good.qty &gt; good.actual_qty &amp;&amp; good.actual_qty !== 0), danger: (good.actual_qty === 0)}">
                   <td ng-bind="good.goods_code"></td>
+                  <td ng-bind="good.goods_name"></td>
+                  <td ng-bind="good.goods_type | mapper:&quot;goodType&quot;"></td>
                   <td ng-bind="good.qty"></td>
                   <td ng-bind="good.actual_qty"></td>
                   <td ng-bind="good.putin_qty"></td>

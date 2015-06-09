@@ -1,3 +1,5 @@
+$form-item-min-height: 30px;
+
 .form-table {
 	margin-left: auto;
 	margin-right: auto;
@@ -5,7 +7,6 @@
 	width: 100%;
 
 	th, td {
-		// border: solid #ccc 1px;
 		border: solid #5e5e5e 1px;
 	}
 
@@ -17,6 +18,11 @@
 
 .form-table-single {
 	width: 520px;
+}
+
+.form-th,
+.form-td {
+	min-height: $form-item-min-height;
 }
 
 .form-th {
@@ -37,7 +43,6 @@
 }
 
 .form-td {
-
 	.form-table & {
 		width: 178px;
 	}
@@ -52,9 +57,9 @@ textarea.form-control {
 }
 
 .form-control-static {
-	height: 30px;
+	min-height: $form-item-min-height;
 	padding-left: 9px;
-	color: #666;
+	color: inherit;
 }
 
 // city seletor
@@ -79,4 +84,28 @@ textarea.form-control {
 		width: 315px;
 	}
 }
+
+.form-nobg {
+	.form-td,
+	.form-th {
+		background: none;
+		border: none;
+		text-align: left;
+	}
+
+	.form-th {
+		width: 30px;
+		text-align: right;
+		&:after {
+			content: ': ';
+			display: inline;
+		}
+	}
+}
+
+.tdcell-highlight {
+	color: #fff;
+	background-color: #289dbf;
+}
+
 

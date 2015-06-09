@@ -53,8 +53,9 @@ mixin input-tweak(title, id)
 
 //- free label, free input
 mixin plain-input(title, id)
-	label.control-label(for='form-' + id)=title
-		input.form-control.input-sm(id='form-' + id)&attributes(attributes)
+	label.control-label.col-xs-3(for='form-' + id)=title
+	.col-xs-6
+		p.form-static.form-control.input-sm(id='form-' + id)&attributes(attributes)
 
 //- 3 label, 7 input, message-multi
 mixin short-input(title, id)
@@ -215,6 +216,7 @@ mixin commdity-type(title, id)
 		+option('玩具', 3)
 		+option('宣传品', 4)
 		+option('其它', 5)
+		+option('赠品', 6)
 
 //- 投诉分类
 mixin complain-type(title, id)
@@ -235,7 +237,7 @@ mixin complain-type(title, id)
 //- 电话状态
 mixin phone-status(title, id)
 	+select(title, id)&attributes(attributes)
-		+option('无人接', 1)
+		+option('无人接听', 1)
 		+option('占线', 2)
 		+option('接听', 3)
 		+option('停机', 4)
@@ -399,3 +401,8 @@ mixin package-type(title, id)
 		+option('官网套餐', 1)
 		+option('代理商套餐', 2)
 		+option('首期套餐', 3)
+
+//- 一阶产品返利
+mixin rebateType(title, id)
+	+select(title, id)&attributes(attributes)
+		+option('一阶产品', 1)

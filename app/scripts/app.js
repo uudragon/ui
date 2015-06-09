@@ -94,6 +94,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 			extractedData = data;
 		}
 
+		extractedData.finished = true;
+
+
 		// console.log(extractedData);
 		return extractedData;
 	});
@@ -430,6 +433,27 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		url: '/overview',
 		templateUrl: 'views/agents/overview.html',
 		controller: 'Overview'
+	})
+	.state('root.agents.rebates', {
+		url: '/rebates',
+		templateUrl: 'views/agents/rebates.html',
+		controller: 'Rebates'
+	})
+
+
+	/////////////
+	// 参数维护 //
+	/////////////
+
+	.state('root.params', {
+		url: 'params',
+		templateUrl: 'views/params/layout.html',
+		controller: 'ParamsCtrl'
+	})
+	.state('root.params.system', {
+		url: '/system',
+		templateUrl: 'views/params/system.html',
+		controller: 'System'
 	});
 }])
 

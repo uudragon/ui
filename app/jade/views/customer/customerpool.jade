@@ -3,12 +3,6 @@ include ../../modules/mixins.jade
 //- 顶部操作栏
 +action-bar
 	li
-		+tooltip('新建', 'top')
-			+glyphicon('plus')
-		ul.dropdown-menu(role="menu")
-			li
-				+jslink('globalNewTicket()', '新建工单')
-	li
 		+tooltip('', 'top', 'globalToggleSearch()')
 			+glyphicon('search')
 	li
@@ -32,34 +26,35 @@ include ../../modules/mixins.jade
 +article-filter('searchModel.isAllot', filter)
 
 //- 功能区
-.article-header-operate
+.article-header-operate(ng-show='customers.length')
 	button.btn.uu-btn.btn-primary(ng-click='batchAssign(batchAssignForm)') 批量分配
 	button.btn.uu-btn.btn-success(ng-click='batchPick(batchPickForm)') 批量领取
 
 //- 客户列表
-table.uu-table
-	+theadplus('customers')(operation='工具', ng-dblclick="chooseTh('table-cols')")
-	tbody
-		tr(ng-repeat='customer in customers')
-			+tdchecker('customers', 'customer')(ng-model='customer.isChecked')
-			td(ng-bind='customer.name', ng-show='ths[0].isChecked')
-			td(ng-bind='customer.code' ng-show='ths[1].isChecked')
-			+td-phone(ng-bind='customer.phone' ng-show='ths[2].isChecked')
-			td(ng-bind='customer.main_phone', ng-show='ths[3].isChecked')
-			td(ng-bind='customer.province', ng-show='ths[4].isChecked')
-			td(ng-bind='customer.city', ng-show='ths[5].isChecked')
-			td(ng-bind='customer.email', ng-show='ths[6].isChecked')
-			td(ng-bind='customer.type | customerStatus', ng-show='ths[7].isChecked')
-			td(ng-bind='customer.create_time', ng-show='ths[8].isChecked')
-			td(ng-bind='customer.contact_times', ng-show='ths[9].isChecked')
-			td.nowrap
-				+tooltip('修改', 'top', 'showComplaintcustomers(customer)')
-					+glyphicon('pencil') &nbsp;
+div(d-check='customers' type='rest')
+	table.uu-table
+		+theadplus('customers')(operation='工具', ng-dblclick="chooseTh('table-cols')")
+		tbody
+			tr(ng-repeat='customer in customers')
+				+tdchecker('customers', 'customer')(ng-model='customer.isChecked')
+				td(ng-bind='customer.name', ng-show='ths[0].isChecked')
+				td(ng-bind='customer.code' ng-show='ths[1].isChecked')
+				+td-phone(ng-bind='customer.phone' ng-show='ths[2].isChecked')
+				td(ng-bind='customer.main_phone', ng-show='ths[3].isChecked')
+				td(ng-bind='customer.province', ng-show='ths[4].isChecked')
+				td(ng-bind='customer.city', ng-show='ths[5].isChecked')
+				td(ng-bind='customer.email', ng-show='ths[6].isChecked')
+				td(ng-bind='customer.type | customerStatus', ng-show='ths[7].isChecked')
+				td(ng-bind='customer.create_time', ng-show='ths[8].isChecked')
+				td(ng-bind='customer.contact_times', ng-show='ths[9].isChecked')
+				td.nowrap
+					+tooltip('修改', 'top', 'showComplaintcustomers(customer)')
+						+glyphicon('pencil') &nbsp;
 
-				+tooltip('发送消息', 'top')
-					+glyphicon('comment')
+					+tooltip('发送消息', 'top')
+						+glyphicon('comment')
 
-uu-pagination(records='customers.meta.recordsCount', per-page='customers.meta.pageSize' page='customers.meta.pageNo', model='searchModel', action='getCustomerList()')
+	uu-pagination(records='customers.meta.recordsCount', per-page='customers.meta.pageSize' page='customers.meta.pageNo', model='searchModel', action='getCustomerList()')
 
 //- 批量分配
 +modal('batch-assgin')

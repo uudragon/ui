@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mainApp')
-.controller('ProductCtrl', ['$scope', '$controller', function ($scope, $controller) {
+.controller('ProductCtrl', ['$scope', '$controller', '$http', function ($scope, $controller, $http) {
 
 	$controller('MainCtrl', {$scope: $scope});
 }])
@@ -10,14 +10,6 @@ angular.module('mainApp')
 	 * Sub-Controller
 	 * ---------------------------------------------------------------------------------
 	 */
-
-	.controller('ProductManager', ['$scope', '$controller', function ($scope, $controller) {
-
-
-		// inherit functions from parent
-		$controller('ProductCtrl', {$scope: $scope});
-
-	}])
 	.controller('Commodity', ['$scope', '$controller', '$filter', '$http', function ($scope, $controller, $filter, $http) {
 		var $commodityForm = $('#commidy-form');
 
@@ -43,6 +35,9 @@ angular.module('mainApp')
 			{name: 'yn', label: '是否有效', isChecked: true},
 			{name: 'creator', label: '操作员', isChecked: true}
 		];
+
+		// 获取商品列表
+		$scope.getCommdityList = $scope.getBaseCommdityList($scope, 'searchModel', 'query', 'commodities');
 
 		// 新建商品
 		$scope.newCommdity = function(form) {
@@ -93,32 +88,10 @@ angular.module('mainApp')
 			$scope.getCommdityList();
 		};
 
-		// 获取商品列表
-		$scope.getCommdityList = function() {
-
-			var req = {
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo || 1
-			};
-
-			$.extend(req, $scope.query);
-
-			$http.post(config.basewms + 'baseinfo/query_goods_list/', req)
-				.success(function(data) {
-					$scope.commodities = data.records;
-					$scope.commodities.meta = {
-						pageSize: data.pageSize,
-						pageNo: data.pageNo ? data.pageNo : 1,
-						recordsCount: data.recordsCount,
-						pageNumber: data.pageNumber
-					};
-				});
-		};
-
 		$scope.getCommdityList();
 
 		// inherit functions from parent
-		$controller('ProductManager', {$scope: $scope});
+		$controller('ProductCtrl', {$scope: $scope});
 
 	}])
 	.controller('Goods', ['$scope', '$controller', '$filter', '$http', '$q', function ($scope, $controller, $filter, $http, $q) {
@@ -130,6 +103,13 @@ angular.module('mainApp')
 		$scope.filters = [
 			{name: '产品编号', value: 'product_code', input: true},
 			{name: '产品名称', value: 'product_name', input: true},
+			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
+		];
+
+		$scope.subFilters = [
+			{name: '商品编号', value: 'goods_code', input: true},
+			{name: '商品名称', value: 'goods_name', input: true},
+			{name: '商品类型', value: 'goods_type', subfilters: $scope.mapRevert('goodType')},
 			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
 		];
 
@@ -150,22 +130,15 @@ angular.module('mainApp')
 			{name: 'yn', label: '是否有效', isChecked: true}
 		];
 
-		// 获取商品列表
-		$scope.getCommdityList = function() {
-			return $http.post(config.basewms + 'baseinfo/query_goods_list/', {
-				pageSize: $scope.searchModel.pageSize || config.perPage,
-				pageNo: $scope.searchModel.pageNo || 1
-			})
-			.success(function(data) {
-				$scope.goods = data.records;
-				$scope.goods.meta = {
-					pageSize: data.pageSize,
-					pageNo: data.pageNo ? data.pageNo : 1,
-					recordsCount: data.recordsCount,
-					pageNumber: data.pageNumber
-				};
-			});
+
+		// 商品搜索
+		$scope.goodsQuery = function() {
+			$scope.subQuery = $scope.parseFilter($scope.subSearchModel);
+			$scope.getCommdityList();
 		};
+
+		// 获取商品列表
+		$scope.getCommdityList = $scope.getBaseCommdityList($scope, 'subSearchModel', 'subQuery', 'goods', $productForm);
 
 		// 新建产品
 		$scope.newProduct = function(form) {
@@ -274,6 +247,7 @@ angular.module('mainApp')
 				$scope.product.details.push({
 					goods_code: good.goods_code,
 					goods_name: good.goods_name,
+					goods_type: good.goods_type,
 					qty: '1',
 					is_gift: '0'
 				});
@@ -306,7 +280,7 @@ angular.module('mainApp')
 		$scope.getProductList();
 
 		// inherit functions from parent
-		$controller('ProductManager', {$scope: $scope});
+		$controller('ProductCtrl', {$scope: $scope});
 
 	}])
 	.controller('Suit', ['$scope', '$controller', '$filter', '$http', '$q', function ($scope, $controller, $filter, $http, $q) {
@@ -497,6 +471,6 @@ angular.module('mainApp')
 		$scope.getSuitList();
 
 		// inherit functions from parent
-		$controller('ProductManager', {$scope: $scope});
+		$controller('ProductCtrl', {$scope: $scope});
 
 	}]);

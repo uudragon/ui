@@ -233,7 +233,7 @@
                 <tbody>
                   <tr ng-repeat="good in goods">
                     <td ng-bind="good.goods_name"></td>
-                    <td ng-bind="good.goods_type | goodsType"></td>
+                    <td ng-bind="good.goods_type | mapper:&quot;goodType&quot;"></td>
                     <td ng-bind="good.goods_price"></td>
                     <td ng-bind="good.goods_unit"></td>
                     <td ng-bind="good.product_date"></td>

@@ -5,7 +5,7 @@
       <ul role="menu" class="dropdown-menu">
         <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
         </li>
-        <li><a href="" ng-click="globalNewTicket()" class="jslink">新建工单</a>
+        <li><a href="" ng-click="globalNewWorkForm()" class="jslink">新建工单</a>
         </li>
       </ul>
     </li>
@@ -118,8 +118,8 @@
       <td ng-bind="order.create_time" ng-show="ths[8].isChecked"></td>
       <td ng-bind="order.status | orderStatus" ng-show="ths[9].isChecked"></td>
       <td ng-bind="order.order_type | orderType" ng-show="ths[10].isChecked"></td>
-      <td ng-bind="order.payment | payment" ng-show="ths[11].isChecked"></td>
-      <td ng-bind="order.paid | payStatus" ng-show="ths[12].isChecked"></td>
+      <td ng-bind="order.payment| mapper: &quot;payment&quot;" ng-show="ths[11].isChecked"></td>
+      <td ng-bind="order.paid | mapper: &quot;payStatus&quot;" ng-show="ths[12].isChecked"></td>
       <td ng-bind="order.sumAmount" ng-show="ths[13].isChecked"></td>
       <td ng-bind="order.order_details" ng-show="ths[14].isChecked"></td>
       <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="修改" ng-click="update(employee)"><span class="glyphicon glyphicon-pencil">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="导出" ng-click="export()"><span class="glyphicon glyphicon-comment"></span></a>
@@ -324,7 +324,7 @@
                   <label class="form-th-label">支付方式</label>
                 </th>
                 <td colspan="payment" class="form-td">
-                  <p class="form-control-static" ng-bind="currentOrder.payment | payment"></p>
+                  <p class="form-control-static" ng-bind="currentOrder.payment| mapper: &quot;payment&quot;"></p>
                 </td>
               </tr>
               <tr>
@@ -338,7 +338,7 @@
                   <label class="form-th-label">支付状态</label>
                 </th>
                 <td colspan="pay-status" class="form-td">
-                  <p class="form-control-static" ng-bind="currentOrder.paid | payStatus"></p>
+                  <p class="form-control-static" ng-bind="currentOrder.paid | mapper: &quot;payStatus&quot;"></p>
                 </td>
               </tr>
               <tr>
@@ -699,7 +699,7 @@
                   <label for="form-topic" class="form-th-label">主题</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-topic" class="form-control input-sm" ng-model="gbContact.topic" required="required">
+                  <select id="form-topic" class="form-control input-sm" ng-model="gbContact.theme" required="required">
                     <option value="1">核实订单</option>
                     <option value="2">投诉</option>
                     <option value="3">回访</option>
@@ -707,6 +707,14 @@
                     <option value="5">促进销售</option>
                   </select>
                 </td>
+                <th class="form-th">
+                  <label class="form-th-label">工单号</label>
+                </th>
+                <td colspan="form_no" class="form-td">
+                  <p class="form-control-static" ng-bind="gbContact.form_no"></p>
+                </td>
+              </tr>
+              <tr>
                 <th class="form-th">
                   <label for="form-deal-result" class="form-th-label">处理结果</label>
                 </th>
@@ -717,28 +725,40 @@
                     <option value="3">已完成</option>
                   </select>
                 </td>
-              </tr>
-              <tr>
                 <th class="form-th">
-                  <label class="form-th-label">联系时间</label>
+                  <label class="form-th-label">id</label>
                 </th>
-                <td colspan="contact-time" class="form-td">
-                  <p class="form-control-static" ng-bind="gbContact.contactTime"></p>
-                </td>
-                <th class="form-th">
-                  <label class="form-th-label">负责人</label>
-                </th>
-                <td colspan="contact-responsor" class="form-td">
-                  <p class="form-control-static" ng-bind="gbContact.name"></p>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="gbContact.id"></p>
                 </td>
               </tr>
               <tr>
+                <th class="form-th">
+                  <label for="form-contact-time" class="form-th-label">联系时间</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-contact-time" class="form-control input-sm" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0" ng-model="gbContact.start_time" required="required"/>
+                </td>
+                <th class="form-th">
+                  <label for="form-contact-end-time" class="form-th-label">结束时间</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-contact-end-time" class="form-control input-sm" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0" ng-model="gbContact.end_time" required="required"/>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label for="form-phone-number" class="form-th-label">电话号码</label>
+                </th>
+                <td class="form-td">
+                  <input id="form-phone-number" class="form-control input-sm" uu-num="uu-num" ng-model="gbContact.tel_no" required="required"/>
+                </td>
                 <th class="form-th">
                   <label for="form-phone-status" class="form-th-label">电话状态</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-phone-status" class="form-control input-sm" ng-model="gbContact.phoneStatus">
-                    <option value="1">无人接</option>
+                  <select id="form-phone-status" class="form-control input-sm" ng-model="gbContact.tel_status" required="required">
+                    <option value="1">无人接听</option>
                     <option value="2">占线</option>
                     <option value="3">接听</option>
                     <option value="4">停机</option>
@@ -746,19 +766,27 @@
                     <option value="6">错号</option>
                   </select>
                 </td>
+              </tr>
+              <tr>
                 <th class="form-th">
                   <label for="form-contact-next-time" class="form-th-label">下次回访日期</label>
                 </th>
                 <td class="form-td">
                   <input id="form-contact-next-time" class="form-control input-sm" ng-model="gbContact.next_time" uu-date-picker="uu-date-picker" format="yyyy-mm-dd hh:ii" min-view="0"/>
                 </td>
+                <th class="form-th">
+                  <label class="form-th-label">负责人</label>
+                </th>
+                <td colspan="contact-responsor" class="form-td">
+                  <p class="form-control-static" ng-bind="gbContact.user_no"></p>
+                </td>
               </tr>
-              <tr ng-show="gbContact.topic===&quot;2&quot;">
+              <tr ng-show="gbContact.theme===&quot;2&quot;">
                 <th class="form-th">
                   <label for="form-complain-type" class="form-th-label">投诉分类</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-complain-type" class="form-control input-sm" ng-model="gbContact.complainType">
+                  <select id="form-complain-type" class="form-control input-sm" ng-model="gbContact.subtype">
                     <option value="31">发票抬头错误</option>
                     <option value="32">未开发票</option>
                     <option value="33">开票时间长</option>
@@ -789,7 +817,7 @@
                   <label for="form-content" class="form-th-label">内容</label>
                 </th>
                 <td colspan="3" class="form-td">
-                  <textarea id="form-content" class="form-control" ng-model="gbContact.content"></textarea>
+                  <textarea id="form-content" class="form-control" ng-model="gbContact.content" required="required"></textarea>
                 </td>
               </tr>
             </table>

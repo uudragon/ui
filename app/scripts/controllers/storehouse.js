@@ -33,7 +33,7 @@ angular.module('mainApp')
 			{name: '库房类型', value: 'type', subfilters: $scope.mapRevert('warehouse')},
 			{name: '创建人', value: 'creator', input: true},
 			{name: '修改人', value: 'updater', input: true},
-			{name: '是否有效', value: 'yn', subfilters: [{name: '是', value: 1}, {name: '否', value: 0}]}
+			{name: '是否有效', value: 'yn', subfilters: $scope.mapRevert('yesno')}
 		];
 
 		// ths
@@ -356,7 +356,7 @@ angular.module('mainApp')
 		// 搜索
 		$scope.search = function(warehouseCode) {
 			$scope.selectedWarehouse = warehouseCode;
-			$scope.query = $scope.searchModel.productFilter ? {goods_code: $scope.searchModel.productFilter } : '';
+			$scope.query = $scope.searchModel.productFilter ? {goods_name: $scope.searchModel.productFilter } : '';
 			if ($scope.selectedWarehouse) {
 				$scope.getItemList();
 			} else {

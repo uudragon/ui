@@ -1,13 +1,7 @@
 
 <div class="clearfix">
   <ul class="action-bar">
-    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="新建"><span class="glyphicon glyphicon-plus"></span></a>
-      <ul role="menu" class="dropdown-menu">
-        <li><a href="" ng-click="globalNewOrder()" class="jslink">新建订单</a>
-        </li>
-        <li><a href="" ng-click="globalNewWorkForm(gbworkformForm)" class="jslink">新建工单</a>
-        </li>
-      </ul>
+    <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="新建工单" ng-click="globalNewWorkForm(gbworkformForm)"><span class="glyphicon glyphicon-plus"></span></a>
     </li>
     <li><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="" ng-click="globalToggleSearch()"><span class="glyphicon glyphicon-search"></span></a>
     </li>
@@ -311,7 +305,7 @@
                   <label class="form-th-label">支付方式</label>
                 </th>
                 <td colspan="payment" class="form-td">
-                  <p class="form-control-static" ng-bind="currentOrder.payment | payment"></p>
+                  <p class="form-control-static" ng-bind="currentOrder.payment| mapper: &quot;payment&quot;"></p>
                 </td>
               </tr>
               <tr>
@@ -325,7 +319,7 @@
                   <label class="form-th-label">支付状态</label>
                 </th>
                 <td colspan="pay-status" class="form-td">
-                  <p class="form-control-static" ng-bind="currentOrder.paid | payStatus"></p>
+                  <p class="form-control-static" ng-bind="currentOrder.paid | mapper: &quot;payStatus&quot;"></p>
                 </td>
               </tr>
               <tr>

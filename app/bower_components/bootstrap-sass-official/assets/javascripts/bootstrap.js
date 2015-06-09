@@ -1444,11 +1444,16 @@
     $msg.removeClass('alert-info alert-danger alert-success modal-msg-spinner')
     options.className ? $msg.addClass(options.className) : $msg.addClass('alert-info')
     $msg.html(options.msg)
-    this.showMsg($msg, {hide: options.hide, callback: options.callback})
+    this.showMsg($msg, {hide: options.hide, callback: options.callback, duration: options.duration})
   }
 
-  Modal.prototype.spinner = function() {
+  Modal.prototype.spinner = function(isFinished) {
     var $msg = this.$element.find('.modal-msgcontent')
+
+    if (isFinished) {
+      $msg.hide()
+      return
+    }
 
     if (!$msg.length) {
       var $msgbox = $('<div class="modal-msgbox"><div class="modal-msgcontent"></div></div>')
@@ -1509,7 +1514,7 @@
           options.hide && self.hide()
           typeof options.callback === 'function' && options.callback()
         })
-      }, 1000)
+      }, options.duration || 1000)
     })
   }
 

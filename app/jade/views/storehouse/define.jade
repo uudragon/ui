@@ -13,30 +13,31 @@ include ../../modules/mixins.jade
 +linkage-search('search()')
 
 //- 库房列表
-table.uu-table(ng-show='warehouses')
-	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
-	tbody
-		tr(ng-repeat='warehouse in warehouses' ng-dblclick='editWarehouse(warehouse.warehouse_code)')
-			td(ng-bind='warehouse.warehouse_code' ng-show='ths[0].isChecked')
-			td(ng-bind='warehouse.warehouse_name' ng-show='ths[1].isChecked')
-			td(ng-bind='warehouse.address' ng-show='ths[2].isChecked')
-			td(ng-bind='warehouse.type | mapper:"warehouse"' ng-show='ths[3].isChecked')
-			td(ng-bind='warehouse.creator' ng-show='ths[4].isChecked')
-			td(ng-bind='warehouse.create_time' ng-show='ths[5].isChecked')
-			td(ng-bind='warehouse.updater' ng-show='ths[6].isChecked')
-			td(ng-bind='warehouse.update_time' ng-show='ths[7].isChecked')
-			td(ng-bind='warehouse.yn | valid' ng-show='ths[7].isChecked')
-			td.nowrap
-				+tooltip('修改', 'top', 'editWarehouse(warehouse.warehouse_code)')
-					+glyphicon('pencil') &nbsp;
+div(d-check='warehouses')
+	table.uu-table
+		+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+		tbody
+			tr(ng-repeat='warehouse in warehouses' ng-dblclick='editWarehouse(warehouse.warehouse_code)')
+				td(ng-bind='warehouse.warehouse_code' ng-show='ths[0].isChecked')
+				td(ng-bind='warehouse.warehouse_name' ng-show='ths[1].isChecked')
+				td(ng-bind='warehouse.address' ng-show='ths[2].isChecked')
+				td(ng-bind='warehouse.type | mapper:"warehouse"' ng-show='ths[3].isChecked')
+				td(ng-bind='warehouse.creator' ng-show='ths[4].isChecked')
+				td(ng-bind='warehouse.create_time' ng-show='ths[5].isChecked')
+				td(ng-bind='warehouse.updater' ng-show='ths[6].isChecked')
+				td(ng-bind='warehouse.update_time' ng-show='ths[7].isChecked')
+				td(ng-bind='warehouse.yn | valid' ng-show='ths[7].isChecked')
+				td.nowrap
+					+tooltip('修改', 'top', 'editWarehouse(warehouse.warehouse_code)')
+						+glyphicon('pencil') &nbsp;
 
-				+tooltip('拣货', 'top', 'pickProduct(warehouse.warehouse_code)')
-					+glyphicon('shopping-cart') &nbsp;
+					+tooltip('拣货', 'top', 'pickProduct(warehouse.warehouse_code)')
+						+glyphicon('shopping-cart') &nbsp;
 
-				+tooltip('复制新增', 'top', 'editWarehouse(warehouse.warehouse_code, true)')
-					+glyphicon('file')
+					+tooltip('复制新增', 'top', 'editWarehouse(warehouse.warehouse_code, true)')
+						+glyphicon('file')
 
-uu-pagination(records='warehouses.meta.recordsCount' per-page='warehouses.meta.pageSize' page='warehouses.meta.pageNo' model='searchModel' action='getWarehouseList()')
+	uu-pagination(records='warehouses.meta.recordsCount' per-page='warehouses.meta.pageSize' page='warehouses.meta.pageNo' model='searchModel' action='getWarehouseList()')
 
 //- 新建库房
 +modal('warehouse-form')

@@ -13,7 +13,7 @@ mixin action-bar()
 
 //- article filter
 mixin article-header-filter(key, filters)
-	.article-header-filter
+	.article-header-filter(ng-show=attributes['ng-show'])
 		form.form-inline(role='form')
 			.btn-group(data-toggle='buttons')
 				if filters
@@ -31,7 +31,7 @@ mixin article-header-filter(key, filters)
 
 //- article filter
 mixin article-filter(key, filter)
-	.article-header-filter
+	.article-header-filter(ng-show=attributes['ng-show'])
 		form.form-inline(role='form')
 			.btn-group(data-toggle='buttons' ng-init="#{key}='#{filter.init}'")
 				if filter.filterItems
@@ -84,10 +84,10 @@ mixin order-details()
 				+static-input('结束日期', 'enddate')(ng-bind='currentOrder.deadline')
 			tr
 				+static-input('儿童性别', 'child-gender')(ng-bind='currentOrder.customer.c_sex | gender')
-				+static-input('支付方式', 'payment')(ng-bind='currentOrder.payment | payment')
+				+static-input('支付方式', 'payment')(ng-bind='currentOrder.payment| mapper: "payment"')
 			tr
 				+static-input('出生日期', 'birthday')(ng-bind='currentOrder.customer.birthday')
-				+static-input('支付状态', 'pay-status')(ng-bind='currentOrder.paid | payStatus')
+				+static-input('支付状态', 'pay-status')(ng-bind='currentOrder.paid | mapper: "payStatus"')
 			tr
 				+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.area')
 			tr
@@ -96,21 +96,20 @@ mixin order-details()
 //- Searches
 //- ----------------------
 
-mixin linkage-search-form(action, filters)
-	.article-header-search
-		form.form-inline(role='form')
-			.form-group
-				select.form-control.input-sm(ng-model='searchModel.filter', ng-options='filter.name for filter in #{filters}', ng-change='resetSubFilter()')
-				select.form-control.input-sm(ng-model='searchModel.subfilter', ng-options='filter.value as filter.name for filter in searchModel.filter.subfilters', ng-show='searchModel.filter.subfilters')
-				input.form-control.input-sm(ng-model='searchModel.subfilter', ng-show='searchModel.filter.input')
-			+grouped-input('时间', 'date-time')(ng-show='searchModel.filter.date' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
-			+grouped-input('开始时间', 'start-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
-			+grouped-input('结束时间', 'end-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
-			if block
-				block
-			.btn.uu-btn(ng-click=action)
-				+tooltip('查询', 'top')
-					+glyphicon('search')
+mixin linkage-search-form(action, filters, searchModel)
+	.article-search-form.form-inline
+		.form-group
+			select.form-control.input-sm(ng-model='#{searchModel}.filter', ng-options='filter.name for filter in #{filters}', ng-change='resetSubFilter(#{searchModel})')
+			select.form-control.input-sm(ng-model='#{searchModel}.subfilter', ng-options='filter.value as filter.name for filter in #{searchModel}.filter.subfilters', ng-show='#{searchModel}.filter.subfilters')
+			input.form-control.input-sm(ng-model='#{searchModel}.subfilter', ng-show='#{searchModel}.filter.input')
+		+grouped-input('时间', 'date-time')(ng-show='#{searchModel}.filter.date' ng-model='#{searchModel}.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+		+grouped-input('开始时间', 'start-time')(ng-show='#{searchModel}.filter.datetime' ng-model='#{searchModel}.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+		+grouped-input('结束时间', 'end-time')(ng-show='#{searchModel}.filter.datetime' ng-model='#{searchModel}.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
+		if block
+			block
+		.btn.uu-btn(ng-click=action)
+			+tooltip('查询', 'top')
+				+glyphicon('search')
 
 mixin linkage-search(action)
 	.article-header-search

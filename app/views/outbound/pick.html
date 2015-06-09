@@ -38,32 +38,34 @@
   </form>
 </div>
 
-<table class="uu-table">
-  <thead>
-    <tr ng-dblclick="chooseTh('table-cols')">
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
-          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
-        </ul>
-      </th>
-      <th class="nowrap">工具</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="pickingOrder in pickingOrders" ng-class="{warning: pickingOrder.status == 0, info: pickingOrder.status == 1, success: pickingOrder.status == 2}">
-      <td ng-bind="pickingOrder.picking_no" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="pickingOrder.picking_qty" ng-show="ths[1].isChecked"></td>
-      <td ng-bind="pickingOrder.status | mapper:&quot;pickmentStatus&quot;" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="pickingOrder.creator" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="pickingOrder.create_time" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="pickingOrder.updater" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="pickingOrder.update_time" ng-show="ths[6].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="拣货" ng-click="editPickingOrder(pickingOrder.picking_no, pickingOrderForm)"><span class="glyphicon glyphicon-shopping-cart">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询对应发货单" ng-click="showShipments(pickingOrder.picking_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<uu-pagination records="pickingOrders.meta.recordsCount" per-page="pickingOrders.meta.pageSize" page="pickingOrders.meta.pageNo" pagreceiptForme="pickingOrders.meta.pageNo" model="searchModel" action="getPickingOrderList()"></uu-pagination>
+<div d-check="pickingOrders">
+  <table class="uu-table">
+    <thead>
+      <tr ng-dblclick="chooseTh('table-cols')">
+        <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+          <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+            <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+          </ul>
+        </th>
+        <th class="nowrap">工具</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="pickingOrder in pickingOrders" ng-class="{warning: pickingOrder.status == 0, info: pickingOrder.status == 1, success: pickingOrder.status == 2}">
+        <td ng-bind="pickingOrder.picking_no" ng-show="ths[0].isChecked"></td>
+        <td ng-bind="pickingOrder.picking_qty" ng-show="ths[1].isChecked"></td>
+        <td ng-bind="pickingOrder.status | mapper:&quot;pickmentStatus&quot;" ng-show="ths[2].isChecked"></td>
+        <td ng-bind="pickingOrder.creator" ng-show="ths[3].isChecked"></td>
+        <td ng-bind="pickingOrder.create_time" ng-show="ths[4].isChecked"></td>
+        <td ng-bind="pickingOrder.updater" ng-show="ths[5].isChecked"></td>
+        <td ng-bind="pickingOrder.update_time" ng-show="ths[6].isChecked"></td>
+        <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="拣货" ng-click="editPickingOrder(pickingOrder.picking_no, pickingOrderForm)"><span class="glyphicon glyphicon-shopping-cart">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查询对应发货单" ng-click="showShipments(pickingOrder.picking_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <uu-pagination records="pickingOrders.meta.recordsCount" per-page="pickingOrders.meta.pageSize" page="pickingOrders.meta.pageNo" pagreceiptForme="pickingOrders.meta.pageNo" model="searchModel" action="getPickingOrderList()"></uu-pagination>
+</div>
 <div id="pickment-list" class="modal fade">
   <div class="modal-dialog modal-lg printable-modal">
     <div class="modal-content">
@@ -176,14 +178,14 @@
               </thead>
               <tbody>
                 <tr ng-repeat="shipment in shipments" ng-dblclick="editShipment(shipment.shipment_code, shipmentForm)">
-                  <td ng-bind="shipment.orders_no"></td>
+                  <td ng-bind="shipment.orders_no" class="break-all"></td>
                   <td ng-bind="shipment.customer_name"></td>
-                  <td ng-bind="shipment.address"></td>
+                  <td ng-bind="shipment.customer_tel"></td>
                   <td ng-bind="shipment.amount"></td>
                   <td ng-bind="shipment.shipped_qty"></td>
                   <td ng-bind="shipment.updater"></td>
                   <td ng-bind="shipment.status | mapper:&quot;shipmentStatus&quot;"></td>
-                  <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="发货" ng-click="showShipmentDetailForm(shipment.shipment_no, shipmentDetailForm)" ng-class="{disabled: shipment.status != 3}"><span class="glyphicon glyphicon-send">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="showShipmentDetail(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                  <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="发货" ng-click="showShipmentDetailForm(shipment, shipmentDetailForm)" ng-class="{disabled: shipment.status != 3}"><span class="glyphicon glyphicon-send">&nbsp;</span></a><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="showShipmentDetail(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
                   </td>
                 </tr>
               </tbody>
@@ -308,7 +310,7 @@
   </div>
 </div>
 <div id="shipment-detail-form" class="modal fade sub-modal">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg printable-modal">
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
@@ -316,114 +318,91 @@
       </div>
       <div class="modal-body printable">
         <form name="shipmentDetailForm" novalidate="novalidate" ng-class="{sumitted: shipmentDetailForm.$sumitted}" class="form-horizontal">
-          <table class="form-table">
-            <tr>
-              <th class="form-th">
-                <label class="form-th-label">订单号</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.orders_no"></p>
-              </td>
-              <th class="form-th">
-                <label class="form-th-label">发货单号</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.shipment_no"></p>
-              </td>
-            </tr>
-            <tr>
-              <th class="form-th">
-                <label class="form-th-label">客户姓名</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.customer_name"></p>
-              </td>
-              <th class="form-th">
-                <label class="form-th-label">客户地址</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.address"></p>
-              </td>
-            </tr>
-            <tr>
-              <th class="form-th">
-                <label class="form-th-label">客户电话</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.customer_tel"></p>
-              </td>
-              <th class="form-th">
-                <label class="form-th-label">付款金额</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.amount"></p>
-              </td>
-            </tr>
-            <tr>
-              <th class="form-th">
-                <label class="form-th-label">发货数量</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.shipped_qty"></p>
-              </td>
-              <th class="form-th">
-                <label class="form-th-label">是否有发票</label>
-              </th>
-              <td class="form-td">
-                <p class="form-control-static" ng-bind="shipment.has_invoice | yesno"></p>
-              </td>
-            </tr>
-            <tr>
-              <th class="form-th">
-                <label class="form-th-label">发货时间</label>
-              </th>
-              <td colspan="3" class="form-td">
-                <p class="form-control-static" ng-bind="shipment.sent_date"></p>
-              </td>
-            </tr>
-            <tr>
-              <th class="form-th">
-                <label for="form-form_express_code" class="form-th-label">快递公司编号</label>
-              </th>
-              <td class="form-td">
-                <input id="form-form_express_code" class="form-control input-sm" ng-model="shipment.express_code" required="required"/>
-              </td>
-              <th class="form-th">
-                <label for="form-form_express_orders_no" class="form-th-label">快递单号</label>
-              </th>
-              <td class="form-td">
-                <input id="form-form_express_orders_no" class="form-control input-sm" ng-model="shipment.express_orders_no" required="required"/>
-              </td>
-            </tr>
-            <tr>
-              <th class="form-th">
-                <label for="form-form_express_name" class="form-th-label">快递公司名称</label>
-              </th>
-              <td class="form-td">
-                <input id="form-form_express_name" class="form-control input-sm" ng-model="shipment.express_name" required="required"/>
-              </td>
-              <th class="form-th">
-                <label for="form-form_express_cost" class="form-th-label">快递费用</label>
-              </th>
-              <td class="form-td">
-                <input id="form-form_express_cost" class="form-control input-sm" uu-float="uu-float" ng-model="shipment.express_cost" required="required"/>
-              </td>
-            </tr>
-            <tr>
-              <th class="form-th">
-                <label for="form-form_courier" class="form-th-label">快递员</label>
-              </th>
-              <td class="form-td">
-                <input id="form-form_courier" class="form-control input-sm" uu-name="uu-name" ng-model="shipment.courier" required="required"/>
-              </td>
-              <th class="form-th">
-                <label for="form-form_courier_tel" class="form-th-label">快递员电话</label>
-              </th>
-              <td class="form-td">
-                <input id="form-form_courier_tel" class="form-control input-sm" uu-phone="uu-phone" ng-model="shipment.courier_tel" required="required"/>
-              </td>
-            </tr>
-          </table>
+          <fieldset>
+            <legend>客户信息</legend>
+            <table class="form-table">
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">订单号</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.orders_no"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">发货单号</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.shipment_no"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">客户姓名</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.customer_name"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">客户地址</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.address"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">客户电话</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.customer_tel"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">付款金额</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.amount"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">发货数量</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.shipped_qty"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">是否有发票</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.has_invoice | yesno"></p>
+                </td>
+              </tr>
+              <tr>
+                <th class="form-th">
+                  <label class="form-th-label">发货时间</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.sent_date"></p>
+                </td>
+                <th class="form-th">
+                  <label class="form-th-label">快递单号</label>
+                </th>
+                <td class="form-td">
+                  <p class="form-control-static" ng-bind="shipment.express_orders_no"></p>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+          <fieldset>
+            <legend>快递信息</legend>
+            <div ng-show="expressInfo.success">
+              <p class="text-success action-paragh">成功上传订单信息到快递!</p>
+              <p class="text-success">快递单号为:<span ng-bind="expressInfo.express_orderno" class="text-danger"></span></p>
+            </div>
+            <div ng-show="!expressInfo.success &amp;&amp; expressInfo.error">
+              <p class="text-danger">上传订单失败!<span ng-bind="expressInfo.error" class="text-danger"></span></p>
+            </div>
+          </fieldset>
           <div ng-show="shipment.details.length" class="modal-lists">
             <table class="uu-table">
               <thead>
@@ -451,7 +430,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="sendShipment(shipmentDetailForm)" ng-disabled="shipmentDetailForm.processing" class="btn uu-btn btn-primary">确认发送</button>
+        <button ng-click="sendShipment(shipmentDetailForm)" ng-disabled="shipmentDetailForm.processing" class="btn uu-btn btn-primary">打印快递单</button>
         <button data-dismiss="modal" class="btn uu-btn">关闭</button>
       </div>
     </div>

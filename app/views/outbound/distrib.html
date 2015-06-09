@@ -37,58 +37,60 @@
     </div>
   </form>
 </div>
-<div class="article-header-operate pull-right"><a href="" ng-click="generatePickment()" class="jsglyph"><span class="glyphicon glyphicon-new-window"></span><span class="jsglyph-label">生成拣货单</span></a>
+<div ng-show="shipments.length" class="article-header-operate pull-right"><a href="" ng-click="generatePickment()" class="jsglyph"><span class="glyphicon glyphicon-new-window"></span><span class="jsglyph-label">生成拣货单</span></a>
 </div>
-<table class="uu-table">
-  <thead>
-    <tr ng-dblclick="chooseTh('table-cols')">
-      <th class="nowrap">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, shipments)"/>全选
-          </label>
-        </div>
-      </th>
-      <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
-        <ul ng-if="th.filters" role="menu" class="dropdown-menu">
-          <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
-        </ul>
-      </th>
-      <th class="nowrap">工具</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="shipment in shipments" ng-dblclick="editShipment(shipment.shipment_code, shipmentForm)" ng-class="{&quot;active&quot;: shipment.status == -1, &quot;danger&quot;: shipment.status == 0, &quot;info&quot;: shipment.status == 1, &quot;warning&quot;: shipment.status == 2, &quot;success&quot;: shipment.status == 4}">
-      <td>
-        <input type="checkbox" ng-model="shipment.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, shipments, shipment)"/>
-      </td>
-      <td ng-bind="shipment.orders_no" ng-show="ths[0].isChecked"></td>
-      <td ng-bind="shipment.shipment_no" ng-show="ths[1].isChecked"></td>
-      <td ng-bind="shipment.customer_code" ng-show="ths[2].isChecked"></td>
-      <td ng-bind="shipment.customer_name" ng-show="ths[3].isChecked"></td>
-      <td ng-bind="shipment.address" ng-show="ths[4].isChecked"></td>
-      <td ng-bind="shipment.customer_tel" ng-show="ths[5].isChecked"></td>
-      <td ng-bind="shipment.amount" ng-show="ths[6].isChecked"></td>
-      <td ng-bind="shipment.shipped_qty" ng-show="ths[7].isChecked"></td>
-      <td ng-bind="shipment.has_invoice" ng-show="ths[8].isChecked"></td>
-      <td ng-bind="shipment.express_code" ng-show="ths[9].isChecked"></td>
-      <td ng-bind="shipment.express_orders_no" ng-show="ths[10].isChecked"></td>
-      <td ng-bind="shipment.express_name" ng-show="ths[11].isChecked"></td>
-      <td ng-bind="shipment.express_cost" ng-show="ths[12].isChecked"></td>
-      <td ng-bind="shipment.courier" ng-show="ths[13].isChecked"></td>
-      <td ng-bind="shipment.courier_tel" ng-show="ths[14].isChecked"></td>
-      <td ng-bind="shipment.sent_date" ng-show="ths[15].isChecked"></td>
-      <td ng-bind="shipment.create_time" ng-show="ths[16].isChecked"></td>
-      <td ng-bind="shipment.creator" ng-show="ths[17].isChecked"></td>
-      <td ng-bind="shipment.update_time" ng-show="ths[18].isChecked"></td>
-      <td ng-bind="shipment.updater" ng-show="ths[19].isChecked"></td>
-      <td ng-bind="shipment.status | mapper:&quot;shipmentStatus&quot;" ng-show="ths[20].isChecked"></td>
-      <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="showShipment(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<uu-pagination records="shipments.meta.recordsCount" per-page="shipments.meta.pageSize" page="shipments.meta.pageNo" model="searchModel" action="getShipmentList()"></uu-pagination>
+<div d-check="shipments">
+  <table class="uu-table">
+    <thead>
+      <tr ng-dblclick="chooseTh('table-cols')">
+        <th class="nowrap">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="isAllChecked" ng-init="isAllChecked=false" ng-click="toggleCheckAll(&quot;isAllChecked&quot;, shipments)"/>全选
+            </label>
+          </div>
+        </th>
+        <th ng-repeat="th in ths" ng-show="th.isChecked" ng-class="{&quot;sort&quot;: th.sortable}" uu-sort="th.sortable" sort-name="th.name" action="sortBy(name, type)" class="nowrap">{{th.label}}<a href="" ng-if="th.filters" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"></span></a>
+          <ul ng-if="th.filters" role="menu" class="dropdown-menu">
+            <li ng-repeat="filter in th.filters"><a href="" ng-bind="filter"></a></li>
+          </ul>
+        </th>
+        <th class="nowrap">工具</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="shipment in shipments" ng-dblclick="editShipment(shipment.shipment_code, shipmentForm)" ng-class="{&quot;active&quot;: shipment.status == -1, &quot;danger&quot;: shipment.status == 0, &quot;info&quot;: shipment.status == 1, &quot;warning&quot;: shipment.status == 2, &quot;success&quot;: shipment.status == 4}">
+        <td class="escontent">
+          <input type="checkbox" ng-model="shipment.isChecked" ng-click="checkIsAllChecked(&quot;isAllChecked&quot;, shipments, shipment)"/>
+        </td>
+        <td ng-bind="shipment.orders_no" ng-show="ths[0].isChecked"></td>
+        <td ng-bind="shipment.shipment_no" ng-show="ths[1].isChecked"></td>
+        <td ng-bind="shipment.customer_code" ng-show="ths[2].isChecked"></td>
+        <td ng-bind="shipment.customer_name" ng-show="ths[3].isChecked"></td>
+        <td ng-bind="shipment.address" ng-show="ths[4].isChecked"></td>
+        <td ng-bind="shipment.customer_tel" ng-show="ths[5].isChecked"></td>
+        <td ng-bind="shipment.amount" ng-show="ths[6].isChecked"></td>
+        <td ng-bind="shipment.shipped_qty" ng-show="ths[7].isChecked"></td>
+        <td ng-bind="shipment.has_invoice" ng-show="ths[8].isChecked"></td>
+        <td ng-bind="shipment.express_code" ng-show="ths[9].isChecked"></td>
+        <td ng-bind="shipment.express_orders_no" ng-show="ths[10].isChecked"></td>
+        <td ng-bind="shipment.express_name" ng-show="ths[11].isChecked"></td>
+        <td ng-bind="shipment.express_cost" ng-show="ths[12].isChecked"></td>
+        <td ng-bind="shipment.courier" ng-show="ths[13].isChecked"></td>
+        <td ng-bind="shipment.courier_tel" ng-show="ths[14].isChecked"></td>
+        <td ng-bind="shipment.sent_date" ng-show="ths[15].isChecked"></td>
+        <td ng-bind="shipment.create_time" ng-show="ths[16].isChecked"></td>
+        <td ng-bind="shipment.creator" ng-show="ths[17].isChecked"></td>
+        <td ng-bind="shipment.update_time" ng-show="ths[18].isChecked"></td>
+        <td ng-bind="shipment.updater" ng-show="ths[19].isChecked"></td>
+        <td ng-bind="shipment.status | mapper:&quot;shipmentStatus&quot;" ng-show="ths[20].isChecked"></td>
+        <td class="nowrap"><a href="" uu-tooltip="uu-tooltip" data-toggle="dropdown" data-original-title="查看" ng-click="showShipment(shipment.shipment_no)"><span class="glyphicon glyphicon-eye-open"></span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <uu-pagination records="shipments.meta.recordsCount" per-page="shipments.meta.pageSize" page="shipments.meta.pageNo" model="searchModel" action="getShipmentList()"></uu-pagination>
+</div>
 <div id="pickment-list" class="modal fade">
   <div class="modal-dialog modal-lg printable-modal">
     <div class="modal-content">

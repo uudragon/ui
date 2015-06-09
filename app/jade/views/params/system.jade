@@ -1,0 +1,44 @@
+include ../../modules/mixins.jade
+
+form.form-horizontal(name='contactInfoForm' novalidate ng-class='{sumitted: contactInfoForm.$sumitted}')
+	fieldset
+		legend 参数维护
+		.form-group.modal-action
+			+tooltip('修改', 'top', 'editContactInfo(contactInfoForm)')(ng-class='{disabled: isContactEditable}')
+				+glyphicon('pencil')
+
+		table.form-table.form-nobg(style='width: 65%; margin-left: 0;' ng-show='!isContactEditable')
+			tr
+				+static-input('发货人')(ng-bind='contact.consignee')
+			tr
+				+static-input('邮编')(ng-bind='contact.customer.sex')
+			tr
+				+static-input('电话')(ng-bind='contact.tel')
+			tr
+				+static-input('地址', 3)(ng-bind='contact.province + " / " + contact.city + " / " + contact.area')
+			tr
+				+static-input('详细地址', 3)(ng-bind='contact.address')
+
++modal('system-contact')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 修改联系信息
+	.modal-body
+		form.form-horizontal(name='contactInfoForm' novalidate ng-class='{sumitted: contactInfoForm.$sumitted}')
+			fieldset
+				legend 联系信息
+				table.form-table
+					tr
+						+input('发货人', 'name')(uu-name ng-model='contactCloned.consignee' required)
+					tr
+						+input('邮编', 'customer-post')(ng-model='contactCloned.customer.sex' required)
+					tr
+						+input('电话', 'contact-tel')(ng-model='contactCloned.tel')
+					tr
+						+input-address('地址', 'contact-address', 3)(ng-province-model='contactCloned.province' ng-city-model='contactCloned.city' ng-area-model='contactCloned.area' ng-required='true')
+					tr
+						+input-address-details('详细地址', 'contact-address-details', 3)(ng-model='contactCloned.address' ng-required='true')
+
+	.modal-footer
+		button.btn.uu-btn.btn-primary(ng-click='saveContactInfo(contactInfoForm)' ng-disabled='contactInfoForm.processing') 保存
+		button.btn.uu-btn(data-dismiss='modal') 取消

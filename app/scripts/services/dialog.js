@@ -13,6 +13,7 @@ angular.module('mainApp')
 		type: 'primary',
 		yesLabel: '确定',
 		autohide: 1,
+		process: 0,
 		onyes: function() {},
 		oncancel: function() {},
 		cancalLabel: '取消'
@@ -53,6 +54,22 @@ angular.module('mainApp')
 		Dialog.confirm($.extend(params, options));
 	};
 
+	Dialog.showSuccess = function(options) {
+		$modal.modal('success', options);
+	};
+
+	Dialog.showError = function(options) {
+		$modal.modal('fail', options);
+	};
+
+	Dialog.showInfo = function(options) {
+		$modal.modal('fail', options);
+	};
+
+	Dialog.process = function(blnFinished) {
+		$modal.modal('spinner', blnFinished);
+	};
+
 	// 警告
 	Dialog.alert = function(options) {
 		var params = {
@@ -91,7 +108,8 @@ angular.module('mainApp')
 
 			btnYes.onclick = function() {
 				options.onyes($modal, btnYes);
-				if (options.autohide) $modal.modal('hide');
+				if (options.autohide && !options.process) $modal.modal('hide');
+				if (options.process) Dialog.process();
 			};
 
 			if (typeof options.type === 'string') btnYes.className += ' btn-' + options.type;

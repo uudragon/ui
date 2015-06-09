@@ -38,6 +38,27 @@
 .search-form {display: block; width: 100%;overflow: hidden;margin: 35px 0 16px -17px;}
 .search-box {width: 80%; margin-right: 10px; float: left; }
 
+
+/**
+ * Type
+ * ----------------------------------------------------------------------------
+ */
+
+.action-paragh,
+.noprint {
+	margin-bottom: 10px;
+}
+.data-checker {
+	@include clearfix;
+	> p {
+		margin: 20px 15px;
+		font-size: 1.1em;
+	}
+}
+.break-all {
+	word-break: break-all;
+}
+
 /**
  * Info Panel
  * ----------------------------------------------------------------------------
@@ -81,6 +102,32 @@
 .weekday {padding: 0 13px; margin: 22px 0;}
 .weekday-header {color: #A52A2A;}
 
+
+/**
+ * Table
+ * ----------------------------------------------------------------------------
+ */
+
+.table-inner-wrap {
+	> .uu-table {
+		margin: 0;
+		border: 0;
+
+		> tbody > tr {
+			border-top: 1px dashed #ccc;
+		}
+
+		> thead > tr > th,
+		> tbody > tr > td {
+			background: #fffff3;
+			border: 0;
+
+			&:not(:last-child) {
+				border-right: 1px dashed #ccc;
+			}
+		}
+	}
+}
 
 /**
  * Finacial

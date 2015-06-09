@@ -19,7 +19,7 @@ ul.list-group
 //- 			td(ng-bind='order.province', ng-show='ths[3].isChecked')
 //- 			td(ng-bind='order.city', ng-show='ths[4].isChecked')
 //- 			td(ng-bind='order.orderType', ng-show='ths[5].isChecked')
-//- 			td(ng-bind='order.payStatus | payStatus', ng-show='ths[6].isChecked')
+//- 			td(ng-bind='order.payStatus | mapper: "payStatus"', ng-show='ths[6].isChecked')
 //- 			td(ng-bind='order.createTime', ng-show='ths[7].isChecked')
 //- 			td(ng-bind='order.contactTimes', ng-show='ths[8].isChecked')
 //- 			td
