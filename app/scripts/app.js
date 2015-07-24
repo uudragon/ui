@@ -94,8 +94,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 			extractedData = data;
 		}
 
-		extractedData.finished = true;
-
+		if (extractedData instanceof Object) extractedData.finished = true;
 
 		// console.log(extractedData);
 		return extractedData;
@@ -438,6 +437,27 @@ function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvide
 		url: '/rebates',
 		templateUrl: 'views/agents/rebates.html',
 		controller: 'Rebates'
+	})
+
+
+	/////////////
+	// 财务管理 //
+	/////////////
+
+	.state('root.rebates', {
+		url: 'rebates',
+		templateUrl: 'views/rebates/layout.html',
+		controller: 'RebatesCtrl'
+	})
+	.state('root.rebates.manager', {
+		url: '/manager',
+		templateUrl: 'views/rebates/manager.html',
+		controller: 'Manager'
+	})
+	.state('root.rebates.invoice', {
+		url: '/invoice',
+		templateUrl: 'views/rebates/invoice.html',
+		controller: 'Invoice'
 	})
 
 

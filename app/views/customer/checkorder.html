@@ -472,14 +472,14 @@
                   <label for="form-order-type" class="form-th-label">订购类型</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-order-type" class="form-control input-sm" ng-model="gbOrder.order_type" ng-options="suit.package_code as suit.package_name for suit in suits" required="required">
+                  <select id="form-order-type" class="form-control input-sm" ng-model="gbOrder.order_type" ng-options="suit.package_code as suit.package_name for suit in suits" ng-change="gbOrder.amount = valMapper(gbOrder.order_type, suits, &quot;package_code&quot;, &quot;package_price&quot;)" required="required">
                   </select>
                 </td>
                 <th class="form-th">
-                  <label for="form-order-amount" class="form-th-label">订单金额</label>
+                  <label class="form-th-label">订单金额</label>
                 </th>
-                <td class="form-td">
-                  <input id="form-order-amount" class="form-control input-sm" ng-model="gbOrder.amount" required="required" uu-num="uu-num"/>
+                <td colspan="order-amount" class="form-td">
+                  <p class="form-control-static" ng-bind="gbOrder.amount"></p>
                 </td>
               </tr>
               <tr>
@@ -601,7 +601,7 @@
                   <label for="form-has-invoice" class="form-th-label">是否开发票</label>
                 </th>
                 <td class="form-td">
-                  <select id="form-has-invoice" class="form-control input-sm" ng-model="gbOrder.has_invoice">
+                  <select id="form-has-invoice" class="form-control input-sm" ng-model="gbOrder.has_invoice" required="required">
                     <option value="1">是</option>
                     <option value="0">否</option>
                   </select>
@@ -617,7 +617,7 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">省市区</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.province" ng-city-model="gbOrder.city" ng-area-model="gbOrder.area" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="gbOrder.province" ng-city-model="gbOrder.city" ng-area-model="gbOrder.district" ng-mode="new" ng-required="true"></td>
               </tr>
               <tr>
                 <th class="form-th">

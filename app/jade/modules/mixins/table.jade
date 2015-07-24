@@ -20,7 +20,7 @@ mixin theadplus(records, ths)
 						label
 							input(type='checkbox' ng-model='isAllChecked' ng-init='isAllChecked=false' ng-click='toggleCheckAll("isAllChecked", #{records})')
 							| 全选
-			th.nowrap(ng-repeat='th in ths' ng-show='th.isChecked' ng-class='{"sort": th.sortable}' uu-sort="th.sortable" sort-name='th.name' action='sortBy(name, type)')
+			th.nowrap(ng-repeat='th in #{ths}' ng-show='th.isChecked' ng-class='{"sort": th.sortable}' uu-sort="th.sortable" sort-name='th.name' action='sortBy(name, type)')
 				| {{th.label}}
 				+th-filter(ng-if='th.filters')
 					+glyphicon('filter')

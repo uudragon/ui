@@ -12,8 +12,8 @@
 						+static-input('订单编号', 'order-no')(ng-bind='gbOrder.order_no')
 						+static-input('订单来源', 'order-source')(ng-bind='gbOrder.sourceName')
 					tr
-						+select('订购类型', 'order-type')(ng-model='gbOrder.order_type' ng-options='suit.package_code as suit.package_name for suit in suits' required)
-						+input('订单金额', 'order-amount')(ng-model='gbOrder.amount' required uu-num)
+						+select('订购类型', 'order-type')(ng-model='gbOrder.order_type' ng-options='suit.package_code as suit.package_name for suit in suits' ng-change='gbOrder.amount = valMapper(gbOrder.order_type, suits, "package_code", "package_price")' required)
+						+static-input('订单金额', 'order-amount')(ng-bind='gbOrder.amount')
 					tr
 						+static-input('下单时间', 'order-time')(ng-bind='gbOrder.effective')
 						+input('结束日期', 'deadline')(ng-model='gbOrder.deadline' uu-date-picker)
@@ -36,10 +36,10 @@
 						+input('出生日期', 'customer-birthday')(ng-model='gbOrder.customer.birthday' uu-date-picker)
 						+input('固定电话', 'customer-main-phone')(uu-tel ng-model='gbOrder.customer.main_phone')
 					tr
-						+yesno('是否开发票', 'has-invoice')(ng-model='gbOrder.has_invoice')
+						+yesno('是否开发票', 'has-invoice')(ng-model='gbOrder.has_invoice' required)
 						+input('发票抬头', 'invoice-owner')(ng-model='gbOrder.invoice_title' ng-jade-show='gbOrder.has_invoice' ng-required='gbOrder.has_invoice==="1"')
 					tr
-						+input-address('省市区', 'order-address', 3)(ng-province-model='gbOrder.province' ng-city-model='gbOrder.city' ng-area-model='gbOrder.area' ng-required='true')
+						+input-address('省市区', 'order-address', 3)(ng-province-model='gbOrder.province' ng-city-model='gbOrder.city' ng-area-model='gbOrder.district' ng-mode='new' ng-required='true')
 					tr
 						+input-address-details('详细地址', 'order-address-details', 3)(ng-model='gbOrder.address' ng-required='true')
 	.modal-footer

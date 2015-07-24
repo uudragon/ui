@@ -118,7 +118,6 @@ ul.nav.nav-sections(uu-sidebar='')
 	- subnavs.push({href: 'root.agents.rebates', auth: '010001', label: '返利商品'})
 	- navs.push({href: 'root.agents', label: '基本信息', auth: '0100', subnavs: subnavs})
 
-
 	li.section-item(uu-auth-filter='02' ng-class='{"open": $state.includes("root.agents")}')
 		a.nav-sections-label 代理商管理
 		ul.nav.nav-navs
@@ -129,7 +128,15 @@ ul.nav.nav-sections(uu-sidebar='')
 	//- 财务管理
 	//------------------------------------------------------
 
-	li.section-item
+	- navs = []
+	- subnavs = []
+
+	//- 财务管理
+	- subnavs.push({href: 'root.rebates.manager', auth: '010001', label: '返利管理'})
+	- subnavs.push({href: 'root.rebates.invoice', auth: '010001', label: '发票管理'})
+	- navs.push({href: 'root.rebates', label: '财务管理', auth: '0100', subnavs: subnavs})
+
+	li.section-item(uu-auth-filter='03' ng-class='{"open": $state.includes("root.rebates")}')
 		a.nav-sections-label 财务管理
 		ul.nav.nav-navs
 			each nav in navs

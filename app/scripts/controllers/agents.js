@@ -21,7 +21,7 @@ angular.module('mainApp')
 
 		// 搜索下拉
 		$scope.filters = [
-			{name: '代理商姓名', value: 'warehouse_code', input: true},
+			{name: '代理商姓名', value: 'agencyName', input: true},
 			{name: '渠道经理', value: 'creator', input: true}
 		];
 
@@ -333,7 +333,7 @@ angular.module('mainApp')
 
 			return $http.post(config.agent + 'queryChannelInfoList', req)
 				.success(function(data) {
-					$scope.channels = data.records;
+					$scope.channels = data.records || [];
 					$scope.channels.meta = {
 							pageSize: data.pageSize,
 							pageNo: data.pageNo ? data.pageNo : 1,

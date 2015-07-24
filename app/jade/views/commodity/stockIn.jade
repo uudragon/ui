@@ -73,7 +73,7 @@ div(d-check='receipts')
 												+glyphicon('trash')
 					div(uu-pane title='添加入库商品')
 						+linkage-search-form('goodsQuery()', 'subFilters', 'subSearchModel')
-						div(d-check='goods.length')
+						div(d-check='goods')
 							table.uu-table
 								+thead
 									each th in ['商品名称', '商品类型', '商品价格', '商品规格', '生产日期', '商品描述', '是否有效', '操作员', '工具']

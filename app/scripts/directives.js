@@ -744,6 +744,13 @@ uud.directive('timing', ['$interval', 'dateFilter',
 				return index;
 			}
 
+			function preSelect(model, list, name) {
+				for (var i = 0; i < list.length; i++) {
+					if (list[i][name] === model) return model;
+				}
+				return list[0][name];
+			}
+
 			$scope.$watch('ngProvinceModel', function() {
 				if ($scope.ngProvinceModel) $scope.reloadCity();
 			});
@@ -758,7 +765,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				if (cityData && cityData.c) {
 					$scope.cities = cityData.c;
-					$scope.ngCityModel = cityData.c[0].n;
+					if (attrs.ngMode === 'new') $scope.ngCityModel = preSelect($scope.ngCityModel, $scope.cities, 'n');
 				} else {
 					$scope.cities = [];
 				}
@@ -770,7 +777,7 @@ uud.directive('timing', ['$interval', 'dateFilter',
 
 				if (cityData && cityData.a) {
 					$scope.areas = cityData.a;
-					$scope.ngAreaModel = cityData.a[0].s;
+					if (attrs.ngMode === 'new') $scope.ngAreaModel = preSelect($scope.ngAreaModel, $scope.areas, 's');
 				} else {
 					$scope.areas = [];
 					$scope.ngAreaModel = '';

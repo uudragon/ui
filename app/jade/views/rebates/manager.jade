@@ -1,0 +1,67 @@
+include ../../modules/mixins.jade
+
+//- 顶部操作栏
++action-bar
+	li
+		+tooltip('', 'top', 'globalToggleSearch()')
+			+glyphicon('search')
+
+//- 搜索
++linkage-search('search()')
+
+div(d-check='agents')
+	table.uu-table
+		+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+		tbody
+			tr(ng-repeat='agent in agents' ng-dblclick='editagent(agent.agent_code)')
+				td(ng-bind='agent.company' ng-show='ths[0].isChecked')
+				td(ng-bind='agent.agencyName' ng-show='ths[1].isChecked')
+				td(ng-bind='agent.agencyPhone' ng-show='ths[2].isChecked')
+				td(ng-bind='agent.fixedtelephone' ng-show='ths[3].isChecked')
+				td(ng-bind='agent.email' ng-show='ths[4].isChecked')
+				td(ng-bind='agent.province + agent.city + agent.address' ng-show='ths[5].isChecked')
+				td(ng-bind='agent.fax' ng-show='ths[6].isChecked')
+				td(ng-bind='agent.post' ng-show='ths[7].isChecked')
+				td(ng-bind='agent.channelLoginName' ng-show='ths[8].isChecked')
+				td.nowrap
+					+tooltip('维护返利信息', 'top', 'manageRebatesInfo(agent, rebatesForm)')
+						+glyphicon('screenshot')
+
+	uu-pagination(records='agents.meta.recordsCount', per-page='agents.meta.pageSize' page='agents.meta.pageNo' model='searchModel' action='getAgentList()')
+
+//- 返利modal
++modal('rebates-form', 'modal-lg')
+	.modal-header
+		button.close(data-dismiss='modal', aria-hidden='true') &times;
+		h4.modal-title 返利信息
+	.modal-body
+		form.form-horizontal(name='rebatesForm' novalidate ng-class='{sumitted: rebatesForm.$sumitted}')
+			div(d-check='rebates')
+				table.uu-table
+					+theadplus('rebates', 'subThs')(operation='操作')
+					tbody
+						tr(ng-repeat='rebate in rebates')
+							+tdchecker('rebates', 'rebate')(ng-model='rebate.isChecked')
+							td.break-all(ng-bind='rebate.orderNo')
+							td(ng-bind='rebate.deliveryNo')
+							td(ng-bind='rebate.customerName')
+							td(ng-bind='rebate.contact')
+							td(ng-bind='rebate.cardId')
+							td(ng-bind='rebate.goodsAmount')
+							td(ng-bind='rebate.rebateStatus | mapper:"rebateStatus"')
+							td(ng-bind='rebate.rebateAmount')
+							td.nowrap
+								+tooltip('审核中', 'top', 'updateRebateStatus(rebate, "3", rebatesForm)')(ng-disabled='rebatesForm.processing')
+									+glyphicon('dashboard') &nbsp;
+								+tooltip('审核通过', 'top', 'updateRebateStatus(rebate, "4", rebatesForm)')(ng-disabled='rebatesForm.processing')
+									+glyphicon('thumbs-up')
+
+				uu-pagination(records='rebates.meta.recordsCount', per-page='rebates.meta.pageSize' page='rebates.meta.pageNo', model='subSearchModel', action='getAgentsList()')
+	.modal-footer
+		button.btn.uu-btn.btn-warning(ng-click='batchUpdateRebates("2", rebatesForm)' ng-disabled='rebatesForm.processing || !rebates.length') 批量待审核
+		button.btn.uu-btn.btn-success(ng-click='batchUpdateRebates("4", rebatesForm)' ng-disabled='rebatesForm.processing || !rebates.length') 批量审核通过
+		button.btn.uu-btn(data-dismiss='modal') 取消
+
+
+//- 更改显示列
+include ../../modules/table-ths.jade

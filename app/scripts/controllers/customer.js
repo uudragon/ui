@@ -60,7 +60,7 @@ angular.module('mainApp')
 	 * ---------------------------------------------------------------------------------
 	 */
 
-	.controller('CheckOrder', ['$scope', '$controller', 'Order', '$http', '$filter', function($scope, $controller, Order, $http, $filter) {
+	.controller('CheckOrder', ['$scope', '$controller', 'Order', '$http', '$filter', '$q', function($scope, $controller, Order, $http, $filter, $q) {
 		var
 			$orderShareForm = $('#share-order'),
 			$orderDetails = $('#order-details'),
@@ -114,6 +114,7 @@ angular.module('mainApp')
 
 			$.extend(req, $scope.query);
 			$scope.orders = Order.getList(req).$object;
+
 		};
 
 		// 所有, 已付费, 未付费快速查询按钮
@@ -226,6 +227,18 @@ angular.module('mainApp')
 		// 首次加载定单列表
 		$scope.getOrderList();
 
+		// 获取套餐列表
+		$scope.getSuitList = function() {
+
+			return $http.post(config.basewms + 'baseinfo/packages/', {
+				pageNo: 1,
+				pageSize: 1000
+			})
+			.success(function(data) {
+				$scope.suits = data.records;
+			});
+		};
+
 		// 新建订单
 		$scope.globalNewOrder = function(form) {
 			$scope.resetForm(form);
@@ -236,7 +249,6 @@ angular.module('mainApp')
 				creator: $scope.currentUser.userNo,
 				sourceName: '客服系统',
 				source: '1',
-				amount: '2380',
 				workflow: 2,
 				audit: 1,
 				payment: '3',
@@ -244,16 +256,16 @@ angular.module('mainApp')
 				paid: '0'
 			};
 
-			// 获取定单编号
-			$http.get(config.basews + 'order/getOrderNo/')
-				.success(function(orderNo) {
-					$scope.gbOrder.order_no = orderNo;
-					$gbNewOrder.modal('show');
-				});
+			$q.all([$http.get(config.basews + 'order/getOrderNo/'), $scope.getSuitList()])
+				.then(function(data) {
+				$scope.gbOrder.order_no = data[0].data;
+				$gbNewOrder.modal('show');
+			});
 		};
 
 		// 保存订单
 		$scope.saveGlobalOrder = function(form) {
+
 			// 表单验证
 			if (!$scope.validateForm(form, $gbNewOrder)) return;
 
@@ -381,6 +393,7 @@ angular.module('mainApp')
 			})
 			.success(function(data) {
 				$scope.shipments = data;
+
 				$scope.isAllChecked = false;
 				$shipmentForm.modal('show');
 				$shipmentForm.modal('spinner', true);

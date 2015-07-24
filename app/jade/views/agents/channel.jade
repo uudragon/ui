@@ -12,21 +12,22 @@ include ../../modules/mixins.jade
 //- 搜索
 +linkage-search('search()')
 
-table.uu-table(ng-show='channels')
-	+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
-	tbody
-		tr(ng-repeat='channel in channels' ng-dblclick='editChannel(channel.channel_code)')
-			td(ng-bind='channel.channelNo' ng-show='ths[0].isChecked')
-			td(ng-bind='channel.channelName' ng-show='ths[1].isChecked')
-			td(ng-bind='channel.channelLoginId' ng-show='ths[2].isChecked')
-			td(ng-bind='channel.channelPhone' ng-show='ths[3].isChecked')
-			td(ng-bind='channel.company' ng-show='ths[4].isChecked')
-			td(ng-bind='channel.status' ng-show='ths[5].isChecked')
-			td.nowrap
-				+tooltip('修改', 'top', 'editChannel(channel, channelsForm)')
-					+glyphicon('pencil')
+div(d-check='channels')
+	table.uu-table(ng-show='channels')
+		+theadplus()(operation='工具', ng-dblclick="chooseTh('table-cols')")
+		tbody
+			tr(ng-repeat='channel in channels' ng-dblclick='editChannel(channel.channel_code)')
+				td(ng-bind='channel.channelNo' ng-show='ths[0].isChecked')
+				td(ng-bind='channel.channelName' ng-show='ths[1].isChecked')
+				td(ng-bind='channel.channelLoginId' ng-show='ths[2].isChecked')
+				td(ng-bind='channel.channelPhone' ng-show='ths[3].isChecked')
+				td(ng-bind='channel.company' ng-show='ths[4].isChecked')
+				td(ng-bind='channel.status' ng-show='ths[5].isChecked')
+				td.nowrap
+					+tooltip('修改', 'top', 'editChannel(channel, channelsForm)')
+						+glyphicon('pencil')
 
-uu-pagination(records='channels.meta.recordsCount', per-page='channels.meta.pageSize' page='channels.meta.pageNo' model='searchModel' action='getChannelList()')
+	uu-pagination(records='channels.meta.recordsCount', per-page='channels.meta.pageSize' page='channels.meta.pageNo' model='searchModel' action='getChannelList()')
 
 //- 代理商modal
 +modal('channels-form')

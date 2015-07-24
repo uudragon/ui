@@ -329,4 +329,14 @@ function ($scope, $state, $stateParams, Auth, $filter, $http) {
 				});
 			};
 	};
+
+
+	$scope.valMapper = function(id, list, idName, valName) {
+
+		for (var i = 0; i < list.length; i++) {
+			if (list[i][idName] === id) return list[i][valName];
+		}
+
+		return null;
+	};
 }]);
