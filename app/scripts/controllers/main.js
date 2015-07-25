@@ -117,7 +117,7 @@ function ($scope, $state, $stateParams, Auth, $filter, $http) {
 	$scope.resetSubFilter = function(searchModel) {
 		searchModel = searchModel || $scope.searchModel;
 		if (searchModel && searchModel.filter) {
-			if (searchModel.filter.input || searchModel.filter.datetime) {
+			if (searchModel.filter.input || searchModel.filter.datetime || searchModel.filter.date) {
 				searchModel.subfilter = '';
 			} else if (searchModel.filter.subfilters && searchModel.filter.subfilters.length){
 				searchModel.subfilter = searchModel.filter.subfilters[0].value;
@@ -269,7 +269,7 @@ function ($scope, $state, $stateParams, Auth, $filter, $http) {
 			query[searchModel.filter.value] = value;
 		}
 
-		// 单独解析地址
+		// 解析地址
 		if (searchModel.filter && searchModel.filter.addr) {
 			$.extend(query, searchModel.addr);
 		}

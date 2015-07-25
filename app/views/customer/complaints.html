@@ -30,7 +30,7 @@
     </div>
     <div ng-show="searchModel.filter.date" class="input-group">
       <label for="form-date-time" class="input-group-addon">时间</label>
-      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter.startTime" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
+      <input id="form-date-time" class="form-control input-sm" ng-show="searchModel.filter.date" ng-model="searchModel.subfilter" uu-date-picker="uu-date-picker" format="yyyy-mm-dd"/>
     </div>
     <div ng-show="searchModel.filter.datetime" class="input-group">
       <label for="form-start-time" class="input-group-addon">开始时间</label>
@@ -332,7 +332,7 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.area" ng-required="true"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.district" ng-required="true"></td>
               </tr>
               <tr>
                 <th class="form-th">
@@ -436,7 +436,7 @@
                 <th class="form-th">
                   <label for="form-order-address" class="form-th-label">地址</label>
                 </th>
-                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.area"></td>
+                <td colspan="3" class="uu-city-select form-td" ng-disabled="true" ng-province-model="currentOrder.province" ng-city-model="currentOrder.city" ng-area-model="currentOrder.district"></td>
               </tr>
               <tr>
                 <th class="form-th">

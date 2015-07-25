@@ -66,7 +66,7 @@ mixin order-details()
 				+input('出生日期', 'birthday')(ng-model='currentOrder.customer.birthday', uu-date-picker)
 				+pay-status('支付状态', 'pay-status')(ng-model='currentOrder.paid')
 			tr
-				+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.area' ng-required='true')
+				+input-address('地址', 'order-address', 3)(ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.district' ng-required='true')
 			tr
 				+input-address-details('详细地址', 'order-address-details', 3)(ng-model='currentOrder.address' ng-required='true')
 		table.form-table(ng-show='!isCustometInfoEditable')
@@ -89,7 +89,7 @@ mixin order-details()
 				+static-input('出生日期', 'birthday')(ng-bind='currentOrder.customer.birthday')
 				+static-input('支付状态', 'pay-status')(ng-bind='currentOrder.paid | mapper: "payStatus"')
 			tr
-				+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.area')
+				+input-address('地址', 'order-address', 3)(ng-disabled='true' ng-province-model='currentOrder.province' ng-city-model='currentOrder.city' ng-area-model='currentOrder.district')
 			tr
 				+static-input('详细地址', 3)(ng-bind='currentOrder.address')
 
@@ -118,7 +118,7 @@ mixin linkage-search(action)
 				select.form-control.input-sm(ng-model='searchModel.filter', ng-options='filter.name for filter in filters', ng-change='resetSubFilter()')
 				select.form-control.input-sm(ng-model='searchModel.subfilter', ng-options='filter.value as filter.name for filter in searchModel.filter.subfilters', ng-show='searchModel.filter.subfilters')
 				input.form-control.input-sm(ng-model='searchModel.subfilter', ng-show='searchModel.filter.input')
-			+grouped-input('时间', 'date-time')(ng-show='searchModel.filter.date' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
+			+grouped-input('时间', 'date-time')(ng-show='searchModel.filter.date' ng-model='searchModel.subfilter' uu-date-picker format='yyyy-mm-dd')
 			+grouped-input('开始时间', 'start-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.startTime' uu-date-picker format='yyyy-mm-dd')
 			+grouped-input('结束时间', 'end-time')(ng-show='searchModel.filter.datetime' ng-model='searchModel.subfilter.endTime' uu-date-picker format='yyyy-mm-dd')
 			.input-group(ng-show='searchModel.filter.addr')

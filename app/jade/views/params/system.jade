@@ -15,7 +15,7 @@ form.form-horizontal(name='contactInfoForm' novalidate ng-class='{sumitted: cont
 			tr
 				+static-input('电话')(ng-bind='contact.tel')
 			tr
-				+static-input('地址', 3)(ng-bind='contact.province + " / " + contact.city + " / " + contact.area')
+				+static-input('地址', 3)(ng-bind='contact.province + " / " + contact.city + " / " + contact.district')
 			tr
 				+static-input('详细地址', 3)(ng-bind='contact.address')
 
