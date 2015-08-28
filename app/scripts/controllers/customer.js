@@ -578,22 +578,28 @@ angular.module('mainApp')
 
 		$scope.splitOrder = function(form) {
 
-			$scope.processing(form, $shipmentForm);
+			dialog.alert({
+				text: '请确定拆分定单前已经执行过必要的复合操作，您的本次操作将无法撤消!',
+				cancel: 1,
+				onyes: function() {
+					$scope.processing(form, $shipmentForm);
 
-			$http.put(config.basews + 'order/' + $scope.order.id + '/split/', {
-					updater: $scope.currentUser.userNo
-				})
-				.success($scope.onFineWs({
-					form: form,
-					$form: $shipmentForm,
-					msg: '成功',
-					errMsg: '失败',
-					action: $scope.getOrderList
-				})).error($scope.onError({
-					form: form,
-					$form: $shipmentForm,
-					msg: '失败!'
-				}));
+					$http.put(config.basews + 'order/' + $scope.order.id + '/split/', {
+							updater: $scope.currentUser.userNo
+						})
+						.success($scope.onFineWs({
+							form: form,
+							$form: $shipmentForm,
+							msg: '成功',
+							errMsg: '失败',
+							action: $scope.getOrderList
+						})).error($scope.onError({
+							form: form,
+							$form: $shipmentForm,
+							msg: '失败!'
+						}));
+				}
+			});
 		};
 
 		$scope.editShipment = function(shipment) {
